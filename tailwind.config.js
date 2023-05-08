@@ -21,7 +21,10 @@ module.exports = {
         'branco': '#E4E4E4'
       },
       borderRadius: {
-        'giga': "70px"
+        'giga': '70px'
+      },
+      spacing: {
+        '0,5': '1px',
       }
     },
   },

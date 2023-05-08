@@ -40,8 +40,8 @@ export default function Login() {
 
   return (
     <>
-      <div className="flex w-screen h-screen">
-        <div className="flex w-7/12 h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-branco dark:bg-escuro2">
+      <div className="flex w-screen h-screen bg-branco dark:bg-escuro2">
+        <div className="flex w-7/12 h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8 ">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             {systemTheme != "dark" ? (
               <Image
@@ -79,7 +79,7 @@ export default function Login() {
                     autoComplete="email"
                     required
                     onChange={(e) => setEmail(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secundaria-100 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 pl-3 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secundaria-100 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -101,7 +101,7 @@ export default function Login() {
                     autoComplete="current-password"
                     required
                     onChange={(e) => setSenha(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 pl-3 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -113,6 +113,7 @@ export default function Login() {
                     name="lembrar"
                     id="lembrar"
                     onClick={(e) => setLembrar(!lembrar)}
+                    className="accent-secundaria-100 bg-white"
                   />
                   <label
                     htmlFor="lembrar"
@@ -142,6 +143,14 @@ export default function Login() {
                 </button>
               </div>
 
+              <div className="flex flex-row">
+                <hr className="w-5/12 h-0,5 mt-2 border-0 bg-gray-600" />
+                <p className="w-2/12 h-full leading-none text-center text-md text-gray-600">
+                  OU
+                </p>
+                <hr className="w-5/12 h-0,5 mt-2 border-0 bg-gray-600" />
+              </div>
+
               <div>
                 <button
                   onClick={hangleLoginWithGoogle}
@@ -163,7 +172,7 @@ export default function Login() {
             </p>
           </div>
         </div>
-        <div className="hidden lg:block">
+        <div className="hidden lg:block rounded-s-giga overflow-hidden">
           <Image
             src={bg}
             alt="Casa"
