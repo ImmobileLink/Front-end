@@ -1,42 +1,75 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTheme } from "next-themes";
-import logo from "../../public/logo.png";
-import logowh from "../../public/logo-wh.png";
-import bg from "../../public/bg1.jpg";
 import Image from "next/image";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
+import { supabase } from "./../lib/supabaseClient";
+import {
+  useUser,
+  useSupabaseClient,
+  Session,
+} from "@supabase/auth-helpers-react";
 
 export default function Login() {
+  const { systemTheme } = useTheme();
+
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [lembrar, setLembrar] = useState<boolean>(false);
-  const { systemTheme } = useTheme();
+
+  //console.log("LOGIN -> \n", supabaseClient);
 
   //pegar o estado do usuário (redux?) para verificar se ele já está logado
 
-  //chamar o supabase.Auth
-  const handleLogin = (e: any) => {
+  //https://supabase.com/docs/guides/auth/auth-email
+  async function signInWithEmail(e: any) {
     e.preventDefault();
-    alert(
-      "email: " +
-        email +
-        "\nsenha: " +
-        senha +
-        "\nlembrar: " +
-        (lembrar ? "sim" : "não")
-    );
-  };
 
-  const hangleLoginWithGoogle = (e: any) => {
-    e.preventDefault();
-    alert("Entrar com Google");
-  };
+    // supabase.auth
+    //   .signUp({
+    //     email: email,
+    //     password: senha,
+    //   })
+    //   .then((response) => {
+    //     console.log("response -", response);
+    //   })
+    //   .catch((error) => {
+    //     console.error("error -", error);
+    //   });
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: senha,
+    });
+
+    console.log("data -", data);
+
+    if (error) {
+      alert(error.message);
+    }
+  }
+
+  //https://supabase.com/docs/guides/auth/social-login/auth-google
+  async function signInWithGoogle() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        queryParams: {
+          access_type: "offline",
+          prompt: "consent",
+        },
+      },
+    });
+  }
 
   //quando o cara esquecer a senha, não sei se o supabase tem algo pra isso
   const handleForgotPassword = (e: any) => {
     alert("mas tu é burro né?");
   };
+
+  async function signOut() {
+    const { error } = await supabase.auth.signOut();
+  }
 
   return (
     <>
@@ -46,14 +79,18 @@ export default function Login() {
             {systemTheme != "dark" ? (
               <Image
                 className="mx-auto h-14 w-auto"
-                src={logo}
-                alt="Your Company"
+                src="assets/icons/logo.png"
+                width={1}
+                height={1}
+                alt="ImmobileLink"
               />
             ) : (
               <Image
                 className="mx-auto h-14 w-auto"
-                src={logowh}
-                alt="Your Company"
+                src="assets/icons/logo-wh.png"
+                width={1}
+                height={1}
+                alt="ImmobileLink"
               />
             )}
           </div>
@@ -62,7 +99,9 @@ export default function Login() {
             <form
               className="space-y-6"
               method="POST"
-              onSubmit={handleLogin}
+              onSubmit={(e) => {
+                signInWithEmail(e);
+              }}
             >
               <div>
                 <label
@@ -153,7 +192,7 @@ export default function Login() {
 
               <div>
                 <button
-                  onClick={hangleLoginWithGoogle}
+                  onClick={signInWithGoogle}
                   className="flex w-full justify-center rounded-md bg-gray-100 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-200 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
                 >
                   <FcGoogle className="text-lg m-1" /> Entrar com o Google
@@ -174,8 +213,10 @@ export default function Login() {
         </div>
         <div className="hidden lg:block rounded-s-giga overflow-hidden">
           <Image
-            src={bg}
+            src="assets/login/bg1.jpg"
             alt="Casa"
+            width={1}
+            height={1}
             className="w-full h-screen"
           />
         </div>
