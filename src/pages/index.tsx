@@ -1,15 +1,12 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import Link from "next/link";
-
-const inter = Inter({ subsets: ["latin"] });
+import { supabase } from "@/lib/supabaseClient";
+import { useSession } from "@supabase/auth-helpers-react";
+import Login from "./login";
+import Feed from "./Feed";
 
 export default function Home() {
-  return (
-    <>
-      <Link href="/login">Login</Link>
-      <br />
-      <Link href="/cadastro">Cadastro</Link>
-    </>
-  );
+  const session = useSession();
+
+  console.log(session);
+
+  return <>{!session ? <Login /> : <Feed />}</>;
 }

@@ -3,4 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
 }
 
-module.exports = nextConfig
+
+module.exports = {
+  images: {
+    loader: 'custom',
+    loaderFile: './src/lib/supabase-image-loader.js',
+  }
+}
