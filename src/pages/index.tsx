@@ -8,9 +8,5 @@ export default function Home() {
 
   console.log(session);
 
-  async function signOut() {
-    const { error } = await supabase.auth.signOut();
-  }
-
   return <>{!session ? <Login /> : <Feed />}</>;
 }
