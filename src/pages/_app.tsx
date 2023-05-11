@@ -15,7 +15,7 @@ export default function App({
 }: AppProps<{ initialSession: Session }>) {
   const supabaseClient = createBrowserSupabaseClient<Database>();
 
-  ///console.log("APP -> \n", supabaseClient);
+  //console.log("APP -> \n", supabaseClient);
 
   return (
     <SessionContextProvider
