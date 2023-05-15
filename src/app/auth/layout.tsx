@@ -1,4 +1,6 @@
+"use client";
 import SupabaseProvider from "../supabase-provider";
+import { ThemeProvider } from "next-themes";
 
 export const metadata = {
   title: "Entrar - ImmobileLink",
@@ -13,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body>
-        <SupabaseProvider>{children}</SupabaseProvider>
+        <SupabaseProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </SupabaseProvider>
       </body>
     </html>
   );
