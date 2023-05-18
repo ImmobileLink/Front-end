@@ -2,7 +2,7 @@ import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-next
 import { headers, cookies } from "next/headers";
 
 import type { Database } from "../../lib/database.types";
-import LogOut from "./logOut";
+import LogOut from "./LogOut";
 
 // do not cache this page
 export const revalidate = 0;

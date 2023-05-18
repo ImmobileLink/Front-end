@@ -1,5 +1,5 @@
 "use client";
-import { useSupabase } from "@/app/supabase-provider";
+import { useSupabase } from "@/app/Supabase-provider";
 import { FC, useState } from "react";
 
 interface pageProps {}
