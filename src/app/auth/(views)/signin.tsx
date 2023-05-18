@@ -1,14 +1,20 @@
 "use client";
 
-import { useSupabase } from "../../supabase-provider";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useSupabase } from "../../Supabase-provider";
+import { Dispatch, SetStateAction, useState } from "react";
 
 import { FcGoogle } from "react-icons/fc";
 
-export default function SignIn() {
+interface SignInProps {
+  onDone: Dispatch<SetStateAction<string>>;
+}
+
+export default function SignIn({ onDone }: SignInProps) {
   const { supabase } = useSupabase();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const router = useRouter();
 
   const handleLogin = async () => {
     await supabase.auth.signInWithPassword({

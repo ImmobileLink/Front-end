@@ -1,5 +1,5 @@
 "use client";
-import SupabaseProvider from "../supabase-provider";
+import SupabaseProvider from "../Supabase-provider";
 import { ThemeProvider } from "next-themes";
 
 export const metadata = {

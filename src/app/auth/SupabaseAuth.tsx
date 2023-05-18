@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
-import SignIn from "./(views)/signin";
-import SignUp from "./(views)/signup";
-import ForgetPwd from "./(views)/forgetpwd";
+import SignIn from "./(views)/Signin";
+import SignUp from "./(views)/Signup";
+import ForgetPwd from "./(views)/Forgetpwd";
 
 export default function SupabaseAuth() {
-  const [view, setView] = useState("signin"); //signin, signup, forgetpws
+  const [view, setView] = useState("signin"); //signin, signup, forgetpwd
 
   function handleChangeView(e: string) {
     setView(e);
@@ -14,11 +14,11 @@ export default function SupabaseAuth() {
   return (
     <>
       {view == "signin" ? (
-        <SignIn />
+        <SignIn onDone={setView} />
       ) : view == "signup" ? (
-        <SignUp />
+        <SignUp onDone={setView} />
       ) : view == "forgetpwd" ? (
-        <ForgetPwd />
+        <ForgetPwd onDone={setView} />
       ) : (
         <p>ERRO</p>
       )}

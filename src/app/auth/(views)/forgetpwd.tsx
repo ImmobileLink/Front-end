@@ -1,6 +1,6 @@
 "use client";
 
-import { useSupabase } from "../../supabase-provider";
+import { useSupabase } from "../../Supabase-provider";
 import { useState } from "react";
 
 export default function ForgetPwd() {
