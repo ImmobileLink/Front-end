@@ -1,18 +1,78 @@
+// TODO
+// substitui esses console.log para mostrar um alerta (olha o arquivo Alert do app) nos seguintes eventos
+// cadastro efetuado com sucesso
+// erro - mostra o log pro usuario, seja por validação ou campo faltando
+//
+// tenta ver se consegue dar uma arrumada no código, ta demorando muito
+// eu coloquei pra dar 'onDone("signin")', que muda a view pra tela de login, pode mudar se quiser
+//
+// fluxo atual: valida o email -> cadastra no signUp (vai pra tabela users do auth) -> adiciona na tabela usuario do public
+// eu tava querendo ver se linkava o email do usuario(public) com o email do users(auth), mas pra isso eu tinha que
+
 "use client";
 
-import { useSupabase } from "../../supabase-provider";
-import { useState } from "react";
+import { useSupabase } from "../../Supabase-provider";
+import { Dispatch, SetStateAction, useState } from "react";
 
-export default function SignUp() {
+interface SignUpProps {
+  onDone: Dispatch<SetStateAction<string>>;
+}
+
+export default function SignUp({ onDone }: SignUpProps) {
   const { supabase } = useSupabase();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
+  const validaEmail = async () => {
+    let { data: usuario, error } = await supabase
+      .from("usuario")
+      .select()
+      .eq("email", email)
+      .limit(1);
+
+    if (!error) {
+      if (usuario?.length) {
+        console.log("já existe usuario cadastrado com esse email");
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      //tenta ver o arquivo Alert que ta no app
+      console.log("ERRO: ", error.message);
+    }
+  };
+
   const handleSignUp = async () => {
-    await supabase.auth.signUp({
-      email: email,
-      password: senha,
-    });
+    if (await validaEmail()) {
+      let { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: senha,
+      });
+
+      if (!error) {
+        //console.log(data);
+        // ta demorando uns 2 segundos ???
+        handleCreateUser();
+        onDone("signin");
+      } else {
+        //tenta ver o arquivo Alert que ta no app
+        console.log("ERRO: ", error.message);
+      }
+    } else {
+      console.log("Não foi possível cadastrar usando os dados fornecidos");
+    }
+  };
+
+  const handleCreateUser = async () => {
+    const { data, error } = await supabase
+      .from("usuario")
+      .insert([{ email: email }]);
+
+    if (error) {
+      //tenta ver o arquivo Alert que ta no app
+      console.log("ERRO: ", error.message);
+    }
   };
 
   return (
