@@ -4,7 +4,9 @@ import SignIn from "./(views)/Signin";
 import SignUp from "./(views)/Signup";
 import ForgetPwd from "./(views)/Forgetpwd";
 
-export default function SupabaseAuth() {
+interface SupabaseAuthProps {}
+
+export default function SupabaseAuth({}: SupabaseAuthProps) {
   const [view, setView] = useState("signin"); //signin, signup, forgetpwd
 
   function handleChangeView(e: string) {
@@ -14,7 +16,7 @@ export default function SupabaseAuth() {
   return (
     <>
       {view == "signin" ? (
-        <SignIn onDone={setView} />
+        <SignIn />
       ) : view == "signup" ? (
         <SignUp onDone={setView} />
       ) : view == "forgetpwd" ? (

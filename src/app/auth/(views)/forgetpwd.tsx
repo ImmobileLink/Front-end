@@ -1,6 +1,6 @@
 "use client";
 
-import { useSupabase } from "../../Supabase-provider";
+import { useSupabase } from "@/app/Supabase-provider";
 import { useState } from "react";
 
 export default function ForgetPwd() {
@@ -9,7 +9,7 @@ export default function ForgetPwd() {
 
   const handleChangePassword = async () => {
     await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "localhost:3000/recovery",
+      redirectTo: "localhost:3000/auth/recovery",
     });
   };
 

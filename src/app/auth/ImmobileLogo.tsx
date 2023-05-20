@@ -3,7 +3,9 @@
 import { useTheme } from "next-themes";
 import Image from "next/image";
 
-export default function ImmobileLogo() {
+interface ImmobileLogoProps {}
+
+export default function ImmobileLogo({}: ImmobileLogoProps) {
   const { systemTheme } = useTheme();
 
   return (
