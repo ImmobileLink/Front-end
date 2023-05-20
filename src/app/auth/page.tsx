@@ -1,15 +1,13 @@
-import { NextPage } from "next";
 import Image from "next/image";
 import ImmobileLogo from "./ImmobileLogo";
 import SupabaseAuth from "./SupabaseAuth";
 
-interface Props {}
+interface pageProps {}
 
-const Page: NextPage<Props> = ({}) => {
+export default async function page({}: pageProps) {
   return (
     <>
       <div className="flex w-screen h-screen bg-branco dark:bg-escuro2">
-        {/* Parte da esqueda - form */}
         <div className="flex w-7/12 h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8 ">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <ImmobileLogo />
@@ -19,7 +17,6 @@ const Page: NextPage<Props> = ({}) => {
             <SupabaseAuth />
           </div>
         </div>
-        {/* Parte da direita - imagem */}
         <div className="hidden lg:block rounded-s-giga overflow-hidden">
           <Image
             src="assets/login/bg1.jpg"
@@ -32,6 +29,4 @@ const Page: NextPage<Props> = ({}) => {
       </div>
     </>
   );
-};
-
-export default Page;
+}

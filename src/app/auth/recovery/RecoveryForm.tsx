@@ -1,10 +1,11 @@
 "use client";
+
 import { useSupabase } from "@/app/Supabase-provider";
-import { FC, useState } from "react";
+import { useState } from "react";
 
-interface pageProps {}
+interface RecoveryFormProps {}
 
-const Page: FC<pageProps> = () => {
+export default function RecoveryForm({}: RecoveryFormProps) {
   const { supabase } = useSupabase();
   const [senha, setSenha] = useState("");
 
@@ -51,6 +52,4 @@ const Page: FC<pageProps> = () => {
       </div>
     </>
   );
-};
-
-export default Page;
+}

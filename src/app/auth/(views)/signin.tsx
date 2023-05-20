@@ -1,33 +1,44 @@
 "use client";
 
+import { useSupabase } from "@/app/Supabase-provider";
 import { useRouter } from "next/navigation";
-import { useSupabase } from "../../Supabase-provider";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 
 import { FcGoogle } from "react-icons/fc";
 
-interface SignInProps {
-  onDone: Dispatch<SetStateAction<string>>;
-}
+interface SignInProps {}
 
-export default function SignIn({ onDone }: SignInProps) {
+export default function SignIn({}: SignInProps) {
   const { supabase } = useSupabase();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const router = useRouter();
 
   const handleLogin = async () => {
-    await supabase.auth.signInWithPassword({
+    let { data, error } = await supabase.auth.signInWithPassword({
       email: email,
       password: senha,
     });
+
+    if (!error) {
+      console.log(data);
+      router.push("/pt/");
+    } else {
+      console.log(error.message);
+    }
   };
 
-  async function signInWithGoogle() {
+  const signInWithGoogle = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
     });
-  }
+
+    if (!error) {
+      console.log(data);
+    } else {
+      console.log(error.message);
+    }
+  };
 
   return (
     <>

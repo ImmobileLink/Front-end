@@ -8,10 +8,9 @@
 //
 // fluxo atual: valida o email -> cadastra no signUp (vai pra tabela users do auth) -> adiciona na tabela usuario do public
 // eu tava querendo ver se linkava o email do usuario(public) com o email do users(auth), mas pra isso eu tinha que
-
 "use client";
 
-import { useSupabase } from "../../Supabase-provider";
+import { useSupabase } from "@/app/Supabase-provider";
 import { Dispatch, SetStateAction, useState } from "react";
 
 interface SignUpProps {
@@ -51,9 +50,7 @@ export default function SignUp({ onDone }: SignUpProps) {
       });
 
       if (!error) {
-        //console.log(data);
-        // ta demorando uns 2 segundos ???
-        handleCreateUser();
+        console.log(data);
         onDone("signin");
       } else {
         //tenta ver o arquivo Alert que ta no app
@@ -61,17 +58,6 @@ export default function SignUp({ onDone }: SignUpProps) {
       }
     } else {
       console.log("Não foi possível cadastrar usando os dados fornecidos");
-    }
-  };
-
-  const handleCreateUser = async () => {
-    const { data, error } = await supabase
-      .from("usuario")
-      .insert([{ email: email }]);
-
-    if (error) {
-      //tenta ver o arquivo Alert que ta no app
-      console.log("ERRO: ", error.message);
     }
   };
 
@@ -128,6 +114,7 @@ export default function SignUp({ onDone }: SignUpProps) {
             Cadastrar
           </button>
         </div>
+        {}
       </div>
     </>
   );

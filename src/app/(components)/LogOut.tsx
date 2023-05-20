@@ -1,16 +1,17 @@
 "use client";
-import Link from "next/link";
-import { useSupabase } from "./Supabase-provider";
+import { useSupabase } from "../Supabase-provider";
 
-export default function LogOut() {
+interface LogOutProps {}
+
+export default function LogOut({}: LogOutProps) {
   const { supabase } = useSupabase();
 
   const handleLogOut = async () => {
     await supabase.auth.signOut();
   };
+
   return (
     <>
-      <Link href="/auth"> LOGIN </Link>
       <button
         type="button"
         onClick={handleLogOut}
