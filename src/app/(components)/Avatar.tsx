@@ -5,7 +5,6 @@ interface AvatarProps {
 }
 
 export default function Avatar({userId}: AvatarProps) { 
-    console.log("oi")
     return (
         <div>
             <Image
