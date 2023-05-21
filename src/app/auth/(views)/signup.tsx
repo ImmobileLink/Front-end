@@ -23,14 +23,15 @@ export default function SignUp({ onDone }: SignUpProps) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
+  const [showLog, setShowLog] = useState(false);
 
   const validaEmail = async () => {
     let { data: usuario, error } = await supabase
-      .from('usuario')
-      .select('*')
-      .eq("email", email)
+      .from("usuario")
+      .select("*")
+      .eq("email", email);
 
-    console.log(usuario)
+    console.log(usuario);
     if (!error) {
       if (usuario?.length) {
         return false;
@@ -51,77 +52,88 @@ export default function SignUp({ onDone }: SignUpProps) {
       });
 
       if (!error) {
-        onDone("registered");
+        setShowLog(true);
       } else {
-        //tenta ver o arquivo Alert que ta no app
-        console.log("ERRO: ", error.message);
-        setError(error.message)
+        setError(error.message);
       }
     } else {
-      setError("Esse email já esta sendo usado")
-      console.log("Esse email já esta sendo usado");
+      setError("Esse email já esta sendo usado");
     }
   };
 
   return (
     <>
-      <div className="space-y-6">
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100"
-          >
-            Endereço de E-mail
-          </label>
-          <div className="mt-2">
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-              className="block w-full rounded-md border-0 py-1.5 pl-3 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secundaria-100 sm:text-sm sm:leading-6"
-            />
-          </div>
-        </div>
-
-        <div>
-          <div className="flex items-center justify-between">
+      {!showLog ? (
+        <div className="space-y-6">
+          <div>
             <label
-              htmlFor="password"
+              htmlFor="email"
               className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100"
             >
-              Senha
+              Endereço de E-mail
             </label>
+            <div className="mt-2">
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                onChange={(e) => setEmail(e.target.value)}
+                className="block w-full rounded-md border-0 py-1.5 pl-3 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secundaria-100 sm:text-sm sm:leading-6"
+              />
+            </div>
           </div>
-          <div className="mt-2">
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              required
-              onChange={(e) => setSenha(e.target.value)}
-              className="block w-full rounded-md border-0 py-1.5 pl-3 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            />
-          </div>
-        </div>
 
-        <div>
-          <button
-            onClick={handleSignUp}
-            className="flex w-full justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
-          >
-            Cadastrar
-          </button>
+          <div>
+            <div className="flex items-center justify-between">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100"
+              >
+                Senha
+              </label>
+            </div>
+            <div className="mt-2">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                onChange={(e) => setSenha(e.target.value)}
+                className="block w-full rounded-md border-0 py-1.5 pl-3 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div>
+            <button
+              onClick={handleSignUp}
+              className="flex w-full justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
+            >
+              Cadastrar
+            </button>
+          </div>
+          {error.length > 1 ? (
+            <Alert
+              type="danger"
+              title="Erro"
+              text={error}
+            />
+          ) : (
+            <></>
+          )}
         </div>
-        {error.length > 1 ? (
-          <Alert type="info" title="Erro" text={error} />
-        ) : (
-          <></>
-        )}
-      </div>
+      ) : (
+        <div className="flex justify-center flex-col">
+          <Alert
+            type="success"
+            title="Quase lá"
+            text="Boa, acabaste de te registrar! Confirme seu email na caixa de entrada e faça o login"
+          />
+        </div>
+      )}
     </>
   );
 }
