@@ -1,15 +1,29 @@
 "use client"
-import React, { FC, useEffect } from "react";
+import React, { FC, Suspense, useEffect, useState } from "react";
 import FeedCard from "./FeedCard";
 import Avatar from "./Avatar";
-import { useSupabase } from "../Supabase-provider";
+import { useSupabase } from '../Supabase-provider'
 
 
-const PostFormCard:FC = () => {
+interface PostFormCardProps { }
+
+export default function PostFormCard({}:PostFormCardProps) {
+    const [userId, setUserId] = useState('')
+    const { supabase } = useSupabase()
+  
+    const handlePfp = async () => {
+      const session = await supabase.auth.getUser()
+      setUserId(session.data.user?.id!) 
+    }
+  
+    useEffect(() => {
+          handlePfp()
+    },[])
+
     return (
         <FeedCard noPadding={false}>
             <div className="flex grow">
-                <Avatar/>
+                <Avatar userId={userId}/>          
                 <div className="flex grow">
                     <textarea className="bg-gray-100 grow p-3 rounded-md text-slate-900" placeholder={'Whats on your mind?'}></textarea>
                 </div>  
@@ -22,4 +36,3 @@ const PostFormCard:FC = () => {
     )
 };
 
-export default PostFormCard;
