@@ -10,20 +10,28 @@ interface PostFormCardProps { }
 export default function PostFormCard({}:PostFormCardProps) {
     const [userId, setUserId] = useState('')
     const { supabase } = useSupabase()
+    const [isLoading, setLoading] = useState(true);
+
   
     const handlePfp = async () => {
       const session = await supabase.auth.getUser()
       setUserId(session.data.user?.id!) 
+      setLoading(false);
     }
   
     useEffect(() => {
-          handlePfp()
+          handlePfp();         
     },[])
 
     return (
         <FeedCard noPadding={false}>
             <div className="flex grow">
-                <Avatar userId={userId}/>          
+                {
+                    isLoading 
+                    ? <div></div>
+                    : <Avatar userId={userId}/> 
+                }
+                        
                 <div className="flex grow">
                     <textarea className="bg-gray-100 grow p-3 rounded-md text-slate-900" placeholder={'Whats on your mind?'}></textarea>
                 </div>  
