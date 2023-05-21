@@ -1,20 +1,30 @@
+"use client"
 import Image from "next/image";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
+import { useSupabase } from "../Supabase-provider";
 
-interface IProps {
-};
+interface AvatarProps {}
 
-const Avatar:FC<IProps> = (props) => {
-    let userid="1";
+export default function Avatar({}: AvatarProps ) {
+    const {supabase} = useSupabase();
+    const [session, setSession] = useState();
+    useEffect(() => {
+        supabase.auth.getUser()
+        .then(result => {
+            setSession(result)
+        })
+
+    },[])
+
     return (
-        <Image
+        <div>
+            <Image
                 className="mr-2 h-14 w-auto"
-                src={`users/profile_picture/${userid}.png`}
+                src={`users/profile_picture/1.png`}
                 width={1}
                 height={1}
                 alt="Profile Picture"
             />
+        </div>              
     )
-};
-
-export default Avatar;
+}
