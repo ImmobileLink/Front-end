@@ -1,9 +1,8 @@
 "use client";
 import { useState } from "react";
-import SignIn from "./(views)/Signin";
-import SignUp from "./(views)/Signup";
-import ForgetPwd from "./(views)/Forgetpwd";
-
+import SignIn from "./(views)/signin";
+import SignUp from "./(views)/signup";
+import ForgetPwd from "./(views)/forgetpwd";
 interface SupabaseAuthProps {}
 
 export default function SupabaseAuth({}: SupabaseAuthProps) {
@@ -20,7 +19,7 @@ export default function SupabaseAuth({}: SupabaseAuthProps) {
       ) : view == "signup" ? (
         <SignUp onDone={setView} />
       ) : view == "forgetpwd" ? (
-        <ForgetPwd onDone={setView} />
+        <ForgetPwd />
       ) : (
         <p>ERRO</p>
       )}
