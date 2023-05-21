@@ -1,12 +1,13 @@
 "use client";
 import { useState } from "react";
-import SignIn from "./(views)/Signin";
-import SignUp from "./(views)/Signup";
-import ForgetPwd from "./(views)/Forgetpwd";
+import SignIn from "./(views)/signin";
+import SignUp from "./(views)/signup";
+import ForgetPwd from "./(views)/forgetpwd";
+import Alert from "../(components)/Alert"
 
-interface SupabaseAuthProps {}
+interface SupabaseAuthProps { }
 
-export default function SupabaseAuth({}: SupabaseAuthProps) {
+export default function SupabaseAuth({ }: SupabaseAuthProps) {
   const [view, setView] = useState("signin"); //signin, signup, forgetpwd
 
   function handleChangeView(e: string) {
@@ -20,8 +21,18 @@ export default function SupabaseAuth({}: SupabaseAuthProps) {
       ) : view == "signup" ? (
         <SignUp onDone={setView} />
       ) : view == "forgetpwd" ? (
-        <ForgetPwd onDone={setView} />
-      ) : (
+        <ForgetPwd /* onDone={setView} */ />
+      ) : view == "registered" ? (
+        <div className="flex justify-center flex-col">
+          <Alert type="success" title="Quase lá" text="Boa, acabaste de te registrar! Confirme seu email na caixa de entrada e faça o login" />
+          <button
+            onClick={() => handleChangeView("signin")}
+            className="font-semibold ml-2 text-blue-500 hover:text-secundaria-100"
+          >
+            Entre já
+          </button>
+        </div>
+      ): (
         <p>ERRO</p>
       )}
       <div className="flex flex-col align-middle justify-center">
@@ -65,7 +76,7 @@ export default function SupabaseAuth({}: SupabaseAuthProps) {
               Entre já
             </button>
           </div>
-        ) : (
+        )  : (
           <p></p>
         )}
       </div>

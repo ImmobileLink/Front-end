@@ -12,6 +12,7 @@
 
 import { useSupabase } from "@/app/Supabase-provider";
 import { Dispatch, SetStateAction, useState } from "react";
+import Alert from "./../../(components)/Alert";
 
 interface SignUpProps {
   onDone: Dispatch<SetStateAction<string>>;
@@ -21,17 +22,17 @@ export default function SignUp({ onDone }: SignUpProps) {
   const { supabase } = useSupabase();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [error, setError] = useState("");
 
   const validaEmail = async () => {
     let { data: usuario, error } = await supabase
-      .from("usuario")
-      .select()
+      .from('usuario')
+      .select('*')
       .eq("email", email)
-      .limit(1);
 
+    console.log(usuario)
     if (!error) {
       if (usuario?.length) {
-        console.log("já existe usuario cadastrado com esse email");
         return false;
       } else {
         return true;
@@ -50,14 +51,15 @@ export default function SignUp({ onDone }: SignUpProps) {
       });
 
       if (!error) {
-        console.log(data);
-        onDone("signin");
+        onDone("registered");
       } else {
         //tenta ver o arquivo Alert que ta no app
         console.log("ERRO: ", error.message);
+        setError(error.message)
       }
     } else {
-      console.log("Não foi possível cadastrar usando os dados fornecidos");
+      setError("Esse email já esta sendo usado")
+      console.log("Esse email já esta sendo usado");
     }
   };
 
@@ -114,7 +116,11 @@ export default function SignUp({ onDone }: SignUpProps) {
             Cadastrar
           </button>
         </div>
-        {}
+        {error.length > 1 ? (
+          <Alert type="info" title="Erro" text={error} />
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );
