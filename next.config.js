@@ -1,12 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-}
-
-
-module.exports = {
   images: {
     loader: 'custom',
-    loaderFile: './src/lib/supabase-image-loader.js',
-  }
+    loaderFile: './lib/supabase-image-loader.ts',
+  },
+  i18n: {
+    locales: ['pt-BR', 'en'],
+    defaultLocale: 'pt-BR',
+    localeDetection: false
+  },
 }
+
+module.exports = nextConfig
