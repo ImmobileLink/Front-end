@@ -14,8 +14,7 @@ const PostCard:FC<IProps> = (props) => {
     return (
         <FeedCard noPadding={false}>
                 <div className="flex">
-                    <div>
-                        <Avatar />               
+                    <div>          
                     </div>
                     <div className="column">
                         <p>{post.username} fez uma publicação</p>
