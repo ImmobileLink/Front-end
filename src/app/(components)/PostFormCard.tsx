@@ -1,12 +1,11 @@
-import React, { FC } from "react";
+"use client"
+import React, { FC, useEffect } from "react";
 import FeedCard from "./FeedCard";
-import Image from "next/image";
 import Avatar from "./Avatar";
+import { useSupabase } from "../Supabase-provider";
 
-interface IProps {
-};
 
-const PostFormCard:FC<IProps> = (props) => {
+const PostFormCard:FC = () => {
     return (
         <FeedCard noPadding={false}>
             <div className="flex grow">
