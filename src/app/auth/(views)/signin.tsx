@@ -1,14 +1,18 @@
 "use client";
 
+import Alert from "@/app/(components)/Alert";
 import { useSupabase } from "@/app/Supabase-provider";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 
 import { FcGoogle } from "react-icons/fc";
 
-interface SignInProps {}
+interface SignInProps {
+  onAlert: Dispatch<SetStateAction<string>>;
+}
 
-export default function SignIn({}: SignInProps) {
+
+export default function SignIn({onAlert}: SignInProps) {
   const { supabase } = useSupabase();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -24,7 +28,8 @@ export default function SignIn({}: SignInProps) {
       console.log(data);
       router.push("/pt/");
     } else {
-      console.log(error.message);
+      console.log(typeof(error.message));
+      onAlert(error.message)
     }
   };
 

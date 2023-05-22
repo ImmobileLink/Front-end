@@ -16,13 +16,13 @@ import Alert from "./../../(components)/Alert";
 
 interface SignUpProps {
   onDone: Dispatch<SetStateAction<string>>;
+  onAlert: Dispatch<SetStateAction<string>>;
 }
 
-export default function SignUp({ onDone }: SignUpProps) {
+export default function SignUp({ onDone, onAlert }: SignUpProps) {
   const { supabase } = useSupabase();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [error, setError] = useState("");
   const [showLog, setShowLog] = useState(false);
 
   const validaEmail = async () => {
@@ -53,11 +53,12 @@ export default function SignUp({ onDone }: SignUpProps) {
 
       if (!error) {
         setShowLog(true);
+        onAlert("")
       } else {
-        setError(error.message);
+        onAlert(error.message);
       }
     } else {
-      setError("Esse email já esta sendo usado");
+      onAlert("Esse email já esta sendo usado");
     }
   };
 
@@ -115,7 +116,7 @@ export default function SignUp({ onDone }: SignUpProps) {
               Cadastrar
             </button>
           </div>
-          {error.length > 1 ? (
+          {/* {error.length > 1 ? (
             <Alert
               type="danger"
               title="Erro"
@@ -123,7 +124,7 @@ export default function SignUp({ onDone }: SignUpProps) {
             />
           ) : (
             <></>
-          )}
+          )} */}
         </div>
       ) : (
         <div className="flex justify-center flex-col">
