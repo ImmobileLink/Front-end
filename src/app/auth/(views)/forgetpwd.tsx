@@ -1,16 +1,26 @@
 "use client";
 
 import { useSupabase } from "@/app/Supabase-provider";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
-export default function ForgetPwd() {
+interface ForgetPwd {
+  onAlert: Dispatch<SetStateAction<string>>;
+}
+
+export default function ForgetPwd({ onAlert }: ForgetPwd) {
   const { supabase } = useSupabase();
   const [email, setEmail] = useState("");
 
   const handleChangePassword = async () => {
-    await supabase.auth.resetPasswordForEmail(email, {
+    let {data, error}  = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: "localhost:3000/auth/recovery",
     });
+
+    if(!error){
+      onAlert("Email para redefinição de senha enviado")
+    }else{
+      onAlert(error.message)
+    }
   };
 
   return (
