@@ -8,7 +8,7 @@ import { useState, Dispatch, SetStateAction } from "react";
 import { FcGoogle } from "react-icons/fc";
 
 interface SignInProps {
-  onAlert: Dispatch<SetStateAction<string>>;
+  onAlert: Dispatch<SetStateAction<{ type: string, message: string }>>;
 }
 
 
@@ -28,8 +28,7 @@ export default function SignIn({onAlert}: SignInProps) {
       console.log(data);
       router.push("/pt/");
     } else {
-      console.log(typeof(error.message));
-      onAlert(error.message)
+      onAlert({type: "danger", message: error.message })
     }
   };
 
