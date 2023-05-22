@@ -10,7 +10,7 @@
 // eu tava querendo ver se linkava o email do usuario(public) com o email do users(auth), mas pra isso eu tinha que
 "use client";
 
-import { useSupabase } from "@/app/Supabase-provider";
+import { useSupabase } from "@/app/SupabaseProvider";
 import { Dispatch, SetStateAction, useState } from "react";
 import Alert from "./../../(components)/Alert";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useSupabase } from "@/app/Supabase-provider";
+import { useSupabase } from "@/app/SupabaseProvider";
 import { Dispatch, SetStateAction, useState } from "react";
 
 interface ForgetPwd {

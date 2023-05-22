@@ -1,8 +1,8 @@
 "use client"
-import React, { FC, Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import FeedCard from "./FeedCard";
 import Avatar from "./Avatar";
-import { useSupabase } from '../Supabase-provider'
+import { useSupabase } from '../SupabaseProvider'
 
 
 interface PostFormCardProps { }
