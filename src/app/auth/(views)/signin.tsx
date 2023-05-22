@@ -1,7 +1,7 @@
 "use client";
 
 import Alert from "@/app/(components)/Alert";
-import { useSupabase } from "@/app/Supabase-provider";
+import { useSupabase } from "@/app/SupabaseProvider";
 import { useRouter } from "next/navigation";
 import { useState, Dispatch, SetStateAction } from "react";
 

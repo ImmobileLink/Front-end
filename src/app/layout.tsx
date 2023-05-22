@@ -1,11 +1,12 @@
 "use client";
 import "@/app/globals.css";
-import SupabaseProvider from "@/app/Supabase-provider";
+import SupabaseProvider from "../app/SupabaseProvider";
 import { ThemeProvider } from "next-themes";
 
 export default function RootLayout({
   children,
 }: {
+  
   children: React.ReactNode;
 }) {
   return (

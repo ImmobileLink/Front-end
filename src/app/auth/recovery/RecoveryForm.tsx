@@ -1,6 +1,6 @@
 "use client";
 
-import { useSupabase } from "@/app/Supabase-provider";
+import { useSupabase } from "@/app/SupabaseProvider";
 import { useState } from "react";
 
 interface RecoveryFormProps {}

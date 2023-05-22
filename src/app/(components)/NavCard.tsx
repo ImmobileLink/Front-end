@@ -7,7 +7,7 @@ interface IProps {};
 
 const NavCard:FC<IProps> = () => {
     return (
-        <div>
+        <div className="ml-5">
             <h2 className="">Menu</h2>
             <Link href="/" className="flex my-1 py-1 px-1  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 justify-center text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mx-1 justify-start">
