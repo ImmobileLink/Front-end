@@ -4,24 +4,45 @@ import { useSupabase } from "@/app/Supabase-provider";
 import { Dispatch, SetStateAction, useState } from "react";
 
 interface ForgetPwd {
-  onAlert: Dispatch<SetStateAction<string>>;
+  onAlert: Dispatch<SetStateAction<{ type: string, message: string }>>;
 }
 
 export default function ForgetPwd({ onAlert }: ForgetPwd) {
   const { supabase } = useSupabase();
   const [email, setEmail] = useState("");
 
-  const handleChangePassword = async () => {
-    let {data, error}  = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "localhost:3000/auth/recovery",
-    });
+  const validaEmail = async () => {
+    let { data: usuario, error } = await supabase
+      .from("usuario")
+      .select("*")
+      .eq("email", email);
 
-    if(!error){
-      onAlert("Email para redefinição de senha enviado")
-    }else{
-      onAlert(error.message)
+    if (!error) {
+      if (usuario?.length) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false
     }
   };
+
+  const handleChangePassword = async () => {
+    if (await validaEmail()){
+      let {data, error}  = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: "localhost:3000/auth/recovery",
+      });
+  
+      if(!error){
+        onAlert({type: "info", message: "Email para redefinição de senha enviado"})
+      }else{
+        onAlert({type: "warning", message: error.message})
+      }
+    }else {
+      onAlert({type: "warning", message: "Esse email não está cadastrado"});
+
+  }}
 
   return (
     <>
