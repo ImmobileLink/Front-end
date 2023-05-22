@@ -3,27 +3,43 @@ import { useState } from "react";
 import SignIn from "./(views)/signin";
 import SignUp from "./(views)/signup";
 import ForgetPwd from "./(views)/forgetpwd";
-interface SupabaseAuthProps {}
+import Alert from "../(components)/Alert"
+interface SupabaseAuthProps { }
 
-export default function SupabaseAuth({}: SupabaseAuthProps) {
+export default function SupabaseAuth({ }: SupabaseAuthProps) {
   const [view, setView] = useState("signin"); //signin, signup, forgetpwd
+  const [alert, setAlert] = useState("");
 
   function handleChangeView(e: string) {
     setView(e);
+    setAlert("");
   }
+
 
   return (
     <>
       {view == "signin" ? (
-        <SignIn />
+        <SignIn onAlert={setAlert}/>
       ) : view == "signup" ? (
-        <SignUp onDone={setView} />
+        <SignUp onDone={setView} onAlert={setAlert} />
       ) : view == "forgetpwd" ? (
-        <ForgetPwd />
+        <ForgetPwd onAlert={setAlert}/>
       ) : (
         <p>ERRO</p>
       )}
       <div className="flex flex-col align-middle justify-center">
+        {alert.length > 1 ? (
+            <div className="pt-6">
+              <Alert
+                type="danger"
+                title="Erro"
+                text={alert}
+              />
+            </div>
+          ) : (
+            <div></div>
+          )             
+        }
         {view == "signin" ? (
           <>
             <div className="flex mt-10 w-full justify-center text-sm text-gray-500">
@@ -44,17 +60,7 @@ export default function SupabaseAuth({}: SupabaseAuthProps) {
               </button>
             </div>
           </>
-        ) : view == "signup" ? (
-          <div className="flex mt-10 w-full justify-center text-sm text-gray-500">
-            <p>Já tem uma conta?</p>
-            <button
-              onClick={() => handleChangeView("signin")}
-              className="font-semibold ml-2 text-blue-500 hover:text-secundaria-100"
-            >
-              Entre já
-            </button>
-          </div>
-        ) : view == "forgetpwd" ? (
+        ) : view == view || view == "forgetpwd" ? (
           <div className="flex mt-10 w-full justify-center text-sm text-gray-500">
             <p>Já tem uma conta?</p>
             <button
@@ -66,7 +72,8 @@ export default function SupabaseAuth({}: SupabaseAuthProps) {
           </div>
         ) : (
           <p></p>
-        )}
+        )
+        }
       </div>
     </>
   );
