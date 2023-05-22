@@ -8,11 +8,11 @@ interface SupabaseAuthProps { }
 
 export default function SupabaseAuth({ }: SupabaseAuthProps) {
   const [view, setView] = useState("signin"); //signin, signup, forgetpwd
-  const [alert, setAlert] = useState("");
+  const [alert, setAlert] = useState({type: "", message: ""});
 
   function handleChangeView(e: string) {
     setView(e);
-    setAlert("");
+    setAlert({type: "", message: ""});
   }
 
 
@@ -28,12 +28,12 @@ export default function SupabaseAuth({ }: SupabaseAuthProps) {
         <p>ERRO</p>
       )}
       <div className="flex flex-col align-middle justify-center">
-        {alert.length > 1 ? (
+        {alert.message.length > 1 ? (
             <div className="pt-6">
               <Alert
-                type="danger"
+                type={alert.type}
                 title="Erro"
-                text={alert}
+                text={alert.message}
               />
             </div>
           ) : (

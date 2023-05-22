@@ -16,8 +16,7 @@ import Alert from "./../../(components)/Alert";
 
 interface SignUpProps {
   onDone: Dispatch<SetStateAction<string>>;
-  onAlert: Dispatch<SetStateAction<string>>;
-}
+  onAlert: Dispatch<SetStateAction<{ type: string, message: string }>>;}
 
 export default function SignUp({ onDone, onAlert }: SignUpProps) {
   const { supabase } = useSupabase();
@@ -53,12 +52,12 @@ export default function SignUp({ onDone, onAlert }: SignUpProps) {
 
       if (!error) {
         setShowLog(true);
-        onAlert("")
+        onAlert({type: "", message: ""})
       } else {
-        onAlert(error.message);
+        onAlert({type: "warning", message: error.message});
       }
     } else {
-      onAlert("Esse email já esta sendo usado");
+      onAlert({type: "warning", message: "Esse email já esta sendo usado"});
     }
   };
 
