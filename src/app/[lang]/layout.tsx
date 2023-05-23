@@ -1,12 +1,10 @@
 import "@/app/globals.css";
 
 import { dir } from "i18next";
-import { languages } from "../i18n/settings";
 
 import SupabaseProvider from "./SupabaseProvider";
 import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { cookies, headers } from "next/headers";
-import { useState } from "react";
 
 export const metadata = {
   title: "ImmobileLink",
@@ -18,11 +16,10 @@ interface RootLayout {
   params: { lang: string };
 }
 
-export async function generateStaticParams() {
-  return languages.map((lang) => ({ lang }));
-}
-
-export async function generateSupabaseSession() {
+export default async function RootLayout({
+  children,
+  params: { lang },
+}: RootLayout) {
   const supabase = createServerComponentSupabaseClient({
     headers,
     cookies,
@@ -32,20 +29,13 @@ export async function generateSupabaseSession() {
     data: { session },
   } = await supabase.auth.getSession();
 
-  return { session };
-}
-
-export default async function RootLayout({
-  children,
-  params: { lang },
-}: RootLayout) {
   return (
     <html
       lang={lang}
       dir={dir(lang)}
     >
       <body>
-        <SupabaseProvider session={null}>{children}</SupabaseProvider>
+        <SupabaseProvider session={session}>{children}</SupabaseProvider>
       </body>
     </html>
   );

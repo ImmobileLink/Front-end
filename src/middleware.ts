@@ -13,21 +13,50 @@ export async function middleware(req: NextRequest) {
   )
   
   const res = NextResponse.next();
+
   const supabase = createMiddlewareSupabaseClient({ req, res });
-  await supabase.auth.getSession();
 
+  const { data } = await supabase.auth.getUser();
 
-  if (pathnameIsMissingLocale) {
-    const locale: string = req.headers.get('accept-language')?.slice(0,2) || 'pt'; // pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
-    // const i18nCookies: string[] = ['i18n', locale]
-    
- 
-    // e.g. incoming req is /products
-    // The new URL is now /en-US/products
-    return NextResponse.redirect(
-      new URL(`/${locale}/${pathname}`, req.url)
-    )
+  console.log(data.user)
+
+  if(data.user) {
+    if(pathname.substring(3) == "/auth") {
+      return NextResponse.redirect(
+        new URL(pathname.substring(0,3), req.url)
+      )
+    } 
+    if (pathnameIsMissingLocale) {
+      const locale: string = req.headers.get('accept-language')?.slice(0,2) || 'pt'; // pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
+      // const i18nCookies: string[] = ['i18n', locale]
+  
+      // e.g. incoming req is /products
+      // The new URL is now /en-US/products
+      return NextResponse.redirect(
+        new URL(`/${locale}/${pathname}`, req.url)
+      )
+    }
+  } else {
+    if (pathnameIsMissingLocale) {
+      const locale: string = req.headers.get('accept-language')?.slice(0,2) || 'pt'; // pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
+      // const i18nCookies: string[] = ['i18n', locale]
+  
+      // e.g. incoming req is /products
+      // The new URL is now /en-US/products
+      return NextResponse.redirect(
+        new URL(`/${locale}/auth`, req.url)
+      )
+    } else {
+      if(pathname == "/pt/auth" ||pathname == "/en/auth"){
+        return res;
+      }
+      return NextResponse.redirect(
+        new URL(`${pathname.substring(0,3)}/auth`, req.url)
+      )
+    }
   }
+
+  
 
   return res;
 }
