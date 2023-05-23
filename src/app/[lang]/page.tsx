@@ -1,5 +1,6 @@
-import Link from "next/link";
-import { getDictionary } from "./dictionaries";
+"use client";
+
+import { useRouter } from "next/navigation";
 
 interface PageProps {
   params: {
@@ -7,13 +8,9 @@ interface PageProps {
   };
 }
 
-export default async function Page({ params: { lang } }: PageProps) {
-  const dict = await getDictionary(lang); // pt
+export default function Page({ params: { lang } }: PageProps) {
+  const router = useRouter();
+  router.push(`${lang}/feed`);
 
-  return (
-    <>
-      <h1>Home</h1>
-      <Link href={`/${lang}/feed`}>Feed</Link>
-    </>
-  );
+  return <></>;
 }
