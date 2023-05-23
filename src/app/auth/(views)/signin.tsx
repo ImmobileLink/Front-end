@@ -1,6 +1,5 @@
 "use client";
 
-import Alert from "@/app/(components)/Alert";
 import { useSupabase } from "@/app/SupabaseProvider";
 import { useRouter } from "next/navigation";
 import { useState, Dispatch, SetStateAction } from "react";
@@ -8,27 +7,31 @@ import { useState, Dispatch, SetStateAction } from "react";
 import { FcGoogle } from "react-icons/fc";
 
 interface SignInProps {
-  onAlert: Dispatch<SetStateAction<{ type: string, message: string }>>;
+  setAlert: Dispatch<
+    SetStateAction<{ type: string; title: string; message: string }>
+  >;
 }
 
-
-export default function SignIn({onAlert}: SignInProps) {
+export default function SignIn({ setAlert }: SignInProps) {
   const { supabase } = useSupabase();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const router = useRouter();
 
   const handleLogin = async () => {
-    let { data, error } = await supabase.auth.signInWithPassword({
+    let { error } = await supabase.auth.signInWithPassword({
       email: email,
       password: senha,
     });
 
     if (!error) {
-      console.log(data);
-      router.push("/pt/");
+      router.push("/pt/feed");
     } else {
-      onAlert({type: "danger", message: error.message })
+      setAlert({
+        type: "warning",
+        title: "",
+        message: "Email e/ou senha incorretos.",
+      });
     }
   };
 
@@ -36,12 +39,6 @@ export default function SignIn({onAlert}: SignInProps) {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
     });
-
-    if (!error) {
-      console.log(data);
-    } else {
-      console.log(error.message);
-    }
   };
 
   return (
@@ -68,14 +65,12 @@ export default function SignIn({onAlert}: SignInProps) {
         </div>
 
         <div>
-          <div className="flex items-center justify-between">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100"
-            >
-              Senha
-            </label>
-          </div>
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100"
+          >
+            Senha
+          </label>
           <div className="mt-2">
             <input
               id="password"

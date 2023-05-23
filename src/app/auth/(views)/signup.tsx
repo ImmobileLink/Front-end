@@ -1,13 +1,3 @@
-// TODO
-// substitui esses console.log para mostrar um alerta (olha o arquivo Alert do app) nos seguintes eventos
-// cadastro efetuado com sucesso
-// erro - mostra o log pro usuario, seja por validação ou campo faltando
-//
-// tenta ver se consegue dar uma arrumada no código, ta demorando muito
-// eu coloquei pra dar 'onDone("signin")', que muda a view pra tela de login, pode mudar se quiser
-//
-// fluxo atual: valida o email -> cadastra no signUp (vai pra tabela users do auth) -> adiciona na tabela usuario do public
-// eu tava querendo ver se linkava o email do usuario(public) com o email do users(auth), mas pra isso eu tinha que
 "use client";
 
 import { useSupabase } from "@/app/SupabaseProvider";
@@ -15,55 +5,80 @@ import { Dispatch, SetStateAction, useState } from "react";
 import Alert from "./../../(components)/Alert";
 
 interface SignUpProps {
-  onDone: Dispatch<SetStateAction<string>>;
-  onAlert: Dispatch<SetStateAction<{ type: string, message: string }>>;}
+  setAlert: Dispatch<
+    SetStateAction<{ type: string; title: string; message: string }>
+  >;
+}
 
-export default function SignUp({ onDone, onAlert }: SignUpProps) {
+export default function SignUp({ setAlert }: SignUpProps) {
   const { supabase } = useSupabase();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [showLog, setShowLog] = useState(false);
+  const [isOK, setIsOK] = useState(false);
+  const [existeUsuario, setExisteUsuario] = useState(false);
 
-  const validaEmail = async () => {
-    let { data: usuario, error } = await supabase
+  const verificaEmailDB = async () => {
+    let { data, error } = await supabase
       .from("usuario")
-      .select("*")
-      .eq("email", email);
+      .select("email")
+      .eq("email", email)
+      .limit(1);
 
-    console.log(usuario);
-    if (!error) {
-      if (usuario?.length) {
-        return false;
-      } else {
-        return true;
-      }
-    } else {
-      //tenta ver o arquivo Alert que ta no app
-      console.log("ERRO: ", error.message);
+    setExisteUsuario(data?.length ? true : false);
+  };
+
+  const validaForm = () => {
+    //validação dos inputs
+    if (email.length <= 6) {
+      setAlert({
+        type: "warning",
+        title: "",
+        message: "Insira um email válido.",
+      });
+      return false;
     }
+
+    if (senha.length <= 6) {
+      setAlert({
+        type: "warning",
+        title: "",
+        message: "A senha precisa ter no mínimo 6 caracteres.",
+      });
+      return false;
+    }
+
+    //validação no BD (so vai chegar aqui se os inputs estiverem preenchidos)
+    if (existeUsuario) {
+      setAlert({ type: "warning", title: "", message: "Email já cadastrado." });
+      return false;
+    }
+
+    return true;
   };
 
   const handleSignUp = async () => {
-    if (await validaEmail()) {
-      let { data, error } = await supabase.auth.signUp({
+    if (validaForm()) {
+      let { error } = await supabase.auth.signUp({
         email: email,
         password: senha,
       });
 
       if (!error) {
-        setShowLog(true);
-        onAlert({type: "", message: ""})
+        setIsOK(true);
+        setAlert({ type: "", title: "", message: "" });
       } else {
-        onAlert({type: "warning", message: error.message});
+        setAlert({
+          type: "warning",
+          title: "",
+          message: error.message,
+        });
       }
-    } else {
-      onAlert({type: "warning", message: "Esse email já esta sendo usado"});
     }
   };
 
   return (
     <>
-      {!showLog ? (
+      {!isOK ? (
         <div className="space-y-6">
           <div>
             <label
@@ -80,6 +95,7 @@ export default function SignUp({ onDone, onAlert }: SignUpProps) {
                 autoComplete="email"
                 required
                 onChange={(e) => setEmail(e.target.value)}
+                onBlur={verificaEmailDB}
                 className="block w-full rounded-md border-0 py-1.5 pl-3 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secundaria-100 sm:text-sm sm:leading-6"
               />
             </div>
@@ -115,22 +131,13 @@ export default function SignUp({ onDone, onAlert }: SignUpProps) {
               Cadastrar
             </button>
           </div>
-          {/* {error.length > 1 ? (
-            <Alert
-              type="danger"
-              title="Erro"
-              text={error}
-            />
-          ) : (
-            <></>
-          )} */}
         </div>
       ) : (
         <div className="flex justify-center flex-col">
           <Alert
             type="success"
-            title="Quase lá"
-            text="Boa, acabaste de te registrar! Confirme seu email na caixa de entrada e faça o login"
+            title="Pronto!"
+            text="Verifique sua caixa de entrada para o link de autenticação (pode estar no spam)"
           />
         </div>
       )}
