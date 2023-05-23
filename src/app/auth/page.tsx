@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ImmobileLogo from "./ImmobileLogo";
+import ImmobileLogo from "../(components)/ImmobileLogo";
 import SupabaseAuth from "./SupabaseAuth";
 
 interface pageProps {}

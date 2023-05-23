@@ -4,42 +4,41 @@ import SignIn from "./(views)/signin";
 import SignUp from "./(views)/signup";
 import ForgetPwd from "./(views)/forgetpwd";
 import Alert from "../(components)/Alert"
-interface SupabaseAuthProps { }
 
-export default function SupabaseAuth({ }: SupabaseAuthProps) {
+interface SupabaseAuthProps {}
+
+export default function SupabaseAuth({}: SupabaseAuthProps) {
   const [view, setView] = useState("signin"); //signin, signup, forgetpwd
-  const [alert, setAlert] = useState({type: "", message: ""});
+  const [alert, setAlert] = useState({ type: "", title: "", message: "" });
 
   function handleChangeView(e: string) {
     setView(e);
-    setAlert({type: "", message: ""});
+    setAlert({ type: "", title: "", message: "" });
   }
-
 
   return (
     <>
       {view == "signin" ? (
-        <SignIn onAlert={setAlert}/>
+        <SignIn setAlert={setAlert} />
       ) : view == "signup" ? (
-        <SignUp onDone={setView} onAlert={setAlert} />
+        <SignUp setAlert={setAlert} />
       ) : view == "forgetpwd" ? (
-        <ForgetPwd onAlert={setAlert}/>
+        <ForgetPwd setAlert={setAlert} />
       ) : (
         <p>ERRO</p>
       )}
       <div className="flex flex-col align-middle justify-center">
         {alert.message.length > 1 ? (
-            <div className="pt-6">
-              <Alert
-                type={alert.type}
-                title="Erro"
-                text={alert.message}
-              />
-            </div>
-          ) : (
-            <div></div>
-          )             
-        }
+          <div className="pt-6">
+            <Alert
+              type={alert.type}
+              title={alert.title || "Erro! "}
+              text={alert.message}
+            />
+          </div>
+        ) : (
+          <div></div>
+        )}
         {view == "signin" ? (
           <>
             <div className="flex mt-10 w-full justify-center text-sm text-gray-500">
@@ -72,8 +71,7 @@ export default function SupabaseAuth({ }: SupabaseAuthProps) {
           </div>
         ) : (
           <p></p>
-        )
-        }
+        )}
       </div>
     </>
   );

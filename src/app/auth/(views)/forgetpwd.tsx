@@ -4,45 +4,68 @@ import { useSupabase } from "@/app/SupabaseProvider";
 import { Dispatch, SetStateAction, useState } from "react";
 
 interface ForgetPwd {
-  onAlert: Dispatch<SetStateAction<{ type: string, message: string }>>;
+  setAlert: Dispatch<
+    SetStateAction<{ type: string; title: string; message: string }>
+  >;
 }
 
-export default function ForgetPwd({ onAlert }: ForgetPwd) {
+export default function ForgetPwd({ setAlert }: ForgetPwd) {
   const { supabase } = useSupabase();
   const [email, setEmail] = useState("");
+  const [existeUsuario, setExisteUsuario] = useState(false);
 
-  const validaEmail = async () => {
-    let { data: usuario, error } = await supabase
+  const verificaEmailDB = async () => {
+    let { data, error } = await supabase
       .from("usuario")
-      .select("*")
-      .eq("email", email);
+      .select("email")
+      .eq("email", email)
+      .limit(1);
 
-    if (!error) {
-      if (usuario?.length) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false
+    setExisteUsuario(data?.length ? true : false);
+  };
+
+  const validaForm = () => {
+    //validação dos inputs
+    if (email.length <= 6) {
+      setAlert({
+        type: "warning",
+        title: "",
+        message: "Insira um email válido.",
+      });
+      return false;
     }
+
+    //validação no BD (so vai chegar aqui se os inputs estiverem preenchidos)
+    if (!existeUsuario) {
+      setAlert({
+        type: "warning",
+        title: "",
+        message: "Email não encontrado.",
+      });
+      return false;
+    }
+
+    return true;
   };
 
   const handleChangePassword = async () => {
-    if (await validaEmail()){
-      let {data, error}  = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: "localhost:3000/auth/recovery",
+    if (validaForm()) {
+      let { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: process.env.NEXT_PUBLIC_SITE_PASSWORD_RECOVERY,
       });
-  
-      if(!error){
-        onAlert({type: "info", message: "Email para redefinição de senha enviado"})
-      }else{
-        onAlert({type: "warning", message: error.message})
-      }
-    }else {
-      onAlert({type: "warning", message: "Esse email não está cadastrado"});
 
-  }}
+      if (!error) {
+        setAlert({
+          type: "success",
+          title: "Pronto!",
+          message:
+            "Verifique sua caixa de entrada para o link de redefinição de senha (pode estar no spam)",
+        });
+      } else {
+        setAlert({ type: "warning", title: "", message: error.message });
+      }
+    }
+  };
 
   return (
     <>
@@ -62,6 +85,7 @@ export default function ForgetPwd({ onAlert }: ForgetPwd) {
               autoComplete="email"
               required
               onChange={(e) => setEmail(e.target.value)}
+              onBlur={verificaEmailDB}
               className="block w-full rounded-md border-0 py-1.5 pl-3 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secundaria-100 sm:text-sm sm:leading-6"
             />
           </div>
