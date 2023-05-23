@@ -1,16 +1,18 @@
 "use client";
 
-import { useSupabase } from "@/app/SupabaseProvider";
+import { useSupabase } from "@/app/[lang]/SupabaseProvider";
 import { Dispatch, SetStateAction, useState } from "react";
-import Alert from "./../../(components)/Alert";
+import Alert from "@/app/[lang]/(components)/Alert";
+import { Signup } from "@/app/i18n/dictionaries/types";
 
 interface SignUpProps {
   setAlert: Dispatch<
     SetStateAction<{ type: string; title: string; message: string }>
   >;
+  signup: Signup;
 }
 
-export default function SignUp({ setAlert }: SignUpProps) {
+export default function SignUp({ setAlert, signup }: SignUpProps) {
   const { supabase } = useSupabase();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -33,7 +35,7 @@ export default function SignUp({ setAlert }: SignUpProps) {
       setAlert({
         type: "warning",
         title: "",
-        message: "Insira um email válido.",
+        message: signup.logs.invalidemail,
       });
       return false;
     }
@@ -42,14 +44,18 @@ export default function SignUp({ setAlert }: SignUpProps) {
       setAlert({
         type: "warning",
         title: "",
-        message: "A senha precisa ter no mínimo 6 caracteres.",
+        message: signup.logs.invalidpassword,
       });
       return false;
     }
 
     //validação no BD (so vai chegar aqui se os inputs estiverem preenchidos)
     if (existeUsuario) {
-      setAlert({ type: "warning", title: "", message: "Email já cadastrado." });
+      setAlert({
+        type: "warning",
+        title: "",
+        message: signup.logs.emailalreadyused,
+      });
       return false;
     }
 
@@ -85,7 +91,7 @@ export default function SignUp({ setAlert }: SignUpProps) {
               htmlFor="email"
               className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100"
             >
-              Endereço de E-mail
+              {signup.emaillabel}
             </label>
             <div className="mt-2">
               <input
@@ -107,7 +113,7 @@ export default function SignUp({ setAlert }: SignUpProps) {
                 htmlFor="password"
                 className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100"
               >
-                Senha
+                {signup.passwordlabel}
               </label>
             </div>
             <div className="mt-2">
@@ -128,7 +134,7 @@ export default function SignUp({ setAlert }: SignUpProps) {
               onClick={handleSignUp}
               className="flex w-full justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
             >
-              Cadastrar
+              {signup.signupbutton}
             </button>
           </div>
         </div>
@@ -136,8 +142,8 @@ export default function SignUp({ setAlert }: SignUpProps) {
         <div className="flex justify-center flex-col">
           <Alert
             type="success"
-            title="Pronto!"
-            text="Verifique sua caixa de entrada para o link de autenticação (pode estar no spam)"
+            title={signup.success}
+            text={signup.logs.successsignup}
           />
         </div>
       )}

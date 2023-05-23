@@ -1,0 +1,58 @@
+{
+  "auth": {
+    "always": {
+      "donthaveanaccount" : "Don't have an account?",
+      "signup": "Sign up",
+      "forgetpassword": "Forgot your password?",
+      "alreadyhaveanaccount": "Already have an account?",
+      "singin": "Sign in",
+      "error": "Ops!"
+    },
+    "signin": {
+      "emaillabel": "Email address",
+      "passwordlabel": "Your Password",
+      "signinbutton": "Sign in",
+      "or": "OR",
+      "signinwithgoogle": "Sign in with Google",
+      "error": "Error!",
+      "logs": {
+        "invalidcredentials": "Invalid credentials."
+      }
+    },
+    "signup": {
+      "emaillabel": "Email address",
+      "passwordlabel": "Your Password",
+      "signupbutton": "Sign up",
+      "success": "Done!",
+      "error": "Error!",
+      "logs": {
+        "invalidemail": "Enter with a valid email.",
+        "invalidpassword": "Password must be 6 characteres long.",
+        "emailalreadyused": "This email is already used.",
+        "successsignup": "Check your email for the auth link (span too)."
+      
+      }
+    },
+    "forgetpassword": {
+      "emaillabel": "Email address",
+      "forgetpasswordbutton": "Send reset password instructions",
+      "success": "Done!",
+      "error": "Error!",
+      "logs": {
+        "invalidemail": "Enter with a valid email adress.",
+        "emailnotfound": "Email not found.",
+        "emailsend": "Check your email for the password reset link (span too)."
+      }
+    },
+    "recovery": {
+      "newpassword": "New password",
+      "recoverybutton": "Update password",
+      "success": "Done!",
+      "error": "Error!",
+      "logs": {
+        "passwordchanged": "Your password has been updated.",
+        "passwordnotchanged": "It was not possible to update your password, try again later."
+      }
+    }
+  }
+}

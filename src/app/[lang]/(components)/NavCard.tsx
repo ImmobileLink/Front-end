@@ -3,9 +3,9 @@ import Link from "next/link";
 import React, { FC } from "react";
 import LogOut from "./LogOut";
 
-interface IProps {};
+interface NavCardProps {};
 
-const NavCard:FC<IProps> = () => {
+export default function NavCard({}: NavCardProps) { 
     return (
       <div>
         <Link
@@ -54,5 +54,3 @@ const NavCard:FC<IProps> = () => {
       </div>
     );
 };
-
-export default NavCard;

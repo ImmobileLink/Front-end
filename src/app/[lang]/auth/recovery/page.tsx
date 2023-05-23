@@ -1,5 +1,5 @@
 import RecoveryForm from "./RecoveryForm";
-import ImmobileLogo from "@/app/(components)/ImmobileLogo";
+import ImmobileLogo from "@/app/[lang]/(components)/ImmobileLogo";
 
 interface pageProps {}
 

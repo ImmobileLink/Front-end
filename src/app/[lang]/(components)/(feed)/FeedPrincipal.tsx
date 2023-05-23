@@ -1,5 +1,5 @@
 "use client";
-import { useSupabase } from "@/app/SupabaseProvider";
+import { useSupabase } from "@/app/[lang]/SupabaseProvider";
 import { useEffect, useState } from "react";
 
 interface FeedPrincipalProps {}

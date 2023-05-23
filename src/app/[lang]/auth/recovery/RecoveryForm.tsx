@@ -1,7 +1,7 @@
 "use client";
 
-import Alert from "@/app/(components)/Alert";
-import { useSupabase } from "@/app/SupabaseProvider";
+import Alert from "@/app/[lang]/(components)/Alert";
+import { useSupabase } from "@/app/[lang]/SupabaseProvider";
 import { useState } from "react";
 
 interface RecoveryFormProps {}
