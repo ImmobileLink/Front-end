@@ -1,8 +1,8 @@
 "use client";
-import React, { FC, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import FeedCard from "./FeedCard";
 import Avatar from "../Avatar";
-import { useSupabase } from "../../SupabaseProvider";
+import { useSupabase } from "@/app/[lang]/SupabaseProvider";
 import Image from "next/image";
 import ClickOutHandler from "react-clickout-handler";
 
@@ -38,7 +38,7 @@ export default function PostCard() {
 
   let post: PostCardProps = { created: "22-02-2023", username: "usuario" };
   return (
-    <FeedCard noPadding={false}>
+    <FeedCard>
       <div className="flex gap-3">
         <div
           id="postheader"

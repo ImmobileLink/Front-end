@@ -1,5 +1,5 @@
 "use client";
-import { useSupabase } from "../SupabaseProvider";
+import { useSupabase } from "@/app/[lang]/SupabaseProvider";
 
 interface LogOutProps {}
 

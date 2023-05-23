@@ -3,11 +3,14 @@ import { useState } from "react";
 import SignIn from "./(views)/signin";
 import SignUp from "./(views)/signup";
 import ForgetPwd from "./(views)/forgetpwd";
-import Alert from "../(components)/Alert"
+import Alert from "@/app/[lang]/(components)/Alert";
+import { Auth } from "@/app/i18n/dictionaries/types";
 
-interface SupabaseAuthProps {}
+interface SupabaseAuthProps {
+  auth: Auth;
+}
 
-export default function SupabaseAuth({}: SupabaseAuthProps) {
+export default function SupabaseAuth({ auth }: SupabaseAuthProps) {
   const [view, setView] = useState("signin"); //signin, signup, forgetpwd
   const [alert, setAlert] = useState({ type: "", title: "", message: "" });
 
@@ -19,11 +22,20 @@ export default function SupabaseAuth({}: SupabaseAuthProps) {
   return (
     <>
       {view == "signin" ? (
-        <SignIn setAlert={setAlert} />
+        <SignIn
+          setAlert={setAlert}
+          signin={auth.signin}
+        />
       ) : view == "signup" ? (
-        <SignUp setAlert={setAlert} />
+        <SignUp
+          setAlert={setAlert}
+          signup={auth.signup}
+        />
       ) : view == "forgetpwd" ? (
-        <ForgetPwd setAlert={setAlert} />
+        <ForgetPwd
+          setAlert={setAlert}
+          forgetpassword={auth.forgetpassword}
+        />
       ) : (
         <p>ERRO</p>
       )}
@@ -32,7 +44,7 @@ export default function SupabaseAuth({}: SupabaseAuthProps) {
           <div className="pt-6">
             <Alert
               type={alert.type}
-              title={alert.title || "Erro! "}
+              title={alert.title || auth.always.error}
               text={alert.message}
             />
           </div>
@@ -42,12 +54,12 @@ export default function SupabaseAuth({}: SupabaseAuthProps) {
         {view == "signin" ? (
           <>
             <div className="flex mt-10 w-full justify-center text-sm text-gray-500">
-              <p>Não tem uma conta?</p>
+              <p>{auth.always.donthaveanaccount}</p>
               <button
                 onClick={() => handleChangeView("signup")}
                 className="font-semibold ml-2 text-blue-500 hover:text-secundaria-100"
               >
-                Cadastre-se
+                {auth.always.signup}
               </button>
             </div>
             <div className="flex mt-1 w-full justify-center text-sm text-gray-500">
@@ -55,18 +67,18 @@ export default function SupabaseAuth({}: SupabaseAuthProps) {
                 onClick={() => handleChangeView("forgetpwd")}
                 className="text-gray-500"
               >
-                Esqueceu a senha?
+                {auth.always.forgetpassword}
               </button>
             </div>
           </>
         ) : view == view || view == "forgetpwd" ? (
           <div className="flex mt-10 w-full justify-center text-sm text-gray-500">
-            <p>Já tem uma conta?</p>
+            <p>{auth.always.alreadyhaveanaccount}</p>
             <button
               onClick={() => handleChangeView("signin")}
               className="font-semibold ml-2 text-blue-500 hover:text-secundaria-100"
             >
-              Entre já
+              {auth.always.singin}
             </button>
           </div>
         ) : (

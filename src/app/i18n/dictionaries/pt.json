@@ -1,0 +1,57 @@
+{
+  "auth": {
+    "always": {
+      "donthaveanaccount" : "Não tem uma conta?",
+      "signup": "Cadastre-se",
+      "forgetpassword": "Esqueceu a senha?",
+      "alreadyhaveanaccount": "Já tem uma conta?",
+      "singin": "Entre já",
+      "error": "Ops!"
+    },
+    "signin": {
+      "emaillabel": "Endereço de E-mail",
+      "passwordlabel": "Senha",
+      "signinbutton": "Entrar",
+      "or": "OU",
+      "signinwithgoogle": "Entrar com o Google",
+      "error": "Algo deu errado!",
+      "logs": {
+        "invalidcredentials": "Email e/ou senha incorretos."
+      }
+    },
+    "signup": {
+      "emaillabel": "Endereço de E-mail",
+      "passwordlabel": "Senha",
+      "signupbutton": "Cadastrar",
+      "success": "Pronto!",
+      "error": "Algo deu errado!",
+      "logs": {
+        "invalidemail": "Insira um email válido.",
+        "invalidpassword": "A senha precisa ter no mínimo 6 caracteres.",
+        "emailalreadyused": "Email já cadastrado.",
+        "successsignup": "Verifique sua caixa de entrada para o link de autenticação (pode estar no spam)."
+      }
+    },
+    "forgetpassword": {
+      "emaillabel": "Endereço de E-mail",
+      "forgetpasswordbutton": "Enviar e-mail de redefinção de senha",
+      "success": "Pronto!",
+      "error": "Algo deu errado!",
+      "logs": {
+        "invalidemail": "Insira um email válido.",
+        "emailnotfound": "Email não encontrado.",
+        "emailsend": "Verifique sua caixa de entrada para o link de redefinição de senha (pode estar no spam)."
+      }
+    },
+    "recovery": {
+      "newpassword": "Nova senha",
+      "recoverybutton": "Atualizar",
+      "success": "Pronto!",
+      "error": "Algo deu errado!",
+      "logs": {
+        "passwordchanged": "Sua senha foi alterada.",
+        "passwordnotchanged": "Não foi possível alterar a senha, tente novamente mais tarde."
+      }
+    }
+  }
+}

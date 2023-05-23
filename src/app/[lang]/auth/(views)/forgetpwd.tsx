@@ -1,15 +1,17 @@
 "use client";
 
-import { useSupabase } from "@/app/SupabaseProvider";
+import { useSupabase } from "@/app/[lang]/SupabaseProvider";
+import { Forgetpassword } from "@/app/i18n/dictionaries/types";
 import { Dispatch, SetStateAction, useState } from "react";
 
 interface ForgetPwd {
   setAlert: Dispatch<
     SetStateAction<{ type: string; title: string; message: string }>
   >;
+  forgetpassword: Forgetpassword;
 }
 
-export default function ForgetPwd({ setAlert }: ForgetPwd) {
+export default function ForgetPwd({ setAlert, forgetpassword }: ForgetPwd) {
   const { supabase } = useSupabase();
   const [email, setEmail] = useState("");
   const [existeUsuario, setExisteUsuario] = useState(false);
@@ -30,7 +32,7 @@ export default function ForgetPwd({ setAlert }: ForgetPwd) {
       setAlert({
         type: "warning",
         title: "",
-        message: "Insira um email válido.",
+        message: forgetpassword.logs.invalidemail,
       });
       return false;
     }
@@ -40,7 +42,7 @@ export default function ForgetPwd({ setAlert }: ForgetPwd) {
       setAlert({
         type: "warning",
         title: "",
-        message: "Email não encontrado.",
+        message: forgetpassword.logs.emailnotfound,
       });
       return false;
     }
@@ -57,9 +59,8 @@ export default function ForgetPwd({ setAlert }: ForgetPwd) {
       if (!error) {
         setAlert({
           type: "success",
-          title: "Pronto!",
-          message:
-            "Verifique sua caixa de entrada para o link de redefinição de senha (pode estar no spam)",
+          title: forgetpassword.success,
+          message: forgetpassword.logs.emailsend,
         });
       } else {
         setAlert({ type: "warning", title: "", message: error.message });
@@ -75,7 +76,7 @@ export default function ForgetPwd({ setAlert }: ForgetPwd) {
             htmlFor="email"
             className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100"
           >
-            Endereço de E-mail
+            {forgetpassword.emaillabel}
           </label>
           <div className="mt-2">
             <input
@@ -96,7 +97,7 @@ export default function ForgetPwd({ setAlert }: ForgetPwd) {
             onClick={handleChangePassword}
             className="flex w-full justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
           >
-            Enviar e-mail de redefinição de senha
+            {forgetpassword.forgetpasswordbutton}
           </button>
         </div>
       </div>
