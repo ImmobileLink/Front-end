@@ -4,7 +4,7 @@ interface AvatarProps {
     userId: any;
 }
 
-export default async function Avatar({userId}: AvatarProps) { 
+export default function Avatar({userId}: AvatarProps) { 
     return (
         <div>
             <Image
