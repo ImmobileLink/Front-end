@@ -1,30 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import FeedCard from "./FeedCard";
 import Avatar from "../Avatar";
-import { useSupabase } from "@/app/[lang]/SupabaseProvider";
 import Image from "next/image";
 
 interface PostCardProps {
-  created: string;
-  username: string;
+  publicacao: Object;
 }
 
-export default function PostCard() {
-  const [userId, setUserId] = useState("");
-  const { supabase } = useSupabase();
-  const [isLoading, setLoading] = useState(true);
+export default function PostCard({publicacao}: PostCardProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const handlePfp = async () => {
-    const session = await supabase.auth.getUser();
-    setUserId(session.data.user?.id!);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    handlePfp();
-  }, []);
+  const [autor, setAutor] = useState<any>(publicacao['idautor' as ObjectKey])
+  const [conteudo, setConteudo] = useState<any>(publicacao['conteudo' as ObjectKey])
 
   function openDropdown(e: any) {
     e.stopPropagation();
@@ -35,19 +21,24 @@ export default function PostCard() {
     setDropdownOpen(false);
   }
 
-  let post: PostCardProps = { created: "22-02-2023", username: "usuario" };
+  //Configura o tipo para pegar os valores do objeto publicacao
+  type ObjectKey = keyof typeof publicacao;
+
+
+
   return (
-    <FeedCard>
+    <div className="bg-gray-600 focus:ring-indigo-500 focus:ring-2 focus:ring-offset-2 shadow-md rounded-md p-4 mt-3">
       <div className="flex gap-3">
         <div
           id="postheader"
           className="flex gap-3"
         >
-          <div>{isLoading ? <div></div> : <Avatar userId={userId} />}</div>
+          {/* @ts-expect-error Server Component */}
+          <div><Avatar userId={autor} /></div>
         </div>
         <div className="grow">
-          <p>{post.username} fez uma publicação</p>
-          <p className="text-xs">{post.created}</p>
+          <p>{autor} fez uma publicação</p>
+          <p className="text-xs">1</p>
         </div>
 
         <div className="relative">
@@ -81,7 +72,7 @@ export default function PostCard() {
         className="my-2"
       >
         <p className="text-sm mb-2">
-          Texto de teste apsdoihugfnaspodguinapohfiunadpofhiunfa
+          {conteudo}
         </p>
         <Image
           className="mr-3 mb-3 h-auto w-auto rounded-md overflow-hidden"
@@ -156,6 +147,6 @@ export default function PostCard() {
           ></textarea>
         </div>
       </div>
-    </FeedCard>
+    </div>
   );
 }

@@ -1,26 +1,29 @@
-"use client";
-import { useSupabase } from "@/app/[lang]/SupabaseProvider";
-import { useEffect, useState } from "react";
+import React from 'react';
+import PostFormCard from "./PostFormCard";
+import PostCard from "./PostCard";
+import { supabase } from '../../../../../lib/supabaseClient';
 
-interface FeedPrincipalProps {}
+interface FeedPrincipalProps {
+  idusuario: any
+}
 
-export default function FeedPrincipal({}: FeedPrincipalProps) {
-  const [userId, setUserId] = useState("");
-  const { supabase } = useSupabase();
-  const [isLoading, setLoading] = useState(true);
+export default async function FeedPrincipal({idusuario}: FeedPrincipalProps) {
+    const { data } = await supabase.from('publicacao').select("*").order('atualizadoem', { ascending: false })
 
-  const handlePfp = async () => {
-    const session = await supabase.auth.getUser();
-    setUserId(session.data.user?.id!);
-    setLoading(false);
-  };
 
-  useEffect(() => {
-    handlePfp();
-  });
-
-  //chamada do supabase
-  //map
-
-  return <>Feed</>;
+  return (
+  <div className="h-screen">
+        <PostFormCard idusuario={idusuario}/>
+        <div>          
+        {
+          data!.map((pub:any) => {
+            return (
+              <PostCard publicacao={pub}/>
+            )
+          })
+        }
+        </div>
+        
+  </div>
+  );
 }
