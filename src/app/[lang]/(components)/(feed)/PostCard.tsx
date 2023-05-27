@@ -33,7 +33,6 @@ export default function PostCard({publicacao}: PostCardProps) {
           id="postheader"
           className="flex gap-3"
         >
-          {/* @ts-expect-error Server Component */}
           <div><Avatar userId={autor} /></div>
         </div>
         <div className="grow">

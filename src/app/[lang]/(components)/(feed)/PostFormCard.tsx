@@ -8,9 +8,9 @@ interface PostFormCardProps {
 }
 
 export default function PostFormCard({idusuario}: PostFormCardProps) {
-
+  const [texto, setTexto] = useState('')
   const inserePub = async () => {
-    const { error } = await supabase.from('publicacao').insert({idautor: idusuario, areapub: 2, conteudo: 'texto', privado: false})
+    const { error } = await supabase.from('publicacao').insert({idautor: idusuario, areapub: 2, conteudo: texto, privado: false})
     if (error) {
       console.log(error)
     }
@@ -19,13 +19,14 @@ export default function PostFormCard({idusuario}: PostFormCardProps) {
   return (
     <div className="bg-gray-600 focus:ring-indigo-500 focus:ring-2 focus:ring-offset-2 shadow-md rounded-md p-4">
       <div className="flex grow">
-        {/* @ts-expect-error Server Component */}
         <Avatar userId={idusuario} />
 
         <div className="flex grow">
           <textarea 
             className="bg-gray-100 grow p-3 rounded-md text-slate-900"
-            placeholder={"Whats on your mind?"}
+            placeholder={"Whats on your mind"}
+            value={texto}
+            onChange={(e) => setTexto(e.target.value)}
           ></textarea>
         </div>
       </div>
