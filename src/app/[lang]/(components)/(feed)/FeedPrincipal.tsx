@@ -7,16 +7,19 @@ interface FeedPrincipalProps {
   idusuario: any
 }
 
+const getData = async () => {
+  const { data } = await supabase.from('publicacao').select("*").order('atualizadoem', { ascending: false })
+  return data
+}
+
 export default async function FeedPrincipal({idusuario}: FeedPrincipalProps) {
-    const { data } = await supabase.from('publicacao').select("*").order('atualizadoem', { ascending: false })
-
-
+  const publicacoes = await getData();
   return (
-  <div className="h-screen">
+  <div>
         <PostFormCard idusuario={idusuario}/>
         <div>          
         {
-          data!.map((pub:any) => {
+          publicacoes!.map((pub:any) => {
             return (
               <PostCard publicacao={pub}/>
             )

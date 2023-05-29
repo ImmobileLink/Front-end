@@ -11,6 +11,7 @@ export default function PostCard({publicacao}: PostCardProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [autor, setAutor] = useState<any>(publicacao['idautor' as ObjectKey])
   const [conteudo, setConteudo] = useState<any>(publicacao['conteudo' as ObjectKey])
+  const [dataPost, setDataPost] = useState<any>(publicacao['criadoem' as ObjectKey])
 
   function openDropdown(e: any) {
     e.stopPropagation();
@@ -37,7 +38,7 @@ export default function PostCard({publicacao}: PostCardProps) {
         </div>
         <div className="grow">
           <p>{autor} fez uma publicação</p>
-          <p className="text-xs">1</p>
+          <p className="text-xs">{dataPost}</p>
         </div>
 
         <div className="relative">
