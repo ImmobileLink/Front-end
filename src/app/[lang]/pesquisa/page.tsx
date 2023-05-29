@@ -1,8 +1,8 @@
+import { supabase } from "../../../../lib/supabaseClient";
 import NavCard from "@/app/[lang]/(components)/NavCard";
-import { createServerComponentSupabaseClient } from '@supabase/auth-helpers-nextjs'
-import { headers, cookies } from 'next/headers'
-import type { Database } from '../../../../lib/database.types'
-import FeedPrincipal from "../(components)/(feed)/FeedPrincipal";
+import PesquisaCard from "../(components)/(pesquisa)/PesquisaCard"
+import UserCard from "../(components)/(pesquisa)/UserCard"
+
 import { getDictionary } from "../dictionaries";
 
 
@@ -14,24 +14,18 @@ interface pageProps {
 
 export default async function page({ params: { lang } }: pageProps) {
   const dict = await getDictionary(lang); // pt
-  const supabaseServerClient = createServerComponentSupabaseClient<Database>({
-    headers,
-    cookies,
-  })
-  const {data : { session }} = await supabaseServerClient.auth.getSession();
-  const userId = session?.user.id;
-  //requisição
+
+  //Coleta dados das regiões do banco de dados
+  const regioes = await supabase.from('regiao').select('*');
+  const especialidades = await supabase.from('tipoImovel').select('*')
+
   return (
     <div className="w-screen h-fit bg-branco dark:bg-escuro2 flex justify-center grow">
       <div className="w-2/12 h-screen p-3 m-3">
         <NavCard navbarbuttons={dict.navbarbuttons}/>
       </div>
       <div className="w-6/12 p-3 m-3">
-        <>
-        {/* @ts-expect-error Server Component */}
-        <FeedPrincipal idusuario={userId}/>
-        </>
-        
+        <PesquisaCard textos={dict.pesquisa} regioes={regioes.data} especialidades={especialidades.data}/>      
       </div>
       <div className="w-2/12 h-screen p-3 m-3">
         <NavCard navbarbuttons={dict.navbarbuttons}/>
@@ -39,3 +33,4 @@ export default async function page({ params: { lang } }: pageProps) {
     </div>
   )
 }
+

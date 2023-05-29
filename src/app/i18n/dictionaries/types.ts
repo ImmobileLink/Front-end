@@ -5,7 +5,9 @@
 //   const dictionaries = Convert.toDictionaries(json);
 
 export interface Dictionaries {
-  auth: Auth;
+  navbarbuttons: Navbarbuttons;
+  auth:          Auth;
+  pesquisa:      Pesquisa;
 }
 
 export interface Auth {
@@ -80,6 +82,28 @@ export interface SignupLogs {
   invalidpassword:  string;
   emailalreadyused: string;
   successsignup:    string;
+}
+
+export interface Navbarbuttons {
+  searchbutton: string;
+  logoutbutton: string;
+}
+
+export interface Pesquisa {
+  labels:        Labels;
+  usertypevalue: Usertypevalue;
+}
+
+export interface Labels {
+  usertype:  string;
+  region:    string;
+  rating:    string;
+  specialty: string;
+}
+
+export interface Usertypevalue {
+  broker:      string;
+  corporation: string;
 }
 
 // Converts JSON strings to/from your types

@@ -1,4 +1,8 @@
 {
+  "navbarbuttons" : {
+    "searchbutton" : "Search",
+    "logoutbutton" : "Logout"
+  },
   "auth": {
     "always": {
       "donthaveanaccount" : "Don't have an account?",
@@ -53,6 +57,18 @@
         "passwordchanged": "Your password has been updated.",
         "passwordnotchanged": "It was not possible to update your password, try again later."
       }
+    }
+  },
+  "pesquisa": {
+    "labels":{
+      "usertype": "User Type",
+      "region" : "Region",
+      "rating" : "Rating",
+      "specialty" : "Specialty"
+    },
+    "usertypevalue": {
+      "broker": "Broker",
+      "corporation" : "Corporation"
     }
   }
 }

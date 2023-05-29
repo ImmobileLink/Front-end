@@ -1,4 +1,8 @@
 {
+  "navbarbuttons" : {
+    "searchbutton" : "Encontrar",
+    "logoutbutton" : "Sair"
+  },
   "auth": {
     "always": {
       "donthaveanaccount" : "Não tem uma conta?",
@@ -52,6 +56,18 @@
         "passwordchanged": "Sua senha foi alterada.",
         "passwordnotchanged": "Não foi possível alterar a senha, tente novamente mais tarde."
       }
+    }
+  },
+  "pesquisa": {
+    "labels":{
+      "usertype": "Tipo de usuário",
+      "region" : "Região",
+      "rating" : "Classificação",
+      "specialty" : "Especialidade"
+    },
+    "usertypevalue": {
+      "broker": "Corretor",
+      "corporation" : "Corporação"
     }
   }
 }

@@ -1,15 +1,18 @@
 "use client";
 import Link from "next/link";
-import React, { FC } from "react";
+import React from "react";
 import LogOut from "./LogOut";
+import { Navbarbuttons } from "@/app/i18n/dictionaries/types";
 
-interface NavCardProps {};
+interface NavCardProps {
+  navbarbuttons: Navbarbuttons
+};
 
-export default function NavCard({}: NavCardProps) { 
+export default function NavCard({navbarbuttons}: NavCardProps) { 
     return (
       <div className="">
         <Link
-          href="/"
+          href="/feed"
           className="flex my-1 py-1 px-1  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 justify-center text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
         >
           <svg
@@ -30,7 +33,7 @@ export default function NavCard({}: NavCardProps) {
         </Link>
 
         <Link
-          href="/"
+          href="/pesquisa"
           className="flex my-1 py-1 px-1  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 justify-center text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
         >
           <svg
@@ -47,10 +50,10 @@ export default function NavCard({}: NavCardProps) {
               d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
             />
           </svg>
-          Encontrar
+          {navbarbuttons.searchbutton}
         </Link>
 
-        <LogOut />
+        <LogOut texto={navbarbuttons.logoutbutton}/>
       </div>
     );
 };
