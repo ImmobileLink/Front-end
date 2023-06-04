@@ -13,7 +13,8 @@ export default function NavCard({navbarbuttons}: NavCardProps) {
       <div className="">
         <Link
           href="/feed"
-          className="flex my-1 py-1 px-1  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 justify-center text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+          className="flex my-1 py-1 px-1  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 justify-center text-center font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg 
+          text-xs sm:text-base items-center"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +22,7 @@ export default function NavCard({navbarbuttons}: NavCardProps) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6 mx-1 justify-start"
+            className="w-0 h-0 sm:w-4 sm:h-4 md:w-6 md:h-6 mx-1 justify-start"
           >
             <path
               strokeLinecap="round"
@@ -34,7 +35,8 @@ export default function NavCard({navbarbuttons}: NavCardProps) {
 
         <Link
           href="/pesquisa"
-          className="flex my-1 py-1 px-1  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 justify-center text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+          className="flex my-1 py-1 px-1  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 justify-center text-center font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg 
+          text-xs sm:text-base items-center"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +44,7 @@ export default function NavCard({navbarbuttons}: NavCardProps) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6 mx-1 justify-start"
+            className="w-0 h-0 sm:w-4 sm:h-4 md:w-6 md:h-6 mx-1 justify-start"
           >
             <path
               strokeLinecap="round"

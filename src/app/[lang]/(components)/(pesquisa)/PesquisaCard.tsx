@@ -13,42 +13,63 @@ interface PesquisaCardProps {
 }
 
 export default function PesquisaCard({textos, regioes, especialidades}: PesquisaCardProps) {
-    //Configura o tipo para pegar os valores do objeto publicacao
-    type ObjectKey = keyof typeof usuarios;
 
   //Transforma o objeto recebido do banco de dados em um vetor
-  const vetorregiao = Object.values(regioes)
-  const vetorespecialidade = Object.values(especialidades)
+  const vetorregiao: any = Object.values(regioes)
+  const vetorespecialidade: any = Object.values(especialidades)
 
   //Estados dos combo box, usadosp para fazer a pesquisa
   const [userType, setUserType] = useState(textos.usertypevalue.broker);
-  const [region, setRegion] = useState('');
+  const [region, setRegion] = useState<any>(vetorregiao[0].id);
   const [rating, setRating] = useState('*');
-  const [specialty, setSpecialty] = useState('');
+  const [specialty, setSpecialty] = useState<any>(vetorespecialidade[0]);
 
   const [resultado, setResultado] = useState(false);
   const [usuarios, setUsuarios] = useState<any>();
 
+  //Faz a consulta do banco de dados baseado nos combo box selecionados
   const consultaBd = async () => {
+    //Faz a conversão do combo box de avaliacao para números
     let avaliacao = "0";
     if(rating != "*"){
       avaliacao = rating.substring(0,1)
     }
+    //Se for um corretor
     if(userType == textos.usertypevalue.broker){
       const corretores = await supabase
       .from('corretor')
-      .select("*")
-    //   .select(`
-    //   id, idusuario, nome, cpf, cnpj, avaliacao, creci, status, cep, estado, cidade, bairro, comercial,
-    //   usuarioporarea(idusuario, idregiao),
-    //   corretorTemEspecialidade(idcorretor, idtipoimovel),
-    //   tipoImovel(id, descricao)
-    // `)
+      .select(`
+        id, nome, creci, avaliacao,
+        usuario(
+          usuarioporarea(
+            idregiao
+          )
+        )        
+      `)
+      .eq("nome", "Nome")
+      console.log(region)
+      
       const dados = corretores.data
-      setUsuarios(dados)
-      setResultado(true)
+      console.log(dados)
+
     }
   }
+
+  //Faz o set do estado "Region" com o id da região
+  const handleRegionChange = (event:any) => {
+    const selectedValue = event.target.value;
+    const selectedRegion:any = vetorregiao.find((regiao:any) => regiao.regiao === selectedValue);
+    setRegion(selectedRegion)
+    console.log(selectedRegion.id)
+  };
+
+  //Faz o set do estado "Specialty" com o id da especialidade
+  const handleSpecialtyChange = (event:any) => {
+    const selectedValue = event.target.value;
+    const selectedSpecialty:any = vetorregiao.find((regiao:any) => regiao.regiao === selectedValue);
+    setSpecialty(selectedSpecialty)
+  };
+  
 
   return (
     <>
@@ -67,8 +88,8 @@ export default function PesquisaCard({textos, regioes, especialidades}: Pesquisa
             <div className="flex-col mt-3">
             <label className="mr-4">{textos.labels.specialty}:</label>
             <select className="text-black w-50"
-            value={specialty}
-            onChange={(e) => setSpecialty(e.target.value)}>
+            value={specialty.descricao}
+            onChange={(e) => handleSpecialtyChange(e)}>
               {vetorespecialidade.map((especialidade: any) => {
                 return (
                   <option>{especialidade.descricao}</option>
@@ -84,11 +105,11 @@ export default function PesquisaCard({textos, regioes, especialidades}: Pesquisa
         <div className="m-4">
           <label className="mr-4">{textos.labels.region}:</label>
           <select className="text-black w-50"
-          value={region}
-          onChange={(e) => setRegion(e.target.value)}>
+          value={region.regiao}
+          onChange={(e) => handleRegionChange(e)}>
             {vetorregiao.map((regiao: any) => {
               return (
-                <option>{regiao.regiao}</option>
+                <option key={regiao.id}>{regiao.regiao}</option>
               )
             })}
           </select>
@@ -113,12 +134,20 @@ export default function PesquisaCard({textos, regioes, especialidades}: Pesquisa
       </button>
       
       {
-        resultado ? 
-          usuarios.map((usuario: Object) => {
-            <p>oi</p>
-          })
+        resultado ?
+        <div className="flex flex-col mt-10 justify-center items-center
+                        md:flex-row">
+          {
+            usuarios.map((usuario: any) => {
+              return (
+                <UserCard key= {usuario.id} usuario={usuario}/>
+              )
+            })
+          }
+        </div> 
+          
         :
-        <div>iu</div>
+        <div></div>
         
       }      
       
