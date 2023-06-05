@@ -12,11 +12,12 @@ interface PesquisaCardProps {
   especialidades: any
 }
 
-export default function PesquisaCard({textos, regioes, especialidades}: PesquisaCardProps) {
+export default function PesquisaCard({ textos, regioes, especialidades }: PesquisaCardProps) {
 
   //Transforma o objeto recebido do banco de dados em um vetor
   const vetorregiao: any = Object.values(regioes)
   const vetorespecialidade: any = Object.values(especialidades)
+  console.log(vetorespecialidade)
 
   //Estados dos combo box, usadosp para fazer a pesquisa
   const [userType, setUserType] = useState(textos.usertypevalue.broker);
@@ -31,45 +32,40 @@ export default function PesquisaCard({textos, regioes, especialidades}: Pesquisa
   const consultaBd = async () => {
     //Faz a conversão do combo box de avaliacao para números
     let avaliacao = "0";
-    if(rating != "*"){
-      avaliacao = rating.substring(0,1)
+    if (rating != "*") {
+      avaliacao = rating.substring(0, 1)
     }
     //Se for um corretor
-    if(userType == textos.usertypevalue.broker){
-      const corretores = await supabase
-      .from('corretor')
-      .select(`
-        id, nome, creci, avaliacao,
-        usuario(
-          usuarioporarea(
-            idregiao
-          )
-        )        
-      `)
-      .eq("nome", "Nome")
-      console.log(region)
+    if (userType == textos.usertypevalue.broker) {
       
-      const dados = corretores.data
-      console.log(dados)
+      let { data, error } = await supabase
+        .rpc('get_corretores_por_regiao_tipoimovel_avaliacao', {
+          avaliac: avaliacao,
+          idregiao: region.id,
+          idtipoimovel: specialty.id
+        })
+
+      if (error) console.error(error)
+      else console.log(data)
 
     }
   }
 
   //Faz o set do estado "Region" com o id da região
-  const handleRegionChange = (event:any) => {
+  const handleRegionChange = (event: any) => {
     const selectedValue = event.target.value;
-    const selectedRegion:any = vetorregiao.find((regiao:any) => regiao.regiao === selectedValue);
+    const selectedRegion: any = vetorregiao.find((regiao: any) => regiao.regiao === selectedValue);
     setRegion(selectedRegion)
     console.log(selectedRegion.id)
   };
 
   //Faz o set do estado "Specialty" com o id da especialidade
-  const handleSpecialtyChange = (event:any) => {
+  const handleSpecialtyChange = (event: any) => {
     const selectedValue = event.target.value;
-    const selectedSpecialty:any = vetorregiao.find((regiao:any) => regiao.regiao === selectedValue);
+    const selectedSpecialty: any = vetorregiao.find((regiao: any) => regiao.regiao === selectedValue);
     setSpecialty(selectedSpecialty)
   };
-  
+
 
   return (
     <>
@@ -78,35 +74,35 @@ export default function PesquisaCard({textos, regioes, especialidades}: Pesquisa
         <div className="flex-col m-4">
           <label className="mr-4">{textos.labels.usertype}:</label>
           <select className="text-black w-50"
-          onChange={(e) => {setUserType(e.target.value)}}>
+            onChange={(e) => { setUserType(e.target.value) }}>
             <option>{textos.usertypevalue.broker}</option>
             <option>{textos.usertypevalue.corporation}</option>
           </select>
           {
-          userType == textos.usertypevalue.broker 
-          ?
-            <div className="flex-col mt-3">
-            <label className="mr-4">{textos.labels.specialty}:</label>
-            <select className="text-black w-50"
-            value={specialty.descricao}
-            onChange={(e) => handleSpecialtyChange(e)}>
-              {vetorespecialidade.map((especialidade: any) => {
-                return (
-                  <option>{especialidade.descricao}</option>
-                )
-              })}
-            </select>
-            </div>
-          :
-            <div></div>
-        }
+            userType == textos.usertypevalue.broker
+              ?
+              <div className="flex-col mt-3">
+                <label className="mr-4">{textos.labels.specialty}:</label>
+                <select className="text-black w-50"
+                  value={specialty.descricao}
+                  onChange={(e) => handleSpecialtyChange(e)}>
+                  {vetorespecialidade.map((especialidade: any) => {
+                    return (
+                      <option key={especialidade.id}>{especialidade.descricao}</option>
+                    )
+                  })}
+                </select>
+              </div>
+              :
+              <div></div>
+          }
         </div>
 
         <div className="m-4">
           <label className="mr-4">{textos.labels.region}:</label>
           <select className="text-black w-50"
-          value={region.regiao}
-          onChange={(e) => handleRegionChange(e)}>
+            value={region.regiao}
+            onChange={(e) => handleRegionChange(e)}>
             {vetorregiao.map((regiao: any) => {
               return (
                 <option key={regiao.id}>{regiao.regiao}</option>
@@ -114,12 +110,12 @@ export default function PesquisaCard({textos, regioes, especialidades}: Pesquisa
             })}
           </select>
         </div>
-      
+
         <div className="m-4">
           <label className="mr-4">{textos.labels.rating}:</label>
           <select className="text-black w-50"
-          value={rating}
-          onChange={(e) => setRating(e.target.value)}>
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}>
             <option>*</option>
             <option>2+</option>
             <option>3+</option>
@@ -128,29 +124,29 @@ export default function PesquisaCard({textos, regioes, especialidades}: Pesquisa
           </select>
         </div>
       </div>
-     
+
       <button onClick={consultaBd} className="flex mx-auto mt-2 p-2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
-          Pesquisar
+        Pesquisar
       </button>
-      
+
       {
         resultado ?
-        <div className="flex flex-col mt-10 justify-center items-center
+          <div className="flex flex-col mt-10 justify-center items-center
                         md:flex-row">
-          {
-            usuarios.map((usuario: any) => {
-              return (
-                <UserCard key= {usuario.id} usuario={usuario}/>
-              )
-            })
-          }
-        </div> 
-          
-        :
-        <div></div>
-        
-      }      
-      
-    </>  
+            {
+              usuarios.map((usuario: any) => {
+                return (
+                  <UserCard key={usuario.id} usuario={usuario} />
+                )
+              })
+            }
+          </div>
+
+          :
+          <div></div>
+
+      }
+
+    </>
   );
 }
