@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SignIn from "./(views)/signin";
 import SignUp from "./(views)/(signup)/signup";
 import ForgetPwd from "./(views)/forgetpwd";
@@ -8,13 +8,15 @@ import { Auth } from "@/app/i18n/dictionaries/types";
 
 interface SupabaseAuthProps {
   auth: Auth;
+  data: {
+    tipoImovel: { id: any; descricao: any }[] | null;
+    regiao: { id: any; regiao: any }[] | null;
+  };
 }
 
-export default function SupabaseAuth({ auth }: SupabaseAuthProps) {
+export default function SupabaseAuth({ auth, data }: SupabaseAuthProps) {
   const [view, setView] = useState("signin"); //signin, signup, forgetpwd
   const [alert, setAlert] = useState({ type: "", title: "", message: "" });
-
-  useEffect(() => {}, [alert]);
 
   function handleChangeView(e: string) {
     setView(e);
@@ -32,6 +34,7 @@ export default function SupabaseAuth({ auth }: SupabaseAuthProps) {
         <SignUp
           setAlert={setAlert}
           signup={auth.signup}
+          data={data}
         />
       ) : view == "forgetpwd" ? (
         <ForgetPwd

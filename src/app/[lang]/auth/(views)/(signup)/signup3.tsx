@@ -29,8 +29,8 @@ interface Signup3Props {
     setBairro: Dispatch<SetStateAction<string>>;
     logradouro: string;
     setLogradouro: Dispatch<SetStateAction<string>>;
-    numero: string;
-    setNumero: Dispatch<SetStateAction<string>>;
+    numero: number;
+    setNumero: Dispatch<SetStateAction<number>>;
     complemento: string;
     setComplemento: Dispatch<SetStateAction<string>>;
   };
@@ -234,7 +234,7 @@ export default function Signup3({
       });
     }
 
-    if (!parseInt(props.numero) || parseInt(props.numero) < 0) {
+    if (props.numero < 0) {
       setAlert({
         type: "warning",
         title: "",
@@ -522,7 +522,7 @@ export default function Signup3({
               placeholder=" "
               required
               value={props.numero}
-              onChange={(e) => props.setNumero(e.target.value)}
+              onChange={(e) => props.setNumero(parseInt(e.target.value))}
               onBlur={validaForm}
             />
             <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">

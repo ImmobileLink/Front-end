@@ -80,29 +80,32 @@
         },
         "signup5":{
            "corretor":{
-              "freelabel":"Ideal para corretores recém inseridos no mercado de trabalho e desejam iniciar sua carreira.",
+              "freelabel":"Ideal para corretores recém inseridos no mercado e desejam impulsionar sua carreira.",
               "freedescription1":"Avaliação de perfil simples.",
               "freedescription2":"Feed de oportunidades.",
               "freedescription3":"Afiliação a uma empresa.",
               "freedescription4":"Chat individual e em grupos.",
               "premiumlabel":"Ideal para corretores que desejam investir fortemente em seu perfil e alcançar mais pessoas.",
-              "premiumdescription1":"Todos os benefícios do plano Free.",
-              "premiumdescription2":"Dashboard completo de seu desempenho.",
-              "premiumdescription3":"Visualizar dashboard de outros usuários.",
+              "premiumdescription1":"Benefícios do plano Free.",
+              "premiumdescription2":"Dashboard completo.",
+              "premiumdescription3":"Maior visibilidade.",
               "premiumdescription4":"Funcionalidades exclusivas."
            },
            "company":{
-              "freelabel":"Ideal para pequenas e médias empresas.",
+              "freelabel":"Ideal para pequenas e médias empresas que desejam impulsionar seus negócios.",
               "freedescription1":"Busca de corretores na região.",
               "freedescription2":"Publicação de oportunidades.",
               "freedescription3":"Afiliar até 10 corretores.",
               "freedescription4":"Chat individual e em grupos.",
               "premiumlabel":"Ideal para empresas já consolidadas ou que querem melhorar suas vendas.",
-              "premiumdescription1":"Todos os benefícios do plano Free.",
-              "premiumdescription2":"Dashboard completo de seu desempenho.",
-              "premiumdescription3":"Visualizar dashboard de outros usuários.",
+              "premiumdescription1":"Benefícios do plano Free.",
+              "premiumdescription2":"Dashboard completo.",
+              "premiumdescription3":"Maior visibilidade.",
               "premiumdescription4":"Funcionalidades exclusivas."
            },
+           "subscriptionmessage1": "Desejo me tornar um membro",
+           "subscriptionmessage2": "PREMIUM!",
+           "subscriptionmessage3": "Escolher método de pagamento",
            "signupbutton":"Finalizar Cadastro"
         },
         "stepper":{
