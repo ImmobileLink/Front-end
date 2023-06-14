@@ -174,7 +174,6 @@ export default function SignUp({ setAlert, signup, data }: SignUpProps) {
                 setPodeAvancar={setPodeAvancar}
                 setAlert={setAlert}
                 signup1={signup.signup1}
-                handleSignUp={handleSignUp}
               />
             ) : telaAtual == 2 ? (
               <Signup2

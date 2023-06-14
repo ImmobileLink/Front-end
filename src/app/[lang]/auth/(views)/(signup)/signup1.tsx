@@ -16,7 +16,6 @@ interface SignUpProps {
     SetStateAction<{ type: string; title: string; message: string }>
   >;
   signup1: Signup1;
-  handleSignUp: () => Promise<void>;
 }
 
 export default function SignUp1({
@@ -24,7 +23,6 @@ export default function SignUp1({
   setAlert,
   signup1,
   setPodeAvancar,
-  handleSignUp,
 }: SignUpProps) {
   const { supabase } = useSupabase();
 
@@ -114,12 +112,6 @@ export default function SignUp1({
             {signup1.passwordlabel}
           </label>
         </div>
-        <button
-          className="w-12 h-6 bg-red-500"
-          onClick={handleSignUp}
-        >
-          oi
-        </button>
       </div>
     </>
   );
