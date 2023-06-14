@@ -20,16 +20,22 @@ import Signup2 from "./signup2";
 import Signup3 from "./signup3";
 import Signup4 from "./signup4";
 import Signup5 from "./signup5";
+import { Database } from "../../../../../../lib/database.types";
 
 interface SignUpProps {
   setAlert: Dispatch<
     SetStateAction<{ type: string; title: string; message: string }>
   >;
   signup: Signup;
+  data: {
+    tipoImovel: { id: any; descricao: any }[] | null;
+    regiao: { id: any; regiao: any }[] | null;
+  };
 }
 
-export default function SignUp({ setAlert, signup }: SignUpProps) {
+export default function SignUp({ setAlert, signup, data }: SignUpProps) {
   const { supabase } = useSupabase();
+
   const [isOK, setIsOK] = useState(false);
   const [telaAtual, setTelaAtual] = useState(1);
   const [podeAvancar, setPodeAvancar] = useState(false); //false -> bloqueia o botão next | true -> desbloqueia
@@ -54,13 +60,21 @@ export default function SignUp({ setAlert, signup }: SignUpProps) {
   const [cidade, setCidade] = useState<string>("");
   const [bairro, setBairro] = useState<string>("");
   const [logradouro, setLogradouro] = useState<string>("");
-  const [numero, setNumero] = useState<string>("");
+  const [numero, setNumero] = useState<number>(0);
   const [complemento, setComplemento] = useState<string>("");
 
   //signup4
   const [creci, setCreci] = useState<string>("");
-  const [especialidade, setEspecialidade] = useState<number[]>([]); // id da tabela tipoImovel
-  const [regiaoAtuacao, setRegiaoAtuacao] = useState<number[]>([]); // id da tabela regiao
+  const [especialidade, setEspecialidade] = useState<
+    { id: any; descricao: any }[]
+  >([]);
+  const [regiaoAtuacao, setRegiaoAtuacao] = useState<
+    { id: any; regiao: any }[]
+  >([]);
+  const [especialidadesIncluidas, setEspecialidadesIncluidas] = useState<
+    string[]
+  >([]);
+  const [regioesIncluidas, setRegioesIncluidas] = useState<string[]>([]);
 
   //signup5
   const [premium, setPremium] = useState<boolean>(false);
@@ -92,29 +106,62 @@ export default function SignUp({ setAlert, signup }: SignUpProps) {
     }
   };
 
-  /*
-
   const handleSignUp = async () => {
-    if (validaForm()) {
-      let { error } = await supabase.auth.signUp({
-        email: email,
-        password: senha,
+    let { data } = await supabase.auth.signUp({
+      email: email,
+      password: senha,
+    });
+
+    const userId = data.user?.id!;
+
+    if (tipoPerfil == 1) {
+      let { error } = await supabase.from("corretor").insert([
+        {
+          id: userId,
+          nome: nome,
+          cpf: cpf,
+          cnpj: cnpj,
+          creci: creci,
+          cep: cep,
+          estado: estado,
+          cidade: cidade,
+          bairro: bairro,
+          logradouro: logradouro,
+          numero: numero,
+          complemento: complemento,
+          telefone: telefone,
+          celular: celular,
+          comercial: comercial,
+          premium: premium,
+        },
+      ]);
+    } else {
+    }
+    // especialidade
+    {
+      let arrayEspecialidade: any = [];
+
+      especialidade.map((item) => {
+        arrayEspecialidade.push({ idcorretor: userId, idtipoimovel: item.id });
       });
 
-      if (!error) {
-        setIsOK(true);
-        setAlert({ type: "", title: "", message: "" });
-      } else {
-        setAlert({
-          type: "warning",
-          title: "",
-          message: error.message,
-        });
-      }
+      const { error } = await supabase
+        .from("especialidade")
+        .insert(arrayEspecialidade);
+    }
+    //usuarioporregiao
+    {
+      let arrayUsuarioPorRegiao: any = [];
+
+      regiaoAtuacao.map((item) => {
+        arrayUsuarioPorRegiao.push({ idusuario: userId, idregiao: item.id });
+      });
+
+      const { error } = await supabase
+        .from("usuarioporregiao")
+        .insert(arrayUsuarioPorRegiao);
     }
   };
-
-  */
 
   return (
     <>
@@ -127,6 +174,7 @@ export default function SignUp({ setAlert, signup }: SignUpProps) {
                 setPodeAvancar={setPodeAvancar}
                 setAlert={setAlert}
                 signup1={signup.signup1}
+                handleSignUp={handleSignUp}
               />
             ) : telaAtual == 2 ? (
               <Signup2
@@ -172,9 +220,36 @@ export default function SignUp({ setAlert, signup }: SignUpProps) {
                 signup3={signup.signup3}
               />
             ) : telaAtual == 4 ? (
-              <Signup4 />
+              <Signup4
+                props={{
+                  creci,
+                  setCreci,
+                  especialidade,
+                  setEspecialidade,
+                  regiaoAtuacao,
+                  setRegiaoAtuacao,
+                  especialidadesIncluidas,
+                  setEspecialidadesIncluidas,
+                  regioesIncluidas,
+                  setRegioesIncluidas,
+                }}
+                tipoPerfil={tipoPerfil}
+                setPodeAvancar={setPodeAvancar}
+                setAlert={setAlert}
+                signup4={signup.signup4}
+                data={data}
+              />
             ) : telaAtual == 5 ? (
-              <Signup5 />
+              <Signup5
+                props={{
+                  premium,
+                  setPremium,
+                }}
+                tipoPerfil={tipoPerfil}
+                setAlert={setAlert}
+                signup5={signup.signup5}
+                handleSignUp={handleSignUp}
+              />
             ) : (
               <h1>ERRO</h1>
             )}

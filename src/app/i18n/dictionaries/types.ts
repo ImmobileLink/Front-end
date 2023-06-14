@@ -1,10 +1,3 @@
-//Sempre que mudar alguma coisa nos dicionários:
-//atualiza nos 2 arquivos (pt & en)
-//gera esse arquivo de types de novo nesse site
-//coloca o json do pt.json na esquerda, seleciona JSON
-//seleciona typescript na direita e da o Copy Code
-//https://app.quicktype.io/
-//cola em baixo, NÃO APAGA ISSO PLMD
 // To parse this data:
 //
 //   import { Convert, Dictionaries } from "./file";
@@ -157,9 +150,12 @@ export interface Signup4Logs {
 }
 
 export interface Signup5 {
-  corretor:     Company;
-  company:      Company;
-  signupbutton: string;
+  corretor:             Company;
+  company:              Company;
+  subscriptionmessage1: string;
+  subscriptionmessage2: string;
+  subscriptionmessage3: string;
+  signupbutton:         string;
 }
 
 export interface Company {
