@@ -117,64 +117,65 @@ export default function Signup4({
                 <span className="text-primaria">{" *"}</span>
               </label>
             </div>
+
+            {/* ESPECIALIDADE */}
+
+            <div className="relative w-full mb-6 group">
+              <label className="font-medium text-gray-500 dark:text-gray-400">
+                {signup4.speciality}
+              </label>
+              <div className="mt-3 ring-2 ring-gray-300 dark:ring-gray-500 rounded-lg p-2 h-fit">
+                <AiFillPlusCircle
+                  className="absolute text-xl right-3 hover:cursor-pointer hover:scale-110"
+                  onClick={(e) => {
+                    setDropdownTipos(!dropdownTipos);
+                  }}
+                />
+
+                <div
+                  className={
+                    props.especialidadesIncluidas.length > 0
+                      ? `flex flex-wrap gap-2`
+                      : `flex flex-wrap gap-2 h-5`
+                  }
+                >
+                  {props.especialidade?.map((item) => (
+                    <div
+                      className="flex bg-gray-500 dark:bg-gray-200 text-branco dark:text-black rounded-2xl px-2 w-fit"
+                      key={item.id}
+                    >
+                      {item.descricao}
+                      <AiFillCloseCircle
+                        className="text-lg ml-2 self-center hover:cursor-pointer hover:scale-110"
+                        onClick={(e) => removeEspecialidade(item.id)}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                {dropdownTipos ? (
+                  <ul className="z-40 absolute w-fit top-auto right-0 grid bg-white ring-1 ring-gray-500 rounded-sm text-black">
+                    {data.tipoImovel?.map((item) => (
+                      <li
+                        className="px-2 cursor-pointer hover:bg-gray-200"
+                        key={item.id}
+                        onClick={(e) =>
+                          addEspecialidade(item.id, item.descricao)
+                        }
+                      >
+                        {item.descricao}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
           </div>
         ) : (
           <></>
         )}
-
-        {/* ESPECIALIDADE */}
-        <div>
-          <div className="relative w-full mb-6 group">
-            <label className="font-medium text-gray-500 dark:text-gray-400">
-              {signup4.speciality}
-            </label>
-            <div className="mt-3 ring-2 ring-gray-300 dark:ring-gray-500 rounded-lg p-2 h-fit">
-              <AiFillPlusCircle
-                className="absolute text-xl right-3 hover:cursor-pointer hover:scale-110"
-                onClick={(e) => {
-                  setDropdownTipos(!dropdownTipos);
-                }}
-              />
-
-              <div
-                className={
-                  props.especialidadesIncluidas.length > 0
-                    ? `flex flex-wrap gap-2`
-                    : `flex flex-wrap gap-2 h-5`
-                }
-              >
-                {props.especialidade?.map((item) => (
-                  <div
-                    className="flex bg-gray-500 dark:bg-gray-200 text-branco dark:text-black rounded-2xl px-2 w-fit"
-                    key={item.id}
-                  >
-                    {item.descricao}
-                    <AiFillCloseCircle
-                      className="text-lg ml-2 self-center hover:cursor-pointer hover:scale-110"
-                      onClick={(e) => removeEspecialidade(item.id)}
-                    />
-                  </div>
-                ))}
-              </div>
-
-              {dropdownTipos ? (
-                <ul className="z-40 absolute w-fit top-auto right-0 grid bg-white ring-1 ring-gray-500 rounded-sm text-black">
-                  {data.tipoImovel?.map((item) => (
-                    <li
-                      className="px-2 cursor-pointer hover:bg-gray-200"
-                      key={item.id}
-                      onClick={(e) => addEspecialidade(item.id, item.descricao)}
-                    >
-                      {item.descricao}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                ""
-              )}
-            </div>
-          </div>
-        </div>
 
         {/* REGIAO */}
         <div>

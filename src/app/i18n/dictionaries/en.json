@@ -65,7 +65,7 @@
               "invalidcity":"City must be at least 2 characters long",
               "invalidneighborhood":"Neighborhood must be at least 2 characters long",
               "invalidstreet":"The street must have at least 2 characters",
-              "invalidnumber":"The house number must be a positive, integer number",
+              "invalidnumber":"The house number must be a positive number",
               "invalidcomplement":"Household complement must be at least 2 characters"
            }
         },

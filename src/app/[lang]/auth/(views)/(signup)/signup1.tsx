@@ -1,7 +1,7 @@
 "use client";
 
 import { useSupabase } from "@/app/[lang]/SupabaseProvider";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Signup1 } from "@/app/i18n/dictionaries/types";
 
 interface SignUpProps {
@@ -36,6 +36,7 @@ export default function SignUp1({
         message: signup1.logs.invalidemail,
       });
 
+      //verifica se email já existe
       let { data: usuario } = await supabase
         .from("usuario")
         .select("email")
@@ -48,6 +49,24 @@ export default function SignUp1({
           message: signup1.logs.emailalreadyused,
         });
       }
+      return false;
+    } else {
+      setAlert({
+        type: "warning",
+        title: "",
+        message: "",
+      });
+    }
+
+    //verifica se ta no padrão
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/;
+    if (!regex.test(props.email)) {
+      setAlert({
+        type: "warning",
+        title: "",
+        message: signup1.logs.invalidemail,
+      });
+
       return false;
     } else {
       setAlert({

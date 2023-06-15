@@ -65,7 +65,7 @@
               "invalidcity":"A cidade precisa ter no mínimo 2 caracteres",
               "invalidneighborhood":"O bairro precisa ter no mínimo 2 caracteres",
               "invalidstreet":"A rua precisa ter no mínimo 2 caracteres",
-              "invalidnumber":"O número da residência precisar ser um número positivo e inteiro",
+              "invalidnumber":"O número da residência precisar ser um número positivo",
               "invalidcomplement":"O complemento da residência precisa ter no mínimo 2 caracteres"
            }
         },
