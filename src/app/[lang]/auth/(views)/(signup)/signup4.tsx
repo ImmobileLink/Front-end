@@ -60,6 +60,23 @@ export default function Signup4({
           message: "",
         });
       }
+
+      const regexCreci = /^\d{6}[a-zA-Z]$/;
+      if (!regexCreci.test(props.creci)) {
+        setAlert({
+          type: "warning",
+          title: "",
+          message: signup4.logs.invalidcreci,
+        });
+
+        return false;
+      } else {
+        setAlert({
+          type: "warning",
+          title: "",
+          message: "",
+        });
+      }
     } else {
     }
 
