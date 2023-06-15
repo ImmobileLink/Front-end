@@ -1,6 +1,7 @@
 "use client";
 
 import { Signup3 } from "@/app/i18n/dictionaries/types";
+import { stringify } from "querystring";
 import { Dispatch, SetStateAction } from "react";
 
 interface Signup3Props {
@@ -29,8 +30,8 @@ interface Signup3Props {
     setBairro: Dispatch<SetStateAction<string>>;
     logradouro: string;
     setLogradouro: Dispatch<SetStateAction<string>>;
-    numero: number;
-    setNumero: Dispatch<SetStateAction<number>>;
+    numero: number | null;
+    setNumero: Dispatch<SetStateAction<number | null>>;
     complemento: string;
     setComplemento: Dispatch<SetStateAction<string>>;
   };
@@ -85,7 +86,41 @@ export default function Signup3({
         });
       }
 
+      const regexCpf = /^\d{11}$/;
+      if (!regexCpf.test(props.cpf)) {
+        setAlert({
+          type: "warning",
+          title: "",
+          message: signup3.logs.invalidcpf,
+        });
+
+        return false;
+      } else {
+        setAlert({
+          type: "warning",
+          title: "",
+          message: "",
+        });
+      }
+
       if (props.cnpj.length != 14 && props.cnpj.length != 0) {
+        setAlert({
+          type: "warning",
+          title: "",
+          message: signup3.logs.invalidcnpj,
+        });
+
+        return false;
+      } else {
+        setAlert({
+          type: "warning",
+          title: "",
+          message: "",
+        });
+      }
+
+      const regexCnpj = /^\d{14}$/;
+      if (!regexCnpj.test(props.cnpj) && props.cnpj.length != 0) {
         setAlert({
           type: "warning",
           title: "",
@@ -132,12 +167,50 @@ export default function Signup3({
           message: "",
         });
       }
+
+      const regexCnpj = /^\d{14}$/;
+      if (!regexCnpj.test(props.cnpj)) {
+        setAlert({
+          type: "warning",
+          title: "",
+          message: signup3.logs.invalidcnpj,
+        });
+
+        return false;
+      } else {
+        setAlert({
+          type: "warning",
+          title: "",
+          message: "",
+        });
+      }
     }
 
     if (
       (props.celular.length != 11 && props.celular.length != 0) ||
       (props.telefone.length != 11 && props.telefone.length != 0) ||
       (props.comercial.length != 11 && props.comercial.length != 0)
+    ) {
+      setAlert({
+        type: "warning",
+        title: "",
+        message: signup3.logs.invalidphone,
+      });
+
+      return false;
+    } else {
+      setAlert({
+        type: "warning",
+        title: "",
+        message: "",
+      });
+    }
+
+    const regexPhone = /^\d{11}$/;
+    if (
+      (!regexPhone.test(props.celular) && props.celular.length != 0) ||
+      (!regexPhone.test(props.telefone) && props.telefone.length != 0) ||
+      (!regexPhone.test(props.comercial) && props.comercial.length != 0)
     ) {
       setAlert({
         type: "warning",
@@ -170,7 +243,41 @@ export default function Signup3({
       });
     }
 
+    const regexCep = /^\d{8}$/;
+    if (!regexCep.test(props.cep)) {
+      setAlert({
+        type: "warning",
+        title: "",
+        message: signup3.logs.invalidcep,
+      });
+
+      return false;
+    } else {
+      setAlert({
+        type: "warning",
+        title: "",
+        message: "",
+      });
+    }
+
     if (props.estado.length < 2) {
+      setAlert({
+        type: "warning",
+        title: "",
+        message: signup3.logs.invaliduf,
+      });
+
+      return false;
+    } else {
+      setAlert({
+        type: "warning",
+        title: "",
+        message: "",
+      });
+    }
+
+    const regexEstado = /^[A-Za-z]{2}$/;
+    if (!regexEstado.test(props.estado)) {
       setAlert({
         type: "warning",
         title: "",
@@ -234,7 +341,24 @@ export default function Signup3({
       });
     }
 
-    if (props.numero < 0) {
+    if (props.numero != null && props.numero > 0) {
+      setAlert({
+        type: "warning",
+        title: "",
+        message: "",
+      });
+    } else {
+      setAlert({
+        type: "warning",
+        title: "",
+        message: signup3.logs.invalidnumber,
+      });
+
+      return false;
+    }
+
+    const regexNumero = /^[1-9]\d*$/;
+    if (!regexNumero.test(props.numero.toString())) {
       setAlert({
         type: "warning",
         title: "",
@@ -254,31 +378,32 @@ export default function Signup3({
   };
 
   const autoCompletaEndereco = async () => {
-    if (parseInt(props.cep)) {
-      if (props.cep.length == 8) {
-        const res = await fetch(`https://viacep.com.br/ws/${props.cep}/json/`);
-        const data = await res.json();
-
-        if (!data.erro) {
-          props.setEstado(data.uf);
-          props.setCidade(data.localidade);
-          props.setBairro(data.bairro);
-          props.setLogradouro(data.logradouro);
-          props.setComplemento(data.complemento);
-
-          setAlert({
-            type: "warning",
-            title: "",
-            message: "",
-          });
-        }
-      }
-    } else {
+    const regexCep = /^\d{8}$/;
+    if (!regexCep.test(props.cep)) {
       setAlert({
         type: "warning",
         title: "",
         message: signup3.logs.invalidcep,
       });
+
+      return false;
+    } else {
+      const res = await fetch(`https://viacep.com.br/ws/${props.cep}/json/`);
+      const data = await res.json();
+
+      if (!data.erro) {
+        props.setEstado(data.uf);
+        props.setCidade(data.localidade);
+        props.setBairro(data.bairro);
+        props.setLogradouro(data.logradouro);
+        props.setComplemento(data.complemento);
+
+        setAlert({
+          type: "warning",
+          title: "",
+          message: "",
+        });
+      }
     }
   };
 
@@ -521,7 +646,6 @@ export default function Signup3({
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
-              value={props.numero}
               onChange={(e) => props.setNumero(parseInt(e.target.value))}
               onBlur={validaForm}
             />
