@@ -6,14 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "update-types": "npx supabase gen types typescript --project-id \"rmnjgueyvmqmccnzvfro\" --schema public > lib/database.types.ts"
   },
   "dependencies": {
     "@supabase/auth-helpers-nextjs": "0.6.1",
     "@supabase/auth-helpers-react": "0.3.1",
     "@supabase/supabase-js": "2.21.0",
     "@types/node": "20.1.0",
-    "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "accept-language": "3.0.18",
     "autoprefixer": "10.4.14",
@@ -33,6 +33,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "supabase": "^1.57.4"
+    "@types/react": "^18.2.12",
+    "supabase": "^1.68.6"
   }
 }

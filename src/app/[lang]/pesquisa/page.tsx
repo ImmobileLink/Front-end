@@ -1,7 +1,6 @@
 import { supabase } from "../../../../lib/supabaseClient";
 import NavCard from "@/app/[lang]/(components)/NavCard";
 import PesquisaCard from "../(components)/(pesquisa)/PesquisaCard"
-import UserCard from "../(components)/(pesquisa)/UserCard"
 
 import { getDictionary } from "../dictionaries";
 
@@ -17,8 +16,13 @@ export default async function page({ params: { lang } }: pageProps) {
 
   //Coleta dados das regiões do banco de dados
   const regioes = await supabase.from('regiao').select('*');
+  if(regioes.error){
+    console.log("Erro ao consultar regiões")
+  }
   const especialidades = await supabase.from('tipoImovel').select('*')
-
+  if(especialidades.error){
+    console.log("Erro ao consultar especialidades")
+  }
   return (
     <div className="w-screen h-fit bg-branco dark:bg-escuro2 flex justify-center grow">
       <div className="w-2/12 h-screen p-3 m-3">
