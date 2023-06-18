@@ -5,6 +5,7 @@ import { dir } from "i18next";
 import SupabaseProvider from "./SupabaseProvider";
 import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { cookies, headers } from "next/headers";
+import NavBar from "./NavBar"
 
 export const metadata = {
   title: "ImmobileLink",
@@ -35,6 +36,10 @@ export default async function RootLayout({
       dir={dir(lang)}
     >
       <body>
+        {session != null ? (
+          <NavBar/>
+        ) : (<></>)}
+        
         <SupabaseProvider session={session}>{children}</SupabaseProvider>
       </body>
     </html>
