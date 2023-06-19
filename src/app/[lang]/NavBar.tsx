@@ -9,10 +9,16 @@ interface ClientComponentProps { }
 
 export default function NavBar({ }: ClientComponentProps) {
     const [isOpen, setIsOpen] = useState(false);
+    const [isOpenProfile, setIsOpenProfile] = useState(false);
 
     const toggleNavbar = () => {
         setIsOpen(!isOpen);
     };
+
+    const handleToggleProfile = () => {
+        setIsOpenProfile(!isOpen);
+      };
+    
     return (
 
         <nav className="bg-gray-600">
@@ -72,9 +78,9 @@ export default function NavBar({ }: ClientComponentProps) {
                                 />
 
                             </Link>
-                            <Link
-                                href="#"
-                                className="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700"
+                            <div
+                                onClick={handleToggleProfile}
+                                className="relative px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700"
                             >
                                 <Image
                                     className="mx-auto h-6 w-auto"
@@ -83,7 +89,16 @@ export default function NavBar({ }: ClientComponentProps) {
                                     width={1}
                                     height={1}
                                 />
-                            </Link>
+                                {isOpenProfile && (
+                                <ul className="absolute h-10 w-10 bg-gyay-800">
+                                    <li>Opção 1</li>
+                                    <li>Opção 2</li>
+                                    <li>Opção 3</li>
+                                    <li>Sair</li>
+                                </ul>
+                            )}
+                            </div>
+                            
                         </div>
                     </div>
                     <div className="flex -mr-2 md:hidden">
