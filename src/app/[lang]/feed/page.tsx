@@ -28,7 +28,6 @@ export default async function page({ params: { lang } }: pageProps) {
       </div>
       <div className="w-6/12 p-3 m-3">
         <>
-        {/* @ts-expect-error Server Component */}
         <FeedPrincipal idusuario={userId}/>
         </>
         
