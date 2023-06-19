@@ -19,10 +19,14 @@ export default async function page({ params: { lang } }: pageProps) {
   if(regioes.error){
     console.log("Erro ao consultar regiões")
   }
+  else {
+    console.log(regioes)
+  }
   const especialidades = await supabase.from('tipoImovel').select('*')
   if(especialidades.error){
     console.log("Erro ao consultar especialidades")
   }
+  console.log(especialidades)
   return (
     <div className="w-screen h-fit bg-branco dark:bg-escuro2 flex justify-center grow">
       <div className="w-2/12 h-screen p-3 m-3">

@@ -29,10 +29,9 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
   //Faz a consulta do banco de dados baseado nos combo box selecionados
   const consultaBd = async () => {
     //Faz a conversão do combo box de avaliacao para números
-    let av = "0";
     let avnum = 0;
     if (selectedRating != "*") {
-      av = selectedRating.substring(0, 1)
+      const av = selectedRating.substring(0, 1)
       try {
         avnum = parseInt(av)
       }
@@ -40,7 +39,6 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
         console.log("Erro no Parse Int: " + e)
       }     
     }
-    
     //Se for um corretor
     if (selectedUserType == textos.usertypevalue.broker) {
       
@@ -54,6 +52,7 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
         })
 
         if (error) {
+          console.log(error)
           setErro(true)
         }
         else {
@@ -72,6 +71,7 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
           })
 
           if (error) {
+            console.log(error)
             setErro(true)
           }
           else {
@@ -90,6 +90,7 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
             })
   
             if (error) {
+              console.log(error)
               setErro(true)
             }
             else {
@@ -105,12 +106,14 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
             })
   
             if (error) {
+              console.log(error)
               setErro(true)
             }
             else {
               setErro(false)
               setCorretores(data)
               setResultado(true)
+              console.log(corretores)
             }
           }
         }
@@ -136,23 +139,29 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
   //Faz o set do estado "Region" com o id da região
   const handleRegionChange = (event: any) => {
     const selectedValue = event.target.value;
-    const selectedObject: Regiao | undefined = regioes?.find((regiao: Regiao) => regiao?.regiao === selectedValue);
-    if (selectedObject != null) {
-      setSelectedRegion(selectedObject)
-    }   
-    console.log(selectedRegion)
+    if (selectedValue == "*"){
+      setSelectedRegion({id: '', regiao: ''})
+    }
+    else {
+      const selectedObject: Regiao | undefined = regioes?.find((regiao: Regiao) => regiao?.regiao === selectedValue);
+      if (selectedObject != null) {
+        setSelectedRegion(selectedObject)
+      } 
+    }    
   };
 
   //Faz o set do estado "Specialty" com o id da especialidade
   const handleSpecialtyChange = (event: any) => {
     const selectedValue = event.target.value;
-    if(selectedValue == '-'){
-
+    if (selectedValue == "*"){
+      setSelectedSpecialty({id: '', descricao: ''})
     }
-    const selectedObject: TipoImovel | undefined = especialidades?.find((especialidade: TipoImovel) => especialidade.descricao === selectedValue);
-    if (selectedObject != null) {
-      setSelectedSpecialty(selectedObject)
-    }   
+    else {
+      const selectedObject: TipoImovel | undefined = especialidades?.find((especialidade: TipoImovel) => especialidade?.descricao === selectedValue);
+      if (selectedObject != null) {
+        setSelectedSpecialty(selectedObject)
+      }
+    }     
   };
 
 
@@ -161,22 +170,23 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
       <p className="text-4xl m-4">Encontrar usuários</p>
       <div className="flex mb-4">
         <div className="flex-col m-4">
+
           <label className="mr-4">{textos.labels.usertype}:</label>
-          <select className="text-black w-50"
+          <select className="text-black w-50 text-center"
             onChange={(e) => { setSelectedUserType(e.target.value) }}>
             <option>{textos.usertypevalue.broker}</option>
             <option>{textos.usertypevalue.corporation}</option>
           </select>
+
           {
-            selectedUserType == textos.usertypevalue.broker
-              ?
+            selectedUserType == textos.usertypevalue.broker ?
               <div className="flex-col mt-3">
                 <label className="mr-4">{textos.labels.specialty}:</label>
-                <select className="text-black w-50"
+                <select className="text-black w-50 text-center"
                   value={selectedSpecialty.descricao}
                   onChange={(e) => handleSpecialtyChange(e)}>
-                    <option>Selecione</option>
-                  {especialidades?.map((especialidade: any) => {
+                    <option>*</option>
+                  {especialidades?.map((especialidade: TipoImovel) => {
                     return (
                       <option key={especialidade.id}>{especialidade.descricao}</option>
                     )
@@ -190,10 +200,10 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
 
         <div className="m-4">
           <label className="mr-4">{textos.labels.region}:</label>
-          <select className="text-black w-50"
+          <select className="text-black w-50 text-center"
             value={selectedRegion.regiao}
             onChange={(e) => handleRegionChange(e)}>
-              <option>Selecione</option>
+              <option>*</option>
             {regioes?.map((regiao: any) => {
               return (
                 <option key={regiao.id}>{regiao.regiao}</option>
@@ -207,7 +217,7 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
           ?
             <div className="m-4">
               <label className="mr-4">{textos.labels.rating}:</label>
-              <select className="text-black w-50"
+              <select className="text-black w-50 text-center"
                 value={selectedRating}
                 onChange={(e) => setSelectedRating(e.target.value)}>
                 <option>*</option>
