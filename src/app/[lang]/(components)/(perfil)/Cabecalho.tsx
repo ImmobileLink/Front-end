@@ -17,7 +17,7 @@ export default function Cabecalho({ }: CabecalhoProps) {
           />
         </div>
 
-        <div className="absolute top-24 left-10">
+        <div className="absolute top-24 left-10 flex flex-col items-center text-white">
           <div className="w-36 h-36 rounded-full bg-branco flex justify-center items-center">
             <Image
               className=" w-32 h-32 rounded-full "
@@ -28,16 +28,21 @@ export default function Cabecalho({ }: CabecalhoProps) {
             />
           </div>
 
-        </div>
-
-        <div className=" flex items-center justify-around">
-
-          <div>
-            <button className="w-30">Conectar  </button>
+          <div className=" top-30 left-10 flex flex-col">
+            <button className="bg-gray-800 h-10 w-10 rounded-full ">+</button>
+            <button className="bg-gray-800 h-10 w-10 rounded-full mt-2"></button>
           </div>
 
-          <div className="flex w-2/3">
-            <div className="w-1/4 p-4 ">
+        </div>
+
+
+
+
+
+        <div className=" flex items-center justify-end">
+
+          <div className="flex w-3/4 mr-3">
+            <div className=" p-4 w-1/3 ">
               <h2 className="font-bold text-2xl">João Silva</h2>
               <p className="text-gray-500">São Paulo - SP</p>
               <div className="flex pt-3">
@@ -51,7 +56,7 @@ export default function Cabecalho({ }: CabecalhoProps) {
               <p className="underline underline-offset-1">Sem associação no momento</p>
             </div>
 
-            <div className="w-2/4 bg-white mt-5 rounded-md">
+            <div className="w-2/3 bg-white mt-5 rounded-md">
               <p className="p-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea dignissimos repellendus dolor recusandae consectetur laboriosam nulla quod tempora ipsam, voluptas modi sed adipisci natus eius sunt soluta fuga deserunt cumque.</p>
             </div>
           </div>
@@ -59,8 +64,8 @@ export default function Cabecalho({ }: CabecalhoProps) {
         </div>
 
 
-        <div className="w-auto bg-white h-10 mt-10 rounded-md">
-          <div className="flex">
+        <div className="w-auto bg-white h-48 mt-10 rounded-md m-3">
+          <div className="flex justify-around items-center h-20">
             <div>Visão Geral</div>
             <div>Publicações</div>
           </div>
