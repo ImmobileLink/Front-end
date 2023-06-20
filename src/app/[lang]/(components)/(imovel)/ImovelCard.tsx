@@ -2,17 +2,20 @@
 import React, { useState } from "react";
 import Avatar from "../Avatar";
 import { supabase } from "../../../../../lib/supabaseClient";
+import ImovelImg from "./ImovelImg";
 
 interface ImovelCardProps {
-  idusuario: any;
+  children: any;
 }
 
-export default function ImovelCard({ idusuario }: ImovelCardProps) {
+export default function ImovelCard({ children }: ImovelCardProps) {
 
   return (
     <div className="bg-white focus:ring-indigo-500 focus:ring-2 focus:ring-offset-2 shadow-md rounded-md p-4">
       <div className="flex grow">
-        <div className="w-1/4">Imagem do Imóvel</div>
+        <div className="mr-3 ">
+          <ImovelImg />
+        </div>
 
         <div className="grow">
           <div className="flex grow">
@@ -23,14 +26,18 @@ export default function ImovelCard({ idusuario }: ImovelCardProps) {
             </button>
           </div>
           <div className="flex grow">
-            <p className="font-bold w-1/2">Localização</p>
-            <p className="font-bold">Características</p>
+            <div className="w-1/2">
+              <p className="font-bold">Localização</p>
+            </div>
+            <div>
+              <p className="font-bold">Características</p>
+            </div>
           </div>
         </div>
 
-        <div className="flex items-center justify-around">
+        <div className="flex mr-3 items-center justify-around">
           <div className="relative">
-            <button className="text-gray-400" onClick={(e) => openDropdown(e)}>
+            <button className="text-escuro2" onClick={(e) => openDropdown(e)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

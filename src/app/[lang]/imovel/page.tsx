@@ -1,14 +1,20 @@
-"use client";
+import { supabase } from "../../../../lib/supabaseClient";
 import Image from "next/image";
 import Avatar from "../(components)/Avatar"
 import Cabecalho from "../(components)/(perfil)/Cabecalho"
 import ImovelCard from "../(components)/(imovel)/ImovelCard"
 
+import { getDictionary } from "../dictionaries";
+
 interface pageProps {
-  userId: any;
+  params: {
+    lang: string;
+  };
 }
 
-export default function page({ userId }: pageProps) {
+export default async function page({ params: { lang } }: pageProps) {
+  const dict = await getDictionary(lang); // pt
+
   return (
     <>
       <div className="bg-escuro2 overflow-x-hidden box-border text-black">
@@ -16,7 +22,7 @@ export default function page({ userId }: pageProps) {
 
             <div className=" bg-branco rounded-md overflow-hidden h-screen w-screen p-3">
 
-            Teste - Tela de Imóveis
+            <h2 className="text-4xl mb-2">Meus Imóveis</h2>
 
             <ImovelCard />
 
