@@ -61,10 +61,14 @@
   },
   "pesquisa": {
     "labels":{
+      "name": "Name",
+      "title": "Find Users",
       "usertype": "User Type",
       "region" : "Region",
       "rating" : "Rating",
-      "specialty" : "Specialty"
+      "specialty" : "Specialty",
+      "error": "Oops! Something went wrong. Please try again.",
+      "missingcombobox": "Select a filter."
     },
     "usertypevalue": {
       "broker": "Broker",

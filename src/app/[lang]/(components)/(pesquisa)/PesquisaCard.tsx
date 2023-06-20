@@ -22,7 +22,7 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
  
   //States relacionados aos resultados
   const [resultado, setResultado] = useState(false);
-  const [erro, setErro] = useState(false);
+  const [erro, setErro] = useState<string>('');
   const [corretores, setCorretores] = useState<CorretorBuscado[] | null>([]);
   const [corporacoes, setCorporacoes] = useState<CorporacaoPorRegiao[] | null>([]);
 
@@ -44,19 +44,21 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
       
       //Caso região e especialidade sejam selecionados
       if (selectedRegion.id != '' && selectedSpecialty.id != '') {
+
         const { data, error } = await supabase
-        .rpc('get_corretores_avaliacao_regiao_tipoimovel', {
-          avaliacao: avnum,
-          idregiao: selectedRegion.id,
-          idtipoimovel: selectedSpecialty.id
-        })
+            .rpc('get_corretores_avaliacao_regiao_tipoimovel', {
+              idtipoimovel: selectedSpecialty.id,
+              idregiao: selectedRegion.id,
+              avaliacao: avnum
+            })
 
         if (error) {
           console.log(error)
-          setErro(true)
+          setErro(error.toString())
+          setCorretores([])
         }
         else {
-          setErro(false)
+          setErro('')
           setCorretores(data)
           setResultado(true)
         }
@@ -65,17 +67,18 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
         //Caso apenas especialidade seja selecionada
         if (selectedRegion.id == '' && selectedSpecialty.id != '') {
           const { data, error } = await supabase
-          .rpc('get_corretores_avaliacao_tipoimovel', {
-            avaliacao: avnum,
-            idtipoimovel: selectedSpecialty.id
-          })
+            .rpc('get_corretores_avaliacao_tipoimovel', {
+              idtipoimovel: selectedSpecialty.id,
+              avaliacao: avnum
+            })
 
           if (error) {
             console.log(error)
-            setErro(true)
+            setErro(error.toString())
+            setCorretores([])
           }
           else {
-            setErro(false)
+            setErro('')
             setCorretores(data)
             setResultado(true)
           }
@@ -85,35 +88,38 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
           if (selectedRegion.id != '' && selectedSpecialty.id == '') {
             const { data, error } = await supabase
             .rpc('get_corretores_avaliacao_regiao', {
-              avaliacao: avnum,
-              idregiao: selectedRegion.id
-            })
-  
-            if (error) {
-              console.log(error)
-              setErro(true)
-            }
-            else {
-              setErro(false)
-              setCorretores(data)
-              setResultado(true)
-            }
-          }
-          else {
-            const { data, error } = await supabase
-            .rpc('get_corretores_avaliacao', {
+              idregiao: selectedRegion.id,
               avaliacao: avnum
             })
   
             if (error) {
               console.log(error)
-              setErro(true)
+              setErro(error.toString())
+              setCorretores([])
             }
             else {
-              setErro(false)
+              setErro('')
               setCorretores(data)
               setResultado(true)
-              console.log(corretores)
+            }
+          }
+          else {
+            //Caso nenhum seja selecionado
+            const { data, error } = await supabase
+            .rpc('get_corretores_avaliacao', {
+              avaliacao: avnum
+            })
+            
+  
+            if (error) {
+              console.log(error)
+              setErro(error.toString())
+              setCorretores([])
+            }
+            else {
+              setErro('')
+              setCorretores(data)
+              setResultado(true)
             }
           }
         }
@@ -125,13 +131,18 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
       .from('corporacao_por_regiao')
       .select('*')
       .eq('idregiao', selectedRegion.id)
+ 
 
       if(error) {
-        setErro(true)
+        console.log(error)
+        setErro(error.message)
+        setCorporacoes([])
+        console.log(erro)
       }
       else {
-        setErro(false)
+        setErro('')       
         setCorporacoes(data)
+        setResultado(true)
       }
     }
   }
@@ -143,7 +154,7 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
       setSelectedRegion({id: '', regiao: ''})
     }
     else {
-      const selectedObject: Regiao | undefined = regioes?.find((regiao: Regiao) => regiao?.regiao === selectedValue);
+      const selectedObject: Regiao | undefined = regioes!.find((regiao: Regiao) => regiao!.regiao === selectedValue);
       if (selectedObject != null) {
         setSelectedRegion(selectedObject)
       } 
@@ -157,23 +168,33 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
       setSelectedSpecialty({id: '', descricao: ''})
     }
     else {
-      const selectedObject: TipoImovel | undefined = especialidades?.find((especialidade: TipoImovel) => especialidade?.descricao === selectedValue);
+      const selectedObject: TipoImovel | undefined = especialidades!.find((especialidade: TipoImovel) => especialidade!.descricao === selectedValue);
       if (selectedObject != null) {
         setSelectedSpecialty(selectedObject)
       }
     }     
   };
 
+  //Faz o set do estado "UserType" e reseta o vetor do tipo oposto, bem como os erros
+  const handleUserTypeChange = (event: any) => {
+    setSelectedUserType(event.target.value)
+    setErro('')
+    if(selectedUserType == textos.usertypevalue.broker)
+      setCorporacoes([])    
+    else
+      setCorretores([])
+  }
 
   return (
     <>
-      <p className="text-4xl m-4">Encontrar usuários</p>
-      <div className="flex mb-4">
+    {/* Combo Box Container */} 
+      <p className="text-4xl m-4">{textos.labels.title}</p>   
+      <div className="flex mb-4">    
         <div className="flex-col m-4">
 
           <label className="mr-4">{textos.labels.usertype}:</label>
           <select className="text-black w-50 text-center"
-            onChange={(e) => { setSelectedUserType(e.target.value) }}>
+            onChange={(e) => handleUserTypeChange(e)}>
             <option>{textos.usertypevalue.broker}</option>
             <option>{textos.usertypevalue.corporation}</option>
           </select>
@@ -186,7 +207,7 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
                   value={selectedSpecialty.descricao}
                   onChange={(e) => handleSpecialtyChange(e)}>
                     <option>*</option>
-                  {especialidades?.map((especialidade: TipoImovel) => {
+                  {especialidades!.map((especialidade: TipoImovel) => {
                     return (
                       <option key={especialidade.id}>{especialidade.descricao}</option>
                     )
@@ -204,7 +225,7 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
             value={selectedRegion.regiao}
             onChange={(e) => handleRegionChange(e)}>
               <option>*</option>
-            {regioes?.map((regiao: any) => {
+            {regioes!.map((regiao: any) => {
               return (
                 <option key={regiao.id}>{regiao.regiao}</option>
               )
@@ -213,14 +234,14 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
         </div>
 
         {
-          selectedUserType == textos.usertypevalue.broker
-          ?
+          selectedUserType == textos.usertypevalue.broker ?
             <div className="m-4">
               <label className="mr-4">{textos.labels.rating}:</label>
               <select className="text-black w-50 text-center"
                 value={selectedRating}
                 onChange={(e) => setSelectedRating(e.target.value)}>
                 <option>*</option>
+                <option>1+</option>
                 <option>2+</option>
                 <option>3+</option>
                 <option>4+</option>
@@ -237,18 +258,20 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
         Pesquisar
       </button>
       {
-        erro ?
-        <p>Selecione os filtros!</p>
-        :
-        <p></p>
+        erro == 'invalid input syntax for type uuid: ""' ?
+        <p>{textos.labels.missingcombobox}</p>
+        : 
+          erro != '' ?
+          <p>{textos.labels.error}</p>
+          :
+          <p></p>        
       }
-
+      {/* Container de resultado*/}
       {
         resultado == true &&  selectedUserType == textos.usertypevalue.broker ?
-          <div className="flex flex-col mt-10 justify-center items-center
-                        md:flex-row">
+          <div className="flex flex-wrap mt-10 mb-10 justify-center items-start">
             {
-              corretores?.map((corretor: CorretorBuscado) => {
+              corretores!.map((corretor: CorretorBuscado) => {
                 return (
                   <UserCard key={corretor.id} corretor={corretor} corporacao={null}/>
                 )
@@ -256,24 +279,21 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
             }
           </div>         
           :
-          <div></div>
+            resultado == true &&  selectedUserType == textos.usertypevalue.corporation ?
+            <div className="flex flex-col mt-10 justify-center items-center
+            md:flex-row">
+              {
+                corporacoes!.map((corporacao: CorporacaoPorRegiao) => {
+                  return (
+                    <UserCard key={corporacao.id} corretor={null} corporacao={corporacao} />
+                  )
+                })             
+              }
+            </div>
+            :
+            <div></div>
+      }
 
-      }
-      {
-        resultado == true &&  selectedUserType == textos.usertypevalue.corporation ?
-        <div className="flex flex-col mt-10 justify-center items-center
-                      md:flex-row">
-          {
-            corporacoes?.map((corporacao: CorporacaoPorRegiao) => {
-              return (
-                <UserCard key={corporacao.id} corretor={null} corporacao={corporacao} />
-              )
-            })             
-          }
-        </div>
-        :
-        <div></div>
-      }
     </>
   );
 }

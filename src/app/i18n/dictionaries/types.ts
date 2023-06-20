@@ -95,10 +95,14 @@ export interface Pesquisa {
 }
 
 export interface Labels {
+  name: string,
+  title: string;
   usertype:  string;
   region:    string;
   rating:    string;
   specialty: string;
+  error: string;
+  missingcombobox: string;
 }
 
 export interface Usertypevalue {

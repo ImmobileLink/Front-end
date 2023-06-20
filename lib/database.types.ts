@@ -721,6 +721,19 @@ export interface Database {
           nota: number
         }[]
       }
+      teste: {
+        Args: {
+          avaliacao: number
+          idregiao: string
+          idtipoimovel: string
+        }
+        Returns: {
+          id: string
+          nome: string
+          creci: string
+          nota: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

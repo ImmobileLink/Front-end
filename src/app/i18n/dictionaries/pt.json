@@ -60,10 +60,14 @@
   },
   "pesquisa": {
     "labels":{
+      "name": "Nome",
+      "title": "Encontrar Usuários",
       "usertype": "Tipo de usuário",
       "region" : "Região",
       "rating" : "Classificação",
-      "specialty" : "Especialidade"
+      "specialty" : "Especialidade",
+      "error": "Ops! Algo deu errado. Por favor, tente novamente.",
+      "missingcombobox": "Selecione um filtro."
     },
     "usertypevalue": {
       "broker": "Corretor",
