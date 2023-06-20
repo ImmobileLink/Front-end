@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Avatar from "../(components)/Avatar"
 import Dashboard from "../(components)/(perfil)/Dashboard"
-import Calendario from "../(components)/(perfil)/Calendario"
+//import Calendario from "../(components)/(perfil)/Calendario"
 import Cabecalho from "../(components)/(perfil)/Cabecalho"
 
 
@@ -25,7 +25,7 @@ export default function page({ userId }: pageProps) {
               </div>
 
               <div className="bg-branco rounded-md mt-3 p-3">
-                <Calendario />
+                {/* <Calendario /> */}
               </div>
             </div>
 
