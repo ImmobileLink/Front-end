@@ -69,19 +69,116 @@ export interface SigninLogs {
 }
 
 export interface Signup {
-  emaillabel:    string;
-  passwordlabel: string;
-  signupbutton:  string;
-  success:       string;
-  error:         string;
-  logs:          SignupLogs;
+  signup1:        Signup1;
+  signup2:        Signup2;
+  signup3:        Signup3;
+  signup4:        Signup4;
+  signup5:        Signup5;
+  stepper:        Stepper;
+  nextbutton:     string;
+  previousbutton: string;
+  success:        string;
+  error:          string;
+  fixtheinputs:   string;
+  successsignup:  string;
 }
 
-export interface SignupLogs {
+export interface Signup1 {
+  emaillabel:    string;
+  passwordlabel: string;
+  logs:          Signup1Logs;
+}
+
+export interface Signup1Logs {
   invalidemail:     string;
   invalidpassword:  string;
   emailalreadyused: string;
-  successsignup:    string;
+}
+
+export interface Signup2 {
+  corretorlabel:  string;
+  corretorbutton: string;
+  companylabel:   string;
+  companybutton:  string;
+  yourchoiceis:   string;
+  corretor:       string;
+  company:        string;
+}
+
+export interface Signup3 {
+  name:         string;
+  fantasyname:  string;
+  cpf:          string;
+  cnpj:         string;
+  phone1:       string;
+  phone2:       string;
+  phone3:       string;
+  cep:          string;
+  uf:           string;
+  city:         string;
+  neighborhood: string;
+  street:       string;
+  number:       string;
+  complement:   string;
+  optional:     string;
+  logs:         Signup3Logs;
+}
+
+export interface Signup3Logs {
+  invalidname:         string;
+  invalidfantasyname:  string;
+  invalidcpf:          string;
+  invalidcnpj:         string;
+  invalidphone:        string;
+  invalidcep:          string;
+  invaliduf:           string;
+  invalidcity:         string;
+  invalidneighborhood: string;
+  invalidstreet:       string;
+  invalidnumber:       string;
+  invalidcomplement:   string;
+}
+
+export interface Signup4 {
+  creci:      string;
+  speciality: string;
+  region:     string;
+  languages:  string;
+  logs:       Signup4Logs;
+}
+
+export interface Signup4Logs {
+  invalidcreci: string;
+}
+
+export interface Signup5 {
+  corretor:             Company;
+  company:              Company;
+  subscriptionmessage1: string;
+  subscriptionmessage2: string;
+  subscriptionmessage3: string;
+  signupbutton:         string;
+}
+
+export interface Company {
+  freelabel:           string;
+  freedescription1:    string;
+  freedescription2:    string;
+  freedescription3:    string;
+  freedescription4:    string;
+  premiumlabel:        string;
+  premiumdescription1: string;
+  premiumdescription2: string;
+  premiumdescription3: string;
+  premiumdescription4: string;
+}
+
+export interface Stepper {
+  label1: string;
+  label2: string;
+  label3: string;
+  label4: string;
+  label5: string;
 }
 
 export interface Navbarbuttons {
