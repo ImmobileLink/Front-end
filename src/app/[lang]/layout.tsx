@@ -36,11 +36,13 @@ export default async function RootLayout({
       dir={dir(lang)}
     >
       <body>
+        
+        
+        <SupabaseProvider session={session}>
         {session != null ? (
           <NavBar/>
         ) : (<></>)}
-        
-        <SupabaseProvider session={session}>{children}</SupabaseProvider>
+        {children}</SupabaseProvider>
       </body>
     </html>
   );
