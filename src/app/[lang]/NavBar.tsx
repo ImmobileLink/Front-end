@@ -1,44 +1,55 @@
 "use client"
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from "next/image";
-import Link from 'next/link';
-import { useState } from 'react';
+import { useSupabase } from "@/app/[lang]/SupabaseProvider";
 
 interface ClientComponentProps { }
-
 
 export default function NavBar({ }: ClientComponentProps) {
     const [isOpen, setIsOpen] = useState(false);
 
-    const toggleNavbar = () => {
-        setIsOpen(!isOpen);
+    const { supabase } = useSupabase();
+
+    const handleLogOut = async () => {
+        await supabase.auth.signOut();
     };
+
+    const toggleNavBar = () => {
+        setIsOpen(!isOpen);
+    }
+
     return (
 
-        <nav className="bg-gray-600">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
-                    <div className="flex items-center">
-                        <div className="flex-shrink-0">
-                            <Image
-                                className='w-10 h-10'
-                                src="assets/favicon/favicon-32x32.png"
-                                alt='logo'
-                                width={10}
-                                height={10}
-                            />
+        <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+            <div className="max-w-6xl flex flex-wrap items-center justify-between mx-auto p-4">
+                <div className='flex items-center'>
+                    <a href="#" className="flex items-center">
+                        <Image
+                            className='w-10 h-10'
+                            src="assets/favicon/favicon-32x32.png"
+                            alt='logo'
+                            width={10}
+                            height={10}
+                        />
+                        <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Immobilelink</span>
+                    </a>
+                    <div className="ml-5 relative hidden md:block">
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg className="w-5 h-5 text-gray-500" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                            <span className="sr-only">Search icon</span>
                         </div>
-                        <div className=' max-[380px]:hidden flex items-center ml-5 w-72 '>
-                            <input type="text" className='bg-gray-300 rounded-md w-full outline-none px-2 py-1 text-gray-700' />
-                        </div>
+                        <input type="text" id="search-navbar" className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Buscar..." />
                     </div>
+                </div>
 
-                    <div className="hidden md:block">
-                        <div className="ml-4 flex items-center space-x-4">
-                            <Link
-                                href="/feed"
-                                className="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700"
-                            >
+                <button data-collapse-toggle="navbar-dropdown" type="button" className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-dropdown" aria-expanded="false">
+                    <span className="sr-only">Open main menu</span>
+                    <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                </button>
+                <div className="hidden w-full md:block md:w-auto" id="navbar-dropdown">
+                    <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                        <li>
+                            <a href="/feed" className=" py-2 pl-3 pr-4 md:p-0 " aria-current="page">
                                 <Image
                                     className="mx-auto h-6 w-auto"
                                     src="assets/icons/home.svg"
@@ -46,11 +57,11 @@ export default function NavBar({ }: ClientComponentProps) {
                                     width={1}
                                     height={1}
                                 />
-                            </Link>
-                            <Link
-                                href="#"
-                                className="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700"
-                            >
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                                 <Image
                                     className="mx-auto h-6 w-auto"
                                     src="assets/icons/notificacao.svg"
@@ -58,11 +69,11 @@ export default function NavBar({ }: ClientComponentProps) {
                                     width={1}
                                     height={1}
                                 />
-                            </Link>
-                            <Link
-                                href="#"
-                                className="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700"
-                            >
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                                 <Image
                                     className="mx-auto h-6 w-auto"
                                     src="assets/icons/chat.svg"
@@ -70,12 +81,11 @@ export default function NavBar({ }: ClientComponentProps) {
                                     width={1}
                                     height={1}
                                 />
+                            </a>
+                        </li>
 
-                            </Link>
-                            <Link
-                                href="#"
-                                className="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700"
-                            >
+                        <li className='relative'>
+                            <button id="dropdownNavbarLink" onClick={toggleNavBar} data-dropdown-toggle="dropdownNavbar" className="flex items-center justify-between w-full py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
                                 <Image
                                     className="mx-auto h-6 w-auto"
                                     src="assets/icons/perfil.svg"
@@ -83,125 +93,178 @@ export default function NavBar({ }: ClientComponentProps) {
                                     width={1}
                                     height={1}
                                 />
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="flex -mr-2 md:hidden">
-                        <button
-                            type="button"
-                            onClick={toggleNavbar}
-                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out"
-                            aria-label="Menu"
-                        >
-                            <svg
-                                className="h-6 w-6"
-                                stroke="currentColor"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                            >
-                                {isOpen ? (
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                ) : (
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    />
-                                )}
-                            </svg>
-                        </button>
-                    </div>
+                            </button>
+                            {isOpen && (
+                                <div id="dropdownNavbar" className="absolute top-8 z-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                                    <ul className="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+
+                                        <li>
+                                            <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                                        </li>
+
+                                    </ul>
+                                    <div className="py-1">
+                                        <a href="#" onClick={handleLogOut} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Sign out</a>
+                                    </div>
+                                </div>
+                            )}
+
+                        </li>
+                    </ul>
                 </div>
             </div>
-            {isOpen && (
-                <div className="md:hidden">
-                    <div className="px-2 pt-2 pb-3 sm:px-3">
-                        <Link
-                            href="#"
-                            className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
-                        >
-                            Feed
-                        </Link>
-                        <Link
-                            href="#"
-                            className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
-                        >
-                            Notificações
-                        </Link>
-                        <Link
-                            href="#"
-                            className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
-                        >
-                            Mensagens
-                        </Link>
-                        <Link
-                            href="#"
-                            className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
-                        >
-                            Perfil
-                        </Link>
-                    </div>
-                </div>
-            )}
         </nav>
+
+        /*  <nav classNameName="bg-gray-600">
+             <div classNameName="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div classNameName="flex items-center justify-between h-16">
+                     <div classNameName="flex items-center">
+                         <div classNameName="flex-shrink-0">
+                             <Image
+                                 classNameName='w-10 h-10'
+                                 src="assets/favicon/favicon-32x32.png"
+                                 alt='logo'
+                                 width={10}
+                                 height={10}
+                             />
+                         </div>
+                         <div classNameName=' max-[380px]:hidden flex items-center ml-5 w-72 '>
+                             <input type="text" classNameName='bg-gray-300 rounded-md w-full outline-none px-2 py-1 text-gray-700' />
+                         </div>
+                     </div>
+ 
+                     <div classNameName="hidden md:block">
+                         <div classNameName="ml-4 flex items-center space-x-4">
+                             <Link
+                                 href="/feed"
+                                 classNameName="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700"
+                             >
+                                 <Image
+                                     classNameName="mx-auto h-6 w-auto"
+                                     src="assets/icons/home.svg"
+                                     alt="Ícone"
+                                     width={1}
+                                     height={1}
+                                 />
+                             </Link>
+                             <Link
+                                 href="#"
+                                 classNameName="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700"
+                             >
+                                 <Image
+                                     classNameName="mx-auto h-6 w-auto"
+                                     src="assets/icons/notificacao.svg"
+                                     alt="Ícone"
+                                     width={1}
+                                     height={1}
+                                 />
+                             </Link>
+                             <Link
+                                 href="#"
+                                 classNameName="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700"
+                             >
+                                 <Image
+                                     classNameName="mx-auto h-6 w-auto"
+                                     src="assets/icons/chat.svg"
+                                     alt="Ícone"
+                                     width={1}
+                                     height={1}
+                                 />
+ 
+                             </Link>
+                             <div classNameName="relative px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700">
+                                 <Image
+                                     classNameName="mx-auto h-6 w-auto"
+                                     src="assets/icons/perfil.svg"
+                                     alt="Ícone"
+                                     width={1}
+                                     height={1}
+                                 />
+                                 <div id="dropdown" classNameName="absolute top-10 left--3 z-10  bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                                     <ul classNameName="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                                         <li>
+                                             <a href="#" classNameName="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                                         </li>
+                                         <li>
+                                             <a href="#" classNameName="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                                         </li>
+                                         <li>
+                                             <a href="#" classNameName="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                                         </li>
+                                         <li>
+                                             <a href="#" classNameName="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
+                                         </li>
+                                     </ul>
+                                 </div>
+                             </div>
+ 
+                         </div>
+                     </div>
+                     <div classNameName="flex -mr-2 md:hidden">
+                         <button
+                             type="button"
+                             onClick={toggleNavbar}
+                             classNameName="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out"
+                             aria-label="Menu"
+                         >
+                             <svg
+                                 classNameName="h-6 w-6"
+                                 stroke="currentColor"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                             >
+                                 {isOpen ? (
+                                     <path
+                                         strokeLinecap="round"
+                                         strokeLinejoin="round"
+                                         strokeWidth={2}
+                                         d="M6 18L18 6M6 6l12 12"
+                                     />
+                                 ) : (
+                                     <path
+                                         strokeLinecap="round"
+                                         strokeLinejoin="round"
+                                         strokeWidth={2}
+                                         d="M4 6h16M4 12h16M4 18h16"
+                                     />
+                                 )}
+                             </svg>
+                         </button>
+                     </div>
+                 </div>
+             </div>
+             {isOpen && (
+                 <div classNameName="md:hidden">
+                     <div classNameName="px-2 pt-2 pb-3 sm:px-3">
+                         <Link
+                             href="#"
+                             classNameName="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
+                         >
+                             Feed
+                         </Link>
+                         <Link
+                             href="#"
+                             classNameName="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
+                         >
+                             Notificações
+                         </Link>
+                         <Link
+                             href="#"
+                             classNameName="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
+                         >
+                             Mensagens
+                         </Link>
+                         <Link
+                             href="#"
+                             classNameName="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
+                         >
+                             Perfil
+                         </Link>
+                     </div>
+                 </div>
+             )}
+         </nav> */
 
     );
 };
-
-{/* <nav className="flex h-12 w-screen bg-gray-600	justify-center">
-            <div className="flex xl:w-1/2 items-center md:w-full">
-                <div className="logo w-2/3">
-                    <Image
-                        className='w-10 h-10'
-                        src="assets/favicon/favicon-32x32.png"
-                        alt='logo'
-                        width={10}
-                        height={10}
-                    />
-                </div>
-
-                <div className="flex w-1/3" >
-                    <Image
-                        className="mx-auto h-6 w-auto"
-                        src="assets/icons/home.svg"
-                        alt="Ícone"
-                        width={1}
-                        height={1}
-                    />
-                    <Image
-                        className="mx-auto h-6 w-auto"
-                        src="assets/icons/notificacao.svg"
-                        alt="Ícone"
-                        width={1}
-                        height={1}
-                    />
-                    <Image
-                        className="mx-auto h-6 w-auto"
-                        src="assets/icons/chat.svg"
-                        alt="Ícone"
-                        width={1}
-                        height={1}
-                    />
-                    <Image
-                        className="mx-auto h-6 w-auto"
-                        src="assets/icons/perfil.svg"
-                        alt="Ícone"
-                        width={1}
-                        height={1}
-                    />
-                </div>
-
-            </div>
-
-        </nav> */}
-
-
-
-
 
