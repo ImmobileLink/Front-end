@@ -29,7 +29,7 @@ export default function Dashboard({userId}: DashboardProps) {
     
      
       return (
-        <div>
+        <div className='blur-sm'>
             <Line data={data} />
 
             <p className='mt-5'>Tacar mais alguma informação aqui pertinente ao desempenho</p>

@@ -3,9 +3,10 @@ import { supabase } from "../../../../lib/supabaseClient";
 
 interface AvatarProps {
     userId: any;
+    size?: String;
 }
 
-export default function Avatar({userId}: AvatarProps) {
+export default function Avatar({userId, size}: AvatarProps) {
     let existe = false;
 
     const checkPfp = async () => {
@@ -25,13 +26,21 @@ export default function Avatar({userId}: AvatarProps) {
     checkPfp().then(resultado => { 
         existe = resultado;
     })
+
+    let styleImage = ""
+
+    if(size == "big"){
+        styleImage = "w-32 h-32"
+    }else{
+        styleImage = "mr-3 mb-3 h-14 w-auto"
+    }
     
 
     if (existe != false) {
         return (
             <div>  
                 <Image
-                    className="mr-3 mb-3 h-14 w-auto"
+                    className={styleImage}
                     src={`users/profile_picture/${userId}`}
                     width={1}
                     height={1}
@@ -44,7 +53,7 @@ export default function Avatar({userId}: AvatarProps) {
         return (
             <div>  
                 <Image
-                    className="mr-3 mb-3 h-14 w-auto"
+                    className={styleImage}
                     src={`users/nopfp`}
                     width={1}
                     height={1}

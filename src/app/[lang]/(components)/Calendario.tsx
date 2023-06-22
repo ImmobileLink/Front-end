@@ -16,7 +16,6 @@ export default function Calendario({ }: CalendarioProps) {
             <div className='w-4/5'>
                 <Calendar
                     className="rounded-md w"
-                    onChange={onChange}
                     value={value}
                 />
             </div>
