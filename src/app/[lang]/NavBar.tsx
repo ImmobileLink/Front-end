@@ -102,6 +102,10 @@ export default function NavBar({ }: ClientComponentProps) {
                                             <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
                                         </li>
 
+                                        <li>
+                                            <a href="/plano" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Plano</a>
+                                        </li>
+
                                     </ul>
                                     <div className="py-1">
                                         <a href="#" onClick={handleLogOut} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Sign out</a>
@@ -115,155 +119,6 @@ export default function NavBar({ }: ClientComponentProps) {
             </div>
         </nav>
 
-        /*  <nav classNameName="bg-gray-600">
-             <div classNameName="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                 <div classNameName="flex items-center justify-between h-16">
-                     <div classNameName="flex items-center">
-                         <div classNameName="flex-shrink-0">
-                             <Image
-                                 classNameName='w-10 h-10'
-                                 src="assets/favicon/favicon-32x32.png"
-                                 alt='logo'
-                                 width={10}
-                                 height={10}
-                             />
-                         </div>
-                         <div classNameName=' max-[380px]:hidden flex items-center ml-5 w-72 '>
-                             <input type="text" classNameName='bg-gray-300 rounded-md w-full outline-none px-2 py-1 text-gray-700' />
-                         </div>
-                     </div>
- 
-                     <div classNameName="hidden md:block">
-                         <div classNameName="ml-4 flex items-center space-x-4">
-                             <Link
-                                 href="/feed"
-                                 classNameName="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700"
-                             >
-                                 <Image
-                                     classNameName="mx-auto h-6 w-auto"
-                                     src="assets/icons/home.svg"
-                                     alt="Ícone"
-                                     width={1}
-                                     height={1}
-                                 />
-                             </Link>
-                             <Link
-                                 href="#"
-                                 classNameName="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700"
-                             >
-                                 <Image
-                                     classNameName="mx-auto h-6 w-auto"
-                                     src="assets/icons/notificacao.svg"
-                                     alt="Ícone"
-                                     width={1}
-                                     height={1}
-                                 />
-                             </Link>
-                             <Link
-                                 href="#"
-                                 classNameName="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700"
-                             >
-                                 <Image
-                                     classNameName="mx-auto h-6 w-auto"
-                                     src="assets/icons/chat.svg"
-                                     alt="Ícone"
-                                     width={1}
-                                     height={1}
-                                 />
- 
-                             </Link>
-                             <div classNameName="relative px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700">
-                                 <Image
-                                     classNameName="mx-auto h-6 w-auto"
-                                     src="assets/icons/perfil.svg"
-                                     alt="Ícone"
-                                     width={1}
-                                     height={1}
-                                 />
-                                 <div id="dropdown" classNameName="absolute top-10 left--3 z-10  bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                                     <ul classNameName="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                                         <li>
-                                             <a href="#" classNameName="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                                         </li>
-                                         <li>
-                                             <a href="#" classNameName="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                                         </li>
-                                         <li>
-                                             <a href="#" classNameName="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                                         </li>
-                                         <li>
-                                             <a href="#" classNameName="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
-                                         </li>
-                                     </ul>
-                                 </div>
-                             </div>
- 
-                         </div>
-                     </div>
-                     <div classNameName="flex -mr-2 md:hidden">
-                         <button
-                             type="button"
-                             onClick={toggleNavbar}
-                             classNameName="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out"
-                             aria-label="Menu"
-                         >
-                             <svg
-                                 classNameName="h-6 w-6"
-                                 stroke="currentColor"
-                                 fill="none"
-                                 viewBox="0 0 24 24"
-                             >
-                                 {isOpen ? (
-                                     <path
-                                         strokeLinecap="round"
-                                         strokeLinejoin="round"
-                                         strokeWidth={2}
-                                         d="M6 18L18 6M6 6l12 12"
-                                     />
-                                 ) : (
-                                     <path
-                                         strokeLinecap="round"
-                                         strokeLinejoin="round"
-                                         strokeWidth={2}
-                                         d="M4 6h16M4 12h16M4 18h16"
-                                     />
-                                 )}
-                             </svg>
-                         </button>
-                     </div>
-                 </div>
-             </div>
-             {isOpen && (
-                 <div classNameName="md:hidden">
-                     <div classNameName="px-2 pt-2 pb-3 sm:px-3">
-                         <Link
-                             href="#"
-                             classNameName="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
-                         >
-                             Feed
-                         </Link>
-                         <Link
-                             href="#"
-                             classNameName="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
-                         >
-                             Notificações
-                         </Link>
-                         <Link
-                             href="#"
-                             classNameName="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
-                         >
-                             Mensagens
-                         </Link>
-                         <Link
-                             href="#"
-                             classNameName="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
-                         >
-                             Perfil
-                         </Link>
-                     </div>
-                 </div>
-             )}
-         </nav> */
 
     );
 };
