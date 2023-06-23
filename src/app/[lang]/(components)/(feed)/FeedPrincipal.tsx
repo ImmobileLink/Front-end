@@ -2,9 +2,16 @@ import React from 'react';
 import PostFormCard from "./PostFormCard";
 import PostCard from "./PostCard";
 import { supabase } from '../../../../../lib/supabaseClient';
+import { Pub } from '@/app/i18n/dictionaries/types';
 
 interface FeedPrincipalProps {
-  idusuario: any
+  userData: {
+    id: string | undefined;
+    identificador: string | undefined;
+    premium: boolean | undefined;
+    role: number | undefined;
+  };
+  pub: Pub;
 }
 
 const getData = async () => {
@@ -12,16 +19,22 @@ const getData = async () => {
   return data
 }
 
-export default async function FeedPrincipal({idusuario}: FeedPrincipalProps) {
+export default async function FeedPrincipal({userData, pub}: FeedPrincipalProps) {
   const publicacoes = await getData();
   return (
   <div>
-        <PostFormCard idusuario={idusuario}/>
+        {
+          userData.id ? (
+            <>
+              <PostFormCard idusuario={userData.id}/>
+            </>
+          ) : ""
+        }
         <div>          
         {
-          publicacoes!.map((pub:any) => {
+          publicacoes!.map((item:any) => {
             return (
-              <PostCard publicacao={pub}/>
+              <PostCard key={item.id} publicacao={item}/>
             )
           })
         }

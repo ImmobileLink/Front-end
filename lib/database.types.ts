@@ -174,6 +174,7 @@ export interface Database {
           nome: string | null
           numero: number | null
           premium: boolean | null
+          Sobre: string | null
           telefone: string | null
         }
         Insert: {
@@ -192,6 +193,7 @@ export interface Database {
           nome?: string | null
           numero?: number | null
           premium?: boolean | null
+          Sobre?: string | null
           telefone?: string | null
         }
         Update: {
@@ -210,6 +212,7 @@ export interface Database {
           nome?: string | null
           numero?: number | null
           premium?: boolean | null
+          Sobre?: string | null
           telefone?: string | null
         }
         Relationships: [
@@ -673,6 +676,16 @@ export interface Database {
       }
     }
     Functions: {
+      consultar_tipo_usuario: {
+        Args: {
+          id_usuario: string
+        }
+        Returns: {
+          identificador: string
+          premium: boolean
+          role: number
+        }[]
+      }
       get_corretores_avaliacao: {
         Args: {
           avaliacao: number
@@ -712,19 +725,6 @@ export interface Database {
       get_corretores_avaliacao_tipoimovel: {
         Args: {
           avaliacao: number
-          idtipoimovel: string
-        }
-        Returns: {
-          id: string
-          nome: string
-          creci: string
-          nota: number
-        }[]
-      }
-      teste: {
-        Args: {
-          avaliacao: number
-          idregiao: string
           idtipoimovel: string
         }
         Returns: {
