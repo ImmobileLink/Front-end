@@ -1,5 +1,6 @@
+"use client"
 import Image from "next/image";
-import { supabase } from "../../../../lib/supabaseClient";
+import { Suspense, useState } from "react"
 
 interface AvatarProps {
     userId: any;
@@ -7,59 +8,28 @@ interface AvatarProps {
 }
 
 export default function Avatar({userId, size}: AvatarProps) {
-    let existe = false;
-
-    const checkPfp = async () => {
-        const { data, error } = await supabase.storage
-        .from('users')
-        .list(`profile_picture/${userId}`)
-    
-        if (error) {
-            return false
-            console.error(error)
-        }
-        else {
-            const files = data.filter(item => item.name == `profile_picture/${userId}`)
-            return files.length > 0
-        }
-    }
-    checkPfp().then(resultado => { 
-        existe = resultado;
-    })
-
     let styleImage = ""
 
     if(size == "big"){
-        styleImage = "w-32 h-32"
+        styleImage = "w-32 h-32 rounded-full ring-1 ring-gray-500"
     }else{
-        styleImage = "mr-3 mb-3 h-14 w-auto"
+        styleImage = "h-14 w-14 rounded-full ring-1 ring-gray-500"
     }
-    
 
-    if (existe != false) {
+    const [src, setSrc] = useState(`users/profile_picture/${userId}`);  
+
         return (
-            <div>  
+            <div>
+                <Suspense fallback={<span>loading...</span>}/>  
                 <Image
                     className={styleImage}
-                    src={`users/profile_picture/${userId}`}
+                    src={src}
                     width={1}
                     height={1}
+                    onError={() => setSrc('/users/nopfp')}
                     alt="Profile Picture"
                 />                    
             </div>              
         )
-    }
-    else {
-        return (
-            <div>  
-                <Image
-                    className={styleImage}
-                    src={`users/nopfp`}
-                    width={1}
-                    height={1}
-                    alt="Profile Picture"
-                />                    
-            </div>              
-        )
-    }
+    
 }

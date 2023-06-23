@@ -31,7 +31,7 @@ export default async function Page({params: { id }}: pageProps) {
 
   return (
     <>
-      <div className="bg-escuro2 overflow-x-hidden box-border text-black">
+      <div className="bg-dark-200 overflow-x-hidden box-border text-black">
         <div className="h-screen w-screen">
           <div className="flex relative max-w-6xl mx-auto px-4 mt-4">
 

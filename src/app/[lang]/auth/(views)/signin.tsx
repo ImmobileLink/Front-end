@@ -23,11 +23,11 @@ export default function SignIn({ setAlert, signin }: SignInProps) {
   const handleLogin = async () => {
     let { error } = await supabase.auth.signInWithPassword({
       email: email,
-      password: senha,
+      password: senha
     });
 
     if (!error) {
-      router.push("/pt/feed");
+      router.push("/feed");
     } else {
       setAlert({
         type: "warning",

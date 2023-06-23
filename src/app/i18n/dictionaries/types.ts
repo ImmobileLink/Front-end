@@ -8,6 +8,7 @@ export interface Dictionaries {
   navbarbuttons: Navbarbuttons;
   auth:          Auth;
   pesquisa:      Pesquisa;
+  feed:          Feed;
 }
 
 export interface Auth {
@@ -181,6 +182,28 @@ export interface Stepper {
   label5: string;
 }
 
+export interface Feed {
+  cards: Cards;
+  pub:   Pub;
+}
+
+export interface Cards {
+  yourenotlogged: string;
+  enjoyall:       string;
+  singin:         string;
+  findbrokers:    string;
+  mybrokers:      string;
+  myproperties:   string;
+  schedules:      string;
+  visitmyprofile: string;
+  notpremiumyet:  string;
+  bepremium:      string;
+}
+
+export interface Pub {
+  posted: string;
+}
+
 export interface Navbarbuttons {
   searchbutton: string;
   logoutbutton: string;
@@ -192,13 +215,13 @@ export interface Pesquisa {
 }
 
 export interface Labels {
-  name: string,
-  title: string;
-  usertype:  string;
-  region:    string;
-  rating:    string;
-  specialty: string;
-  error: string;
+  name:            string;
+  title:           string;
+  usertype:        string;
+  region:          string;
+  rating:          string;
+  specialty:       string;
+  error:           string;
   missingcombobox: string;
 }
 
