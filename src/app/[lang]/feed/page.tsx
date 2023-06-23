@@ -19,8 +19,7 @@ export default async function page({ params: { lang } }: pageProps) {
     cookies,
   })
   const {data : { session }} = await supabaseServerClient.auth.getSession();
-  const userId = session?.user.id;
-  //requisição
+  const userId = session!.user.id;
   return (
     <div className="w-screen h-fit bg-branco dark:bg-escuro2 flex justify-center grow">
       <div className="w-2/12 h-screen p-3 m-3">
