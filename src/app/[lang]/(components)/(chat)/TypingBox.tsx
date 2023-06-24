@@ -12,7 +12,6 @@ interface TypingBoxProps {
 const supabase = createClientComponentClient<Database>()
 
 export default function TypingBox({idsala, userSession}: TypingBoxProps) {
-  console.log(userSession)
   const [texto, setTexto] = useState<string>('')
 
   const handleSubmit = async () => {

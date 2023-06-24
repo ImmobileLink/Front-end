@@ -1,14 +1,12 @@
 "use client"
 import React, { useState } from 'react';
 import Image from "next/image";
-import {  } from '@supabase/auth-helpers-nextjs'
-import { Database } from '../../../lib/database.types';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '../../../../lib/database.types';
 
 interface ClientComponentProps { }
-
+const supabase = createClientComponentClient<Database>()
 export default function NavBar({ }: ClientComponentProps) {
-
-    const supabase = createClientComponentClient<Database>()
 
     const [isOpen, setIsOpen] = useState(false);
 

@@ -13,7 +13,7 @@ const supabase = createServerComponentClient<Database>({cookies})
 
 export default async function ChatSpace({idsala, userSession}: ChatSpaceProps ) {
   let mensagens: MensagemComUsuario[] = []
-  
+
   const { data, error } = await supabase
   .from('mensagem_com_usuario')
   .select("*")
@@ -24,7 +24,6 @@ export default async function ChatSpace({idsala, userSession}: ChatSpaceProps ) 
   else{
     mensagens = data
   }
-    
 
   return (
     <>

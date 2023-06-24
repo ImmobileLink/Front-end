@@ -53,7 +53,7 @@ export default function MessageSpace({idsala, userSession, mensagens}: MessageSp
       {
         messages ?
         messages.map((message: MensagemComUsuario) => 
-          <div className="flex flex-col items-bottom space-x-12 space-y-1">
+          <div key={message.id} className="flex flex-col items-bottom space-x-12 space-y-1">
 
             <div className="flex flex-row items-center space-x-3">
               <Avatar userId={userSession?.user.id} size={10}/>
@@ -61,7 +61,7 @@ export default function MessageSpace({idsala, userSession, mensagens}: MessageSp
               <p>{message.enviadoem}</p>
             </div>
             
-            <li key={message.id} className="flex list-none align-bottom items-bottom text-lg font-mono font-semibold text-slate-900 dark:text-gray-300">          
+            <li className="flex list-none align-bottom items-bottom text-lg font-mono font-semibold text-slate-900 dark:text-gray-300">          
             {message.mensagem}
             </li>
           </div>     
