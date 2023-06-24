@@ -8,13 +8,13 @@ import Infos from "../../(components)/(perfil)/Infos"
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { headers, cookies } from 'next/headers'
 import type { Database } from '../../../../../lib/database.types'
-import { supabase } from '../../../../../lib/supabaseClient';
 
 interface pageProps {
   params: {
     id: string;
   };
 }
+const supabase = createServerComponentClient<Database>({cookies})
 
 export default async function Page({ params: { id } }: pageProps) {
 

@@ -57,7 +57,6 @@ async function getUserData() {
 export default async function Page({params: { lang, idsala }}: pageProps) {
   const dict = await getDictionary(lang); // pt
 
-
   const userData = await getUserData();
   const session = await getUserSession();
 

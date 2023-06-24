@@ -1,5 +1,5 @@
 import { dir } from 'i18next';
-import NavBar from "../NavBar";
+import NavBar from "../(components)/NavBar";
 
 export const metadata = {
   title: "ImmobileLink - Feed",

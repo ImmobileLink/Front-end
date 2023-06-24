@@ -1,11 +1,15 @@
 import { Cards } from "@/app/i18n/dictionaries/types";
 import Avatar from "../Avatar";
 import Link from "next/link";
-import { supabase } from "../../../../../lib/supabaseClient";
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { Database } from '../../../../../lib/database.types';
 
 interface NavFindBrokersProps {
   cards: Cards;
 }
+
+const supabase = createServerComponentClient<Database>({cookies})
 
 async function getData() {
   let { data, error } = await supabase.rpc("obter_cinco_corretores_id");
