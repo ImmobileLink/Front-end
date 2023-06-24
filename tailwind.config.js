@@ -15,8 +15,7 @@ module.exports = {
       colors: {
         'primaria': '#EE7624',
         'secundaria': { '100': '#2563EB', '200': '#1654DB' },
-        'escuro': '#2A3A49',
-        'escuro2': '#1A2939',
+        'dark': {'100': '#2A3A49', '200': '#1A2939', '300': '#111827'},
         'amarela': '#F9BF3A',
         'branco': '#E4E4E4'
       },

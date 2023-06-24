@@ -7,6 +7,7 @@
 
 import { useSupabase } from "@/app/[lang]/SupabaseProvider";
 import { Dispatch, SetStateAction, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
@@ -20,7 +21,6 @@ import Signup2 from "./signup2";
 import Signup3 from "./signup3";
 import Signup4 from "./signup4";
 import Signup5 from "./signup5";
-import { Database } from "../../../../../../lib/database.types";
 
 interface SignUpProps {
   setAlert: Dispatch<
@@ -35,6 +35,7 @@ interface SignUpProps {
 
 export default function SignUp({ setAlert, signup, data }: SignUpProps) {
   const { supabase } = useSupabase();
+  const router = useRouter();
 
   const [isOK, setIsOK] = useState(false);
   const [telaAtual, setTelaAtual] = useState(1);
@@ -183,6 +184,8 @@ export default function SignUp({ setAlert, signup, data }: SignUpProps) {
           .from("usuarioporregiao")
           .insert(arrayUsuarioPorRegiao);
       }
+
+      router.refresh()
     }
   };
 
