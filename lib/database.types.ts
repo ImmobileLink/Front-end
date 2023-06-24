@@ -11,28 +11,28 @@ export interface Database {
     Tables: {
       amizade: {
         Row: {
-          idusuario1: string
-          idusuario2: string
+          idcorretor1: string
+          idcorretor2: string
         }
         Insert: {
-          idusuario1: string
-          idusuario2: string
+          idcorretor1: string
+          idcorretor2: string
         }
         Update: {
-          idusuario1?: string
-          idusuario2?: string
+          idcorretor1?: string
+          idcorretor2?: string
         }
         Relationships: [
           {
-            foreignKeyName: "amizade_idusuario1_fkey"
-            columns: ["idusuario1"]
-            referencedRelation: "usuario"
+            foreignKeyName: "amizade_idcorretor1_fkey"
+            columns: ["idcorretor1"]
+            referencedRelation: "corretor"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "amizade_idusuario2_fkey"
-            columns: ["idusuario2"]
-            referencedRelation: "usuario"
+            foreignKeyName: "amizade_idcorretor2_fkey"
+            columns: ["idcorretor2"]
+            referencedRelation: "corretor"
             referencedColumns: ["id"]
           }
         ]
@@ -215,14 +215,7 @@ export interface Database {
           Sobre?: string | null
           telefone?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "corretor_id_fkey"
-            columns: ["id"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       especialidade: {
         Row: {
@@ -502,29 +495,19 @@ export interface Database {
         Row: {
           descricao: string | null
           id: string
-          idparticipante: string
           titulo: string
         }
         Insert: {
           descricao?: string | null
           id?: string
-          idparticipante: string
           titulo: string
         }
         Update: {
           descricao?: string | null
           id?: string
-          idparticipante?: string
           titulo?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "sala_idparticipante_fkey"
-            columns: ["idparticipante"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       tipoImovel: {
         Row: {
@@ -603,6 +586,34 @@ export interface Database {
           }
         ]
       }
+      usuarioporsala: {
+        Row: {
+          idsala: string
+          idusuario: string
+        }
+        Insert: {
+          idsala: string
+          idusuario: string
+        }
+        Update: {
+          idsala?: string
+          idusuario?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "usuarioporsala_idsala_fkey"
+            columns: ["idsala"]
+            referencedRelation: "sala"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "usuarioporsala_idusuario_fkey"
+            columns: ["idusuario"]
+            referencedRelation: "usuario"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       visita: {
         Row: {
           dataAgendamento: string
@@ -674,6 +685,34 @@ export interface Database {
           }
         ]
       }
+      mensagem_com_usuario: {
+        Row: {
+          atualizadoem: string | null
+          enviadoem: string | null
+          id: string | null
+          idautor: string | null
+          idsala: string | null
+          imagem: string | null
+          mensagem: string | null
+          nomeautor: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mensagem_idsala_fkey"
+            columns: ["idsala"]
+            referencedRelation: "sala"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      simple_user_data: {
+        Row: {
+          id: string | null
+          nome: string | null
+          tipo: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       consultar_tipo_usuario: {
@@ -684,6 +723,15 @@ export interface Database {
           identificador: string
           premium: boolean
           role: number
+        }[]
+      }
+      get_amigos: {
+        Args: {
+          id_corretor: string
+        }
+        Returns: {
+          id: string
+          nome: string
         }[]
       }
       get_corretores_avaliacao: {
@@ -733,6 +781,16 @@ export interface Database {
           creci: string
           nota: number
         }[]
+      }
+      obter_cinco_corretores_id: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+        }[]
+      }
+      test_authorization_header: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
       }
     }
     Enums: {
