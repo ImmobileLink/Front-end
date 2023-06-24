@@ -1,10 +1,9 @@
 import { supabase } from "../../../../lib/supabaseClient";
 import Image from "next/image";
-import Avatar from "../(components)/Avatar"
-import Cabecalho from "../(components)/(perfil)/Cabecalho"
 import ImovelCard from "../(components)/(imovel)/ImovelCard"
 
 import { getDictionary } from "../dictionaries";
+import { Imovel } from "../../../../lib/modelos";
 
 interface pageProps {
   params: {
@@ -15,6 +14,14 @@ interface pageProps {
 export default async function page({ params: { lang } }: pageProps) {
   const dict = await getDictionary(lang); // pt
 
+  const imoveis = await supabase.from('imovel').select('*');
+  if(imoveis.error){
+    console.log("Erro ao consultar imóveis")
+  }
+  else {
+    console.log(imoveis)
+  }
+
   return (
     <>
       <div className="bg-escuro2 overflow-x-hidden box-border text-black">
@@ -24,7 +31,11 @@ export default async function page({ params: { lang } }: pageProps) {
 
             <h2 className="text-4xl mb-2">Meus Imóveis</h2>
 
-            <ImovelCard />
+            <div>
+              {imoveis.data.map(dados => (
+                <ImovelCard imovel={dados}/>
+              ))}
+            </div>
 
             </div>
           </div>
