@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { MensagemAInserir } from "../../../../../lib/modelos";
-import { supabase } from "../../../../../lib/supabaseClient";
-import { Session } from "@supabase/auth-helpers-nextjs";
+import { Session, createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../../../../../lib/database.types";
 
 interface TypingBoxProps {
   idsala: string,
   userSession: Session | null | undefined
 }
+const supabase = createClientComponentClient<Database>()
 
 export default function TypingBox({idsala, userSession}: TypingBoxProps) {
   console.log(userSession)

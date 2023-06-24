@@ -1,6 +1,5 @@
-import { cookies, headers } from "next/headers";
-import { supabase } from "../../../../../lib/supabaseClient";
-import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import NavProfile from "../../(components)/(feed)/NavProfile";
 import NavSettings from "../../(components)/(feed)/NavSettings";
@@ -13,15 +12,13 @@ interface pageProps {
     idsala: string
   };
 }
+const supabase = createServerComponentClient<Database>({cookies})
 
 async function getUserSession() {
-  const supabaseServerClient = createServerComponentSupabaseClient<Database>({
-    headers,
-    cookies,
-  });
+
   const {
     data: { session }, error
-  } = await supabaseServerClient.auth.getSession();
+  } = await supabase.auth.getSession();
   if(error)
     console.log(error)
   else
@@ -29,11 +26,6 @@ async function getUserSession() {
 }
 
 async function getUserData() {
-  const supabaseServerClient = createServerComponentSupabaseClient<Database>({
-    headers,
-    cookies,
-  });
-
   const session = await getUserSession()
 
   if(session?.user.id) {

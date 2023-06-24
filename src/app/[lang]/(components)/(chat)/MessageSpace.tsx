@@ -1,8 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
 import { MensagemComUsuario } from "../../../../../lib/modelos";
-import { supabase } from "../../../../../lib/supabaseClient";
-import { Session } from "@supabase/auth-helpers-nextjs";
+import { Session, createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { Database } from "../../../../../lib/database.types";
 import Avatar from "../Avatar";
 
 interface MessageSpaceProps {
@@ -10,6 +11,7 @@ interface MessageSpaceProps {
   userSession: Session | null | undefined,
   mensagens: MensagemComUsuario[]
 }
+const supabase = createClientComponentClient<Database>()
 
 const getNomeUsuario = async (idmensagem: string, idautor: string) => {
   const { data, error } = await supabase.from('simple_user_data').select('nome').eq('id', idautor)
@@ -47,7 +49,7 @@ export default function MessageSpace({idsala, userSession, mensagens}: MessageSp
   }, [])
 
   return (
-    <div className="max-h-fit overflow-auto flex-col m-3 p-3 space-y-8">
+    <div className="max-h-fit overflow-auto flex-col m-3 p-3 space-y-">
       {
         messages ?
         messages.map((message: MensagemComUsuario) => 

@@ -1,18 +1,19 @@
-import { Session } from "@supabase/auth-helpers-nextjs";
+import { Session, createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import MessageSpace from "./MessageSpace";
 import TypingBox from "./TypingBox";
 import { MensagemComUsuario } from "../../../../../lib/modelos";
-import { supabase } from "../../../../../lib/supabaseClient";
-
-
+import { Database } from "../../../../../lib/database.types";
+import { cookies } from "next/headers";
 
 interface ChatSpaceProps {
     idsala: string,
     userSession: Session | null | undefined
 }
+const supabase = createServerComponentClient<Database>({cookies})
 
 export default async function ChatSpace({idsala, userSession}: ChatSpaceProps ) {
   let mensagens: MensagemComUsuario[] = []
+  
   const { data, error } = await supabase
   .from('mensagem_com_usuario')
   .select("*")
