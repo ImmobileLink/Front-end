@@ -1,11 +1,12 @@
 "use client";
 
-import { useSupabase } from "@/app/[lang]/SupabaseProvider";
 import { Signin } from "@/app/i18n/dictionaries/types";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { useState, Dispatch, SetStateAction } from "react";
 
 import { FcGoogle } from "react-icons/fc";
+import { Database } from "../../../../../lib/database.types";
 
 interface SignInProps {
   setAlert: Dispatch<
@@ -14,8 +15,10 @@ interface SignInProps {
   signin: Signin;
 }
 
+const supabase = createClientComponentClient<Database>()
+
 export default function SignIn({ setAlert, signin }: SignInProps) {
-  const { supabase } = useSupabase();
+  
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const router = useRouter();
@@ -26,14 +29,14 @@ export default function SignIn({ setAlert, signin }: SignInProps) {
       password: senha
     });
 
-    if (!error) {
-      router.push("/feed");
-    } else {
+    if (error) {
       setAlert({
         type: "warning",
         title: "",
         message: signin.logs.invalidcredentials,
       });
+    } else {
+      
     }
   };
 
