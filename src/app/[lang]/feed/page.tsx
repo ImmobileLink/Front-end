@@ -1,11 +1,9 @@
-import NavCard from "@/app/[lang]/(components)/NavCard";
-import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { headers, cookies } from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 import type { Database } from "../../../../lib/database.types";
 import FeedPrincipal from "../(components)/(feed)/FeedPrincipal";
 import { getDictionary } from "../dictionaries";
 import NavProfile from "../(components)/(feed)/NavProfile";
-import { supabase } from "../../../../lib/supabaseClient";
 import NavSettings from "../(components)/(feed)/NavSettings";
 import NavCalendar from "../(components)/(feed)/NavCalendar";
 import NavAmizade from "../(components)/(feed)/NavAmizade";
@@ -18,8 +16,7 @@ interface pageProps {
 }
 
 async function getUserData() {
-  const supabaseServerClient = createServerComponentSupabaseClient<Database>({
-    headers,
+  const supabaseServerClient = createServerComponentClient<Database>({
     cookies,
   });
 

@@ -2,7 +2,6 @@ import Image from "next/image";
 import ImmobileLogo from "@/app/[lang]/(components)/ImmobileLogo";
 import SupabaseAuth from "./SupabaseAuth";
 import { getDictionary } from "../dictionaries";
-import { supabase } from "../../../../lib/supabaseClient";
 
 interface PageProps {
   params: {
