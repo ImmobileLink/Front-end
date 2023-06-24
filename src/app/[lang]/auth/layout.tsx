@@ -1,5 +1,3 @@
-"use client";
-
 import { dir } from "i18next";
 
 interface RootLayout {

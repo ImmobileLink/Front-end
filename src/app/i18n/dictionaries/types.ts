@@ -198,6 +198,8 @@ export interface Cards {
   visitmyprofile: string;
   notpremiumyet:  string;
   bepremium:      string;
+  connections:    string;
+  search:         string;
 }
 
 export interface Pub {

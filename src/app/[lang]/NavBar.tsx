@@ -1,14 +1,16 @@
 "use client"
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import Image from "next/image";
-import { useSupabase } from "@/app/[lang]/SupabaseProvider";
+import {  } from '@supabase/auth-helpers-nextjs'
+import { Database } from '../../../lib/database.types';
 
 interface ClientComponentProps { }
 
 export default function NavBar({ }: ClientComponentProps) {
-    const [isOpen, setIsOpen] = useState(false);
 
-    const { supabase } = useSupabase();
+    const supabase = createClientComponentClient<Database>()
+
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleLogOut = async () => {
         await supabase.auth.signOut();
