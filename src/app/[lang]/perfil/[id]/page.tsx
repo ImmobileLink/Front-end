@@ -5,7 +5,7 @@ import Dashboard from "../../(components)/(perfil)/Dashboard"
 import Calendario from "../../(components)/Calendario"
 import Cabecalho from "../../(components)/(perfil)/Cabecalho"
 import Infos from "../../(components)/(perfil)/Infos"
-import { createServerComponentSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { headers, cookies } from 'next/headers'
 import type { Database } from '../../../../../lib/database.types'
 import { supabase } from '../../../../../lib/supabaseClient';
@@ -18,7 +18,7 @@ interface pageProps {
 
 export default async function Page({ params: { id } }: pageProps) {
 
-  const supabaseServerClient = createServerComponentSupabaseClient<Database>({headers,cookies,})
+  const supabaseServerClient = createServerComponentClient<Database>({cookies})
   const {data : { session }} = await supabaseServerClient.auth.getSession();
   const OwnId = session!.user.id;
 
