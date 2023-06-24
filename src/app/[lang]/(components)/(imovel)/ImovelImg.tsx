@@ -1,19 +1,19 @@
 import Image from "next/image";
 
 interface ImovelImgProps {
-    userId: any;
+    imovelId: any;
 }
 
-export default function ImovelImg({userId}: ImovelProps) {
+export default function ImovelImg({ imovelId }: ImovelProps) {
 
     return (
         <div>          
             <Image
-                className="mr-3 mb-3 w-40 h-32 rounded-md"
-                src={`imoveis/imagens/imovel_teste.jpg`}
+                className="mr-3 my-2 w-40 h-32 rounded-md"
+                src={`imoveis/imagens/${imovelId}`}
                 width={1}
                 height={1}
-                alt="Immobile Picture"
+                alt="Property Picture"
             />                    
         </div>
     )
