@@ -11,28 +11,28 @@ export interface Database {
     Tables: {
       amizade: {
         Row: {
-          idusuario1: string
-          idusuario2: string
+          idcorretor1: string
+          idcorretor2: string
         }
         Insert: {
-          idusuario1: string
-          idusuario2: string
+          idcorretor1: string
+          idcorretor2: string
         }
         Update: {
-          idusuario1?: string
-          idusuario2?: string
+          idcorretor1?: string
+          idcorretor2?: string
         }
         Relationships: [
           {
-            foreignKeyName: "amizade_idusuario1_fkey"
-            columns: ["idusuario1"]
-            referencedRelation: "usuario"
+            foreignKeyName: "amizade_idcorretor1_fkey"
+            columns: ["idcorretor1"]
+            referencedRelation: "corretor"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "amizade_idusuario2_fkey"
-            columns: ["idusuario2"]
-            referencedRelation: "usuario"
+            foreignKeyName: "amizade_idcorretor2_fkey"
+            columns: ["idcorretor2"]
+            referencedRelation: "corretor"
             referencedColumns: ["id"]
           }
         ]
@@ -686,6 +686,15 @@ export interface Database {
           role: number
         }[]
       }
+      get_amigos: {
+        Args: {
+          id_corretor: string
+        }
+        Returns: {
+          id: string
+          nome: string
+        }[]
+      }
       get_corretores_avaliacao: {
         Args: {
           avaliacao: number
@@ -732,6 +741,12 @@ export interface Database {
           nome: string
           creci: string
           nota: number
+        }[]
+      }
+      obter_cinco_corretores_id: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
         }[]
       }
     }

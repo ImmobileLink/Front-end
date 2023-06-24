@@ -172,10 +172,12 @@
       "findbrokers": "Descobrir Corretores",
       "mybrokers": "Meus Corretores",
       "myproperties": "Meus Imóveis",
-      "schedules": "Agendamentos",
+      "schedules": "Visitas",
       "visitmyprofile": "Ver meu perfil",
       "notpremiumyet": "Ainda não é PREMIUM?",
-      "bepremium": "Aproveite já"
+      "bepremium": "Aproveite já",
+      "connections": "Amigos",
+      "search": "Procurar"
     },
     "pub": {
       "posted": "fez uma publicação"
