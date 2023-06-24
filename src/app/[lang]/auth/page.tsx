@@ -40,6 +40,7 @@ export default async function page({ params: { lang } }: PageProps) {
             <AuthForm
               auth={dict.auth}
               data={data}
+              lang={lang}
             />
           </div>
         </div>
