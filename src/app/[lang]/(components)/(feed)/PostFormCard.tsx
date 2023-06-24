@@ -1,13 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import Avatar from "../Avatar";
-import { supabase } from "../../../../../lib/supabaseClient";
 import { Regiao } from "../../../../../lib/modelos";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../../../../../lib/database.types";
 
 interface PostFormCardProps {
   idusuario: any,
   regioes: Regiao[] | undefined
 }
+
+const supabase = createClientComponentClient<Database>()
 
 export default function PostFormCard({idusuario, regioes}: PostFormCardProps) {
   const [selectedRegion, setSelectedRegion] = useState<Regiao>(regioes![0])
