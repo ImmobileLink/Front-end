@@ -1,14 +1,21 @@
 "use client";
-import { ThemeProvider } from "next-themes";
 
-export default function AuthLayout({
-  children, // will be a page or nested layout
-}: {
-  children: React.ReactNode;
-}) {
+import { dir } from "i18next";
+
+interface RootLayout {
+  children: any;
+  params: { lang: string };
+}
+
+export default function AuthLayout({ children, params: { lang } }: RootLayout) {
   return (
-    <ThemeProvider>
-      <section>{children}</section>
-    </ThemeProvider>
+    <html
+      lang={lang}
+      dir={dir(lang)}
+    >
+      <body>
+        <section>{children}</section>
+      </body>
+    </html>
   );
 }

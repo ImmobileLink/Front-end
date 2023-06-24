@@ -26,7 +26,7 @@ export default function PostCard({publicacao}: PostCardProps) {
   type ObjectKey = keyof typeof publicacao;
 
   return (
-    <div className="bg-gray-600 focus:ring-indigo-500 focus:ring-2 focus:ring-offset-2 shadow-md rounded-md p-4 mt-3">
+    <div className="bg-gray-600 focus:ring-indigo-500 focus:ring-2 focus:ring-offset-2 shadow-md rounded-md p-4 mb-3">
       <div className="flex gap-3">
         <div
           id="postheader"

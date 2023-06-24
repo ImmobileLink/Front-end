@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image";
-import { useState } from "react"
+import { Suspense, useState } from "react"
 
 interface AvatarProps {
     userId: any;
@@ -11,15 +11,16 @@ export default function Avatar({userId, size}: AvatarProps) {
     let styleImage = ""
 
     if(size == "big"){
-        styleImage = "w-32 h-32 rounded-full"
+        styleImage = "w-32 h-32 rounded-full ring-1 ring-gray-500"
     }else{
-        styleImage = "mr-3 mb-3 h-14 w-auto"
+        styleImage = "h-14 w-14 rounded-full ring-1 ring-gray-500"
     }
 
     const [src, setSrc] = useState(`users/profile_picture/${userId}`);  
 
         return (
-            <div>  
+            <div>
+                <Suspense fallback={<span>loading...</span>}/>  
                 <Image
                     className={styleImage}
                     src={src}

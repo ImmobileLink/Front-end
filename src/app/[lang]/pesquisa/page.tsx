@@ -28,7 +28,7 @@ export default async function page({ params: { lang } }: pageProps) {
   }
   console.log(especialidades)
   return (
-    <div className="w-screen h-fit bg-branco dark:bg-escuro2 flex justify-center grow">
+    <div className="w-screen h-fit bg-branco dark:bg-dark-200 flex justify-center grow">
       <div className="w-2/12 h-screen p-3 m-3">
         <NavCard navbarbuttons={dict.navbarbuttons}/>
       </div>
