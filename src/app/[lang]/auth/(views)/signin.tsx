@@ -13,11 +13,12 @@ interface SignInProps {
     SetStateAction<{ type: string; title: string; message: string }>
   >;
   signin: Signin;
+  lang: string;
 }
 
 const supabase = createClientComponentClient<Database>()
 
-export default function SignIn({ setAlert, signin }: SignInProps) {
+export default function SignIn({ setAlert, signin, lang }: SignInProps) {
   
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -36,7 +37,7 @@ export default function SignIn({ setAlert, signin }: SignInProps) {
         message: signin.logs.invalidcredentials,
       });
     } else {
-      
+      router.push(`${lang}/feed`)
     }
   };
 
