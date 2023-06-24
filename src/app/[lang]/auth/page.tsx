@@ -1,13 +1,18 @@
 import Image from "next/image";
 import ImmobileLogo from "@/app/[lang]/(components)/ImmobileLogo";
-import SupabaseAuth from "./SupabaseAuth";
 import { getDictionary } from "../dictionaries";
+import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { Database } from "../../../../lib/database.types";
+import AuthForm from "./AuthForm";
 
 interface PageProps {
   params: {
     lang: string;
   };
 }
+
+const supabase = createServerActionClient<Database>({ cookies })
 
 async function getData() {
   let { data: tipoImovel } = await supabase
@@ -32,7 +37,7 @@ export default async function page({ params: { lang } }: PageProps) {
           </div>
 
           <div className="mt-10 h-max">
-            <SupabaseAuth
+            <AuthForm
               auth={dict.auth}
               data={data}
             />
