@@ -2,7 +2,9 @@ import { Session } from "inspector";
 import Line from "./Dashboard/Line"
 import PolarArea from "./Dashboard/PolarArea"
 import Link from "next/link";
-import { supabase } from '../../../../../lib/supabaseClient';
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { Database } from "../../../../../lib/database.types";
 
 
 interface DashboardProps {
@@ -13,6 +15,7 @@ interface DashboardProps {
 
 
 export default async function Dashboard({ userId, session }: DashboardProps) {
+  const supabase = createServerComponentClient<Database>({cookies})
 
   let { data: data } = await supabase
     .from('simple_user_data')
