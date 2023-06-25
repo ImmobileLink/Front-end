@@ -15,11 +15,10 @@ export default async function ChatSpace({idsala, userSession}: ChatSpaceProps ) 
   let mensagens: MensagemComUsuario[] = []
 
   const { data, error } = await supabase
-  .from('mensagem_com_usuario')
-  .select("*")
-  .eq('idsala', idsala)
+  .rpc('mensagem_com_usuario', {
+    sala: idsala
+  })
   .order('enviadoem', { ascending: true})
-
   if(error) {
     console.log(error);
   }  

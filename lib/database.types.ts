@@ -174,7 +174,7 @@ export interface Database {
           nome: string | null
           numero: number | null
           premium: boolean | null
-          Sobre: string | null
+          sobre: string | null
           telefone: string | null
         }
         Insert: {
@@ -193,7 +193,7 @@ export interface Database {
           nome?: string | null
           numero?: number | null
           premium?: boolean | null
-          Sobre?: string | null
+          sobre?: string | null
           telefone?: string | null
         }
         Update: {
@@ -212,7 +212,7 @@ export interface Database {
           nome?: string | null
           numero?: number | null
           premium?: boolean | null
-          Sobre?: string | null
+          sobre?: string | null
           telefone?: string | null
         }
         Relationships: []
@@ -495,17 +495,17 @@ export interface Database {
         Row: {
           descricao: string | null
           id: string
-          titulo: string
+          titulo: string | null
         }
         Insert: {
           descricao?: string | null
           id?: string
-          titulo: string
+          titulo?: string | null
         }
         Update: {
           descricao?: string | null
           id?: string
-          titulo?: string
+          titulo?: string | null
         }
         Relationships: []
       }
@@ -726,6 +726,13 @@ export interface Database {
           role: number
         }[]
       }
+      criar_ou_retornar_sala: {
+        Args: {
+          id_usuario: string
+          id_destinatario: string
+        }
+        Returns: string
+      }
       get_amigos: {
         Args: {
           id_corretor: string
@@ -790,6 +797,21 @@ export interface Database {
           nome: string
           creci: string
           nota: number
+        }[]
+      }
+      mensagem_com_usuario: {
+        Args: {
+          sala: string
+        }
+        Returns: {
+          id: string
+          idautor: string
+          nomeautor: string
+          idsala: string
+          enviadoem: string
+          atualizadoem: string
+          mensagem: string
+          imagem: string
         }[]
       }
       obter_cinco_corretores_id: {

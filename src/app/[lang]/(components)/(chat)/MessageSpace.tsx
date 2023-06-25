@@ -24,7 +24,6 @@ const formataData = (datahora:string) => {
     'minute': 'numeric'
   });
   let fdata = formatter.format(data)
-  console.log(fdata)
   return fdata
 }
 
@@ -72,7 +71,7 @@ export default function MessageSpace({idsala, userSession, mensagens}: MessageSp
             <div key={message.id} className="flex flex-col items-bottom space-x-12 space-y-1">
 
               <div className="flex flex-row items-center space-x-3">
-                <Avatar userId={userSession?.user.id} size={10}/>
+                <Avatar userId={message.idautor} size={10}/>
                 <p className="text-sm">{message.nomeautor}</p>
                 <p>{formataData(message.enviadoem!)}</p>
               </div>
