@@ -33,7 +33,7 @@ export default async function NavAmizade({ userData, cards }: NavAmizadeProps) {
               ? userData.conexoes.map((item) => {
                   return (
                     // eslint-disable-next-line react/jsx-key
-                    <CardAmizade id={item.id} nome={item.nome} />
+                    <CardAmizade idremetente={userData.id} iddestinatario={item.id} nome={item.nome} />
                   );
                 })
               : "não"}
