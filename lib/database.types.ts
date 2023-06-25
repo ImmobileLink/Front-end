@@ -174,7 +174,7 @@ export interface Database {
           nome: string | null
           numero: number | null
           premium: boolean | null
-          Sobre: string | null
+          sobre: string | null
           telefone: string | null
         }
         Insert: {
@@ -193,7 +193,7 @@ export interface Database {
           nome?: string | null
           numero?: number | null
           premium?: boolean | null
-          Sobre?: string | null
+          sobre?: string | null
           telefone?: string | null
         }
         Update: {
@@ -212,17 +212,10 @@ export interface Database {
           nome?: string | null
           numero?: number | null
           premium?: boolean | null
-          Sobre?: string | null
+          sobre?: string | null
           telefone?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "corretor_id_fkey"
-            columns: ["id"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       especialidade: {
         Row: {
@@ -502,29 +495,19 @@ export interface Database {
         Row: {
           descricao: string | null
           id: string
-          idparticipante: string
-          titulo: string
+          titulo: string | null
         }
         Insert: {
           descricao?: string | null
           id?: string
-          idparticipante: string
-          titulo: string
+          titulo?: string | null
         }
         Update: {
           descricao?: string | null
           id?: string
-          idparticipante?: string
-          titulo?: string
+          titulo?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "sala_idparticipante_fkey"
-            columns: ["idparticipante"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       tipoImovel: {
         Row: {
@@ -603,6 +586,34 @@ export interface Database {
           }
         ]
       }
+      usuarioporsala: {
+        Row: {
+          idsala: string
+          idusuario: string
+        }
+        Insert: {
+          idsala: string
+          idusuario: string
+        }
+        Update: {
+          idsala?: string
+          idusuario?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "usuarioporsala_idsala_fkey"
+            columns: ["idsala"]
+            referencedRelation: "sala"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "usuarioporsala_idusuario_fkey"
+            columns: ["idusuario"]
+            referencedRelation: "usuario"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       visita: {
         Row: {
           dataAgendamento: string
@@ -674,6 +685,35 @@ export interface Database {
           }
         ]
       }
+      mensagem_com_usuario: {
+        Row: {
+          atualizadoem: string | null
+          enviadoem: string | null
+          id: string | null
+          idautor: string | null
+          idsala: string | null
+          imagem: string | null
+          mensagem: string | null
+          nomeautor: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mensagem_idsala_fkey"
+            columns: ["idsala"]
+            referencedRelation: "sala"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      simple_user_data: {
+        Row: {
+          id: string | null
+          nome: string | null
+          premium: boolean | null
+          tipo: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       consultar_tipo_usuario: {
@@ -686,6 +726,13 @@ export interface Database {
           role: number
         }[]
       }
+      criar_ou_retornar_sala: {
+        Args: {
+          id_usuario: string
+          id_destinatario: string
+        }
+        Returns: string
+      }
       get_amigos: {
         Args: {
           id_corretor: string
@@ -693,6 +740,15 @@ export interface Database {
         Returns: {
           id: string
           nome: string
+        }[]
+      }
+      get_corretor_info: {
+        Args: {
+          id: string
+        }
+        Returns: {
+          nome: string
+          avaliacao: number
         }[]
       }
       get_corretores_avaliacao: {
@@ -743,196 +799,30 @@ export interface Database {
           nota: number
         }[]
       }
+      mensagem_com_usuario: {
+        Args: {
+          sala: string
+        }
+        Returns: {
+          id: string
+          idautor: string
+          nomeautor: string
+          idsala: string
+          enviadoem: string
+          atualizadoem: string
+          mensagem: string
+          imagem: string
+        }[]
+      }
       obter_cinco_corretores_id: {
         Args: Record<PropertyKey, never>
         Returns: {
           id: string
         }[]
       }
-    }
-    Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
-      [_ in never]: never
-    }
-  }
-  storage: {
-    Tables: {
-      buckets: {
-        Row: {
-          allowed_mime_types: string[] | null
-          avif_autodetection: boolean | null
-          created_at: string | null
-          file_size_limit: number | null
-          id: string
-          name: string
-          owner: string | null
-          public: boolean | null
-          updated_at: string | null
-        }
-        Insert: {
-          allowed_mime_types?: string[] | null
-          avif_autodetection?: boolean | null
-          created_at?: string | null
-          file_size_limit?: number | null
-          id: string
-          name: string
-          owner?: string | null
-          public?: boolean | null
-          updated_at?: string | null
-        }
-        Update: {
-          allowed_mime_types?: string[] | null
-          avif_autodetection?: boolean | null
-          created_at?: string | null
-          file_size_limit?: number | null
-          id?: string
-          name?: string
-          owner?: string | null
-          public?: boolean | null
-          updated_at?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "buckets_owner_fkey"
-            columns: ["owner"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
-      migrations: {
-        Row: {
-          executed_at: string | null
-          hash: string
-          id: number
-          name: string
-        }
-        Insert: {
-          executed_at?: string | null
-          hash: string
-          id: number
-          name: string
-        }
-        Update: {
-          executed_at?: string | null
-          hash?: string
-          id?: number
-          name?: string
-        }
-        Relationships: []
-      }
-      objects: {
-        Row: {
-          bucket_id: string | null
-          created_at: string | null
-          id: string
-          last_accessed_at: string | null
-          metadata: Json | null
-          name: string | null
-          owner: string | null
-          path_tokens: string[] | null
-          updated_at: string | null
-          version: string | null
-        }
-        Insert: {
-          bucket_id?: string | null
-          created_at?: string | null
-          id?: string
-          last_accessed_at?: string | null
-          metadata?: Json | null
-          name?: string | null
-          owner?: string | null
-          path_tokens?: string[] | null
-          updated_at?: string | null
-          version?: string | null
-        }
-        Update: {
-          bucket_id?: string | null
-          created_at?: string | null
-          id?: string
-          last_accessed_at?: string | null
-          metadata?: Json | null
-          name?: string | null
-          owner?: string | null
-          path_tokens?: string[] | null
-          updated_at?: string | null
-          version?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "objects_bucketId_fkey"
-            columns: ["bucket_id"]
-            referencedRelation: "buckets"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "objects_owner_fkey"
-            columns: ["owner"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
-    }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      can_insert_object: {
-        Args: {
-          bucketid: string
-          name: string
-          owner: string
-          metadata: Json
-        }
-        Returns: undefined
-      }
-      extension: {
-        Args: {
-          name: string
-        }
-        Returns: string
-      }
-      filename: {
-        Args: {
-          name: string
-        }
-        Returns: string
-      }
-      foldername: {
-        Args: {
-          name: string
-        }
-        Returns: unknown
-      }
-      get_size_by_bucket: {
+      test_authorization_header: {
         Args: Record<PropertyKey, never>
-        Returns: {
-          size: number
-          bucket_id: string
-        }[]
-      }
-      search: {
-        Args: {
-          prefix: string
-          bucketname: string
-          limits?: number
-          levels?: number
-          offsets?: number
-          search?: string
-          sortcolumn?: string
-          sortorder?: string
-        }
-        Returns: {
-          name: string
-          id: string
-          updated_at: string
-          created_at: string
-          last_accessed_at: string
-          metadata: Json
-        }[]
+        Returns: Json
       }
     }
     Enums: {

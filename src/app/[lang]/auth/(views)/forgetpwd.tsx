@@ -1,8 +1,9 @@
 "use client";
 
-import { useSupabase } from "@/app/[lang]/SupabaseProvider";
 import { Forgetpassword } from "@/app/i18n/dictionaries/types";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Dispatch, SetStateAction, useState } from "react";
+import { Database } from "../../../../../lib/database.types";
 
 interface ForgetPwd {
   setAlert: Dispatch<
@@ -10,9 +11,10 @@ interface ForgetPwd {
   >;
   forgetpassword: Forgetpassword;
 }
+const supabase = createClientComponentClient<Database>()
 
 export default function ForgetPwd({ setAlert, forgetpassword }: ForgetPwd) {
-  const { supabase } = useSupabase();
+
   const [email, setEmail] = useState("");
   const [existeUsuario, setExisteUsuario] = useState(false);
 

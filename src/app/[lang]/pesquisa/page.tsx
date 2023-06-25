@@ -1,4 +1,6 @@
-import { supabase } from "../../../../lib/supabaseClient";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import type { Database } from "../../../../lib/database.types";
 import NavCard from "@/app/[lang]/(components)/NavCard";
 import PesquisaCard from "../(components)/(pesquisa)/PesquisaCard"
 
@@ -10,6 +12,7 @@ interface pageProps {
     lang: string;
   };
 }
+const supabase = createServerComponentClient<Database>({cookies})
 
 export default async function page({ params: { lang } }: pageProps) {
   const dict = await getDictionary(lang); // pt

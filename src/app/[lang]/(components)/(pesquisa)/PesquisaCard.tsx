@@ -2,16 +2,17 @@
 import React from "react";
 import { Pesquisa } from "@/app/i18n/dictionaries/types";
 import { useState } from "react";
-import { supabase } from "../../../../../lib/supabaseClient";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../../../../../lib/database.types";
 import UserCard from "./UserCard";
 import { Regiao, TipoImovel, CorretorBuscado, CorporacaoPorRegiao } from "../../../../../lib/modelos";
-
 
 interface PesquisaCardProps {
   textos: Pesquisa,
   regioes: Regiao[] | null,
   especialidades: TipoImovel[] | null
 }
+const supabase = createClientComponentClient<Database>()
 
 export default function PesquisaCard({ textos, regioes, especialidades }: PesquisaCardProps) {
   //Estados dos combo box, usados para fazer a pesquisa

@@ -1,12 +1,13 @@
 "use client";
-import { useSupabase } from "@/app/[lang]/SupabaseProvider";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../../../../lib/database.types";
 
 interface LogOutProps {
   texto: string;
 }
 
 export default function LogOut({texto}: LogOutProps) {
-  const { supabase } = useSupabase();
+  const supabase = createClientComponentClient<Database>()
 
   const handleLogOut = async () => {
     await supabase.auth.signOut();

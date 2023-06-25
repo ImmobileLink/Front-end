@@ -1,8 +1,9 @@
 "use client";
 
-import { useSupabase } from "@/app/[lang]/SupabaseProvider";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Signup1 } from "@/app/i18n/dictionaries/types";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../../../../../../lib/database.types";
 
 interface SignUpProps {
   props: {
@@ -18,13 +19,14 @@ interface SignUpProps {
   signup1: Signup1;
 }
 
+const supabase = createClientComponentClient<Database>()
+
 export default function SignUp1({
   props,
   setAlert,
   signup1,
   setPodeAvancar,
 }: SignUpProps) {
-  const { supabase } = useSupabase();
 
   const validaForm = async () => {
     setPodeAvancar(false);
