@@ -10,5 +10,5 @@ interface NavCalendarProps {
 }
 
 export default async function NavCalendar({ userData }: NavCalendarProps) {
-  return <>{userData.id ? <Calendario /> : ""}</>;
+  return <><Calendario /></>;
 }
