@@ -17,16 +17,14 @@ export async function middleware(req: NextRequest) {
   const supabase = createMiddlewareClient<Database>({ req, res })
   await supabase.auth.getSession()
 
-
-
   if (pathnameIsMissingLocale) {
     const locale: string = req.headers.get('accept-language')?.slice(0,2) || 'pt'; // pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
     
-    if(pathname.substring(3) == "/auth") {
-      return NextResponse.redirect(
-        new URL(`/${locale}/feed`, req.url)
-      )
-    }
+    // if(pathname.substring(3) == "/auth") {
+    //   return NextResponse.redirect(
+    //     new URL(`/${locale}/feed`, req.url)
+    //   )
+    // }
 
     return NextResponse.redirect(
       new URL(`/${locale}/${pathname}`, req.url)
