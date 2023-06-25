@@ -13,6 +13,21 @@ interface MessageSpaceProps {
 }
 const supabase = createClientComponentClient<Database>()
 
+//Formata para horário de brasilia, remove milisegundos e o T
+const formataData = (datahora:string) => {
+  let data = new Date(datahora)
+  const formatter = new Intl.DateTimeFormat('pt-BR', {
+    year: 'numeric',
+    'month': 'numeric',
+    'day': 'numeric',
+    'hour': 'numeric',
+    'minute': 'numeric'
+  });
+  let fdata = formatter.format(data)
+  console.log(fdata)
+  return fdata
+}
+
 const getNomeUsuario = async (idmensagem: string, idautor: string) => {
   const { data, error } = await supabase.from('simple_user_data').select('nome').eq('id', idautor)
   if(error) {
@@ -49,26 +64,29 @@ export default function MessageSpace({idsala, userSession, mensagens}: MessageSp
   }, [])
 
   return (
-    <div className="max-h-fit overflow-auto flex-col m-3 p-3 space-y-">
-      {
-        messages ?
-        messages.map((message: MensagemComUsuario) => 
-          <div key={message.id} className="flex flex-col items-bottom space-x-12 space-y-1">
+    <div className="max-h-fit overflow-y-auto snap-start flex flex-col-reverse m-3 p-3">
+      <div className="flex flex-col">
+        {
+          messages ?
+          messages.map((message: MensagemComUsuario) => 
+            <div key={message.id} className="flex flex-col items-bottom space-x-12 space-y-1">
 
-            <div className="flex flex-row items-center space-x-3">
-              <Avatar userId={userSession?.user.id} size={10}/>
-              <p className="text-sm">{message.nomeautor}</p>
-              <p>{message.enviadoem}</p>
-            </div>
-            
-            <li className="flex list-none align-bottom items-bottom text-lg font-mono font-semibold text-slate-900 dark:text-gray-300">          
-            {message.mensagem}
-            </li>
-          </div>     
-        )
-        :
-        ''
-      }
+              <div className="flex flex-row items-center space-x-3">
+                <Avatar userId={userSession?.user.id} size={10}/>
+                <p className="text-sm">{message.nomeautor}</p>
+                <p>{formataData(message.enviadoem!)}</p>
+              </div>
+              
+              <li className="flex break-all list-none align-bottom items-bottom text-xl font-sans font-semibold text-slate-900 dark:text-gray-300">          
+              {message.mensagem} 
+              </li>
+            </div>     
+          )
+          :
+          ''
+        }
+      </div>
+      
     </div>
   );
 }

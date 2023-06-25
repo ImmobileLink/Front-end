@@ -709,6 +709,7 @@ export interface Database {
         Row: {
           id: string | null
           nome: string | null
+          premium: boolean | null
           tipo: string | null
         }
         Relationships: []
@@ -732,6 +733,15 @@ export interface Database {
         Returns: {
           id: string
           nome: string
+        }[]
+      }
+      get_corretor_info: {
+        Args: {
+          id: string
+        }
+        Returns: {
+          nome: string
+          avaliacao: number
         }[]
       }
       get_corretores_avaliacao: {

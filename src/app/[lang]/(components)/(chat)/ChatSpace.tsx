@@ -18,6 +18,8 @@ export default async function ChatSpace({idsala, userSession}: ChatSpaceProps ) 
   .from('mensagem_com_usuario')
   .select("*")
   .eq('idsala', idsala)
+  .order('enviadoem', { ascending: true})
+
   if(error) {
     console.log(error);
   }  
