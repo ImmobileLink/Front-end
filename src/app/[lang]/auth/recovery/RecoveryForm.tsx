@@ -1,13 +1,14 @@
 "use client";
 
 import Alert from "@/app/[lang]/(components)/Alert";
-import { useSupabase } from "@/app/[lang]/SupabaseProvider";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../../../../../lib/database.types";
 import { useState } from "react";
 
 interface RecoveryFormProps {}
+const supabase = createClientComponentClient<Database>()
 
 export default function RecoveryForm({}: RecoveryFormProps) {
-  const { supabase } = useSupabase();
   const [senha, setSenha] = useState("");
   const [alert, setAlert] = useState({ type: "", title: "", message: "" });
 

@@ -13,6 +13,7 @@ interface pageProps {
     id: string;
   };
 }
+const supabase = createServerComponentClient<Database>({cookies})
 
 export default async function Page({ params: { id } }: pageProps) {
 

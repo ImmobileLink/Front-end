@@ -1,7 +1,9 @@
 import React from 'react';
 import PostFormCard from "./PostFormCard";
 import PostCard from "./PostCard";
-import { supabase } from '../../../../../lib/supabaseClient';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { Database } from '../../../../../lib/database.types';
 import { Pub } from '@/app/i18n/dictionaries/types';
 import { Regiao } from '../../../../../lib/modelos';
 
@@ -14,6 +16,7 @@ interface FeedPrincipalProps {
   };
   pub: Pub;
 }
+const supabase = createServerComponentClient<Database>({cookies})
 
 const getData = async () => {
   const { data } = await supabase

@@ -6,15 +6,16 @@ import ForgetPwd from "./(views)/forgetpwd";
 import Alert from "@/app/[lang]/(components)/Alert";
 import { Auth } from "@/app/i18n/dictionaries/types";
 
-interface SupabaseAuthProps {
+interface AuthFormProps {
   auth: Auth;
   data: {
     tipoImovel: { id: any; descricao: any }[] | null;
     regiao: { id: any; regiao: any }[] | null;
   };
+  lang: string;
 }
 
-export default function SupabaseAuth({ auth, data }: SupabaseAuthProps) {
+export default function AuthForm({ auth, data, lang }: AuthFormProps) {
   const [view, setView] = useState("signin"); //signin, signup, forgetpwd
   const [alert, setAlert] = useState({ type: "", title: "", message: "" });
 
@@ -29,12 +30,14 @@ export default function SupabaseAuth({ auth, data }: SupabaseAuthProps) {
         <SignIn
           setAlert={setAlert}
           signin={auth.signin}
+          lang={lang}
         />
       ) : view == "signup" ? (
         <SignUp
           setAlert={setAlert}
           signup={auth.signup}
           data={data}
+          lang={lang}
         />
       ) : view == "forgetpwd" ? (
         <ForgetPwd

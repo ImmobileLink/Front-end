@@ -1,6 +1,7 @@
-import { createMiddlewareSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
+import { Database } from '../lib/database.types';
  
 let locales = ['pt', 'en']
 
@@ -12,14 +13,19 @@ export async function middleware(req: NextRequest) {
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   )
   
-  const res = NextResponse.next();
+  const res = NextResponse.next()
+  const supabase = createMiddlewareClient<Database>({ req, res })
+  await supabase.auth.getSession()
 
   if (pathnameIsMissingLocale) {
     const locale: string = req.headers.get('accept-language')?.slice(0,2) || 'pt'; // pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
-    // const i18nCookies: string[] = ['i18n', locale]
+    
+    // if(pathname.substring(3) == "/auth") {
+    //   return NextResponse.redirect(
+    //     new URL(`/${locale}/feed`, req.url)
+    //   )
+    // }
 
-    // e.g. incoming req is /products
-    // The new URL is now /en-US/products
     return NextResponse.redirect(
       new URL(`/${locale}/${pathname}`, req.url)
     )
