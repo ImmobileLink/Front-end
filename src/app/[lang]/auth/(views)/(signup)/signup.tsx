@@ -1,10 +1,5 @@
 "use client";
 
-//a ideia é oque, todos os valores dos useState vao ficar no componente principal (esse mesmo)
-//o que vai passar de uma tela pra outra é a função setXXX somente dos campos que ele vai
-//editar naquela tela, que vai editar o estado que ta nesse componente
-//quando clicar em avançar muda de tela e atualiza o Stepper
-
 import { Dispatch, SetStateAction, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -32,11 +27,12 @@ interface SignUpProps {
     tipoImovel: { id: any; descricao: any }[] | null;
     regiao: { id: any; regiao: any }[] | null;
   };
+  lang: string
 }
 
 const supabase = createClientComponentClient<Database>()
 
-export default function SignUp({ setAlert, signup, data }: SignUpProps) {
+export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
   const router = useRouter();
 
   const [isOK, setIsOK] = useState(false);
@@ -113,6 +109,9 @@ export default function SignUp({ setAlert, signup, data }: SignUpProps) {
     let { data, error } = await supabase.auth.signUp({
       email: email,
       password: senha,
+      options: {
+        emailRedirectTo: `${location.origin}/auth/callback`,
+      },
     });
 
     if (!error) {
@@ -187,7 +186,7 @@ export default function SignUp({ setAlert, signup, data }: SignUpProps) {
           .insert(arrayUsuarioPorRegiao);
       }
 
-      router.refresh()
+      router.refresh();
     }
   };
 
