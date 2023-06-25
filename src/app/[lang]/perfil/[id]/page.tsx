@@ -1,12 +1,11 @@
 
-import { createServerComponentSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import { cookies, headers } from 'next/headers';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 import Cabecalho from "../../(components)/(perfil)/Cabecalho";
 import Dashboard from "../../(components)/(perfil)/Dashboard";
 import Infos from "../../(components)/(perfil)/Infos";
 import type { Database } from '../../../../../lib/database.types';
-import { supabase } from '../../../../../lib/supabaseClient';
-import NavBar from "../../NavBar";
+import NavBar from '../../(components)/NavBar';
 
 interface pageProps {
   params: {
@@ -17,8 +16,7 @@ const supabase = createServerComponentClient<Database>({cookies})
 
 export default async function Page({ params: { id } }: pageProps) {
 
-  const supabaseServerClient = createServerComponentSupabaseClient<Database>({ headers, cookies, })
-  const { data: { session } } = await supabaseServerClient.auth.getSession();
+  const { data: { session } } = await supabase.auth.getSession();
 
   //verificar se a empresa da sessao atual possui esse corretor ja conectado
   //passar essa informação como prop para mudar botão/mostrar calendario.

@@ -1,8 +1,9 @@
 import Image from "next/image";
-import { supabase } from "../../../../../lib/supabaseClient";
 import Avatar from "../Avatar"
-import { Corretor } from "../../../../../lib/modelos";
 import BotaoAdd from "./botao/botaoAdd";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../../../../../lib/database.types";
+import { cookies } from "next/headers";
 
 interface CabecalhoProps {
   idProfile: any;
@@ -10,6 +11,7 @@ interface CabecalhoProps {
 }
 
 export default async function Cabecalho({ idProfile, session }: CabecalhoProps) {
+  const supabase = createServerComponentClient<Database>({cookies})
 
   let { data: corretor } = await supabase
     .from('corretor')
@@ -85,13 +87,13 @@ export default async function Cabecalho({ idProfile, session }: CabecalhoProps) 
         </div>
 
       </div>
-      {corretor.sobre != null ? (
+      {/* {corretor.sobre != null ? (
         <div className="px-5">
           <div className="bg-white mt-3 rounded-md p-3">
             <p className="">{corretor?.sobre}</p>
           </div>
         </div>
-      ) : (<></>)}
+      ) : (<></>)} */}
 
 
 

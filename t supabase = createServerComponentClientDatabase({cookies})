@@ -1,0 +1,480 @@
+[33mcommit 8266b417fa9cc39e90b6b53f3b844fe742bee7d3[m[33m ([m[1;36mHEAD -> [m[1;32mdev[m[33m, [m[1;31morigin/dev[m[33m)[m
+Merge: 85c89bf 231a23d
+Author: ArthurGoncalves1 <arth09th@gmail.com>
+Date:   Sun Jun 25 17:45:35 2023 -0300
+
+    Merge branch 'dev' of https://github.com/immobilelink/front-end into dev
+
+[33mcommit 85c89bfb491c1405308c9abb1d6e8ccde2cf4ac0[m
+Author: ArthurGoncalves1 <arth09th@gmail.com>
+Date:   Sun Jun 25 17:42:06 2023 -0300
+
+    perfil busca infos no BD e mudanca dashboard
+
+[33mcommit 231a23d5f1d2efde975d4e108278b1c8c8b16f30[m
+Merge: 9b7b859 b0f8f40
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sun Jun 25 17:13:43 2023 -0300
+
+    Merge branch 'dev' of https://github.com/ImmobileLink/Front-end into dev
+
+[33mcommit 9b7b859fc37d30c914a13d0cfbeb7d6c5d98e362[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sun Jun 25 17:13:23 2023 -0300
+
+    Ajustes na segurança do chat
+
+[33mcommit b0f8f401dbb69cd08fabbf3b56bfaed5ca468f7e[m
+Merge: 5357299 cfbda0f
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Sun Jun 25 15:09:12 2023 -0300
+
+    Merge branch 'auth-refactor' into dev
+
+[33mcommit cfbda0ff23fb5e14230ef32323a6d0063ae3475a[m[33m ([m[1;31morigin/auth-refactor[m[33m)[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Sun Jun 25 15:03:09 2023 -0300
+
+    feed - cards de conexões
+
+[33mcommit 5357299524340ba77b902e4eb309e55cb8fc7be4[m[33m ([m[1;31morigin/chat-dev[m[33m)[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sun Jun 25 10:14:10 2023 -0300
+
+    Adição da barra de navegação
+
+[33mcommit e6f82b1132ea271984a61b743d6e7a9f0ff6a3ef[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sun Jun 25 10:05:58 2023 -0300
+
+    Ajustes no chat
+
+[33mcommit d1c078a6fd4bea9edafe7a3a25870ae2195f0db1[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Sat Jun 24 20:05:17 2023 -0300
+
+    auth route arrumada, signin e singup ok
+
+[33mcommit f563a6dd5659c5875b6802c17f2b316464e8d9df[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sat Jun 24 17:53:21 2023 -0300
+
+    Refatoração v1. Necessário validar.
+
+[33mcommit a4d1dd693f12008633d1b8672ce1686ccbd1c021[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sat Jun 24 17:16:26 2023 -0300
+
+    Refatoração
+
+[33mcommit 08c29855c03fc94ed0ae76cf5ec4d5fd5f6b2885[m
+Merge: bc30b42 6eb5282
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sat Jun 24 17:16:09 2023 -0300
+
+    Merge branch 'auth-refactor' of https://github.com/ImmobileLink/Front-end into auth-refactor
+
+[33mcommit bc30b42a96b656e41d58dfff631bcc837f08c6f4[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sat Jun 24 17:08:50 2023 -0300
+
+    reactor feed e chat
+
+[33mcommit 6eb5282531301adecb6f1d75c06b956ede4d795b[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Sat Jun 24 17:05:52 2023 -0300
+
+    auth route refatorada
+
+[33mcommit 3881a479fafca0852288cab8daa3cd25e72d25e3[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Sat Jun 24 16:33:23 2023 -0300
+
+    refactor
+
+[33mcommit 9e0e55135edded8c948f08604f79d0109d3c780b[m
+Merge: 003834b 5bac154
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Sat Jun 24 15:37:26 2023 -0300
+
+    Merge branch 'dev' of https://github.com/ImmobileLink/Front-end into dev
+
+[33mcommit 003834ba2eabfa025a212e8f73635e51402ae297[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Sat Jun 24 15:34:42 2023 -0300
+
+    cards feed: perfil, botões de navegação e conexões
+
+[33mcommit c1b0473b62a0a5bf0dd8b68a71cb80529ba0e5ed[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sat Jun 24 12:11:48 2023 -0300
+
+    Criação do Chat
+
+[33mcommit 5bac1544ce2121f7e0a13b32f495ee1aebbbabe5[m
+Merge: 1d59997 33dc2b8
+Author: ArthurGoncalves1 <arth09th@gmail.com>
+Date:   Sat Jun 24 11:28:15 2023 -0300
+
+    Merge branch 'dev' of https://github.com/immobilelink/front-end into dev
+
+[33mcommit 1d59997d5ad1fb766d9417cdf8c09c764f8e1ba3[m
+Author: ArthurGoncalves1 <arth09th@gmail.com>
+Date:   Sat Jun 24 11:27:37 2023 -0300
+
+    att Dashboard
+
+[33mcommit 33dc2b8baefa232f7e9b495519bf7378ac28f944[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Thu Jun 22 23:40:05 2023 -0300
+
+    Instalação feita
+
+[33mcommit c6879014a0e54f88210e27dffaed4d353f87e63e[m
+Merge: 9ea3f9c b50ff6f
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Thu Jun 22 23:39:06 2023 -0300
+
+    Merge branch 'feed-dev' into dev
+
+[33mcommit b50ff6fbbe2948e0d54103272baaf3339affcf8e[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Thu Jun 22 23:12:06 2023 -0300
+
+    Arrumando Feed
+
+[33mcommit 9ea3f9c2d380f4f784d1412ec18336f04e79f31b[m
+Merge: 0e82841 5d7a5e0
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Thu Jun 22 23:06:51 2023 -0300
+
+    mergeado
+
+[33mcommit 0e82841b930672a422149bb5ff84e6c39e579f77[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Thu Jun 22 23:02:44 2023 -0300
+
+    mudanças na rota feed, estrutura, css, responsividade e mudança na lógica do middleware
+
+[33mcommit 5d7a5e0bcb6d1b2e9b9775fd359b8374b28630fa[m
+Author: ArthurGoncalves1 <arth09th@gmail.com>
+Date:   Thu Jun 22 17:42:38 2023 -0300
+
+    fix avatar
+
+[33mcommit e61b9e6c7d2354e5d1ce1d29c06d10a7d426295f[m
+Author: ArthurGoncalves1 <arth09th@gmail.com>
+Date:   Thu Jun 22 10:30:12 2023 -0300
+
+    Mudanca avatar e outros componentes perfil
+
+[33mcommit 8673557bddb33d4ad14955f714c364cb5131948d[m
+Merge: 5dc731c c9b6ff8
+Author: ArthurGoncalves1 <arth09th@gmail.com>
+Date:   Tue Jun 20 22:08:33 2023 -0300
+
+    Merge branch 'profile-dev' into dev
+
+[33mcommit c9b6ff8eb1f3a051695f1b17e4a8046f3a79867e[m[33m ([m[1;31morigin/profile-dev[m[33m, [m[1;32mprofile-dev[m[33m)[m
+Author: ArthurGoncalves1 <arth09th@gmail.com>
+Date:   Tue Jun 20 22:04:43 2023 -0300
+
+    ja vai pro merge
+
+[33mcommit 5dc731cff1ca540415430bbf345ed658943a21a5[m[33m ([m[1;31morigin/feed-dev[m[33m)[m
+Merge: 696ee5c ca02177
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Tue Jun 20 21:39:09 2023 -0300
+
+    Merge branch 'dev' of https://github.com/ImmobileLink/Front-end into dev
+
+[33mcommit 696ee5c1e05d71e7c55336fd57be50e83c414010[m[33m ([m[1;31morigin/search-dev[m[33m)[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Tue Jun 20 21:32:06 2023 -0300
+
+    Adição .env para propósitos de ciência
+
+[33mcommit f3898c26e0e003a89d099b1ead7864b55b331c6c[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Tue Jun 20 11:10:21 2023 -0300
+
+    Ajustes na página de pesquisa
+
+[33mcommit 9a11e87b45ea57ed1624c33b1b2e4458320b38a9[m
+Author: ArthurGoncalves1 <arth09th@gmail.com>
+Date:   Tue Jun 20 10:18:52 2023 -0300
+
+    pt 4
+
+[33mcommit 829bc07281f60c8a9cc64b0e9df656357b4a178e[m
+Author: ArthurGoncalves1 <arth09th@gmail.com>
+Date:   Mon Jun 19 22:58:25 2023 -0300
+
+    att nav & profile pt3
+
+[33mcommit ca02177013701277410de73e7e991dde0c89d0d4[m
+Merge: 9a64571 fdaa698
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Mon Jun 19 13:52:25 2023 -0300
+
+    Merge branch 'dev' of https://github.com/ImmobileLink/Front-end into dev
+
+[33mcommit 289c3b73cd0a5c77b0d27673d4edc16e5060a2f4[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Mon Jun 19 00:25:59 2023 -0300
+
+    Refatoração e ajustes na página de pesquisa
+
+[33mcommit faeb751eb83b76ebce19837c1dca2a177b566db1[m
+Author: ArthurGoncalves1 <arth09th@gmail.com>
+Date:   Sun Jun 18 21:50:21 2023 -0300
+
+    melhor separação do código/melhorar o navbar
+
+[33mcommit 9a377100bd0a0b82668ff59b8d9d08bd71288e5d[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sun Jun 18 00:38:29 2023 -0300
+
+    Logica de pesquisa funcionando. CSS a fazer
+
+[33mcommit 16658787a20c757218b45a4c3443c4e6a29d741e[m
+Author: ArthurGoncalves1 <arth09th@gmail.com>
+Date:   Sat Jun 17 23:01:29 2023 -0300
+
+    perfil pt 1
+
+[33mcommit fdaa698864f562eabbde4e08a7e2491d68f0c3d4[m
+Author: ArthurGoncalves1 <arth09th@gmail.com>
+Date:   Fri Jun 16 22:16:18 2023 -0300
+
+    Navbar Responsiva
+
+[33mcommit 9a645719d0ec1ca57eb2dd1d1d0e9e215ac0eb73[m[33m ([m[1;31morigin/auth-dev[m[33m, [m[1;32mauth-dev[m[33m)[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Thu Jun 15 17:46:58 2023 -0300
+
+    adicionada mascara regex para o creci
+
+[33mcommit 16c2fe83d1d4a9fa0ee00ff04aa5119f576eaf00[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Thu Jun 15 17:38:38 2023 -0300
+
+    auth versão definitiva 1.0
+
+[33mcommit 6e7f323ac230d9ac10825cb60f7e5cf299f4f577[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Wed Jun 14 12:32:48 2023 -0300
+
+    tirei o botão vermelho de teste
+
+[33mcommit a7bb0e95ace4bfccf67c61c02dbc4a16989ae90f[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Wed Jun 14 12:29:51 2023 -0300
+
+    rota auth finalizada
+
+[33mcommit d11865e29e615bebd5016ea98fc30184d759d693[m[33m ([m[1;32msearch-dev[m[33m)[m
+Author: ArthurGoncalves1 <arth09th@gmail.com>
+Date:   Sun Jun 4 22:44:41 2023 -0300
+
+    Consumindo a função
+
+[33mcommit 48f2d4045d11dc7333b15ebed591d8d8513e3778[m
+Merge: 7ff028b 561fb3e
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sun Jun 4 12:14:36 2023 -0300
+
+    Merge branch 'search-dev' of https://github.com/ImmobileLink/Front-end into search-dev
+
+[33mcommit 7ff028bffc32477f4ed7d5bf9791c71fed887bfb[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sun Jun 4 12:13:46 2023 -0300
+
+    Atualizações no ComboBox e no fetch da Pesquisa COM ERROS
+
+[33mcommit 561fb3e1487edaecaaf4607c2d69f5d5e8fba046[m
+Author: ImmobileLink <130845732+ImmobileLink@users.noreply.github.com>
+Date:   Tue May 30 08:11:03 2023 -0300
+
+    Delete 1.8.1
+    
+    Deleção de arquivos desnecessários
+
+[33mcommit e5a1b4d95cea1f3771e270203f45d08ebd9d5e6f[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Mon May 29 19:53:09 2023 -0300
+
+    cadastro > parte 3 (dados pessoais)
+
+[33mcommit 7e47e84d0f516144e248b7ed27b62bb1ab149588[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Mon May 29 12:30:41 2023 -0300
+
+    Configuração inicial da página de Pesquisa (com erros
+
+[33mcommit e0fd7efb11a03fe28465ba5452ee11b6b73f5b42[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sat May 27 17:00:12 2023 -0300
+
+    Page not loading fix
+
+[33mcommit affb83d8e28ecbe2a8c254a08cf235e91cacdf6f[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sat May 27 16:34:42 2023 -0300
+
+    Feed com .map
+
+[33mcommit f251aba9d398c341c043b96bcd84798c49216a14[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Tue May 23 20:21:28 2023 -0300
+
+    validação de sessão no middleware
+
+[33mcommit f4106c7c995e16dc6cf9984026b592f94e65336a[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Tue May 23 17:57:33 2023 -0300
+
+    internacionalização - implementação ok
+
+[33mcommit aa5470daf7bc831855e8a9fb2e3381ddc1a2a0af[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Mon May 22 22:53:51 2023 -0300
+
+    inicial feed
+
+[33mcommit a5d99a7f719ae4366089e4113c23bd844189c3a2[m
+Merge: c68d87f 1632bc8
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Mon May 22 21:27:57 2023 -0300
+
+    Merge branch 'dev' of https://github.com/ImmobileLink/Front-end into dev
+
+[33mcommit c68d87fc2d297170b4c418f0a36e0144d1d54ddb[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Mon May 22 21:24:36 2023 -0300
+
+    auth - completo, mas nem tanto
+
+[33mcommit 1632bc882b9db5999f304f45fa3b7d5ed5675455[m
+Author: Amanda-Shitara <amandakaren2002@hotmail.com>
+Date:   Mon May 22 18:20:07 2023 -0300
+
+    Atualização do Feed
+
+[33mcommit 900627287909147a59714030a67194f384ee3d2d[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Mon May 22 12:36:45 2023 -0300
+
+    Mudança no import do SupabaseProvider e incremento na página do feed
+
+[33mcommit b55a045f569fe4b7d69592d8de870b5f6338df8f[m
+Merge: 538dc66 0f51675
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Mon May 22 10:19:22 2023 -0300
+
+    Merge branch 'dev' of https://github.com/ImmobileLink/Front-end into dev
+
+[33mcommit 0f5167520a4050899d167d065ae5bfb7558baccd[m
+Author: ArthurGoncalves1 <arth09th@gmail.com>
+Date:   Mon May 22 10:00:33 2023 -0300
+
+    mensagem de validacao na tela
+
+[33mcommit 538dc66ee7cb987569b546c7e9448e16098d7185[m
+Merge: e5bc9ec a1364d4
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sun May 21 23:37:12 2023 -0300
+
+    Merge branch 'dev' of https://github.com/ImmobileLink/Front-end into dev
+
+[33mcommit a1364d44c37c54cc63664ca39d1326389bb61647[m
+Author: ArthurGoncalves1 <arth09th@gmail.com>
+Date:   Sun May 21 21:05:21 2023 -0300
+
+    validacao na tela pt2
+
+[33mcommit e5bc9ec80f63ba31425f67214f8ff336b1afc7cc[m
+Merge: 0ccafeb 4aa78d1
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sun May 21 12:21:50 2023 -0300
+
+    Merge branch 'dev' of https://github.com/ImmobileLink/Front-end into dev
+
+[33mcommit 4aa78d1e94b75b3726e5f041cf8586301cb8b5ba[m
+Merge: e598d5b 08fe03a
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sun May 21 12:19:29 2023 -0300
+
+    Merge branch 'auth-dev' of https://github.com/ImmobileLink/Front-end into auth-dev
+
+[33mcommit 0ccafeb61b4d09f50dc69ac653e95c76d7c1effb[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sun May 21 12:11:58 2023 -0300
+
+    Loading pfp arrumado
+
+[33mcommit 08fe03a4815be5338bac24754615233a7565007c[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Sun May 21 12:10:50 2023 -0300
+
+    auth fixed
+
+[33mcommit 8032215109fc5e361d47d0ebe514cad62dfc6b8c[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sun May 21 11:31:35 2023 -0300
+
+    Feed profile picture
+
+[33mcommit 8e4003a4673c8d42219e17b58f5b6dee2224bf6a[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sat May 20 22:43:21 2023 -0300
+
+    Testando
+
+[33mcommit 771a8bb18fb3ee409c209bbbb113a164331fde19[m
+Author: ArthurGoncalves1 <arth09th@gmail.com>
+Date:   Sat May 20 21:51:28 2023 -0300
+
+    Trata erro de cadastro e tela de confirmação de email
+
+[33mcommit e598d5bc7034c6de6485491e5ee805516e284f06[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Sat May 20 17:37:54 2023 -0300
+
+    Estrutura do Feed
+
+[33mcommit 71099ed4c41431a6c33c339f155415b1cca0ca66[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Fri May 19 21:18:02 2023 -0300
+
+    auth - funções + inicio do i18n
+
+[33mcommit 3e632a9772190c91be36ea686019c105e6118cdb[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Wed May 17 22:10:13 2023 -0300
+
+    auth - navegação entre telas
+
+[33mcommit 2a301e54b3d6125ad2691851495e5e0ffc474e0c[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Wed May 17 21:48:18 2023 -0300
+
+    telas cadastro - navegando entre opções
+
+[33mcommit c51adbb9135b8b944e92f936f39dcdc140dea851[m
+Author: LuanGrod <luan14rodrigues17@gmail.com>
+Date:   Mon May 15 18:32:05 2023 -0300
+
+    Auth - funcionando sem log pro usuário
+
+[33mcommit 3e4901649f99e93698224f0e42ad782cc52a4ef8[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Mon May 15 11:57:05 2023 -0300
+
+    Mensagem
+
+[33mcommit 7588da251cd194b261dcd8e87198744d89b96e27[m
+Author: Rhenan <gomesrhenan@gmail.com>
+Date:   Mon May 15 10:50:54 2023 -0300
+
+    Initial commit from Create Next App
