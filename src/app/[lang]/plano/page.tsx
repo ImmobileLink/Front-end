@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 import { Signup5 } from "@/app/i18n/dictionaries/types";
 import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
-import NavBar from "../NavBar"
+import NavBar from "../(components)/NavBar";
 
 interface pageProps {}
 
