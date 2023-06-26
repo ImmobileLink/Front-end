@@ -80,7 +80,7 @@ export default async function page({ params: { lang } }: pageProps) {
   }
   
   return (
-    <div className="w-auto h-auto bg-branco dark:bg-dark-200 flex justify-center gap-5 pt-4">
+    <div className="w-auto h-fit min-h-screen bg-branco dark:bg-dark-200 flex justify-center gap-5 pt-4">
       <div className="hidden md:flex md:w-3/12 lg:flex flex-col lg:w-2/12 gap-4">
         <NavProfile
             userData={userData}
