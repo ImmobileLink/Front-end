@@ -189,111 +189,119 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
   return (
     <>
     {/* Combo Box Container */} 
-      <p className="text-4xl m-4">{textos.labels.title}</p>   
-      <div className="flex mb-4">    
-        <div className="flex-col m-4">
+        
+      <div className="rounded-md bg-gray-50 dark:bg-gray-600 drop-shadow-md">
+        <div className="justify-start">
+          <p className="pt-5 pl-5 text-2xl">{textos.labels.title}</p> 
+        </div>  
+        <div className="flex flex-col lg:flex-row m-auto justify-start space-x-10 p-5">
+          <div className="flex-col m-4 items-start space-y-3">
+            <div className="flex items-center m-3 space-x-4">
+              <label className="mr-4">{textos.labels.usertype}:</label>
+              <select className="bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                onChange={(e) => handleUserTypeChange(e)}>
+                <option>{textos.usertypevalue.broker}</option>
+                <option>{textos.usertypevalue.corporation}</option>
+              </select>
+            </div>       
+            {
+              selectedUserType == textos.usertypevalue.broker ?
+                  <div className="flex items-center m-3 space-x-4">
+                    <label className="mr-4">{textos.labels.specialty}:</label>
+                    <select className="bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      value={selectedSpecialty.descricao}
+                      onChange={(e) => handleSpecialtyChange(e)}>
+                        <option>*</option>
+                      {especialidades!.map((especialidade: TipoImovel) => {
+                        return (
+                          <option key={especialidade.id}>{especialidade.descricao}</option>
+                        )
+                      })}
+                    </select>
+                  </div>
+                :
+                <div></div>
+            }
+          </div>
 
-          <label className="mr-4">{textos.labels.usertype}:</label>
-          <select className="text-black w-50 text-center"
-            onChange={(e) => handleUserTypeChange(e)}>
-            <option>{textos.usertypevalue.broker}</option>
-            <option>{textos.usertypevalue.corporation}</option>
-          </select>
-
-          {
-            selectedUserType == textos.usertypevalue.broker ?
-              <div className="flex-col mt-3">
-                <label className="mr-4">{textos.labels.specialty}:</label>
-                <select className="text-black w-50 text-center"
-                  value={selectedSpecialty.descricao}
-                  onChange={(e) => handleSpecialtyChange(e)}>
-                    <option>*</option>
-                  {especialidades!.map((especialidade: TipoImovel) => {
-                    return (
-                      <option key={especialidade.id}>{especialidade.descricao}</option>
-                    )
-                  })}
-                </select>
-              </div>
-              :
-              <div></div>
-          }
-        </div>
-
-        <div className="m-4">
-          <label className="mr-4">{textos.labels.region}:</label>
-          <select className="text-black w-50 text-center"
-            value={selectedRegion.regiao}
-            onChange={(e) => handleRegionChange(e)}>
-              <option>*</option>
-            {regioes!.map((regiao: any) => {
-              return (
-                <option key={regiao.id}>{regiao.regiao}</option>
-              )
-            })}
-          </select>
-        </div>
-
-        {
-          selectedUserType == textos.usertypevalue.broker ?
-            <div className="m-4">
-              <label className="mr-4">{textos.labels.rating}:</label>
-              <select className="text-black w-50 text-center"
-                value={selectedRating}
-                onChange={(e) => setSelectedRating(e.target.value)}>
-                <option>*</option>
-                <option>1+</option>
-                <option>2+</option>
-                <option>3+</option>
-                <option>4+</option>
-                <option>5</option>
+          <div className="flex-col m-4 items-start space-y-3">
+            <div className="flex items-center m-3 space-x-4">
+              <label>{textos.labels.region}:</label>
+              <select className="bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                value={selectedRegion.regiao}
+                onChange={(e) => handleRegionChange(e)}>
+                  <option>*</option>
+                {regioes!.map((regiao: any) => {
+                  return (
+                    <option key={regiao.id}>{regiao.regiao}</option>
+                  )
+                })}
               </select>
             </div>
-          :
-          <div></div>
-        }
-        
-      </div>
 
-      <button onClick={consultaBd} className="flex mx-auto mt-2 p-2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
-        Pesquisar
-      </button>
+            {
+              selectedUserType == textos.usertypevalue.broker ?
+                <div className="flex m-3 items-center space-x-4">
+                  <label className="mr-4">{textos.labels.rating}:</label>
+                  <select className="bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    value={selectedRating}
+                    onChange={(e) => setSelectedRating(e.target.value)}>
+                    <option>*</option>
+                    <option>1+</option>
+                    <option>2+</option>
+                    <option>3+</option>
+                    <option>4+</option>
+                    <option>5</option>
+                  </select>
+                </div>
+              :
+              <div></div>
+            }
+          </div>                     
+        </div>
+        <div className="flex pb-5 justify-center items-center align-center m-auto">
+            <button onClick={consultaBd} className="flex p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-mediumtext-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg">
+            Pesquisar
+            </button>
+        </div>  
+      </div> 
+
       {
         erro == 'invalid input syntax for type uuid: ""' ?
-        <p>{textos.labels.missingcombobox}</p>
+        <p className="flex justify-center">{textos.labels.missingcombobox}</p>
         : 
           erro != '' ?
-          <p>{textos.labels.error}</p>
+          <p className="flex justify-center">{textos.labels.error}</p>
           :
           <p></p>        
       }
-      {/* Container de resultado*/}
-      {
-        resultado == true &&  selectedUserType == textos.usertypevalue.broker ?
-          <div className="flex flex-wrap mt-10 mb-10 justify-center items-start">
-            {
-              corretores!.map((corretor: CorretorBuscado) => {
-                return (
-                  <UserCard key={corretor.id} corretor={corretor} corporacao={null}/>
-                )
-              })             
-            }
-          </div>         
+
+        {/* Container de resultado*/}
+        {
+         resultado == true &&  selectedUserType == textos.usertypevalue.broker ?
+         <div className="grid md:grid-cols-2 w-full mt-10 mb-10 justify-center items-start gap-4">
+           {
+             corretores!.map((corretor: CorretorBuscado) => {
+               return (
+                 <UserCard key={corretor.id} textos={textos} corretor={corretor} corporacao={null}/>
+               )
+             })             
+           }
+         </div>         
+         :
+         resultado == true &&  selectedUserType == textos.usertypevalue.corporation ?
+         <div className="grid md:grid-cols-2 w-full mt-10 mb-10 justify-center items-start gap-4">
+           {
+             corporacoes!.map((corporacao: CorporacaoPorRegiao) => {
+               return (
+                 <UserCard key={corporacao.id} textos={textos} corretor={null} corporacao={corporacao} />
+               )
+             })             
+           }
+         </div>
           :
-            resultado == true &&  selectedUserType == textos.usertypevalue.corporation ?
-            <div className="flex flex-col mt-10 justify-center items-center
-            md:flex-row">
-              {
-                corporacoes!.map((corporacao: CorporacaoPorRegiao) => {
-                  return (
-                    <UserCard key={corporacao.id} corretor={null} corporacao={corporacao} />
-                  )
-                })             
-              }
-            </div>
-            :
-            <div></div>
-      }
+          <div></div>    
+        }
 
     </>
   );
