@@ -10,25 +10,19 @@ import { Database } from "../../../../../lib/database.types";
 interface DashboardProps {
   userId: string;
   session: any;
+  premium: boolean | null;
 }
 
 
-
-export default async function Dashboard({ userId, session }: DashboardProps) {
+export default async function Dashboard({ userId, session, premium }: DashboardProps) {
   const supabase = createServerComponentClient<Database>({cookies})
 
-  let { data: data } = await supabase
-    .from('simple_user_data')
-    .select('premium, nome')
-    .eq('id', session?.user.id)
-    .single()
-  console.log("teste", data)
 
 
   return (
     <>
 
-      {session == null || data?.premium == false ? (
+      {session == null || premium == false ? (
         <div>
           <div className="absolute flex justify-center items-center inset-0 backdrop-blur-md">
             <div className="w-3/4 flex justify-center flex-col items-center">
