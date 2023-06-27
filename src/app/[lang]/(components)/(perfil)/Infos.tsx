@@ -1,10 +1,16 @@
-"use client";
 import VisaoGeral from "./Infos/VisaoGeral"
 import Publicacoes from "./Infos/Publicacoes"
 
-interface InfosProps {}
+interface InfosProps {
+  corretor: any;
+}
 
-export default function Infos({}: InfosProps) {
+export default function Infos({corretor}: InfosProps) {
+/*   const [overview, setOverview] = useState(true)
+  const [publi, setPubli] = useState(false)
+  const [style, setStyle] = useState("") */
+
+ 
   return (
     <>
       <div className="w-auto bg-white h-48 mt-5 rounded-md m-3 overflow-hidden">
@@ -14,7 +20,8 @@ export default function Infos({}: InfosProps) {
         </div>
 
         <div className="p-3">
-            <p></p>
+            <VisaoGeral corretor={corretor}/>
+           {/*  <Publicacoes/> */}
         </div>
 
       </div>
