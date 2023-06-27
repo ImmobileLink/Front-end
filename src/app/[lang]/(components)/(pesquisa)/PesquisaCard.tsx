@@ -132,7 +132,6 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
       .from('corporacao_por_regiao')
       .select('*')
       .eq('idregiao', selectedRegion.id)
- 
 
       if(error) {
         console.log(error)
@@ -190,7 +189,7 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
     <>
     {/* Combo Box Container */} 
         
-      <div className="rounded-md bg-gray-50 dark:bg-gray-600 drop-shadow-md">
+      <div className="rounded-md ring-gray-300 bg-white dark:bg-gray-600 dark:ring-gray-700 drop-shadow-md">
         <div className="justify-start">
           <p className="pt-5 pl-5 text-2xl">{textos.labels.title}</p> 
         </div>  

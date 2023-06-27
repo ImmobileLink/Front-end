@@ -180,7 +180,17 @@
       "search": "Search"
     },
     "pub": {
-      "posted": "posted"
+      "regionfilter": "Filter by region",
+      "posted": "posted",
+      "regioncomboboxplaceholder": "All",
+      "comboboxplaceholder": "Select",
+      "noposts":"No posts found for the specified region",
+      "error": "Ops! Something went wrong. Try reloading the page."
+    },
+    "form": {
+      "regionchange": "Region",
+      "post": "Post",
+      "placeholder": "New post"
     }
   }
 }

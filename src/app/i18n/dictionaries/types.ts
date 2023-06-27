@@ -185,6 +185,7 @@ export interface Stepper {
 export interface Feed {
   cards: Cards;
   pub:   Pub;
+  form: Form;
 }
 
 export interface Cards {
@@ -203,7 +204,18 @@ export interface Cards {
 }
 
 export interface Pub {
+  regionfilter: string;
   posted: string;
+  regioncomboboxplaceholder: string;
+  comboboxplaceholder: string;
+  noposts: string;
+  error: string
+}
+
+export interface Form {
+  regionchange: string;
+  post: string;
+  placeholder: string;
 }
 
 export interface Navbarbuttons {
