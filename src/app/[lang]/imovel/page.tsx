@@ -1,9 +1,11 @@
-import { supabase } from "../../../../lib/supabaseClient";
-import Image from "next/image";
-import ImovelCard from "../(components)/(imovel)/ImovelCard"
+import ImovelCard from "../(components)/(imovel)/ImovelCard";
 
 import { getDictionary } from "../dictionaries";
 import { Imovel } from "../../../../lib/modelos";
+
+import { cookies } from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../../../../lib/database.types";
 
 interface pageProps {
   params: {
@@ -11,34 +13,53 @@ interface pageProps {
   };
 }
 
+const supabase = createServerComponentClient<Database>({ cookies });
+
+async function getUserSession() {
+  const {
+    data: { session },
+    error,
+  } = await supabase.auth.getSession();
+  if (error) console.log(error);
+  else return session;
+}
+
+async function getUserData() {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (session?.user.id) {
+    let { data, error } = await supabase.rpc("get_imoveis", {
+      id_usuario: session?.user.id,
+    });
+    return data;
+  }
+}
+
 export default async function page({ params: { lang } }: pageProps) {
   const dict = await getDictionary(lang); // pt
-
-  const imoveis = await supabase.from('imovel').select('*');
-  if(imoveis.error){
-    console.log("Erro ao consultar imóveis")
-  }
-  else {
-    console.log(imoveis)
-  }
+  const imoveis = await getUserData();
+  const session = await getUserSession();
 
   return (
     <>
       <div className="bg-escuro2 overflow-x-hidden box-border text-black">
-          <div className="flex relative max-w-6xl mx-auto px-4 my-4">
-
-            <div className=" bg-branco rounded-md overflow-hidden h-screen w-screen p-3">
-
+        <div className="flex relative max-w-6xl mx-auto px-4 my-4">
+          <div className=" bg-branco rounded-md overflow-hidden h-screen w-screen p-3">
             <h2 className="text-4xl mb-2">Meus Imóveis</h2>
 
             <div>
-              {imoveis.data.map(dados => (
-                <ImovelCard imovel={dados}/>
+              {imoveis?.map((dados) => (
+                <ImovelCard
+                  key={dados.id}
+                  imovel={dados}
+                  userSession={session}
+                />
               ))}
             </div>
-
-            </div>
           </div>
+        </div>
       </div>
     </>
   );

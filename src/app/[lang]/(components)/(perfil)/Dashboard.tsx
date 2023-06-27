@@ -1,38 +1,33 @@
-"use client";
-
-import Chart from 'chart.js/auto';
-import { Line } from "react-chartjs-2";
-import {CategoryScale} from 'chart.js'; 
-Chart.register(CategoryScale);
+import Line from "./Dashboard/Line"
+import PolarArea from "./Dashboard/PolarArea"
 
 
 interface DashboardProps {
-    userId: any;
+  userId: string;
+  premium: boolean;
 }
 
-const labels = ["January", "February", "March", "April", "May", "June"];
 
-const data = {
-  labels: labels,
-  datasets: [
-    {
-      label: "My First dataset",
-      backgroundColor: "rgb(255, 99, 132)",
-      borderColor: "rgb(255, 99, 132)",
-      data: [0, 10, 5, 2, 20, 30, 45],
-    },
-  ],
-};
 
-export default function Dashboard({userId}: DashboardProps) {
-   
-    
-     
-      return (
-        <div>
-            <Line data={data} />
+export default function Dashboard({ userId, premium }: DashboardProps) {
 
-            <p className='mt-5'>Tacar mais alguma informação aqui pertinente ao desempenho</p>
+  let style = ""
+
+  if (!premium) {
+     //style = 'blur-sm'
+  }
+
+  return (
+    <div className={style}>
+      
+      <div >
+        <PolarArea />
       </div>
-      );
+
+      <div className="mt-5">
+        <Line />
+      </div>
+
+    </div>
+  );
 }
