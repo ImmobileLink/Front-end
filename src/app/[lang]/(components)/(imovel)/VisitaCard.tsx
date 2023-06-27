@@ -3,19 +3,22 @@ import React, { useState } from "react";
 import { Corretor, CorretorAssociado, Visita } from "../../../../../lib/modelos";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
+import { Formlabels } from "@/app/i18n/dictionaries/types";
+import Link from "next/link";
 
 interface VisitaCardProps {
+  formlabels: Formlabels;
   onCloseModal;
   imovelData;
   corretorData;
-  userSession: Session | null | undefined
+  userSession: Session | null | undefined;
 }
 
 const supabase = createClientComponentClient<Database>()
 
-export default function VisitaCard({ onCloseModal, imovelData, corretorData, userSession }: VisitaCardProps) {
+export default function VisitaCard({ onCloseModal, imovelData, corretorData, userSession, formlabels }: VisitaCardProps) {
   const [alert, setAlert] = useState({ type: "", title: "", message: "" });
-  const [selectedCorretor, setSelectedCorretor] = useState("");
+  const [selectedCorretor, setSelectedCorretor] = useState(corretorData![0]);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -44,7 +47,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
       setAlert({
         type: "warning",
         title: "",
-        message: "",
+        message: formlabels.formlogs.invalidname,
       });
       return false;
     } else {
@@ -61,7 +64,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
       setAlert({
         type: "warning",
         title: "",
-        message: "",
+        message: formlabels.formlogs.invalidphone,
       });
       return false;
     } else {
@@ -78,7 +81,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
       setAlert({
         type: "warning",
         title: "",
-        message: "",
+        message: formlabels.formlogs.invalidemail,
       });
       return false;
     } else {
@@ -93,27 +96,24 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
 
   const handleCorretor = (event: any) => {
     const selectedValue = event.target.value;
-    const selectedObject: corretorData | undefined = corretorData!.find(corretor => corretor!.nome === selectedValue);
+    const selectedObject = corretorData!.find(corretor => corretor!.nome === selectedValue);
     if (selectedObject != null) {
-      setSelectedCorretor(selectedObject.id)
+      setSelectedCorretor(selectedObject)
     }     
   };
 
   const handleDelegarVisita = async () => {
     if (validaForm()) {
-      const deslocamentoFuso = new Date().getTimezoneOffset() / 60; // Obtém o deslocamento em horas
-      const deslocamentoFusoFormatado = deslocamentoFuso >= 0 ? `+${deslocamentoFuso}` : `-${Math.abs(deslocamentoFuso)}`;
-
       const visita: Visita = {
         idcorporacao: userSession?.user.id!,
-        idcorretor: "68a3a516-377e-40f3-9a21-e6f3af5b56a6",
+        idcorretor: selectedCorretor.id,
         idimovel: imovelData.id,
         dadosmarcador: {
           "name": nome,
           "email": email,
           "phone": phone,
         },
-        dataAgendamento: `${data} ${time} ${deslocamentoFusoFormatado}`
+        dataAgendamento: `${data} ${time}`
       };
       const { error } = await supabase
       .from('visita')
@@ -123,9 +123,8 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
       }
       else {
         console.log(visita);
+        onCloseModal();
       }
-    } else {
-      console.log("Erro");
     }
   };
 
@@ -147,7 +146,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
           <div
             className="block text-gray-700 text-lg font-bold my-2"
           >
-            Corretor
+            {formlabels.brokerdata}
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="inline-block relative">
@@ -171,12 +170,12 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
                 </svg>
               </div>
             </div>
-            <button
-              className="items-end bg-dark-300 hover:bg-dark-200 text-sm text-white py-1 px-2 rounded"
-              type="button"
-            >
-              Encontrar corretor ideal
-            </button>
+            <Link
+                href={"/pesquisa"}
+                className="items-end text-white bg-dark-300 hover:bg-dark-200 focus:ring-4 font-medium py-1 px-2 rounded text-sm text-center mr-2 mb-2 "
+              >
+                {formlabels.findbroker}
+              </Link>
           </div>
         </div>
 
@@ -184,14 +183,14 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
           <div
             className="block text-gray-700 text-lg font-bold mb-2"
           >
-            Dados do Cliente
+            {formlabels.clientdata}
           </div>
           <div className="bg-gray-200 rounded px-4 pt-4 pb-2">
             <div className="mb-2 flex flex-wrap">
               <label
                 className="text-gray-700 text-sm font-bold mb-1 sm:w-1/5 px-2 py-2 leading-normal"
               >
-                Nome
+                {formlabels.name}
               </label>
               <div className="sm:w-4/5 px-4">
                 <input
@@ -206,7 +205,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
               <label
                 className="text-gray-700 text-sm font-bold mb-1 sm:w-1/5 px-2 py-2 leading-normal"
               >
-                Telefone
+                {formlabels.phone}
               </label>
               <div className="sm:w-4/5 px-4">
                 <input
@@ -222,7 +221,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
               <label
                 className="text-gray-700 text-sm font-bold mb-1 sm:w-1/5 px-2 py-2 leading-normal"
               >
-                E-mail
+                {formlabels.email}
               </label>
               <div className="sm:w-4/5 px-4">
                 <input
@@ -240,14 +239,14 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
           <div
             className="block text-gray-700 text-lg font-bold mb-2"
           >
-            Agendamento
+            {formlabels.scheduling}
           </div>
           <div className="bg-gray-200 rounded px-4 pt-4 pb-2">
             <div className="mb-2 flex flex-wrap">
               <label
                 className="text-gray-700 text-sm font-bold mb-1 sm:w-1/5 px-2 py-2 leading-normal"
               >
-                Data
+                {formlabels.date}
               </label>
               <div className="sm:w-4/5 px-4">
                 <input
@@ -262,7 +261,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
               <label
                 className="text-gray-700 text-sm font-bold mb-1 sm:w-1/5 px-2 py-2 leading-normal"
               >
-                Horário
+                {formlabels.time}
               </label>
               <div className="sm:w-4/5 px-4">
                 <input
@@ -280,7 +279,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
           onClick={handleDelegarVisita}
           className="p-2 mt-2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg"
         >
-          Delegar Visita
+          {formlabels.delegatevisit}
         </button>
       </div>
     </div>

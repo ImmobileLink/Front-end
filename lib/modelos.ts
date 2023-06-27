@@ -8,7 +8,7 @@ export type TipoImovel = Database['public']['Tables']['tipoImovel']['Row']
 export type Usuario = Database['public']['Tables']['usuario']['Row']
 export type Corretor = Database['public']['Tables']['corretor']['Row']
 export type Corporacao = Database['public']['Tables']['corporacao']['Row']
-export type Imovel = Database['public']['Tables']['imovel']['Row']
+export type ImovelRegistro = Database['public']['Tables']['imovel']['Row']
 export type Mensagem = Database['public']['Tables']['mensagem']['Row']
 export type MensagemComUsuario = Database['public']['Views']['mensagem_com_usuario']['Row']
 export interface MensagemAInserir {
