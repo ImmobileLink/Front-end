@@ -9,7 +9,19 @@ export type Usuario = Database['public']['Tables']['usuario']['Row']
 export type Corretor = Database['public']['Tables']['corretor']['Row']
 export type Corporacao = Database['public']['Tables']['corporacao']['Row']
 export type Imovel = Database['public']['Tables']['imovel']['Row']
-
+export type Mensagem = Database['public']['Tables']['mensagem']['Row']
+export type MensagemComUsuario = Database['public']['Views']['mensagem_com_usuario']['Row']
+export interface MensagemAInserir {
+    idautor: string,
+    idsala: string,
+    mensagem: string
+}
+export interface CorretorAssociado {
+  idcorretor: string,
+  nomecorretor: string,
+}
+export type Sala = Database['public']['Tables']['sala']['Row']
+export type Visita = Database['public']['Tables']['visita']['Row']
 //Criados/Modificados/Personalizados
 export interface CorretorBuscado {
     creci: string | null

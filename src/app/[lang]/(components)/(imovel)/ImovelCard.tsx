@@ -1,19 +1,40 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { supabase } from "../../../../../lib/supabaseClient";
 import ImovelImg from "./ImovelImg";
-import { useSupabase } from "@/app/[lang]/SupabaseProvider";
-import { Imovel } from "../../../../../lib/modelos";
+import { Corretor, CorretorAssociado, Imovel } from "../../../../../lib/modelos";
+import VisitaCard from "./VisitaCard";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface ImovelCardProps {
-  imovel: Imovel[] | null
+  imovel: Imovel[] | null;
+  userSession: Session | null | undefined
 }
 
-// Arrumar internacionalização, tailwind
+const supabase = createClientComponentClient<Database>()
 
-export default function ImovelCard({ imovel }: ImovelCardProps) {
+export default function ImovelCard({imovel, userSession}: ImovelCardProps) {
+  const [corretor, setCorretor] = useState<CorretorAssociado[] | null>([]);
+  const [erro, setErro] = useState<string>('');
   const [formOpen, setFormOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  
+  const getCorretores = async () => {    
+      if (userSession?.user.id) {
+        let { data, error } = await supabase.rpc("get_corretores_by_corporacao_especialidade", {
+          id_usuario: userSession?.user.id,
+          id_imovel: imovel.id,
+        })
+        if (error) {
+          console.log(error)
+          setErro(error.toString())
+          setCorretor([])
+        }
+        else {
+          setErro('')
+          setCorretor(data)
+        }
+      }
+    }
 
   function openDropdown(e: any) {
     e.stopPropagation();
@@ -24,97 +45,48 @@ export default function ImovelCard({ imovel }: ImovelCardProps) {
     setDropdownOpen(false);
   }
 
+  const handleCloseModal = () => {
+    setFormOpen(false);
+  };
+
+  // Deixar a descrição na tabela de imóveis, por enquanto
   const caracteristicas = imovel.descricao.split("; ");
 
   return (
     <div className="bg-white focus:ring-indigo-500 focus:ring-2 focus:ring-offset-2 shadow-md rounded-md p-4 mb-2 align-middle">
       <div className="flex grow">
         <div className="mr-3 ">
-          <ImovelImg imovelId={imovel.id}/>
+          <ImovelImg imovelId={imovel.id} />
         </div>
 
         <div className="grow my-2">
           <div className="flex grow">
             <button
-              onClick={() => setFormOpen(true)}
+              onClick={() => {getCorretores(); setFormOpen(true)}}
               className="p-2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg mb-2"
             >
               Delegar Visita
             </button>
-            {formOpen ? (
-              <div className="w-full p-[5%] bg-[rgba(0,0,0,0.5)] fixed z-100 flex justify-center inset-0">
-              <div className="bg-white flex-1 shadow-md max-w-md flex flex-col relative rounded-lg px-8 pt-6 pb-8 mb-4"
-              >
-                <button
-                  type="button"
-                  className="w-6 h-6 absolute text-inherit bg-transparent cursor-pointer border-none right-4 inset-y-2 text-lg"
-                  onClick={() => setFormOpen(false)}
-                >
-                  X
-                </button>
-                
-                <div class="mb-4">
-                  <label class="block text-gray-700 text-lg font-bold mb-2" for="grid-state">
-                    Corretor
-                  </label>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div class="inline-block relative">
-                      <select class="appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-1 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                        <option></option>
-                      </select>
-                      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                      </div>
-                    </div>
-                    <button class="items-end bg-escuro2 hover:bg-escuro text-sm text-white py-1 px-2 rounded" type="button">
-                    Encontrar corretor ideal
-                  </button>
-                  </div>
-                </div>
-
-                <div className="mb-4">
-                  <label class="block text-gray-700 text-lg font-bold mb-2" for="client-data">Dados do Cliente</label>
-                  <div className="bg-gray-200 rounded px-4 py-4 mb-4">
-                    <div class="mb-4 flex flex-wrap">  
-                      <label class="text-gray-700 text-sm font-bold mb-1 sm:w-1/5 px-2 py-2 leading-normal" for="user-name">Nome</label>
-                      <div class="sm:w-4/5 px-4">
-                        <input className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" />
-                      </div>
-                    </div>
-                    <div class="mb-4 flex flex-wrap">  
-                      <label class="text-gray-700 text-sm font-bold mb-1 sm:w-1/5 px-2 py-2 leading-normal" for="user-tel">Telefone</label>
-                      <div class="sm:w-4/5 px-4">
-                        <input className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="usertel" type="text" />
-                      </div>
-                    </div>
-                    <div class="mb-2 flex flex-wrap">  
-                      <label class="text-gray-700 text-sm font-bold mb-1 sm:w-1/5 px-2 py-2 leading-normal" for="user-email">E-mail</label>
-                      <div class="sm:w-4/5 px-4">
-                        <input className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="usermail" type="text" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <button type="submit" className="p-2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">Delegar Visita</button>
-              </div>
-              </div>
-            ): false}
-
           </div>
           <div className="flex grow">
-            <div className="w-1/2">
+            <div className="w-1/3">
               <p className="font-bold">Localização</p>
               <p>{`${imovel.rua}, ${imovel.numero}`}</p>
-              <p>{`${imovel.bairro} - ${imovel.cidade}/${imovel.estado}`}</p>
+              <p>
+                {`${imovel.bairro} - ${imovel.cidade}/${imovel.estado}`}
+              </p>
             </div>
-            <div>
+            <div className="w-1/3">
               <p className="font-bold">Características</p>
               <ul className="list-disc">
-                {caracteristicas.map((item) => (
-                  <li>{item}</li>
+                {caracteristicas.map((item, index) => (
+                  <li key={index}>{item}</li>
                 ))}
               </ul>
+            </div>
+            <div>
+              <p className="font-bold">Valor</p>
+              <p>{`${imovel.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}`}</p>
             </div>
           </div>
         </div>
@@ -139,6 +111,12 @@ export default function ImovelCard({ imovel }: ImovelCardProps) {
             </button>
           </div>
         </div>
+
+        {formOpen ? (
+          <VisitaCard onCloseModal={handleCloseModal} imovelData={imovel} corretorData={corretor} userSession={userSession} />
+        ) : (
+          false
+        )}
       </div>
     </div>
   );

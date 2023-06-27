@@ -1,20 +1,44 @@
+"use client";
 import Image from "next/image";
+import { Suspense, useState } from "react";
+import AvatarLoading from "./AvatarLoading";
 
 interface AvatarProps {
-    userId: any;
+  userId: any;
+  size?: String | number;
 }
 
-export default function Avatar({userId}: AvatarProps) {
+export default function Avatar({ userId, size }: AvatarProps) {
+  let styleImage = "";
 
-    return (
-        <div>          
-            <Image
-                className="mr-3 mb-3 h-14 w-auto"
-                src={`users/profile_picture/${userId}`}
-                width={1}
-                height={1}
-                alt="Profile Picture"
-            />                    
-        </div>              
-    )
+  if (size == "big") {
+    styleImage = "w-32 h-32 m-1 rounded-full ring-1 ring-gray-200";
+  } else {
+    if (typeof size === "number") {
+      styleImage = `h-${size} w-${size} m-1 rounded-full ring-1 ring-gray-200`;
+    } else {
+      styleImage = "h-14 w-14 m-1 rounded-full ring-1 ring-gray-200";
+    }
+  }
+
+  const [src, setSrc] = useState(`users/profile_picture/${userId}`);
+
+
+
+  return (
+    <div>
+      <Suspense
+        fallback={<AvatarLoading/>}
+      />
+      <Image
+        className={styleImage}
+        loading="lazy"
+        src={src}
+        width={1}
+        height={1}
+        onError={() => setSrc("/users/nopfp")}
+        alt="Profile Picture"
+      />
+    </div>
+  );
 }

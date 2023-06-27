@@ -1,16 +1,21 @@
 "use client";
 import { useState } from "react";
 import SignIn from "./(views)/signin";
-import SignUp from "./(views)/signup";
+import SignUp from "./(views)/(signup)/signup";
 import ForgetPwd from "./(views)/forgetpwd";
 import Alert from "@/app/[lang]/(components)/Alert";
 import { Auth } from "@/app/i18n/dictionaries/types";
 
-interface SupabaseAuthProps {
+interface AuthFormProps {
   auth: Auth;
+  data: {
+    tipoImovel: { id: any; descricao: any }[] | null;
+    regiao: { id: any; regiao: any }[] | null;
+  };
+  lang: string;
 }
 
-export default function SupabaseAuth({ auth }: SupabaseAuthProps) {
+export default function AuthForm({ auth, data, lang }: AuthFormProps) {
   const [view, setView] = useState("signin"); //signin, signup, forgetpwd
   const [alert, setAlert] = useState({ type: "", title: "", message: "" });
 
@@ -25,11 +30,14 @@ export default function SupabaseAuth({ auth }: SupabaseAuthProps) {
         <SignIn
           setAlert={setAlert}
           signin={auth.signin}
+          lang={lang}
         />
       ) : view == "signup" ? (
         <SignUp
           setAlert={setAlert}
           signup={auth.signup}
+          data={data}
+          lang={lang}
         />
       ) : view == "forgetpwd" ? (
         <ForgetPwd
@@ -37,11 +45,11 @@ export default function SupabaseAuth({ auth }: SupabaseAuthProps) {
           forgetpassword={auth.forgetpassword}
         />
       ) : (
-        <p>ERRO</p>
+        <h1>ERRO</h1>
       )}
       <div className="flex flex-col align-middle justify-center">
         {alert.message.length > 1 ? (
-          <div className="pt-6">
+          <div className="pt-6 sm:mx-auto sm:w-full sm:max-w-sm">
             <Alert
               type={alert.type}
               title={alert.title || auth.always.error}
@@ -71,7 +79,7 @@ export default function SupabaseAuth({ auth }: SupabaseAuthProps) {
               </button>
             </div>
           </>
-        ) : view == view || view == "forgetpwd" ? (
+        ) : view == "signup" || view == "forgetpwd" ? (
           <div className="flex mt-10 w-full justify-center text-sm text-gray-500">
             <p>{auth.always.alreadyhaveanaccount}</p>
             <button

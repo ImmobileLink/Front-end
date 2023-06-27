@@ -1,8 +1,9 @@
 "use client";
 
-import { useSupabase } from "@/app/[lang]/SupabaseProvider";
 import { Forgetpassword } from "@/app/i18n/dictionaries/types";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Dispatch, SetStateAction, useState } from "react";
+import { Database } from "../../../../../lib/database.types";
 
 interface ForgetPwd {
   setAlert: Dispatch<
@@ -10,9 +11,10 @@ interface ForgetPwd {
   >;
   forgetpassword: Forgetpassword;
 }
+const supabase = createClientComponentClient<Database>()
 
 export default function ForgetPwd({ setAlert, forgetpassword }: ForgetPwd) {
-  const { supabase } = useSupabase();
+
   const [email, setEmail] = useState("");
   const [existeUsuario, setExisteUsuario] = useState(false);
 
@@ -70,26 +72,22 @@ export default function ForgetPwd({ setAlert, forgetpassword }: ForgetPwd) {
 
   return (
     <>
-      <div className="space-y-6">
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100"
-          >
+      <div className="space-y-6 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="relative z-0 w-full mb-6 group">
+          <input
+            type="email"
+            name="floating_email"
+            id="floating_email"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" "
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onBlur={verificaEmailDB}
+          />
+          <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
             {forgetpassword.emaillabel}
           </label>
-          <div className="mt-2">
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-              onBlur={verificaEmailDB}
-              className="block w-full rounded-md border-0 py-1.5 pl-3 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secundaria-100 sm:text-sm sm:leading-6"
-            />
-          </div>
         </div>
 
         <div>
