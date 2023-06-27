@@ -24,11 +24,16 @@ export default function PostFormCard({ textos, idusuario, regioes }: PostFormCar
       setErro(true)
     }
     else {
-      setErro(false)
-      const { error } = await supabase.from('publicacao').insert({ idautor: idusuario, idregiao: selectedRegion.id, conteudo: texto, privado: false })
-      if (error) {
-        console.log(error)
-      }
+      if(texto != '') {
+        setErro(false)
+        const { error } = await supabase.from('publicacao').insert({ idautor: idusuario, idregiao: selectedRegion.id, conteudo: texto, privado: false })
+        if (error) {
+          console.log(error)
+        }
+        else {
+          setTexto('')
+        }
+      }     
     }
   }
   //Faz o set do estado "Region" com o id da região

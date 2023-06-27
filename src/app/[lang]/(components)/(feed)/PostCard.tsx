@@ -68,13 +68,15 @@ export default function PostCard({ publicacao }: PostCardProps) {
         <p className="text-sm mb-2">
           {publicacao.conteudo}
         </p>
-        <Image
-          className="mr-3 mb-3 h-auto w-auto rounded-md overflow-hidden"
-          src={`publicacoes/imagens/${publicacao.imagem}`}
-          width={1}
-          height={1}
-          alt="Post"
-        />
+        <div className="flex justify-center">
+          <Image
+            className="mr-3 mb-3 h-auto w-auto rounded-md overflow-hidden"
+            src={`publicacoes/imagens/1.png`}
+            width={1}
+            height={1}
+            alt="Post"
+          />
+        </div>   
       </div>
       <div
         id="socialbuttons"

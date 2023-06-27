@@ -1,7 +1,7 @@
 "use client";
 import { Feed } from "@/app/i18n/dictionaries/types";
 import { useEffect, useState } from "react";
-import { Publicacao, PublicacaoCompleta, Regiao } from "../../../../../lib/modelos";
+import { PublicacaoCompleta, Regiao } from "../../../../../lib/modelos";
 import PostCard from "./PostCard";
 import { Database } from "../../../../../lib/database.types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -13,6 +13,20 @@ interface FilterCardProps {
 }
 
 const supabase = createClientComponentClient<Database>()
+
+const getPublicacaoPorId = async (pubid: string) => {
+  const { data, error } = await supabase
+  .rpc('get_publicacao_por_id', {
+    pubid: pubid
+  })
+  .order('atualizadoem', {ascending: false})
+  if (error) {
+    console.log(error)
+  }
+  else {
+    return data
+  }
+}
 
 export default function Posts({ userid, textos, regioes }: FilterCardProps) {
   const [selectedRegion, setSelectedRegion] = useState<Regiao>({ id: '', regiao: '' })
@@ -37,9 +51,10 @@ export default function Posts({ userid, textos, regioes }: FilterCardProps) {
           filter: `idautor=eq.${userid}`
         },
         async (payload: { new: PublicacaoCompleta}) => {
-          await getPublicacaoPorId(payload.new.id)
-          const pub: PublicacaoCompleta[] = newPub
-          setPublicacoes((posts:PublicacaoCompleta[]) => [...posts, pub[0]]);
+          const newpub = await getPublicacaoPorId(payload.new.id)
+          if (newpub != null && newpub != undefined) {
+            setPublicacoes((posts:PublicacaoCompleta[]) => [newpub[0], ...posts]);
+          }        
         }
       )
       .subscribe();
@@ -48,25 +63,6 @@ export default function Posts({ userid, textos, regioes }: FilterCardProps) {
       }
     }  
   }, [])
-
-  const getPublicacaoPorId = async (pubid: string) => {
-    const { data, error } = await supabase
-    .rpc('get_publicacao_por_id', {
-      pubid: pubid
-    })
-    .order('atualizadoem', {ascending: false})
-    if (error) {
-      setErro(true)
-      setLoading(false)
-    }
-    else {
-      setErro(false)
-      setPublicacoes(data)
-      setLoading(false)
-      setNewPub(data)
-      console.log(data)
-    }
-  }
 
   const getPosts = async (regiao: Regiao) => {
     if (regiao.id == '') {

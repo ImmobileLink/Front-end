@@ -656,28 +656,28 @@ export interface Database {
       }
       visita: {
         Row: {
+          dadosmarcador: Json
           dataAgendamento: string
           id: string
           idcorporacao: string
           idcorretor: string
           idimovel: string
-          idmarcador: string
         }
         Insert: {
+          dadosmarcador: Json
           dataAgendamento: string
           id?: string
           idcorporacao: string
           idcorretor: string
           idimovel: string
-          idmarcador: string
         }
         Update: {
+          dadosmarcador?: Json
           dataAgendamento?: string
           id?: string
           idcorporacao?: string
           idcorretor?: string
           idimovel?: string
-          idmarcador?: string
         }
         Relationships: [
           {
@@ -893,6 +893,14 @@ export interface Database {
           privado: boolean
         }[]
       }
+      get_tipoimovel_by_idcorretor: {
+        Args: {
+          idcorretor: string
+        }
+        Returns: {
+          descricao: string
+        }[]
+      }
       mensagem_com_usuario: {
         Args: {
           sala: string
@@ -912,6 +920,14 @@ export interface Database {
         Args: Record<PropertyKey, never>
         Returns: {
           id: string
+        }[]
+      }
+      obterespecialidade: {
+        Args: {
+          idcorretor: string
+        }
+        Returns: {
+          descricao: string
         }[]
       }
       test_authorization_header: {
