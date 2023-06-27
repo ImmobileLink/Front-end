@@ -1,8 +1,10 @@
-"use client";
-
+"use client"
 import { FiMail } from "react-icons/fi";
 import Avatar from "../Avatar";
 import Link from "next/link";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../../../../../lib/database.types";
+import { useRouter } from "next/navigation";
 
 interface CardAmizadeProps {
   idremetente: string | undefined;
@@ -10,10 +12,19 @@ interface CardAmizadeProps {
   nome: string;
 }
 
-export default function CardAmizade({ idremetente, iddestinatario, nome }: CardAmizadeProps) {
+const supabase = createClientComponentClient<Database>()
 
-  const handleEnviarMensagem = () => {
-    console.log("oi")
+export default function CardAmizade({ idremetente, iddestinatario, nome }: CardAmizadeProps) {
+  const router = useRouter()
+
+  const handleEnviarMensagem = async () => {
+    let { data, error } = await supabase
+    .rpc('criar_ou_retornar_sala', {
+      id_destinatario: iddestinatario, 
+      id_usuario: idremetente!
+    })
+
+    router.push(`/chat/${data}`)
   }
 
   return (

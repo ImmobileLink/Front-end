@@ -184,7 +184,9 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
         const { error } = await supabase
           .from("usuarioporregiao")
           .insert(arrayUsuarioPorRegiao);
-      }
+        }
+      
+      setIsOK(true);
 
       router.refresh();
     }
