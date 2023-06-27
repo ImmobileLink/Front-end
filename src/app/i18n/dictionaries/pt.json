@@ -180,7 +180,17 @@
       "search": "Procurar"
     },
     "pub": {
-      "posted": "fez uma publicação"
+      "regionfilter": "Filtre por região",
+      "posted": "fez uma publicação",
+      "regioncomboboxplaceholder": "Todos",
+      "comboboxplaceholder": "Selecione",
+      "noposts":"Nenhuma publicação encontrada na região especificada",
+      "error": "Ops! Algo deu errado. Tente recarregar a página."
+    },
+    "form": {
+      "regionchange": "Região",
+      "post": "Publicar",
+      "placeholder": "Nova publicação"
     }
   }
 }

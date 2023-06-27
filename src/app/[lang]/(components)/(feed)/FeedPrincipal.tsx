@@ -1,11 +1,11 @@
 import React from 'react';
 import PostFormCard from "./PostFormCard";
-import PostCard from "./PostCard";
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { Database } from '../../../../../lib/database.types';
-import { Pub } from '@/app/i18n/dictionaries/types';
 import { Regiao } from '../../../../../lib/modelos';
+import { Feed } from '@/app/i18n/dictionaries/types';
+import Posts from './Posts';
 
 interface FeedPrincipalProps {
   userData: {
@@ -14,52 +14,33 @@ interface FeedPrincipalProps {
     premium: boolean | undefined;
     role: number | undefined;
   };
-  pub: Pub;
+  textos: Feed;
 }
-const supabase = createServerComponentClient<Database>({cookies})
-
-const getData = async () => {
-  const { data } = await supabase
-  .from('publicacao')
-  .select("*")
-  .order('atualizadoem', { ascending: false })
-  return data
-}
+const supabase = createServerComponentClient<Database>({ cookies })
 
 const getRegiao = async () => {
   const { data, error } = await supabase
-  .from('regiao')
-  .select('*')
-  if(error)
+    .from('regiao')
+    .select('*')
+  if (error)
     console.log(error)
   else
     return data
 }
 
-export default async function FeedPrincipal({userData, pub}: FeedPrincipalProps) {
-  const publicacoes = await getData();
+export default async function FeedPrincipal({ textos, userData }: FeedPrincipalProps) {
   const regioes: Regiao[] | undefined = await getRegiao();
 
   return (
-  <div>
-        {
-          userData.id ? (
-            <>
-          <PostFormCard idusuario={userData.id} regioes={regioes}/> 
-            </>
-          ) : ""
-        }
-    <div>          
+    <div className='space-y-3'>
       {
-        publicacoes!.map((item:any) => {
-          return (
-            <PostCard key={item.id} publicacao={item}/>
-          )
-        })
+        userData.id ? (
+          <>
+            <PostFormCard textos={textos} idusuario={userData.id} regioes={regioes} />
+          </>
+        ) : ""
       }
+      <Posts userid={userData.id} textos={textos} regioes={regioes}/>
     </div>
-      
-        
-  </div>
   );
 }

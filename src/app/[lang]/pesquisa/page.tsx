@@ -54,8 +54,8 @@ async function getUserData() {
       userData.role = data![0].role;
     }
     {
-      let { data, error } = await supabase.rpc("get_amigos", {
-        id_corretor: session?.user.id,
+      let { data, error } = await supabase.rpc("get_connected_users", {
+        id_usuario: session?.user.id,
       });
 
       userData.conexoes = data;
@@ -83,8 +83,8 @@ export default async function page({ params: { lang } }: pageProps) {
     <div className="w-auto h-fit min-h-screen bg-branco dark:bg-dark-200 flex justify-center gap-5 pt-4">
       <div className="hidden md:flex md:w-3/12 lg:flex flex-col lg:w-2/12 gap-4">
         <NavProfile
-            userData={userData}
-            cards={dict.feed.cards}
+          userData={userData}
+          cards={dict.feed.cards}  
         />
         {userData.id ? (
           <>

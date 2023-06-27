@@ -9,29 +9,38 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      amizade: {
+      associacoes: {
         Row: {
-          idcorretor1: string
-          idcorretor2: string
+          idcorporacao: string
+          idcorretor: string
+          pendente: boolean | null
         }
         Insert: {
-          idcorretor1: string
-          idcorretor2: string
+          idcorporacao: string
+          idcorretor: string
+          pendente?: boolean | null
         }
         Update: {
-          idcorretor1?: string
-          idcorretor2?: string
+          idcorporacao?: string
+          idcorretor?: string
+          pendente?: boolean | null
         }
         Relationships: [
           {
-            foreignKeyName: "amizade_idcorretor1_fkey"
-            columns: ["idcorretor1"]
-            referencedRelation: "corretor"
+            foreignKeyName: "associacoes_idcorporacao_fkey"
+            columns: ["idcorporacao"]
+            referencedRelation: "corporacao"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "amizade_idcorretor2_fkey"
-            columns: ["idcorretor2"]
+            foreignKeyName: "associacoes_idcorporacao_fkey"
+            columns: ["idcorporacao"]
+            referencedRelation: "corporacao_por_regiao"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "associacoes_idcorretor_fkey"
+            columns: ["idcorretor"]
             referencedRelation: "corretor"
             referencedColumns: ["id"]
           }
@@ -95,6 +104,37 @@ export interface Database {
             foreignKeyName: "comentario_idpublicacao_fkey"
             columns: ["idpublicacao"]
             referencedRelation: "publicacao"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      conexoes: {
+        Row: {
+          idusuario1: string
+          idusuario2: string
+          Pendente: boolean | null
+        }
+        Insert: {
+          idusuario1: string
+          idusuario2: string
+          Pendente?: boolean | null
+        }
+        Update: {
+          idusuario1?: string
+          idusuario2?: string
+          Pendente?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conexoes_idusuario1_fkey"
+            columns: ["idusuario1"]
+            referencedRelation: "usuario"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "conexoes_idusuario2_fkey"
+            columns: ["idusuario2"]
+            referencedRelation: "usuario"
             referencedColumns: ["id"]
           }
         ]
@@ -685,26 +725,6 @@ export interface Database {
           }
         ]
       }
-      mensagem_com_usuario: {
-        Row: {
-          atualizadoem: string | null
-          enviadoem: string | null
-          id: string | null
-          idautor: string | null
-          idsala: string | null
-          imagem: string | null
-          mensagem: string | null
-          nomeautor: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "mensagem_idsala_fkey"
-            columns: ["idsala"]
-            referencedRelation: "sala"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
       simple_user_data: {
         Row: {
           id: string | null
@@ -733,9 +753,9 @@ export interface Database {
         }
         Returns: string
       }
-      get_amigos: {
+      get_connected_users: {
         Args: {
-          id_corretor: string
+          id_usuario: string
         }
         Returns: {
           id: string
@@ -799,6 +819,80 @@ export interface Database {
           nota: number
         }[]
       }
+      get_corretores_by_corporacao_especialidade: {
+        Args: {
+          id_usuario: string
+          id_imovel: string
+        }
+        Returns: {
+          id: string
+          nome: string
+        }[]
+      }
+      get_imoveis: {
+        Args: {
+          id_usuario: string
+        }
+        Returns: {
+          id: string
+          rua: string
+          numero: number
+          bairro: string
+          cidade: string
+          estado: string
+          descricao: string
+          valor: number
+        }[]
+      }
+      get_publicacao_com_dados: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          idautor: string
+          nomeautor: string
+          idregiao: string
+          regiao: string
+          conteudo: string
+          imagem: string
+          criadoem: string
+          atualizadoem: string
+          privado: boolean
+        }[]
+      }
+      get_publicacao_completa: {
+        Args: {
+          regid: string
+        }
+        Returns: {
+          id: string
+          idautor: string
+          nomeautor: string
+          idregiao: string
+          regiao: string
+          conteudo: string
+          imagem: string
+          criadoem: string
+          atualizadoem: string
+          privado: boolean
+        }[]
+      }
+      get_publicacao_por_id: {
+        Args: {
+          pubid: string
+        }
+        Returns: {
+          id: string
+          idautor: string
+          nomeautor: string
+          idregiao: string
+          regiao: string
+          conteudo: string
+          imagem: string
+          criadoem: string
+          atualizadoem: string
+          privado: boolean
+        }[]
+      }
       mensagem_com_usuario: {
         Args: {
           sala: string
@@ -823,6 +917,13 @@ export interface Database {
       test_authorization_header: {
         Args: Record<PropertyKey, never>
         Returns: Json
+      }
+      verifica_associacao: {
+        Args: {
+          valor1: string
+          valor2: string
+        }
+        Returns: string
       }
     }
     Enums: {

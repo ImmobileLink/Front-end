@@ -12,20 +12,20 @@ interface UserCardProps {
   corporacao: CorporacaoPorRegiao | null
 }
 
-export default function UserCard({textos, corretor, corporacao }: UserCardProps) {
-  const nota = [<AiOutlineStar />, <AiOutlineStar />, <AiOutlineStar />, <AiOutlineStar />, <AiOutlineStar />];
+export default function UserCard({ textos, corretor, corporacao }: UserCardProps) {
+  const nota = [<AiOutlineStar />, <AiOutlineStar />, <AiOutlineStar />, <AiOutlineStar />, <AiOutlineStar />];
 
-  if(corretor!=null) {
-    if(corretor.nota != null){
+  if (corretor != null) {
+    if (corretor.nota != null) {
       for (let i = 0; i < corretor!.nota!; i++) {
-        nota.splice(i, 1, <AiFillStar key={i}/>);
+        nota.splice(i, 1, <AiFillStar key={i} />);
       }
     }
-    
+
   }
 
   return (
-    <div className="w-full h-72 p-5 bg-gray-50 dark:bg-gray-600 drop-shadow-md shadow-md rounded-md my-5">
+    <div className="w-full h-72 p-5 ring-gray-300 bg-white dark:bg-gray-600 dark:ring-gray-700 drop-shadow-md shadow-md rounded-md my-5">
       {
         corretor != null ?
           <div>
@@ -33,7 +33,7 @@ export default function UserCard({textos, corretor, corporacao }: UserCardProps)
             <p>{textos.labels.name}: {corretor.nome}</p>
             <p>CRECI: {corretor.creci}</p>
             <p className="flex flex-row items-baseline align-bottom mt-1">{nota}</p>
-          </div>                      
+          </div>
           :
           <div>
             <Avatar userId={corporacao?.id} />
