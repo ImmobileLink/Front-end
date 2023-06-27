@@ -1,18 +1,20 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import ImovelImg from "./ImovelImg";
-import { Corretor, CorretorAssociado, Imovel } from "../../../../../lib/modelos";
+import { Corretor, CorretorAssociado } from "../../../../../lib/modelos";
 import VisitaCard from "./VisitaCard";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Imovel } from '@/app/i18n/dictionaries/types';
 
 interface ImovelCardProps {
-  imovel: Imovel[] | null;
+  textos: Imovel;
+  imovel: ImovelRegistro[] | null;
   userSession: Session | null | undefined
 }
 
 const supabase = createClientComponentClient<Database>()
 
-export default function ImovelCard({imovel, userSession}: ImovelCardProps) {
+export default function ImovelCard({textos, imovel, userSession}: ImovelCardProps) {
   const [corretor, setCorretor] = useState<CorretorAssociado[] | null>([]);
   const [erro, setErro] = useState<string>('');
   const [formOpen, setFormOpen] = useState(false);
@@ -65,19 +67,19 @@ export default function ImovelCard({imovel, userSession}: ImovelCardProps) {
               onClick={() => {getCorretores(); setFormOpen(true)}}
               className="p-2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg mb-2"
             >
-              Delegar Visita
+              {textos.mainlabels.delegatevisit}
             </button>
           </div>
           <div className="flex grow">
             <div className="w-1/3">
-              <p className="font-bold">Localização</p>
+              <p className="font-bold">{textos.mainlabels.location}</p>
               <p>{`${imovel.rua}, ${imovel.numero}`}</p>
               <p>
                 {`${imovel.bairro} - ${imovel.cidade}/${imovel.estado}`}
               </p>
             </div>
             <div className="w-1/3">
-              <p className="font-bold">Características</p>
+              <p className="font-bold">{textos.mainlabels.characteristics}</p>
               <ul className="list-disc">
                 {caracteristicas.map((item, index) => (
                   <li key={index}>{item}</li>
@@ -85,7 +87,7 @@ export default function ImovelCard({imovel, userSession}: ImovelCardProps) {
               </ul>
             </div>
             <div>
-              <p className="font-bold">Valor</p>
+              <p className="font-bold">{textos.mainlabels.price}</p>
               <p>{`${imovel.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}`}</p>
             </div>
           </div>
@@ -113,7 +115,7 @@ export default function ImovelCard({imovel, userSession}: ImovelCardProps) {
         </div>
 
         {formOpen ? (
-          <VisitaCard onCloseModal={handleCloseModal} imovelData={imovel} corretorData={corretor} userSession={userSession} />
+          <VisitaCard onCloseModal={handleCloseModal} formlabels={textos.formlabels} imovelData={imovel} corretorData={corretor} userSession={userSession} />
         ) : (
           false
         )}

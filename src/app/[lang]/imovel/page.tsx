@@ -6,6 +6,7 @@ import { Imovel } from "../../../../lib/modelos";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../lib/database.types";
+import NavBar from "../(components)/NavBar";
 
 interface pageProps {
   params: {
@@ -42,23 +43,30 @@ export default async function page({ params: { lang } }: pageProps) {
   const imoveis = await getUserData();
   const session = await getUserSession();
 
+  const textos = dict.imovel;
+
   return (
     <>
-      <div className="bg-escuro2 overflow-x-hidden box-border text-black">
+      <NavBar />
+      <div className="bg-dark-200 overflow-x-hidden box-border text-black">
+      <div className="h-screen w-screen">
         <div className="flex relative max-w-6xl mx-auto px-4 my-4">
           <div className=" bg-branco rounded-md overflow-hidden h-screen w-screen p-3">
-            <h2 className="text-4xl mb-2">Meus Imóveis</h2>
+            <h2 className="text-4xl mb-2">{textos.mainlabels.title}</h2>
 
             <div>
               {imoveis?.map((dados) => (
                 <ImovelCard
-                  key={dados.id}
+                  //key={dados.id}
+                  textos={textos}
+                  lang={lang}
                   imovel={dados}
                   userSession={session}
                 />
               ))}
             </div>
           </div>
+        </div>
         </div>
       </div>
     </>
