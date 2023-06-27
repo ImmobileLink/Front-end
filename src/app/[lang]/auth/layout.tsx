@@ -1,4 +1,8 @@
-import { dir } from "i18next";
+export const metadata = {
+  title: "ImmobileLink - Auth",
+  description: "Rede social para o mercado imobiliário",
+};
+
 
 interface RootLayout {
   children: any;
@@ -7,13 +11,8 @@ interface RootLayout {
 
 export default function AuthLayout({ children, params: { lang } }: RootLayout) {
   return (
-    <html
-      lang={lang}
-      dir={dir(lang)}
-    >
-      <body>
-        <section>{children}</section>
-      </body>
-    </html>
+    <>
+      {children}
+    </>
   );
 }
