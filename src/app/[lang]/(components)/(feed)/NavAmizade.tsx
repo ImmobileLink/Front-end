@@ -25,8 +25,8 @@ export default async function NavAmizade({ userData, cards }: NavAmizadeProps) {
     <>
       {userData.role == 1 ? (
         <>
-          <div className="w-full h-fit py-4 flex flex-col justify-center align-middle gap-4 ring-2 ring-gray-300 rounded-md bg-white drop-shadow-md">
-            <span className="text-black text-2xl text-center">
+          <div className="w-full h-fit py-4 flex flex-col justify-center align-middle gap-4 ring-2 ring-gray-300 rounded-md bg-white dark:bg-gray-600 dark:ring-gray-700 drop-shadow-md">
+            <span className="text-black dark:text-white text-2xl text-center">
               {cards.connections}
             </span>
             {userData.conexoes?.length != undefined

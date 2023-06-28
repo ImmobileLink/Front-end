@@ -31,7 +31,7 @@ export default function PostCard({ publicacao }: PostCardProps) {
           <div><Avatar userId={publicacao.idautor} /></div>
         </div>
         <div className="grow">
-          <p>{publicacao.nomeautor} fez uma publicação</p>
+          <p>{publicacao.nomeautor}</p>
           <p className="text-xs">{formataData(publicacao.criadoem)}</p>
         </div>
 
@@ -71,7 +71,7 @@ export default function PostCard({ publicacao }: PostCardProps) {
         <div className="flex justify-center">
           <Image
             className="mr-3 mb-3 h-auto w-auto rounded-md overflow-hidden"
-            src={`publicacoes/imagens/1.png`}
+            src={`publicacoes/imagens/1`}
             width={1}
             height={1}
             alt="Post"

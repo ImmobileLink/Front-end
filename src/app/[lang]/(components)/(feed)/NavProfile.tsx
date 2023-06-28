@@ -15,10 +15,10 @@ interface NavProfileProps {
 export default function NavProfile({ userData, cards }: NavProfileProps) {
   return (
     <>
-      <div className="w-full h-fit flex justify-center align-middle ring-2 ring-gray-300 rounded-md bg-white drop-shadow-md">
+      <div className="w-full h-fit flex justify-center align-middle ring-2 ring-gray-300 rounded-md bg-white dark:bg-gray-600 dark:ring-gray-700 drop-shadow-md">
         {userData.id == undefined ? (
           <div className="flex flex-col align-middle my-4">
-            <span className="text-2xl text-black text-center tracking-tighter mb-4">
+            <span className="text-2xl text-black dark:text-white text-center tracking-tighter mb-4">
               {cards.yourenotlogged}
             </span>
             <Link
@@ -27,7 +27,7 @@ export default function NavProfile({ userData, cards }: NavProfileProps) {
             >
               {cards.singin}
             </Link>
-            <span className="text-xs text-gray-500 text-center">
+            <span className="text-xs text-gray-500 dark:text-gray-200 text-center">
               {cards.enjoyall}
             </span>
           </div>
@@ -40,11 +40,11 @@ export default function NavProfile({ userData, cards }: NavProfileProps) {
               />
             </div>
             <div className="w-full flex flex-col justify-center">
-              <span className="text-2xl text-black text-center">
+              <span className="text-2xl text-black dark:text-white text-center">
                 {userData.identificador}
               </span>
               <Link
-                className="text-gray-500 hover:text-black text-center"
+                className="text-gray-500 dark:text-gray-300 hover:text-black text-center"
                 href={`/perfil/${userData.id}`}
               >
                 {cards.visitmyprofile}
@@ -53,7 +53,7 @@ export default function NavProfile({ userData, cards }: NavProfileProps) {
                 ""
               ) : (
                 <>
-                  <p className="selection:text-black text-center mt-3 mb-1">
+                  <p className="selection:text-black dark:text-white text-center mt-3 mb-1">
                     {cards.notpremiumyet}
                   </p>
                   <Link
