@@ -182,5 +182,27 @@
     "pub": {
       "posted": "fez uma publicação"
     }
+  },
+  "planos": {
+    "subscription": "Planos para o seu perfil",
+    "broker": "corretor",
+    "company": "empresa",
+    "month": "mês",
+    "tryforfree": "Experimente já",
+    "allsubscriptions": "Conheça todos nossos benefícios",
+    "usertype": "Tipo de perfil",
+    "sublabel": "Planos",
+    "feedbackreview": "Avaliação de perfil",
+    "dashboard": "Dashboard completo",
+    "feed": "Feed de notícias & oportunidades",
+    "companyafiliation": "Afiliação a uma empresa",
+    "chat": "Chat individual e em grupos",
+    "visibility": "Maior visibilidade",
+    "exclusivefunctions": "Funcionalidades exclusivas",
+    "searchfilters": "Filtros de busca especializados",
+    "oportunitiesposting": "publicação de oportunidades",
+    "linktotenbrokers": "Afiliar-se a até 10 corretores",
+    "illimitedlinks": "Afliliar-se a inúmeros corretores",
+    "buynow": "Compre já"
   }
 }
