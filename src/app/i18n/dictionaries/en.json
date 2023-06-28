@@ -182,5 +182,27 @@
     "pub": {
       "posted": "posted"
     }
+  },
+  "planos": {
+    "subscription": "Signatures for your profile",
+    "broker": "broker",
+    "company": "company",
+    "month": "month",
+    "tryforfree": "Try it free",
+    "allsubscriptions": "Conheça todos nossos planos",
+    "usertype": "Tipo de perfil",
+    "sublabel": "Planos",
+    "feedbackreview": "Feedback review",
+    "dashboard": "Complete Dashboard",
+    "feed": "Oportunity's feed",
+    "companyafiliation": "Affiliation to a company",
+    "chat": "Chats",
+    "visibility": "Better visibility",
+    "exclusivefunctions": "Exclusive features",
+    "searchfilters": "Better search params",
+    "oportunitiesposting": "Oportunities posts",
+    "linktotenbrokers": "Link up to 10 brokers",
+    "illimitedlinks": "Link up to many brokers",
+    "buynow": "Buy now"
   }
 }

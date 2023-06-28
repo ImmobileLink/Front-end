@@ -9,6 +9,7 @@ export interface Dictionaries {
   auth:          Auth;
   pesquisa:      Pesquisa;
   feed:          Feed;
+  planos:        Planos;
 }
 
 export interface Auth {
@@ -230,6 +231,29 @@ export interface Labels {
 export interface Usertypevalue {
   broker:      string;
   corporation: string;
+}
+
+export interface Planos {
+  subscription:        string;
+  broker:              string;
+  company:             string;
+  month:               string;
+  tryforfree:          string;
+  allsubscriptions:    string;
+  usertype:            string;
+  sublabel:            string;
+  feedbackreview:      string;
+  dashboard:           string;
+  feed:                string;
+  companyafiliation:   string;
+  chat:                string;
+  visibility:          string;
+  exclusivefunctions:  string;
+  searchfilters:       string;
+  oportunitiesposting: string;
+  linktotenbrokers:    string;
+  illimitedlinks:      string;
+  buynow:              string;
 }
 
 // Converts JSON strings to/from your types
