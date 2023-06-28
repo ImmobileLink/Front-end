@@ -55,45 +55,42 @@ export default function ImovelCard({textos, imovel, userSession}: ImovelCardProp
   const caracteristicas = imovel.descricao.split("; ");
 
   return (
-    <div className="bg-white focus:ring-indigo-500 focus:ring-2 focus:ring-offset-2 shadow-md rounded-md p-4 mb-2 align-middle">
-      <div className="flex grow">
-        <div className="mr-3 ">
+    <div className="bg-dark-200 dark:bg-branco text-branco dark:text-dark-200 focus:ring-indigo-500 focus:ring-2 focus:ring-offset-2 shadow-md rounded-md p-2 mb-2 align-middle w-full my-4">
+      <div className="flex flex-col md:flex-row">
+        <div className="mr-2 ml-2">
           <ImovelImg imovelId={imovel.id} />
-        </div>
-
-        <div className="grow my-2">
-          <div className="flex grow">
+          <div className="flex-auto">
             <button
               onClick={() => {getCorretores(); setFormOpen(true)}}
-              className="p-2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg mb-2"
+              className="p-2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 w-full rounded-lg mb-2"
             >
               {textos.mainlabels.delegatevisit}
             </button>
           </div>
-          <div className="flex grow">
-            <div className="w-1/3">
+        </div>
+
+        <div className="md:ml-2 md:mt-0 ml-3 flex-auto">
+            <div className="w-full">
               <p className="font-bold">{textos.mainlabels.location}</p>
               <p>{`${imovel.rua}, ${imovel.numero}`}</p>
               <p>
                 {`${imovel.bairro} - ${imovel.cidade}/${imovel.estado}`}
               </p>
+
+              <p className="font-bold mt-2">{textos.mainlabels.price}</p>
+              <p>{`${imovel.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}`}</p>
             </div>
-            <div className="w-1/3">
+            <div className="w-full mt-2">
               <p className="font-bold">{textos.mainlabels.characteristics}</p>
               <ul className="list-disc">
                 {caracteristicas.map((item, index) => (
-                  <li key={index}>{item}</li>
+                  <li key={index} className="ml-4">{item}</li>
                 ))}
               </ul>
             </div>
-            <div>
-              <p className="font-bold">{textos.mainlabels.price}</p>
-              <p>{`${imovel.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}`}</p>
-            </div>
-          </div>
         </div>
 
-        <div className="flex mr-3 items-center justify-around">
+        {/*<div className="flex mr-3 items-center justify-around">
           <div className="relative">
             <button className="text-escuro2" onClick={(e) => openDropdown(e)}>
               <svg
@@ -112,7 +109,7 @@ export default function ImovelCard({textos, imovel, userSession}: ImovelCardProp
               </svg>
             </button>
           </div>
-        </div>
+        </div>*/}
 
         {formOpen ? (
           <VisitaCard onCloseModal={handleCloseModal} formlabels={textos.formlabels} imovelData={imovel} corretorData={corretor} userSession={userSession} />

@@ -48,16 +48,15 @@ export default async function page({ params: { lang } }: pageProps) {
   return (
     <>
       <NavBar />
-      <div className="bg-dark-200 overflow-x-hidden box-border text-black">
-      <div className="h-screen w-screen">
+      <div className="w-auto h-fit min-h-screen bg-dark-200 dark:bg-branco overflow-x-hidden box-border text-black">
         <div className="flex relative max-w-6xl mx-auto px-4 my-4">
-          <div className=" bg-branco rounded-md overflow-hidden h-screen w-screen p-3">
+          <div className="dark:bg-dark-200 bg-branco rounded-md overflow-hidden h-screen w-screen p-3">
             <h2 className="text-4xl mb-2">{textos.mainlabels.title}</h2>
 
-            <div>
+            <div className="grid grid-cols-2 gap-x-4">
               {imoveis?.map((dados) => (
                 <ImovelCard
-                  //key={dados.id}
+                  key={dados.id}
                   textos={textos}
                   lang={lang}
                   imovel={dados}
@@ -66,7 +65,6 @@ export default async function page({ params: { lang } }: pageProps) {
               ))}
             </div>
           </div>
-        </div>
         </div>
       </div>
     </>

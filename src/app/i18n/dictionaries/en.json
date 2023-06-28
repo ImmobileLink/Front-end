@@ -203,6 +203,7 @@
       "date": "Date",
       "time": "Time",
       "formlogs": {
+        "missingbroker": "Select a broker",
         "invalidname": "Name must be at least 10 characters long",
         "invalidphone": "Phone must be 10 or 11 characters long",
         "invalidemail": "Enter a valid email"
