@@ -61,7 +61,7 @@ export default async function Page({params: { lang, idsala }}: pageProps) {
   const session = await getUserSession();
 
   return (
-    <div className="w-screen h-screen bg-branco dark:bg-dark-200 flex justify-center gap-5 pt-4">
+    <div className="w-full h-screen bg-branco dark:bg-dark-200 flex justify-center gap-5 pt-4">
       <div className="hidden md:block md:w-3/12 lg:block lg:w-2/12">
         <NavProfile
           userData={userData}
