@@ -261,9 +261,10 @@ export interface Formlabels {
 }
 
 export interface Formlogs {
-  invalidname:  string;
-  invalidphone: string;
-  invalidemail: string;
+  missingbroker: string;
+  invalidname:   string;
+  invalidphone:  string;
+  invalidemail:  string;
 }
 
 // Converts JSON strings to/from your types

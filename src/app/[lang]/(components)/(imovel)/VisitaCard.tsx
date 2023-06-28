@@ -119,7 +119,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
       .from('visita')
       .insert(visita)
       if(error) {
-        console.log(error)
+        console.log(error) 
       }
       else {
         console.log(visita);
@@ -133,10 +133,10 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
       aria-hidden="true"
       className="w-full p-[2.5%] bg-[rgba(0,0,0,0.5)] fixed z-1000 flex justify-center inset-0"
     >
-      <div className="bg-white flex-1 shadow-md max-w-md flex flex-col relative rounded-lg px-8 pt-6 pb-8 mb-4 z-1000">
+      <div className="bg-white flex-1 shadow-md max-w-md md:max-w-xl flex flex-col relative rounded-lg px-8 py-6 mb-4 z-1000 overflow-auto">
         <button
           type="button"
-          className="w-6 h-6 absolute text-inherit bg-transparent cursor-pointer border-none right-4 inset-y-2 text-lg"
+          className="text-dark-300 w-6 h-6 absolute text-inherit bg-transparent cursor-pointer border-none right-4 inset-y-2 text-lg rounded-full hover:scale-125"
           onClick={() => onCloseModal()}
         >
           X
@@ -151,8 +151,9 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
           <div className="grid grid-cols-2 gap-4">
             <div className="inline-block relative">
               <select
-                className="appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-1 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-state" onChange={(e) => handleCorretor(e)}
+                className="appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-1 px-4 pr-8 my-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                //value={selectedCorretor.id}
+                onChange={(e) => handleCorretor(e)}
               >
                 {corretorData?.map(corretor => {
                     return (
@@ -172,7 +173,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
             </div>
             <Link
                 href={"/pesquisa"}
-                className="items-end text-white bg-dark-300 hover:bg-dark-200 focus:ring-4 font-medium py-1 px-2 rounded text-sm text-center mr-2 mb-2 "
+                className="items-end w-full text-white bg-dark-300 hover:bg-dark-200 focus:ring-4 font-medium py-1 px-2 rounded text-sm text-center mr-2  my-3"
               >
                 {formlabels.findbroker}
               </Link>
@@ -188,11 +189,11 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
           <div className="bg-gray-200 rounded px-4 pt-4 pb-2">
             <div className="mb-2 flex flex-wrap">
               <label
-                className="text-gray-700 text-sm font-bold mb-1 sm:w-1/5 px-2 py-2 leading-normal"
+                className="text-gray-700 text-sm font-bold mb-1 w-full sm:w-1/4 px-2 py-2 sm:pr-4 leading-normal"
               >
                 {formlabels.name}
               </label>
-              <div className="sm:w-4/5 px-4">
+              <div className="w-full sm:w-3/4 px-2">
                 <input
                   onChange={(e) => setNome(e.target.value)}
                   className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -203,11 +204,11 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
             </div>
             <div className="mb-2 flex flex-wrap">
               <label
-                className="text-gray-700 text-sm font-bold mb-1 sm:w-1/5 px-2 py-2 leading-normal"
+                className="text-gray-700 text-sm font-bold mb-1 w-full sm:w-1/4 px-2 py-2 sm:pr-4 leading-normal"
               >
                 {formlabels.phone}
               </label>
-              <div className="sm:w-4/5 px-4">
+              <div className="w-full sm:w-3/4 px-2">
                 <input
                   className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="usertel"
@@ -217,13 +218,13 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
                 />
               </div>
             </div>
-            <div className="flex flex-wrap">
+            <div className="mb-2 flex flex-wrap">
               <label
-                className="text-gray-700 text-sm font-bold mb-1 sm:w-1/5 px-2 py-2 leading-normal"
+                className="text-gray-700 text-sm font-bold mb-1 w-full sm:w-1/4 px-2 py-2 sm:pr-4 leading-normal"
               >
                 {formlabels.email}
               </label>
-              <div className="sm:w-4/5 px-4">
+              <div className="w-full sm:w-3/4 px-2">
                 <input
                   onChange={(e) => setEmail(e.target.value)}
                   className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -244,11 +245,11 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
           <div className="bg-gray-200 rounded px-4 pt-4 pb-2">
             <div className="mb-2 flex flex-wrap">
               <label
-                className="text-gray-700 text-sm font-bold mb-1 sm:w-1/5 px-2 py-2 leading-normal"
+                className="text-gray-700 text-sm font-bold mb-1 w-full sm:w-1/4 px-2 py-2 sm:pr-4 leading-normal"
               >
                 {formlabels.date}
               </label>
-              <div className="sm:w-4/5 px-4">
+              <div className="w-full sm:w-3/4 px-2">
                 <input
                   onChange={(e) => setData(e.target.value)}
                   className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -259,11 +260,11 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
             </div>
             <div className="flex flex-wrap">
               <label
-                className="text-gray-700 text-sm font-bold mb-1 sm:w-1/5 px-2 py-2 leading-normal"
+                className="text-gray-700 text-sm font-bold mb-1 w-full sm:w-1/4 px-2 py-2 sm:pr-4 leading-normal"
               >
                 {formlabels.time}
               </label>
-              <div className="sm:w-4/5 px-4">
+              <div className="w-full sm:w-3/4 px-2">
                 <input
                   onChange={(e) => setTime(e.target.value)}
                   className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

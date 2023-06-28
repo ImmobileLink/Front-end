@@ -17,8 +17,8 @@ export interface MensagemAInserir {
     mensagem: string
 }
 export interface CorretorAssociado {
-  idcorretor: string,
-  nomecorretor: string,
+  id: string,
+  nome: string,
 }
 export type Sala = Database['public']['Tables']['sala']['Row']
 export type Visita = Database['public']['Tables']['visita']['Row']
