@@ -22,26 +22,22 @@ interface NavAmizadeProps {
 
 export default async function NavAmizade({ userData, cards }: NavAmizadeProps) {
   return (
-    <>
-      {userData.role == 1 ? (
-        <>
-          <div className="w-full h-fit py-4 flex flex-col justify-center align-middle gap-4 ring-2 ring-gray-300 rounded-md bg-white dark:bg-gray-600 dark:ring-gray-700 drop-shadow-md">
-            <span className="text-black dark:text-white text-2xl text-center">
-              {cards.connections}
-            </span>
-            {userData.conexoes?.length != undefined
-              ? userData.conexoes.map((item) => {
-                  return (
-                    // eslint-disable-next-line react/jsx-key
-                    <CardAmizade idremetente={userData.id} iddestinatario={item.id} nome={item.nome} />
-                  );
-                })
-              : "não"}
-          </div>
-        </>
-      ) : (
-        ""
-      )}
-    </>
+    <div className="w-full h-fit py-4 flex flex-col justify-center align-middle gap-4 ring-2 ring-gray-300 rounded-md bg-white dark:bg-gray-600 dark:ring-gray-700 drop-shadow-md">
+        <span className="text-black dark:text-white text-2xl text-center">
+          {cards.connections}
+        </span>
+        {userData.conexoes?.length != undefined && userData.conexoes?.length > 0
+          ? userData.conexoes.map((item) => {
+              return (
+                // eslint-disable-next-line react/jsx-key
+                <CardAmizade
+                  idremetente={userData.id}
+                  iddestinatario={item.id}
+                  nome={item.nome}
+                />
+              );
+            })
+          : <span className="text-black dark:text-white text-center">{cards.nolinksyet}</span>}
+      </div>
   );
 }
