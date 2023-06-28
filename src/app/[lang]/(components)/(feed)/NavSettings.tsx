@@ -1,3 +1,4 @@
+"use client"
 import { Cards } from "@/app/i18n/dictionaries/types";
 import Link from "next/link";
 
@@ -11,7 +12,7 @@ interface NavSettingsProps {
   cards: Cards;
 }
 
-export default async function NavSettings({
+export default function NavSettings({
   userData,
   cards,
 }: NavSettingsProps) {
