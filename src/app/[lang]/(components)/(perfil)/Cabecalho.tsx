@@ -9,6 +9,7 @@ interface CabecalhoProps {
   isAssociado: string | null;
   session_data: User_data;
   corretor: any;
+  dict: any;
 }
 
 type User_data = {
@@ -18,12 +19,10 @@ type User_data = {
   tipo: string | null;
 } | null
 
-export default async function Cabecalho({  isAssociado, session_data, corretor }: CabecalhoProps) {
+export default async function Cabecalho({  isAssociado, session_data, corretor, dict }: CabecalhoProps) {
   const supabase = createServerComponentClient<Database>({ cookies })
 
-
-
-
+  console.log("dict", dict)
   let { data: avaliacao } = await supabase
     .from('avaliacao')
     .select('nota')
@@ -73,16 +72,16 @@ export default async function Cabecalho({  isAssociado, session_data, corretor }
             </div>
             <div className="w-40">
               {associacoes!.length > 0 ? (
-                <p className="underline underline-offset-1">{`Possui empresa(s) associada(s)`}</p>
+                <p className="underline underline-offset-1">{dict.profile.hasAssociation}</p>
               ) : (
-                <p className="underline underline-offset-1">Sem associação no momento</p>
+                <p className="underline underline-offset-1">{dict.profile.noAssociation}</p>
               )}
             </div>
           </div>
           {session_data?.tipo == "corporacao" ? (
             /* só deve aparecer o botao associar se for uma empresa */
             <div className="mt-3">
-              <BotaoAdd associado={isAssociado} tipo={session_data.tipo} idSession ={session_data.id} idProfile={corretor.id}/>
+              <BotaoAdd associado={isAssociado} tipo={session_data.tipo} idSession ={session_data.id} idProfile={corretor.id} dict={dict}/>
               <button className="w-fit ml-3 text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 font-medium rounded-lg text-sm px-10 py-2.5 mb-1 ">
                 Chat
               </button>

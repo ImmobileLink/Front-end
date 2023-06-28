@@ -5,20 +5,21 @@ import { useState } from "react"
 
 interface InfosProps {
   corretor: any;
+  dict: string;
 }
 
-export default function Infos({ corretor }: InfosProps) {
+export default function Infos({ corretor, dict }: InfosProps) {
   const [overview, setOverview] = useState(true)
-  const [style, setStyle] = useState("")
 
+  console.log(dict)
 
   return (
     <>
-      <div className="w-auto bg-white min-h-48 mt-5 rounded-md m-3 overflow-hidden">
+      <div className="w-auto bg-white mt-5 rounded-md m-3 overflow-hidden">
         <div className="flex justify-around items-center border-b-2 font-semibold h-9">
           {overview ? (
             <>
-              <button className="w-1/2 h-full text-center border-r-2 bg-slate-100">Visão Geral</button>
+              <button className="w-1/2 h-full text-center border-r-2 bg-slate-100">{dict.profile.overview}</button>
               <button onClick={() => { setOverview(!overview) }} className="w-1/2 h-full text-center hover:bg-slate-100">Publicações</button>
             </>
           ) : (
@@ -30,7 +31,7 @@ export default function Infos({ corretor }: InfosProps) {
 
         </div>
 
-        <div className="p-3">
+        <div className="p-3 pt-8">
           {overview ? (
             <VisaoGeral corretor={corretor} />
           ) : (
