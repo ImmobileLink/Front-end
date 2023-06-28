@@ -681,28 +681,28 @@ export interface Database {
       }
       visita: {
         Row: {
-          dadosmarcador: Json
           dataAgendamento: string
           id: string
           idcorporacao: string
           idcorretor: string
           idimovel: string
+          idmarcador: string
         }
         Insert: {
-          dadosmarcador: Json
           dataAgendamento: string
           id?: string
           idcorporacao: string
           idcorretor: string
           idimovel: string
+          idmarcador: string
         }
         Update: {
-          dadosmarcador?: Json
           dataAgendamento?: string
           id?: string
           idcorporacao?: string
           idcorretor?: string
           idimovel?: string
+          idmarcador?: string
         }
         Relationships: [
           {
@@ -746,6 +746,26 @@ export interface Database {
             foreignKeyName: "corporacao_id_fkey"
             columns: ["id"]
             referencedRelation: "usuario"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      mensagem_com_usuario: {
+        Row: {
+          atualizadoem: string | null
+          enviadoem: string | null
+          id: string | null
+          idautor: string | null
+          idsala: string | null
+          imagem: string | null
+          mensagem: string | null
+          nomeautor: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mensagem_idsala_fkey"
+            columns: ["idsala"]
+            referencedRelation: "sala"
             referencedColumns: ["id"]
           }
         ]
@@ -844,88 +864,6 @@ export interface Database {
           nota: number
         }[]
       }
-      get_corretores_by_corporacao_especialidade: {
-        Args: {
-          id_usuario: string
-          id_imovel: string
-        }
-        Returns: {
-          id: string
-          nome: string
-        }[]
-      }
-      get_imoveis: {
-        Args: {
-          id_usuario: string
-        }
-        Returns: {
-          id: string
-          rua: string
-          numero: number
-          bairro: string
-          cidade: string
-          estado: string
-          descricao: string
-          valor: number
-        }[]
-      }
-      get_publicacao_com_dados: {
-        Args: Record<PropertyKey, never>
-        Returns: {
-          id: string
-          idautor: string
-          nomeautor: string
-          idregiao: string
-          regiao: string
-          conteudo: string
-          imagem: string
-          criadoem: string
-          atualizadoem: string
-          privado: boolean
-        }[]
-      }
-      get_publicacao_completa: {
-        Args: {
-          regid: string
-        }
-        Returns: {
-          id: string
-          idautor: string
-          nomeautor: string
-          idregiao: string
-          regiao: string
-          conteudo: string
-          imagem: string
-          criadoem: string
-          atualizadoem: string
-          privado: boolean
-        }[]
-      }
-      get_publicacao_por_id: {
-        Args: {
-          pubid: string
-        }
-        Returns: {
-          id: string
-          idautor: string
-          nomeautor: string
-          idregiao: string
-          regiao: string
-          conteudo: string
-          imagem: string
-          criadoem: string
-          atualizadoem: string
-          privado: boolean
-        }[]
-      }
-      get_tipoimovel_by_idcorretor: {
-        Args: {
-          idcorretor: string
-        }
-        Returns: {
-          descricao: string
-        }[]
-      }
       mensagem_com_usuario: {
         Args: {
           sala: string
@@ -945,14 +883,6 @@ export interface Database {
         Args: Record<PropertyKey, never>
         Returns: {
           id: string
-        }[]
-      }
-      obterespecialidade: {
-        Args: {
-          idcorretor: string
-        }
-        Returns: {
-          descricao: string
         }[]
       }
       test_authorization_header: {
