@@ -9,6 +9,7 @@ export interface Dictionaries {
   auth:          Auth;
   pesquisa:      Pesquisa;
   feed:          Feed;
+  imovel:        Imovel;
 }
 
 export interface Auth {
@@ -243,6 +244,40 @@ export interface Labels {
 export interface Usertypevalue {
   broker:      string;
   corporation: string;
+}
+
+export interface Imovel {
+  mainlabels: Mainlabels;
+  formlabels: Formlabels;
+}
+
+export interface Mainlabels {
+  title:           string;
+  delegatevisit:   string;
+  location:        string;
+  characteristics: string;
+  price:           string;
+}
+
+export interface Formlabels {
+  findbroker:    string;
+  delegatevisit: string;
+  brokerdata:    string;
+  clientdata:    string;
+  scheduling:    string;
+  name:          string;
+  phone:         string;
+  email:         string;
+  date:          string;
+  time:          string;
+  formlogs:      Formlogs;
+}
+
+export interface Formlogs {
+  missingbroker: string;
+  invalidname:   string;
+  invalidphone:  string;
+  invalidemail:  string;
 }
 
 // Converts JSON strings to/from your types

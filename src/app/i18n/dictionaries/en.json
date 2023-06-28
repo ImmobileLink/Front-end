@@ -193,5 +193,32 @@
       "post": "Post",
       "placeholder": "New post"
     }
+  },
+  "imovel": {
+    "mainlabels": {
+      "title": "My Properties",
+      "delegatevisit": "Delegate Visit",
+      "location": "Location",
+      "characteristics": "Characteristics",
+      "price": "Price"
+    },
+    "formlabels": {
+      "findbroker": "Find Brokers",
+      "delegatevisit": "Delegate Visit",
+      "brokerdata": "Broker",
+      "clientdata": "Client's Data",
+      "scheduling": "Appointment",
+      "name": "Name",
+      "phone": "Telephone",
+      "email": "Email",
+      "date": "Date",
+      "time": "Time",
+      "formlogs": {
+        "missingbroker": "Select a broker",
+        "invalidname": "Name must be at least 10 characters long",
+        "invalidphone": "Phone must be 10 or 11 characters long",
+        "invalidemail": "Enter a valid email"
+      }
+    }
   }
 }
