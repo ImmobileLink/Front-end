@@ -137,7 +137,6 @@ export default function PesquisaCard({ textos, regioes, especialidades }: Pesqui
         console.log(error)
         setErro(error.message)
         setCorporacoes([])
-        console.log(erro)
       }
       else {
         setErro('')       
