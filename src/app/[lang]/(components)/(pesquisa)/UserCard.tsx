@@ -14,7 +14,7 @@ interface UserCardProps {
 }
 
 export default function UserCard({ textos, corretor, corporacao }: UserCardProps) {
-  const nota = [<AiOutlineStar />, <AiOutlineStar />, <AiOutlineStar />, <AiOutlineStar />, <AiOutlineStar />];
+  const nota = [<AiOutlineStar key={0}/>, <AiOutlineStar key={1}/>, <AiOutlineStar key={2}/>, <AiOutlineStar key={3}/>, <AiOutlineStar key={4}/>];
 
   if (corretor != null) {
     if (corretor.nota != null) {
