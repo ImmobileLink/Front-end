@@ -1,0 +1,197 @@
+{
+  "navbarbuttons": {
+    "searchbutton": "Encontrar",
+    "logoutbutton": "Sair"
+  },
+  "auth": {
+    "always": {
+      "donthaveanaccount": "Não tem uma conta?",
+      "signup": "Cadastre-se",
+      "forgetpassword": "Esqueceu a senha?",
+      "alreadyhaveanaccount": "Já tem uma conta?",
+      "singin": "Entre já",
+      "error": "Ops!"
+    },
+    "signin": {
+      "emaillabel": "Endereço de E-mail",
+      "passwordlabel": "Senha",
+      "signinbutton": "Entrar",
+      "or": "OU",
+      "signinwithgoogle": "Entrar com o Google",
+      "error": "Algo deu errado!",
+      "logs": {
+        "invalidcredentials": "Email e/ou senha incorretos."
+      }
+    },
+    "signup": {
+      "signup1": {
+        "emaillabel": "Endereço de E-mail",
+        "passwordlabel": "Senha",
+        "logs": {
+          "invalidemail": "Insira um email válido.",
+          "invalidpassword": "A senha precisa ter no mínimo 6 caracteres.",
+          "emailalreadyused": "Email já cadastrado."
+        }
+      },
+      "signup2": {
+        "corretorlabel": "Voltado para corretores imobiliários",
+        "corretorbutton": "Individual",
+        "companylabel": "Voltado para imobiliárias e corretoras",
+        "companybutton": "Empresarial",
+        "yourchoiceis": "Criar conta para:",
+        "corretor": "Corretor",
+        "company": "Empresa"
+      },
+      "signup3": {
+        "name": "Nome completo",
+        "fantasyname": "Nome Fantasia",
+        "cpf": "CPF",
+        "cnpj": "CNPJ",
+        "phone1": "Celular",
+        "phone2": "Telefone",
+        "phone3": "Comercial",
+        "cep": "CEP",
+        "uf": "Estado",
+        "city": "Cidade",
+        "neighborhood": "Bairro",
+        "street": "Logradouro",
+        "number": "Número",
+        "complement": "Complemento",
+        "optional": "Opcional",
+        "logs": {
+          "invalidname": "O nome precisa ter no mínimo 10 caracteres",
+          "invalidfantasyname": "O nome fantasia precisa ter no mínimo 10 caracteres",
+          "invalidcpf": "Escreva somente os números do CPF, sem caractere especial (11 caracteres)",
+          "invalidcnpj": "Escreva somente os números do CNPJ, sem caractere especial (14 caracteres)",
+          "invalidphone": "Escreva somente os números do telefone, sem caractere especial (11 caracteres)",
+          "invalidcep": "Escreva somente o CEP, sem caractere especial (8 caracteres)",
+          "invaliduf": "Insira somente a sigla da unidade federativa (2 caracteres)",
+          "invalidcity": "A cidade precisa ter no mínimo 2 caracteres",
+          "invalidneighborhood": "O bairro precisa ter no mínimo 2 caracteres",
+          "invalidstreet": "A rua precisa ter no mínimo 2 caracteres",
+          "invalidnumber": "O número da residência precisar ser um número positivo",
+          "invalidcomplement": "O complemento da residência precisa ter no mínimo 2 caracteres"
+        }
+      },
+      "signup4": {
+        "creci": "CRECI",
+        "speciality": "Especialidade",
+        "region": "Região de atuação",
+        "languages": "Idiomas",
+        "logs": {
+          "invalidcreci": "Escreva somente os números e o indicador no final, sem caractere especial (7 caracteres)"
+        }
+      },
+      "signup5": {
+        "corretor": {
+          "freelabel": "Ideal para corretores recém inseridos no mercado e desejam impulsionar sua carreira.",
+          "freedescription1": "Avaliação de perfil simples.",
+          "freedescription2": "Feed de oportunidades.",
+          "freedescription3": "Afiliação a uma empresa.",
+          "freedescription4": "Chat individual e em grupos.",
+          "premiumlabel": "Ideal para corretores que desejam investir fortemente em seu perfil e alcançar mais pessoas.",
+          "premiumdescription1": "Benefícios do plano Free.",
+          "premiumdescription2": "Dashboard completo.",
+          "premiumdescription3": "Maior visibilidade.",
+          "premiumdescription4": "Funcionalidades exclusivas."
+        },
+        "company": {
+          "freelabel": "Ideal para pequenas e médias empresas que desejam impulsionar seus negócios.",
+          "freedescription1": "Busca de corretores na região.",
+          "freedescription2": "Publicação de oportunidades.",
+          "freedescription3": "Afiliar até 10 corretores.",
+          "freedescription4": "Chat individual e em grupos.",
+          "premiumlabel": "Ideal para empresas já consolidadas ou que querem melhorar suas vendas.",
+          "premiumdescription1": "Benefícios do plano Free.",
+          "premiumdescription2": "Dashboard completo.",
+          "premiumdescription3": "Maior visibilidade.",
+          "premiumdescription4": "Funcionalidades exclusivas."
+        },
+        "subscriptionmessage1": "Desejo me tornar um membro",
+        "subscriptionmessage2": "PREMIUM!",
+        "subscriptionmessage3": "Escolher método de pagamento",
+        "signupbutton": "Finalizar Cadastro"
+      },
+      "stepper": {
+        "label1": "Email & Senha",
+        "label2": "Seu Perfil",
+        "label3": "Dados pessoais",
+        "label4": "Informações adicionais",
+        "label5": "Seu Plano"
+      },
+      "nextbutton": "Avançar",
+      "previousbutton": "Voltar",
+      "success": "Pronto!",
+      "error": "Algo deu errado!",
+      "fixtheinputs": "Arrume os campos antes de avançar!",
+      "successsignup": "Verifique sua caixa de entrada para o link de autenticação (pode estar no spam)."
+    },
+    "forgetpassword": {
+      "emaillabel": "Endereço de E-mail",
+      "forgetpasswordbutton": "Enviar e-mail de redefinção de senha",
+      "success": "Pronto!",
+      "error": "Algo deu errado!",
+      "logs": {
+        "invalidemail": "Insira um email válido.",
+        "emailnotfound": "Email não encontrado.",
+        "emailsend": "Verifique sua caixa de entrada para o link de redefinição de senha (pode estar no spam)."
+      }
+    },
+    "recovery": {
+      "newpassword": "Nova senha",
+      "recoverybutton": "Atualizar",
+      "success": "Pronto!",
+      "error": "Algo deu errado!",
+      "logs": {
+        "passwordchanged": "Sua senha foi alterada.",
+        "passwordnotchanged": "Não foi possível alterar a senha, tente novamente mais tarde."
+      }
+    }
+  },
+  "pesquisa": {
+    "labels": {
+      "name": "Nome",
+      "title": "Encontrar Usuários",
+      "usertype": "Tipo de usuário",
+      "region": "Região",
+      "rating": "Classificação",
+      "specialty": "Especialidade",
+      "error": "Ops! Algo deu errado. Por favor, tente novamente.",
+      "missingcombobox": "Selecione um filtro."
+    },
+    "usertypevalue": {
+      "broker": "Corretor",
+      "corporation": "Corporação"
+    }
+  },
+  "feed": {
+    "cards": {
+      "yourenotlogged": "Você não está logado ainda!",
+      "enjoyall": "Aproveite todos os benefícios do site",
+      "singin": "Entre já",
+      "findbrokers": "Encontrar oportunidades",
+      "mybrokers": "Meus Corretores",
+      "myproperties": "Meus Imóveis",
+      "schedules": "Visitas",
+      "visitmyprofile": "Ver meu perfil",
+      "notpremiumyet": "Ainda não é PREMIUM?",
+      "bepremium": "Aproveite já",
+      "connections": "Meus Links",
+      "search": "Procurar",
+      "nolinksyet": "Parece que você não tem nenhum Link ainda"
+    },
+    "pub": {
+      "regionfilter": "Filtre por região",
+      "posted": "fez uma publicação",
+      "regioncomboboxplaceholder": "Todos",
+      "comboboxplaceholder": "Selecione",
+      "noposts":"Nenhuma publicação encontrada na região especificada",
+      "error": "Ops! Algo deu errado. Tente recarregar a página."
+    },
+    "form": {
+      "regionchange": "Região",
+      "post": "Publicar",
+      "placeholder": "Nova publicação"
+    }
+  }
+}
