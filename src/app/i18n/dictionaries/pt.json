@@ -204,5 +204,31 @@
     "linktotenbrokers": "Afiliar-se a até 10 corretores",
     "illimitedlinks": "Afliliar-se a inúmeros corretores",
     "buynow": "Compre já"
+  },
+  "profile": {
+    "noAssociation": "Sem Associação no momento",
+    "hasAssociation":"Possui empresa(s) associada(s)",
+    "btnAssociate": "Associate",
+    "btnPending": "Pending",
+    "btnConnect": "Connect",
+    "overview": "Visão Geral",
+    "posts": "Publicações"
+  },
+  "dashboard": {
+    "domain": "Domínio",
+    "professionalism": "Profissionalismo",
+    "goodService": "Bom serviço",
+    "educated": "Educado",
+    "visited": "Visitas em imóveis",
+    "sales": "Vendas",
+    "January": "Janeiro",
+    "February": "Fevereiro",
+    "March":"Março",
+    "April": "Abril",
+    "May": "Maio",
+    "June": "Junho"
+  },
+  "calendar":{
+    "scheduledVisits": "Visitas agendadas"
   }
 }

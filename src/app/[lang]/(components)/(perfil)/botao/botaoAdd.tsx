@@ -31,13 +31,22 @@ export default function BotaoAdd({ associado, idProfile, idSession, tipo }: bota
     setPopup(false)
   }
 
+  const associar = async () => {
+    const { data, error } = await supabase
+      .from('associacoes')
+      .update({ pendente: false })
+      .eq('idcorretor', idProfile)
+      .eq('idcorporacao', idSession)
+      setEstado("Associado")
+  }
+
   const sendConvite = async () => {
     const { data, error } = await supabase
       .from('associacoes')
       .insert([
         { idcorretor: idProfile, idcorporacao: idSession! },
       ])
-      setEstado("Pendente")
+    setEstado("Pendente")
   }
 
   const cancelaConvite = async () => {
@@ -55,6 +64,9 @@ export default function BotaoAdd({ associado, idProfile, idSession, tipo }: bota
   const handleClick = () => {
     if (estado == "Associar") {
       sendConvite()
+      setTimeout(() => {
+          associar()
+      }, 5000);
     } else if (estado === "Pendente") {
       cancelaConvite()
     } else if (estado === "Associado") {
