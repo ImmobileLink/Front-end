@@ -7,6 +7,7 @@ import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { Pesquisa } from "@/app/i18n/dictionaries/types";
 
 interface UserCardProps {
+  key: any,
   textos: Pesquisa,
   corretor: CorretorBuscado | null,
   corporacao: CorporacaoPorRegiao | null

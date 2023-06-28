@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@types/react": "18.2.12",
+    "encoding": "^0.1.13",
     "supabase": "^1.68.6"
   }
 }
