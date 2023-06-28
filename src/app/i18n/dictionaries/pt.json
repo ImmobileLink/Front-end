@@ -169,18 +169,29 @@
       "yourenotlogged": "Você não está logado ainda!",
       "enjoyall": "Aproveite todos os benefícios do site",
       "singin": "Entre já",
-      "findbrokers": "Descobrir Corretores",
+      "findbrokers": "Encontrar oportunidades",
       "mybrokers": "Meus Corretores",
       "myproperties": "Meus Imóveis",
       "schedules": "Visitas",
       "visitmyprofile": "Ver meu perfil",
       "notpremiumyet": "Ainda não é PREMIUM?",
       "bepremium": "Aproveite já",
-      "connections": "Amigos",
-      "search": "Procurar"
+      "connections": "Meus Links",
+      "search": "Procurar",
+      "nolinksyet": "Parece que você não tem nenhum Link ainda"
     },
     "pub": {
-      "posted": "fez uma publicação"
+      "regionfilter": "Filtre por região",
+      "posted": "fez uma publicação",
+      "regioncomboboxplaceholder": "Todos",
+      "comboboxplaceholder": "Selecione",
+      "noposts":"Nenhuma publicação encontrada na região especificada",
+      "error": "Ops! Algo deu errado. Tente recarregar a página."
+    },
+    "form": {
+      "regionchange": "Região",
+      "post": "Publicar",
+      "placeholder": "Nova publicação"
     }
   }
 }

@@ -2,16 +2,15 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "../Avatar";
 import Image from "next/image";
+import { PublicacaoCompleta } from "../../../../../lib/modelos";
+import { formataData } from "../../../../../lib/utils";
 
 interface PostCardProps {
-  publicacao: Object;
+  publicacao: PublicacaoCompleta;
 }
 
-export default function PostCard({publicacao}: PostCardProps) {
+export default function PostCard({ publicacao }: PostCardProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [autor, setAutor] = useState<any>(publicacao['idautor' as ObjectKey])
-  const [conteudo, setConteudo] = useState<any>(publicacao['conteudo' as ObjectKey])
-  const [dataPost, setDataPost] = useState<any>(publicacao['criadoem' as ObjectKey])
 
   function openDropdown(e: any) {
     e.stopPropagation();
@@ -22,21 +21,18 @@ export default function PostCard({publicacao}: PostCardProps) {
     setDropdownOpen(false);
   }
 
-  //Configura o tipo para pegar os valores do objeto publicacao
-  type ObjectKey = keyof typeof publicacao;
-
   return (
-    <div className="bg-gray-600 focus:ring-indigo-500 focus:ring-2 focus:ring-offset-2 shadow-md rounded-md p-4 mb-3">
+    <div className="ring-2 ring-gray-300 rounded-md bg-white dark:bg-gray-600 dark:ring-gray-700 drop-shadow-md p-4 mb-3">
       <div className="flex gap-3">
         <div
           id="postheader"
           className="flex gap-3"
         >
-          <div><Avatar userId={autor} /></div>
+          <div><Avatar userId={publicacao.idautor} /></div>
         </div>
         <div className="grow">
-          <p>{autor} fez uma publicação</p>
-          <p className="text-xs">{dataPost}</p>
+          <p>{publicacao.nomeautor} fez uma publicação</p>
+          <p className="text-xs">{formataData(publicacao.criadoem)}</p>
         </div>
 
         <div className="relative">
@@ -70,15 +66,17 @@ export default function PostCard({publicacao}: PostCardProps) {
         className="my-2"
       >
         <p className="text-sm mb-2">
-          {conteudo}
+          {publicacao.conteudo}
         </p>
-        <Image
-          className="mr-3 mb-3 h-auto w-auto rounded-md overflow-hidden"
-          src={`publicacoes/imagens/1.png`}
-          width={1}
-          height={1}
-          alt="Post"
-        />
+        <div className="flex justify-center">
+          <Image
+            className="mr-3 mb-3 h-auto w-auto rounded-md overflow-hidden"
+            src={`publicacoes/imagens/1.png`}
+            width={1}
+            height={1}
+            alt="Post"
+          />
+        </div>   
       </div>
       <div
         id="socialbuttons"

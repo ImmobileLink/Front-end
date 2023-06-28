@@ -53,7 +53,7 @@ export default function NavProfile({ userData, cards }: NavProfileProps) {
                 ""
               ) : (
                 <>
-                  <p className="selection:text-black text-center mt-3 mb-1">
+                  <p className="text-black text-center mt-3 mb-1">
                     {cards.notpremiumyet}
                   </p>
                   <Link

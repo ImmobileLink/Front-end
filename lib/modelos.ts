@@ -3,13 +3,28 @@
 import { Database } from "./database.types";
 
 //Nativos do Banco de dados
+export type Publicacao = Database['public']['Tables']['publicacao']['Row']
+export interface PublicacaoCompleta {
+    atualizadoem: string
+    conteudo: string
+    criadoem: string
+    id: string
+    idautor: string
+    idregiao: string
+    imagem: string
+    nomeautor: string
+    privado: boolean
+    regiao: string
+}
 export type Regiao = Database['public']['Tables']['regiao']['Row']
 export type TipoImovel = Database['public']['Tables']['tipoImovel']['Row']
 export type Usuario = Database['public']['Tables']['usuario']['Row']
 export type Corretor = Database['public']['Tables']['corretor']['Row']
 export type Corporacao = Database['public']['Tables']['corporacao']['Row']
 export type Mensagem = Database['public']['Tables']['mensagem']['Row']
-export type MensagemComUsuario = Database['public']['Views']['mensagem_com_usuario']['Row']
+export interface MensagemComUsuario extends Mensagem {
+    nomeautor: string
+}
 export interface MensagemAInserir {
     idautor: string,
     idsala: string,

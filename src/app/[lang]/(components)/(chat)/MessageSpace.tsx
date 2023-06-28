@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import { MensagemComUsuario } from "../../../../../lib/modelos";
 import { Session, createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 import { Database } from "../../../../../lib/database.types";
 import Avatar from "../Avatar";
+import { formataData } from "../../../../../lib/utils";
 
 interface MessageSpaceProps {
   idsala: string,
@@ -13,21 +13,8 @@ interface MessageSpaceProps {
 }
 const supabase = createClientComponentClient<Database>()
 
-//Formata para horário de brasilia, remove milisegundos e o T
-const formataData = (datahora:string) => {
-  let data = new Date(datahora)
-  const formatter = new Intl.DateTimeFormat('pt-BR', {
-    year: 'numeric',
-    'month': 'numeric',
-    'day': 'numeric',
-    'hour': 'numeric',
-    'minute': 'numeric'
-  });
-  let fdata = formatter.format(data)
-  return fdata
-}
 
-const getNomeUsuario = async (idmensagem: string, idautor: string) => {
+const getNomeUsuario = async (idautor: string) => {
   const { data, error } = await supabase.from('simple_user_data').select('nome').eq('id', idautor)
   if(error) {
     console.log(error)
@@ -51,7 +38,7 @@ export default function MessageSpace({idsala, userSession, mensagens}: MessageSp
         filter: `idsala=eq.${idsala}`
       },
       async (payload: { new: MensagemComUsuario}) => {
-        const nomeusuario = await getNomeUsuario(payload.new.id!, payload.new.idautor!)
+        const nomeusuario = await getNomeUsuario(payload.new.idautor!)
         payload.new.nomeautor = nomeusuario!
         setMessages((messages:MensagemComUsuario[]) => [...messages, payload.new]);
       }
