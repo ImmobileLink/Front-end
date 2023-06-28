@@ -7,6 +7,7 @@ import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../lib/database.types";
 import NavBar from "../(components)/NavBar";
+import NovoImovelCard from "../(components)/(imovel)/NovoImovelCard";
 
 interface pageProps {
   params: {
@@ -51,7 +52,10 @@ export default async function page({ params: { lang } }: pageProps) {
       <div className="w-auto h-fit min-h-screen bg-dark-200 dark:bg-branco overflow-x-hidden box-border text-black">
         <div className="flex relative max-w-6xl mx-auto px-4 my-4">
           <div className="dark:bg-dark-200 bg-branco rounded-md overflow-hidden h-screen w-screen p-3">
-            <h2 className="text-4xl mb-2">{textos.mainlabels.title}</h2>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-4xl">{textos.mainlabels.title}</h2>
+                <NovoImovelCard userSession={session} />
+            </div>
 
             <div className="grid grid-cols-2 gap-x-4">
               {imoveis?.map((dados) => (
