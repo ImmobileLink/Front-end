@@ -203,6 +203,7 @@
       "price": "Valor"
     },
     "formlabels": {
+      "selectbroker": "Selecione um corretor",
       "findbroker": "Encontrar Corretores",
       "delegatevisit": "Delegar Visita",
       "brokerdata": "Corretor",
@@ -214,11 +215,23 @@
       "date": "Data",
       "time": "Horário",
       "formlogs": {
-        "missingbroker": "Selecione um corretor",
         "invalidname": "O nome precisa ter no mínimo 10 caracteres",
         "invalidphone": "O telefone precisa ter 10 ou 11 caracteres",
-        "invalidemail": "Insira um email válido"
+        "invalidemail": "Insira um email válido",
+        "invaliddate": "Selecione uma data",
+        "invalidtime": "Selecione um horário"
       }
+    },
+    "newproperty": {
+      "registerproperty": "Cadastrar Imóvel",
+      "register": "Cadastrar",
+      "uf": "Estado",
+      "city": "Cidade",
+      "neighborhood": "Bairro",
+      "street": "Rua",
+      "number": "Número",
+      "price": "Valor",
+      "description": "Descrição"
     }
   }
 }

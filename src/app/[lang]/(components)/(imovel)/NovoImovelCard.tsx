@@ -7,16 +7,17 @@ import {
 } from "../../../../../lib/modelos";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
-import { Formlabels, Imovel } from "@/app/i18n/dictionaries/types";
+import { Formlabels, Imovel, Newproperty } from "@/app/i18n/dictionaries/types";
 import Link from "next/link";
 
 interface NovoImovelCardProps {
+  textos: Newproperty;
   userSession: Session | null | undefined;
 }
 
 const supabase = createClientComponentClient<Database>();
 
-export default function NovoImovelCard({ userSession }: NovoImovelCardProps) {
+export default function NovoImovelCard({ textos, userSession }: NovoImovelCardProps) {
   const [formOpen, setFormOpen] = useState(false);
   const [estado, setEstado] = useState("");
   const [cidade, setCidade] = useState("");
@@ -45,7 +46,6 @@ export default function NovoImovelCard({ userSession }: NovoImovelCardProps) {
         console.log(error) 
       }
       else {
-        console.log(imovel);
         setFormOpen(false);
       }
   };
@@ -72,7 +72,7 @@ export default function NovoImovelCard({ userSession }: NovoImovelCardProps) {
             d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
           />
         </svg>
-        <span>Cadastrar Imóvel</span>
+        <span>{textos.registerproperty}</span>
       </button>
 
       {formOpen ? (
@@ -119,13 +119,13 @@ export default function NovoImovelCard({ userSession }: NovoImovelCardProps) {
                         className="text-2xl font-semibold leading-6 text-gray-900"
                         id="slide-over-title"
                       >
-                        Cadastrar Imóvel
+                        {textos.registerproperty}
                       </h2>
                     </div>
                     <div className="relative mt-6 flex-1 px-4 md:px-6">
                       <div className="mb-2 flex flex-wrap">
                         <label className="text-gray-700 text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
-                          Estado
+                          {textos.uf}
                         </label>
                         <div className="w-full md:w-3/4">
                           <input
@@ -137,7 +137,7 @@ export default function NovoImovelCard({ userSession }: NovoImovelCardProps) {
                         </div>
 
                         <label className="text-gray-700 text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
-                          Cidade
+                          {textos.city}
                         </label>
                         <div className="w-full md:w-3/4">
                           <input
@@ -149,7 +149,7 @@ export default function NovoImovelCard({ userSession }: NovoImovelCardProps) {
                         </div>
 
                         <label className="text-gray-700 text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
-                          Bairro
+                          {textos.neighborhood}
                         </label>
                         <div className="w-full md:w-3/4">
                           <input
@@ -161,7 +161,7 @@ export default function NovoImovelCard({ userSession }: NovoImovelCardProps) {
                         </div>
 
                         <label className="text-gray-700 text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
-                          Rua
+                          {textos.street}
                         </label>
                         <div className="w-full md:w-3/4">
                           <input
@@ -173,7 +173,7 @@ export default function NovoImovelCard({ userSession }: NovoImovelCardProps) {
                         </div>
 
                         <label className="text-gray-700 text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
-                          Número
+                          {textos.number}
                         </label>
                         <div className="w-full md:w-3/4">
                           <input
@@ -185,7 +185,7 @@ export default function NovoImovelCard({ userSession }: NovoImovelCardProps) {
                         </div>
 
                         <label className="text-gray-700 text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
-                          Valor
+                          {textos.price}
                         </label>
                         <div className="w-full md:w-3/4">
                           <input
@@ -197,7 +197,7 @@ export default function NovoImovelCard({ userSession }: NovoImovelCardProps) {
                         </div>
 
                         <label className="text-gray-700 text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
-                          Descrição
+                          {textos.description}
                         </label>
                         <div className="w-full md:w-3/4">
                           <textarea name="" id="" cols="30" rows="2" onChange={(e) => setDescricao(e.target.value)}
@@ -211,7 +211,7 @@ export default function NovoImovelCard({ userSession }: NovoImovelCardProps) {
                         onClick={handleCadastrarImovel}
                         className="p-2 mt-2 grow bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg"
                       >
-                        Cadastrar
+                        {textos.register}
                       </button>
                       </div>
                       </div>

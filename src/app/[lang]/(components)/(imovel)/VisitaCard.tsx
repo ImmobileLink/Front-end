@@ -24,6 +24,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
   const [phone, setPhone] = useState("");
   const [data, setData] = useState("");
   const [time, setTime] = useState("");
+  const [visita, setVisita] = useState<Visita>([]);
 
   const maskPhone = (valor) => {
     return valor
@@ -40,60 +41,6 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
     setPhone(formatPhone);
   };
 
-  const validaForm = () => {
-    //validação do nome do cliente
-    var regexName = /^[A-Za-z]+(?:\s[a-zA-Z]+)*$/;
-    if (!nome.match(regexName) || nome.length < 10) {
-      setAlert({
-        type: "warning",
-        title: "",
-        message: formlabels.formlogs.invalidname,
-      });
-      return false;
-    } else {
-      setAlert({
-        type: "warning",
-        title: "",
-        message: "",
-      });
-    }
-
-    // validação do telefone
-    const len = phone.replace(/\D/g, "").length;
-    if (!(len == 10 || len == 11)) {
-      setAlert({
-        type: "warning",
-        title: "",
-        message: formlabels.formlogs.invalidphone,
-      });
-      return false;
-    } else {
-      setAlert({
-        type: "warning",
-        title: "",
-        message: "",
-      });
-    }
-
-    // validação do email
-    var regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (!email.match(regexEmail) || email.length <= 6) {
-      setAlert({
-        type: "warning",
-        title: "",
-        message: formlabels.formlogs.invalidemail,
-      });
-      return false;
-    } else {
-      setAlert({
-        type: "warning",
-        title: "",
-        message: "",
-      });
-    }
-    return true;
-  };
-
   const handleCorretor = (event: any) => {
     const selectedValue = event.target.value;
     const selectedObject = corretorData!.find(corretor => corretor!.nome === selectedValue);
@@ -102,30 +49,35 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
     }     
   };
 
-  const handleDelegarVisita = async () => {
-    if (validaForm()) {
-      const visita: Visita = {
-        idcorporacao: userSession?.user.id!,
-        idcorretor: selectedCorretor.id,
-        idimovel: imovelData.id,
-        dadosmarcador: {
-          "name": nome,
-          "email": email,
-          "phone": phone,
-        },
-        dataAgendamento: `${data} ${time}`
-      };
-      const { error } = await supabase
-      .from('visita')
-      .insert(visita)
-      if(error) {
-        console.log(error) 
-      }
-      else {
-        console.log(visita);
-        onCloseModal();
-      }
+  const insertVisita = async (visita) => {
+    const { error } = await supabase
+    .from('visita')
+    .insert(visita)
+    if(error) {
+      console.log(error) 
     }
+    else {
+      onCloseModal();
+    }
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const visita: Visita = {
+      idcorporacao: userSession?.user.id!,
+      idcorretor: selectedCorretor.id,
+      idimovel: imovelData.id,
+      dadosmarcador: {
+        "name": nome,
+        "email": email,
+        "phone": phone,
+      },
+      dataAgendamento: `${data} ${time}`
+    };
+
+    insertVisita(visita);
+    
   };
 
   return (
@@ -133,7 +85,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
       aria-hidden="true"
       className="w-full p-[2.5%] bg-[rgba(0,0,0,0.5)] fixed z-1000 flex justify-center inset-0"
     >
-      <div className="bg-white flex-1 shadow-md max-w-md md:max-w-xl flex flex-col relative rounded-lg px-8 py-6 mb-4 z-1000 overflow-auto">
+      <form onSubmit={handleSubmit} className="bg-white flex-1 shadow-md max-w-md md:max-w-xl flex flex-col relative rounded-lg px-8 py-6 mb-3 z-1000 overflow-auto group" novalidate>
         <button
           type="button"
           className="text-dark-300 w-6 h-6 absolute text-inherit bg-transparent cursor-pointer border-none right-4 inset-y-2 text-lg rounded-full hover:scale-125"
@@ -144,7 +96,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
                     </svg>
         </button>
 
-        <div className="mb-4">
+        <div className="mb-2">
           <div
             className="block text-gray-700 text-lg font-bold my-2"
           >
@@ -157,6 +109,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
                 //value={selectedCorretor.id}
                 onChange={(e) => handleCorretor(e)}
               >
+                <option disabled selected>{formlabels.selectbroker}</option>
                 {corretorData?.map(corretor => {
                     return (
                       <option key={corretor.id}>{corretor.nome}</option>
@@ -182,109 +135,122 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
           </div>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-2">
           <div
             className="block text-gray-700 text-lg font-bold mb-2"
           >
             {formlabels.clientdata}
           </div>
           <div className="bg-gray-200 rounded px-4 pt-4 pb-2">
-            <div className="mb-2 flex flex-wrap">
-              <label
-                className="text-gray-700 text-sm font-bold mb-1 w-full sm:w-1/4 px-2 py-2 sm:pr-4 leading-normal"
-              >
-                {formlabels.name}
-              </label>
+
+              <label className="mb-2 flex flex-wrap">
+                <span className="text-gray-700 text-sm font-bold mb-1 w-full sm:w-1/4 px-2 py-2 sm:pr-4 leading-normal">{formlabels.name}</span>
+              
               <div className="w-full sm:w-3/4 px-2">
                 <input
                   onChange={(e) => setNome(e.target.value)}
-                  className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="username"
+                  className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                  id="client-name"
                   type="text"
+                  pattern="(?=^.{4,}$)[A-Za-z\s]+"
                 />
+                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                  {formlabels.formlogs.invalidname}
+                </span>
               </div>
-            </div>
-            <div className="mb-2 flex flex-wrap">
-              <label
-                className="text-gray-700 text-sm font-bold mb-1 w-full sm:w-1/4 px-2 py-2 sm:pr-4 leading-normal"
-              >
-                {formlabels.phone}
               </label>
+
+            
+              <label className="mb-2 flex flex-wrap">
+                <span className="text-gray-700 text-sm font-bold mb-1 w-full sm:w-1/4 px-2 py-2 sm:pr-4 leading-normal">{formlabels.phone}</span>
+
               <div className="w-full sm:w-3/4 px-2">
                 <input
-                  className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="usertel"
+                  className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                  id="client-phone"
                   type="tel"
                   onChange={handleChange}
                   value={phone}
+                  pattern="(\(\d{2}\)\s?\d{4}-\d{4}|\(\d{2}\)\s?\d{5}-\d{4})"
                 />
+                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                  {formlabels.formlogs.invalidphone}
+                </span>
               </div>
-            </div>
-            <div className="mb-2 flex flex-wrap">
-              <label
-                className="text-gray-700 text-sm font-bold mb-1 w-full sm:w-1/4 px-2 py-2 sm:pr-4 leading-normal"
-              >
-                {formlabels.email}
               </label>
+            
+            <label className="mb-2 flex flex-wrap">
+              <span className="text-gray-700 text-sm font-bold mb-1 w-full sm:w-1/4 px-2 py-2 sm:pr-4 leading-normal">
+                {formlabels.email}</span>
+              
               <div className="w-full sm:w-3/4 px-2">
                 <input
                   onChange={(e) => setEmail(e.target.value)}
-                  className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="usermail"
+                  className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                  id="client-email"
                   type="email"
+                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                 />
+                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                  {formlabels.formlogs.invalidemail}
+                </span>
               </div>
-            </div>
+              </label>
           </div>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-2">
           <div
             className="block text-gray-700 text-lg font-bold mb-2"
           >
             {formlabels.scheduling}
           </div>
           <div className="bg-gray-200 rounded px-4 pt-4 pb-2">
-            <div className="mb-2 flex flex-wrap">
-              <label
-                className="text-gray-700 text-sm font-bold mb-1 w-full sm:w-1/4 px-2 py-2 sm:pr-4 leading-normal"
-              >
-                {formlabels.date}
-              </label>
+            <label className="mb-2 flex flex-wrap">
+              <span className="text-gray-700 text-sm font-bold mb-1 w-full sm:w-1/4 px-2 py-2 sm:pr-4 leading-normal">
+                {formlabels.date}</span>
+              
               <div className="w-full sm:w-3/4 px-2">
                 <input
                   onChange={(e) => setData(e.target.value)}
-                  className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="username"
+                  className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                  id="visit-date"
                   type="date"
+                  required
                 />
+                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                  {formlabels.formlogs.invaliddate}
+                </span>
               </div>
-            </div>
-            <div className="flex flex-wrap">
-              <label
-                className="text-gray-700 text-sm font-bold mb-1 w-full sm:w-1/4 px-2 py-2 sm:pr-4 leading-normal"
-              >
-                {formlabels.time}
               </label>
+
+            <label className="flex flex-wrap">
+              <span className="text-gray-700 text-sm font-bold mb-1 w-full sm:w-1/4 px-2 py-2 sm:pr-4 leading-normal">{formlabels.time}</span>
+              
               <div className="w-full sm:w-3/4 px-2">
                 <input
                   onChange={(e) => setTime(e.target.value)}
-                  className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="usertel"
+                  className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                  id="visit-time"
                   type="time"
+                  min="00:00"
+                  max="23:59"
+                  required
                 />
+                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                  {formlabels.formlogs.invalidtime}
+                </span>
               </div>
-            </div>
+              </label>
           </div>
         </div>
 
-        <button
-          onClick={handleDelegarVisita}
-          className="p-2 mt-2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg"
+        <button type="submit"
+          className="p-2 mt-2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg group-invalid:pointer-events-none group-invalid:opacity-30"
         >
           {formlabels.delegatevisit}
         </button>
-      </div>
+      </form>
     </div>
   );
 }

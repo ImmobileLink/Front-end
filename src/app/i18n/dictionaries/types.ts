@@ -247,8 +247,9 @@ export interface Usertypevalue {
 }
 
 export interface Imovel {
-  mainlabels: Mainlabels;
-  formlabels: Formlabels;
+  mainlabels:  Mainlabels;
+  formlabels:  Formlabels;
+  newproperty: Newproperty;
 }
 
 export interface Mainlabels {
@@ -260,6 +261,7 @@ export interface Mainlabels {
 }
 
 export interface Formlabels {
+  selectbroker:  string;
   findbroker:    string;
   delegatevisit: string;
   brokerdata:    string;
@@ -274,10 +276,23 @@ export interface Formlabels {
 }
 
 export interface Formlogs {
-  missingbroker: string;
   invalidname:   string;
   invalidphone:  string;
   invalidemail:  string;
+  invaliddate:   string;
+  invalidtime:   string;
+}
+
+export interface Newproperty {
+  registerproperty: string;
+  register:         string;
+  uf:               string;
+  city:             string;
+  neighborhood:     string;
+  street:           string;
+  number:           string;
+  price:            string;
+  description:      string;
 }
 
 // Converts JSON strings to/from your types
