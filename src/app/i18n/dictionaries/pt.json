@@ -169,15 +169,16 @@
       "yourenotlogged": "Você não está logado ainda!",
       "enjoyall": "Aproveite todos os benefícios do site",
       "singin": "Entre já",
-      "findbrokers": "Descobrir Corretores",
+      "findbrokers": "Encontrar oportunidades",
       "mybrokers": "Meus Corretores",
       "myproperties": "Meus Imóveis",
       "schedules": "Visitas",
       "visitmyprofile": "Ver meu perfil",
       "notpremiumyet": "Ainda não é PREMIUM?",
       "bepremium": "Aproveite já",
-      "connections": "Amigos",
-      "search": "Procurar"
+      "connections": "Meus Links",
+      "search": "Procurar",
+      "nolinksyet": "Parece que você não tem nenhum Link ainda"
     },
     "pub": {
       "regionfilter": "Filtre por região",

@@ -1,4 +1,3 @@
-import { dir } from 'i18next';
 import NavBar from "../(components)/NavBar";
 
 export const metadata = {
@@ -11,17 +10,14 @@ interface RootLayout {
   params: { lang: string };
 }
 
-export default async function RootLayout({ children, params: { lang }}: RootLayout) {
-
+export default async function RootLayout({
+  children,
+  params: { lang },
+}: RootLayout) {
   return (
-    <html
-    lang={lang}
-    dir={dir(lang)}
-    >
-      <body>
-        <NavBar />
-        {children}
-      </body>
-    </html>
+    <>
+      <NavBar />
+      {children}
+    </>
   );
 }
