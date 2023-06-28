@@ -54,7 +54,7 @@ export default async function page({ params: { lang } }: pageProps) {
           <div className="dark:bg-dark-200 bg-branco rounded-md overflow-hidden h-screen w-screen p-3">
             <div className="flex items-center justify-between mb-2">
               <h2 className="text-4xl">{textos.mainlabels.title}</h2>
-                <NovoImovelCard userSession={session} />
+                <NovoImovelCard textos={textos.newproperty} userSession={session} />
             </div>
 
             <div className="grid grid-cols-2 gap-x-4">

@@ -203,6 +203,7 @@
       "price": "Price"
     },
     "formlabels": {
+      "selectbroker": "Select a broker",
       "findbroker": "Find Brokers",
       "delegatevisit": "Delegate Visit",
       "brokerdata": "Broker",
@@ -214,11 +215,23 @@
       "date": "Date",
       "time": "Time",
       "formlogs": {
-        "missingbroker": "Select a broker",
         "invalidname": "Name must be at least 10 characters long",
         "invalidphone": "Phone must be 10 or 11 characters long",
-        "invalidemail": "Enter a valid email"
+        "invalidemail": "Enter a valid email",
+        "invaliddate": "Selecione a date",
+        "invalidtime": "Selecione a time"
       }
+    },
+    "newproperty": {
+      "registerproperty": "Register Property",
+      "register": "Register",
+      "uf": "Estate",
+      "city": "City",
+      "neighborhood": "Neighborhood",
+      "street": "Street",
+      "number": "Number",
+      "price": "Price",
+      "description": "Description"
     }
   }
 }
