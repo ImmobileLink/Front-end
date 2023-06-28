@@ -1,32 +1,40 @@
 import Image from "next/image";
 import Avatar from "../Avatar"
 import BotaoAdd from "./botao/botaoAdd";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import {  createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import { cookies } from "next/headers";
 
 interface CabecalhoProps {
-  idProfile: any;
-  session: any;
+  isAssociado: string | null;
+  session_data: User_data;
+  corretor: any;
 }
 
-export default async function Cabecalho({ idProfile, session }: CabecalhoProps) {
-  const supabase = createServerComponentClient<Database>({cookies})
+type User_data = {
+  id: string | null;
+  nome: string | null;
+  premium: boolean | null;
+  tipo: string | null;
+} | null
 
-  let { data: corretor } = await supabase
-    .from('corretor')
-    .select('*')
-    .eq('id', idProfile)
-    .single()
+export default async function Cabecalho({  isAssociado, session_data, corretor }: CabecalhoProps) {
+  const supabase = createServerComponentClient<Database>({ cookies })
+
 
 
 
   let { data: avaliacao } = await supabase
     .from('avaliacao')
     .select('nota')
-    .eq('id', idProfile)
+    .eq('id', corretor.id)
     .single()
 
+  let { data: associacoes } = await supabase
+    .from('associacoes')
+    .select('idcorporacao')
+    .eq('idcorretor', corretor.id)
+    .eq('pendente', 'false')
 
   return (
     <>
@@ -42,13 +50,13 @@ export default async function Cabecalho({ idProfile, session }: CabecalhoProps) 
 
       <div className="absolute top-24 left-10 flex flex-col items-center text-white">
         <div className="w-36 h-36 rounded-full bg-branco flex justify-center items-center">
-          <Avatar userId={corretor?.id} size={"big"} />
+          <Avatar userId={corretor.id} size={"big"} />
         </div>
       </div>
 
       <div className=" flex items-center justify-end">
 
-        <div className="flex w-3/4 mr-3 flex-col p-4">
+        <div className=" flex w-3/4 mr-3 flex-col p-4">
           <div className="  flex w-full justify-between">
             <div>
               <h2 className="font-bold text-2xl">{corretor?.nome}</h2>
@@ -64,14 +72,17 @@ export default async function Cabecalho({ idProfile, session }: CabecalhoProps) 
               </div>
             </div>
             <div className="w-40">
-              <p className="underline underline-offset-1">Sem associação no momento</p>
-
+              {associacoes!.length > 0 ? (
+                <p className="underline underline-offset-1">{`Possui empresa(s) associada(s)`}</p>
+              ) : (
+                <p className="underline underline-offset-1">Sem associação no momento</p>
+              )}
             </div>
           </div>
-          {session != null ? (
+          {session_data?.tipo == "corporacao" ? (
             /* só deve aparecer o botao associar se for uma empresa */
             <div className="mt-3">
-              <BotaoAdd />
+              <BotaoAdd associado={isAssociado} tipo={session_data.tipo} idSession ={session_data.id} idProfile={corretor.id}/>
               <button className="w-fit ml-3 text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 font-medium rounded-lg text-sm px-10 py-2.5 mb-1 ">
                 Chat
               </button>
@@ -87,13 +98,13 @@ export default async function Cabecalho({ idProfile, session }: CabecalhoProps) 
         </div>
 
       </div>
-      {/* {corretor.sobre != null ? (
+      {corretor?.sobre != null ? (
         <div className="px-5">
           <div className="bg-white mt-3 rounded-md p-3">
             <p className="">{corretor?.sobre}</p>
           </div>
         </div>
-      ) : (<></>)} */}
+      ) : (<></>)}
 
 
 
