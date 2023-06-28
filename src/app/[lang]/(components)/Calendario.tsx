@@ -11,11 +11,11 @@ export default function Calendario({ }: CalendarioProps) {
     const [value, onChange] = useState(new Date());
 
     return (
-        <div className='flex items-center flex-col'>
+        <div className='flex items-center flex-col '>
             <h1 className='font-bold mb-3'>Visitas Agendadadas</h1>
             <div className='w-4/5'>
                 <Calendar
-                    className="rounded-md w"
+                    className="rounded-md dark:text-black"
                     value={value}
                 />
             </div>

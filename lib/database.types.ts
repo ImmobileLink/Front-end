@@ -934,6 +934,12 @@ export interface Database {
         Args: Record<PropertyKey, never>
         Returns: Json
       }
+      userpfpcheck: {
+        Args: {
+          userid: string
+        }
+        Returns: boolean
+      }
       verifica_associacao: {
         Args: {
           valor1: string

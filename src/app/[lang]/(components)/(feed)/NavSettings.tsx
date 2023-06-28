@@ -17,7 +17,7 @@ export default async function NavSettings({
 }: NavSettingsProps) {
   return (
     <>
-      <div className="w-full h-fit flex justify-center align-middle ring-2 ring-gray-300 rounded-md bg-white drop-shadow-md">
+      <div className="w-full h-fit flex justify-center align-middle ring-2 ring-gray-300 rounded-md bg-white dark:bg-gray-600 dark:ring-gray-700 drop-shadow-md">
         <div className="w-full flex flex-col align-middle my-4">
           {userData.role == 2 ? (
             <>
