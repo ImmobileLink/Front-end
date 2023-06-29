@@ -85,7 +85,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
       aria-hidden="true"
       className="w-full p-[2.5%] bg-[rgba(0,0,0,0.5)] fixed z-1000 flex justify-center inset-0"
     >
-      <form onSubmit={handleSubmit} className="bg-white flex-1 shadow-md max-w-md md:max-w-xl flex flex-col relative rounded-lg px-8 py-6 mb-3 z-1000 overflow-auto group">
+      <form onSubmit={handleSubmit} className="bg-white dark:bg-dark-300 flex-1 shadow-md max-w-md md:max-w-xl flex flex-col relative rounded-lg px-8 py-6 mb-3 z-1000 overflow-auto group">
         <button
           type="button"
           className="text-dark-300 w-6 h-6 absolute text-inherit bg-transparent cursor-pointer border-none right-4 inset-y-2 text-lg rounded-full hover:scale-125"
