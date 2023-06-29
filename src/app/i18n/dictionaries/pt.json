@@ -157,7 +157,8 @@
       "rating": "Classificação",
       "specialty": "Especialidade",
       "error": "Ops! Algo deu errado. Por favor, tente novamente.",
-      "missingcombobox": "Selecione um filtro."
+      "missingcombobox": "Selecione um filtro.",
+      "checkprofile": "Ver Perfil"
     },
     "usertypevalue": {
       "broker": "Corretor",
@@ -243,5 +244,45 @@
   },
   "calendar":{
     "scheduledVisits": "Visitas agendadas"
+  },
+  "imovel": {
+    "mainlabels": {
+      "title": "Meus Imóveis",
+      "delegatevisit": "Delegar Visita",
+      "location": "Localização",
+      "characteristics": "Características",
+      "price": "Valor"
+    },
+    "formlabels": {
+      "selectbroker": "Selecione um corretor",
+      "findbroker": "Encontrar Corretores",
+      "delegatevisit": "Delegar Visita",
+      "brokerdata": "Corretor",
+      "clientdata": "Dados do Cliente",
+      "scheduling": "Agendamento",
+      "name": "Nome",
+      "phone": "Telefone",
+      "email": "Email",
+      "date": "Data",
+      "time": "Horário",
+      "formlogs": {
+        "invalidname": "O nome precisa ter no mínimo 10 caracteres",
+        "invalidphone": "O telefone precisa ter 10 ou 11 caracteres",
+        "invalidemail": "Insira um email válido",
+        "invaliddate": "Selecione uma data",
+        "invalidtime": "Selecione um horário"
+      }
+    },
+    "newproperty": {
+      "registerproperty": "Cadastrar Imóvel",
+      "register": "Cadastrar",
+      "uf": "Estado",
+      "city": "Cidade",
+      "neighborhood": "Bairro",
+      "street": "Rua",
+      "number": "Número",
+      "price": "Valor",
+      "description": "Descrição"
+    }
   }
 }
