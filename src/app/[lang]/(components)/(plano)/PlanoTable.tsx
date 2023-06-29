@@ -1,11 +1,38 @@
+"use client"
 import { Planos } from "@/app/i18n/dictionaries/types";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../../../../../lib/database.types";
 
 interface PlanoTableProps {
   role: string;
   sub: Planos;
+  id: any;
 }
 
-export default function PlanoTable({ role, sub }: PlanoTableProps) {
+const supabase = createClientComponentClient<Database>({ });
+
+export default async function PlanoTable({ role, sub, id }: PlanoTableProps) {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+
+  const stayPremium = async () => {
+    const { data, error } = await supabase
+      .from('corporacao')
+      .update({ premium: true })
+      .eq('id', id)
+      .select()
+  }
+
+  const noPremium = async () => {
+    const { data, error } = await supabase
+      .from('corporacao')
+      .update({ premium: false })
+      .eq('id', id)
+      .select()
+  }
+
   switch (role) {
     case "corretor":
       return (
@@ -656,7 +683,7 @@ export default function PlanoTable({ role, sub }: PlanoTableProps) {
               <div className="grid grid-cols-3 px-4 py-5 text-sm text-gray-700 border-b border-gray-200 gap-x-16 dark:border-gray-700">
                 <div className="text-gray-500 dark:text-gray-400"></div>
                 <div>
-                  <a
+                  <a onClick={noPremium}
                     href="#"
                     className="text-white block w-full bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:focus:ring-blue-900"
                   >
@@ -664,7 +691,7 @@ export default function PlanoTable({ role, sub }: PlanoTableProps) {
                   </a>
                 </div>
                 <div>
-                  <a
+                  <a onClick={stayPremium}
                     href="#"
                     className="text-white block w-full bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:focus:ring-blue-900"
                   >
