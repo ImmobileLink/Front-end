@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Avatar from "../Avatar"
 import BotaoAdd from "./botao/botaoAdd";
-import {  createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import { cookies } from "next/headers";
+import Link from "next/link";
 
 interface CabecalhoProps {
   isAssociado: string | null;
@@ -19,10 +20,17 @@ type User_data = {
   tipo: string | null;
 } | null
 
-export default async function Cabecalho({  isAssociado, session_data, corretor, dict }: CabecalhoProps) {
+export default async function Cabecalho({ isAssociado, session_data, corretor, dict }: CabecalhoProps) {
   const supabase = createServerComponentClient<Database>({ cookies })
 
-  console.log("dict", dict)
+  let { data, error } = await supabase
+      .rpc('criar_ou_retornar_sala', {
+        id_destinatario: corretor.id,
+        id_usuario: session_data!.id!
+      })
+
+  let sala = `/chat/${data}`
+
   let { data: avaliacao } = await supabase
     .from('avaliacao')
     .select('nota')
@@ -81,10 +89,13 @@ export default async function Cabecalho({  isAssociado, session_data, corretor, 
           {session_data?.tipo == "corporacao" ? (
             /* só deve aparecer o botao associar se for uma empresa */
             <div className="mt-3">
-              <BotaoAdd associado={isAssociado} tipo={session_data.tipo} idSession ={session_data.id} idProfile={corretor.id} dict={dict}/>
-              <button className="w-fit ml-3 text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 font-medium rounded-lg text-sm px-10 py-2.5 mb-1 ">
-                Chat
-              </button>
+              <BotaoAdd associado={isAssociado} tipo={session_data.tipo} idSession={session_data.id} idProfile={corretor.id} dict={dict} />
+              <Link href={sala}>
+                <button className="w-fit ml-3 text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 font-medium rounded-lg text-sm px-10 py-2.5 mb-1 ">
+                  Chat
+                </button>
+              </Link>
+
             </div>
           ) : (
             <></>

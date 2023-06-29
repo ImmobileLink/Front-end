@@ -1,25 +1,83 @@
 "use client";
-
-import React, { useState } from 'react';
-import Calendar from 'react-calendar';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import React, { useEffect, useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
+import { Database } from '../../../../lib/database.types';
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+
+interface CalendarioProps {
+    ownId: any;
+    idProfile: any;
+}
+
+type Visita = {
+    dataAgendamento: string;
+}
+
+type Eventos = {
+    title: string;
+    date: string;
+}
+
+const supabase = createClientComponentClient<Database>()
 
 
-interface CalendarioProps { }
+export default function Calendario({ ownId, idProfile }: CalendarioProps) {
+    const [visitas, setVisitas] = useState<Visita[] | null>()
 
-export default function Calendario({ }: CalendarioProps) {
-    const [value, onChange] = useState(new Date());
+    useEffect(() => {
+        const fetchData = async () => {
+            let { data: visita, error } = await supabase
+                .from('visita')
+                .select('dataAgendamento')
+                .eq('idcorretor', idProfile)
+            setVisitas(visita)
+        }
+        fetchData()
+    }, [])
+
+    console.log(visitas)
+
+
+    let eventos: { title: string; date: string; }[] = []
+
+    if (visitas) {
+        visitas.map((item) => {
+            eventos.push({ title: "visita", date: item.dataAgendamento.substring(0, 10) })
+        })
+    }
+    /* (prev: any) => [...prev, { title: "visita", date: item.dataAgendamento }] */
+
+
+
+    /*   if (!props.especialidadesIncluidas.includes(id)) {
+          props.setEspecialidade((prev) => [
+            ...prev,
+            { id: id, descricao: descricao },
+          ]);
+          props.setEspecialidadesIncluidas((prev) => [...prev, id]);
+        } */
 
     return (
         <div className='flex items-center flex-col'>
-            <h1 className='font-bold mb-3'>Visitas Agendadadas</h1>
             <div className='w-4/5'>
-                <Calendar
-                    className="rounded-md w"
-                    value={value}
+
+                <FullCalendar
+                    plugins={[dayGridPlugin]}
+                    initialView='dayGridMonth'
+                    weekends={false}
+                    headerToolbar={false}
+                    height={400}
+
+
+                    events={eventos}
+
+
+
+
                 />
             </div>
-
         </div>
     );
 }

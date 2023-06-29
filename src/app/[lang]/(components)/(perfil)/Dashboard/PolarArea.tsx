@@ -3,14 +3,19 @@ import Chart from 'chart.js/auto';
 import { PolarArea as Po } from "react-chartjs-2";
 import {CategoryScale} from 'chart.js'; 
 Chart.register(CategoryScale);
-interface PolarAreaProps {}
+interface PolarAreaProps {
+  dict: any;
+}
 
-const data = {
+
+export default function PolarArea({dict}: PolarAreaProps) {
+
+  const data = {
     labels: [
-      'Domínio',
-      'Profissionalismo',
-      'Bom atendimento',
-      'Educado',
+      dict.dashboard.domain,
+      dict.dashboard.professionalism,
+      dict.dashboard.goodService,
+      dict.dashboard.educated,
     ],
     datasets: [{
       label: 'dasda',
@@ -24,7 +29,6 @@ const data = {
     }]
   };
 
-export default function PolarArea({}: PolarAreaProps) {
   return (
     <>
         <Po data={data}></Po>

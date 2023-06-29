@@ -10,11 +10,12 @@ interface botaoAddProps {
   tipo: string;
   idSession: string | null;
   idProfile: string;
+  dict: any;
 }
 
 
 
-export default function BotaoAdd({ associado, idProfile, idSession, tipo }: botaoAddProps) {
+export default function BotaoAdd({ associado, idProfile, idSession, tipo, dict }: botaoAddProps) {
 
   const [estado, setEstado] = useState(associado);
   const [popup, setPopup] = useState(false)
