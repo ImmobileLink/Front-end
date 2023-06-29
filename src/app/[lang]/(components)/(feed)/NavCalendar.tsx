@@ -10,5 +10,6 @@ interface NavCalendarProps {
 }
 
 export default async function NavCalendar({ userData }: NavCalendarProps) {
-  return <><Calendario /></>;
+  // return <><Calendario /></>;
+  return <><span className="text-xl text-white text-center">CALENDÁRIO</span></>;
 }

@@ -27,9 +27,6 @@ export default function Avatar({ userId, size }: AvatarProps) {
 
   return (
     <div>
-      <Suspense
-        fallback={<AvatarLoading/>}
-      />
       <Image
         className={styleImage}
         loading="lazy"
