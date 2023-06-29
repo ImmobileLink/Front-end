@@ -1,16 +1,16 @@
 "use client";
 import React, { useState } from "react";
-import { Corretor, CorretorAssociado, Visita } from "../../../../../lib/modelos";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Corretor, CorretorAssociado, InsereVisita, Visita } from "../../../../../lib/modelos";
+import { Session, createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import { Formlabels } from "@/app/i18n/dictionaries/types";
 import Link from "next/link";
 
 interface VisitaCardProps {
   formlabels: Formlabels;
-  onCloseModal;
-  imovelData;
-  corretorData;
+  onCloseModal: any;
+  imovelData: any;
+  corretorData: any;
   userSession: Session | null | undefined;
 }
 
@@ -18,15 +18,15 @@ const supabase = createClientComponentClient<Database>()
 
 export default function VisitaCard({ onCloseModal, imovelData, corretorData, userSession, formlabels }: VisitaCardProps) {
   const [alert, setAlert] = useState({ type: "", title: "", message: "" });
-  const [selectedCorretor, setSelectedCorretor] = useState(corretorData![0]);
+  const [selectedCorretor, setSelectedCorretor] = useState<Corretor>(corretorData![0]);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [data, setData] = useState("");
   const [time, setTime] = useState("");
-  const [visita, setVisita] = useState<Visita>([]);
+  const [visita, setVisita] = useState<Visita>();
 
-  const maskPhone = (valor) => {
+  const maskPhone = (valor: any) => {
     return valor
       .replace(/\D/g, "")
       .replace(/(\d{2})(\d)/, "($1) $2")
@@ -35,7 +35,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
       .replace(/(-\d{4})\d+?$/, "$1");
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     const valor = event.target.value;
     const formatPhone = maskPhone(valor);
     setPhone(formatPhone);
@@ -43,13 +43,13 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
 
   const handleCorretor = (event: any) => {
     const selectedValue = event.target.value;
-    const selectedObject = corretorData!.find(corretor => corretor!.nome === selectedValue);
+    const selectedObject = corretorData!.find((corretor: Corretor) => corretor!.nome === selectedValue);
     if (selectedObject != null) {
       setSelectedCorretor(selectedObject)
     }     
   };
 
-  const insertVisita = async (visita) => {
+  const insertVisita = async (visita: InsereVisita) => {
     const { error } = await supabase
     .from('visita')
     .insert(visita)
@@ -61,10 +61,10 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
     }
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
 
-    const visita: Visita = {
+    const visita: InsereVisita = {
       idcorporacao: userSession?.user.id!,
       idcorretor: selectedCorretor.id,
       idimovel: imovelData.id,
@@ -85,13 +85,13 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
       aria-hidden="true"
       className="w-full p-[2.5%] bg-[rgba(0,0,0,0.5)] fixed z-1000 flex justify-center inset-0"
     >
-      <form onSubmit={handleSubmit} className="bg-white flex-1 shadow-md max-w-md md:max-w-xl flex flex-col relative rounded-lg px-8 py-6 mb-3 z-1000 overflow-auto group" novalidate>
+      <form onSubmit={handleSubmit} className="bg-white flex-1 shadow-md max-w-md md:max-w-xl flex flex-col relative rounded-lg px-8 py-6 mb-3 z-1000 overflow-auto group">
         <button
           type="button"
           className="text-dark-300 w-6 h-6 absolute text-inherit bg-transparent cursor-pointer border-none right-4 inset-y-2 text-lg rounded-full hover:scale-125"
           onClick={() => onCloseModal()}
         >
-          <svg class="h-6 w-6 mt-2 mr-8 stroke-dark-300" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
+          <svg className="h-6 w-6 mt-2 mr-8 stroke-dark-300" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
         </button>
@@ -110,7 +110,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
                 onChange={(e) => handleCorretor(e)}
               >
                 <option disabled selected>{formlabels.selectbroker}</option>
-                {corretorData?.map(corretor => {
+                {corretorData?.map((corretor: Corretor) => {
                     return (
                       <option key={corretor.id}>{corretor.nome}</option>
                     )
@@ -154,7 +154,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
                   type="text"
                   pattern="(?=^.{4,}$)[A-Za-z\s]+"
                 />
-                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                <span className="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
                   {formlabels.formlogs.invalidname}
                 </span>
               </div>
@@ -173,7 +173,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
                   value={phone}
                   pattern="(\(\d{2}\)\s?\d{4}-\d{4}|\(\d{2}\)\s?\d{5}-\d{4})"
                 />
-                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                <span className="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
                   {formlabels.formlogs.invalidphone}
                 </span>
               </div>
@@ -191,7 +191,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
                   type="email"
                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                 />
-                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                <span className="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
                   {formlabels.formlogs.invalidemail}
                 </span>
               </div>
@@ -218,7 +218,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
                   type="date"
                   required
                 />
-                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                <span className="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
                   {formlabels.formlogs.invaliddate}
                 </span>
               </div>
@@ -237,7 +237,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
                   max="23:59"
                   required
                 />
-                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                <span className="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
                   {formlabels.formlogs.invalidtime}
                 </span>
               </div>
@@ -246,7 +246,7 @@ export default function VisitaCard({ onCloseModal, imovelData, corretorData, use
         </div>
 
         <button type="submit"
-          className="p-2 mt-2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg group-invalid:pointer-events-none group-invalid:opacity-30"
+          className="p-2 mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 transition ease-in duration-200 text-center focus:ring-offset-2 group-invalid:pointer-events-none group-invalid:opacity-30"
         >
           {formlabels.delegatevisit}
         </button>

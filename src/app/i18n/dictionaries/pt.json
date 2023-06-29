@@ -157,7 +157,8 @@
       "rating": "Classificação",
       "specialty": "Especialidade",
       "error": "Ops! Algo deu errado. Por favor, tente novamente.",
-      "missingcombobox": "Selecione um filtro."
+      "missingcombobox": "Selecione um filtro.",
+      "checkprofile": "Ver Perfil"
     },
     "usertypevalue": {
       "broker": "Corretor",

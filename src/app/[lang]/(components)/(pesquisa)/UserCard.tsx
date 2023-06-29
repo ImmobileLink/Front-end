@@ -45,11 +45,21 @@ export default function UserCard({ textos, corretor, corporacao }: UserCardProps
 
       <div className="flex flex-row align-bottom mt-5">
         <div>
-          <Link href={`perfil/${corretor?.id}`}>
-            <button className="flex p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-mediumtext-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg">
-              Ver perfil
-            </button>
-          </Link>
+          {
+            corretor != null?
+            <Link href={`perfil/${corretor.id}`}>
+              <button className="flex p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-mediumtext-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg">
+                {textos.labels.checkprofile}
+              </button>
+            </Link>
+            :
+            <Link href={`perfil/${corporacao!.id}`}>
+              <button className="flex p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-mediumtext-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg">
+              {textos.labels.checkprofile}
+              </button>
+            </Link>
+          }
+          
         </div>
       </div>
     </div>

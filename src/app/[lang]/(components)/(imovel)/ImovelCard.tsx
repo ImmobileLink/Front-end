@@ -1,14 +1,15 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import ImovelImg from "./ImovelImg";
-import { Corretor, CorretorAssociado } from "../../../../../lib/modelos";
+import { Corretor, CorretorAssociado, ImovelDB, ImovelSemCorporacao } from "../../../../../lib/modelos";
 import VisitaCard from "./VisitaCard";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Session, createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Imovel } from '@/app/i18n/dictionaries/types';
+import { Database } from "../../../../../lib/database.types";
 
 interface ImovelCardProps {
   textos: Imovel;
-  imovel: ImovelRegistro[] | null;
+  imovel: ImovelSemCorporacao | null;
   userSession: Session | null | undefined
 }
 
@@ -22,9 +23,8 @@ export default function ImovelCard({textos, imovel, userSession}: ImovelCardProp
   
   const getCorretores = async () => {    
       if (userSession?.user.id) {
-        let { data, error } = await supabase.rpc("get_corretores_by_corporacao_especialidade", {
-          id_usuario: userSession?.user.id,
-          id_imovel: imovel.id,
+        let { data, error } = await supabase.rpc("get_corretores_associados", {
+          id_usuario: userSession?.user.id
         })
         if (error) {
           console.log(error)
@@ -52,17 +52,17 @@ export default function ImovelCard({textos, imovel, userSession}: ImovelCardProp
   };
 
   // Deixar a descrição na tabela de imóveis, por enquanto
-  const caracteristicas = imovel.descricao.split("; ");
+  const caracteristicas = imovel!.descricao!.split("; ");
 
   return (
-    <div className="bg-dark-200 dark:bg-branco text-branco dark:text-dark-200 focus:ring-indigo-500 focus:ring-2 focus:ring-offset-2 shadow-md rounded-md p-2 mb-2 align-middle w-full my-4">
+    <div className="bg-gray-300 dark:bg-branco text-dark-200 dark:text-white ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2 focus:ring-offset-2 shadow-md rounded-md p-2 mb-2 align-middle w-full my-4">
       <div className="flex flex-col md:flex-row">
         <div className="mr-2 ml-2">
-          <ImovelImg imovelId={imovel.id} />
+          <ImovelImg imovelId={imovel!.id} />
           <div className="flex-auto">
             <button
               onClick={() => {getCorretores(); setFormOpen(true)}}
-              className="p-2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 w-full rounded-lg mb-2"
+              className="p-2 w-fit self-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 transition ease-in duration-200 text-center focus:ring-offset-2"
             >
               {textos.mainlabels.delegatevisit}
             </button>
@@ -72,13 +72,13 @@ export default function ImovelCard({textos, imovel, userSession}: ImovelCardProp
         <div className="md:ml-2 md:mt-0 ml-3 flex-auto">
             <div className="w-full">
               <p className="font-bold">{textos.mainlabels.location}</p>
-              <p>{`${imovel.rua}, ${imovel.numero}`}</p>
+              <p>{`${imovel!.rua}, ${imovel!.numero}`}</p>
               <p>
-                {`${imovel.bairro} - ${imovel.cidade}/${imovel.estado}`}
+                {`${imovel!.bairro} - ${imovel!.cidade}/${imovel!.estado}`}
               </p>
 
               <p className="font-bold mt-2">{textos.mainlabels.price}</p>
-              <p>{`${imovel.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}`}</p>
+              <p>{`${imovel!.valor!.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}`}</p>
             </div>
             <div className="w-full mt-2">
               <p className="font-bold">{textos.mainlabels.characteristics}</p>

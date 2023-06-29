@@ -5,7 +5,7 @@ interface ImovelImgProps {
     imovelId: any;
 }
 
-export default function ImovelImg({ imovelId }: ImovelProps) {
+export default function ImovelImg({ imovelId }: ImovelImgProps) {
   const [src, setSrc] = useState(`imoveis/imagens/${imovelId}`);
 
     return (

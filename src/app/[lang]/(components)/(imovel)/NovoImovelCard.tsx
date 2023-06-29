@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import {
   Corretor,
   CorretorAssociado,
+  InsereImovel,
   Visita,
 } from "../../../../../lib/modelos";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Session, createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import { Formlabels, Imovel, Newproperty } from "@/app/i18n/dictionaries/types";
+import { ImovelDB } from "../../../../../lib/modelos";
 import Link from "next/link";
 
 interface NovoImovelCardProps {
@@ -23,13 +25,13 @@ export default function NovoImovelCard({ textos, userSession }: NovoImovelCardPr
   const [cidade, setCidade] = useState("");
   const [bairro, setBairro] = useState("");
   const [rua, setRua] = useState("");
-  const [num, setNum] = useState("");
-  const [valor, setValor] = useState("");
+  const [num, setNum] = useState(0);
+  const [valor, setValor] = useState(0);
   const [descricao, setDescricao] = useState("");
 
   // Falta a validação dos dados
   const handleCadastrarImovel = async () => {
-      const imovel: Imovel = {
+      const imovel: InsereImovel = {
         idcorporacao: userSession?.user.id!,
         descricao: descricao,
         estado: estado,
@@ -50,13 +52,35 @@ export default function NovoImovelCard({ textos, userSession }: NovoImovelCardPr
       }
   };
 
+  const handleNumChange = (event: any) => {
+    let number = 0;
+    try {
+      number = parseInt(event.target.value)
+    }
+    catch (e) {
+      console.log("Erro no Parse Int: " + e)
+    } 
+    setNum(number)
+  }
+
+  const handleValorChange = (event: any) => {
+    let val = 0;
+    try {
+      val = parseFloat(event.target.value)
+    }
+    catch (e) {
+      console.log("Erro no Parse Float: " + e)
+    } 
+    setValor(val)
+  }
+
   return (
     <div>
       <button
         onClick={() => {
           setFormOpen(true);
         }}
-        className="flex items-center justify-between p-2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 w-full rounded-lg"
+        className="flex items-center justify-between p-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 transition ease-in duration-200 text-center focus:ring-offset-2"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -177,7 +201,7 @@ export default function NovoImovelCard({ textos, userSession }: NovoImovelCardPr
                         </label>
                         <div className="w-full md:w-3/4">
                           <input
-                            onChange={(e) => setNum(e.target.value)}
+                            onChange={(e) => handleNumChange(e)}
                             className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="num"
                             type="number"
@@ -189,7 +213,7 @@ export default function NovoImovelCard({ textos, userSession }: NovoImovelCardPr
                         </label>
                         <div className="w-full md:w-3/4">
                           <input
-                            onChange={(e) => setValor(e.target.value)}
+                            onChange={(e) => handleValorChange(e)}
                             className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="valor"
                             type="number"
@@ -200,16 +224,15 @@ export default function NovoImovelCard({ textos, userSession }: NovoImovelCardPr
                           {textos.description}
                         </label>
                         <div className="w-full md:w-3/4">
-                          <textarea name="" id="" cols="30" rows="2" onChange={(e) => setDescricao(e.target.value)}
-                            className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
-                            id="descricao">
+                          <textarea name="" id="" cols={30} rows={2} onChange={(e) => setDescricao(e.target.value)}
+                            className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                           </textarea>
                         </div>
 
                         <div className="ml-auto w-1/2 flex justify-end">
                         <button
                         onClick={handleCadastrarImovel}
-                        className="p-2 mt-2 grow bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg"
+                        className="p-2 mt-2 grow text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 transition ease-in duration-200 text-center focus:ring-offset-2"
                       >
                         {textos.register}
                       </button>
