@@ -157,7 +157,8 @@
       "rating": "Rating",
       "specialty": "Specialty",
       "error": "Oops! Something went wrong. Please try again.",
-      "missingcombobox": "Select a filter."
+      "missingcombobox": "Select a filter.",
+      "checkprofile": "Check Profile"
     },
     "usertypevalue": {
       "broker": "Broker",

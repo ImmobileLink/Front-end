@@ -239,6 +239,7 @@ export interface Labels {
   specialty:       string;
   error:           string;
   missingcombobox: string;
+  checkprofile:    string;
 }
 
 export interface Usertypevalue {

@@ -771,6 +771,15 @@ export interface Database {
           avaliacao: number
         }[]
       }
+      get_corretores_associados: {
+        Args: {
+          id_usuario: string
+        }
+        Returns: {
+          id: string
+          nome: string
+        }[]
+      }
       get_corretores_avaliacao: {
         Args: {
           avaliacao: number
