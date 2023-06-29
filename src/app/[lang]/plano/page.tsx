@@ -29,6 +29,14 @@ export default async function page({ params: { lang } }: pageProps) {
   const tipoPerfil = session_data?.tipo;
   const subPerfil = session_data?.premium;
 
+  const ficaPremiu = async () => {
+    const { data, error } = await supabase
+      .from('corporacao')
+      .update({ premium: true })
+      .eq('id', session?.user.id)
+      .select()
+  }
+
   return (
     <>
       <div className="w-auto h-auto bg-branco dark:bg-dark-200">
@@ -62,10 +70,10 @@ export default async function page({ params: { lang } }: pageProps) {
           </p>
 
           <div className="w-full flex justify-center px-10 mt-10 ">
-            <PlanoTable
+            <PlanoTable id={session?.user.id}
               role={tipoPerfil || "corretor"}
               sub={dict.planos}
-              />
+            />
           </div>
         </>
       </div>
