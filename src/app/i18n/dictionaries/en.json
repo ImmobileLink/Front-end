@@ -169,18 +169,29 @@
       "yourenotlogged": "You are not logged in yet!",
       "enjoyall": "Enjoy all the benefits from the website",
       "singin": "Sign in",
-      "findbrokers": "Find Brokers",
+      "findbrokers": "Find opportunities",
       "mybrokers": "My Brokers",
       "myproperties": "My properties",
       "schedules": "Schedules",
       "visitmyprofile": "See my profile",
       "notpremiumyet": "Not PREMIUM yet?",
       "bepremium": "Become premium",
-      "connections": "Friends",
-      "search": "Search"
+      "connections": "My Links",
+      "search": "Search",
+      "nolinksyet": "Looks like you don't have any Links yet"
     },
     "pub": {
-      "posted": "posted"
+      "regionfilter": "Filter by region",
+      "posted": "posted",
+      "regioncomboboxplaceholder": "All",
+      "comboboxplaceholder": "Select",
+      "noposts":"No posts found for the specified region",
+      "error": "Ops! Something went wrong. Try reloading the page."
+    },
+    "form": {
+      "regionchange": "Region",
+      "post": "Post",
+      "placeholder": "New post"
     }
   },
   "planos": {
