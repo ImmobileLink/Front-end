@@ -179,7 +179,11 @@
       "bepremium": "Become premium",
       "connections": "My Links",
       "search": "Search",
-      "nolinksyet": "Looks like you don't have any Links yet"
+      "nolinksyet": "Looks like you don't have any Links yet",
+      "relatedbrokers": "Related Brokers",
+      "norelatedbrokersyet": "Looks like you don't have any related brokers yet",
+      "myrelatedcompany": "Related company",
+      "norelatedcompanyyet": "No related company yet"
     },
     "pub": {
       "regionfilter": "Filter by region",
