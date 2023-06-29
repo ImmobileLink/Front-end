@@ -55,7 +55,7 @@ export default function ImovelCard({textos, imovel, userSession}: ImovelCardProp
   const caracteristicas = imovel!.descricao!.split("; ");
 
   return (
-    <div className="bg-gray-300 dark:bg-branco text-dark-200 dark:text-white ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2 focus:ring-offset-2 shadow-md rounded-md p-2 mb-2 align-middle w-full my-4">
+    <div className="bg-gray-300 dark:bg-dark-200 text-dark-200 dark:text-white ring-2 ring-gray-300 dark:ring-dark-300 focus:ring-gray-500 focus:ring-2 focus:ring-offset-2 shadow-md rounded-md p-2 mb-2 align-middle w-full my-4">
       <div className="flex flex-col md:flex-row">
         <div className="mr-2 ml-2">
           <ImovelImg imovelId={imovel!.id} />
