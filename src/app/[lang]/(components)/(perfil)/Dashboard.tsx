@@ -11,12 +11,13 @@ interface DashboardProps {
   userId: string;
   session: any;
   premium: boolean | null;
+  dict: any;
 }
 
 
-export default async function Dashboard({ userId, session, premium }: DashboardProps) {
-  const supabase = createServerComponentClient<Database>({cookies})
 
+export default async function Dashboard({ userId, session, premium, dict }: DashboardProps) {
+  const supabase = createServerComponentClient<Database>({cookies})
 
 
   return (
@@ -50,11 +51,11 @@ export default async function Dashboard({ userId, session, premium }: DashboardP
 
       <div>
         <div >
-          <PolarArea />
+          <PolarArea dict={dict} />
         </div>
 
         <div className="mt-5">
-          <Line />
+          <Line dict={dict}/>
         </div>
 
       </div>

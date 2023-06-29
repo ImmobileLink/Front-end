@@ -204,5 +204,33 @@
     "linktotenbrokers": "Link up to 10 brokers",
     "illimitedlinks": "Link up to many brokers",
     "buynow": "Buy now"
+  },
+  "profile": {
+    "noAssociation": "No association at the moment",
+    "hasAssociation":"Has associated company(ies)",
+    "btnAssociate": "Associate",
+    "btnPending": "Pending",
+    "btnConnect": "Connect",
+    "overview": "Overview",
+    "posts": "Posts",
+    "infoBroker": "Information about the broker",
+    "historic": "historic"
+  },
+  "dashboard": {
+    "domain": "Domain",
+    "professionalism": "Professionalism",
+    "goodService": "Good service",
+    "educated": "educated",
+    "visited": "real estate visits",
+    "sales": "Sales",
+    "january": "January",
+    "february": "February",
+    "march":"March",
+    "april": "April",
+    "may": "May",
+    "june": "June"
+  },
+  "calendar":{
+    "scheduledVisits": "scheduled visits"
   }
 }

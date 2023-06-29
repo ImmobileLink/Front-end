@@ -42,7 +42,6 @@ export default async function Page({ params: { id, lang } }: pageProps) {
     .single()
 
 
-
   return (
     <>
       <NavBar />
@@ -59,12 +58,12 @@ export default async function Page({ params: { id, lang } }: pageProps) {
 
             <div className="w-1/3 ">
               <div className="bg-branco rounded-md p-3 relative overflow-hidden">
-                <Dashboard userId={id} session={session} premium={session_data!.premium} />
+                <Dashboard userId={id} session={session} premium={session_data!.premium} dict={dict} />
               </div>
 
               {isAssociado == "Associado" ? (
                 <div className="bg-branco rounded-md mt-3 p-3">
-                  <Calendario />
+                  <Calendario ownId={session_data?.id} idProfile = {id} />
                 </div>
               ) : (<></>)}
 

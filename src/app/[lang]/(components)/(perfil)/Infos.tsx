@@ -5,13 +5,11 @@ import { useState } from "react"
 
 interface InfosProps {
   corretor: any;
-  dict: string;
+  dict: any;
 }
 
 export default function Infos({ corretor, dict }: InfosProps) {
   const [overview, setOverview] = useState(true)
-
-  console.log(dict)
 
   return (
     <>
@@ -20,12 +18,12 @@ export default function Infos({ corretor, dict }: InfosProps) {
           {overview ? (
             <>
               <button className="w-1/2 h-full text-center border-r-2 bg-slate-100">{dict.profile.overview}</button>
-              <button onClick={() => { setOverview(!overview) }} className="w-1/2 h-full text-center hover:bg-slate-100">Publicações</button>
+              <button onClick={() => { setOverview(!overview) }} className="w-1/2 h-full text-center hover:bg-slate-100">{dict.profile.posts}</button>
             </>
           ) : (
             <>
-              <button onClick={() => { setOverview(!overview) }} className="w-1/2 h-full text-center border-r-2 hover:bg-slate-100">Visão Geral</button>
-              <button className="w-1/2 h-full text-center bg-slate-100">Publicações</button>
+              <button onClick={() => { setOverview(!overview) }} className="w-1/2 h-full text-center border-r-2 hover:bg-slate-100">{dict.profile.overview}</button>
+              <button className="w-1/2 h-full text-center bg-slate-100">{dict.profile.posts}</button>
             </>
           )}
 
@@ -33,7 +31,7 @@ export default function Infos({ corretor, dict }: InfosProps) {
 
         <div className="p-3 pt-8">
           {overview ? (
-            <VisaoGeral corretor={corretor} />
+            <VisaoGeral corretor={corretor} dict={dict} />
           ) : (
             <Publicacoes />
           )}

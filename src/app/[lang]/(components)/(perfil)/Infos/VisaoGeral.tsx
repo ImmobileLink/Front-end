@@ -7,9 +7,10 @@ import Historico from "./historico/Historico";
 
 interface VisaoGeralProps {
   corretor: any;
+  dict: any;
 }
 
-export default function VisaoGeral({ corretor }: VisaoGeralProps) {
+export default function VisaoGeral({ corretor, dict }: VisaoGeralProps) {
   const supabase = createClientComponentClient<Database>()
   const [especialidades, setEspecialidade] = useState<{ descricao: string; }[] | null>()
 
@@ -26,7 +27,7 @@ export default function VisaoGeral({ corretor }: VisaoGeralProps) {
 
   return (
     <div className="ml-6">
-      <h2 className="font-semibold text-xl mb-5">Informações sobre o corretor</h2>
+      <h2 className="font-semibold text-xl mb-5">{dict.profile.infoBroker}</h2>
       <div className="flex items-start justify-between  w-3/5">
         <div>
           <p className="font-semibold ">Creci</p>
@@ -53,7 +54,7 @@ export default function VisaoGeral({ corretor }: VisaoGeralProps) {
 
 
       <div className="mt-5">
-        <h2 className="font-semibold text-xl">Histórico</h2>
+        <h2 className="font-semibold text-xl">{dict.profile.historic}</h2>
         <Historico />
       </div>
 
