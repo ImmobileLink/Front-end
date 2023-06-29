@@ -10,6 +10,9 @@ export interface Dictionaries {
   pesquisa:      Pesquisa;
   feed:          Feed;
   planos:        Planos;
+  profile:       Profile;
+  dashboard:     Dashboard;
+  calendar:      Calendar;
   imovel:        Imovel;
 }
 
@@ -184,6 +187,25 @@ export interface Stepper {
   label5: string;
 }
 
+export interface Calendar {
+  scheduledVisits: string;
+}
+
+export interface Dashboard {
+  domain:          string;
+  professionalism: string;
+  goodService:     string;
+  educated:        string;
+  visited:         string;
+  sales:           string;
+  january:         string;
+  february:        string;
+  march:           string;
+  april:           string;
+  may:             string;
+  june:            string;
+}
+
 export interface Feed {
   cards: Cards;
   pub:   Pub;
@@ -191,19 +213,23 @@ export interface Feed {
 }
 
 export interface Cards {
-  yourenotlogged: string;
-  enjoyall:       string;
-  singin:         string;
-  findbrokers:    string;
-  mybrokers:      string;
-  myproperties:   string;
-  schedules:      string;
-  visitmyprofile: string;
-  notpremiumyet:  string;
-  bepremium:      string;
-  connections:    string;
-  search:         string;
-  nolinksyet:     string;
+  yourenotlogged:      string;
+  enjoyall:            string;
+  singin:              string;
+  findbrokers:         string;
+  mybrokers:           string;
+  myproperties:        string;
+  schedules:           string;
+  visitmyprofile:      string;
+  notpremiumyet:       string;
+  bepremium:           string;
+  connections:         string;
+  search:              string;
+  nolinksyet:          string;
+  relatedbrokers:      string;
+  norelatedbrokersyet: string;
+  myrelatedcompany:    string;
+  norelatedcompanyyet: string;
 }
 
 export interface Form {
@@ -219,6 +245,55 @@ export interface Pub {
   comboboxplaceholder:       string;
   noposts:                   string;
   error:                     string;
+}
+
+export interface Imovel {
+  mainlabels:  Mainlabels;
+  formlabels:  Formlabels;
+  newproperty: Newproperty;
+}
+
+export interface Formlabels {
+  selectbroker:  string;
+  findbroker:    string;
+  delegatevisit: string;
+  brokerdata:    string;
+  clientdata:    string;
+  scheduling:    string;
+  name:          string;
+  phone:         string;
+  email:         string;
+  date:          string;
+  time:          string;
+  formlogs:      Formlogs;
+}
+
+export interface Formlogs {
+  invalidname:  string;
+  invalidphone: string;
+  invalidemail: string;
+  invaliddate:  string;
+  invalidtime:  string;
+}
+
+export interface Mainlabels {
+  title:           string;
+  delegatevisit:   string;
+  location:        string;
+  characteristics: string;
+  price:           string;
+}
+
+export interface Newproperty {
+  registerproperty: string;
+  register:         string;
+  uf:               string;
+  city:             string;
+  neighborhood:     string;
+  street:           string;
+  number:           string;
+  price:            string;
+  description:      string;
 }
 
 export interface Navbarbuttons {
@@ -271,53 +346,16 @@ export interface Planos {
   buynow:              string;
 }
 
-export interface Imovel {
-  mainlabels:  Mainlabels;
-  formlabels:  Formlabels;
-  newproperty: Newproperty;
-}
-
-export interface Mainlabels {
-  title:           string;
-  delegatevisit:   string;
-  location:        string;
-  characteristics: string;
-  price:           string;
-}
-
-export interface Formlabels {
-  selectbroker:  string;
-  findbroker:    string;
-  delegatevisit: string;
-  brokerdata:    string;
-  clientdata:    string;
-  scheduling:    string;
-  name:          string;
-  phone:         string;
-  email:         string;
-  date:          string;
-  time:          string;
-  formlogs:      Formlogs;
-}
-
-export interface Formlogs {
-  invalidname:   string;
-  invalidphone:  string;
-  invalidemail:  string;
-  invaliddate:   string;
-  invalidtime:   string;
-}
-
-export interface Newproperty {
-  registerproperty: string;
-  register:         string;
-  uf:               string;
-  city:             string;
-  neighborhood:     string;
-  street:           string;
-  number:           string;
-  price:            string;
-  description:      string;
+export interface Profile {
+  noAssociation:  string;
+  hasAssociation: string;
+  btnAssociate:   string;
+  btnPending:     string;
+  btnConnect:     string;
+  overview:       string;
+  posts:          string;
+  infoBroker:     string;
+  historic:       string;
 }
 
 // Converts JSON strings to/from your types

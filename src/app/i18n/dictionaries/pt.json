@@ -179,7 +179,11 @@
       "bepremium": "Aproveite já",
       "connections": "Meus Links",
       "search": "Procurar",
-      "nolinksyet": "Parece que você não tem nenhum Link ainda"
+      "nolinksyet": "Parece que você não tem nenhum Link ainda",
+      "relatedbrokers": "Corretores afiliados",
+      "norelatedbrokersyet": "Sem corretores afiliados por enquanto",
+      "myrelatedcompany": "Empresa associada",
+      "norelatedcompanyyet": "Não possui uma corporação afiliada"
     },
     "pub": {
       "regionfilter": "Filtre por região",

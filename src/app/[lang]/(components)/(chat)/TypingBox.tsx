@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MensagemAInserir } from "../../../../../lib/modelos";
 import { Session, createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
+import { AiOutlineSend } from "react-icons/ai";
 
 interface TypingBoxProps {
   idsala: string,
@@ -50,7 +51,7 @@ export default function TypingBox({idsala, userSession}: TypingBoxProps) {
       <textarea value={texto} onChange={(e) => setTexto(e.target.value)} className="block resize-none mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
       <button className="inline-flex justify-center p-2 cursor-pointer bg-slate-900 hover:bg-slate-800 focus:ring-slate-300 rounded-full" 
         onClick={handleSubmit}>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
+          <AiOutlineSend className="text-lg text-white self-center"/>
         </button>             
     </div> 
     </>

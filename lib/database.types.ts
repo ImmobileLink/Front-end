@@ -931,6 +931,33 @@ export interface Database {
           id: string
         }[]
       }
+      obter_corporacoes_por_corretor: {
+        Args: {
+          id_corretor: string
+        }
+        Returns: {
+          id: string
+          corporacao: string
+        }[]
+      }
+      obter_corretores_por_corporacao: {
+        Args: {
+          id_corporacao: string
+        }
+        Returns: {
+          id: string
+          corretor: string
+        }[]
+      }
+      obter_nomes_corretores: {
+        Args: {
+          id_corporacao: string
+        }
+        Returns: {
+          id: string
+          nome: string
+        }[]
+      }
       obterespecialidade: {
         Args: {
           idcorretor: string

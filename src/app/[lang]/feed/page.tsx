@@ -8,6 +8,8 @@ import NavSettings from "../(components)/(feed)/NavSettings";
 import NavCalendar from "../(components)/(feed)/NavCalendar";
 import NavAmizade from "../(components)/(feed)/NavAmizade";
 import NavFindBrokers from "../(components)/(feed)/NavFindBrokers";
+import NavAssociados from "../(components)/(feed)/NavAssociados";
+import NavEmpresaAssociada from "../(components)/(feed)/NavEmpresaAssociada";
 
 interface pageProps {
   params: {
@@ -22,11 +24,21 @@ type userDataType = {
   premium: boolean | undefined;
   role: number | undefined;
   conexoes:
-  | {
+    | {
+        id: string;
+        nome: string;
+      }[]
+    | null;
+  associados:
+    | {
+        id: string;
+        corretor: string;
+      }[]
+    | null;
+    associados2: {
     id: string;
-    nome: string;
-  }[]
-  | null;
+    corporacao: string;
+  }[] | null
 };
 
 async function getUserData() {
@@ -36,6 +48,8 @@ async function getUserData() {
     premium: undefined,
     role: undefined,
     conexoes: null,
+    associados: null,
+    associados2: null
   };
 
   const {
@@ -59,6 +73,26 @@ async function getUserData() {
       });
 
       userData.conexoes = data;
+    }
+    if (userData.role == 2) {
+      let { data, error } = await supabase.rpc(
+        "obter_corretores_por_corporacao",
+        {
+          id_corporacao: session?.user.id,
+        }
+      );
+
+      userData.associados = data;
+    }
+    if (userData.role == 1) {
+      let { data, error } = await supabase.rpc(
+        "obter_corporacoes_por_corretor",
+        {
+          id_corretor: session?.user.id,
+        }
+      );
+
+      userData.associados2 = data;
     }
   }
   return userData;
@@ -104,6 +138,22 @@ export default async function page({ params: { lang } }: pageProps) {
               userData={userData}
               cards={dict.feed.cards}
             />
+            {userData.role == 1 ? (
+              <NavEmpresaAssociada
+                userData={userData}
+                cards={dict.feed.cards}
+              />
+            ) : (
+              <p></p>
+            )}
+            {userData.role == 2 ? (
+              <NavAssociados
+                userData={userData}
+                cards={dict.feed.cards}
+              />
+            ) : (
+              <p></p>
+            )}
             <NavFindBrokers cards={dict.feed.cards} />
           </>
         ) : (
