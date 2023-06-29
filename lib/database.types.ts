@@ -3,7 +3,7 @@ export type Json =
   | number
   | boolean
   | null
-  | { [key: string]: Json }
+  | { [key: string]: Json | undefined }
   | Json[]
 
 export interface Database {
@@ -769,6 +769,15 @@ export interface Database {
         Returns: {
           nome: string
           avaliacao: number
+        }[]
+      }
+      get_corretores_associados: {
+        Args: {
+          id_usuario: string
+        }
+        Returns: {
+          id: string
+          nome: string
         }[]
       }
       get_corretores_avaliacao: {

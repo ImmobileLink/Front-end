@@ -157,7 +157,8 @@
       "rating": "Rating",
       "specialty": "Specialty",
       "error": "Oops! Something went wrong. Please try again.",
-      "missingcombobox": "Select a filter."
+      "missingcombobox": "Select a filter.",
+      "checkprofile": "Check Profile"
     },
     "usertypevalue": {
       "broker": "Broker",
@@ -243,5 +244,45 @@
   },
   "calendar":{
     "scheduledVisits": "scheduled visits"
+  },
+  "imovel": {
+    "mainlabels": {
+      "title": "My Properties",
+      "delegatevisit": "Delegate Visit",
+      "location": "Location",
+      "characteristics": "Characteristics",
+      "price": "Price"
+    },
+    "formlabels": {
+      "selectbroker": "Select a broker",
+      "findbroker": "Find Brokers",
+      "delegatevisit": "Delegate Visit",
+      "brokerdata": "Broker",
+      "clientdata": "Client's Data",
+      "scheduling": "Appointment",
+      "name": "Name",
+      "phone": "Telephone",
+      "email": "Email",
+      "date": "Date",
+      "time": "Time",
+      "formlogs": {
+        "invalidname": "Name must be at least 10 characters long",
+        "invalidphone": "Phone must be 10 or 11 characters long",
+        "invalidemail": "Enter a valid email",
+        "invaliddate": "Selecione a date",
+        "invalidtime": "Selecione a time"
+      }
+    },
+    "newproperty": {
+      "registerproperty": "Register Property",
+      "register": "Register",
+      "uf": "Estate",
+      "city": "City",
+      "neighborhood": "Neighborhood",
+      "street": "Street",
+      "number": "Number",
+      "price": "Price",
+      "description": "Description"
+    }
   }
 }

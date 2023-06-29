@@ -4,14 +4,17 @@ import Image from "next/image";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../lib/database.types";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface ClientComponentProps {}
 const supabase = createClientComponentClient<Database>();
 export default function NavBar({}: ClientComponentProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter()
 
   const handleLogOut = async () => {
     await supabase.auth.signOut();
+    router.refresh()
   };
 
   const toggleNavBar = () => {

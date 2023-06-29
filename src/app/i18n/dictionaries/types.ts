@@ -10,6 +10,7 @@ export interface Dictionaries {
   pesquisa:      Pesquisa;
   feed:          Feed;
   planos:        Planos;
+  imovel:        Imovel;
 }
 
 export interface Auth {
@@ -239,6 +240,7 @@ export interface Labels {
   specialty:       string;
   error:           string;
   missingcombobox: string;
+  checkprofile:    string;
 }
 
 export interface Usertypevalue {
@@ -267,6 +269,55 @@ export interface Planos {
   linktotenbrokers:    string;
   illimitedlinks:      string;
   buynow:              string;
+}
+
+export interface Imovel {
+  mainlabels:  Mainlabels;
+  formlabels:  Formlabels;
+  newproperty: Newproperty;
+}
+
+export interface Mainlabels {
+  title:           string;
+  delegatevisit:   string;
+  location:        string;
+  characteristics: string;
+  price:           string;
+}
+
+export interface Formlabels {
+  selectbroker:  string;
+  findbroker:    string;
+  delegatevisit: string;
+  brokerdata:    string;
+  clientdata:    string;
+  scheduling:    string;
+  name:          string;
+  phone:         string;
+  email:         string;
+  date:          string;
+  time:          string;
+  formlogs:      Formlogs;
+}
+
+export interface Formlogs {
+  invalidname:   string;
+  invalidphone:  string;
+  invalidemail:  string;
+  invaliddate:   string;
+  invalidtime:   string;
+}
+
+export interface Newproperty {
+  registerproperty: string;
+  register:         string;
+  uf:               string;
+  city:             string;
+  neighborhood:     string;
+  street:           string;
+  number:           string;
+  price:            string;
+  description:      string;
 }
 
 // Converts JSON strings to/from your types
