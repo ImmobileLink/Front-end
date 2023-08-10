@@ -61,6 +61,7 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
   const [logradouro, setLogradouro] = useState<string>("");
   const [numero, setNumero] = useState<number | null>(0);
   const [complemento, setComplemento] = useState<string>("");
+  const [cepValid, isCepValid] = useState<boolean>(false);
 
   //signup4
   const [creci, setCreci] = useState<string>("");
@@ -215,6 +216,8 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
             ) : telaAtual == 3 ? (
               <Signup3
                 props={{
+                  cepValid,
+                  isCepValid,
                   nome,
                   setNome,
                   nomeFantasia,

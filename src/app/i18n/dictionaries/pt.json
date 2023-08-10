@@ -65,6 +65,7 @@
           "invalidcnpj": "Escreva somente os números do CNPJ, sem caractere especial (14 caracteres)",
           "invalidphone": "Escreva somente os números do telefone, sem caractere especial (11 caracteres)",
           "invalidcep": "Escreva somente o CEP, sem caractere especial (8 caracteres)",
+          "invalidcepnotfound": "CEP não encontrado",
           "invaliduf": "Insira somente a sigla da unidade federativa (2 caracteres)",
           "invalidcity": "A cidade precisa ter no mínimo 2 caracteres",
           "invalidneighborhood": "O bairro precisa ter no mínimo 2 caracteres",

@@ -34,6 +34,8 @@ interface Signup3Props {
         setNumero: Dispatch<SetStateAction<number | null>>;
         complemento: string;
         setComplemento: Dispatch<SetStateAction<string>>;
+        cepValid: boolean;
+        isCepValid: Dispatch<SetStateAction<boolean>>;
     };
     tipoPerfil: number | undefined;
     setPodeAvancar: Dispatch<SetStateAction<boolean>>;
@@ -147,18 +149,28 @@ export default function Signup3({
             return false;
         }
 
+        if (!props.cepValid) {
+            return false;
+        }
+
         const regexCep = /^\d{8}$/;
         if (!regexCep.test(props.cep)) {
             return false;
         }
 
-        if (props.estado.length < 2) {
+        if (props.estado == "") {
+            setAlert({
+                type: "warning",
+                title: "",
+                message: signup3.logs.invaliduf,
+            });
             return false;
-        }
-
-        const regexEstado = /^[A-Za-z]{2}$/;
-        if (!regexEstado.test(props.estado)) {
-            return false;
+        } else {
+            setAlert({
+                type: "warning",
+                title: "",
+                message: "",
+            });
         }
 
         if (props.cidade.length < 2) {
@@ -205,8 +217,7 @@ export default function Signup3({
                 title: "",
                 message: signup3.logs.invalidcep,
             });
-
-            return false;
+            props.isCepValid(false);
         } else {
             const res = await fetch(
                 `https://viacep.com.br/ws/${props.cep}/json/`
@@ -225,6 +236,14 @@ export default function Signup3({
                     title: "",
                     message: "",
                 });
+                props.isCepValid(true);
+            } else {
+                setAlert({
+                    type: "warning",
+                    title: "",
+                    message: signup3.logs.invalidcepnotfound,
+                });
+                props.isCepValid(false);
             }
         }
     };
@@ -359,35 +378,6 @@ export default function Signup3({
     }, [props.celular, props.telefone, props.comercial]);
 
     useEffect(() => {
-        if (props.estado.length < 2 && props.estado != "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invaliduf,
-            });
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-        }
-
-        const regexEstado = /^[A-Za-z]{2}$/;
-        if (!regexEstado.test(props.estado)) {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invaliduf,
-            });
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-        }
-
         if (props.cidade.length < 2 && props.cidade != "") {
             setAlert({
                 type: "warning",
@@ -460,13 +450,7 @@ export default function Signup3({
         //         message: "",
         //     });
         // }
-    }, [
-        props.numero,
-        props.logradouro,
-        props.bairro,
-        props.cidade,
-        props.estado,
-    ]);
+    }, [props.numero, props.logradouro, props.bairro, props.cidade]);
 
     useEffect(() => {
         if (props.cep.length != 8 && props.cep != "") {
@@ -481,27 +465,63 @@ export default function Signup3({
                 title: "",
                 message: "",
             });
-        }
-
-        const regexCep = /^\d{8}$/;
-        if (!regexCep.test(props.cep)) {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidcep,
-            });
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-            autoCompletaEndereco();
+            const regexCep = /^\d{8}$/;
+            if (!regexCep.test(props.cep)) {
+                setAlert({
+                    type: "warning",
+                    title: "",
+                    message: signup3.logs.invalidcep,
+                });
+            } else {
+                setAlert({
+                    type: "warning",
+                    title: "",
+                    message: "",
+                });
+                autoCompletaEndereco();
+            }
         }
     }, [props.cep]);
 
-    const _UFs = [ "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR",
-    "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO", ];
+    const _UFs = [
+        "UF",
+        "AC",
+        "AL",
+        "AP",
+        "AM",
+        "BA",
+        "CE",
+        "DF",
+        "ES",
+        "GO",
+        "MA",
+        "MT",
+        "MS",
+        "MG",
+        "PA",
+        "PB",
+        "PR",
+        "PE",
+        "PI",
+        "RJ",
+        "RN",
+        "RS",
+        "RO",
+        "RR",
+        "SC",
+        "SP",
+        "SE",
+        "TO",
+    ];
+
+    const handleUFChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value;
+        if (value != "UF") {
+            props.setEstado(value);
+        } else {
+            props.setEstado("");
+        }
+    };
 
     return (
         <>
@@ -672,23 +692,27 @@ export default function Signup3({
                                 <span className="text-primaria">{" *"}</span>
                             </label>
                         </div>
-                        <div className="relative z-0 w-full mb-6 group">
-                            <input
-                                type="text"
-                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                                required
-                                maxLength={2}
-                                value={props.estado}
-                                onChange={(e) =>
-                                    props.setEstado(e.target.value)
-                                }
-                                onBlur={validaForm}
-                            />
-                            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        <div className="z-0 group ">
+                            <label className="text-sm text-gray-500 dark:text-gray-400">
                                 {signup3.uf}
                                 <span className="text-primaria">{" *"}</span>
                             </label>
+                            <select
+                                className="bg-dark-200"
+                                onChange={handleUFChange}
+                            >
+                                {_UFs.map((uf, index) => {
+                                    return (
+                                        <option
+                                            selected={uf == props.estado}
+                                            key={uf + " - " + index}
+                                            className="text-center"
+                                        >
+                                            {uf}
+                                        </option>
+                                    );
+                                })}
+                            </select>
                         </div>
                     </div>
                 </div>

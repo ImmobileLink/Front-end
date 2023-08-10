@@ -65,6 +65,7 @@
           "invalidcnpj": "Write only de cnpj, no special characters (14 characters)",
           "invalidphone": "Write only de phone number, no special characters (11 characters)",
           "invalidcep": "Write only the zip, no special characters (8 characters)",
+          "invalidcepnotfound": "Zip code not found",
           "invaliduf": "Insert only the abbreviation of the federative unit (2 characters)",
           "invalidcity": "City must be at least 2 characters long",
           "invalidneighborhood": "Neighborhood must be at least 2 characters long",
