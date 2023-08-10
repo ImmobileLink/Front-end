@@ -29,7 +29,7 @@
         "passwordlabel": "Senha",
         "logs": {
           "invalidemail": "Insira um email válido.",
-          "invalidpassword": "A senha precisa ter no mínimo 6 caracteres.",
+          "invalidpassword": "A senha precisa ter no mínimo 6 caracteres, números, maiúsculas, minúsculas e caractere especial.",
           "emailalreadyused": "Email já cadastrado."
         }
       },
