@@ -59,8 +59,8 @@
         "complement": "Complement",
         "optional": "Optional",
         "logs": {
-          "invalidname": "Name must be at least 10 characters long",
-          "invalidfantasyname": "The fantasy name must be at least 10 characters long",
+          "invalidname": "Name must be at least 4 characters long",
+          "invalidfantasyname": "The fantasy name must be at least 12 characters long",
           "invalidcpf": "Write only the cpf, no special characters (11 characters)",
           "invalidcnpj": "Write only de cnpj, no special characters (14 characters)",
           "invalidphone": "Write only de phone number, no special characters (11 characters)",

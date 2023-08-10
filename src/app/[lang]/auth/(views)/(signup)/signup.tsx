@@ -96,13 +96,15 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
         message: "",
       });
       telaAtual < 5 ? setTelaAtual(telaAtual + 1) : {};
-    } else {
-      setAlert({
-        type: "warning",
-        title: "",
-        message: signup.fixtheinputs,
-      });
-    }
+    } 
+    // Isso aqui está sobreescrevendo as mensagens específicas dos erros
+      // else {
+      // setAlert({
+      //   type: "warning",
+      //   title: "",
+      //   message: signup.fixtheinputs,
+      // });
+    // }
   };
 
   const handleSignUp = async () => {
@@ -195,7 +197,7 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
   return (
     <>
       {!isOK ? (
-        <div>
+        <div className="h-full">
           <div>
             {telaAtual == 1 ? (
               <SignUp1

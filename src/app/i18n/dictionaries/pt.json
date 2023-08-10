@@ -59,8 +59,8 @@
         "complement": "Complemento",
         "optional": "Opcional",
         "logs": {
-          "invalidname": "O nome precisa ter no mínimo 10 caracteres",
-          "invalidfantasyname": "O nome fantasia precisa ter no mínimo 10 caracteres",
+          "invalidname": "O nome precisa ter no mínimo 4 caracteres",
+          "invalidfantasyname": "O nome fantasia precisa ter no mínimo 12 caracteres",
           "invalidcpf": "Escreva somente os números do CPF, sem caractere especial (11 caracteres)",
           "invalidcnpj": "Escreva somente os números do CNPJ, sem caractere especial (14 caracteres)",
           "invalidphone": "Escreva somente os números do telefone, sem caractere especial (11 caracteres)",
