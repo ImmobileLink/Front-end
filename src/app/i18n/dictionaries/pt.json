@@ -64,7 +64,7 @@
           "invalidcpf": "Escreva somente os números do CPF",
           "invalidcnpj": "Escreva somente os números do CNPJ",
           "invalidphone": "Escreva somente os números do telefone",
-          "invalidcep": "Escreva somente o CEP, sem caractere especial",
+          "invalidcep": "CEP inválido",
           "invalidcepnotfound": "CEP não encontrado",
           "invaliduf": "Insira a sigla da unidade federativa",
           "invalidcity": "A cidade precisa ter no mínimo 2 caracteres",

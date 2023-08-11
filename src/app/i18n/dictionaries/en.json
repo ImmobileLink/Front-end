@@ -64,7 +64,7 @@
           "invalidcpf": "Write only the cpf numbers",
           "invalidcnpj": "Write only de cnpj numbers",
           "invalidphone": "Write only de phone number",
-          "invalidcep": "Write only the zip, no special characters",
+          "invalidcep": "Invalid zip code",
           "invalidcepnotfound": "Zip code not found",
           "invaliduf": "Insert the abbreviation of the federative unit",
           "invalidcity": "City must be at least 2 characters long",

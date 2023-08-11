@@ -2,7 +2,7 @@
 
 import { Signup3 } from "@/app/i18n/dictionaries/types";
 import { stringify } from "querystring";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface Signup3Props {
     props: {
@@ -52,6 +52,9 @@ export default function Signup3({
     setAlert,
     signup3,
 }: Signup3Props) {
+
+    const [disabilitarInput, isDisabilitarInput] = useState(false);
+
     const validaForm = () => {
         setPodeAvancar(false);
 
@@ -183,6 +186,7 @@ export default function Signup3({
                     message: signup3.logs.invalidcep,
                 });
                 props.isCepValid(false);
+                isDisabilitarInput(false);
             } else {
                 const res = await fetch(
                     `https://viacep.com.br/ws/${props.cep}/json/`
@@ -202,6 +206,7 @@ export default function Signup3({
                         message: "",
                     });
                     props.isCepValid(true);
+                    isDisabilitarInput(true);
                 } else {
                     setAlert({
                         type: "warning",
@@ -209,6 +214,7 @@ export default function Signup3({
                         message: signup3.logs.invalidcepnotfound,
                     });
                     props.isCepValid(false);
+                    isDisabilitarInput(false);
                 }
             }
         }
@@ -668,6 +674,7 @@ export default function Signup3({
                             <select
                                 className="bg-dark-200 mb-1"
                                 onChange={handleUFChange}
+                                disabled={disabilitarInput}
                             >
                                 {_UFs.map((uf, index) => {
                                     return (
@@ -690,10 +697,11 @@ export default function Signup3({
                     <div className="relative z-0 w-full mb-6 group">
                         <input
                             type="text"
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className="disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
                             required
                             value={props.cidade}
+                            disabled={disabilitarInput}
                             onChange={(e) => props.setCidade(e.target.value)}
                             onBlur={validaForm}
                         />
@@ -705,10 +713,11 @@ export default function Signup3({
                     <div className="relative z-0 w-full mb-6 group">
                         <input
                             type="text"
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className="disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
                             required
                             maxLength={11}
+                            disabled={disabilitarInput}
                             value={props.bairro}
                             onChange={(e) => props.setBairro(e.target.value)}
                             onBlur={validaForm}
@@ -724,9 +733,10 @@ export default function Signup3({
                 <div className="relative z-0 w-full mb-6 group">
                     <input
                         type="text"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        className="disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" "
                         required
+                        disabled={disabilitarInput}
                         value={props.logradouro}
                         onChange={(e) => props.setLogradouro(e.target.value)}
                         onBlur={validaForm}
