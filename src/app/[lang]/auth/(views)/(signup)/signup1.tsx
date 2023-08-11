@@ -31,6 +31,10 @@ export default function SignUp1({
     const validaForm = async () => {
         setPodeAvancar(false);
 
+        if (props.email == "") {
+            return false;
+        }
+
         if (props.email.length <= 6) {
             setAlert({
                 type: "warning",
@@ -102,25 +106,27 @@ export default function SignUp1({
     }, [props.senha]);
 
     function hasStrongPassword(object: string) {
-      const password = object;
-      const minLength = 6;
-      const hasUppercase = /[A-Z]/.test(password);
-      const hasLowercase = /[a-z]/.test(password);
-      const hasNumber = /[0-9]/.test(password);
-      const hasSpecialChar = /[!@#$%^&*()\-=_+[\]{}|\\;:'",.<>/?]/.test(password);
-  
-      if (
-          password.length >= minLength &&
-          hasUppercase &&
-          hasLowercase &&
-          hasNumber &&
-          hasSpecialChar
-      ) {
-          return true;
-      } else {
-          return false;
-      }
-  }
+        const password = object;
+        const minLength = 6;
+        const hasUppercase = /[A-Z]/.test(password);
+        const hasLowercase = /[a-z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+        const hasSpecialChar = /[!@#$%^&*()\-=_+[\]{}|\\;:'",.<>/?]/.test(
+            password
+        );
+
+        if (
+            password.length >= minLength &&
+            hasUppercase &&
+            hasLowercase &&
+            hasNumber &&
+            hasSpecialChar
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     return (
         <>
@@ -144,10 +150,10 @@ export default function SignUp1({
                 </div>
 
                 <PasswordInput
-                  password={props.senha}
-                  label={signup1.passwordlabel}
-                  validaForm={validaForm}
-                  onchange={props.setSenha}
+                    password={props.senha}
+                    label={signup1.passwordlabel}
+                    validaForm={validaForm}
+                    onchange={props.setSenha}
                 />
             </div>
         </>
