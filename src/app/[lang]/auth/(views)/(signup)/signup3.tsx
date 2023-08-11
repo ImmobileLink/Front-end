@@ -57,52 +57,16 @@ export default function Signup3({
 
         if (tipoPerfil == 1) {
             if (props.nome.length < 4) {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: signup3.logs.invalidname,
-                });
-
                 return false;
-            } else {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: "",
-                });
             }
 
             if (props.cpf.length != 11 && props.cpf.length != 0) {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: signup3.logs.invalidcpf,
-                });
-
                 return false;
-            } else {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: "",
-                });
             }
 
             const regexCpf = /^\d{11}$/;
             if (!regexCpf.test(props.cpf)) {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: signup3.logs.invalidcpf,
-                });
-
                 return false;
-            } else {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: "",
-                });
             }
 
             if (props.cnpj.length != 14 && props.cnpj.length != 0) {
@@ -210,40 +174,42 @@ export default function Signup3({
     };
 
     const autoCompletaEndereco = async () => {
-        const regexCep = /^\d{8}$/;
-        if (!regexCep.test(props.cep)) {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidcep,
-            });
-            props.isCepValid(false);
-        } else {
-            const res = await fetch(
-                `https://viacep.com.br/ws/${props.cep}/json/`
-            );
-            const data = await res.json();
-
-            if (!data.erro) {
-                props.setEstado(data.uf);
-                props.setCidade(data.localidade);
-                props.setBairro(data.bairro);
-                props.setLogradouro(data.logradouro);
-                props.setComplemento(data.complemento);
-
+        if (props.cep != "") {
+            const regexCep = /^\d{8}$/;
+            if (!regexCep.test(props.cep)) {
                 setAlert({
                     type: "warning",
                     title: "",
-                    message: "",
-                });
-                props.isCepValid(true);
-            } else {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: signup3.logs.invalidcepnotfound,
+                    message: signup3.logs.invalidcep,
                 });
                 props.isCepValid(false);
+            } else {
+                const res = await fetch(
+                    `https://viacep.com.br/ws/${props.cep}/json/`
+                );
+                const data = await res.json();
+
+                if (!data.erro) {
+                    props.setEstado(data.uf);
+                    props.setCidade(data.localidade);
+                    props.setBairro(data.bairro);
+                    props.setLogradouro(data.logradouro);
+                    props.setComplemento(data.complemento);
+
+                    setAlert({
+                        type: "warning",
+                        title: "",
+                        message: "",
+                    });
+                    props.isCepValid(true);
+                } else {
+                    setAlert({
+                        type: "warning",
+                        title: "",
+                        message: signup3.logs.invalidcepnotfound,
+                    });
+                    props.isCepValid(false);
+                }
             }
         }
     };
@@ -465,20 +431,22 @@ export default function Signup3({
                 title: "",
                 message: "",
             });
-            const regexCep = /^\d{8}$/;
-            if (!regexCep.test(props.cep)) {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: signup3.logs.invalidcep,
-                });
-            } else {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: "",
-                });
-                autoCompletaEndereco();
+            if (props.cep != "") {
+                const regexCep = /^\d{8}$/;
+                if (!regexCep.test(props.cep)) {
+                    setAlert({
+                        type: "warning",
+                        title: "",
+                        message: signup3.logs.invalidcep,
+                    });
+                } else {
+                    setAlert({
+                        type: "warning",
+                        title: "",
+                        message: "",
+                    });
+                    autoCompletaEndereco();
+                }
             }
         }
     }, [props.cep]);
@@ -698,7 +666,7 @@ export default function Signup3({
                                 <span className="text-primaria">{" *"}</span>
                             </label>
                             <select
-                                className="bg-dark-200"
+                                className="bg-dark-200 mb-1"
                                 onChange={handleUFChange}
                             >
                                 {_UFs.map((uf, index) => {
