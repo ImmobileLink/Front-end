@@ -61,9 +61,9 @@
         "logs": {
           "invalidname": "O nome precisa ter no mínimo 4 caracteres",
           "invalidfantasyname": "O nome fantasia precisa ter no mínimo 12 caracteres",
-          "invalidcpf": "Escreva somente os números do CPF",
-          "invalidcnpj": "Escreva somente os números do CNPJ",
-          "invalidphone": "Escreva somente os números do telefone",
+          "invalidcpf": "CPF inválido",
+          "invalidcnpj": "CNPJ inválido",
+          "invalidphone": "Telefone inválido",
           "invalidcep": "CEP inválido",
           "invalidcepnotfound": "CEP não encontrado",
           "invaliduf": "Insira a sigla da unidade federativa",

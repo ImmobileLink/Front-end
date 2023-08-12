@@ -61,9 +61,9 @@
         "logs": {
           "invalidname": "Name must be at least 4 characters long",
           "invalidfantasyname": "The fantasy name must be at least 12 characters long",
-          "invalidcpf": "Write only the cpf numbers",
-          "invalidcnpj": "Write only de cnpj numbers",
-          "invalidphone": "Write only de phone number",
+          "invalidcpf": "Invalid CPF",
+          "invalidcnpj": "Invalid CNPJ",
+          "invalidphone": "Invalid phone number",
           "invalidcep": "Invalid zip code",
           "invalidcepnotfound": "Zip code not found",
           "invaliduf": "Insert the abbreviation of the federative unit",

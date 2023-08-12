@@ -2,6 +2,7 @@
 
 import { Signup3 } from "@/app/i18n/dictionaries/types";
 import { stringify } from "querystring";
+import InputMask from 'react-input-mask';
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface Signup3Props {
@@ -86,14 +87,10 @@ export default function Signup3({
                 return false;
             }
 
-            if (props.cnpj.length != 14) {
+            if (props.cnpj.length != 16) {
                 return false;
             }
 
-            const regexCnpj = /^\d{14}$/;
-            if (!regexCnpj.test(props.cnpj)) {
-                return false;
-            }
         }
         if (
             (props.celular.length != 11 && props.celular.length != 0) ||
@@ -155,23 +152,6 @@ export default function Signup3({
         if (props.numero == null || props.numero <= 0) {
             return false;
         }
-
-        // const regexNumero = /^[1-9]\d*$/;
-        // if (!regexNumero.test(props.numero.toString())) {
-        //     setAlert({
-        //         type: "warning",
-        //         title: "",
-        //         message: signup3.logs.invalidnumber,
-        //     });
-
-        //     return false;
-        // } else {
-        //     setAlert({
-        //         type: "warning",
-        //         title: "",
-        //         message: "",
-        //     });
-        // }
 
         setPodeAvancar(true);
     };
@@ -280,22 +260,7 @@ export default function Signup3({
             });
         }
 
-        if (props.cnpj.length != 14 && props.cnpj != "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidcnpj,
-            });
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-        }
-
-        const regexCnpj = /^\d{14}$/;
-        if (!regexCnpj.test(props.cnpj)) {
+        if (props.cnpj.length != 16 && props.cnpj != "") {
             setAlert({
                 type: "warning",
                 title: "",
@@ -405,23 +370,6 @@ export default function Signup3({
                 message: signup3.logs.invalidnumber,
             });
         }
-
-        // const regexNumero = /^[1-9]\d*$/;
-        // if (!regexNumero.test(props.numero.toString())) {
-        //     setAlert({
-        //         type: "warning",
-        //         title: "",
-        //         message: signup3.logs.invalidnumber,
-        //     });
-
-        //     return false;
-        // } else {
-        //     setAlert({
-        //         type: "warning",
-        //         title: "",
-        //         message: "",
-        //     });
-        // }
     }, [props.numero, props.logradouro, props.bairro, props.cidade]);
 
     useEffect(() => {
@@ -521,12 +469,12 @@ export default function Signup3({
                         </div>
                         <div className="grid md:grid-cols-2 md:gap-6">
                             <div className="relative z-0 w-full mb-6 group">
-                                <input
+                                <InputMask
                                     type="text"
+                                    mask='999.999.999-99'
                                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                     placeholder=" "
                                     required
-                                    maxLength={11}
                                     value={props.cpf}
                                     onChange={(e) =>
                                         props.setCpf(e.target.value)
@@ -541,12 +489,12 @@ export default function Signup3({
                                 </label>
                             </div>
                             <div className="relative z-0 w-full mb-6 group">
-                                <input
+                                <InputMask
                                     type="text"
+                                    mask="99.999.999/9999-99"
                                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                     placeholder=" "
                                     required
-                                    maxLength={14}
                                     value={props.cnpj}
                                     onChange={(e) =>
                                         props.setCnpj(e.target.value)
@@ -580,11 +528,11 @@ export default function Signup3({
                             </label>
                         </div>
                         <div className="relative z-0 w-full mb-6 group">
-                            <input
+                            <InputMask
                                 type="text"
                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                 placeholder=" "
-                                maxLength={14}
+                                mask="99.999.999/9999-99"
                                 required
                                 value={props.cnpj}
                                 onChange={(e) => props.setCnpj(e.target.value)}
@@ -601,12 +549,12 @@ export default function Signup3({
                 {/* celular & telefone */}
                 <div className="grid md:grid-cols-2 md:gap-6">
                     <div className="relative z-0 w-full mb-6 group">
-                        <input
+                        <InputMask
                             type="text"
                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
                             required
-                            maxLength={11}
+                            mask="(99) 99999-9999"
                             value={props.celular}
                             onChange={(e) => props.setCelular(e.target.value)}
                             onBlur={validaForm}
@@ -616,12 +564,12 @@ export default function Signup3({
                         </label>
                     </div>
                     <div className="relative z-0 w-full mb-6 group">
-                        <input
+                        <InputMask
                             type="text"
                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
                             required
-                            maxLength={11}
+                            mask="(99) 9999-9999"
                             value={props.telefone}
                             onChange={(e) => props.setTelefone(e.target.value)}
                             onBlur={validaForm}
@@ -635,12 +583,12 @@ export default function Signup3({
                 {/* comercial & { cep & UF } */}
                 <div className="grid md:grid-cols-2 md:gap-6">
                     <div className="relative z-0 w-full mb-6 group">
-                        <input
+                        <InputMask
                             type="text"
                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
                             required
-                            maxLength={11}
+                            mask="(99) 9999-9999"
                             value={props.comercial}
                             onChange={(e) => props.setComercial(e.target.value)}
                             onBlur={validaForm}
@@ -651,12 +599,12 @@ export default function Signup3({
                     </div>
                     <div className="grid md:grid-cols-2 md:gap-6">
                         <div className="relative z-0 w-full mb-6 group">
-                            <input
+                            <InputMask
                                 type="text"
+                                mask="99999-999"
                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                 placeholder=" "
                                 required
-                                maxLength={8}
                                 value={props.cep}
                                 onChange={(e) => props.setCep(e.target.value)}
                                 onBlur={autoCompletaEndereco}
