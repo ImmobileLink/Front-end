@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Signup1 } from "@/app/i18n/dictionaries/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../../lib/database.types";
@@ -41,92 +41,13 @@ export default function SignUp1({
                 title: "",
                 message: signup1.logs.invalidemail,
             });
-
-            //verifica se email já existe
-            let { data: usuario } = await supabase
-                .from("usuario")
-                .select("email")
-                .eq("email", props.email);
-
-            if (usuario?.length) {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: signup1.logs.emailalreadyused,
-                });
-            }
-            return false;
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
         }
-
-        //verifica se ta no padrão
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/;
-        if (!regex.test(props.email)) {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup1.logs.invalidemail,
-            });
-
-            return false;
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-        }
-
-        if (!hasStrongPassword(props.senha) || props.senha == "") {
+        if (props.senha == "") {
             return false;
         }
 
         setPodeAvancar(true);
     };
-
-    useEffect(() => {
-        if (!hasStrongPassword(props.senha) && props.senha != "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup1.logs.invalidpassword,
-            });
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-        }
-    }, [props.senha]);
-
-    function hasStrongPassword(object: string) {
-        const password = object;
-        const minLength = 6;
-        const hasUppercase = /[A-Z]/.test(password);
-        const hasLowercase = /[a-z]/.test(password);
-        const hasNumber = /[0-9]/.test(password);
-        const hasSpecialChar = /[!@#$%^&*()\-=_+[\]{}|\\;:'",.<>/?]/.test(
-            password
-        );
-
-        if (
-            password.length >= minLength &&
-            hasUppercase &&
-            hasLowercase &&
-            hasNumber &&
-            hasSpecialChar
-        ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     return (
         <>

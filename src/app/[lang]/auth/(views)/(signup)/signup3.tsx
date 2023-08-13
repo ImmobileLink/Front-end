@@ -1,9 +1,16 @@
 "use client";
 
 import { Signup3 } from "@/app/i18n/dictionaries/types";
-import { stringify } from "querystring";
-import InputMask from 'react-input-mask';
+import InputMask from "react-input-mask";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+
+/**
+ * TO DO:
+ * Mover as validações de todas as páginas para signup.tsx [EM PROGRESSO]
+ * -> A validação deveria acontecer ao clicar em AVANÇAR [EM PROGRESSO]
+ * -> Verificar Itens como email, cpf, cnpj em uso no BD antes de continuar [NÃO INICIADO]
+ * Se possível, remover onBlur e tratar as validações com o avançar [NÃO INICIADO]
+ */
 
 interface Signup3Props {
     props: {
@@ -53,59 +60,72 @@ export default function Signup3({
     setAlert,
     signup3,
 }: Signup3Props) {
-
     const [disabilitarInput, isDisabilitarInput] = useState(false);
 
     const validaForm = () => {
         setPodeAvancar(false);
 
         if (tipoPerfil == 1) {
-            if (props.nome.length < 4) {
+            if (props.nome.length < 4 && props.nome != "") {
+                setAlert({
+                    type: "warning",
+                    title: "",
+                    message: signup3.logs.invalidname,
+                });
                 return false;
             }
 
-            if (props.cpf.length != 11 && props.cpf.length != 0) {
+            if(props.cpf == ""){
                 return false;
             }
 
-            const regexCpf = /^\d{11}$/;
-            if (!regexCpf.test(props.cpf)) {
+            if (props.cpf.length != 11 && props.cpf != "") {
+                setAlert({
+                    type: "warning",
+                    title: "",
+                    message: signup3.logs.invalidcpf,
+                });
                 return false;
             }
 
             if (props.cnpj.length != 14 && props.cnpj.length != 0) {
-                return false;
-            }
-
-            const regexCnpj = /^\d{14}$/;
-            if (!regexCnpj.test(props.cnpj) && props.cnpj.length != 0) {
+                setAlert({
+                    type: "warning",
+                    title: "",
+                    message: signup3.logs.invalidcnpj,
+                });
                 return false;
             }
         } else {
             // o nome fantasia tem no mínimo 12 pontos [LegisWEB]
-            if (props.nomeFantasia.length < 12) {
+            if (props.nomeFantasia.length < 12 && props.nomeFantasia != "") {
+                setAlert({
+                    type: "warning",
+                    title: "",
+                    message: signup3.logs.invalidfantasyname,
+                });
                 return false;
             }
 
-            if (props.cnpj.length != 16) {
+            if (props.cnpj.length != 14 && props.cnpj != "") {
+                setAlert({
+                    type: "warning",
+                    title: "",
+                    message: signup3.logs.invalidcnpj,
+                });
                 return false;
             }
-
         }
         if (
             (props.celular.length != 11 && props.celular.length != 0) ||
-            (props.telefone.length != 11 && props.telefone.length != 0) ||
-            (props.comercial.length != 11 && props.comercial.length != 0)
+            (props.telefone.length != 10 && props.telefone.length != 0) ||
+            (props.comercial.length != 10 && props.comercial.length != 0)
         ) {
-            return false;
-        }
-
-        const regexPhone = /^\d{11}$/;
-        if (
-            (!regexPhone.test(props.celular) && props.celular.length != 0) ||
-            (!regexPhone.test(props.telefone) && props.telefone.length != 0) ||
-            (!regexPhone.test(props.comercial) && props.comercial.length != 0)
-        ) {
+            setAlert({
+                type: "warning",
+                title: "",
+                message: signup3.logs.invalidphone,
+            });
             return false;
         }
 
@@ -114,11 +134,6 @@ export default function Signup3({
         }
 
         if (!props.cepValid) {
-            return false;
-        }
-
-        const regexCep = /^\d{8}$/;
-        if (!regexCep.test(props.cep)) {
             return false;
         }
 
@@ -137,19 +152,39 @@ export default function Signup3({
             });
         }
 
-        if (props.cidade.length < 2) {
+        if (props.cidade.length < 2 && props.cidade != "") {
+            setAlert({
+                type: "warning",
+                title: "",
+                message: signup3.logs.invalidcity,
+            });
             return false;
         }
 
-        if (props.bairro.length < 2) {
+        if (props.bairro.length < 2 && props.bairro != "") {
+            setAlert({
+                type: "warning",
+                title: "",
+                message: signup3.logs.invalidneighborhood,
+            });
             return false;
         }
 
-        if (props.logradouro.length < 2) {
+        if (props.logradouro.length < 2 && props.logradouro != "") {
+            setAlert({
+                type: "warning",
+                title: "",
+                message: signup3.logs.invalidstreet,
+            });
             return false;
         }
 
-        if (props.numero == null || props.numero <= 0) {
+        if (props.numero != null && props.numero < 0) {
+            setAlert({
+                type: "warning",
+                title: "",
+                message: signup3.logs.invalidnumber,
+            });
             return false;
         }
 
@@ -157,6 +192,7 @@ export default function Signup3({
     };
 
     const autoCompletaEndereco = async () => {
+        isDisabilitarInput(false);
         if (props.cep != "") {
             const regexCep = /^\d{8}$/;
             if (!regexCep.test(props.cep)) {
@@ -166,7 +202,6 @@ export default function Signup3({
                     message: signup3.logs.invalidcep,
                 });
                 props.isCepValid(false);
-                isDisabilitarInput(false);
             } else {
                 const res = await fetch(
                     `https://viacep.com.br/ws/${props.cep}/json/`
@@ -193,6 +228,11 @@ export default function Signup3({
                         title: "",
                         message: signup3.logs.invalidcepnotfound,
                     });
+                    props.setEstado("");
+                    props.setCidade("");
+                    props.setBairro("");
+                    props.setLogradouro("");
+                    props.setComplemento("");
                     props.isCepValid(false);
                     isDisabilitarInput(false);
                 }
@@ -201,178 +241,7 @@ export default function Signup3({
     };
 
     useEffect(() => {
-        if (props.nome.length < 4 && props.nome != "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidname,
-            });
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-        }
-
-        if (props.cpf.length != 11 && props.cpf != "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidcpf,
-            });
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-        }
-
-        const regexCpf = /^\d{11}$/;
-        if (!regexCpf.test(props.cpf)) {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidcpf,
-            });
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-        }
-    }, [props.nome, props.cpf]);
-
-    useEffect(() => {
-        if (props.nomeFantasia.length < 12 && props.nomeFantasia != "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidfantasyname,
-            });
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-        }
-
-        if (props.cnpj.length != 16 && props.cnpj != "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidcnpj,
-            });
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-        }
-    }, [props.nomeFantasia, props.cnpj]);
-
-    useEffect(() => {
-        if (
-            (props.celular.length != 11 && props.celular.length != 0) ||
-            (props.telefone.length != 11 && props.telefone.length != 0) ||
-            (props.comercial.length != 11 && props.comercial.length != 0)
-        ) {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidphone,
-            });
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-        }
-
-        const regexPhone = /^\d{11}$/;
-        if (
-            (!regexPhone.test(props.celular) && props.celular.length != 0) ||
-            (!regexPhone.test(props.telefone) && props.telefone.length != 0) ||
-            (!regexPhone.test(props.comercial) && props.comercial.length != 0)
-        ) {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidphone,
-            });
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-        }
-    }, [props.celular, props.telefone, props.comercial]);
-
-    useEffect(() => {
-        if (props.cidade.length < 2 && props.cidade != "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidcity,
-            });
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-        }
-
-        if (props.bairro.length < 2 && props.bairro != "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidneighborhood,
-            });
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-        }
-
-        if (props.logradouro.length < 2 && props.logradouro != "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidstreet,
-            });
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-        }
-
-        if (props.numero != null && props.numero > 0) {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidnumber,
-            });
-        }
-    }, [props.numero, props.logradouro, props.bairro, props.cidade]);
-
-    useEffect(() => {
+        isDisabilitarInput(false);
         if (props.cep.length != 8 && props.cep != "") {
             setAlert({
                 type: "warning",
@@ -471,13 +340,15 @@ export default function Signup3({
                             <div className="relative z-0 w-full mb-6 group">
                                 <InputMask
                                     type="text"
-                                    mask='999.999.999-99'
+                                    mask="999.999.999-99"
                                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                     placeholder=" "
                                     required
                                     value={props.cpf}
                                     onChange={(e) =>
-                                        props.setCpf(e.target.value)
+                                        props.setCpf(
+                                            e.target.value.replace(/\D/g, "")
+                                        )
                                     }
                                     onBlur={validaForm}
                                 />
@@ -497,7 +368,9 @@ export default function Signup3({
                                     required
                                     value={props.cnpj}
                                     onChange={(e) =>
-                                        props.setCnpj(e.target.value)
+                                        props.setCnpj(
+                                            e.target.value.replace(/\D/g, "")
+                                        )
                                     }
                                     onBlur={validaForm}
                                 />
@@ -535,7 +408,11 @@ export default function Signup3({
                                 mask="99.999.999/9999-99"
                                 required
                                 value={props.cnpj}
-                                onChange={(e) => props.setCnpj(e.target.value)}
+                                onChange={(e) =>
+                                    props.setCnpj(
+                                        e.target.value.replace(/\D/g, "")
+                                    )
+                                }
                                 onBlur={validaForm}
                             />
                             <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -556,7 +433,11 @@ export default function Signup3({
                             required
                             mask="(99) 99999-9999"
                             value={props.celular}
-                            onChange={(e) => props.setCelular(e.target.value)}
+                            onChange={(e) =>
+                                props.setCelular(
+                                    e.target.value.replace(/\D/g, "")
+                                )
+                            }
                             onBlur={validaForm}
                         />
                         <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -571,7 +452,11 @@ export default function Signup3({
                             required
                             mask="(99) 9999-9999"
                             value={props.telefone}
-                            onChange={(e) => props.setTelefone(e.target.value)}
+                            onChange={(e) =>
+                                props.setTelefone(
+                                    e.target.value.replace(/\D/g, "")
+                                )
+                            }
                             onBlur={validaForm}
                         />
                         <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -590,7 +475,11 @@ export default function Signup3({
                             required
                             mask="(99) 9999-9999"
                             value={props.comercial}
-                            onChange={(e) => props.setComercial(e.target.value)}
+                            onChange={(e) =>
+                                props.setComercial(
+                                    e.target.value.replace(/\D/g, "")
+                                )
+                            }
                             onBlur={validaForm}
                         />
                         <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -606,7 +495,11 @@ export default function Signup3({
                                 placeholder=" "
                                 required
                                 value={props.cep}
-                                onChange={(e) => props.setCep(e.target.value)}
+                                onChange={(e) =>
+                                    props.setCep(
+                                        e.target.value.replace(/\D/g, "")
+                                    )
+                                }
                                 onBlur={autoCompletaEndereco}
                             />
                             <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -704,7 +597,7 @@ export default function Signup3({
                             placeholder=" "
                             required
                             onChange={(e) =>
-                                props.setNumero(parseInt(e.target.value))
+                                props.setNumero(e.target.valueAsNumber)
                             }
                             onBlur={validaForm}
                         />
