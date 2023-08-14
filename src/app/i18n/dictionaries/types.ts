@@ -165,6 +165,8 @@ export interface Signup5 {
     subscriptionmessage2: string;
     subscriptionmessage3: string;
     signupbutton: string;
+    select: string;
+    selected: string;
 }
 
 export interface Company {

@@ -111,7 +111,9 @@
         "subscriptionmessage1": "Subscribe to",
         "subscriptionmessage2": "PREMIUM!",
         "subscriptionmessage3": "Choose payment method",
-        "signupbutton": "Finalize Registration"
+        "signupbutton": "Finalize Registration",
+        "select": "SELECT",
+        "selected": "SELECTED"
       },
       "stepper": {
         "label1": "Email & Password",

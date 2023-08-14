@@ -111,7 +111,9 @@
         "subscriptionmessage1": "Desejo me tornar um membro",
         "subscriptionmessage2": "PREMIUM!",
         "subscriptionmessage3": "Escolher método de pagamento",
-        "signupbutton": "Finalizar Cadastro"
+        "signupbutton": "Finalizar Cadastro",
+        "select": "SELECIONAR",
+        "selected": "SELECIONADO"
       },
       "stepper": {
         "label1": "Email & Senha",

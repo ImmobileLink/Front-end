@@ -22,7 +22,7 @@ export default function Signup2({ props, setAlert, signup2 }: Signup2Props) {
                 <div
                     className={`${
                         props.tipoPerfil == 1 ? "bg-white/25 rounded-lg" : ""
-                    } w-60 h-fit grid justify-items-center gap-3 justify-self-center md:justify-self-end`}
+                    } w-60 h-fit grid justify-items-center gap-3 justify-self-center md:justify-self-end cursor-pointer`}
                 >
                     <div className="bg-gray-400 rounded-full h-60 w-full">
                         <Suspense fallback="Loading...">
@@ -57,7 +57,7 @@ export default function Signup2({ props, setAlert, signup2 }: Signup2Props) {
                         props.tipoPerfil == 2
                             ? "bg-white/25 rounded-lg mt-8 md:mt-0"
                             : ""
-                    } mt-8 md:mt-0 w-60 h-fit grid justify-items-center gap-3 justify-self-center md:justify-self-start`}
+                    } mt-8 md:mt-0 w-60 h-fit grid justify-items-center gap-3 justify-self-center md:justify-self-start cursor-pointer`}
                 >
                     <div className="bg-gray-400 rounded-full h-60 w-full">
                         <Suspense fallback="Loading...">
