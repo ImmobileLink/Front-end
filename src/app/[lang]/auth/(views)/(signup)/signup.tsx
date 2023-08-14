@@ -212,7 +212,27 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                 // Validar se cpf, cnpj e telefone comercial já estão sendo usados no DB antes de prosseguir
                 return true;
             case 4:
-                break;
+                if (creci.length < 7) {
+                    setAlert({
+                        type: "warning",
+                        title: "",
+                        message: signup.signup4.logs.invalidcreci,
+                    });
+                    return false;
+                } else {
+                    const regexCreci = /^\d{6}[a-zA-Z]$/;
+                    if (!regexCreci.test(creci)) {
+                        setAlert({
+                            type: "warning",
+                            title: "",
+                            message: signup.signup4.logs.invalidcreci,
+                        });
+                        return false;
+                    }
+                }
+                // To do:
+                // Validar se creci já está cadastrado
+                return true;
             case 5:
                 break;
         }

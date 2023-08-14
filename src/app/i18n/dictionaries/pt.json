@@ -80,7 +80,7 @@
         "region": "Região de atuação",
         "languages": "Idiomas",
         "logs": {
-          "invalidcreci": "Escreva somente os números e o indicador no final, sem caractere especial (7 caracteres)"
+          "invalidcreci": "CRECI inválido"
         }
       },
       "signup5": {

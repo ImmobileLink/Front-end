@@ -80,7 +80,7 @@
         "region": "Working region",
         "languages": "Languages",
         "logs": {
-          "invalidcreci": "Write only the numbers and the indicator at the end, without special characters (7 characters)"
+          "invalidcreci": "Invalid CRECI"
         }
       },
       "signup5": {
