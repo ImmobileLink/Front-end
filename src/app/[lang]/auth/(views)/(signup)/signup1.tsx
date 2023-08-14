@@ -28,20 +28,13 @@ export default function SignUp1({
     signup1,
     setPodeAvancar,
 }: SignUpProps) {
-    const validaForm = async () => {
+    const validaForm = () => {
         setPodeAvancar(false);
 
         if (props.email == "") {
             return false;
         }
 
-        if (props.email.length <= 6) {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup1.logs.invalidemail,
-            });
-        }
         if (props.senha == "") {
             return false;
         }

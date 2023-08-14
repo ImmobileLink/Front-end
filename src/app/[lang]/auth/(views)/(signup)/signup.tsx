@@ -122,6 +122,16 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                     });
                     return false;
                 }
+                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/;
+                if (!regex.test(email)) {
+                    setAlert({
+                        type: "warning",
+                        title: "",
+                        message: signup.signup1.logs.invalidemail,
+                    });
+
+                    return false;
+                }
                 //verifica se email já existe
                 let { data: usuario } = await supabase
                     .from("usuario")
@@ -136,23 +146,68 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                     });
                     return false;
                 }
-
-                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/;
-                if (!regex.test(email)) {
+                return true;
+            case 2:
+                // Nenhuma validação necessária aqui, mas fica o espaço caso seja incluída futuramente.
+                return true;
+            case 3:
+                if (tipoPerfil == 1) {
+                    if (nome.length < 4) {
+                        setAlert({
+                            type: "warning",
+                            title: "",
+                            message: signup.signup3.logs.invalidname,
+                        });
+                        return false;
+                    }
+                    if (cpf.length != 11) {
+                        setAlert({
+                            type: "warning",
+                            title: "",
+                            message: signup.signup3.logs.invalidcpf,
+                        });
+                        return false;
+                    }
+                    if (cnpj.length != 14 && cnpj.length > 0) {
+                        setAlert({
+                            type: "warning",
+                            title: "",
+                            message: signup.signup3.logs.invalidcnpj,
+                        });
+                        return false;
+                    }
+                } else {
+                    // o nome fantasia tem no mínimo 12 pontos [LegisWEB]
+                    if (nomeFantasia.length < 12) {
+                        setAlert({
+                            type: "warning",
+                            title: "",
+                            message: signup.signup3.logs.invalidfantasyname,
+                        });
+                        return false;
+                    }
+                    if (cnpj.length != 14) {
+                        setAlert({
+                            type: "warning",
+                            title: "",
+                            message: signup.signup3.logs.invalidcnpj,
+                        });
+                        return false;
+                    }
+                }
+                if (
+                    (celular.length != 11 && celular.length != 0) ||
+                    (telefone.length != 10 && telefone.length != 0) ||
+                    (comercial.length != 10 && comercial.length != 0)
+                ) {
                     setAlert({
                         type: "warning",
                         title: "",
-                        message: signup.signup1.logs.invalidemail,
+                        message: signup.signup3.logs.invalidphone,
                     });
-
                     return false;
                 }
-                return true;
-            case 2:
-              // Nenhuma validação necessária aqui, mas fica o espaço caso seja incluída futuramente.
-                return true;
-            case 3:
-              
+
                 // To do:
                 // Validar se cpf, cnpj e telefone comercial já estão sendo usados no DB antes de prosseguir
                 return true;

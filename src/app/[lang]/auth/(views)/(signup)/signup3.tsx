@@ -66,12 +66,7 @@ export default function Signup3({
         setPodeAvancar(false);
 
         if (tipoPerfil == 1) {
-            if (props.nome.length < 4 && props.nome != "") {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: signup3.logs.invalidname,
-                });
+            if (props.nome == "") {
                 return false;
             }
 
@@ -79,40 +74,13 @@ export default function Signup3({
                 return false;
             }
 
-            if (props.cpf.length != 11 && props.cpf != "") {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: signup3.logs.invalidcpf,
-                });
-                return false;
-            }
-
-            if (props.cnpj.length != 14 && props.cnpj.length != 0) {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: signup3.logs.invalidcnpj,
-                });
-                return false;
-            }
         } else {
             // o nome fantasia tem no mínimo 12 pontos [LegisWEB]
-            if (props.nomeFantasia.length < 12 && props.nomeFantasia != "") {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: signup3.logs.invalidfantasyname,
-                });
+            if (props.nomeFantasia == "") {
                 return false;
             }
 
-            if (props.cnpj.length != 14 && props.cnpj != "") {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: signup3.logs.invalidcnpj,
-                });
+            if (props.cnpj == "") {
                 return false;
             }
         }
@@ -121,11 +89,6 @@ export default function Signup3({
             (props.telefone.length != 10 && props.telefone.length != 0) ||
             (props.comercial.length != 10 && props.comercial.length != 0)
         ) {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidphone,
-            });
             return false;
         }
 
