@@ -99,7 +99,11 @@ export default function Signup4({
                                 required
                                 autoFocus
                                 value={props.creci}
-                                onChange={(e) => props.setCreci(e.target.value.replace("-", ""))}
+                                onChange={(e) =>
+                                    props.setCreci(
+                                        e.target.value.replace("-", "")
+                                    )
+                                }
                                 onBlur={validaForm}
                             />
                             <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -110,14 +114,16 @@ export default function Signup4({
 
                         {/* ESPECIALIDADE */}
 
-                        <div className="relative w-full mb-6 group">
+                        <div
+                            className="relative w-full mb-6 group"
+                        >
                             <label className="font-medium text-gray-500 dark:text-gray-400">
                                 {signup4.speciality}
                             </label>
                             <div className="mt-3 ring-2 ring-gray-300 dark:ring-gray-500 rounded-lg p-2 h-fit">
                                 <AiFillPlusCircle
                                     className="absolute text-xl right-3 hover:cursor-pointer hover:scale-110"
-                                    onClick={(e) => {
+                                    onClick={() => {
                                         setDropdownTipos(!dropdownTipos);
                                     }}
                                 />
@@ -125,8 +131,8 @@ export default function Signup4({
                                 <div
                                     className={
                                         props.especialidadesIncluidas.length > 0
-                                            ? `flex flex-wrap gap-2`
-                                            : `flex flex-wrap gap-2 h-5`
+                                            ? `flex pr-8 flex-wrap gap-2`
+                                            : `flex pr-8 flex-wrap gap-2 h-5`
                                     }
                                 >
                                     {props.especialidade?.map((item) => (
@@ -189,8 +195,8 @@ export default function Signup4({
                             <div
                                 className={
                                     props.regioesIncluidas.length > 0
-                                        ? `flex flex-wrap gap-2`
-                                        : `flex flex-wrap gap-2 h-5`
+                                        ? `flex pr-8 flex-wrap gap-2`
+                                        : `flex pr-8 flex-wrap gap-2 h-5`
                                 }
                             >
                                 {props.regiaoAtuacao?.map((item) => (
