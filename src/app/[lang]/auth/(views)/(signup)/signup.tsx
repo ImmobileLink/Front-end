@@ -122,6 +122,8 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                     });
                     return false;
                 }
+
+                // verifica email
                 const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/;
                 if (!regex.test(email)) {
                     setAlert({
@@ -132,7 +134,7 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
 
                     return false;
                 }
-                //verifica se email já existe
+
                 let { data: usuario } = await supabase
                     .from("usuario")
                     .select("email")
@@ -148,10 +150,11 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                 }
                 return true;
             case 2:
-                // Nenhuma validação necessária aqui, mas fica o espaço caso seja incluída futuramente.
+                // Nenhuma validação necessária no passo 2 por enquanto.
                 return true;
             case 3:
                 if (tipoPerfil == 1) {
+                    // valida nome
                     if (nome.length < 4) {
                         setAlert({
                             type: "warning",
@@ -160,6 +163,7 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                         });
                         return false;
                     }
+                    // valida cpf
                     if (cpf.length != 11) {
                         setAlert({
                             type: "warning",
@@ -168,6 +172,22 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                         });
                         return false;
                     }
+
+                    let { data: usuario } = await supabase
+                        .from("corretor")
+                        .select("cpf")
+                        .eq("cpf", cpf);
+
+                    if (usuario?.length) {
+                        setAlert({
+                            type: "warning",
+                            title: "",
+                            message: signup.signup3.logs.invalidcpf,
+                        });
+                        return false;
+                    }
+
+                    // valida cnpj
                     if (cnpj.length != 14 && cnpj.length > 0) {
                         setAlert({
                             type: "warning",
@@ -175,6 +195,20 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                             message: signup.signup3.logs.invalidcnpj,
                         });
                         return false;
+                    } else if (cnpj.length == 14) {
+                        let { data: usuario } = await supabase
+                            .from("corretor")
+                            .select("cnpj")
+                            .eq("cnpj", cnpj);
+
+                        if (usuario?.length) {
+                            setAlert({
+                                type: "warning",
+                                title: "",
+                                message: signup.signup3.logs.invalidcnpj,
+                            });
+                            return false;
+                        }
                     }
                 } else {
                     // o nome fantasia tem no mínimo 12 pontos [LegisWEB]
@@ -193,6 +227,20 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                             message: signup.signup3.logs.invalidcnpj,
                         });
                         return false;
+                    } else {
+                        let { data: usuario } = await supabase
+                            .from("corporacao")
+                            .select("cnpj")
+                            .eq("cnpj", cnpj);
+
+                        if (usuario?.length) {
+                            setAlert({
+                                type: "warning",
+                                title: "",
+                                message: signup.signup3.logs.invalidcnpj,
+                            });
+                            return false;
+                        }
                     }
                 }
                 if (
@@ -207,34 +255,45 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                     });
                     return false;
                 }
-
-                // To do:
-                // Validar se cpf, cnpj e telefone comercial já estão sendo usados no DB antes de prosseguir
                 return true;
             case 4:
-                if (creci.length < 7) {
-                    setAlert({
-                        type: "warning",
-                        title: "",
-                        message: signup.signup4.logs.invalidcreci,
-                    });
-                    return false;
-                } else {
-                    const regexCreci = /^\d{6}[a-zA-Z]$/;
-                    if (!regexCreci.test(creci)) {
+                if (tipoPerfil == 1) {
+                    if (creci.length < 7) {
                         setAlert({
                             type: "warning",
                             title: "",
                             message: signup.signup4.logs.invalidcreci,
                         });
                         return false;
+                    } else {
+                        const regexCreci = /^\d{6}[a-zA-Z]$/;
+                        if (!regexCreci.test(creci)) {
+                            setAlert({
+                                type: "warning",
+                                title: "",
+                                message: signup.signup4.logs.invalidcreci,
+                            });
+                            return false;
+                        }
+                        let { data: usuario } = await supabase
+                            .from("corretor")
+                            .select("creci")
+                            .eq("creci", creci);
+
+                        if (usuario?.length) {
+                            setAlert({
+                                type: "warning",
+                                title: "",
+                                message: signup.signup4.logs.invalidcreci,
+                            });
+                            return false;
+                        }
                     }
                 }
-                // To do:
-                // Validar se creci já está cadastrado
                 return true;
             case 5:
-                break;
+                // Nenhuma validação necessária no passo 5 por enquanto.
+                return true;
         }
         // default
         return false;
