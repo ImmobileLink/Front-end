@@ -4,14 +4,6 @@ import Image from "next/image";
 import { Signup5 } from "@/app/i18n/dictionaries/types";
 import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 
-/**
- * TO DO:
- * Colocar popup de método de pagamento ao finalizar o cadastro
- * Melhorar elementos de ux
- * Terminar aquelas validações que dependiam do banco
- * Fazer re-validação final de segurança
- */
-
 interface Signup5Props {
     props: {
         premium: boolean;
@@ -127,7 +119,7 @@ export default function Signup5({
                                     </button>
                                 </div>
                             ) : (
-                                <>
+                                <div>
                                     <div className="flex justify-left">
                                         <AiOutlineCheck className="self-center" />
                                         {signup5.company.freedescription1}
@@ -144,7 +136,17 @@ export default function Signup5({
                                         <AiOutlineCheck className="self-center" />
                                         {signup5.company.freedescription4}
                                     </div>
-                                </>
+                                    <button
+                                        onClick={() => {
+                                            props.setPremium(false);
+                                        }}
+                                        className="mt-4 flex w-full justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
+                                    >
+                                        {props.premium
+                                            ? signup5.select
+                                            : signup5.selected}
+                                    </button>
+                                </div>
                             )}
                         </div>
                     </div>
@@ -225,7 +227,7 @@ export default function Signup5({
                                     </button>
                                 </div>
                             ) : (
-                                <>
+                                <div>
                                     <div className="flex justify-left">
                                         <AiOutlineCheck className="self-center" />
                                         {signup5.company.premiumdescription1}
@@ -242,7 +244,17 @@ export default function Signup5({
                                         <AiOutlineCheck className="self-center" />
                                         {signup5.company.premiumdescription4}
                                     </div>
-                                </>
+                                    <button
+                                        onClick={() => {
+                                            props.setPremium(true);
+                                        }}
+                                        className="mt-4 flex w-full justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
+                                    >
+                                        {props.premium
+                                            ? signup5.selected
+                                            : signup5.select}
+                                    </button>
+                                </div>
                             )}
                         </div>
                     </div>

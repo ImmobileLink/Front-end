@@ -323,93 +323,93 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
     }
 
     const handleSignUp = async () => {
-        let { data, error } = await supabase.auth.signUp({
-            email: email,
-            password: senha,
-            options: {
-                emailRedirectTo: `${location.origin}/auth/callback`,
-            },
-        });
+            let { data, error } = await supabase.auth.signUp({
+                email: email,
+                password: senha,
+                options: {
+                    emailRedirectTo: `${location.origin}/auth/callback`,
+                },
+            });
 
-        if (!error) {
-            const userId = data.user?.id!;
+            if (!error) {
+                const userId = data.user?.id!;
 
-            if (tipoPerfil == 1) {
-                let { error } = await supabase.from("corretor").insert([
+                if (tipoPerfil == 1) {
+                    let { error } = await supabase.from("corretor").insert([
+                        {
+                            id: userId,
+                            nome: nome,
+                            cpf: cpf,
+                            cnpj: cnpj,
+                            creci: creci,
+                            cep: cep,
+                            estado: estado,
+                            cidade: cidade,
+                            bairro: bairro,
+                            logradouro: logradouro,
+                            numero: numero,
+                            complemento: complemento,
+                            telefone: telefone,
+                            celular: celular,
+                            comercial: comercial,
+                            premium: premium,
+                        },
+                    ]);
+                    // especialidade
                     {
-                        id: userId,
-                        nome: nome,
-                        cpf: cpf,
-                        cnpj: cnpj,
-                        creci: creci,
-                        cep: cep,
-                        estado: estado,
-                        cidade: cidade,
-                        bairro: bairro,
-                        logradouro: logradouro,
-                        numero: numero,
-                        complemento: complemento,
-                        telefone: telefone,
-                        celular: celular,
-                        comercial: comercial,
-                        premium: premium,
-                    },
-                ]);
-                // especialidade
-                {
-                    let arrayEspecialidade: any = [];
+                        let arrayEspecialidade: any = [];
 
-                    especialidade.map((item) => {
-                        arrayEspecialidade.push({
-                            idcorretor: userId,
-                            idtipoimovel: item.id,
+                        especialidade.map((item) => {
+                            arrayEspecialidade.push({
+                                idcorretor: userId,
+                                idtipoimovel: item.id,
+                            });
+                        });
+
+                        const { error } = await supabase
+                            .from("especialidade")
+                            .insert(arrayEspecialidade);
+                    }
+                } else {
+                    let { error } = await supabase.from("corporacao").insert([
+                        {
+                            id: userId,
+                            nomefantasia: nomeFantasia,
+                            cnpj: cnpj,
+                            cep: cep,
+                            estado: estado,
+                            cidade: cidade,
+                            bairro: bairro,
+                            logradouro: logradouro,
+                            numero: numero,
+                            complemento: complemento,
+                            telefone1: telefone,
+                            telefone2: celular,
+                            telefone3: comercial,
+                            premium: premium,
+                        },
+                    ]);
+                }
+                //usuarioporregiao
+                {
+                    let arrayUsuarioPorRegiao: any = [];
+
+                    regiaoAtuacao.map((item) => {
+                        arrayUsuarioPorRegiao.push({
+                            idusuario: userId,
+                            idregiao: item.id,
                         });
                     });
 
                     const { error } = await supabase
-                        .from("especialidade")
-                        .insert(arrayEspecialidade);
+                        .from("usuarioporregiao")
+                        .insert(arrayUsuarioPorRegiao);
                 }
-            } else {
-                let { error } = await supabase.from("corporacao").insert([
-                    {
-                        id: userId,
-                        nomefantasia: nomeFantasia,
-                        cnpj: cnpj,
-                        cep: cep,
-                        estado: estado,
-                        cidade: cidade,
-                        bairro: bairro,
-                        logradouro: logradouro,
-                        numero: numero,
-                        complemento: complemento,
-                        telefone1: telefone,
-                        telefone2: celular,
-                        telefone3: comercial,
-                        premium: premium,
-                    },
-                ]);
+
+                setIsOK(true);
+
+                router.refresh();
             }
-            //usuarioporregiao
-            {
-                let arrayUsuarioPorRegiao: any = [];
-
-                regiaoAtuacao.map((item) => {
-                    arrayUsuarioPorRegiao.push({
-                        idusuario: userId,
-                        idregiao: item.id,
-                    });
-                });
-
-                const { error } = await supabase
-                    .from("usuarioporregiao")
-                    .insert(arrayUsuarioPorRegiao);
-            }
-
-            setIsOK(true);
-
-            router.refresh();
-        }
     };
 
     return (
