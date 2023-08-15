@@ -4,6 +4,14 @@ import Image from "next/image";
 import { Signup5 } from "@/app/i18n/dictionaries/types";
 import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 
+/**
+ * TO DO:
+ * Colocar popup de método de pagamento ao finalizar o cadastro
+ * Melhorar elementos de ux
+ * Terminar aquelas validações que dependiam do banco
+ * Fazer re-validação final de segurança
+ */
+
 interface Signup5Props {
     props: {
         premium: boolean;
@@ -30,6 +38,14 @@ export default function Signup5({
         props.setPremium(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const checkoutSignUp = () => {
+        if (props.premium) {
+            setMetodoPagamento(!metodoPagamento);
+        } else {
+            handleSignUp();
+        }
+    };
 
     return (
         <>
@@ -264,7 +280,7 @@ export default function Signup5({
             <></>
           )} */}
                     <button
-                        onClick={handleSignUp}
+                        onClick={checkoutSignUp}
                         className="flex w-full mt-7 justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
                     >
                         {signup5.signupbutton}
@@ -273,7 +289,7 @@ export default function Signup5({
             </div>
 
             {metodoPagamento ? (
-                <div className="absolute flex justify-left align-middle w-screen h-screen top-0 left-0">
+                <div className="absolute flex justify-center align-middle w-screen h-screen top-0 left-0">
                     <div className="self-center w-10/12 md:w-8/12 lg:w-4/12 h-5/6 bg-green-500 rounded-2xl ring-1 ring-gray-800">
                         <div className="w-full h-fit flex justify-end p-3">
                             <AiOutlineClose
@@ -283,6 +299,13 @@ export default function Signup5({
                                 }
                             />
                         </div>
+                        <h1>{signup5.subscriptionmessage3}</h1>
+                        <button
+                            onClick={handleSignUp}
+                            className="flex w-full mt-7 justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
+                        >
+                            <span>{signup5.subscriptionmessage1}</span>
+                        </button>
                     </div>
                 </div>
             ) : (

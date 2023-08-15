@@ -3,15 +3,6 @@
 import { Signup3 } from "@/app/i18n/dictionaries/types";
 import InputMask from "react-input-mask";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-
-/**
- * TO DO:
- * Mover as validações de todas as páginas para signup.tsx [EM PROGRESSO]
- * -> A validação deveria acontecer ao clicar em AVANÇAR [EM PROGRESSO]
- * -> Verificar Itens como email, cpf, cnpj em uso no BD antes de continuar [NÃO INICIADO]
- * Se possível, remover onBlur e tratar as validações com o avançar [NÃO INICIADO]
- */
-
 interface Signup3Props {
     props: {
         nome: string;
