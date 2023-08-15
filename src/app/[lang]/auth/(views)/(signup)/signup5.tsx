@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction, Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 import { Signup5 } from "@/app/i18n/dictionaries/types";
 import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
+import Loading from "@/app/[lang]/(components)/(auth)/Loading";
 
 interface Signup5Props {
     props: {
@@ -25,15 +26,19 @@ export default function Signup5({
     handleSignUp,
 }: Signup5Props) {
     const [metodoPagamento, setMetodoPagamento] = useState<boolean>(false);
+    const [loading, isLoading] = useState(false);
 
     useEffect(() => {
         props.setPremium(false);
+        isLoading(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const checkoutSignUp = () => {
+        isLoading(true);
         if (props.premium) {
             setMetodoPagamento(!metodoPagamento);
+            isLoading(false);
         } else {
             handleSignUp();
         }
@@ -295,6 +300,7 @@ export default function Signup5({
                         onClick={checkoutSignUp}
                         className="flex w-full mt-7 justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
                     >
+                        <Loading loading={loading} />
                         {signup5.signupbutton}
                     </button>
                 </div>
@@ -313,9 +319,13 @@ export default function Signup5({
                         </div>
                         <h1>{signup5.subscriptionmessage3}</h1>
                         <button
-                            onClick={handleSignUp}
+                            onClick={() => {
+                                isLoading(true);
+                                handleSignUp;
+                            }}
                             className="flex w-full mt-7 justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
                         >
+                            {<Loading loading={loading} />}
                             <span>{signup5.subscriptionmessage1}</span>
                         </button>
                     </div>

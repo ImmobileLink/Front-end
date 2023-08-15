@@ -8,6 +8,7 @@ import { useState, Dispatch, SetStateAction } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Database } from "../../../../../lib/database.types";
 import PasswordInput from "../../(components)/(auth)/PasswordInput";
+import Loading from "../../(components)/(auth)/Loading";
 
 interface SignInProps {
     setAlert: Dispatch<
@@ -22,9 +23,11 @@ const supabase = createClientComponentClient<Database>();
 export default function SignIn({ setAlert, signin, lang }: SignInProps) {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const [loading, isLoading] = useState(false);
     const router = useRouter();
 
     const handleLogin = async () => {
+        isLoading(true);
         let { error } = await supabase.auth.signInWithPassword({
             email: email,
             password: senha,
@@ -39,6 +42,7 @@ export default function SignIn({ setAlert, signin, lang }: SignInProps) {
         } else {
             router.push(`${lang}/feed`);
         }
+        isLoading(false);
     };
 
     const signInWithGoogle = async () => {
@@ -82,6 +86,7 @@ export default function SignIn({ setAlert, signin, lang }: SignInProps) {
                         onClick={handleLogin}
                         className="flex w-full justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
                     >
+                        <Loading loading={loading} />
                         {signin.signinbutton}
                     </button>
                 </div>
