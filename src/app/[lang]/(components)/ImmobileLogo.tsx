@@ -1,32 +1,22 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import Image from "next/image";
 
 interface ImmobileLogoProps {}
 
 export default function ImmobileLogo({}: ImmobileLogoProps) {
-  const { systemTheme } = useTheme();
-
   return (
-    <>
-      {systemTheme != "dark" ? (
-        <Image
-          className="mx-auto h-14 w-auto"
-          src="assets/icons/logo.png"
-          width={1}
-          height={1}
-          alt="ImmobileLink"
-        />
-      ) : (
-        <Image
-          className="mx-auto h-14 w-auto"
-          src="assets/icons/logo-wh.png"
-          width={1}
-          height={1}
-          alt="ImmobileLink"
-        />
-      )}
-    </>
+    <div className="flex justify-center">
+      <Image
+        className="w-20 h-20"
+        src="assets/favicon/favicon-250-250.png"
+        alt="logo"
+        width={10}
+        height={10}
+      />
+      <span className="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">
+        ImmobileLink
+      </span>
+    </div>
   );
 }

@@ -1,26 +1,46 @@
-"use client";
-import { useSupabase } from "@/app/[lang]/SupabaseProvider";
-import { useEffect, useState } from "react";
+import React from 'react';
+import PostFormCard from "./PostFormCard";
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { Database } from '../../../../../lib/database.types';
+import { Regiao } from '../../../../../lib/modelos';
+import { Feed } from '@/app/i18n/dictionaries/types';
+import Posts from './Posts';
 
-interface FeedPrincipalProps {}
-
-export default function FeedPrincipal({}: FeedPrincipalProps) {
-  const [userId, setUserId] = useState("");
-  const { supabase } = useSupabase();
-  const [isLoading, setLoading] = useState(true);
-
-  const handlePfp = async () => {
-    const session = await supabase.auth.getUser();
-    setUserId(session.data.user?.id!);
-    setLoading(false);
+interface FeedPrincipalProps {
+  userData: {
+    id: string | undefined;
+    identificador: string | undefined;
+    premium: boolean | undefined;
+    role: number | undefined;
   };
+  textos: Feed;
+}
+const supabase = createServerComponentClient<Database>({ cookies })
 
-  useEffect(() => {
-    handlePfp();
-  });
+const getRegiao = async () => {
+  const { data, error } = await supabase
+    .from('regiao')
+    .select('*')
+  if (error)
+    console.log(error)
+  else
+    return data
+}
 
-  //chamada do supabase
-  //map
+export default async function FeedPrincipal({ textos, userData }: FeedPrincipalProps) {
+  const regioes: Regiao[] | undefined = await getRegiao();
 
-  return <>Feed</>;
+  return (
+    <div className='space-y-3'>
+      {
+        userData.id ? (
+          <>
+            <PostFormCard textos={textos} idusuario={userData.id} regioes={regioes} />
+          </>
+        ) : ""
+      }
+      <Posts userid={userData.id} textos={textos} regioes={regioes}/>
+    </div>
+  );
 }

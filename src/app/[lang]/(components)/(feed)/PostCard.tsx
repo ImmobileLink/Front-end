@@ -1,30 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import FeedCard from "./FeedCard";
 import Avatar from "../Avatar";
-import { useSupabase } from "@/app/[lang]/SupabaseProvider";
 import Image from "next/image";
+import { PublicacaoCompleta } from "../../../../../lib/modelos";
+import { formataData } from "../../../../../lib/utils";
 
 interface PostCardProps {
-  created: string;
-  username: string;
+  publicacao: PublicacaoCompleta;
 }
 
-export default function PostCard() {
-  const [userId, setUserId] = useState("");
-  const { supabase } = useSupabase();
-  const [isLoading, setLoading] = useState(true);
+export default function PostCard({ publicacao }: PostCardProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const handlePfp = async () => {
-    const session = await supabase.auth.getUser();
-    setUserId(session.data.user?.id!);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    handlePfp();
-  }, []);
 
   function openDropdown(e: any) {
     e.stopPropagation();
@@ -35,19 +21,18 @@ export default function PostCard() {
     setDropdownOpen(false);
   }
 
-  let post: PostCardProps = { created: "22-02-2023", username: "usuario" };
   return (
-    <FeedCard>
+    <div className="ring-2 ring-gray-300 rounded-md bg-white dark:bg-gray-600 dark:ring-gray-700 drop-shadow-md p-4 mb-3">
       <div className="flex gap-3">
         <div
           id="postheader"
           className="flex gap-3"
         >
-          <div>{isLoading ? <div></div> : <Avatar userId={userId} />}</div>
+          <div><Avatar userId={publicacao.idautor} /></div>
         </div>
         <div className="grow">
-          <p>{post.username} fez uma publicação</p>
-          <p className="text-xs">{post.created}</p>
+          <p>{publicacao.nomeautor}</p>
+          <p className="text-xs">{formataData(publicacao.criadoem)}</p>
         </div>
 
         <div className="relative">
@@ -81,15 +66,17 @@ export default function PostCard() {
         className="my-2"
       >
         <p className="text-sm mb-2">
-          Texto de teste apsdoihugfnaspodguinapohfiunadpofhiunfa
+          {publicacao.conteudo}
         </p>
-        <Image
-          className="mr-3 mb-3 h-auto w-auto rounded-md overflow-hidden"
-          src={`publicacoes/imagens/1.png`}
-          width={1}
-          height={1}
-          alt="Post"
-        />
+        <div className="flex justify-center">
+          <Image
+            className="mr-3 mb-3 h-auto w-auto rounded-md overflow-hidden"
+            src={`publicacoes/imagens/1`}
+            width={1}
+            height={1}
+            alt="Post"
+          />
+        </div>   
       </div>
       <div
         id="socialbuttons"
@@ -156,6 +143,6 @@ export default function PostCard() {
           ></textarea>
         </div>
       </div>
-    </FeedCard>
+    </div>
   );
 }

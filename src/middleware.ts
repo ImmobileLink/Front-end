@@ -1,6 +1,7 @@
-import { createMiddlewareSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
+import { Database } from '../lib/database.types';
  
 let locales = ['pt', 'en']
 
@@ -12,49 +13,23 @@ export async function middleware(req: NextRequest) {
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   )
   
-  const res = NextResponse.next();
+  const res = NextResponse.next()
+  const supabase = createMiddlewareClient<Database>({ req, res })
+  await supabase.auth.getSession()
 
-  const supabase = createMiddlewareSupabaseClient({ req, res });
+  if (pathnameIsMissingLocale) {
+    const locale: string = req.headers.get('accept-language')?.slice(0,2) || 'pt'; // pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
+    
+    // if(pathname.substring(3) == "/auth") {
+    //   return NextResponse.redirect(
+    //     new URL(`/${locale}/feed`, req.url)
+    //   )
+    // }
 
-  const { data } = await supabase.auth.getUser();
-
-  if(data.user) {
-    if(pathname.substring(3) == "/auth") {
-      return NextResponse.redirect(
-        new URL(pathname.substring(0,3), req.url)
-      )
-    } 
-    if (pathnameIsMissingLocale) {
-      const locale: string = req.headers.get('accept-language')?.slice(0,2) || 'pt'; // pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
-      // const i18nCookies: string[] = ['i18n', locale]
-  
-      // e.g. incoming req is /products
-      // The new URL is now /en-US/products
-      return NextResponse.redirect(
-        new URL(`/${locale}/${pathname}`, req.url)
-      )
-    }
-  } else {
-    if (pathnameIsMissingLocale) {
-      const locale: string = req.headers.get('accept-language')?.slice(0,2) || 'pt'; // pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
-      // const i18nCookies: string[] = ['i18n', locale]
-  
-      // e.g. incoming req is /products
-      // The new URL is now /en-US/products
-      return NextResponse.redirect(
-        new URL(`/${locale}/auth`, req.url)
-      )
-    } else {
-      if(pathname == "/pt/auth" ||pathname == "/en/auth"){
-        return res;
-      }
-      return NextResponse.redirect(
-        new URL(`${pathname.substring(0,3)}/auth`, req.url)
-      )
-    }
+    return NextResponse.redirect(
+      new URL(`/${locale}/${pathname}`, req.url)
+    )
   }
-
-  
 
   return res;
 }
