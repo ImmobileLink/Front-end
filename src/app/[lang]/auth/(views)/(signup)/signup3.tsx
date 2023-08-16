@@ -75,13 +75,6 @@ export default function Signup3({
                 return false;
             }
         }
-        if (
-            (props.celular.length != 11 && props.celular.length != 0) ||
-            (props.telefone.length != 10 && props.telefone.length != 0) ||
-            (props.comercial.length != 10 && props.comercial.length != 0)
-        ) {
-            return false;
-        }
 
         if (props.cep.length != 8) {
             return false;
@@ -98,12 +91,6 @@ export default function Signup3({
                 message: signup3.logs.invaliduf,
             });
             return false;
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
         }
 
         if (props.cidade.length < 2 && props.cidade != "") {
