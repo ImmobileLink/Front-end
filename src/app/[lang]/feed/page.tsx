@@ -1,15 +1,17 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import type { Database } from "../../../../lib/database.types";
-import FeedPrincipal from "../(components)/(feed)/FeedPrincipal";
 import { getDictionary } from "../dictionaries";
+import { userDataType } from "../../../../lib/modelos";
+import { Page } from "../(components)/(page)";
+import NavCalendar from "../(components)/(feed)/NavCalendar";
 import NavProfile from "../(components)/(feed)/NavProfile";
 import NavSettings from "../(components)/(feed)/NavSettings";
-import NavCalendar from "../(components)/(feed)/NavCalendar";
+import FeedPrincipal from "../(components)/(feed)/FeedPrincipal";
 import NavAmizade from "../(components)/(feed)/NavAmizade";
-import NavFindBrokers from "../(components)/(feed)/NavFindBrokers";
 import NavAssociados from "../(components)/(feed)/NavAssociados";
 import NavEmpresaAssociada from "../(components)/(feed)/NavEmpresaAssociada";
+import NavFindBrokers from "../(components)/(feed)/NavFindBrokers";
 
 interface pageProps {
   params: {
@@ -17,29 +19,6 @@ interface pageProps {
   };
 }
 const supabase = createServerComponentClient<Database>({ cookies });
-
-type userDataType = {
-  id: string | undefined;
-  identificador: string | undefined;
-  premium: boolean | undefined;
-  role: number | undefined;
-  conexoes:
-    | {
-        id: string;
-        nome: string;
-      }[]
-    | null;
-  associados:
-    | {
-        id: string;
-        corretor: string;
-      }[]
-    | null;
-    associados2: {
-    id: string;
-    corporacao: string;
-  }[] | null
-};
 
 async function getUserData() {
   let userData: userDataType = {
@@ -105,8 +84,8 @@ export default async function page({ params: { lang } }: pageProps) {
 
   //requisição
   return (
-    <div className="w-auto h-fit min-h-screen bg-branco dark:bg-dark-200 flex justify-center gap-5 pt-4">
-      <div className="hidden md:flex md:w-3/12 lg:flex flex-col lg:w-2/12 gap-4">
+    <Page.Root>
+      <Page.Left>
         <NavProfile
           userData={userData}
           cards={dict.feed.cards}
@@ -122,16 +101,14 @@ export default async function page({ params: { lang } }: pageProps) {
         ) : (
           ""
         )}
-      </div>
-      <div className="w-11/12 md:w-8/12 lg:w-6/12">
-        <>
-          <FeedPrincipal
-            userData={userData}
-            textos={dict.feed}
-          />
-        </>
-      </div>
-      <div className="hidden lg:flex flex-col lg:w-2/12 gap-4">
+      </Page.Left>
+      <Page.Main>
+        <FeedPrincipal
+          userData={userData}
+          textos={dict.feed}
+        />
+      </Page.Main>
+      <Page.Right>
         {userData.id ? (
           <>
             <NavAmizade
@@ -159,7 +136,7 @@ export default async function page({ params: { lang } }: pageProps) {
         ) : (
           ""
         )}
-      </div>
-    </div>
+      </Page.Right>
+    </Page.Root>
   );
 }

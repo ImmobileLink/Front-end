@@ -1,5 +1,3 @@
-"use client";
-
 interface AlertProps {
   type: string;
   title: string;

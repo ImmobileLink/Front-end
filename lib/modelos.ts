@@ -75,3 +75,28 @@ export interface CorretorBuscado {
     nota: number | null
 }
 export type CorporacaoPorRegiao = Database['public']['Views']['corporacao_por_regiao']['Row']
+
+
+export type userDataType = {
+    id: string | undefined;
+    identificador: string | undefined;
+    premium: boolean | undefined;
+    role: number | undefined;
+    conexoes:
+      | {
+          id: string;
+          nome: string;
+        }[]
+      | null;
+    associados:
+      | {
+          id: string;
+          corretor: string;
+        }[]
+      | null;
+      associados2: {
+      id: string;
+      corporacao: string;
+    }[] | null
+  };
+
