@@ -26,7 +26,6 @@ interface SignUpProps {
     signup: Signup;
     data: {
         tipoImovel: { id: any; descricao: any }[] | null;
-        regiao: { id: any; regiao: any }[] | null;
     };
     lang: string;
 }
@@ -66,15 +65,9 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
 
     //signup4
     const [creci, setCreci] = useState<string>("");
-    const [especialidade, setEspecialidade] = useState<
-        { id: any; descricao: any }[]
-    >([]);
-    const [regiaoAtuacao, setRegiaoAtuacao] = useState<
-        { id: any; regiao: any }[]
-    >([]);
-    const [especialidadesIncluidas, setEspecialidadesIncluidas] = useState<
-        string[]
-    >([]);
+    const [especialidade, setEspecialidade] = useState<{ id: any; descricao: any }[]>([]);
+    const [especialidadesIncluidas, setEspecialidadesIncluidas] = useState<string[]>([]);
+    const [regiaoAtuacao, setRegiaoAtuacao] = useState<{ regiao: string }[]>([]);
     const [regioesIncluidas, setRegioesIncluidas] = useState<string[]>([]);
 
     //signup5
@@ -405,7 +398,7 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                 regiaoAtuacao.map((item) => {
                     arrayUsuarioPorRegiao.push({
                         idusuario: userId,
-                        idregiao: item.id,
+                        cidade: item.regiao,
                     });
                 });
 

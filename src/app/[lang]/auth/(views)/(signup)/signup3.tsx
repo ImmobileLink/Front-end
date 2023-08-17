@@ -470,11 +470,11 @@ export default function Signup3({
                                 className="bg-dark-200 mb-1"
                                 onChange={handleUFChange}
                                 disabled={disabilitarInput}
+                                value={props.estado}
                             >
                                 {_UFs.map((uf, index) => {
                                     return (
                                         <option
-                                            selected={uf == props.estado}
                                             key={uf + " - " + index}
                                             className="text-center"
                                         >

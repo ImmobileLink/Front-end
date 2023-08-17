@@ -10,7 +10,6 @@ interface AuthFormProps {
   auth: Auth;
   data: {
     tipoImovel: { id: any; descricao: any }[] | null;
-    regiao: { id: any; regiao: any }[] | null;
   };
   lang: string;
 }

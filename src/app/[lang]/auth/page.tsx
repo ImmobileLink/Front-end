@@ -19,9 +19,7 @@ async function getData() {
     .from("tipoImovel")
     .select("id,descricao");
 
-  let { data: regiao } = await supabase.from("regiao").select("id,regiao");
-
-  return { tipoImovel, regiao };
+  return { tipoImovel };
 }
 
 export default async function page({ params: { lang } }: PageProps) {
