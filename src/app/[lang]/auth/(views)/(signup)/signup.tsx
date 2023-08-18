@@ -111,7 +111,6 @@ export default function SignUp({
             if (
                 await verifyFields(
                     telaAtual,
-                    setAlert,
                     setFieldErros,
                     signup,
                     tipoPerfil,
@@ -125,7 +124,12 @@ export default function SignUp({
                     celular,
                     telefone,
                     comercial,
-                    creci
+                    creci,
+                    estado,
+                    cidade,
+                    logradouro,
+                    numero,
+                    bairro
                 )
             ) {
                 setAlert({
@@ -142,13 +146,7 @@ export default function SignUp({
                 });
             }
             isLoading(false);
-        } // else {
-        // setAlert({
-        //     type: "warning",
-        //     title: "",
-        //     message: signup.fixtheinputs,
-        // });
-        // }
+        }
     };
 
     const handleSignUp = async () => {
@@ -195,7 +193,6 @@ export default function SignUp({
                                 props={{ email, setEmail, senha, setSenha }}
                                 fieldErros={fieldErros}
                                 setPodeAvancar={setPodeAvancar}
-                                setAlert={setAlert}
                                 signup1={signup.signup1}
                             />
                         ) : telaAtual == 2 ? (
@@ -241,6 +238,7 @@ export default function SignUp({
                                 tipoPerfil={tipoPerfil}
                                 setPodeAvancar={setPodeAvancar}
                                 setAlert={setAlert}
+                                fieldErros={fieldErros}
                                 signup3={signup.signup3}
                             />
                         ) : telaAtual == 4 ? (

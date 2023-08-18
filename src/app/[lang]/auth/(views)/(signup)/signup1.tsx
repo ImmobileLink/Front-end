@@ -2,8 +2,6 @@
 
 import { Dispatch, SetStateAction } from "react";
 import { Signup1 } from "@/app/i18n/dictionaries/types";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../../lib/database.types";
 import PasswordInput from "@/app/[lang]/(components)/(auth)/PasswordInput";
 
 interface SignUpProps {
@@ -15,17 +13,11 @@ interface SignUpProps {
     };
     fieldErros: { [k: string]: any };
     setPodeAvancar: Dispatch<SetStateAction<boolean>>;
-    setAlert: Dispatch<
-        SetStateAction<{ type: string; title: string; message: string }>
-    >;
     signup1: Signup1;
 }
 
-const supabase = createClientComponentClient<Database>();
-
 export default function SignUp1({
     props,
-    setAlert,
     signup1,
     setPodeAvancar,
     fieldErros,

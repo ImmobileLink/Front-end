@@ -41,6 +41,7 @@ interface Signup3Props {
     setAlert: Dispatch<
         SetStateAction<{ type: string; title: string; message: string }>
     >;
+    fieldErros: { [k: string]: any };
     signup3: Signup3;
 }
 
@@ -49,9 +50,19 @@ export default function Signup3({
     tipoPerfil,
     setPodeAvancar,
     setAlert,
+    fieldErros,
     signup3,
 }: Signup3Props) {
     const [disabilitarInput, isDisabilitarInput] = useState(false);
+
+    /**
+     * TO DO:
+     * Remover TODOS onBlur
+     * Remover o "pode avançar", não é necessário.
+     * Ajustar validações do assignError
+     * Ajustar todas mensagens e conteineres coloridos com erro
+     * 
+     */
 
     const validaForm = () => {
         setPodeAvancar(false);
@@ -61,12 +72,10 @@ export default function Signup3({
                 return false;
             }
 
-            if(props.cpf == ""){
+            if (props.cpf == "") {
                 return false;
             }
-
         } else {
-            // o nome fantasia tem no mínimo 12 pontos [LegisWEB]
             if (props.nomeFantasia == "") {
                 return false;
             }
@@ -81,51 +90,6 @@ export default function Signup3({
         }
 
         if (!props.cepValid) {
-            return false;
-        }
-
-        if (props.estado == "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invaliduf,
-            });
-            return false;
-        }
-
-        if (props.cidade.length < 2 && props.cidade != "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidcity,
-            });
-            return false;
-        }
-
-        if (props.bairro.length < 2 && props.bairro != "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidneighborhood,
-            });
-            return false;
-        }
-
-        if (props.logradouro.length < 2 && props.logradouro != "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidstreet,
-            });
-            return false;
-        }
-
-        if (props.numero != null && props.numero < 0) {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidnumber,
-            });
             return false;
         }
 
@@ -254,6 +218,7 @@ export default function Signup3({
             props.setEstado("");
         }
     };
+    // console.log(fieldErros)
 
     return (
         <>
@@ -275,6 +240,9 @@ export default function Signup3({
                             <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                                 {signup3.name}
                                 <span className="text-primaria">{" *"}</span>
+                            </label>
+                            <label className="text-red-500 text-xs">
+                                {fieldErros?.nome?.[0]}
                             </label>
                         </div>
                         <div className="grid md:grid-cols-2 md:gap-6">
@@ -298,6 +266,9 @@ export default function Signup3({
                                     <span className="text-primaria">
                                         {" *"}
                                     </span>
+                                </label>
+                                <label className="text-red-500 text-xs">
+                                    {fieldErros?.cpf?.[0]}
                                 </label>
                             </div>
                             <div className="relative z-0 w-full mb-6 group">
