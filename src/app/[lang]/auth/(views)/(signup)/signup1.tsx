@@ -13,6 +13,7 @@ interface SignUpProps {
         senha: string;
         setSenha: Dispatch<SetStateAction<string>>;
     };
+    fieldErros: { [k: string]: any };
     setPodeAvancar: Dispatch<SetStateAction<boolean>>;
     setAlert: Dispatch<
         SetStateAction<{ type: string; title: string; message: string }>
@@ -27,6 +28,7 @@ export default function SignUp1({
     setAlert,
     signup1,
     setPodeAvancar,
+    fieldErros,
 }: SignUpProps) {
     const validaForm = () => {
         setPodeAvancar(false);
@@ -38,7 +40,6 @@ export default function SignUp1({
         if (props.senha == "") {
             return false;
         }
-
         setPodeAvancar(true);
     };
 
@@ -58,8 +59,11 @@ export default function SignUp1({
                         onChange={(e) => props.setEmail(e.target.value)}
                         onBlur={validaForm}
                     />
-                    <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                         {signup1.emaillabel}
+                    </label>
+                    <label className="text-red-500 text-xs">
+                        {fieldErros?.email?.[0]}
                     </label>
                 </div>
 
@@ -69,6 +73,7 @@ export default function SignUp1({
                     validaForm={validaForm}
                     onchange={props.setSenha}
                 />
+                {fieldErros?.senha?.[0]}
             </div>
         </>
     );

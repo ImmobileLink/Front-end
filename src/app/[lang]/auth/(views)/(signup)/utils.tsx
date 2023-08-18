@@ -1,5 +1,4 @@
 // O Auth possui alguns dados sensíveis de cadastro que não são interessantes de se passar pelo client-side
-
 function hasStrongPassword(object: string) {
     const password = object;
     const minLength = 6;
@@ -24,6 +23,7 @@ function hasStrongPassword(object: string) {
 export const verifyFields = async (
     telaAtual: number,
     setAlert: Function,
+    setFieldErros: Function,
     signup: any,
     tipoPerfil: number,
     senha: string,
@@ -38,28 +38,26 @@ export const verifyFields = async (
     comercial: string,
     creci: string
 ) => {
+    var erros: { [k: string]: any } = {};
+
+    const assignError = (campo: string, mensagem: string) => {
+        erros[campo] =
+            erros?.[campo]?.length > 0
+                ? erros[campo].push(mensagem)
+                : (erros[campo] = [mensagem]);
+    };
+
     switch (telaAtual) {
         case 1:
             // verifica senha
             if (!hasStrongPassword(senha)) {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: signup.signup1.logs.invalidpassword,
-                });
-                return false;
+                assignError("senha", signup.signup1.logs.invalidpassword);
             }
 
             // verifica email
             const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/;
             if (!regex.test(email)) {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: signup.signup1.logs.invalidemail,
-                });
-
-                return false;
+                assignError("email", signup.signup1.logs.invalidemail);
             }
 
             let { data: usuario } = await supabase
@@ -68,17 +66,12 @@ export const verifyFields = async (
                 .eq("email", email);
 
             if (usuario?.length) {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: signup.signup1.logs.emailalreadyused,
-                });
-                return false;
+                assignError("email", signup.signup1.logs.emailalreadyused);
             }
-            return true;
+
         case 2:
-            // Nenhuma validação necessária no passo 2 por enquanto.
-            return true;
+        // Nenhuma validação necessária no passo 2 por enquanto.
+        //  return true;
         case 3:
             if (tipoPerfil == 1) {
                 // valida nome
@@ -88,7 +81,7 @@ export const verifyFields = async (
                         title: "",
                         message: signup.signup3.logs.invalidname,
                     });
-                    return false;
+                    //     return false;
                 }
                 // valida cpf
                 if (cpf.length != 11) {
@@ -97,7 +90,7 @@ export const verifyFields = async (
                         title: "",
                         message: signup.signup3.logs.invalidcpf,
                     });
-                    return false;
+                    //   return false;
                 }
 
                 let { data: usuario } = await supabase
@@ -111,7 +104,7 @@ export const verifyFields = async (
                         title: "",
                         message: signup.signup3.logs.invalidcpf,
                     });
-                    return false;
+                    //    return false;
                 }
 
                 // valida cnpj
@@ -134,7 +127,7 @@ export const verifyFields = async (
                             title: "",
                             message: signup.signup3.logs.invalidcnpj,
                         });
-                        return false;
+                        //   return false;
                     }
                 }
             } else {
@@ -145,7 +138,7 @@ export const verifyFields = async (
                         title: "",
                         message: signup.signup3.logs.invalidfantasyname,
                     });
-                    return false;
+                    //   return false;
                 }
                 if (cnpj.length != 14) {
                     setAlert({
@@ -153,7 +146,7 @@ export const verifyFields = async (
                         title: "",
                         message: signup.signup3.logs.invalidcnpj,
                     });
-                    return false;
+                    //  return false;
                 } else {
                     let { data: usuario } = await supabase
                         .from("corporacao")
@@ -166,7 +159,7 @@ export const verifyFields = async (
                             title: "",
                             message: signup.signup3.logs.invalidcnpj,
                         });
-                        return false;
+                        //  return false;
                     }
                 }
             }
@@ -180,9 +173,9 @@ export const verifyFields = async (
                     title: "",
                     message: signup.signup3.logs.invalidphone,
                 });
-                return false;
+                //  return false;
             }
-            return true;
+        //  return true;
         case 4:
             if (tipoPerfil == 1) {
                 if (creci.length < 7) {
@@ -191,7 +184,7 @@ export const verifyFields = async (
                         title: "",
                         message: signup.signup4.logs.invalidcreci,
                     });
-                    return false;
+                    //   return false;
                 } else {
                     const regexCreci = /^\d{6}[a-zA-Z]$/;
                     if (!regexCreci.test(creci)) {
@@ -200,7 +193,7 @@ export const verifyFields = async (
                             title: "",
                             message: signup.signup4.logs.invalidcreci,
                         });
-                        return false;
+                        //     return false;
                     }
                     let { data: usuario } = await supabase
                         .from("corretor")
@@ -213,17 +206,21 @@ export const verifyFields = async (
                             title: "",
                             message: signup.signup4.logs.invalidcreci,
                         });
-                        return false;
+                        //    return false;
                     }
                 }
             }
-            return true;
+        // return true;
         case 5:
-            // Nenhuma validação necessária no passo 5 por enquanto.
-            return true;
+        // Nenhuma validação necessária no passo 5 por enquanto.
+        //  return true;
     }
     // default
-    return false;
+    //  return false;
+
+    console.log(erros);
+    setFieldErros(erros);
+    return Object.keys(erros).length == 0;
 };
 
 export const handleSignUpDB = async (

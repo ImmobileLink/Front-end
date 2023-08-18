@@ -20,13 +20,9 @@ import { Database } from "../../../../../../lib/database.types";
 import Loading from "@/app/[lang]/(components)/(auth)/Loading";
 import { handleSignUpDB, verifyFields } from "./utils";
 
-/**
- * TO DO:
- * Mover dados sensíveis que acessem o servidor para um componente server side
- * Ajustar padding do seletor de persona do cadastro
- */
-
 interface SignUpProps {
+    fieldErros: Object;
+    setFieldErros: Function;
     setAlert: Dispatch<
         SetStateAction<{ type: string; title: string; message: string }>
     >;
@@ -40,7 +36,14 @@ interface SignUpProps {
 
 const supabase = createClientComponentClient<Database>();
 
-export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
+export default function SignUp({
+    fieldErros,
+    setFieldErros,
+    setAlert,
+    signup,
+    data,
+    lang,
+}: SignUpProps) {
     const router = useRouter();
 
     const [isOK, setIsOK] = useState(false);
@@ -109,6 +112,7 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                 await verifyFields(
                     telaAtual,
                     setAlert,
+                    setFieldErros,
                     signup,
                     tipoPerfil,
                     senha,
@@ -130,15 +134,19 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                     message: "",
                 });
                 telaAtual < 5 ? setTelaAtual(telaAtual + 1) : {};
+            } else {
+                setAlert({
+                    type: "warning",
+                    title: "",
+                    message: signup.fixtheinputs,
+                });
             }
             isLoading(false);
-        }
-        // Isso aqui está sobreescrevendo as mensagens específicas dos erros
-        // else {
+        } // else {
         // setAlert({
-        //   type: "warning",
-        //   title: "",
-        //   message: signup.fixtheinputs,
+        //     type: "warning",
+        //     title: "",
+        //     message: signup.fixtheinputs,
         // });
         // }
     };
@@ -173,7 +181,7 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
             router.refresh();
         } else {
             //Algo deu errado [Investigar!]
-            console.log("handleSignUpDB error!")
+            console.log("handleSignUpDB error!");
         }
     };
 
@@ -185,6 +193,7 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                         {telaAtual == 1 ? (
                             <SignUp1
                                 props={{ email, setEmail, senha, setSenha }}
+                                fieldErros={fieldErros}
                                 setPodeAvancar={setPodeAvancar}
                                 setAlert={setAlert}
                                 signup1={signup.signup1}

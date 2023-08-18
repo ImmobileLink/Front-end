@@ -18,6 +18,7 @@ interface AuthFormProps {
 export default function AuthForm({ auth, data, lang }: AuthFormProps) {
   const [view, setView] = useState("signin"); //signin, signup, forgetpwd
   const [alert, setAlert] = useState({ type: "", title: "", message: "" });
+  const [fieldErros, setFieldErros] = useState({});
 
   function handleChangeView(e: string) {
     setView(e);
@@ -34,6 +35,8 @@ export default function AuthForm({ auth, data, lang }: AuthFormProps) {
         />
       ) : view == "signup" ? (
         <SignUp
+          fieldErros={fieldErros}
+          setFieldErros={setFieldErros}
           setAlert={setAlert}
           signup={auth.signup}
           data={data}
