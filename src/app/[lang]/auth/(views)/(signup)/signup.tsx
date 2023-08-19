@@ -104,49 +104,49 @@ export default function SignUp({
     };
 
     const handleBotaoAvancarTela = async () => {
-        if (podeAvancar) {
-            if (telaAtual < 5) {
-                isLoading(true);
-            }
-            if (
-                await verifyFields(
-                    telaAtual,
-                    setFieldErros,
-                    signup,
-                    tipoPerfil,
-                    senha,
-                    email,
-                    supabase,
-                    nome,
-                    cpf,
-                    cnpj,
-                    nomeFantasia,
-                    celular,
-                    telefone,
-                    comercial,
-                    creci,
-                    estado,
-                    cidade,
-                    logradouro,
-                    numero,
-                    bairro
-                )
-            ) {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: "",
-                });
-                telaAtual < 5 ? setTelaAtual(telaAtual + 1) : {};
-            } else {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: signup.fixtheinputs,
-                });
-            }
-            isLoading(false);
+        //  if (podeAvancar) {
+        if (telaAtual < 5) {
+            isLoading(true);
         }
+        if (
+            await verifyFields(
+                telaAtual,
+                setFieldErros,
+                signup,
+                tipoPerfil,
+                senha,
+                email,
+                supabase,
+                nome,
+                cpf,
+                cnpj,
+                nomeFantasia,
+                celular,
+                telefone,
+                comercial,
+                creci,
+                estado,
+                cidade,
+                logradouro,
+                numero,
+                bairro
+            )
+        ) {
+            setAlert({
+                type: "warning",
+                title: "",
+                message: "",
+            });
+            telaAtual < 5 ? setTelaAtual(telaAtual + 1) : {};
+        } else {
+            setAlert({
+                type: "warning",
+                title: "",
+                message: signup.fixtheinputs,
+            });
+        }
+        isLoading(false);
+        // }
     };
 
     const handleSignUp = async () => {

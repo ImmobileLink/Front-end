@@ -1,4 +1,3 @@
-// O Auth possui alguns dados sensíveis de cadastro que não são interessantes de se passar pelo client-side
 function hasStrongPassword(object: string) {
     const password = object;
     const minLength = 6;
@@ -40,7 +39,7 @@ export const verifyFields = async (
     cidade: string,
     logradouro: string,
     numero: number | null,
-    bairro: string,
+    bairro: string
 ) => {
     const erros: { [k: string]: any } = {};
 
@@ -91,7 +90,7 @@ export const verifyFields = async (
                     }
                 }
 
-                if (cnpj.length != 14 && cnpj.length > 0) {
+                if (cnpj.length > 0 && cnpj.length != 14) {
                     assignError("cnpj", signup.signup3.logs.invalidcnpj);
                 } else if (cnpj.length == 14) {
                     let { data: usuario } = await supabase
@@ -137,26 +136,26 @@ export const verifyFields = async (
             if (estado == "") {
                 assignError("estado", signup.signup3.logs.invaliduf);
             }
-    
-            if (cidade.length < 2 && cidade != "") {
+
+            if (cidade.length < 2) {
                 assignError("cidade", signup.signup3.logs.invalidcity);
             }
-    
-            if (bairro.length < 2 && bairro != "") {
+
+            if (bairro.length < 2) {
                 assignError("bairro", signup.signup3.logs.invalidneighborhood);
             }
-    
-            if (logradouro.length < 2 && logradouro != "") {
+
+            if (logradouro.length < 2) {
                 assignError("logradouro", signup.signup3.logs.invalidstreet);
             }
-    
-            if (numero != null && numero < 0) {
+
+            if (numero == null || numero < 1) {
                 assignError("numero", signup.signup3.logs.invalidnumber);
             }
-
+            break;
         case 4:
             if (tipoPerfil == 1) {
-                if (creci.length < 7) {
+                if (creci.length != 7) {
                     assignError("creci", signup.signup4.logs.invalidcreci);
                 } else {
                     const regexCreci = /^\d{6}[a-zA-Z]$/;
@@ -177,8 +176,8 @@ export const verifyFields = async (
                     }
                 }
             }
+            break;
     }
-    console.log({erros})
     setFieldErros(erros);
     return Object.keys(erros).length == 0;
 };

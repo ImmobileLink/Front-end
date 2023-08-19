@@ -7,7 +7,6 @@ import React from "react";
 interface PasswordInputProps {
     password: string;
     label: string;
-    validaForm: React.FocusEventHandler<HTMLInputElement>;
     onchange: Function;
     fieldErros: Array<string> | undefined;
 }
@@ -15,7 +14,6 @@ interface PasswordInputProps {
 export default function PasswordInput({
     password,
     label,
-    validaForm,
     onchange,
     fieldErros,
 }: PasswordInputProps) {
@@ -37,7 +35,6 @@ export default function PasswordInput({
                             required
                             value={password}
                             onChange={(e) => onchange(e.target.value)}
-                            onBlur={validaForm}
                         />
                         <div
                             className={`${
@@ -57,13 +54,12 @@ export default function PasswordInput({
                             name="floating_password"
                             id="floating_password"
                             className={`${
-                                fieldErros?.[0] ? "bg-red-500/50" : ""
-                            } mt-2 block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                                fieldErros?.[0] ? "bg-red-500/50" : "bg-transparent"
+                            } mt-2 block py-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                             placeholder=" "
                             required
                             value={password}
                             onChange={(e) => onchange(e.target.value)}
-                            onBlur={validaForm}
                         />
                         <div
                             className={`${
