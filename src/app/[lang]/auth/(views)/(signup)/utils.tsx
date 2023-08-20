@@ -44,24 +44,21 @@ export const verifyFields = async (
 ) => {
     const erros: { [k: string]: any } = {};
 
-    const assignError = (campo: string, mensagem: string) => {
-        erros[campo] =
-            erros?.[campo]?.length > 0
-                ? erros[campo].push(mensagem)
-                : (erros[campo] = [mensagem]);
-    };
-
     switch (telaAtual) {
         case 1:
             // verifica senha
             if (!hasStrongPassword(senha)) {
-                assignError("senha", signup.signup1.logs.invalidpassword);
+                assignError(
+                    erros,
+                    "senha",
+                    signup.signup1.logs.invalidpassword
+                );
             }
 
             // verifica email
             const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/;
             if (!regex.test(email)) {
-                assignError("email", signup.signup1.logs.invalidemail);
+                assignError(erros, "email", signup.signup1.logs.invalidemail);
             }
 
             let { data: usuario } = await supabase
@@ -70,16 +67,20 @@ export const verifyFields = async (
                 .eq("email", email);
 
             if (usuario?.length) {
-                assignError("email", signup.signup1.logs.emailalreadyused);
+                assignError(
+                    erros,
+                    "email",
+                    signup.signup1.logs.emailalreadyused
+                );
             }
             break;
         case 3:
             if (tipoPerfil == 1) {
                 if (nome.trim().length < 4) {
-                    assignError("nome", signup.signup3.logs.invalidname);
+                    assignError(erros, "nome", signup.signup3.logs.invalidname);
                 }
                 if (cpf.length != 11) {
-                    assignError("cpf", signup.signup3.logs.invalidcpf);
+                    assignError(erros, "cpf", signup.signup3.logs.invalidcpf);
                 } else {
                     let { data: usuario } = await supabase
                         .from("corretor")
@@ -87,12 +88,16 @@ export const verifyFields = async (
                         .eq("cpf", cpf);
 
                     if (usuario?.length) {
-                        assignError("cpf", signup.signup3.logs.invalidcpf);
+                        assignError(
+                            erros,
+                            "cpf",
+                            signup.signup3.logs.invalidcpf
+                        );
                     }
                 }
 
                 if (cnpj.length > 0 && cnpj.length != 14) {
-                    assignError("cnpj", signup.signup3.logs.invalidcnpj);
+                    assignError(erros, "cnpj", signup.signup3.logs.invalidcnpj);
                 } else if (cnpj.length == 14) {
                     let { data: usuario } = await supabase
                         .from("corretor")
@@ -100,19 +105,24 @@ export const verifyFields = async (
                         .eq("cnpj", cnpj);
 
                     if (usuario?.length) {
-                        assignError("cnpj", signup.signup3.logs.invalidcnpj);
+                        assignError(
+                            erros,
+                            "cnpj",
+                            signup.signup3.logs.invalidcnpj
+                        );
                     }
                 }
             } else {
                 // o nome fantasia tem no mínimo 12 pontos [LegisWEB]
                 if (nomeFantasia.trim().length < 12) {
                     assignError(
+                        erros,
                         "nomeFantasia",
                         signup.signup3.logs.invalidfantasyname
                     );
                 }
                 if (cnpj.length != 14) {
-                    assignError("cnpj", signup.signup3.logs.invalidcnpj);
+                    assignError(erros, "cnpj", signup.signup3.logs.invalidcnpj);
                 } else {
                     let { data: usuario } = await supabase
                         .from("corporacao")
@@ -120,52 +130,89 @@ export const verifyFields = async (
                         .eq("cnpj", cnpj);
 
                     if (usuario?.length) {
-                        assignError("cnpj", signup.signup3.logs.invalidcnpj);
+                        assignError(
+                            erros,
+                            "cnpj",
+                            signup.signup3.logs.invalidcnpj
+                        );
                     }
                 }
             }
             if (celular.length != 11 && celular.length != 0) {
-                assignError("celular", signup.signup3.logs.invalidphone);
+                assignError(erros, "celular", signup.signup3.logs.invalidphone);
             }
             if (telefone.length != 10 && telefone.length != 0) {
-                assignError("telefone", signup.signup3.logs.invalidphone);
+                assignError(
+                    erros,
+                    "telefone",
+                    signup.signup3.logs.invalidphone
+                );
             }
             if (comercial.length != 10 && comercial.length != 0) {
-                assignError("comercial", signup.signup3.logs.invalidphone);
+                assignError(
+                    erros,
+                    "comercial",
+                    signup.signup3.logs.invalidphone
+                );
             }
 
-            if (cep.length != 8){
-                assignError("cep", signup.signup3.logs.invalidcep);
+            if (cep.length != 8) {
+                assignError(erros, "cep", signup.signup3.logs.invalidcep);
+            } else {
+                const data = await getCEP(cep);
+                if (data.erro) {
+                    assignError(
+                        erros,
+                        "cep",
+                        signup.signup3.logs.invalidcepnotfound
+                    );
+                }
             }
 
             if (estado == "") {
-                assignError("estado", signup.signup3.logs.invaliduf);
+                assignError(erros, "estado", signup.signup3.logs.invaliduf);
             }
 
             if (cidade.length < 2) {
-                assignError("cidade", signup.signup3.logs.invalidcity);
+                assignError(erros, "cidade", signup.signup3.logs.invalidcity);
             }
 
             if (bairro.length < 2) {
-                assignError("bairro", signup.signup3.logs.invalidneighborhood);
+                assignError(
+                    erros,
+                    "bairro",
+                    signup.signup3.logs.invalidneighborhood
+                );
             }
 
             if (logradouro.length < 2) {
-                assignError("logradouro", signup.signup3.logs.invalidstreet);
+                assignError(
+                    erros,
+                    "logradouro",
+                    signup.signup3.logs.invalidstreet
+                );
             }
 
             if (numero == null || numero < 1) {
-                assignError("numero", signup.signup3.logs.invalidnumber);
+                assignError(erros, "numero", signup.signup3.logs.invalidnumber);
             }
             break;
         case 4:
             if (tipoPerfil == 1) {
                 if (creci.length != 7) {
-                    assignError("creci", signup.signup4.logs.invalidcreci);
+                    assignError(
+                        erros,
+                        "creci",
+                        signup.signup4.logs.invalidcreci
+                    );
                 } else {
                     const regexCreci = /^\d{6}[a-zA-Z]$/;
                     if (!regexCreci.test(creci)) {
-                        assignError("creci", signup.signup4.logs.invalidcreci);
+                        assignError(
+                            erros,
+                            "creci",
+                            signup.signup4.logs.invalidcreci
+                        );
                     } else {
                         let { data: usuario } = await supabase
                             .from("corretor")
@@ -174,6 +221,7 @@ export const verifyFields = async (
 
                         if (usuario?.length) {
                             assignError(
+                                erros,
                                 "creci",
                                 signup.signup4.logs.invalidcreci
                             );
@@ -185,6 +233,27 @@ export const verifyFields = async (
     }
     setFieldErros(erros);
     return Object.keys(erros).length == 0;
+};
+
+export const assignError = (
+    erros: { [k: string]: any },
+    campo: string,
+    mensagem: string
+) => {
+    erros[campo] =
+        erros?.[campo]?.length > 0
+            ? erros[campo].push(mensagem)
+            : (erros[campo] = [mensagem]);
+};
+
+export const getCEP = async (cep: string) => {
+    try {
+        const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        return false;
+    }
 };
 
 export const handleSignUpDB = async (
