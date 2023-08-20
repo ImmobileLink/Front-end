@@ -262,6 +262,7 @@ export default function SignUp({
                                 setAlert={setAlert}
                                 signup4={signup.signup4}
                                 data={data}
+                                fieldErros={fieldErros}
                             />
                         ) : telaAtual == 5 ? (
                             <Signup5

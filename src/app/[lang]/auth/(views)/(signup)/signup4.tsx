@@ -30,6 +30,7 @@ interface Signup4Props {
         tipoImovel: { id: any; descricao: any }[] | null;
         regiao: { id: any; regiao: any }[] | null;
     };
+    fieldErros: { [k: string]: any };
 }
 
 export default function Signup4({
@@ -39,6 +40,7 @@ export default function Signup4({
     setAlert,
     signup4,
     data,
+    fieldErros,
 }: Signup4Props) {
     const [dropdownTipos, setDropdownTipos] = useState<boolean>(false); //vai reger esse dropdown de tipos de imóveis
     const [dropdownRegiao, setDropdownRegiao] = useState<boolean>(false); //vai reger esse dropdown de regioes de atuacao
@@ -95,7 +97,7 @@ export default function Signup4({
                         <div className="relative z-0 w-full mb-6 group">
                             <InputMask
                                 mask="999999-a"
-                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                className={`${fieldErros?.creci?.[0] != undefined ? "bg-red-500/50" : "bg-transparent"} block py-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                 required
                                 autoFocus
                                 value={props.creci}
@@ -106,17 +108,18 @@ export default function Signup4({
                                 }
                                 onBlur={validaForm}
                             />
-                            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                                 {signup4.creci}
                                 <span className="text-primaria">{" *"}</span>
+                            </label>
+                            <label className="text-red-500 text-xs">
+                                {fieldErros?.creci?.[0]}
                             </label>
                         </div>
 
                         {/* ESPECIALIDADE */}
 
-                        <div
-                            className="relative w-full mb-6 group"
-                        >
+                        <div className="relative w-full mb-6 group">
                             <label className="font-medium text-gray-500 dark:text-gray-400">
                                 {signup4.speciality}
                             </label>
