@@ -39,7 +39,8 @@ export const verifyFields = async (
     cidade: string,
     logradouro: string,
     numero: number | null,
-    bairro: string
+    bairro: string,
+    cep: string
 ) => {
     const erros: { [k: string]: any } = {};
 
@@ -74,7 +75,7 @@ export const verifyFields = async (
             break;
         case 3:
             if (tipoPerfil == 1) {
-                if (nome.length < 4) {
+                if (nome.trim().length < 4) {
                     assignError("nome", signup.signup3.logs.invalidname);
                 }
                 if (cpf.length != 11) {
@@ -104,7 +105,7 @@ export const verifyFields = async (
                 }
             } else {
                 // o nome fantasia tem no mínimo 12 pontos [LegisWEB]
-                if (nomeFantasia.length < 12) {
+                if (nomeFantasia.trim().length < 12) {
                     assignError(
                         "nomeFantasia",
                         signup.signup3.logs.invalidfantasyname
@@ -131,6 +132,10 @@ export const verifyFields = async (
             }
             if (comercial.length != 10 && comercial.length != 0) {
                 assignError("comercial", signup.signup3.logs.invalidphone);
+            }
+
+            if (cep.length != 8){
+                assignError("cep", signup.signup3.logs.invalidcep);
             }
 
             if (estado == "") {

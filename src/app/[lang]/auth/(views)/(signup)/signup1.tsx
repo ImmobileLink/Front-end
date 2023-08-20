@@ -19,7 +19,6 @@ interface SignUpProps {
 export default function SignUp1({
     props,
     signup1,
-    setPodeAvancar,
     fieldErros,
 }: SignUpProps) {
 

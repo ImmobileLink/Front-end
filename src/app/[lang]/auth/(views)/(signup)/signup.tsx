@@ -129,7 +129,8 @@ export default function SignUp({
                 cidade,
                 logradouro,
                 numero,
-                bairro
+                bairro,
+                cep
             )
         ) {
             setAlert({
@@ -238,6 +239,7 @@ export default function SignUp({
                                 tipoPerfil={tipoPerfil}
                                 setPodeAvancar={setPodeAvancar}
                                 setAlert={setAlert}
+                                setFieldErros={setFieldErros}
                                 fieldErros={fieldErros}
                                 signup3={signup.signup3}
                             />
