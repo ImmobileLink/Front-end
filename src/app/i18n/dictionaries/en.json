@@ -30,7 +30,9 @@
         "logs": {
           "invalidemail": "Please enter a valid email address.",
           "invalidpassword": "Password must be at least 6 characters long, include numbers, uppercase, lowercase and special character.",
-          "emailalreadyused": "Email already registered."
+          "emailalreadyused": "Email already registered.",
+          "invaliddifferentpasswords": "The passwords are different.",
+          "invalidconfirmpassword": "Confirm your password."
         }
       },
       "signup2": {

@@ -53,6 +53,7 @@ export default function SignUp({
     //signup1
     const [email, setEmail] = useState<string>("");
     const [senha, setSenha] = useState<string>("");
+    const [confirmSenha, setConfirmSenha] = useState("");
 
     //signup2
     const [tipoPerfil, setTipoPerfil] = useState<number>(1); //1 -> corretor | 2 -> empresa
@@ -115,6 +116,7 @@ export default function SignUp({
                 signup,
                 tipoPerfil,
                 senha,
+                confirmSenha,
                 email,
                 supabase,
                 nome,
@@ -191,10 +193,11 @@ export default function SignUp({
                     <div>
                         {telaAtual == 1 ? (
                             <SignUp1
-                                props={{ email, setEmail, senha, setSenha }}
+                                props={{ email, setEmail, senha, setSenha, confirmSenha, setConfirmSenha }}
                                 fieldErros={fieldErros}
                                 setPodeAvancar={setPodeAvancar}
                                 signup1={signup.signup1}
+                                setFieldErros={setFieldErros}
                             />
                         ) : telaAtual == 2 ? (
                             <Signup2

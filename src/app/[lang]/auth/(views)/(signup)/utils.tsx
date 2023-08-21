@@ -25,6 +25,7 @@ export const verifyFields = async (
     signup: any,
     tipoPerfil: number,
     senha: string,
+    confirmSenha: string,
     email: string,
     supabase: any,
     nome: string,
@@ -47,6 +48,14 @@ export const verifyFields = async (
     switch (telaAtual) {
         case 1:
             // verifica senha
+            if(confirmSenha.trim() == ""){
+                assignError(erros, "confirmSenha", signup.signup1.logs.invalidconfirmpassword);
+            } else {
+                if(senha != confirmSenha){
+                    assignError(erros, "confirmSenha", signup.signup1.logs.invaliddifferentpasswords);
+                }
+            }
+
             if (!hasStrongPassword(senha)) {
                 assignError(
                     erros,
@@ -240,10 +249,11 @@ export const assignError = (
     campo: string,
     mensagem: string
 ) => {
-    erros[campo] =
-        erros?.[campo]?.length > 0
-            ? erros[campo].push(mensagem)
-            : (erros[campo] = [mensagem]);
+    if (erros?.[campo]?.length > 0) {
+        erros[campo].push(mensagem)
+    } else {
+        erros[campo] = [mensagem]
+    }
 };
 
 export const getCEP = async (cep: string) => {

@@ -99,6 +99,8 @@ export interface Signup1Logs {
     invalidemail: string;
     invalidpassword: string;
     emailalreadyused: string;
+    invaliddifferentpasswords: string;
+    invalidconfirmpassword: string;
 }
 
 export interface Signup2 {

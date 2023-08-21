@@ -30,7 +30,9 @@
         "logs": {
           "invalidemail": "Insira um email válido.",
           "invalidpassword": "A senha precisa ter no mínimo 6 caracteres, números, maiúsculas, minúsculas e caractere especial.",
-          "emailalreadyused": "Email já cadastrado."
+          "emailalreadyused": "Email já cadastrado.",
+          "invaliddifferentpasswords": "As senhas são diferentes.",
+          "invalidconfirmpassword": "Confirme a senha."
         }
       },
       "signup2": {
