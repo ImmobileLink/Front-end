@@ -65,7 +65,9 @@ export default function Signup3({
             props.setCidade(data.localidade);
             props.setBairro(data.bairro);
             props.setLogradouro(data.logradouro);
-            props.setComplemento(data.complemento);
+            if (data.complemento != "") {
+                props.setComplemento(data.complemento);
+            }
             props.isCepValid(true);
             isDisabilitarInput(true);
         } else {
@@ -90,12 +92,41 @@ export default function Signup3({
                 assignError(erros, "cep", signup3.logs.invalidcep);
             } else {
                 autoCompletaEndereco(erros, assignError);
-                delete erros?.cep
+                delete erros?.cep;
             }
         }
     }, [props.cep]);
 
-    const _UFs = ["UF","AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO",];
+    const _UFs = [
+        "UF",
+        "AC",
+        "AL",
+        "AP",
+        "AM",
+        "BA",
+        "CE",
+        "DF",
+        "ES",
+        "GO",
+        "MA",
+        "MT",
+        "MS",
+        "MG",
+        "PA",
+        "PB",
+        "PR",
+        "PE",
+        "PI",
+        "RJ",
+        "RN",
+        "RS",
+        "RO",
+        "RR",
+        "SC",
+        "SP",
+        "SE",
+        "TO",
+    ];
 
     const handleUFChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
@@ -115,7 +146,11 @@ export default function Signup3({
                         <div className="relative z-0 w-full mb-6 group">
                             <input
                                 type="text"
-                                className={`${fieldErros?.nome?.[0] != undefined ? "bg-red-500/50" : "bg-transparent"} block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                                className={`${
+                                    fieldErros?.nome?.[0] != undefined
+                                        ? "bg-red-500/50"
+                                        : "bg-transparent"
+                                } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                 placeholder=" "
                                 required
                                 autoFocus
@@ -135,7 +170,11 @@ export default function Signup3({
                                 <InputMask
                                     type="text"
                                     mask="999.999.999-99"
-                                    className={`${fieldErros?.cpf?.[0] != undefined ? "bg-red-500/50" : "bg-transparent"} block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                                    className={`${
+                                        fieldErros?.cpf?.[0] != undefined
+                                            ? "bg-red-500/50"
+                                            : "bg-transparent"
+                                    } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                     placeholder=" "
                                     required
                                     value={props.cpf}
@@ -159,7 +198,11 @@ export default function Signup3({
                                 <InputMask
                                     type="text"
                                     mask="99.999.999/9999-99"
-                                    className={`${fieldErros?.cnpj?.[0] != undefined ? "bg-red-500/50" : "bg-transparent"} block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                                    className={`${
+                                        fieldErros?.cnpj?.[0] != undefined
+                                            ? "bg-red-500/50"
+                                            : "bg-transparent"
+                                    } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                     placeholder=" "
                                     required
                                     value={props.cnpj}
@@ -183,7 +226,11 @@ export default function Signup3({
                         <div className="relative z-0 w-full mb-6 group">
                             <input
                                 type="text"
-                                className={`${fieldErros?.nomeFantasia?.[0] != undefined ? "bg-red-500/50" : "bg-transparent"} block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                                className={`${
+                                    fieldErros?.nomeFantasia?.[0] != undefined
+                                        ? "bg-red-500/50"
+                                        : "bg-transparent"
+                                } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                 placeholder=" "
                                 required
                                 autoFocus
@@ -203,7 +250,11 @@ export default function Signup3({
                         <div className="relative z-0 w-full mb-6 group">
                             <InputMask
                                 type="text"
-                                className={`${fieldErros?.cnpj?.[0] != undefined ? "bg-red-500/50" : "bg-transparent"} block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                                className={`${
+                                    fieldErros?.cnpj?.[0] != undefined
+                                        ? "bg-red-500/50"
+                                        : "bg-transparent"
+                                } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                 placeholder=" "
                                 mask="99.999.999/9999-99"
                                 required
@@ -230,7 +281,11 @@ export default function Signup3({
                     <div className="relative z-0 w-full mb-6 group">
                         <InputMask
                             type="text"
-                            className={`${fieldErros?.celular?.[0] != undefined ? "bg-red-500/50" : "bg-transparent"} block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                            className={`${
+                                fieldErros?.celular?.[0] != undefined
+                                    ? "bg-red-500/50"
+                                    : "bg-transparent"
+                            } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                             placeholder=" "
                             required
                             mask="(99) 99999-9999"
@@ -251,7 +306,11 @@ export default function Signup3({
                     <div className="relative z-0 w-full mb-6 group">
                         <InputMask
                             type="text"
-                            className={`${fieldErros?.telefone?.[0] != undefined ? "bg-red-500/50" : "bg-transparent"} block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                            className={`${
+                                fieldErros?.telefone?.[0] != undefined
+                                    ? "bg-red-500/50"
+                                    : "bg-transparent"
+                            } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                             placeholder=" "
                             required
                             mask="(99) 9999-9999"
@@ -276,7 +335,11 @@ export default function Signup3({
                     <div className="relative z-0 w-full mb-6 group">
                         <InputMask
                             type="text"
-                            className={`${fieldErros?.comercial?.[0] != undefined ? "bg-red-500/50" : "bg-transparent"} block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                            className={`${
+                                fieldErros?.comercial?.[0] != undefined
+                                    ? "bg-red-500/50"
+                                    : "bg-transparent"
+                            } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                             placeholder=" "
                             required
                             mask="(99) 9999-9999"
@@ -299,7 +362,11 @@ export default function Signup3({
                             <InputMask
                                 type="text"
                                 mask="99999-999"
-                                className={`${fieldErros?.cep?.[0] != undefined ? "bg-red-500/50" : "bg-transparent"} block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                                className={`${
+                                    fieldErros?.cep?.[0] != undefined
+                                        ? "bg-red-500/50"
+                                        : "bg-transparent"
+                                } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                 placeholder=" "
                                 required
                                 value={props.cep}
@@ -323,7 +390,11 @@ export default function Signup3({
                                 <span className="text-primaria">{" *"}</span>
                             </label>
                             <select
-                                className={`${fieldErros?.cep?.[0] != undefined ? "bg-red-500/50" : "bg-dark-200"} mb-1`}
+                                className={`${
+                                    fieldErros?.cep?.[0] != undefined
+                                        ? "bg-red-500/50"
+                                        : "bg-dark-200"
+                                } mb-1`}
                                 onChange={handleUFChange}
                                 disabled={disabilitarInput}
                             >
@@ -353,7 +424,11 @@ export default function Signup3({
                     <div className="relative z-0 w-full mb-6 group">
                         <input
                             type="text"
-                            className={`${fieldErros?.cidade?.[0] != undefined ? "bg-red-500/50" : "bg-transparent"} disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                            className={`${
+                                fieldErros?.cidade?.[0] != undefined
+                                    ? "bg-red-500/50"
+                                    : "bg-transparent"
+                            } disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                             placeholder=" "
                             required
                             value={props.cidade}
@@ -371,7 +446,11 @@ export default function Signup3({
                     <div className="relative z-0 w-full mb-6 group">
                         <input
                             type="text"
-                            className={`${fieldErros?.bairro?.[0] != undefined ? "bg-red-500/50" : "bg-transparent"} disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                            className={`${
+                                fieldErros?.bairro?.[0] != undefined
+                                    ? "bg-red-500/50"
+                                    : "bg-transparent"
+                            } disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                             placeholder=" "
                             required
                             maxLength={11}
@@ -393,7 +472,11 @@ export default function Signup3({
                 <div className="relative z-0 w-full mb-6 group">
                     <input
                         type="text"
-                        className={`${fieldErros?.logradouro?.[0] != undefined ? "bg-red-500/50" : "bg-transparent"} disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                        className={`${
+                            fieldErros?.logradouro?.[0] != undefined
+                                ? "bg-red-500/50"
+                                : "bg-transparent"
+                        } disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                         placeholder=" "
                         required
                         disabled={disabilitarInput}
@@ -414,9 +497,14 @@ export default function Signup3({
                     <div className="relative z-0 w-full mb-6 group">
                         <input
                             type="number"
-                            className={`${fieldErros?.numero?.[0] != undefined ? "bg-red-500/50" : "bg-transparent"} block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                            className={`${
+                                fieldErros?.numero?.[0] != undefined
+                                    ? "bg-red-500/50"
+                                    : "bg-transparent"
+                            } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                             placeholder=" "
                             required
+                            value={props.numero!}
                             onChange={(e) =>
                                 props.setNumero(e.target.valueAsNumber)
                             }
