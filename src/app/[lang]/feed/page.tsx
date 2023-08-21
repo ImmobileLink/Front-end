@@ -1,18 +1,21 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+
 import type { Database } from "../../../../lib/database.types";
-import { getDictionary } from "../dictionaries";
-import { Page } from "../(components)/(page)";
 import { userData } from "../../../../lib/modelos";
+
+import { getDictionary } from "../dictionaries";
+
+import { Card } from "../(components)/(compositions)/(card)";
+import { Page } from "../(components)/(compositions)/(page)";
+
 import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/utils/userData";
+
+import CardLink from "../(components)/(cards)/CardLink";
+import CardNotLogged from "../(components)/(cards)/CardNotLogged";
+import CardProfile from "../(components)/(cards)/CardProfile";
+import CardUserList from "../(components)/(cards)/CardUserList";
 import FeedPrincipal from "../(components)/(feed)/FeedPrincipal";
-import NavAmizade from "../(components)/(feed)/NavAmizade";
-import NavAssociados from "../(components)/(feed)/NavAssociados";
-import NavCalendar from "../(components)/(feed)/NavCalendar";
-import NavEmpresaAssociada from "../(components)/(feed)/NavEmpresaAssociada";
-import NavFindBrokers from "../(components)/(feed)/NavFindBrokers";
-import NavProfile from "../(components)/(feed)/NavProfile";
-import NavSettings from "../(components)/(feed)/NavSettings";
 
 interface pageProps {
   params: {
@@ -49,25 +52,29 @@ export default async function page({ params: { lang } }: pageProps) {
 
   const userData = await getUserData();
 
-  //requisição
   return (
     <Page.Root>
       <Page.Left>
-        <NavProfile
-          userData={userData}
-          cards={dict.feed.cards}
-        />
-        {userData.id ? (
-          <>
-            <NavSettings
-              userData={userData}
-              cards={dict.feed.cards}
-            />
-            <NavCalendar userData={userData} />
-          </>
-        ) : (
-          ""
-        )}
+        {
+          userData.id ? (
+            <>
+              <Card.RootStatic>
+                <Card.Content>
+                  <CardProfile
+                    userData={userData}
+                    cards={dict.feed.cards}
+                  />
+                </Card.Content>
+              </Card.RootStatic>
+            </>
+          ) : (
+            <Card.Root>
+              <Card.Content>
+                <CardNotLogged cards={dict.feed.cards} />
+              </Card.Content>
+            </Card.Root>
+          )
+        }
       </Page.Left>
       <Page.Main>
         <FeedPrincipal
@@ -76,32 +83,41 @@ export default async function page({ params: { lang } }: pageProps) {
         />
       </Page.Main>
       <Page.Right>
-        {userData.id ? (
+        {userData.id && (
           <>
-            <NavAmizade
-              userData={userData}
-              cards={dict.feed.cards}
-            />
-            {userData.role == 1 ? (
-              <NavEmpresaAssociada
-                userData={userData}
-                cards={dict.feed.cards}
-              />
-            ) : (
-              <p></p>
-            )}
-            {userData.role == 2 ? (
-              <NavAssociados
-                userData={userData}
-                cards={dict.feed.cards}
-              />
-            ) : (
-              <p></p>
-            )}
-            <NavFindBrokers cards={dict.feed.cards} />
+            <Card.Root>
+              <Card.Title title={dict.feed.cards.connections} />
+              <Card.Content>
+                <CardLink
+                  userId={userData.id}
+                  userLinks={userData.links}
+                  cards={dict.feed.cards}
+                />
+              </Card.Content>
+            </Card.Root>
+            <Card.Root>
+              {
+                userData.type == "corretor" ? (
+                  <Card.Title title={dict.feed.cards.myrelatedcompany} />
+                ) : (
+                  <Card.Title title={dict.feed.cards.relatedbrokers} />
+                )
+              }
+              <Card.Content>
+                <CardLink
+                  userId={userData.id}
+                  userLinks={userData.assoc}
+                  cards={dict.feed.cards}
+                />
+              </Card.Content>
+            </Card.Root>
+            <Card.Root>
+              <Card.Title title={dict.feed.cards.findbrokers}/>
+              <Card.Content>
+                <CardUserList cards={dict.feed.cards} />
+              </Card.Content>
+            </Card.Root>
           </>
-        ) : (
-          ""
         )}
       </Page.Right>
     </Page.Root>

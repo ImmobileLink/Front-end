@@ -6,22 +6,22 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import { useRouter } from "next/navigation";
 
-interface CardAmizadeProps {
-  idremetente: string | undefined;
+interface CardItemProps {
+  key: string | undefined;
   iddestinatario: string;
   nome: string;
 }
 
 const supabase = createClientComponentClient<Database>()
 
-export default function CardAmizade({ idremetente, iddestinatario, nome }: CardAmizadeProps) {
+export default function CardItem({ key, iddestinatario, nome }: CardItemProps) {
   const router = useRouter()
 
   const handleEnviarMensagem = async () => {
     let { data, error } = await supabase
     .rpc('criar_ou_retornar_sala', {
       id_destinatario: iddestinatario, 
-      id_usuario: idremetente!
+      id_usuario: key!
     })
 
     router.push(`/chat/${data}`)
@@ -29,10 +29,7 @@ export default function CardAmizade({ idremetente, iddestinatario, nome }: CardA
 
   return (
     <>
-      <div
-        key={iddestinatario}
-        className="flex justify-between mx-6 gap-2 ring-1 ring-black dark:ring-white ring-inset rounded-full"
-      >
+      <div className="flex justify-between mx-6 gap-2 ring-1 ring-black dark:ring-white ring-inset rounded-full">
         <div className="flex">
           <Avatar userId={iddestinatario} />
           <Link className="self-center capitalize text-black dark:text-white" href={`/perfil/${iddestinatario}`}>{nome}</Link>

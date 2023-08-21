@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
-import NavProfile from "../../(components)/(feed)/NavProfile";
-import NavSettings from "../../(components)/(feed)/NavSettings";
+import NavProfile from "../../(components)/(cards)/CardProfile";
+import NavSettings from "../../(components)/(cards)/CardNavigation";
 import { getDictionary } from "../../dictionaries";
 import ChatSpace from "../../(components)/(chat)/ChatSpace";
 

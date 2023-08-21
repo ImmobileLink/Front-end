@@ -3,14 +3,14 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import type { Database } from "../../../../lib/database.types";
 import PesquisaCard from "../(components)/(pesquisa)/PesquisaCard"
-import NavProfile from "../(components)/(feed)/NavProfile";
-import NavAmizade from "../(components)/(feed)/NavAmizade";
+import NavProfile from "../(components)/(cards)/CardProfile";
+import NavAmizade from "../(components)/(cards)/CardLink";
 import NavCalendar from "../(components)/(feed)/NavCalendar";
 import NavFindBrokers from "../(components)/(feed)/NavFindBrokers";
-import NavSettings from "../(components)/(feed)/NavSettings";
+import NavSettings from "../(components)/(cards)/CardNavigation";
 import { getTipoUsuario, getLinks, getAssoc } from "../../../../lib/utils/userData";
 import { userData } from "../../../../lib/modelos";
-import { Page } from "../(components)/(page)";
+import { Page } from "../(components)/(compositions)/(page)";
 
 interface pageProps {
   params: {

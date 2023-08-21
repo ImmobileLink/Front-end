@@ -53,8 +53,8 @@ export interface MensagemAInserir {
     mensagem: string
 }
 export interface CorretorAssociado {
-  id: string,
-  nome: string,
+    id: string,
+    nome: string,
 }
 export type Sala = Database['public']['Tables']['sala']['Row']
 export type Visita = Database['public']['Tables']['visita']['Row']
@@ -83,12 +83,17 @@ export interface userData {
     isPremium?: boolean;
     type?: string;
     links: {
-          id: string;
-          nome: string;
+        id: string;
+        nome: string;
     }[] | null;
     assoc: {
-          id: string;
-          nome: string;
+        id: string;
+        nome: string;
     }[] | null;
 };
+
+export type userGroup = {
+    id: string;
+    nome: string;
+}[] | null; 
 

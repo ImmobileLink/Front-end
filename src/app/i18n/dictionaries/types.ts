@@ -222,6 +222,7 @@ export interface Cards {
   schedules:           string;
   visitmyprofile:      string;
   notpremiumyet:       string;
+  premium:             string;
   bepremium:           string;
   connections:         string;
   search:              string;

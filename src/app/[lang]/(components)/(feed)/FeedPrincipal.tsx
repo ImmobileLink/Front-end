@@ -3,17 +3,12 @@ import PostFormCard from "./PostFormCard";
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { Database } from '../../../../../lib/database.types';
-import { Regiao } from '../../../../../lib/modelos';
+import { Regiao, userData } from '../../../../../lib/modelos';
 import { Feed } from '@/app/i18n/dictionaries/types';
 import Posts from './Posts';
 
 interface FeedPrincipalProps {
-  userData: {
-    id: string | undefined;
-    identificador: string | undefined;
-    premium: boolean | undefined;
-    role: number | undefined;
-  };
+  userData: userData;
   textos: Feed;
 }
 const supabase = createServerComponentClient<Database>({ cookies })

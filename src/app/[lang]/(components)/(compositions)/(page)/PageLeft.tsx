@@ -1,8 +1,3 @@
-import { Dictionaries } from "@/app/i18n/dictionaries/types";
-import NavCalendar from "../(feed)/NavCalendar";
-import NavProfile from "../(feed)/NavProfile";
-import NavSettings from "../(feed)/NavSettings";
-import { userDataType } from "../../../../../lib/modelos";
 import { ReactNode } from "react";
 
 interface PageLeftProps { 

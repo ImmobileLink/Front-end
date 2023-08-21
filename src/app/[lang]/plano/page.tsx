@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { Database } from "../../../../lib/database.types";
 import { getDictionary } from "../dictionaries";
 import PlanoTable from "../(components)/(plano)/PlanoTable";
-import { Page } from "../(components)/(page)";
+import { Page } from "../(components)/(compositions)/(page)";
 import { getTipoUsuario } from "../../../../lib/utils/userData";
 import { userData } from "../../../../lib/modelos";
 import Alerta from "../(components)/(flowbite)/Alerta";
@@ -38,14 +38,6 @@ export default async function page({ params: { lang } }: pageProps) {
   const dict = await getDictionary(lang); // pt
 
   const userData = await getUserData();
-
-  const ficaPremiu = async () => {
-    const { data, error } = await supabase
-      .from('corporacao')
-      .update({ premium: true })
-      .eq('id', userData.id)
-      .select()
-  }
 
   return (
     <>
