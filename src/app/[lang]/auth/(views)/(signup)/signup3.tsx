@@ -90,6 +90,7 @@ export default function Signup3({
                 assignError(erros, "cep", signup3.logs.invalidcep);
             } else {
                 autoCompletaEndereco(erros, assignError);
+                delete erros?.cep
             }
         }
     }, [props.cep]);
