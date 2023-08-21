@@ -8,60 +8,38 @@ import NavAmizade from "../(components)/(feed)/NavAmizade";
 import NavCalendar from "../(components)/(feed)/NavCalendar";
 import NavFindBrokers from "../(components)/(feed)/NavFindBrokers";
 import NavSettings from "../(components)/(feed)/NavSettings";
+import { getTipoUsuario, getLinks, getAssoc } from "../../../../lib/utils/userData";
+import { userData } from "../../../../lib/modelos";
+import { Page } from "../(components)/(page)";
 
 interface pageProps {
   params: {
     lang: string;
   };
 }
+
 const supabase = createServerComponentClient<Database>({cookies})
 
-type userDataType = {
-  id: string | undefined;
-  identificador: string | undefined;
-  premium: boolean | undefined;
-  role: number | undefined;
-  conexoes:
-    | {
-        id: string;
-        nome: string;
-      }[]
-    | null;
+let user: userData = {
+  links: [],
+  assoc: []
 };
 
 async function getUserData() {
-  let userData: userDataType = {
-    id: undefined,
-    identificador: undefined,
-    premium: undefined,
-    role: undefined,
-    conexoes: null,
-  };
-
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
   if (session?.user.id) {
-    {
-      let { data, error } = await supabase.rpc("consultar_tipo_usuario", {
-        id_usuario: session?.user.id,
-      });
+    user = await getTipoUsuario(user, session.user.id);
 
-      userData.id = session?.user.id;
-      userData.identificador = data![0].identificador;
-      userData.premium = data![0].premium;
-      userData.role = data![0].role;
-    }
-    {
-      let { data, error } = await supabase.rpc("get_connected_users", {
-        id_usuario: session?.user.id,
-      });
-
-      userData.conexoes = data;
-    }
+    [user, user] = await Promise.all([
+      getLinks(user),
+      getAssoc(user)
+    ]);
   }
-  return userData;
+  
+  return user;
 }
 
 export default async function page({ params: { lang } }: pageProps) {
@@ -70,19 +48,22 @@ export default async function page({ params: { lang } }: pageProps) {
   const userData = await getUserData();
 
   //Coleta dados das regiões do banco de dados
-  const regioes = await supabase.from('regiao').select('*');
-  if(regioes.error){
-    console.log("Erro ao consultar regiões")
-  }
+    //Mudar pra pegar da api do ibge (adicionar mais 2 campos, um para estado e outro para cidade)
+      /*
+      const regioes = await supabase.from('regiao').select('*');
+      if(regioes.error){
+        console.log("Erro ao consultar regiões")
+      }
+      */
   const especialidades = await supabase.from('tipoImovel').select('*')
   if(especialidades.error){
     console.log("Erro ao consultar especialidades")
   }
   
   return (
-    <div className="w-auto h-fit min-h-screen bg-branco dark:bg-dark-200 flex justify-center gap-5 pt-4">
-      <div className="hidden md:flex md:w-3/12 lg:flex flex-col lg:w-2/12 gap-4">
-        <NavProfile
+    <Page.Root>
+      <Page.Left>
+      <NavProfile
           userData={userData}
           cards={dict.feed.cards}  
         />
@@ -97,14 +78,14 @@ export default async function page({ params: { lang } }: pageProps) {
         ) : (
           ""
         )}
-      </div>
-      <div className="w-11/12 md:w-8/12 lg:w-6/12">
-        <>
+      </Page.Left>
+      <Page.Main>
+      <>
         <PesquisaCard textos={dict.pesquisa} regioes={regioes.data} especialidades={especialidades.data}/>           
         </>
-      </div>
-      <div className="hidden lg:flex flex-col lg:w-2/12 gap-4">
-        {userData.id ? (
+      </Page.Main>
+      <Page.Right>
+      {userData.id ? (
           <>
             <NavAmizade
               userData={userData}
@@ -115,8 +96,9 @@ export default async function page({ params: { lang } }: pageProps) {
         ) : (
           ""
         )}
-      </div>
-    </div>
+      </Page.Right>
+    </Page.Root>
+    
   )
 }
 

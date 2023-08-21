@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Avatar from "../Avatar";
 import Image from "next/image";
 import { PublicacaoCompleta } from "../../../../../lib/modelos";
-import { formataData } from "../../../../../lib/utils";
+import { formataData } from "../../../../../lib/utils/formataData";
 
 interface PostCardProps {
   publicacao: PublicacaoCompleta;

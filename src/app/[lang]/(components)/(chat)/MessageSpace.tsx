@@ -4,7 +4,7 @@ import { MensagemComUsuario } from "../../../../../lib/modelos";
 import { Session, createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import Avatar from "../Avatar";
-import { formataData } from "../../../../../lib/utils";
+import { formataData } from "../../../../../lib/utils/formataData";
 
 interface MessageSpaceProps {
   idsala: string,
