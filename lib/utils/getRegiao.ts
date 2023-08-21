@@ -1,3 +1,6 @@
+import { Dispatch, SetStateAction } from "react";
+import { City } from "../modelos";
+
 export const _UFs = [
   "AC",
   "AL",
@@ -28,12 +31,14 @@ export const _UFs = [
   "TO",
 ];
 
+/*
 export async function getMunicipios(estado: string) {
   try {
     const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estado}/municipios`);
-    const citiesData = await response.json();
+    const citiesData: City[] = await response.json();
     return citiesData;
   } catch (error) {
     console.error('Erro ao buscar municípios:', error);
   }
 } 
+*/

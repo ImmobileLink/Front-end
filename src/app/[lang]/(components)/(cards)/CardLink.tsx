@@ -16,7 +16,8 @@ export default async function CardLink({ userId, userLinks, cards }: CardLinkPro
         ? userLinks!.map((item) => {
           return (
             <CardItem
-              key={userId}
+              key={item.id}
+              idremetente={userId}
               iddestinatario={item.id}
               nome={item.nome}
             />

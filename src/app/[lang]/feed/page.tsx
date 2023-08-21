@@ -77,10 +77,14 @@ export default async function page({ params: { lang } }: pageProps) {
         }
       </Page.Left>
       <Page.Main>
-        <FeedPrincipal
-          userData={userData}
-          textos={dict.feed}
-        />
+        <Card.Root>
+          <Card.Content>
+            <FeedPrincipal
+              userData={userData}
+              textos={dict.feed}
+            />
+          </Card.Content>
+        </Card.Root>
       </Page.Main>
       <Page.Right>
         {userData.id && (

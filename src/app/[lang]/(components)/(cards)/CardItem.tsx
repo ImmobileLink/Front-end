@@ -7,21 +7,22 @@ import { Database } from "../../../../../lib/database.types";
 import { useRouter } from "next/navigation";
 
 interface CardItemProps {
-  key: string | undefined;
+  idremetente: string;
   iddestinatario: string;
+  key: string;
   nome: string;
 }
 
 const supabase = createClientComponentClient<Database>()
 
-export default function CardItem({ key, iddestinatario, nome }: CardItemProps) {
+export default function CardItem({ key, idremetente, iddestinatario, nome }: CardItemProps) {
   const router = useRouter()
 
   const handleEnviarMensagem = async () => {
     let { data, error } = await supabase
     .rpc('criar_ou_retornar_sala', {
       id_destinatario: iddestinatario, 
-      id_usuario: key!
+      id_usuario: idremetente!
     })
 
     router.push(`/chat/${data}`)

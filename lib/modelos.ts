@@ -97,3 +97,7 @@ export type userGroup = {
     nome: string;
 }[] | null; 
 
+export interface City {
+    id: number;
+    nome: string;
+}

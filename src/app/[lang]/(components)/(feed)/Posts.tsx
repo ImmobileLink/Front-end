@@ -9,7 +9,6 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 interface FilterCardProps {
   userid: string | undefined,
   textos: Feed,
-  regioes: Regiao[] | undefined
 }
 
 const supabase = createClientComponentClient<Database>()

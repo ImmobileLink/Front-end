@@ -234,9 +234,19 @@ export interface Cards {
 }
 
 export interface Form {
-  regionchange: string;
-  post:         string;
-  placeholder:  string;
+  regionchange:  string;
+  post:          string;
+  placeholder:   string;
+  writeamessage: string;
+  cityselector:  Cityselector;
+}
+
+export interface Cityselector {
+  estate:             string;
+  city:               string;
+  selectaestate:      string;
+  selectaestatefirst: string;
+  nocityfound:        string;
 }
 
 export interface Pub {

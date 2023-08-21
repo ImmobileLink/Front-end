@@ -429,7 +429,7 @@ export interface Database {
           id: string
           idautor: string
           imagem: string | null
-          privado: boolean
+          regiao: string | null
         }
         Insert: {
           atualizadoem?: string
@@ -438,7 +438,7 @@ export interface Database {
           id?: string
           idautor: string
           imagem?: string | null
-          privado: boolean
+          regiao?: string | null
         }
         Update: {
           atualizadoem?: string
@@ -447,7 +447,7 @@ export interface Database {
           id?: string
           idautor?: string
           imagem?: string | null
-          privado?: boolean
+          regiao?: string | null
         }
         Relationships: [
           {
@@ -791,6 +791,21 @@ export interface Database {
           valor: number
         }[]
       }
+      get_imoveis_por_id: {
+        Args: {
+          id_imovel: string
+        }
+        Returns: {
+          id: string
+          rua: string
+          numero: number
+          bairro: string
+          cidade: string
+          estado: string
+          descricao: string
+          valor: number
+        }[]
+      }
       get_publicacao_com_dados: {
         Args: Record<PropertyKey, never>
         Returns: {
@@ -907,6 +922,8 @@ export interface Database {
           nomeautor: string
           mensagem: string
           atualizadoem: string
+          idparticipante: string
+          nomeparticipante: string
         }[]
       }
       obterespecialidade: {

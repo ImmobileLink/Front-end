@@ -197,7 +197,15 @@
     "form": {
       "regionchange": "Region",
       "post": "Post",
-      "placeholder": "New post"
+      "placeholder": "New post",
+      "writeamessage": "Write the message",
+      "cityselector": {
+        "estate": "Estate",
+        "city": "City",
+        "selectaestate": "Select a estate",
+        "selectaestatefirst": "Select a estate first",
+        "nocityfound": "No city found"
+      }
     }
   },
   "planos": {
