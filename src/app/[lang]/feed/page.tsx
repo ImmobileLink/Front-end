@@ -1,5 +1,5 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import { cookies } from "next/headers"; 
 
 import type { Database } from "../../../../lib/database.types";
 import { userData } from "../../../../lib/modelos";
@@ -23,35 +23,35 @@ interface pageProps {
   };
 }
 
-const supabase = createServerComponentClient<Database>({ cookies });
-
 let user: userData = {
   links: [],
   assoc: []
 };
 
+const supabase = createServerComponentClient<Database>({ cookies });
+
 async function getUserData() {
   const {
     data: { session },
   } = await supabase.auth.getSession();
-
+  
   if (session?.user.id) {
     user = await getTipoUsuario(user, session.user.id);
-
+    
     [user, user] = await Promise.all([
       getLinks(user),
       getAssoc(user)
     ]);
   }
-
+  
   return user;
 }
 
 export default async function page({ params: { lang } }: pageProps) {
   const dict = await getDictionary(lang); // pt
-
+  
   const userData = await getUserData();
-
+  
   return (
     <Page.Root>
       <Page.Left>
@@ -77,14 +77,10 @@ export default async function page({ params: { lang } }: pageProps) {
         }
       </Page.Left>
       <Page.Main>
-        <Card.Root>
-          <Card.Content>
             <FeedPrincipal
               userData={userData}
               textos={dict.feed}
             />
-          </Card.Content>
-        </Card.Root>
       </Page.Main>
       <Page.Right>
         {userData.id && (

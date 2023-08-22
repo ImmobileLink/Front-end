@@ -199,6 +199,7 @@
       "post": "Publicar",
       "placeholder": "Nova publicação",
       "writeamessage": "Insira a mensagem",
+      "imageerror": "Imagem inválida",
       "cityselector": {
         "estate": "Estado",
         "city": "Município",

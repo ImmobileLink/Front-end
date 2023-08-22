@@ -1,14 +1,15 @@
 "use client";
+
 import { Feed } from "@/app/i18n/dictionaries/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { BsFillExclamationCircleFill } from "react-icons/bs";
 import { Database } from "../../../../../lib/database.types";
 import { City } from "../../../../../lib/modelos";
+import { publishPost } from "../../../../../lib/utils/Posts";
 import { _UFs } from "../../../../../lib/utils/getRegiao";
 import Avatar from "../Avatar";
-import { publishPost, uploadFile } from "../../../../../lib/utils/Posts";
-import { Spinner } from "flowbite-react";
 import ImageUpload from "../ImageUpload";
 
 interface PostFormCardProps {
@@ -23,30 +24,39 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
   const [cities, setCities] = useState<City[]>([]);
   const [selectedCity, setSelectedCity] = useState<string>("")
   const [texto, setTexto] = useState('')
-  const [erro, setErro] = useState<number>(0)
+  const [erro, setErro] = useState<boolean>(false)
+  const [logErro, setLogErro] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
   const [imagem, setImagem] = useState<File>()
 
+  const validaPub = () => {
+    if (texto == "") {
+      setErro(true);
+      setLogErro(textos.form.writeamessage);
+    } else if (selectedCity == "") {
+      setErro(true);
+      setLogErro(textos.form.cityselector.selectaestate);
+    } else {
+      setErro(false);
+      setLogErro("");
+    }
+  }
 
   const inserePub = async () => {
-    if (texto == "") {
-      setErro(2);
-    } else if (selectedCity == "") {
-      setErro(1);
-    } else {
+    validaPub();
+
+    if (!erro) {
       setLoading(true)
-      const response = await publishPost({ idusuario, selectedCity, texto })
+      const response = await publishPost({ idusuario, selectedCity, texto, imagem })
       if (response) {
         console.log(response)
       }
       else {
         setLoading(false)
-        setErro(0);
         setTexto('');
       }
     }
   }
-
 
   useEffect(() => {
     async function fetchCities() {
@@ -68,18 +78,14 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
     fetchCities();
   }, [selectedState]);
 
-
-  const handleImageUpload = async (file: File) => {
-    try {
-      // Gerar um novo nome para a imagem (por exemplo, usando um timestamp)
-      const newImageName = `${Date.now()}_${file.name}`;
-
-      const data = uploadFile(file)
-
-      console.log('New image name:', newImageName);
-
-    } catch (error) {
-      console.error('Error uploading image:', error);
+  const handleImageUpload = async (file: File | false) => {
+    if (file) {
+      setImagem(file);
+      setErro(false);
+    } else {
+      setImagem(undefined);
+      setErro(true);
+      setLogErro(textos.form.imageerror);
     }
   };
 
@@ -96,16 +102,19 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
           ></textarea>
         </div>
       </div>
-      <div className="flex flex-col mt-2 mx-4 lg:flex-row gap-y-4 justify-between items-end lg:items-center align-middle space-x-4">
-        <ImageUpload onImageUpload={handleImageUpload}/>
+      <div className="flex flex-col mt-2 ml-auto mr-4 lg:flex-row gap-y-4 justify-between items-end lg:items-center align-middle space-x-4">
         <div className="flex mr-4 gap-1 lg:mr-0 items-center justify-center text-yellow-500">
           {
-            erro != 0 && <BsFillExclamationCircleFill />
-          }
-          {
-            erro == 1 ? textos.form.cityselector.selectaestate + "!" : erro == 2 && textos.form.writeamessage + "!"
+            erro && 
+            (
+              <>
+                <BsFillExclamationCircleFill />
+                <span>{logErro}</span>
+              </>
+            )
           }
         </div>
+        <ImageUpload onImageUpload={handleImageUpload} />
         <div className="flex items-center justify-center">
           <label className="mr-2">{textos.form.cityselector.estate}:</label>
           <select onChange={e => { setSelectedState(e.target.value) }} className="w-20 mr-4 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">

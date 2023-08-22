@@ -238,6 +238,7 @@ export interface Form {
   post:          string;
   placeholder:   string;
   writeamessage: string;
+  imageerror:    string;
   cityselector:  Cityselector;
 }
 

@@ -6,9 +6,6 @@ import PlanoTable from "../(components)/(plano)/PlanoTable";
 import { Page } from "../(components)/(compositions)/(page)";
 import { getTipoUsuario } from "../../../../lib/utils/userData";
 import { userData } from "../../../../lib/modelos";
-import Alerta from "../(components)/(flowbite)/Alerta";
-import DismissableModal from "../(components)/(flowbite)/DismissableModal";
-import DismissableAlert from "../(components)/(flowbite)/DismissableAlert";
 
 interface pageProps {
   params: {
@@ -16,12 +13,12 @@ interface pageProps {
   };
 }
 
-const supabase = createServerComponentClient<Database>({ cookies });
-
 let user: userData = {
   links: [],
   assoc: []
 };
+
+const supabase = createServerComponentClient<Database>({ cookies });
 
 async function getUserData() {
   const {

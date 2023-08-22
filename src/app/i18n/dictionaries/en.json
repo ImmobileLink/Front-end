@@ -199,6 +199,7 @@
       "post": "Post",
       "placeholder": "New post",
       "writeamessage": "Write the message",
+      "imageerror": "Invalid Image",
       "cityselector": {
         "estate": "Estate",
         "city": "City",

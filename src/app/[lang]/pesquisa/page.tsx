@@ -5,8 +5,6 @@ import type { Database } from "../../../../lib/database.types";
 import PesquisaCard from "../(components)/(pesquisa)/PesquisaCard"
 import NavProfile from "../(components)/(cards)/CardProfile";
 import NavAmizade from "../(components)/(cards)/CardLink";
-import NavCalendar from "../(components)/(feed)/NavCalendar";
-import NavFindBrokers from "../(components)/(feed)/NavFindBrokers";
 import NavSettings from "../(components)/(cards)/CardNavigation";
 import { getTipoUsuario, getLinks, getAssoc } from "../../../../lib/utils/userData";
 import { userData } from "../../../../lib/modelos";
@@ -73,7 +71,7 @@ export default async function page({ params: { lang } }: pageProps) {
               userData={userData}
               cards={dict.feed.cards}
             />
-            <NavCalendar userData={userData} />
+            {/* <NavCalendar userData={userData} /> */}
           </>
         ) : (
           ""
@@ -81,21 +79,11 @@ export default async function page({ params: { lang } }: pageProps) {
       </Page.Left>
       <Page.Main>
       <>
-        <PesquisaCard textos={dict.pesquisa} regioes={regioes.data} especialidades={especialidades.data}/>           
+        {/* <PesquisaCard textos={dict.pesquisa} regioes={regioes.data} especialidades={especialidades.data}/>            */}
         </>
       </Page.Main>
       <Page.Right>
-      {userData.id ? (
-          <>
-            <NavAmizade
-              userData={userData}
-              cards={dict.feed.cards}
-            />
-            <NavFindBrokers cards={dict.feed.cards} />
-          </>
-        ) : (
-          ""
-        )}
+      
       </Page.Right>
     </Page.Root>
     
