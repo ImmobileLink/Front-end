@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction, useEffect, useState, useLayoutEffect } from "react";
 import { Signup1 } from "@/app/i18n/dictionaries/types";
 import PasswordInput from "@/app/[lang]/(components)/(auth)/PasswordInput";
-import { assignError } from "./utils";
+import { assignError } from "./validations";
 
 interface SignUpProps {
     props: {

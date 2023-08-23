@@ -18,7 +18,7 @@ import Signup5 from "./signup5";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../../lib/database.types";
 import Loading from "@/app/[lang]/(components)/(auth)/Loading";
-import { handleSignUpDB, verifyFields } from "./utils";
+import { handleSignUpDB, verifyFields } from "./validations";
 
 interface SignUpProps {
     fieldErros: Object;

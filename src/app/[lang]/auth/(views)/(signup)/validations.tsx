@@ -290,6 +290,7 @@ export const handleSignUpDB = async (
     especialidade: Array<any>,
     regiaoAtuacao: Array<any>
 ) => {
+
     let { data, error } = await supabase.auth.signUp({
         email: email,
         password: senha,
