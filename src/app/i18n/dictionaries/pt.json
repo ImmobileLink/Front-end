@@ -10,7 +10,11 @@
       "forgetpassword": "Esqueceu a senha?",
       "alreadyhaveanaccount": "Já tem uma conta?",
       "singin": "Entre já",
-      "error": "Ops!"
+      "error": "Ops!",
+      "bylogginin": "Ao fazer login você concorda com os",
+      "bycreatinganaccount": "Ao criar uma conta você concorda com os",
+      "terms": "Termos de Uso",
+      "ofthisplataform": "da plataforma"
     },
     "signin": {
       "emaillabel": "Endereço de E-mail",

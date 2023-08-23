@@ -31,6 +31,10 @@ export interface Always {
     alreadyhaveanaccount: string;
     singin: string;
     error: string;
+    bylogginin: string;
+    bycreatinganaccount: string;
+    terms: string;
+    ofthisplataform: string;
 }
 
 export interface Forgetpassword {

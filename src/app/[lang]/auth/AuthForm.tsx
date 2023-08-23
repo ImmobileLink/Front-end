@@ -96,25 +96,25 @@ export default function AuthForm({ auth, data, lang }: AuthFormProps) {
                     <p className="text-gray-500 text-xs">
                         {view == "signin" ? (
                             <>
-                                Ao fazer login você concorda com os
+                                {auth.always.bylogginin}
                                 <button
                                     onClick={() => console.log("termos")}
                                     className="font-semibold ml-1 mr-1 text-blue-500 hover:text-secundaria-100"
                                 >
-                                    Termos de Uso
+                                    {auth.always.terms}
                                 </button>{" "}
-                                da plataforma.
+                                {auth.always.ofthisplataform}
                             </>
                         ) : view == "signup" ? (
                           <>
-                          Ao criar uma conta você concorda com os
+                          {auth.always.bycreatinganaccount}
                           <button
                               onClick={() => console.log("termos")}
                               className="font-semibold ml-1 mr-1 text-blue-500 hover:text-secundaria-100"
                           >
-                              Termos de Uso
+                              {auth.always.terms}
                           </button>{" "}
-                          da plataforma.
+                          {auth.always.ofthisplataform}
                       </>
                         ) : null}
                     </p>
