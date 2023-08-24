@@ -46,89 +46,42 @@ export default function AuthForm({ auth, data, lang }: AuthFormProps) {
             ) : view == "terms" ? (
                 <>
                     <div className="h-96 md:h-80 overflow-y-scroll">
-                        {
-                            // os termos daqui são um placeholder - HARDCODED
-                        }
                         <h1 className="text-xl text-bold">
-                            TERMOS DE USO DA PLATAFORMA
+                            {auth.terms.title}
                         </h1>
                         <br />
-                        <b>
-                            Aviso Importante: Projeto de Conclusão de Curso -
-                            Uso Simulado e Fictício
-                        </b>
+                        <b>{auth.terms.warning}</b>
 
+                        <p>{auth.terms.introduction}</p>
+                        <br />
                         <p>
-                            Este site é parte de um projeto de conclusão de
-                            curso e foi desenvolvido com o propósito específico
-                            de apresentar o conceito de um canal de comunicação
-                            de corretores com imobiliárias. Por favor, tenha em
-                            mente as seguintes considerações ao utilizar esta
-                            plataforma:
+                            <b>{auth.terms.simulationTitle}</b>
+                            {auth.terms.simulation}
                         </p>
                         <br />
                         <p>
-                            <b>Simulação e Ficção: </b>
-                            Esta plataforma não representa uma plataforma real
-                            para corretores de imóveis e não está conectada a
-                            quaisquer transações ou atividades reais do mercado
-                            imobiliário. Todas as interações, anúncios, imóveis
-                            e informações contidas neste site são simuladas e
-                            fictícias, destinadas apenas para fins acadêmicos e
-                            de demonstração.
+                            <b>{auth.terms.fictiontitle}</b>
+                            {auth.terms.fiction}
                         </p>
                         <br />
                         <p>
-                            <b>Dados Fictícios: </b>
-                            Quaisquer informações fornecidas para cadastro,
-                            incluindo nome, endereço, números de telefone,
-                            e-mails e outros detalhes, devem ser inteiramente
-                            fictícios. Não é recomendado o uso de informações
-                            pessoais reais ou sensíveis. Não utilizamos de forma
-                            alguma as informações fornecidas neste site para
-                            fins que não sejam apenas para exibição e
-                            demonstração de suas funcionalidades.
+                            <b>{auth.terms.responsibletitle}</b>
+                            {auth.terms.responsible}
                         </p>
                         <br />
                         <p>
-                            <b>Uso Responsável: </b>
-                            Ao interagir com esta plataforma, solicitamos que
-                            você a utilize de forma responsável e respeitosa.
-                            Não é permitido o compartilhamento de conteúdo
-                            ofensivo, discriminatório, ilegal ou prejudicial.
+                            <b>{auth.terms.copyrighttitle}</b>
+                            {auth.terms.copyright}
                         </p>
                         <br />
                         <p>
-                            <b>Direitos Autorais: </b>
-                            Todas as imagens, logotipos e outros materiais
-                            visuais utilizados neste site são usados com fins
-                            ilustrativos e de demonstração, e os direitos
-                            autorais pertencem aos seus respectivos
-                            proprietários.
+                            <b>{auth.terms.feedbacktitle}</b>
+                            {auth.terms.feedback}
                         </p>
                         <br />
-                        <p>
-                            <b>Feedback e Contato: </b>
-                            Caso deseje fornecer feedback sobre esta plataforma,
-                            por favor, esteja ciente de que qualquer comentário
-                            ou sugestão serão considerados para fins acadêmicos
-                            e de melhoria do projeto.
-                        </p>
+                        <p>{auth.terms.disclaimer1}</p>
                         <br />
-                        <p>
-                            Ao prosseguir e utilizar este site, você reconhece
-                            que está ciente da natureza simulada e fictícia
-                            desta plataforma e concorda em respeitar as
-                            condições e orientações aqui apresentadas.
-                        </p>
-                        <br />
-                        <p>
-                            Para obter informações ou esclarecimentos adicionais
-                            sobre este projeto de conclusão de curso, entre em
-                            contato através do canal indicado no site.
-                            Agradecemos por sua compreensão e interesse em nosso
-                            projeto de conclusão de curso.
-                        </p>
+                        <p>{auth.terms.disclaimer2}</p>
                         <br />
                         <a>Atenciosamente,</a>
                         <br />
@@ -137,14 +90,11 @@ export default function AuthForm({ auth, data, lang }: AuthFormProps) {
                             target="_blank"
                             href="https://immobilelink.blogspot.com/"
                         >
-                            Equipe ImmobileLink
+                            {auth.terms.teamimmobile}
                         </a>
                         <br />
                         <br />
-                        <p>
-                            Tecnologia em Análise e Desenvolvimento de SIstemas
-                            - IFSP, 2023
-                        </p>
+                        <p>{auth.terms.location}</p>
                     </div>
                     <div className="flex mt-10 w-full justify-center text-sm text-gray-500">
                         <p>{auth.always.alreadyhaveanaccount}</p>

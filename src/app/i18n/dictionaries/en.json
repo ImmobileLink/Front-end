@@ -155,6 +155,26 @@
         "passwordchanged": "Your password has been changed.",
         "passwordnotchanged": "Could not change password, please try again later."
       }
+    },
+    "terms": {
+      "title": "PLATFORM'S TERMS OF USE",
+      "warning": "Important Notice: Course Completion Project - Simulated and Fictitious Use",
+      "introduction": "This site is part of a course completion project and was developed with the specific purpose of presenting the concept of a communication channel between brokers and real estate agents. Please keep the following considerations in mind when using this platform :",
+      "simulationTitle": "Simulation and Fiction: ",
+      "simulation": "This platform does not represent a real platform for realtors and is not connected to any real estate market transactions or activities. This plataform only has academic and demonstrative purposes.",
+      "fictiontitle": "Fictious Data: ",
+      "fiction": "Any information provided for registration, including name, address, phone numbers, emails and other details, must be entirely fictitious. It is not recommended to use real personal information. We do not use any type of information provided on this site for purposes other than just displaying and demonstrating it's functionality.",
+      "responsibletitle": "Responsible Usage: ",
+      "responsible": "By interacting with this platform, we request that you use it responsibly and respectfully. Sharing offensive, discriminatory, illegal or harmful content is not allowed.",
+      "copyrighttitle": "Copyright: ",
+      "copyright": "All images, logos and other visual materials used on this site are used for illustrative and demonstration purposes. Copyrights belong to their respective owners.",
+      "feedbacktitle": "Feedback and Contact: ",
+      "feedback": "If you wish to provide feedback on this platform, please be aware that any comments or suggestions will be considered for academic purposes and to improve the project.",
+      "disclaimer1": "By proceeding and using this site, you acknowledge that you are aware of the simulated and fictitious nature of this platform and agree to respect the conditions and guidelines presented here.",
+      "disclaimer2": "For additional information or clarifications about this course completion project, contact us through the channel indicated on the website. Thank you for your understanding and for your interest in our project.",
+      "sincerely": "Sincerely,",
+      "teamimmobile": "ImmobileLink's Team",
+      "location": "Federal Institute of Education, Sciente and Technoly of São Paulo - IFSP, 2023"
     }
   },
   "pesquisa": {

@@ -22,6 +22,7 @@ export interface Auth {
     signup: Signup;
     forgetpassword: Forgetpassword;
     recovery: Recovery;
+    terms: TermsOfUse;
 }
 
 export interface Always {
@@ -194,6 +195,27 @@ export interface Stepper {
     label3: string;
     label4: string;
     label5: string;
+}
+
+export interface TermsOfUse {
+    title: string;
+    warning: string;
+    introduction: string;
+    simulationTitle: string;
+    simulation: string;
+    fictiontitle: string;
+    fiction: string;
+    responsibletitle: string;
+    responsible: string;
+    copyrighttitle: string;
+    copyright: string;
+    feedbacktitle: string;
+    feedback: string;
+    disclaimer1: string;
+    disclaimer2: string;
+    sincerely: string;
+    teamimmobile: string;
+    location: string;
 }
 
 export interface Calendar {
