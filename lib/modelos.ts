@@ -21,7 +21,6 @@ export type TipoImovel = Database['public']['Tables']['tipoImovel']['Row']
 export type Usuario = Database['public']['Tables']['usuario']['Row']
 export type Corretor = Database['public']['Tables']['corretor']['Row']
 export type Corporacao = Database['public']['Tables']['corporacao']['Row']
-export type ImovelDB = Database['public']['Tables']['imovel']['Row']
 export type ImovelRegistro = Database['public']['Tables']['imovel']['Row']
 export interface InsereImovel {
     idcorporacao: string,
@@ -31,16 +30,6 @@ export interface InsereImovel {
     bairro: string,
     rua: string,
     numero: number,
-    valor: number
-}
-export interface ImovelSemCorporacao {
-    id: string,
-    rua: string,
-    numero: number,
-    bairro: string,
-    cidade: string,
-    estado: string,
-    descricao: string,
     valor: number
 }
 export type Mensagem = Database['public']['Tables']['mensagem']['Row']

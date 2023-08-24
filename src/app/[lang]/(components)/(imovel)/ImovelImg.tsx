@@ -17,6 +17,7 @@ export default function ImovelImg({ imovelId }: ImovelImgProps) {
                 height={1}
                 onError={() => setSrc("imoveis/imagens/default")}
                 alt="Property Picture"
+                loading="lazy"
             />                    
         </div>
     )
