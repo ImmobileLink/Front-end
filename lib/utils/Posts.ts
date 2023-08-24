@@ -19,7 +19,7 @@ export async function publishPost({ idusuario, selectedCity, texto, imagem }: Po
 
   if(imagem) {
     const uuid = v4();
-    const fileNewName = uuid.concat(getExtensionFromFilename(imagem.name));
+    const fileNewName = uuid;
     postContent = { id: uuid, idautor: idusuario, regiao: selectedCity, conteudo: texto, imagem: fileNewName };
     uploadFile(imagem, fileNewName);
   } else {
@@ -37,10 +37,7 @@ export async function uploadFile(file: File, fileName: string) {
   const { data, error } = await supabase
     .storage
     .from('publicacoes')
-    .upload(`imagens/${fileName}`, file, {
-      cacheControl: '3600',
-      upsert: false
-    })
+    .upload(`imagens/${fileName}`, file)
   if (error) {
     console.log(error);
     // Handle error

@@ -199,11 +199,13 @@
       "post": "Post",
       "placeholder": "New post",
       "writeamessage": "Write the message",
+      "imageinputlabel":"picture",
       "imageerror": "Invalid Image",
       "cityselector": {
         "estate": "Estate",
         "city": "City",
         "selectaestate": "Select a estate",
+        "selectacity": "Select a city",
         "selectaestatefirst": "Select a estate first",
         "nocityfound": "No city found"
       }

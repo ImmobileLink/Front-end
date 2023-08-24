@@ -1,8 +1,8 @@
 import PostFormCard from "./PostFormCard";
 import { userData } from '../../../../../lib/modelos';
 import { Feed } from '@/app/i18n/dictionaries/types';
-import Posts from './Posts';
 import { Card } from "../(compositions)/(card)";
+import PostList from "./PostList";
 
 interface FeedPrincipalProps {
   userData: userData;
@@ -17,12 +17,12 @@ export default async function FeedPrincipal({ textos, userData }: FeedPrincipalP
         userData.id && (
           <Card.Root>
             <Card.Content>
-              <PostFormCard textos={textos} idusuario={userData.id} />
+              <PostFormCard idusuario={userData.id}  textos={textos}/>
             </Card.Content>
           </Card.Root>
         )
       }
-      {/* <Posts userid={userData.id} textos={textos} /> */}
+      {/* <PostList idusuario={userData.id} textos={textos} /> */}
     </>
   );
 }

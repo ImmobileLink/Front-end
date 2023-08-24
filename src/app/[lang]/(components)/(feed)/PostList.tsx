@@ -6,9 +6,9 @@ import PostCard from "./PostCard";
 import { Database } from "../../../../../lib/database.types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-interface FilterCardProps {
-  userid: string | undefined,
+interface PostListProps {
   textos: Feed,
+  idusuario?: string,
 }
 
 const supabase = createClientComponentClient<Database>()
@@ -27,7 +27,7 @@ const getPublicacaoPorId = async (pubid: string) => {
   }
 }
 
-export default function Posts({ userid, textos, regioes }: FilterCardProps) {
+export default function PostList({ idusuario, textos }: PostListProps) {
   const [selectedRegion, setSelectedRegion] = useState<Regiao>({ id: '', regiao: '' })
   const [publicacoes, setPublicacoes] = useState<PublicacaoCompleta[]>([])
   const [erro, setErro] = useState(false)

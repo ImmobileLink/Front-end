@@ -1,6 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
-import { City } from "../modelos";
-
 export const _UFs = [
   "AC",
   "AL",

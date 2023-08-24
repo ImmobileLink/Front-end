@@ -199,11 +199,13 @@
       "post": "Publicar",
       "placeholder": "Nova publicação",
       "writeamessage": "Insira a mensagem",
+      "imageinputlabel":"foto",
       "imageerror": "Imagem inválida",
       "cityselector": {
         "estate": "Estado",
         "city": "Município",
         "selectaestate": "Selecione um estado",
+        "selectacity": "Selecione um município",
         "selectaestatefirst": "Selecione um estado primeiro",
         "nocityfound": "Nenhum município encontrado"
       }
