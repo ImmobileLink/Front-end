@@ -1,24 +1,14 @@
 import { Cards } from "@/app/i18n/dictionaries/types";
 import Avatar from "../Avatar";
 import Link from "next/link";
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
-import { Database } from '../../../../../lib/database.types';
+import { getBrokersData } from "../../feed/utils";
 
 interface NavFindBrokersProps {
   cards: Cards;
 }
 
-const supabase = createServerComponentClient<Database>({cookies})
-
-async function getData() {
-  let { data, error } = await supabase.rpc("obter_cinco_corretores_id");
-
-  return data;
-}
-
 export default async function NavFindBrokers({cards}: NavFindBrokersProps ) {
-  const corretores = await getData();
+  const corretores = await getBrokersData();
   return (
     <>
     <div className="w-full h-fit py-4 flex flex-col justify-center align-middle gap-4 ring-2 ring-gray-300 rounded-md bg-white dark:bg-gray-600 dark:ring-gray-700 drop-shadow-md">
