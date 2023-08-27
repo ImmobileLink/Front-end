@@ -1,8 +1,8 @@
 import Image from "next/image";
-import Avatar from "../Avatar"
+import Avatar from "@/app/[lang]/(components)/Avatar"
 import BotaoAdd from "./botao/botaoAdd";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../lib/database.types";
+import { Database } from "@/../lib/database.types";
 import { cookies } from "next/headers";
 import Link from "next/link";
 

@@ -1,6 +1,6 @@
 "use client"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../../lib/database.types";
+import { Database } from "@/../lib/database.types";
 import { cookies } from "next/headers";
 import { useEffect, useState } from "react";
 import Historico from "./historico/Historico";

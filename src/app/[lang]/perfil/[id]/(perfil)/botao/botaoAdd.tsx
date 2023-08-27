@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from '../../../../../../lib/database.types';
+import { Database } from '@/../../lib/database.types';
 
 
 interface botaoAddProps {
