@@ -288,5 +288,10 @@
       "price": "Price",
       "description": "Description"
     }
+  },
+  "chat": {
+    "conversations": "Conversations",
+    "you": "You",
+    "sent": "sent"
   }
 }

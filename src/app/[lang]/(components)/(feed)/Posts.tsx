@@ -16,10 +16,10 @@ const supabase = createClientComponentClient<Database>()
 
 const getPublicacaoPorId = async (pubid: string) => {
   const { data, error } = await supabase
-  .rpc('get_publicacao_por_id', {
-    pubid: pubid
-  })
-  .order('atualizadoem', {ascending: false})
+    .rpc('get_publicacao_por_id', {
+      pubid: pubid
+    })
+    .order('atualizadoem', { ascending: false })
   if (error) {
     console.log(error)
   }
@@ -33,42 +33,41 @@ export default function Posts({ userid, textos, regioes }: FilterCardProps) {
   const [publicacoes, setPublicacoes] = useState<PublicacaoCompleta[]>([])
   const [erro, setErro] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [newPub, setNewPub] = useState<PublicacaoCompleta[]>([])
 
   useEffect(() => {
     getPosts(selectedRegion)
   }, [selectedRegion, setSelectedRegion])
 
   useEffect(() => {
-    if(userid != undefined) {
+    if (userid != undefined) {
       const subscription = supabase.channel("post_changes")
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "publicacao",
-          filter: `idautor=eq.${userid}`
-        },
-        async (payload: { new: PublicacaoCompleta}) => {
-          const newpub = await getPublicacaoPorId(payload.new.id)
-          if (newpub != null && newpub != undefined) {
-            setPublicacoes((posts:PublicacaoCompleta[]) => [newpub[0], ...posts]);
-          }        
-        }
-      )
-      .subscribe();
+        .on(
+          "postgres_changes",
+          {
+            event: "INSERT",
+            schema: "public",
+            table: "publicacao",
+            filter: `idautor=eq.${userid}`
+          },
+          async (payload: { new: PublicacaoCompleta }) => {
+            const newpub = await getPublicacaoPorId(payload.new.id)
+            if (newpub != null && newpub != undefined) {
+              setPublicacoes((posts: PublicacaoCompleta[]) => [newpub[0], ...posts]);
+            }
+          }
+        )
+        .subscribe();
       return () => {
         subscription.unsubscribe();
       }
-    }  
+    }
   }, [])
 
   const getPosts = async (regiao: Regiao) => {
     if (regiao.id == '') {
       const { data, error } = await supabase
         .rpc('get_publicacao_com_dados')
-        .order('atualizadoem', {ascending: false})
+        .order('atualizadoem', { ascending: false })
       if (error) {
         setErro(true)
         setLoading(false)
@@ -84,7 +83,7 @@ export default function Posts({ userid, textos, regioes }: FilterCardProps) {
         .rpc('get_publicacao_completa', {
           regid: selectedRegion.id
         })
-        .order('atualizadoem', {ascending: false})
+        .order('atualizadoem', { ascending: false })
       if (error) {
         setErro(true)
         setLoading(false)
@@ -141,13 +140,13 @@ export default function Posts({ userid, textos, regioes }: FilterCardProps) {
             <span className="sr-only">Loading...</span>
           </div>
           :
-            publicacoes.length == 0 ?
+          publicacoes.length == 0 ?
             <p className="flex justify-center">{textos.pub.noposts}</p>
             :
-              erro ?
+            erro ?
               <p>{textos.pub.error}</p>
               :
-               <p></p>
+              <p></p>
       }
       <div>
         {
@@ -158,7 +157,7 @@ export default function Posts({ userid, textos, regioes }: FilterCardProps) {
           })
         }
         {
-          
+
         }
       </div>
     </>

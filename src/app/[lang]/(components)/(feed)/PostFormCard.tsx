@@ -52,7 +52,7 @@ export default function PostFormCard({ textos, idusuario, regioes }: PostFormCar
 
         <div className="flex grow">
           <textarea
-            className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-gray-100 border-gray-300 rounded-lg border focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="block mx-4 p-2.5 w-full text-xs sm:text-sm text-gray-900 bg-gray-100 border-gray-300 rounded-lg border focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             value={texto}
             placeholder={textos.form.placeholder}
             onChange={(e) => setTexto(e.target.value)}
@@ -73,7 +73,7 @@ export default function PostFormCard({ textos, idusuario, regioes }: PostFormCar
         }
         <div className="flex flex-row items-center justify-center m-2">
           <label className="mr-4">{textos.form.regionchange}:</label>
-          <select className="bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          <select className="bg-gray-200 border border-gray-300 text-gray-900 text-xs sm:text-sm md:text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             value={selectedRegion.regiao}
             onChange={(e) => handleRegionChange(e)}>
             <option>{textos.pub.comboboxplaceholder}</option>
@@ -85,12 +85,11 @@ export default function PostFormCard({ textos, idusuario, regioes }: PostFormCar
           </select>
         </div>
         <div className="justify-end items-center">
-          <button onClick={inserePub} className="flex mr-4 p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-mediumtext-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg">
+          <button onClick={inserePub} className="flex mr-4 p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-xs sm:text-sm md:text-base px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg">
             {textos.form.post}
           </button>
         </div>
       </div>
-
     </div>
   );
 }

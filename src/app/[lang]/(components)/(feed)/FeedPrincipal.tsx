@@ -29,7 +29,7 @@ const getRegiao = async () => {
 }
 
 export default async function FeedPrincipal({ textos, userData }: FeedPrincipalProps) {
-  const regioes: Regiao[] | undefined = await getRegiao();
+  const regioes = await getRegiao();
 
   return (
     <div className='space-y-3'>
@@ -40,7 +40,7 @@ export default async function FeedPrincipal({ textos, userData }: FeedPrincipalP
           </>
         ) : ""
       }
-      <Posts userid={userData.id} textos={textos} regioes={regioes}/>
+      <Posts userid={userData.id} textos={textos} regioes={regioes} />
     </div>
   );
 }

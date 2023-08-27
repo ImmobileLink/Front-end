@@ -44,9 +44,6 @@ export interface ImovelSemCorporacao {
     valor: number
 }
 export type Mensagem = Database['public']['Tables']['mensagem']['Row']
-export interface MensagemComUsuario extends Mensagem {
-    nomeautor: string
-}
 export interface MensagemAInserir {
     idautor: string,
     idsala: string,
@@ -74,4 +71,35 @@ export interface CorretorBuscado {
     nome: string | null
     nota: number | null
 }
-export type CorporacaoPorRegiao = Database['public']['Views']['corporacao_por_regiao']['Row']
+export type userDataType = {
+    id: string | undefined;
+    identificador: string | undefined;
+    premium: boolean | undefined;
+    role: number | undefined;
+    conexoes:
+      | {
+          id: string;
+          nome: string;
+        }[]
+      | null;
+    associados:
+      | {
+          id: string;
+          corretor: string;
+        }[]
+      | null;
+      associados2: {
+      id: string;
+      corporacao: string;
+    }[] | null
+  };
+export interface UltimaMensagemPorSalaPorUsuario {
+  idmensagem: string;
+  idsala: string;
+  idautor: string;
+  nomeautor: string;
+  mensagem: string;
+  atualizadoem: string;
+  idparticipante: string;
+  nomeparticipante: string;
+}

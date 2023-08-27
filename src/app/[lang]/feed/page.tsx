@@ -10,6 +10,7 @@ import NavAmizade from "../(components)/(feed)/NavAmizade";
 import NavFindBrokers from "../(components)/(feed)/NavFindBrokers";
 import NavAssociados from "../(components)/(feed)/NavAssociados";
 import NavEmpresaAssociada from "../(components)/(feed)/NavEmpresaAssociada";
+import { userDataType } from "../../../../lib/modelos";
 
 interface pageProps {
   params: {
@@ -17,29 +18,6 @@ interface pageProps {
   };
 }
 const supabase = createServerComponentClient<Database>({ cookies });
-
-type userDataType = {
-  id: string | undefined;
-  identificador: string | undefined;
-  premium: boolean | undefined;
-  role: number | undefined;
-  conexoes:
-    | {
-        id: string;
-        nome: string;
-      }[]
-    | null;
-  associados:
-    | {
-        id: string;
-        corretor: string;
-      }[]
-    | null;
-    associados2: {
-    id: string;
-    corporacao: string;
-  }[] | null
-};
 
 async function getUserData() {
   let userData: userDataType = {

@@ -358,6 +358,12 @@ export interface Profile {
   historic:       string;
 }
 
+export interface Chat {
+  conversations: string;
+  you: string;
+  sent: string
+}
+
 // Converts JSON strings to/from your types
 export class Convert {
   public static toDictionaries(json: string): Dictionaries {

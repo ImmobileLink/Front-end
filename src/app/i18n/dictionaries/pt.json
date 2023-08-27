@@ -288,5 +288,9 @@
       "price": "Valor",
       "description": "Descrição"
     }
+  },
+  "chat": {
+    "conversations": "Conversas",
+    "you": "Você"
   }
 }
