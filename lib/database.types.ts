@@ -287,6 +287,7 @@ export interface Database {
           estado: string
           id: string
           idcorporacao: string
+          imagem: string | null
           numero: number
           rua: string
           valor: number | null
@@ -298,6 +299,7 @@ export interface Database {
           estado: string
           id?: string
           idcorporacao: string
+          imagem?: string | null
           numero: number
           rua: string
           valor?: number | null
@@ -309,6 +311,7 @@ export interface Database {
           estado?: string
           id?: string
           idcorporacao?: string
+          imagem?: string | null
           numero?: number
           rua?: string
           valor?: number | null
@@ -387,6 +390,7 @@ export interface Database {
           idsala: string
           imagem: string | null
           mensagem: string
+          nomeautor: string
         }
         Insert: {
           atualizadoem?: string
@@ -396,6 +400,7 @@ export interface Database {
           idsala: string
           imagem?: string | null
           mensagem: string
+          nomeautor: string
         }
         Update: {
           atualizadoem?: string
@@ -405,6 +410,7 @@ export interface Database {
           idsala?: string
           imagem?: string | null
           mensagem?: string
+          nomeautor?: string
         }
         Relationships: [
           {
@@ -429,7 +435,7 @@ export interface Database {
           id: string
           idautor: string
           imagem: string | null
-          regiao: string | null
+          regiao: Json | null
         }
         Insert: {
           atualizadoem?: string
@@ -438,7 +444,7 @@ export interface Database {
           id?: string
           idautor: string
           imagem?: string | null
-          regiao?: string | null
+          regiao?: Json | null
         }
         Update: {
           atualizadoem?: string
@@ -447,7 +453,7 @@ export interface Database {
           id?: string
           idautor?: string
           imagem?: string | null
-          regiao?: string | null
+          regiao?: Json | null
         }
         Relationships: [
           {
@@ -776,6 +782,17 @@ export interface Database {
           nome: string
         }[]
       }
+      get_dados_sala: {
+        Args: {
+          idsala_param: string
+        }
+        Returns: {
+          idsala: string
+          iddestinatario: string
+          nomedestinatario: string
+          mensagens: Json
+        }[]
+      }
       get_imoveis: {
         Args: {
           id_usuario: string
@@ -806,36 +823,35 @@ export interface Database {
           valor: number
         }[]
       }
-      get_publicacao_com_dados: {
-        Args: Record<PropertyKey, never>
-        Returns: {
-          id: string
-          idautor: string
-          nomeautor: string
-          idregiao: string
-          regiao: string
-          conteudo: string
-          imagem: string
-          criadoem: string
-          atualizadoem: string
-          privado: boolean
-        }[]
-      }
-      get_publicacao_completa: {
+      get_publicacao_por_cidade: {
         Args: {
-          regid: string
+          estado: string
+          cidade: string
         }
         Returns: {
           id: string
           idautor: string
           nomeautor: string
-          idregiao: string
-          regiao: string
+          regiao: Json
           conteudo: string
           imagem: string
           criadoem: string
           atualizadoem: string
-          privado: boolean
+        }[]
+      }
+      get_publicacao_por_estado: {
+        Args: {
+          estado: string
+        }
+        Returns: {
+          id: string
+          idautor: string
+          nomeautor: string
+          regiao: Json
+          conteudo: string
+          imagem: string
+          criadoem: string
+          atualizadoem: string
         }[]
       }
       get_publicacao_por_id: {
@@ -846,13 +862,24 @@ export interface Database {
           id: string
           idautor: string
           nomeautor: string
-          idregiao: string
-          regiao: string
+          regiao: Json
           conteudo: string
           imagem: string
           criadoem: string
           atualizadoem: string
-          privado: boolean
+        }[]
+      }
+      get_publicacoes: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          idautor: string
+          nomeautor: string
+          regiao: Json
+          conteudo: string
+          imagem: string
+          criadoem: string
+          atualizadoem: string
         }[]
       }
       get_tipoimovel_by_idcorretor: {

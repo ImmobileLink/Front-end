@@ -1,163 +1,306 @@
-"use client";
+"use client"
 import { Feed } from "@/app/i18n/dictionaries/types";
-import { useEffect, useState } from "react";
-import { PublicacaoCompleta, Regiao } from "../../../../../lib/modelos";
-import PostCard from "./PostCard";
-import { Database } from "../../../../../lib/database.types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Spinner } from "flowbite-react";
+import { useEffect, useState } from "react";
+import { Database } from '../../../../../lib/database.types';
+import { City, PublicacaoCompleta } from "../../../../../lib/modelos";
+import { _UFs } from "../../../../../lib/utils/getRegiao";
+import PostItem from "./PostItem";
 
 interface PostListProps {
   textos: Feed,
   idusuario?: string,
 }
 
+// const supabase = createServerComponentClient<Database>({ cookies });
 const supabase = createClientComponentClient<Database>()
 
-const getPublicacaoPorId = async (pubid: string) => {
-  const { data, error } = await supabase
-  .rpc('get_publicacao_por_id', {
-    pubid: pubid
-  })
-  .order('atualizadoem', {ascending: false})
-  if (error) {
-    console.log(error)
-  }
-  else {
-    return data
-  }
-}
-
 export default function PostList({ idusuario, textos }: PostListProps) {
-  const [selectedRegion, setSelectedRegion] = useState<Regiao>({ id: '', regiao: '' })
-  const [publicacoes, setPublicacoes] = useState<PublicacaoCompleta[]>([])
-  const [erro, setErro] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [newPub, setNewPub] = useState<PublicacaoCompleta[]>([])
+  const [selectedState, setSelectedState] = useState<string>("");
+  const [cities, setCities] = useState<City[]>([]);
+  const [selectedCity, setSelectedCity] = useState<string>("");
 
-  useEffect(() => {
-    getPosts(selectedRegion)
-  }, [selectedRegion, setSelectedRegion])
+  const [filter, setFilter] = useState<number>(0);
 
+  const [posts, setPosts] = useState<PublicacaoCompleta[]>([]);
+  const [erro, setErro] = useState(false);
+  const [logErro, setLogErro] = useState<string>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [newPost, setNewPost] = useState<PublicacaoCompleta>();
+
+  const getAllPosts = async () => {
+    let { data, error } = await supabase
+      .rpc('get_publicacoes')
+      .order('atualizadoem', { ascending: false })
+      .limit(10);
+
+    if (error) return [];
+    else return data;
+  }
+
+  const getPostById = async (pubid: string) => {
+    let { data, error } = await supabase
+      .rpc('get_publicacao_por_id', { pubid })
+      .order('atualizadoem', { ascending: false })
+
+    if (error) return [];
+    else return data;
+  }
+
+  const getPostsByCity = async (cidade?: string, estado?: string) => {
+    if (cidade && estado) {
+      let { data, error } = await supabase
+        .rpc('get_publicacao_por_cidade', { cidade: cidade, estado: estado })
+        .order('atualizadoem', { ascending: false })
+
+      if (error) return [];
+      else return data;
+    }
+    return [];
+  }
+
+  const getPostsByUf = async (estado?: string) => {
+    if (estado) {
+      let { data, error } = await supabase
+        .rpc('get_publicacao_por_estado', { estado })
+        .order('atualizadoem', { ascending: false })
+
+      if (error) return [];
+      else return data;
+    }
+    return [];
+  }
+
+  //atualiza o select das cidades quando muda o estado
   useEffect(() => {
-    if(userid != undefined) {
-      const subscription = supabase.channel("post_changes")
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "publicacao",
-          filter: `idautor=eq.${userid}`
-        },
-        async (payload: { new: PublicacaoCompleta}) => {
-          const newpub = await getPublicacaoPorId(payload.new.id)
-          if (newpub != null && newpub != undefined) {
-            setPublicacoes((posts:PublicacaoCompleta[]) => [newpub[0], ...posts]);
-          }        
+    async function fetchCities() {
+      if (selectedState) {
+        try {
+          const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState}/municipios`);
+          const citiesData = await response.json();
+          setCities(citiesData);
+          setSelectedCity("");
+        } catch (error) {
+          console.error(error);
         }
-      )
-      .subscribe();
+      } else {
+        setCities([]);
+      }
+    }
+    fetchCities();
+  }, [selectedState]);
+
+
+  useEffect(() => {
+    getPosts(filter, selectedState, selectedCity)
+  }, [filter, selectedState, selectedCity]);
+
+  const getPosts = async (filter: number, selectedState?: string, selectedCity?: string) => {
+    switch (filter) {
+      case 0:
+        //resetar parametros de cidade e estado
+        setSelectedState("");
+        setSelectedCity("");
+
+        //atualiza spinner
+        setLoading(true);
+
+        //faz consulta ao bd
+        {
+          let { data } = await supabase
+            .rpc('get_publicacoes')
+            .order('atualizadoem', { ascending: false })
+            .limit(10);
+
+          //atualiza o estado dos posts
+          //se retornar 1+ posts mapeia na tela
+          if (data!.length > 0) {
+            setPosts(data!);
+            //tira o log de erro
+            setErro(false);
+            // se não mostra log
+          } else {
+            setErro(true);
+            setLogErro(textos.pub.noposts)
+            setPosts([]);
+          }
+        }
+
+        setLoading(false);
+        break;
+      case 1:
+        //resetar parametros de cidade
+        setSelectedCity("");
+
+        //atualiza spinner
+        setLoading(true);
+
+        //verifica se tem algum estado selecionado
+        if (selectedState != "") {
+          //faz consulta ao bd
+          let { data, error } = await supabase
+            .rpc('get_publicacao_por_estado', { estado: selectedState! })
+            .order('atualizadoem', { ascending: false })
+
+          //atualiza o estado dos posts
+          //se retornar 1+ posts mapeia na tela
+          if (data!.length > 0) {
+            setPosts(data!);
+            //tira o log de erro
+            setErro(false);
+            // se não mostra log
+          } else {
+            setErro(true);
+            setLogErro(textos.pub.noposts)
+            setPosts([]);
+          }
+        } else {
+          //mostra na tela que precisa selecionar um estado
+          setErro(true);
+          setLogErro(textos.pub.selectaregion);
+          //limpa o estado dos posts
+          setPosts([]);
+        }
+
+        setLoading(false);
+        break;
+      case 2:
+        //atualiza spinner
+        setLoading(true);
+
+        //verifica se tem algum estado/cidade selecionados
+        if (selectedState != "" && selectedCity != "") {
+          //faz consulta ao bd
+          let { data, error } = await supabase
+            .rpc('get_publicacao_por_cidade', { cidade: selectedCity!, estado: selectedState! })
+            .order('atualizadoem', { ascending: false })
+
+          //atualiza o estado dos posts
+          //se retornar 1+ posts mapeia na tela
+          if (data!.length > 0) {
+            setPosts(data!);
+            //tira o log de erro
+            setErro(false);
+            // se não mostra log
+          } else {
+            setErro(true);
+            setLogErro(textos.pub.noposts)
+            setPosts([]);
+          }
+        } else {
+          //mostra na tela que precisa selecionar um estado
+          setErro(true);
+          setLogErro(textos.pub.selectaregion);
+          //limpa o estado dos posts
+          setPosts([]);
+        }
+
+        setLoading(false);
+        break;
+
+      default:
+        break;
+    }
+  }
+
+/*
+  useEffect(() => {
+    if (idusuario != undefined) {
+      const subscription = supabase.channel("post_changes")
+        .on(
+          "postgres_changes",
+          {
+            event: "INSERT",
+            schema: "public",
+            table: "publicacao",
+            filter: `idautor=eq.${idusuario}`
+          },
+          async (payload: { new: PublicacaoCompleta }) => {
+            const newPost = await getPostById(payload.new.id)
+            if (newPost) {
+              setPosts((prev: PublicacaoCompleta[]) => ({ ...prev, newPost }));
+            }
+          }
+        )
+        .subscribe();
       return () => {
         subscription.unsubscribe();
       }
-    }  
+    }
   }, [])
+  */
 
-  const getPosts = async (regiao: Regiao) => {
-    if (regiao.id == '') {
-      const { data, error } = await supabase
-        .rpc('get_publicacao_com_dados')
-        .order('atualizadoem', {ascending: false})
-      if (error) {
-        setErro(true)
-        setLoading(false)
-      }
-      else {
-        setErro(false)
-        setPublicacoes(data)
-        setLoading(false)
-      }
-    }
-    else {
-      const { data, error } = await supabase
-        .rpc('get_publicacao_completa', {
-          regid: selectedRegion.id
-        })
-        .order('atualizadoem', {ascending: false})
-      if (error) {
-        setErro(true)
-        setLoading(false)
-      }
-      else {
-        setErro(false)
-        setPublicacoes(data)
-        setLoading(false)
-      }
-    }
-
-  }
-
-  //Faz o set do estado "Region" com o id da região
-  const handleRegionChange = (event: any) => {
-    setLoading(true)
-    const selectedValue = event.target.value;
-    if (selectedValue == textos.pub.regioncomboboxplaceholder) {
-      setSelectedRegion({ id: '', regiao: '' })
-    }
-    else {
-      if (regioes != null && regioes != undefined) {
-        const selectedObject: Regiao | undefined = regioes!.find((regiao: Regiao) => regiao!.regiao === selectedValue);
-        if (selectedObject != null) {
-          setSelectedRegion(selectedObject)
-        }
-      }
-    }
-
-  };
 
   return (
     <>
-      <div className="w-full h-fit p-4 flex flex-row items-center gap-4 ring-2 ring-gray-300 rounded-md bg-white dark:bg-gray-600 dark:ring-gray-700 drop-shadow-md">
-        <label className="mr-4 min-w-max">{textos.pub.regionfilter}:</label>
-        <select className="bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          value={selectedRegion.regiao}
-          onChange={(e) => handleRegionChange(e)}>
-          <option>{textos.pub.regioncomboboxplaceholder}</option>
-          {regioes!.map((regiao: Regiao) => {
-            return (
-              <option key={regiao.id}>{regiao.regiao}</option>
+      <div className="flex justify-between h-12 align-middle place-self-center">
+        <div className="flex items-center h-full">
+          <div className="w-20 text-sm font-medium">{textos.pub.regionfilter}</div>
+          <select defaultValue={0} onChange={e => { setFilter(parseInt(e.target.value)) }} className="block py-1 px-0 w-24 text-sm text-gray-500 bg-transparent border-0 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer hover:cursor-pointer">
+            <option value={0}>{textos.pub.regioncomboboxplaceholder}</option>
+            <option value={1}>{textos.form.cityselector.estate}</option>
+            <option value={2}>{textos.form.cityselector.city}</option>
+          </select>
+        </div>
+
+        <hr className="w-full my-6 mx-4 border-1 border-gray-400"></hr>
+
+        <div className="w-fit flex justify-center align-middle">
+          {
+            filter != 0 &&
+            (
+              <>
+                <select defaultValue={textos.form.cityselector.estate} onChange={e => { setSelectedState(e.target.value) }} className="block py-1 px-0 w-20 mr-4 text-sm text-gray-500 bg-transparent border-0 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer hover:cursor-pointer">
+                  <option key={textos.form.cityselector.estate} disabled>{textos.form.cityselector.estate}</option>
+                  {
+                    _UFs.map(item => {
+                      return (
+                        <option key={item}>{item}</option>
+                      )
+                    })
+                  }
+                </select>
+                {
+                  filter != 1 &&
+                  (
+                    <select defaultValue={textos.form.cityselector.selectaestatefirst} onChange={e => { setSelectedCity(e.target.value) }} className="block py-1 px-0 w-44 text-sm text-gray-500 bg-transparent border-0 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer hover:cursor-pointer">
+                      <option value={textos.form.cityselector.selectaestatefirst} disabled>{textos.form.cityselector.selectaestatefirst}</option>
+                      {
+                        selectedState && (
+                          cities.map(city => (
+                            <option
+                              className="px-2 cursor-pointer hover:bg-gray-200"
+                              key={city.nome}
+                              value={city.nome}
+                            >{city.nome}</option>
+                          ))
+                        )
+                      }
+                    </select>
+                  )
+                }
+              </>
             )
-          })}
-        </select>
+          }
+        </div>
       </div>
       {
-        loading ?
-          <div className="flex justify-center">
-            <svg aria-hidden="true" className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
-              <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" />
-            </svg>
-            <span className="sr-only">Loading...</span>
-          </div>
-          :
-            publicacoes.length == 0 ?
-            <p className="flex justify-center">{textos.pub.noposts}</p>
-            :
-              erro ?
-              <p>{textos.pub.error}</p>
-              :
-               <p></p>
+        loading ? <Spinner /> : erro &&
+          <p className="flex justify-center">{logErro}</p>
       }
       <div>
         {
-          publicacoes!.map((post: PublicacaoCompleta) => {
-            return (
-              <PostCard key={post.id} publicacao={post} />
-            )
-          })
-        }
-        {
-          
+
+          loading ?
+            <Spinner />
+            :
+            posts!.map((item: PublicacaoCompleta) => {
+              return (
+                <PostItem key={item.id} publicacao={item} />
+              )
+            })
+
         }
       </div>
     </>

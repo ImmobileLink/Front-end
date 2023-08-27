@@ -5,16 +5,14 @@ import { Database, Json } from "./database.types";
 //Nativos do Banco de dados
 export type Publicacao = Database['public']['Tables']['publicacao']['Row']
 export interface PublicacaoCompleta {
-    atualizadoem: string
-    conteudo: string
-    criadoem: string
-    id: string
-    idautor: string
-    idregiao: string
-    imagem: string
-    nomeautor: string
-    privado: boolean
-    regiao: string
+    id: string;
+    idautor: string;
+    nomeautor: string;
+    regiao: Json;
+    conteudo: string;
+    imagem: string;
+    criadoem: string;
+    atualizadoem: string;
 }
 export type Regiao = Database['public']['Tables']['regiao']['Row']
 export type TipoImovel = Database['public']['Tables']['tipoImovel']['Row']
@@ -95,9 +93,21 @@ export interface userData {
 export type userGroup = {
     id: string;
     nome: string;
-}[] | null; 
+}[] | null;
 
 export interface City {
     id: number;
     nome: string;
+}
+
+export interface PostFormProps {
+    idusuario: string;
+    regiao: { estado: string | undefined; cidade: string; };
+    texto: string;
+    imagem?: File;
+}
+
+export interface filterOption {
+    filter: number;
+    param?: string;
 }

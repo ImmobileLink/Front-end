@@ -259,6 +259,7 @@ export interface Pub {
   comboboxplaceholder:       string;
   noposts:                   string;
   error:                     string;
+  selectaregion:             string;
 }
 
 export interface Imovel {

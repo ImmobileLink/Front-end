@@ -187,12 +187,13 @@
       "norelatedcompanyyet": "No related company yet"
     },
     "pub": {
-      "regionfilter": "Filter by region",
+      "regionfilter": "Filter by",
       "posted": "posted",
       "regioncomboboxplaceholder": "All",
       "comboboxplaceholder": "Select",
       "noposts":"No posts found for the specified region",
-      "error": "Ops! Something went wrong. Try reloading the page."
+      "error": "Ops! Something went wrong. Try reloading the page.",
+      "selectaregion": "Select a region to filter posts"
     },
     "form": {
       "regionchange": "Region",

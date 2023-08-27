@@ -51,7 +51,7 @@ export default async function page({ params: { lang } }: pageProps) {
   const dict = await getDictionary(lang); // pt
   
   const userData = await getUserData();
-  
+
   return (
     <Page.Root>
       <Page.Left>

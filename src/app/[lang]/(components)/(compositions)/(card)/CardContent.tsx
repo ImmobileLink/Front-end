@@ -4,7 +4,7 @@ interface CardContentProps {
   children: ReactNode
 }
 
-export default async function CardContent({ children }: CardContentProps) {
+export default function CardContent({ children }: CardContentProps) {
   return (
     <div className="w-full h-full">
       { children }

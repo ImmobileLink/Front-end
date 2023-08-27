@@ -20,10 +20,13 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
   const [cities, setCities] = useState<City[]>([]);
   const [selectedCity, setSelectedCity] = useState<string>()
   const [texto, setTexto] = useState("")
+  const [imagem, setImagem] = useState<File>()
+
   const [erro, setErro] = useState<boolean>(false)
   const [logErro, setLogErro] = useState<string>("")
+
   const [loading, setLoading] = useState<boolean>(false)
-  const [imagem, setImagem] = useState<File>()
+  
 
   const inserePub = async () => {
     if (!texto) {
@@ -34,11 +37,12 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
       setLogErro(textos.form.cityselector.selectacity);
     } else {
       setLoading(true);
-      const response = await publishPost({ idusuario, selectedCity, texto, imagem })
+      const response = await publishPost({ idusuario, regiao: {estado: selectedState, cidade: selectedCity}, texto, imagem })
       setErro(false);
       setLogErro("");
       setLoading(false);
       setTexto("");
+      setImagem(undefined);
     }
   }
 
@@ -50,6 +54,7 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
           const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState}/municipios`);
           const citiesData = await response.json();
           setCities(citiesData);
+          setSelectedCity(citiesData[0].nome)
           setLoading(false)
         } catch (error) {
           console.error(error);
@@ -66,7 +71,6 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
     if (file) {
       setImagem(file);
       setErro(false);
-      console.log(file);
     } else {
       setImagem(undefined);
       setErro(true);

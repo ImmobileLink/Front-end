@@ -1,29 +1,21 @@
-"use client"
-
+import { v4 } from "uuid";
+import { PostFormProps } from "../modelos";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../database.types";
-import { v4 } from "uuid";
 
-const supabase = createClientComponentClient<Database>()
+const supabase = createClientComponentClient<Database>({});
 
-interface PostProps {
-  idusuario: string;
-  selectedCity: string;
-  texto: string;
-  imagem?: File;
-}
-
-export async function publishPost({ idusuario, selectedCity, texto, imagem }: PostProps) {
+export async function publishPost({ idusuario, regiao, texto, imagem }: PostFormProps) {
   //deixei como any pq não da pra deixar como Publicacao, pq tem valores que são obrigatórios e a gente não insere manualmente 
   let postContent: any = {};
 
-  if(imagem) {
+  if (imagem) {
     const uuid = v4();
     const fileNewName = uuid;
-    postContent = { id: uuid, idautor: idusuario, regiao: selectedCity, conteudo: texto, imagem: fileNewName };
+    postContent = { id: uuid, idautor: idusuario, regiao: regiao, conteudo: texto, imagem: fileNewName };
     uploadFile(imagem, fileNewName);
   } else {
-    postContent = { idautor: idusuario, regiao: selectedCity, conteudo: texto };
+    postContent = { idautor: idusuario, regiao: regiao, conteudo: texto };
   }
 
   const { error } = await supabase.from('publicacao').insert(postContent)
@@ -40,10 +32,6 @@ export async function uploadFile(file: File, fileName: string) {
     .upload(`imagens/${fileName}`, file)
   if (error) {
     console.log(error);
-    // Handle error
-  } else {
-    console.log(data);
-    // Handle success
   }
 }
 
