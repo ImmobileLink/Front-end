@@ -21,6 +21,8 @@ export default function ImovelCard({ textos, imovel, userSession }: ImovelCardPr
   const [formOpen, setFormOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  const [loading, setLoading] = useState(true);
+
   const getCorretores = async () => {
     if (userSession?.user.id) {
       let { data, error } = await supabase.rpc("get_corretores_associados", {
@@ -28,10 +30,8 @@ export default function ImovelCard({ textos, imovel, userSession }: ImovelCardPr
       });
       if (error) {
         console.log(error);
-        setErro(error.toString());
         setCorretor([]);
       } else {
-        setErro("");
         setCorretor(data);
       }
     }
@@ -59,7 +59,7 @@ export default function ImovelCard({ textos, imovel, userSession }: ImovelCardPr
     <div className="bg-gray-300 dark:bg-dark-200 text-dark-200 dark:text-white ring-2 ring-gray-300 dark:ring-dark-300 focus:ring-gray-500 focus:ring-2 focus:ring-offset-2 shadow-md rounded-md p-2 mb-2 align-middle w-full my-4">
       <div className="flex flex-col md:flex-row">
         <div className="mr-2 ml-2">
-          <ImovelImg imovelId={imovel!.id} />
+          <ImovelImg usuarioId={userSession?.user.id} imagemId={imovel!.imagem} onLoad={() => setLoading(false)} />
           <div className="flex-auto">
             <button
               onClick={() => {

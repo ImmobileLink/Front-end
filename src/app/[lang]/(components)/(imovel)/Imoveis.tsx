@@ -1,32 +1,22 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Database } from "../../../../../lib/database.types";
 import { Imovel } from "@/app/i18n/dictionaries/types";
 import { ImovelRegistro, InsereImovel } from "../../../../../lib/modelos";
 import { Session, createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import ImovelCard from "./ImovelCard";
+import { v4 as uuidv4 } from 'uuid';
 
 interface ImoveisProps {
+  userid: string;
   textos: Imovel;
-  imoveis: ImovelRegistro;
+  //imoveis: ImovelRegistro;
   userSession: Session | null | undefined;
 }
 
 const supabase = createClientComponentClient<Database>();
 
-const getImovelPorId = async ( idimovel: string ) => {
-  const { data, error } = await supabase
-    .from("imovel")
-    .select("*")
-    .eq("id", idimovel);
-  if (error) {
-    console.log(error);
-  } else {
-    return data;
-  }
-};
-
-export default function Imoveis({ imoveis, textos, userSession }: ImoveisProps) {
+export default function Imoveis({ userid, /*imoveis,*/ textos, userSession }: ImoveisProps) {
   const [formOpen, setFormOpen] = useState(false);
   const [estado, setEstado] = useState("");
   const [cidade, setCidade] = useState("");
@@ -36,11 +26,20 @@ export default function Imoveis({ imoveis, textos, userSession }: ImoveisProps) 
   const [valor, setValor] = useState(0);
   const [descricao, setDescricao] = useState("");
 
-  const [properties, setProperties] = useState<ImovelRegistro[]>(imoveis);
+  const [img, setImg] = useState<File>();
+  const [imagemId, setImagemId] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+  const [properties, setProperties] = useState<ImovelRegistro[]>([]); //imoveis
 
   const newproperty = textos.newproperty;
 
   // Realtime
+  useEffect(() => {
+    getProperties();
+  }, []);
+
   useEffect(() => {
     const subscription = supabase
       .channel("property_changes")
@@ -62,8 +61,52 @@ export default function Imoveis({ imoveis, textos, userSession }: ImoveisProps) 
     };
   }, []);
 
+  const getProperties = async () => {  
+    if (userid) {
+      setLoading(true);
+
+      let { data, error } = await supabase
+        .from("imovel")
+        .select("*")
+        .eq("idcorporacao", userid);
+      if (error) {
+        setLoading(false)
+      }
+      else {
+        setProperties(data)
+        setLoading(false)
+      }
+    }
+  }
+
+  const handleCadastrarImagem = async () => {
+      // Enviar o arquivo para o Supabase Storage
+    const { data, error } = await supabase
+      .storage
+      .from('imoveis') // Nome do bucket no Supabase
+      .upload(userid + "/" + imagemId, img); // Cria a pasta se ela ainda não existir
+
+    if (error) {
+      console.error('Erro ao fazer upload:', error.message);
+    } else {
+      console.log('Arquivo enviado com sucesso:', data);
+    }
+  }
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setImagemId(uuidv4());
+      setImg(file);
+    }
+  };
+
   // Falta a validação dos dados
   const handleCadastrarImovel = async () => {
+    if (img) {
+      await handleCadastrarImagem();
+    }
+
     const imovel: InsereImovel = {
       idcorporacao: userSession?.user.id!,
       descricao: descricao,
@@ -73,11 +116,13 @@ export default function Imoveis({ imoveis, textos, userSession }: ImoveisProps) 
       rua: rua,
       numero: num,
       valor: valor,
+      imagem: imagemId
     };
-    const { error } = await supabase.from("imovel").insert(imovel);
+    const { data, error } = await supabase.from("imovel").insert(imovel).select();
     if (error) {
       console.log(error);
     } else {
+      console.log(data);
       setFormOpen(false);
     }
   };
@@ -267,6 +312,21 @@ export default function Imoveis({ imoveis, textos, userSession }: ImoveisProps) 
                               ></textarea>
                             </div>
 
+
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">
+                              Carregar imagem
+                            </label>
+                            <div className="w-full md:w-3/4">
+                              <input
+                                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help"
+                                id="imagem"
+                                type="file"
+                                accept="image/*"
+                                onChange={handleFileChange}
+                              />
+                              <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
+                            </div>
+
                             <div className="ml-auto w-1/2 flex justify-end">
                               <button
                                 onClick={handleCadastrarImovel}
@@ -289,12 +349,16 @@ export default function Imoveis({ imoveis, textos, userSession }: ImoveisProps) 
         </div>
       </div>
       <div className="grid grid-cols-2 gap-x-4">
-        {properties!.map((imovel: ImovelRegistro) => {
-          return (
-            <ImovelCard key={imovel.id} textos={textos} imovel={imovel} userSession={userSession}
-            />
-          );
-        })}
+        {
+          loading ? <div>Loading</div>
+          :
+          properties!.map((imovel: ImovelRegistro) => {
+            return (
+              <ImovelCard key={imovel.id} textos={textos} imovel={imovel} userSession={userSession}
+              />
+            );
+          })
+        }
       </div>
     </div>
   );
