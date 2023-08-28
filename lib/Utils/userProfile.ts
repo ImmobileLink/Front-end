@@ -6,7 +6,7 @@ import { Database } from '../database.types'
 const supabase = createServerComponentClient<Database>({ cookies })
 
 
- async function getProfileData(id: string) {
+ async function getUserData(id: string) {
     let { data: session_data } = await supabase
         .from('simple_user_data')
         .select('*')
@@ -16,5 +16,5 @@ const supabase = createServerComponentClient<Database>({ cookies })
         return session_data;
 }
 
-export  { getProfileData }
+export  { getUserData }
 

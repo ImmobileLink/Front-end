@@ -13,7 +13,7 @@ export default function Infos({ corretor, dict }: InfosProps) {
 
   return (
     <>
-      <div className="w-auto bg-white mt-5 rounded-md m-3 overflow-hidden">
+      <div className="w-auto bg-white mt-5 rounded-md overflow-hidden">
         <div className="flex justify-around items-center border-b-2 font-semibold h-9">
           {overview ? (
             <>
