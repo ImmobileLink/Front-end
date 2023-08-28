@@ -6,15 +6,16 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import { useRouter } from "next/navigation";
 
-interface CardAmizadeProps {
-  idremetente: string | undefined;
+interface CardItemProps {
+  idremetente: string;
   iddestinatario: string;
+  key: string;
   nome: string;
 }
 
 const supabase = createClientComponentClient<Database>()
 
-export default function CardAmizade({ idremetente, iddestinatario, nome }: CardAmizadeProps) {
+export default function CardItem({ key, idremetente, iddestinatario, nome }: CardItemProps) {
   const router = useRouter()
 
   const handleEnviarMensagem = async () => {
@@ -29,15 +30,12 @@ export default function CardAmizade({ idremetente, iddestinatario, nome }: CardA
 
   return (
     <>
-      <div
-        key={iddestinatario}
-        className="flex justify-between mx-6 gap-2 ring-1 ring-black dark:ring-white ring-inset rounded-full"
-      >
-        <div className="flex">
+      <div className="flex justify-between mx-6 gap-2 ring-1 ring-gray-800 dark:ring-gray-300 ring-inset rounded-full">
+        <div className="flex w-3/4 rounded-full">
           <Avatar userId={iddestinatario} />
-          <Link className="self-center capitalize text-black dark:text-white" href={`/perfil/${iddestinatario}`}>{nome}</Link>
+          <Link className="w-2/3 self-center capitalize text-black dark:text-white truncate ml-2" href={`/perfil/${iddestinatario}`}>{nome}</Link>
         </div>
-        <div className="flex justify-center align-middle self-center w-14 h-14 mr-1 rounded-full hover:cursor-pointer" onClick={handleEnviarMensagem}>
+        <div className="flex justify-center align-middle self-center w-14 h-14 mr-1 rounded-full hover:cursor-pointer">
           <FiMail className="self-center text-xl text-black dark:text-white" />
         </div>
       </div>

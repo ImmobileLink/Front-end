@@ -222,6 +222,7 @@ export interface Cards {
   schedules:           string;
   visitmyprofile:      string;
   notpremiumyet:       string;
+  premium:             string;
   bepremium:           string;
   connections:         string;
   search:              string;
@@ -233,9 +234,22 @@ export interface Cards {
 }
 
 export interface Form {
-  regionchange: string;
-  post:         string;
-  placeholder:  string;
+  regionchange:    string;
+  post:            string;
+  placeholder:     string;
+  writeamessage:   string;
+  imageinputlabel: string;
+  imageerror:      string;
+  cityselector:    Cityselector;
+}
+
+export interface Cityselector {
+  estate:             string;
+  city:               string;
+  selectaestate:      string;
+  selectacity:        string;
+  selectaestatefirst: string;
+  nocityfound:        string;
 }
 
 export interface Pub {
@@ -245,6 +259,7 @@ export interface Pub {
   comboboxplaceholder:       string;
   noposts:                   string;
   error:                     string;
+  selectaregion:             string;
 }
 
 export interface Imovel {

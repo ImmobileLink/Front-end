@@ -23,7 +23,7 @@ export default async function RootLayout({
       dir={dir(lang)}
     >
       <body>
-        {children}
+          {children}
       </body>
     </html>
   );

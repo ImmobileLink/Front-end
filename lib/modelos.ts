@@ -5,16 +5,14 @@ import { Database, Json } from "./database.types";
 //Nativos do Banco de dados
 export type Publicacao = Database['public']['Tables']['publicacao']['Row']
 export interface PublicacaoCompleta {
-    atualizadoem: string
-    conteudo: string
-    criadoem: string
-    id: string
-    idautor: string
-    idregiao: string
-    imagem: string
-    nomeautor: string
-    privado: boolean
-    regiao: string
+    id: string;
+    idautor: string;
+    nomeautor: string;
+    regiao: Json;
+    conteudo: string;
+    imagem: string;
+    criadoem: string;
+    atualizadoem: string;
 }
 export type Regiao = Database['public']['Tables']['regiao']['Row']
 export type TipoImovel = Database['public']['Tables']['tipoImovel']['Row']
@@ -50,8 +48,8 @@ export interface MensagemAInserir {
     mensagem: string
 }
 export interface CorretorAssociado {
-  id: string,
-  nome: string,
+    id: string,
+    nome: string,
 }
 export type Sala = Database['public']['Tables']['sala']['Row']
 export type Visita = Database['public']['Tables']['visita']['Row']
@@ -71,28 +69,6 @@ export interface CorretorBuscado {
     nome: string | null
     nota: number | null
 }
-export type userDataType = {
-    id: string | undefined;
-    identificador: string | undefined;
-    premium: boolean | undefined;
-    role: number | undefined;
-    conexoes:
-      | {
-          id: string;
-          nome: string;
-        }[]
-      | null;
-    associados:
-      | {
-          id: string;
-          corretor: string;
-        }[]
-      | null;
-      associados2: {
-      id: string;
-      corporacao: string;
-    }[] | null
-  };
 export interface UltimaMensagemPorSalaPorUsuario {
   idmensagem: string;
   idsala: string;
@@ -102,4 +78,40 @@ export interface UltimaMensagemPorSalaPorUsuario {
   atualizadoem: string;
   idparticipante: string;
   nomeparticipante: string;
+}
+export interface userData {
+    id?: string;
+    nome?: string;
+    isPremium?: boolean;
+    type?: string;
+    links: {
+        id: string;
+        nome: string;
+    }[] | null;
+    assoc: {
+        id: string;
+        nome: string;
+    }[] | null;
+};
+
+export type userGroup = {
+    id: string;
+    nome: string;
+}[] | null;
+
+export interface City {
+    id: number;
+    nome: string;
+}
+
+export interface PostFormProps {
+    idusuario: string;
+    regiao: { estado: string | undefined; cidade: string; };
+    texto: string;
+    imagem?: File;
+}
+
+export interface filterOption {
+    filter: number;
+    param?: string;
 }

@@ -170,12 +170,13 @@
       "yourenotlogged": "You are not logged in yet!",
       "enjoyall": "Enjoy all the benefits from the website",
       "singin": "Sign in",
-      "findbrokers": "Find opportunities",
+      "findbrokers": "Find brokers",
       "mybrokers": "My Brokers",
       "myproperties": "My properties",
       "schedules": "Schedules",
       "visitmyprofile": "See my profile",
-      "notpremiumyet": "Not PREMIUM yet?",
+      "notpremiumyet": "Become",
+      "premium": "PREMIUM",
       "bepremium": "Become premium",
       "connections": "My Links",
       "search": "Search",
@@ -186,17 +187,29 @@
       "norelatedcompanyyet": "No related company yet"
     },
     "pub": {
-      "regionfilter": "Filter by region",
+      "regionfilter": "Filter by",
       "posted": "posted",
       "regioncomboboxplaceholder": "All",
       "comboboxplaceholder": "Select",
       "noposts":"No posts found for the specified region",
-      "error": "Ops! Something went wrong. Try reloading the page."
+      "error": "Ops! Something went wrong. Try reloading the page.",
+      "selectaregion": "Select a region to filter posts"
     },
     "form": {
       "regionchange": "Region",
       "post": "Post",
-      "placeholder": "New post"
+      "placeholder": "New post",
+      "writeamessage": "Write the message",
+      "imageinputlabel":"picture",
+      "imageerror": "Invalid Image",
+      "cityselector": {
+        "estate": "Estate",
+        "city": "City",
+        "selectaestate": "Select a estate",
+        "selectacity": "Select a city",
+        "selectaestatefirst": "Select a estate first",
+        "nocityfound": "No city found"
+      }
     }
   },
   "planos": {

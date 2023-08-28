@@ -1,6 +1,6 @@
 "use client";
 
-import { formataData } from "../../../../../lib/utils";
+import { formataData } from "../../../../../lib/utils/formataData";
 import Avatar from "../Avatar";
 
 interface MessageCardProps { 

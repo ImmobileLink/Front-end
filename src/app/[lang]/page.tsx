@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 interface PageProps {
   params: {
@@ -10,7 +11,10 @@ interface PageProps {
 
 export default function Page({ params: { lang } }: PageProps) {
   const router = useRouter();
-  router.push(`${lang}/feed`);
+
+  useEffect(() => {
+    router.push(`${lang}/feed`);
+  },[])
 
   return <></>;
 }

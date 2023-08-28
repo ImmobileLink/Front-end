@@ -2,8 +2,10 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Database } from "../../../../lib/database.types";
 import { getDictionary } from "../dictionaries";
-import PlanoCard from "../(components)/(plano)/PlanoCard";
 import PlanoTable from "../(components)/(plano)/PlanoTable";
+import { Page } from "../(components)/(compositions)/(page)";
+import { getTipoUsuario } from "../../../../lib/utils/userData";
+import { userData } from "../../../../lib/modelos";
 
 interface pageProps {
   params: {
@@ -11,36 +13,33 @@ interface pageProps {
   };
 }
 
+let user: userData = {
+  links: [],
+  assoc: []
+};
+
 const supabase = createServerComponentClient<Database>({ cookies });
 
-export default async function page({ params: { lang } }: pageProps) {
-  const dict = await getDictionary(lang); // pt
-
+async function getUserData() {
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
-  let { data: session_data } = await supabase
-    .from("simple_user_data")
-    .select("premium, tipo")
-    .eq("id", session?.user.id)
-    .single();
-
-  const tipoPerfil = session_data?.tipo;
-  const subPerfil = session_data?.premium;
-
-  const ficaPremiu = async () => {
-    const { data, error } = await supabase
-      .from('corporacao')
-      .update({ premium: true })
-      .eq('id', session?.user.id)
-      .select()
+  if (session?.user.id) {
+    user = await getTipoUsuario(user, session.user.id);
   }
+  return user;
+}
+
+export default async function page({ params: { lang } }: pageProps) {
+  const dict = await getDictionary(lang); // pt
+
+  const userData = await getUserData();
 
   return (
     <>
-      <div className="w-auto h-auto bg-branco dark:bg-dark-200">
-        <>
+      <Page.Root>
+        <Page.Full>
           <p className="w-full pt-6 md:pt-8 lg:pt-10 text-black dark:text-white text-4xl md:text-5xl lg:text-6xl font-extrabold text-center">
             {dict.planos.subscription}
           </p>
@@ -48,35 +47,15 @@ export default async function page({ params: { lang } }: pageProps) {
             Voluptate incididunt sunt amet veniam incididunt exercitation
             incididunt in aute quis.
           </p>
-          <div className="flex flex-col md:flex-row self-center justify-center gap-10">
-            <PlanoCard
-              role={tipoPerfil || "corretor"}
-              premium={false}
-              card={dict.auth.signup.signup5}
-              sub={dict.planos}
-            />
-            <PlanoCard
-              role={tipoPerfil || "corretor"}
-              premium={true}
-              card={dict.auth.signup.signup5}
+          <div className="w-auto flex justify-center px-10 mt-10 ">
+            <PlanoTable
+              id={userData.id}
+              role={userData.type || "corretor"}
               sub={dict.planos}
             />
           </div>
-        </>
-
-        <>
-          <p className="pt-6 md:pt-8 lg:pt-10 text-black dark:text-white text-3xl md:text-4xl lg:text-5xl font-extrabold text-center">
-            {dict.planos.allsubscriptions}
-          </p>
-
-          <div className="w-full flex justify-center px-10 mt-10 ">
-            <PlanoTable id={session?.user.id}
-              role={tipoPerfil || "corretor"}
-              sub={dict.planos}
-            />
-          </div>
-        </>
-      </div>
+        </Page.Full>
+      </Page.Root>
     </>
   );
 }

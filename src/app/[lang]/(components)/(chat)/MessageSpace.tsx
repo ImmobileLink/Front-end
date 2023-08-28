@@ -3,10 +3,6 @@ import { useEffect, useState } from "react";
 import { Mensagem } from "../../../../../lib/modelos";
 import { Session, createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
-import Avatar from "../Avatar";
-import { formataData } from "../../../../../lib/utils";
-import TypingBox from "./TypingBox";
-import ChatHeader from "./ChatHeader";
 import { Chat } from "@/app/i18n/dictionaries/types";
 import MessageCard from "./MessageCard";
 

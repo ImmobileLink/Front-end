@@ -2,8 +2,6 @@ import { cookies } from "next/headers";
 import { cache } from 'react';
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
-import NavProfile from "../../(components)/(feed)/NavProfile";
-import NavSettings from "../../(components)/(feed)/NavSettings";
 import { getDictionary } from "../../dictionaries";
 import ChatSpace from "../../(components)/(chat)/ChatSpace";
 import ChatHub from "../../(components)/(chat)/ChatHub";

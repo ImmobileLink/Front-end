@@ -1,92 +1,146 @@
 "use client";
-import React, { useState } from "react";
-import Avatar from "../Avatar";
-import { Regiao } from "../../../../../lib/modelos";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../lib/database.types";
+
 import { Feed } from "@/app/i18n/dictionaries/types";
+import { Spinner } from "flowbite-react";
+import { useEffect, useState } from "react";
+import { BsFillExclamationCircleFill, BsFillImageFill } from "react-icons/bs";
+import { City } from "../../../../../lib/modelos";
+import { publishPost } from "../../../../../lib/utils/Posts";
+import { _UFs } from "../../../../../lib/utils/getRegiao";
+import Avatar from "../Avatar";
+import ImageUpload from "../ImageUpload";
 
 interface PostFormCardProps {
   textos: Feed,
-  idusuario: any,
-  regioes: Regiao[] | undefined
+  idusuario: string,
 }
 
-const supabase = createClientComponentClient<Database>()
+export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
+  const [selectedState, setSelectedState] = useState<string>()
+  const [cities, setCities] = useState<City[]>([]);
+  const [selectedCity, setSelectedCity] = useState<string>()
+  const [texto, setTexto] = useState("")
+  const [imagem, setImagem] = useState<File>()
 
-export default function PostFormCard({ textos, idusuario, regioes }: PostFormCardProps) {
-  const [selectedRegion, setSelectedRegion] = useState<Regiao>({ id: '', regiao: '' })
-  const [texto, setTexto] = useState('')
-  const [erro, setErro] = useState(false)
+  const [erro, setErro] = useState<boolean>(false)
+  const [logErro, setLogErro] = useState<string>("")
+
+  const [loading, setLoading] = useState<boolean>(false)
+  
 
   const inserePub = async () => {
-    if (selectedRegion.id == '') {
-      setErro(true)
-    }
-    else {
-      if(texto != '') {
-        setErro(false)
-        const { error } = await supabase.from('publicacao').insert({ idautor: idusuario, idregiao: selectedRegion.id, conteudo: texto, privado: false })
-        if (error) {
-          console.log(error)
-        }
-        else {
-          setTexto('')
-        }
-      }     
+    if (!texto) {
+      setErro(true);
+      setLogErro(textos.form.writeamessage);
+    } else if (!selectedCity) {
+      setErro(true);
+      setLogErro(textos.form.cityselector.selectacity);
+    } else {
+      setLoading(true);
+      const response = await publishPost({ idusuario, regiao: {estado: selectedState, cidade: selectedCity}, texto, imagem })
+      setErro(false);
+      setLogErro("");
+      setLoading(false);
+      setTexto("");
+      setImagem(undefined);
     }
   }
-  //Faz o set do estado "Region" com o id da região
-  const handleRegionChange = (event: any) => {
-    const selectedValue = event.target.value;
-    const selectedObject: Regiao | undefined = regioes!.find((regiao: Regiao) => regiao!.regiao === selectedValue);
-    if (selectedObject != null) {
-      setSelectedRegion(selectedObject)
+
+  useEffect(() => {
+    async function fetchCities() {
+      if (selectedState) {
+        try {
+          setLoading(true)
+          const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState}/municipios`);
+          const citiesData = await response.json();
+          setCities(citiesData);
+          setSelectedCity(citiesData[0].nome)
+          setLoading(false)
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        setCities([]);
+      }
+    }
+
+    fetchCities();
+  }, [selectedState]);
+
+  const handleImageUpload = async (file: File | false) => {
+    if (file) {
+      setImagem(file);
+      setErro(false);
+    } else {
+      setImagem(undefined);
+      setErro(true);
+      setLogErro(textos.form.imageerror);
     }
   };
 
   return (
-    <div className="w-full h-fit p-4 flex flex-col justify-center align-middle gap-4 ring-2 ring-gray-300 rounded-md bg-white dark:bg-gray-600 dark:ring-gray-700 drop-shadow-md">
-      <div className="flex grow">
+    <div className="flex flex-col">
+      <div className="flex mx-4 gap-4">
         <Avatar userId={idusuario} />
-
         <div className="flex grow">
           <textarea
-            className="block mx-4 p-2.5 w-full text-xs sm:text-sm text-gray-900 bg-gray-100 border-gray-300 rounded-lg border focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-100 border-gray-300 rounded-lg border focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             value={texto}
             placeholder={textos.form.placeholder}
             onChange={(e) => setTexto(e.target.value)}
           ></textarea>
         </div>
       </div>
-      <div className="flex justify-end items-center space-x-4">
-        {
-          erro ?
-            <div className="flex flex-row items-center justify-center">
-              <p className="text-black m-2 dark:text-white ">Selecione uma região!</p>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-              </svg>
-            </div>
-            :
-            <p></p>
-        }
-        <div className="flex flex-row items-center justify-center m-2">
-          <label className="mr-4">{textos.form.regionchange}:</label>
-          <select className="bg-gray-200 border border-gray-300 text-gray-900 text-xs sm:text-sm md:text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            value={selectedRegion.regiao}
-            onChange={(e) => handleRegionChange(e)}>
-            <option>{textos.pub.comboboxplaceholder}</option>
-            {regioes!.map((regiao: Regiao) => {
-              return (
-                <option key={regiao.id}>{regiao.regiao}</option>
-              )
-            })}
-          </select>
+      <div className="flex flex-col mt-2 ml-auto mr-4 lg:flex-row gap-y-4 justify-between items-end lg:items-center align-middle space-x-4">
+        <div className="flex mr-4 gap-1 lg:mr-0 items-center justify-center text-yellow-500">
+          {
+            erro &&
+            (
+              <>
+                <BsFillExclamationCircleFill />
+                <span>{logErro}</span>
+              </>
+            )
+          }
+        </div>
+        <ImageUpload onImageUpload={handleImageUpload} label={<BsFillImageFill/>}/>
+        <div className="w-fit flex justify-center align-middle">
+            {/* <label className="mr-2">{textos.form.cityselector.estate}:</label> */}
+            <select defaultValue={textos.form.cityselector.selectacity}  onChange={e => { setSelectedState(e.target.value) }} className="w-20 mr-4 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              {
+                _UFs.map(item => {
+                  return (
+                    <option key={item}>{item}</option>
+                  )
+                })
+              }
+            </select>
+            {/* <label className="mr-2">{textos.form.cityselector.city}:</label> */}
+            <select defaultValue={textos.form.cityselector.selectacity} onChange={e => { setSelectedCity(e.target.value) }} className="w-52 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              {
+                selectedState ? (
+                  cities.length > 0 ? (
+                    cities.map(city => (
+                      <option
+                        className="px-2 cursor-pointer hover:bg-gray-200"
+                        key={city.nome}
+                        value={city.nome}
+                      >{city.nome}</option>
+                    ))
+                  ) : (
+                    <option value="" disabled>{textos.form.cityselector.nocityfound}</option>
+                  )
+                ) : (
+                  <option value="" disabled>{textos.form.cityselector.selectaestatefirst}</option>
+                )
+              }
+            </select>
         </div>
         <div className="justify-end items-center">
-          <button onClick={inserePub} className="flex mr-4 p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-xs sm:text-sm md:text-base px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg">
-            {textos.form.post}
+          <button onClick={inserePub} className="flex p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg">
+            {
+              loading ? (<Spinner />) : (<span>{textos.form.post}</span>)
+            }
           </button>
         </div>
       </div>
