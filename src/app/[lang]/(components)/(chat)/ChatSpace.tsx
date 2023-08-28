@@ -13,7 +13,7 @@ interface ChatSpaceProps {
   idsala: string,
   userSession: Session | null | undefined
 }
-export const createServerSupabaseClient = cache(() => {
+const createServerSupabaseClient = cache(() => {
   const cookieStore = cookies()
   return createServerComponentClient<Database>({ cookies: () => cookieStore })
 })
