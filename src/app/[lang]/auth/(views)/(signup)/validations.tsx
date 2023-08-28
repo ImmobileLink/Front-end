@@ -295,7 +295,7 @@ export const handleSignUpDB = async (
         email: email,
         password: senha,
         options: {
-            emailRedirectTo: `${location.origin}/auth/callback`,
+            emailRedirectTo: `${location.origin}/auth`,
         },
     });
 
