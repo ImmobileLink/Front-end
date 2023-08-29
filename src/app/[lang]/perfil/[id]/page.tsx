@@ -25,13 +25,14 @@ export default async function Page({ params: { id, lang } }: pageProps) {
   const session_data = session ? await getUserData(session.user.id) : null
 
   const dict = await getDictionary(lang)
+  // {/* <EmpresaProfile profile={profile} session={session_data} dict={dict}/> */}
 
   return (
     <>
       {profile!.tipo == "corretor" ?
-        <CorretorProfile profile={profile} session={session_data} dict={dict}/>
+        <CorretorProfile profile={profile!} session={session_data!} dict={dict}/>
         :
-        <EmpresaProfile profile={profile} session={session_data} dict={dict}/>
+        (<p>Perfil de empresa</p>)        
       }
     </>
 

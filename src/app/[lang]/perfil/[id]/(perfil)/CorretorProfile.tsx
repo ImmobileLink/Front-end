@@ -8,15 +8,15 @@ import { Database } from '../../../../../../lib/database.types';
 import { cookies } from 'next/headers';
 import { getDictionary } from '@/app/[lang]/dictionaries';
 import { Dictionaries } from '@/app/i18n/dictionaries/types';
-import { userData } from '../../../../../../lib/modelos';
+import { profileSimpleData } from '../../../../../../lib/modelos';
+import { getCorretorData, verifyIfIsAssociado } from '../../../../../../lib/Utils/userProfile';
 
 
 
 interface CorretorProfileProps {
-    profile: userData
-    session: userData
-
-    dict: Dictionaries
+    profile: profileSimpleData;
+    session: profileSimpleData | null;
+    dict: any;
 }
 
 const supabase = createServerComponentClient<Database>({ cookies })
@@ -24,37 +24,27 @@ const supabase = createServerComponentClient<Database>({ cookies })
 
 export default async function CorretorProfile({ profile, session, dict }: CorretorProfileProps) {
 
-    let { data: profileData } = await supabase
-        .from('corretor')
-        .select('*')
-        .eq('id', profile?.id)
-        .single()
+    const corretorData = await getCorretorData(profile.id!)
+    const isAssociado = session && await verifyIfIsAssociado(profile.id!, session.id!)
 
-    let { data: isAssociado } = await supabase
-        .rpc('verifica_associacao', {
-            valor1: profile!.id!,
-            valor2: session!.id!
-        })
 
     return (
-        <>
-            <P.Root>
-                <P.Main>
-                    <Cabecalho dict={dict} isAssociado={isAssociado} session_data={session} corretor={profileData} />
-                    <Infos dict={dict} corretor={profileData} />
-                </P.Main>
+        <P.Root>
+            <P.Main>
+                <Cabecalho dict={dict} isAssociado={isAssociado} session_data={session} corretor={corretorData} />
+                <Infos dict={dict} corretor={corretorData} />
+            </P.Main>
 
-                <P.Right>
-                    <P.Dashboard>
-                        <Dashboard userId={profile!.id!} session={session} premium={session.isPremium} dict={dict} />
-                    </P.Dashboard>
+            <P.Right>
+                <P.Dashboard>
+                    <Dashboard premium={session?.premium} dict={dict} />
+                </P.Dashboard>
 
 
-                    <P.Calendar>
-                        <Calendario ownId={session?.id} idProfile={profile?.id} />
-                    </P.Calendar>
-                </P.Right>
-            </P.Root >
-        </>
+                <P.Calendar>
+                    <Calendario ownId={session?.id} idProfile={profile?.id} />
+                </P.Calendar>
+            </P.Right>
+        </P.Root >
     );
 }

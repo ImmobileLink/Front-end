@@ -115,3 +115,10 @@ export interface filterOption {
     filter: number;
     param?: string;
 }
+
+export interface profileSimpleData{
+    id: string | null;
+    nome: string | null;
+    premium: boolean | null;
+    tipo: string | null; 
+}

@@ -6,12 +6,12 @@ import { Database } from "@/../lib/database.types";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { AiFillEdit } from "react-icons/ai";
-import { userData } from "../../../../../../../lib/modelos";
+import { profileSimpleData } from "../../../../../../../lib/modelos";
 
 
 interface CabecalhoProps {
   isAssociado: string | null;
-  session_data: userData;
+  session_data: profileSimpleData | null;
   corretor: any;
   dict: any;
 }
@@ -42,7 +42,7 @@ export default async function Cabecalho({ isAssociado, session_data, corretor, d
 
   return (
     <>
-      <div className="h-36 overflow-hidden rounded-md">
+      <div className="h-44 overflow-hidden rounded-md relative">
         <Image
           className="w-screen my-auto"
           src="users/cover/cover.jpg"
@@ -50,19 +50,32 @@ export default async function Cabecalho({ isAssociado, session_data, corretor, d
           width={1}
           height={1}
         />
+        <button className="absolute top-2 right-2 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+          Alterar Imagem
+        </button>
       </div>
 
 
-      <div className="p-8">
-        <div className="flex justify-between items-baseline">
-          <div className="w-32 h-32 rounded-full bg-white flex justify-center items-center">
+      <div className="p-8 -mt-28 relative">
+        <div className="flex justify-between w-full items-baseline mb-3">
+          <div className="w-34 h-34 rounded-full bg-white flex justify-center items-center">
             <Avatar userId={corretor.id} size={"big"} />
           </div>
-          <AiFillEdit />
+          <button>
+            <AiFillEdit size={20} />
+          </button>
         </div>
         <h2 className="font-bold text-2xl">{corretor?.nome}</h2>
         <p className="text-gray-500">{`${corretor?.cidade} - ${corretor?.estado}`}</p>
 
+        <div className="mt-3">
+          <BotaoAdd associado={isAssociado} tipo={session_data!.tipo!} idSession={session_data!.id!} idProfile={corretor.id} dict={dict} />
+          <Link href={sala}>
+            <button className="w-fit ml-3 text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 font-medium rounded-lg text-sm px-10 py-2.5 mb-1 ">
+              Chat
+            </button>
+          </Link>
+        </div>
       </div>
       {/* 
       <div className="absolute top-24 left-10 flex flex-col items-center text-white">
