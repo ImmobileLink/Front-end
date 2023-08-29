@@ -6,21 +6,16 @@ import { Database } from "@/../lib/database.types";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { AiFillEdit } from "react-icons/ai";
+import { userData } from "../../../../../../../lib/modelos";
 
 
 interface CabecalhoProps {
   isAssociado: string | null;
-  session_data: User_data;
+  session_data: userData;
   corretor: any;
   dict: any;
 }
 
-type User_data = {
-  id: string | null;
-  nome: string | null;
-  premium: boolean | null;
-  tipo: string | null;
-} | null
 
 export default async function Cabecalho({ isAssociado, session_data, corretor, dict }: CabecalhoProps) {
   const supabase = createServerComponentClient<Database>({ cookies })

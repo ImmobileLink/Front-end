@@ -10,7 +10,7 @@ import { Database } from "@/../lib/database.types";
 interface DashboardProps {
   userId: string;
   session: any;
-  premium: boolean | null;
+  premium: boolean | null | undefined;
   dict: any;
 }
 

@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import NavBar from "../../(components)/NavBar";
 
 export const metadata = {
@@ -6,8 +7,7 @@ export const metadata = {
 };
 
 interface RootLayout {
-  children: any;
-  params: { lang: string };
+  children: ReactNode;
 }
 
 export default async function RootLayout({ children}: RootLayout) {
