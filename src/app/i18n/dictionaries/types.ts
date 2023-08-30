@@ -376,7 +376,7 @@ export interface Profile {
 export interface Chat {
   conversations: string;
   you: string;
-  sent: string
+  newconversation: string;
 }
 
 // Converts JSON strings to/from your types

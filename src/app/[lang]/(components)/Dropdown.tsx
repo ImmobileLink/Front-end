@@ -15,7 +15,7 @@ export default function Dropdown({ label, items }: DropdownProps) {
 
   return (
     <div>
-      <button onClick={() => { setisActive(!isActive) }} className="relative float-right h-fit text-2xl text-gray-900 rounded-lg  dark:text-white " type="button">
+      <button onClick={() => { setisActive(!isActive) }} className="relative float-right h-fit text-2xl text-gray-900 rounded-lg dark:text-white " type="button">
         {label}
       </button>
       <div className={"absolute top-12 right-0 z-50 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 " + (!isActive && "hidden")}>

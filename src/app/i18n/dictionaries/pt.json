@@ -304,6 +304,7 @@
   },
   "chat": {
     "conversations": "Conversas",
-    "you": "Você"
+    "you": "Você",
+    "newconversation": "Novo espaço"
   }
 }

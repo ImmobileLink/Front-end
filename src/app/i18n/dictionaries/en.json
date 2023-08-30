@@ -305,6 +305,7 @@
   "chat": {
     "conversations": "Conversations",
     "you": "You",
-    "sent": "sent"
+    "sent": "sent",
+    "newconversation": "New space"
   }
 }

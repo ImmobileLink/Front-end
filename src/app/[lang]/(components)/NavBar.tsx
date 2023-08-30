@@ -22,7 +22,7 @@ export default function NavBar({}: ClientComponentProps) {
   };
 
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+    <nav className="fixed top-0 z-50 w-full bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
       <div className="max-w-6xl flex flex-wrap items-center justify-between mx-auto p-4">
         <div className="flex items-center">
           <Link

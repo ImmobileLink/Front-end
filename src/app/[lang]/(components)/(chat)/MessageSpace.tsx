@@ -9,12 +9,11 @@ import MessageCard from "./MessageCard";
 interface MessageSpaceProps {
   dict: Chat,
   idsala: string,
-  mensagens: Mensagem[],
-  userSession: Session | null | undefined
+  mensagens: Mensagem[]
 }
 const supabase = createClientComponentClient<Database>()
 
-export default function MessageSpace({ dict, mensagens, idsala, userSession }: MessageSpaceProps) {
+export default function MessageSpace({ dict, mensagens, idsala }: MessageSpaceProps) {
 
   const [messages, setMessages] = useState<Mensagem[]>(mensagens)
 
@@ -36,10 +35,10 @@ export default function MessageSpace({ dict, mensagens, idsala, userSession }: M
     return () => {
       subscription.unsubscribe();
     }
-  }, [idsala])
+  },[])
 
   return (
-    <div className="max-h-fit overflow-y-auto snap-start flex flex-col-reverse m-3 p-3 space-y-5 grow">
+    <div className="flex flex-col-reverse lg:ml-2 p-2 overflow-y-auto snap-end  space-y-5">
       <div className="flex flex-col">
         {
           messages ?

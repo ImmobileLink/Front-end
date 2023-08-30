@@ -19,7 +19,7 @@ export default function MessageCard({message}: MessageCardProps) {
                         <p  className="text-xs sm:text-sm font-semibold text-gray-800 dark:text-gray-300 text-opacity-80 dark:text-opacity-70">{message.nomeautor}</p>
                         <p  className="text-xs sm:text-sm font-semibold text-gray-800 dark:text-gray-300 text-opacity-80 dark:text-opacity-70">{formataData(message.enviadoem!)}</p>
                     </div>
-                    <p className="flex break-all list-none align-bottom items-bottom text-sm sm:text-base md:text-lg font-sans font-semibold text-slate-900 dark:text-gray-300">
+                    <p className="flex break-all list-none align-bottom items-bottom text-lg font-sans font-semibold text-slate-900 dark:text-gray-300">
                         {message.mensagem}
                     </p>
                 </div>

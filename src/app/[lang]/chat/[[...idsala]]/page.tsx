@@ -5,7 +5,12 @@ import { Database } from "../../../../../lib/database.types";
 import { getDictionary } from "../../dictionaries";
 import ChatSpace from "../../(components)/(chat)/ChatSpace";
 import ChatHub from "../../(components)/(chat)/ChatHub";
-import { UltimaMensagemPorSalaPorUsuario } from "../../../../../lib/modelos";
+import { UltimaMensagemPorSalaPorUsuario, userData } from "../../../../../lib/modelos";
+import { getAssoc, getLinks, getTipoUsuario } from "../../../../../lib/utils/userData";
+import FriendList from "../../(components)/(chat)/FriendList";
+import { ChatProvider } from "./chatContext";
+import ChatSpaceClient from "../../(components)/(chat)/ChatSpaceClient";
+import BottomNav from "../../(components)/(chat)/BottomNav";
 
 interface pageProps {
   params: {
@@ -14,9 +19,9 @@ interface pageProps {
   };
 }
 
-export const createServerSupabaseClient = cache(() => {
-    const cookieStore = cookies()
-    return createServerComponentClient<Database>({ cookies: () => cookieStore })
+const createServerSupabaseClient = cache(() => {
+  const cookieStore = cookies()
+  return createServerComponentClient<Database>({ cookies: () => cookieStore })
 })
 
 async function getUserSession() {
@@ -45,7 +50,7 @@ export default async function Page({ params: { lang, idsala } }: pageProps) {
       .rpc('obter_ultimas_mensagens_por_usuario', {
         idusuario: session?.user.id!
       })
-      .order('atualizadoem', {ascending: false})
+      .order('atualizadoem', { ascending: false })
     if (error) {
       console.log("error")
     }
@@ -54,22 +59,49 @@ export default async function Page({ params: { lang, idsala } }: pageProps) {
     }
   }
 
+  let user: userData = {
+    links: [],
+    assoc: []
+  };
+
+  async function getUserData() {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (session?.user.id) {
+      user = await getTipoUsuario(user, session.user.id);
+
+      [user, user] = await Promise.all([
+        getLinks(user),
+        getAssoc(user)
+      ]);
+    }
+    return user;
+  }
+
 
   const resultado: UltimaMensagemPorSalaPorUsuario[] | null | undefined = await getLastMessages()
   let messages: UltimaMensagemPorSalaPorUsuario[] = []
 
-  if(resultado) {
+  if (resultado) {
     messages = resultado
   }
+  const userData = await getUserData();
+
+  console.log(userData)
 
   return (
-    <div className="w-full h-screen bg-branco dark:bg-dark-200 flex justify-center gap-5 pt-4">
-      <div className="w-8/12  sm:w-96">
-        <ChatHub dict={dict.chat} idsala={salaid} userSession={session} mensagens={messages} />
+    <ChatProvider>
+      <div className="flex justify-center lg:items-center h-full pt-[72px] lg:w-auto lg:h-4/6 lg:min-h-screen bg-branco dark:bg-dark-200 gap-5">
+        <ChatHub dict={dict} idsala={salaid} userId={userData.id} userLinks={userData.links} mensagens={messages} >
+          <FriendList dict={dict} userLinks={userData.links} userId={userData.id} />
+        </ChatHub>
+
+        <ChatSpaceClient dict={dict.chat} idsala={salaid} userId={userData.id}>
+          <ChatSpace dict={dict.chat} idsala={salaid} userId={userData.id} />
+        </ChatSpaceClient>
       </div>
-      <div className="hidden xl:block xl:w-8/12">
-        <ChatSpace dict={dict.chat} idsala={salaid} userSession={session} />
-      </div>
-    </div>
+    </ChatProvider>
   );
 }
