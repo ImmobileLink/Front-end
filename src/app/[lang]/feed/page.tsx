@@ -11,6 +11,7 @@ import type { Database } from "../../../../lib/database.types";
 import { userData } from "../../../../lib/modelos";
 import { getDictionary } from "../dictionaries";
 import FeedPrincipal from "./components/FeedPrincipal";
+import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/utils/userData";
 
 interface pageProps {
   params: {
@@ -18,79 +19,41 @@ interface pageProps {
   };
 }
 
-let user: userData = {
-  links: [],
-  assoc: []
-};
-
 export const createServerSupabaseClient = cache(() => {
   const cookieStore = cookies()
   return createServerComponentClient<Database>({ cookies: () => cookieStore })
 })
 
-async function getUserData() {
+async function getUserData(user: userData) {
   const supabase = createServerSupabaseClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
   if (session?.user.id) {
-    user.id = session.user.id;
-    // NOME & PREMIUM & TYPE
-    let { data, error } = await supabase.rpc("consultar_tipo_usuario", {
-      id_usuario: session.user.id,
-    });
+    user = await getTipoUsuario(user, session.user.id);
 
-    if (!error) {
-      user.nome = data![0].nome;
-      user.isPremium = data![0].ispremium;
-      user.type = data![0].role;
-      // LINKS
-      {
-        let { data, error } = await supabase.rpc("get_connected_users", {
-          id_usuario: session.user.id,
-        });
-
-        if (!error) {
-          user.links = data;
-        }
-      }
-      // ASSOC
-      {
-        if (user.type == "corporacao") {
-          let { data, error } = await supabase.rpc(
-            "obter_corretores_por_corporacao",
-            {
-              id_corporacao: user.id!,
-            }
-          );
-      
-          if(!error) {
-            user.assoc = data;
-          }
-        } else if (user.type == "corretor") {
-          let { data, error } = await supabase.rpc(
-            "obter_corporacoes_por_corretor",
-            {
-              id_corretor: user.id!,
-            }
-          );
-      
-          if(!error) {
-            user.assoc = data;
-          }
-        }
-      }
-    }
+    [user, user] = await Promise.all([
+      getLinks(user),
+      getAssoc(user)
+    ]);
   }
 
   return user;
 }
 
 export default async function page({ params: { lang } }: pageProps) {
+  let user: userData = {
+    id: undefined,
+    isPremium: undefined,
+    nome: undefined,
+    type: undefined,
+    links: [],
+    assoc: []
+  }
+  
   const dict = await getDictionary(lang); // pt
-
-  const userData = await getUserData();
+  const userData = await getUserData(user);
 
   return (
     <div className="flex justify-center gap-5 mt-4">
@@ -130,7 +93,7 @@ export default async function page({ params: { lang } }: pageProps) {
               <Card.Content>
                 <CardLink
                   userId={userData.id}
-                  userLinks={userData.links}
+                  userLinks={userData.links || []}
                   cards={dict.feed.cards}
                 />
               </Card.Content>
@@ -146,7 +109,7 @@ export default async function page({ params: { lang } }: pageProps) {
               <Card.Content>
                 <CardLink
                   userId={userData.id}
-                  userLinks={userData.assoc}
+                  userLinks={userData.assoc || []}
                   cards={dict.feed.cards}
                 />
               </Card.Content>

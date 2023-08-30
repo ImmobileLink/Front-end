@@ -26,7 +26,7 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
   const [logErro, setLogErro] = useState<string>("")
 
   const [loading, setLoading] = useState<boolean>(false)
-  
+
 
   const inserePub = async () => {
     if (!texto) {
@@ -37,7 +37,7 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
       setLogErro(textos.form.cityselector.selectacity);
     } else {
       setLoading(true);
-      const response = await publishPost({ idusuario, regiao: {estado: selectedState, cidade: selectedCity}, texto, imagem })
+      const response = await publishPost({ idusuario, regiao: { estado: selectedState, cidade: selectedCity }, texto, imagem })
       setErro(false);
       setLogErro("");
       setLoading(false);
@@ -91,22 +91,15 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
           ></textarea>
         </div>
       </div>
-      <div className="flex flex-col mt-2 ml-auto mr-4 lg:flex-row gap-y-4 justify-between items-end lg:items-center align-middle space-x-4">
-        <div className="flex mr-4 gap-1 lg:mr-0 items-center justify-center text-yellow-500">
-          {
-            erro &&
-            (
-              <>
-                <BsFillExclamationCircleFill />
-                <span>{logErro}</span>
-              </>
-            )
-          }
+      <div className="flex flex-wrap w-auto h-auto mt-1 justify-end items-center align-middle px-4">
+        <div className="w-full md:w-1/2 lg:w-2/12 h-14 rounded-lg">
+          <div className="w-full h-full flex justify-center align-middle items-center gap-2">
+            <ImageUpload onImageUpload={handleImageUpload} label={<BsFillImageFill />} />
+          </div>
         </div>
-        <ImageUpload onImageUpload={handleImageUpload} label={<BsFillImageFill/>}/>
-        <div className="w-fit flex justify-center align-middle">
-            {/* <label className="mr-2">{textos.form.cityselector.estate}:</label> */}
-            <select defaultValue={textos.form.cityselector.selectacity}  onChange={e => { setSelectedState(e.target.value) }} className="w-20 mr-4 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <div className="w-full md:w-1/2 lg:w-4/12 h-14 rounded-lg">
+          <div className="w-full h-full flex justify-center align-middle items-center gap-2">
+            <select defaultValue={textos.form.cityselector.selectacity} onChange={e => { setSelectedState(e.target.value) }} className="w-auto lg:w-16 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               {
                 _UFs.map((item, index) => {
                   return (
@@ -115,8 +108,7 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
                 })
               }
             </select>
-            {/* <label className="mr-2">{textos.form.cityselector.city}:</label> */}
-            <select defaultValue={textos.form.cityselector.selectacity} onChange={e => { setSelectedCity(e.target.value) }} className="w-52 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <select defaultValue={textos.form.cityselector.selectacity} onChange={e => { setSelectedCity(e.target.value) }} className="w-full lg:w-40 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               {
                 selectedState ? (
                   cities.length > 0 ? (
@@ -135,14 +127,81 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
                 )
               }
             </select>
+          </div>
         </div>
-        <div className="justify-end items-center">
-          <button onClick={inserePub} className="flex p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg">
+        <div className="w-full md:w-1/2 lg:w-3/12 h-14 rounded-lg">
+          {
+            erro &&
+            (
+              <div className="w-full h-full flex justify-center align-middle items-center text-yellow-500 gap-2">
+                <BsFillExclamationCircleFill />
+                <span>{logErro}</span>
+              </div>
+            )
+          }
+        </div>
+        <div className="w-full md:w-1/2 lg:w-3/12 h-14 rounded-lg">
+          <div className="w-full h-full flex justify-center align-middle items-center">
+            <button onClick={inserePub} className="p-2 w-full cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-10 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg">
+              {
+                loading ? (<Spinner />) : (<span>{textos.form.post}</span>)
+              }
+            </button>
+          </div>
+        </div>
+
+        {/* <div className="w-1/3 lg:w-auto">
+          <ImageUpload onImageUpload={handleImageUpload} label={<BsFillImageFill />} />
+        </div>
+        <div className="w-1/3 lg:w-auto flex justify-center align-middle ">
+          <select defaultValue={textos.form.cityselector.selectacity} onChange={e => { setSelectedState(e.target.value) }} className="w-20 mr-4 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            {
+              _UFs.map((item, index) => {
+                return (
+                  <option key={index}>{item}</option>
+                )
+              })
+            }
+          </select>
+          <select defaultValue={textos.form.cityselector.selectacity} onChange={e => { setSelectedCity(e.target.value) }} className="w-52 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            {
+              selectedState ? (
+                cities.length > 0 ? (
+                  cities.map((city, index) => (
+                    <option
+                      className="px-2 cursor-pointer hover:bg-gray-200"
+                      key={index}
+                      value={city.nome}
+                    >{city.nome}</option>
+                  ))
+                ) : (
+                  <option value="" disabled>{textos.form.cityselector.nocityfound}</option>
+                )
+              ) : (
+                <option value="" disabled>{textos.form.cityselector.selectaestatefirst}</option>
+              )
+            }
+          </select>
+        </div>
+        <div className="flex gap-1 w-1/2 lg:w-auto h-auto items-center justify-center text-yellow-500 ">
+          {
+            erro &&
+            (
+              <>
+                <BsFillExclamationCircleFill />
+                <span>{logErro}</span>
+              </>
+            )
+          }
+        </div>
+        <div className="">
+          <button onClick={inserePub} className="flex w-full p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-10 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg">
             {
               loading ? (<Spinner />) : (<span>{textos.form.post}</span>)
             }
           </button>
-        </div>
+        </div> */}
+
       </div>
     </div>
   );

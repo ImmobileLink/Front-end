@@ -84,11 +84,11 @@ export interface userData {
     nome?: string;
     isPremium?: boolean;
     type?: string;
-    links: {
+    links?: {
         id: string;
         nome: string;
     }[] | null;
-    assoc: {
+    assoc?: {
         id: string;
         nome: string;
     }[] | null;

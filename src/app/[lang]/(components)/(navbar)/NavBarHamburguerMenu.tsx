@@ -6,6 +6,7 @@ import { useState } from "react";
 import { BsList } from "react-icons/bs";
 import { Database } from "../../../../../lib/database.types";
 import Link from "next/link";
+import { Spinner } from "flowbite-react";
 
 interface NavBarHamburguerMenuProps {
   textos: Navbarbuttons;
@@ -16,15 +17,18 @@ const supabase = createClientComponentClient<Database>()
 
 export default function NavBarHamburguerMenu({ textos, userId }: NavBarHamburguerMenuProps) {
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
+
   const [isHamburguerMenuOpen, setIsHamburguerMenuOpen] = useState<boolean>(false);
 
   const toggleHamburguerMenu = () => {
     setIsHamburguerMenuOpen(!isHamburguerMenuOpen);
   }
 
-  const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (!error) router.refresh();
+  const handleLogOut = async () => {
+    setLoading(true);
+    await supabase.auth.signOut();
+    router.push("/auth")
   };
 
   return (
@@ -87,12 +91,15 @@ export default function NavBarHamburguerMenu({ textos, userId }: NavBarHamburgue
               <div className="py-1">
                 {
                   userId ? (
-                    <button
-                      onClick={handleSignOut}
+                    <a
+                      href="#"
+                      onClick={handleLogOut}
                       className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white"
                     >
-                      {textos.logoutbutton}
-                    </button>
+                      {
+                        loading ? <Spinner /> : textos.logoutbutton
+                      }
+                    </a>
                   ) : (
                     <Link
                       href="/auth"

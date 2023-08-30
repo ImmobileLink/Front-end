@@ -16,79 +16,30 @@ interface NavBarProps {
   };
 }
 
-let user: userData = {
-  links: [],
-  assoc: []
-};
 
 export const createServerSupabaseClient = cache(() => {
   const cookieStore = cookies()
   return createServerComponentClient<Database>({ cookies: () => cookieStore })
 })
 
-async function getUserData() {
+async function getUserData(user: userData) {
   const supabase = createServerSupabaseClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (session?.user.id) {
-    user.id = session.user.id;
-    // NOME & PREMIUM & TYPE
-    let { data, error } = await supabase.rpc("consultar_tipo_usuario", {
-      id_usuario: session.user.id,
-    });
-
-    if (!error) {
-      user.nome = data![0].nome;
-      user.isPremium = data![0].ispremium;
-      user.type = data![0].role;
-      // LINKS
-      {
-        let { data, error } = await supabase.rpc("get_connected_users", {
-          id_usuario: session.user.id,
-        });
-
-        if (!error) {
-          user.links = data;
-        }
-      }
-      // ASSOC
-      {
-        if (user.type == "corporacao") {
-          let { data, error } = await supabase.rpc(
-            "obter_corretores_por_corporacao",
-            {
-              id_corporacao: user.id!,
-            }
-          );
-      
-          if(!error) {
-            user.assoc = data;
-          }
-        } else if (user.type == "corretor") {
-          let { data, error } = await supabase.rpc(
-            "obter_corporacoes_por_corretor",
-            {
-              id_corretor: user.id!,
-            }
-          );
-      
-          if(!error) {
-            user.assoc = data;
-          }
-        }
-      }
-    }
-  }
+  user.id = session?.user.id;
 
   return user;
 }
 
 export default async function NavBar({ params: { lang } }: NavBarProps) {
+  let user: userData = {
+    id: undefined
+  }
+  
+  const userData = await getUserData(user);
   const dict = await getDictionary(lang); // pt
-
-  const userData = await getUserData();
 
   return (
     <nav className="w-full sticky top-0 z-50 bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 shadow-white dark:shadow-gray-800 shadow-lg">

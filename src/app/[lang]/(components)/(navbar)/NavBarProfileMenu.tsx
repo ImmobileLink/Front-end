@@ -7,6 +7,7 @@ import { Navbarbuttons } from "@/app/i18n/dictionaries/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import { useRouter } from "next/navigation";
+import { Spinner } from "flowbite-react";
 
 interface NavBarProfileMenuProps {
   textos: Navbarbuttons;
@@ -17,6 +18,8 @@ const supabase = createClientComponentClient<Database>()
 
 export default function NavBarProfileMenu({ textos, userId }: NavBarProfileMenuProps) {
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
+
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState<boolean>(false);
 
   const toggleProfileMenu = () => {
@@ -24,9 +27,11 @@ export default function NavBarProfileMenu({ textos, userId }: NavBarProfileMenuP
   };
 
   const handleLogOut = async () => {
+    setLoading(true);
     await supabase.auth.signOut();
-    router.refresh()
+    router.push("/auth")
   };
+
 
   return (
     <li className="relative">
@@ -68,12 +73,15 @@ export default function NavBarProfileMenu({ textos, userId }: NavBarProfileMenuP
           <div className="py-1">
             {
               userId ? (
-                <button
+                <a
+                  href="#"
                   onClick={handleLogOut}
                   className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white"
                 >
-                  {textos.logoutbutton}
-                </button>
+                  {
+                    loading ? <Spinner/> : textos.logoutbutton
+                  }
+                </a>
               ) : (
                 <Link
                   href="/auth"

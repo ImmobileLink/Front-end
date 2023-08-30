@@ -15,7 +15,7 @@ export async function getTipoUsuario(userData: userData, userId: string): Promis
     id_usuario: userId,
   });
 
-  if(!error) {
+  if (!error) {
     userData.id = userId;
     userData.nome = data![0].nome;
     userData.isPremium = data![0].ispremium;
@@ -25,20 +25,20 @@ export async function getTipoUsuario(userData: userData, userId: string): Promis
   return userData;
 }
 
-export async function getLinks (userData: userData): Promise<userData> {
+export async function getLinks(userData: userData): Promise<userData> {
   const supabase = createServerSupabaseClient();
   let { data, error } = await supabase.rpc("get_connected_users", {
     id_usuario: userData.id!,
   });
 
-  if(!error) {
+  if (!error) {
     userData.links = data;
   }
 
   return userData;
 }
 
-export async function getAssoc (userData: userData): Promise<userData> {
+export async function getAssoc(userData: userData): Promise<userData> {
   const supabase = createServerSupabaseClient();
   if (userData.type == "corporacao") {
     let { data, error } = await supabase.rpc(
@@ -48,7 +48,7 @@ export async function getAssoc (userData: userData): Promise<userData> {
       }
     );
 
-    if(!error) {
+    if (!error) {
       userData.assoc = data;
     }
   }
@@ -61,7 +61,7 @@ export async function getAssoc (userData: userData): Promise<userData> {
       }
     );
 
-    if(!error) {
+    if (!error) {
       userData.assoc = data;
     }
   }

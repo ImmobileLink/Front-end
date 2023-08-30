@@ -14,17 +14,12 @@ interface pageProps {
   };
 }
 
-let user: userData = {
-  links: [],
-  assoc: []
-};
-
 export const createServerSupabaseClient = cache(() => {
   const cookieStore = cookies()
   return createServerComponentClient<Database>({ cookies: () => cookieStore })
 })
 
-async function getUserData() {
+async function getUserData(user: userData) {
   const supabase = createServerSupabaseClient();
   const {
     data: { session },
@@ -37,11 +32,13 @@ async function getUserData() {
 }
 
 export default async function page({ params: { lang } }: pageProps) {
+  let user: userData = {
+    id: undefined,
+    type: undefined
+  }
+  
   const dict = await getDictionary(lang); // pt
-
-  const userData = await getUserData();
-
-  console.log(userData);
+  const userData = await getUserData(user);
 
   return (
     <>

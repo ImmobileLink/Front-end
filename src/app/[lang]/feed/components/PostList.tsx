@@ -161,32 +161,32 @@ export default function PostList({ idusuario, textos }: PostListProps) {
     }
   }
 
-/*
-  useEffect(() => {
-    if (idusuario != undefined) {
-      const subscription = supabase.channel("post_changes")
-        .on(
-          "postgres_changes",
-          {
-            event: "INSERT",
-            schema: "public",
-            table: "publicacao",
-            filter: `idautor=eq.${idusuario}`
-          },
-          async (payload: { new: PublicacaoCompleta }) => {
-            const newPost = await getPostById(payload.new.id)
-            if (newPost) {
-              setPosts((prev: PublicacaoCompleta[]) => ({ ...prev, newPost }));
+  /*
+    useEffect(() => {
+      if (idusuario != undefined) {
+        const subscription = supabase.channel("post_changes")
+          .on(
+            "postgres_changes",
+            {
+              event: "INSERT",
+              schema: "public",
+              table: "publicacao",
+              filter: `idautor=eq.${idusuario}`
+            },
+            async (payload: { new: PublicacaoCompleta }) => {
+              const newPost = await getPostById(payload.new.id)
+              if (newPost) {
+                setPosts((prev: PublicacaoCompleta[]) => ({ ...prev, newPost }));
+              }
             }
-          }
-        )
-        .subscribe();
-      return () => {
-        subscription.unsubscribe();
+          )
+          .subscribe();
+        return () => {
+          subscription.unsubscribe();
+        }
       }
-    }
-  }, [])
-  */
+    }, [])
+    */
 
 
   return (
@@ -242,22 +242,25 @@ export default function PostList({ idusuario, textos }: PostListProps) {
           }
         </div>
       </div>
-      {
-        loading ? <Spinner /> : erro &&
-          <p className="flex justify-center">{logErro}</p>
-      }
       <div>
         {
-
           loading ?
-            <Spinner />
+            <div className="w-full flex items-center justify-center">
+              <Spinner className="w-10 h-auto"/>
+            </div>
             :
-            posts!.map((item: PublicacaoCompleta) => {
-              return (
-                <PostItem key={item.id} publicacao={item} />
-              )
-            })
-
+            (
+              <>
+                {
+                  erro && <p className="flex justify-center">{logErro}</p>
+                }
+                {posts!.map((item: PublicacaoCompleta) => {
+                  return (
+                    <PostItem key={item.id} publicacao={item} />
+                  )
+                })}
+              </>
+            )
         }
       </div>
     </>
