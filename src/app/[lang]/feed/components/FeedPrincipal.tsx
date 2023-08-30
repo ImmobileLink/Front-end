@@ -1,7 +1,7 @@
 import PostFormCard from "./PostFormCard";
 import { userData } from '../../../../../lib/modelos';
 import { Feed } from '@/app/i18n/dictionaries/types';
-import { Card } from "../(compositions)/(card)";
+import { Card } from "../../(components)/(compositions)/(card)";
 import PostList from "./PostList";
 
 interface FeedPrincipalProps {

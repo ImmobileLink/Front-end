@@ -2,10 +2,15 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Database } from "../database.types";
 import { userData } from "../modelos";
+import { cache } from "react";
 
-const supabase = createServerComponentClient<Database>({ cookies });
+export const createServerSupabaseClient = cache(() => {
+  const cookieStore = cookies()
+  return createServerComponentClient<Database>({ cookies: () => cookieStore })
+})
 
 export async function getTipoUsuario(userData: userData, userId: string): Promise<userData> {
+  const supabase = createServerSupabaseClient();
   let { data, error } = await supabase.rpc("consultar_tipo_usuario", {
     id_usuario: userId,
   });
@@ -21,6 +26,7 @@ export async function getTipoUsuario(userData: userData, userId: string): Promis
 }
 
 export async function getLinks (userData: userData): Promise<userData> {
+  const supabase = createServerSupabaseClient();
   let { data, error } = await supabase.rpc("get_connected_users", {
     id_usuario: userData.id!,
   });
@@ -33,6 +39,7 @@ export async function getLinks (userData: userData): Promise<userData> {
 }
 
 export async function getAssoc (userData: userData): Promise<userData> {
+  const supabase = createServerSupabaseClient();
   if (userData.type == "corporacao") {
     let { data, error } = await supabase.rpc(
       "obter_corretores_por_corporacao",

@@ -9,6 +9,7 @@ import NavSettings from "../(components)/(cards)/CardNavigation";
 import { getTipoUsuario, getLinks, getAssoc } from "../../../../lib/utils/userData";
 import { userData } from "../../../../lib/modelos";
 import { Page } from "../(components)/(compositions)/(page)";
+import { cache } from "react";
 
 interface pageProps {
   params: {
@@ -16,7 +17,10 @@ interface pageProps {
   };
 }
 
-const supabase = createServerComponentClient<Database>({cookies})
+export const createServerSupabaseClient = cache(() => {
+  const cookieStore = cookies()
+  return createServerComponentClient<Database>({ cookies: () => cookieStore })
+})
 
 let user: userData = {
   links: [],
@@ -24,6 +28,7 @@ let user: userData = {
 };
 
 async function getUserData() {
+  const supabase = createServerSupabaseClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -41,6 +46,8 @@ async function getUserData() {
 }
 
 export default async function page({ params: { lang } }: pageProps) {
+  const supabase = createServerSupabaseClient();
+  
   const dict = await getDictionary(lang); // pt
 
   const userData = await getUserData();

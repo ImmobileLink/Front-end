@@ -1,6 +1,15 @@
 {
   "navbarbuttons": {
-    "searchbutton": "Search",
+    "feed": "Feed",
+    "myprofile": "My profile",
+    "settings": "Settings",
+    "schedule": "Schedules",
+    "links": "My links",
+    "relatedbrokers": "Related Brokers",
+    "myrelatedcompany": "Related company",
+    "search": "Search",
+    "subscription": "Subscription",
+    "loginbutton": "Login",
     "logoutbutton": "Logout"
   },
   "auth": {

@@ -14,6 +14,7 @@ export interface Dictionaries {
   dashboard:     Dashboard;
   calendar:      Calendar;
   imovel:        Imovel;
+  chat:          Chat;
 }
 
 export interface Auth {
@@ -191,6 +192,11 @@ export interface Calendar {
   scheduledVisits: string;
 }
 
+export interface Chat {
+  conversations: string;
+  you:           string;
+}
+
 export interface Dashboard {
   domain:          string;
   professionalism: string;
@@ -312,8 +318,17 @@ export interface Newproperty {
 }
 
 export interface Navbarbuttons {
-  searchbutton: string;
-  logoutbutton: string;
+  feed:             string;
+  myprofile:        string;
+  settings:         string;
+  schedule:         string;
+  links:            string;
+  relatedbrokers:   string;
+  myrelatedcompany: string;
+  search:           string;
+  subscription:     string;
+  loginbutton:      string;
+  logoutbutton:     string;
 }
 
 export interface Pesquisa {
@@ -371,12 +386,6 @@ export interface Profile {
   posts:          string;
   infoBroker:     string;
   historic:       string;
-}
-
-export interface Chat {
-  conversations: string;
-  you: string;
-  sent: string
 }
 
 // Converts JSON strings to/from your types

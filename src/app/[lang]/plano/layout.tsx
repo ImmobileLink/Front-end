@@ -1,4 +1,5 @@
-import NavBar from "../(components)/NavBar";
+import { Page } from "../(components)/(compositions)/(page)";
+import NavBar from "../(components)/(navbar)/NavBar";
 
 export const metadata = {
   title: "ImmobileLink - Planos",
@@ -10,12 +11,14 @@ interface RootLayout {
   params: { lang: string };
 }
 
-export default async function RootLayout({ children}: RootLayout) {
+export default function RootLayout({ children, params: { lang }, }: RootLayout) {
 
   return (
-      <>
-        <NavBar />
+    <>
+      <Page.Root>
+        <NavBar params={{ lang: lang }} />
         {children}
-      </>
+      </Page.Root>
+    </>
   );
 }

@@ -7,8 +7,8 @@ import { BsFillExclamationCircleFill, BsFillImageFill } from "react-icons/bs";
 import { City } from "../../../../../lib/modelos";
 import { publishPost } from "../../../../../lib/utils/Posts";
 import { _UFs } from "../../../../../lib/utils/getRegiao";
-import Avatar from "../Avatar";
-import ImageUpload from "../ImageUpload";
+import Avatar from "../../(components)/Avatar";
+import ImageUpload from "../../(components)/ImageUpload";
 
 interface PostFormCardProps {
   textos: Feed,
@@ -108,9 +108,9 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
             {/* <label className="mr-2">{textos.form.cityselector.estate}:</label> */}
             <select defaultValue={textos.form.cityselector.selectacity}  onChange={e => { setSelectedState(e.target.value) }} className="w-20 mr-4 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               {
-                _UFs.map(item => {
+                _UFs.map((item, index) => {
                   return (
-                    <option key={item}>{item}</option>
+                    <option key={index}>{item}</option>
                   )
                 })
               }
@@ -120,10 +120,10 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
               {
                 selectedState ? (
                   cities.length > 0 ? (
-                    cities.map(city => (
+                    cities.map((city, index) => (
                       <option
                         className="px-2 cursor-pointer hover:bg-gray-200"
-                        key={city.nome}
+                        key={index}
                         value={city.nome}
                       >{city.nome}</option>
                     ))
