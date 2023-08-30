@@ -4,6 +4,8 @@ import { Database } from "@/../lib/database.types";
 import { cookies } from "next/headers";
 import { useEffect, useState } from "react";
 import Historico from "./historico/Historico";
+import { useQuery } from 'react-query';
+
 
 interface VisaoGeralProps {
   corretor: any;
@@ -12,7 +14,7 @@ interface VisaoGeralProps {
 
 export default function VisaoGeral({ corretor, dict }: VisaoGeralProps) {
   const supabase = createClientComponentClient<Database>()
-  const [especialidades, setEspecialidade] = useState<{ descricao: string; }[] | null>()
+  /* const [especialidades, setEspecialidade] = useState<{ descricao: string; }[] | null>()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +25,22 @@ export default function VisaoGeral({ corretor, dict }: VisaoGeralProps) {
       setEspecialidade(especialidades)
     }
     fetchData()
-  }, [])
+  }, []) */
+
+  // Defina a chave única para essa query
+  const queryKey = ['especialidades', corretor.id];
+
+  // Defina a função para buscar as especialidades
+  const fetchEspecialidades = async () => {
+    const { data: especialidades } = await supabase
+      .rpc('obterespecialidade', {
+        idcorretor: corretor.id
+      });
+    return especialidades;
+  };
+
+  // Use a função useQuery para buscar os dados
+  const { data: especialidades, isLoading, isError } = useQuery(queryKey, fetchEspecialidades);
 
   return (
     <div className="ml-6">
@@ -33,14 +50,14 @@ export default function VisaoGeral({ corretor, dict }: VisaoGeralProps) {
           <p className="font-semibold ">Creci</p>
           <p>{corretor.creci}</p>
         </div>
-        {corretor.numero ? (
+        {corretor.numero && (
           <div className="">
             <p className="font-semibold ">Telefone</p>
             <p>{corretor.numero}</p>
           </div>
-        ) : (<></>)}
+        )}
 
-        {especialidades ? (
+        {especialidades && (
           <div className="">
             <p className="font-semibold">Especialidades</p>
             <ul className="list-disc ml-8">
@@ -49,7 +66,7 @@ export default function VisaoGeral({ corretor, dict }: VisaoGeralProps) {
               ))}
             </ul>
           </div>
-        ) : (<></>)}
+        )}
       </div>
 
 
