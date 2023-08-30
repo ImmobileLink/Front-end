@@ -10,13 +10,11 @@ import { v4 as uuidv4 } from 'uuid';
 interface ImoveisProps {
   userid: string;
   textos: Imovel;
-  //imoveis: ImovelRegistro;
-  userSession: Session | null | undefined;
 }
 
 const supabase = createClientComponentClient<Database>();
 
-export default function Imoveis({ userid, /*imoveis,*/ textos, userSession }: ImoveisProps) {
+export default function Imoveis({ userid, textos }: ImoveisProps) {
   const [formOpen, setFormOpen] = useState(false);
   const [estado, setEstado] = useState("");
   const [cidade, setCidade] = useState("");
@@ -29,7 +27,7 @@ export default function Imoveis({ userid, /*imoveis,*/ textos, userSession }: Im
   const [img, setImg] = useState<File>();
   const [imagemId, setImagemId] = useState("");
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [properties, setProperties] = useState<ImovelRegistro[]>([]); //imoveis
 
@@ -49,10 +47,40 @@ export default function Imoveis({ userid, /*imoveis,*/ textos, userSession }: Im
           event: "INSERT",
           schema: "public",
           table: "imovel",
-          filter: `idcorporacao=eq.${userSession?.user.id!}`,
+          filter: `idcorporacao=eq.${userid}`,
         },
         async (payload: { new: ImovelRegistro }) => {
           setProperties((properties: ImovelRegistro[]) => [...properties, payload.new]);
+        }
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "imovel",
+          filter: `idcorporacao=eq.${userid}`,
+        },
+        async (payload: { new: ImovelRegistro }) => {
+          setProperties((properties: ImovelRegistro[]) => {
+            return properties.map((property) =>
+              property.id === payload.new.id ? payload.new : property
+            );
+          });
+        }
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "DELETE",
+          schema: "public",
+          table: "imovel",
+          filter: `idcorporacao=eq.${userid}`,
+        },
+        async (payload: { old: ImovelRegistro }) => {
+          setProperties((properties: ImovelRegistro[]) => {
+            return properties.filter((property) => property.id !== payload.old.id);
+          });
         }
       )
       .subscribe();
@@ -63,7 +91,7 @@ export default function Imoveis({ userid, /*imoveis,*/ textos, userSession }: Im
 
   const getProperties = async () => {  
     if (userid) {
-      setLoading(true);
+      //setLoading(true);
 
       let { data, error } = await supabase
         .from("imovel")
@@ -84,7 +112,7 @@ export default function Imoveis({ userid, /*imoveis,*/ textos, userSession }: Im
     const { data, error } = await supabase
       .storage
       .from('imoveis') // Nome do bucket no Supabase
-      .upload(userid + "/" + imagemId, img); // Cria a pasta se ela ainda não existir
+      .upload(userid + "/" + imagemId, img);  // Cria a pasta se ela ainda não existir    cacheControl: 'max-age=300'
 
     if (error) {
       console.error('Erro ao fazer upload:', error.message);
@@ -108,7 +136,7 @@ export default function Imoveis({ userid, /*imoveis,*/ textos, userSession }: Im
     }
 
     const imovel: InsereImovel = {
-      idcorporacao: userSession?.user.id!,
+      idcorporacao: userid,
       descricao: descricao,
       estado: estado,
       cidade: cidade,
@@ -348,13 +376,13 @@ export default function Imoveis({ userid, /*imoveis,*/ textos, userSession }: Im
           )}
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-x-4">
+      <div className="grid grid-cols-2 gap-x-4 w-full justify-center items-start">
         {
           loading ? <div>Loading</div>
           :
           properties!.map((imovel: ImovelRegistro) => {
             return (
-              <ImovelCard key={imovel.id} textos={textos} imovel={imovel} userSession={userSession}
+              <ImovelCard key={imovel.id} textos={textos} imovel={imovel} userid={userid}
               />
             );
           })

@@ -5,6 +5,7 @@ import { Database } from "../../../../lib/database.types";
 import NavBar from "../(components)/NavBar";
 import Imoveis from "../(components)/(imovel)/Imoveis";
 import ImovelCard from "../(components)/(imovel)/ImovelCard";
+import { cache } from "react";
 
 interface pageProps {
   params: {
@@ -12,18 +13,14 @@ interface pageProps {
   };
 }
 
-const supabase = createServerComponentClient<Database>({ cookies });
-
-async function getUserSession() {
-  const {
-    data: { session },
-    error,
-  } = await supabase.auth.getSession();
-  if (error) console.log(error);
-  else return session;
-}
+const createServerSupabaseClient = cache(() => {
+  const cookieStore = cookies()
+  return createServerComponentClient<Database>({ cookies: () => cookieStore })
+})
 
 async function getUserData() {
+  const supabase = createServerSupabaseClient();
+
   let userData: userDataType = {
     id: undefined,
     identificador: undefined,
@@ -58,26 +55,10 @@ async function getUserData() {
   return userData;
 }
 
-async function getProperties() {
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (session?.user.id) {
-    let { data, error } = await supabase
-      .from("imovel")
-      .select("*")
-      .eq("idcorporacao", session?.user.id);
-    return data;
-  }
-}
-
 export default async function page({ params: { lang } }: pageProps) {
+  const supabase = createServerSupabaseClient();
   const dict = await getDictionary(lang); // pt
   const textos = dict.imovel;
-
-  //const imoveis = await getProperties();
-  const session = await getUserSession();
 
   const userData = await getUserData();
 
@@ -86,7 +67,7 @@ export default async function page({ params: { lang } }: pageProps) {
       <NavBar />
       <div className="w-auto h-fit min-h-screen  bg-branco dark:bg-dark-200 overflow-x-hidden box-border text-black">
         <div className="flex relative max-w-6xl mx-auto px-4 my-4">
-          <Imoveis userid={userData.id} textos={textos} /*imoveis={imoveis}*/ userSession={session} />
+          <Imoveis userid={userData.id} textos={textos} />
         </div>
       </div>
     </>

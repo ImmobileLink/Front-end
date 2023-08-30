@@ -11,12 +11,12 @@ interface VisitaCardProps {
   formlabels: Formlabels;
   imovel: any;
   corretor: any;
-  userSession: Session | null | undefined;
+  userid: string;
 }
 
 const supabase = createClientComponentClient<Database>();
 
-export default function VisitaCard({ onCloseModal, formlabels, imovel, corretor, userSession }: VisitaCardProps) {
+export default function VisitaCard({ onCloseModal, formlabels, imovel, corretor, userid }: VisitaCardProps) {
   const [alert, setAlert] = useState({ type: "", title: "", message: "" });
   const [selectedCorretor, setSelectedCorretor] = useState<Corretor>(
     corretor![0]
@@ -66,7 +66,7 @@ export default function VisitaCard({ onCloseModal, formlabels, imovel, corretor,
     event.preventDefault();
 
     const visita: InsereVisita = {
-      idcorporacao: userSession?.user.id!,
+      idcorporacao: userid,
       idcorretor: selectedCorretor.id,
       idimovel: imovel.id,
       dadosmarcador: {
@@ -83,7 +83,7 @@ export default function VisitaCard({ onCloseModal, formlabels, imovel, corretor,
   return (
     <div
       aria-hidden="true"
-      className="w-full p-[2.5%] bg-[rgba(0,0,0,0.5)] fixed z-1000 flex justify-center inset-0"
+      className="w-full z-50 p-[2.5%] bg-[rgba(0,0,0,0.5)] fixed z-1000 flex justify-center inset-0"
     >
       <form
         onSubmit={handleSubmit}
@@ -120,7 +120,7 @@ export default function VisitaCard({ onCloseModal, formlabels, imovel, corretor,
                 //value={selectedCorretor.id}
                 onChange={(e) => handleCorretor(e)}
               >
-                <option disabled selected>
+                <option disabled value="">
                   {formlabels.selectbroker}
                 </option>
                 {corretor?.map((c: Corretor) => {

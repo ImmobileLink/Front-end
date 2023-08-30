@@ -31,7 +31,17 @@ export interface InsereImovel {
     rua: string,
     numero: number,
     valor: number,
-    imagem: strin
+    imagem: string
+}
+export interface AtualizaImovel {
+  descricao: string,
+  estado: string,
+  cidade: string,
+  bairro: string,
+  rua: string,
+  numero: number,
+  valor: number,
+  imagem: string
 }
 export type Mensagem = Database['public']['Tables']['mensagem']['Row']
 export interface MensagemComUsuario extends Mensagem {
