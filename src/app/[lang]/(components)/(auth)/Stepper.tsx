@@ -8,7 +8,7 @@ interface StepperProps {
 
 export default function Stepper({ atual, stepper }: StepperProps) {
   return (
-    <>
+    <div>
       <ol className="flex items-center w-4/5 ml-4 text-sm font-medium text-center text-gray-500 dark:text-gray-400 sm:text-base">
         {atual >= 1 ? (
           <li className="flex md:w-full items-center text-secundaria-200 dark:text-secundaria-100 sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
@@ -86,6 +86,6 @@ export default function Stepper({ atual, stepper }: StepperProps) {
           </li>
         )}
       </ol>
-    </>
+    </div>
   );
 }
