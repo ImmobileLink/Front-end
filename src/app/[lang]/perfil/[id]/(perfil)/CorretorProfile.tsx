@@ -1,13 +1,8 @@
 import Calendario from '@/app/[lang]/(components)/Calendario';
-import Cabecalho from './components/Cabecalho';
 import Dashboard from './components/Dashboard';
 import Infos from './components/Infos';
-import { Page as P } from './composition/page'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '../../../../../../lib/database.types';
-import { cookies } from 'next/headers';
-import { getDictionary } from '@/app/[lang]/dictionaries';
-import { Dictionaries } from '@/app/i18n/dictionaries/types';
+import { Page } from './composition/page'
+import { Page as Cabecalho } from './composition/cabecalho'
 import { profileSimpleData } from '../../../../../../lib/modelos';
 import { getCorretorData, verifyIfIsAssociado } from '../../../../../../lib/Utils/userProfile';
 
@@ -19,7 +14,6 @@ interface CorretorProfileProps {
     dict: any;
 }
 
-const supabase = createServerComponentClient<Database>({ cookies })
 
 
 export default async function CorretorProfile({ profile, session, dict }: CorretorProfileProps) {
@@ -27,24 +21,33 @@ export default async function CorretorProfile({ profile, session, dict }: Corret
     const corretorData = await getCorretorData(profile.id!)
     const isAssociado = session && await verifyIfIsAssociado(profile.id!, session.id!)
 
+    //enviar associacoes para o InfosPadrao
 
     return (
-        <P.Root>
-            <P.Main>
-                <Cabecalho dict={dict} isAssociado={isAssociado} session_data={session} corretor={corretorData} />
+        <Page.Root>
+            <Page.Main>
+
+                <Cabecalho.InfosPadrao corretor={corretorData!} dict={dict} isAssociado={isAssociado} session_data={session}>
+                    {session &&
+                        <Cabecalho.Botoes profileId={profile.id!} sessionId={session?.id!} />
+                    }
+                </Cabecalho.InfosPadrao>
+
+
+
                 <Infos dict={dict} corretor={corretorData} />
-            </P.Main>
+            </Page.Main>
 
-            <P.Right>
-                <P.Dashboard>
+            <Page.Right>
+                <Page.Dashboard>
                     <Dashboard premium={session?.premium} dict={dict} />
-                </P.Dashboard>
+                </Page.Dashboard>
 
 
-                <P.Calendar>
+                <Page.Calendar>
                     <Calendario ownId={session?.id} idProfile={profile?.id} />
-                </P.Calendar>
-            </P.Right>
-        </P.Root >
+                </Page.Calendar>
+            </Page.Right>
+        </Page.Root >
     );
 }

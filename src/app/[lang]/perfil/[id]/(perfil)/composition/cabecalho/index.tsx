@@ -1,13 +1,8 @@
-import PageRoot from "./PageRoot";
-import PageMain from "./PageMain";
-import PageRight from "./PageRight";
-import PageCalendar from "./PageCalendar";
-import PageDashboard from "./PageDashboard";
+import InfosPadrao from "./InfosPadrao";
+import Botoes from "./Botoes";
+
 
 export const Page = {
-  Root: PageRoot,
-  Main: PageMain,
-  Right: PageRight,
-  Calendar: PageCalendar,
-  Dashboard: PageDashboard
+  InfosPadrao: InfosPadrao,
+  Botoes: Botoes
 }
