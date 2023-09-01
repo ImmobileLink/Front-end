@@ -42,13 +42,7 @@ export default async function page({ params: { lang } }: PageProps) {
                     </div>
                 </div>
                 <div
-                    className="relative w-1/3 hidden lg:flex shrink-0 min-h-[80%] rounded-s-giga overflow-hidden"
-                    // style={{
-                    //   backgroundImage: `url(${bg.src})`,
-                    //   width: '100%',
-                    //   height: '100%',
-                    // }}
-                >
+                    className="relative w-1/3 hidden lg:flex shrink-0 min-h-[80%] rounded-s-giga overflow-hidden">
                     <Image
                         fill
                         src="assets/login/bg1.jpg"
