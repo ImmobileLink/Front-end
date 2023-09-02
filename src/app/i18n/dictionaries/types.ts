@@ -377,6 +377,8 @@ export interface Chat {
   conversations: string;
   you: string;
   newconversation: string;
+  newconvlabel1: string;
+  newconvlabel2: string;
 }
 
 // Converts JSON strings to/from your types

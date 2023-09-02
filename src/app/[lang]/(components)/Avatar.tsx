@@ -23,8 +23,6 @@ export default function Avatar({ userId, size }: AvatarProps) {
 
   const [src, setSrc] = useState(`users/profile_picture/${userId}`);
 
-
-
   return (
     <div>
       <Image

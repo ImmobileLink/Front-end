@@ -53,16 +53,14 @@ export default async function ChatSpace({ dict, idsala, userId }: ChatSpaceProps
       <div className="h-full lg:h-full lg:w-full flex flex-col w-screen rounded-md bg-white dark:bg-dark-100 drop-shadow-md">
         {
           idsala != null &&
-            <ChatHeader key={iddestinatario} idparticipante={iddestinatario} nomeparticipante={nomedestinatario} />
+          <ChatHeader key={iddestinatario} idparticipante={iddestinatario} nomeparticipante={nomedestinatario} />
         }
         <MessageSpace dict={dict} mensagens={mensagens} idsala={idsala} />
         {
           idsala != null &&
-            <TypingBox idsala={idsala} userId={userId} />
+          <TypingBox idsala={idsala} userId={userId} />
         }
-        <div className="">
-          <BottomNav />
-        </div>
+        {/* <BottomNav /> */}
       </div>
     </>
 

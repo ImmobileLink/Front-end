@@ -1,30 +1,29 @@
 "use client"
-import { Session, createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { UltimaMensagemPorSalaPorUsuario, userGroup } from "../../../../../lib/modelos";
-
 import { Database } from "../../../../../lib/database.types";
 import { useContext, useEffect, useState, useTransition } from "react";
 import { useRouter } from 'next/navigation';
 import ChatHubCard from "./ChatHubCard";
-import { Chat } from "@/app/i18n/dictionaries/types";
-import CardItem from "../(cards)/CardItem";
-import FriendList from "./FriendList";
 import BottomNav from "./BottomNav";
 import { ChatContext } from "../../chat/[[...idsala]]/chatContext";
+import {BiArrowBack} from 'react-icons/bi'
+import FriendList from "./FriendList";
 
 
 interface ChatHubProps {
   dict: any;
   idsala: string;
   userId: string | undefined;
+  userType: string | undefined;
   userLinks: userGroup;
+  userAssocs: userGroup;
   mensagens: UltimaMensagemPorSalaPorUsuario[] | null | undefined;
-  children: any
 }
 
 const supabase = createClientComponentClient<Database>()
 
-export default function ChatHub({ dict, idsala, userId, userLinks, mensagens, children }: ChatHubProps) {
+export default function ChatHub({ dict, idsala, userType, userId, userLinks, userAssocs, mensagens}: ChatHubProps) {
   const { chatView, toggleChatView } = useContext(ChatContext)
 
   let chatStyle = 'flex'
@@ -120,9 +119,17 @@ export default function ChatHub({ dict, idsala, userId, userLinks, mensagens, ch
   return (
     <div className={`${chatStyle} flex-col justify-start h-full w-screen lg:h-5/6 lg:w-3/12 rounded-md bg-white dark:bg-dark-100 drop-shadow-md`}>
       <div className="fixed left-0 top-0 right-0 grid row grid-cols-12 py-2 lg:rounded-lg bg-gray-100 dark:bg-gray-600 border border-gray-200 dark:border-gray-700">
-        <div className="col-start-1 col-span-4 self-center ml-2 px-2 rounded-md w-fit font-sans font-semibold">
-          {dict.chat.conversations}
-        </div>
+        {
+          friendListState ?
+          <div onClick={handleFriendList} className="col-start-1 col-span-4 self-center ml-2 w-fit flex cursor-pointer text-white focus:ring-4 font-medium text-sm px-2 py-1 focus:outline-none rounded-lg">
+            <BiArrowBack size={20}/>
+          </div>
+          :
+            <div className="col-start-1 col-span-4 self-center ml-2 px-2 rounded-md w-fit font-sans font-semibold">
+              {dict.chat.conversations}
+            </div>
+        }
+
         <div className="flex justify-end mr-2 col-span-8 col-end-13 items-center">
           <button onClick={handleFriendList} className={`${friendListButtonStyle} flex cursor-pointer text-white focus:ring-4 font-medium text-sm px-5 py-1 focus:outline-none rounded-lg`}>
             {dict.chat.newconversation}
@@ -132,7 +139,7 @@ export default function ChatHub({ dict, idsala, userId, userLinks, mensagens, ch
       <div className={`flex flex-col h-full pt-[46px] overflow-y-auto snap-start gap-2`}>
         {
           friendListState ?
-            children
+          <FriendList dict={dict} userType={userType} userLinks={userLinks} userAssocs={userAssocs} userId={userId} />
             :
             ''
         }
@@ -145,7 +152,7 @@ export default function ChatHub({ dict, idsala, userId, userLinks, mensagens, ch
           }
         </div>
       </div>
-      <BottomNav />
+      {/* <BottomNav /> */}
     </div>
   );
 }

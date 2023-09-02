@@ -35,7 +35,7 @@ export default function FriendListCard({ idremetente, iddestinatario, nome }: Fr
     }
     return (
         <>
-            <div onClick={handleEnviarMensagem} className="flex flex-row rounded-md bg-gray-300 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-500 p-2">
+            <div onClick={handleEnviarMensagem} className="flex flex-row rounded-md mx-1 p-2 bg-gray-300 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-500">
                 <div className="flex w-3/4 rounded-full">
                     <Avatar userId={iddestinatario} />
                     <div className="w-2/3 self-center capitalize text-black dark:text-white truncate ml-2">{nome}</div>

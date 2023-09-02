@@ -184,7 +184,7 @@
       "relatedbrokers": "Related Brokers",
       "norelatedbrokersyet": "Looks like you don't have any related brokers yet",
       "myrelatedcompany": "Related company",
-      "norelatedcompanyyet": "No related company yet"
+      "norelatedcompanyyet": "No related companies yet"
     },
     "pub": {
       "regionfilter": "Filter by",
@@ -306,6 +306,8 @@
     "conversations": "Conversations",
     "you": "You",
     "sent": "sent",
-    "newconversation": "New space"
+    "newconversation": "New space",
+    "newconvlabel1": "Partnerships",
+    "newconvlabel2": "Links"
   }
 }

@@ -7,10 +7,8 @@ import ChatSpace from "../../(components)/(chat)/ChatSpace";
 import ChatHub from "../../(components)/(chat)/ChatHub";
 import { UltimaMensagemPorSalaPorUsuario, userData } from "../../../../../lib/modelos";
 import { getAssoc, getLinks, getTipoUsuario } from "../../../../../lib/utils/userData";
-import FriendList from "../../(components)/(chat)/FriendList";
 import { ChatProvider } from "./chatContext";
 import ChatSpaceClient from "../../(components)/(chat)/ChatSpaceClient";
-import BottomNav from "../../(components)/(chat)/BottomNav";
 
 interface pageProps {
   params: {
@@ -89,15 +87,10 @@ export default async function Page({ params: { lang, idsala } }: pageProps) {
   }
   const userData = await getUserData();
 
-  console.log(userData)
-
   return (
     <ChatProvider>
       <div className="flex justify-center lg:items-center h-full pt-[72px] lg:w-auto lg:h-4/6 lg:min-h-screen bg-branco dark:bg-dark-200 gap-5">
-        <ChatHub dict={dict} idsala={salaid} userId={userData.id} userLinks={userData.links} mensagens={messages} >
-          <FriendList dict={dict} userLinks={userData.links} userId={userData.id} />
-        </ChatHub>
-
+        <ChatHub dict={dict} idsala={salaid} userType={userData.type} userId={userData.id} userLinks={userData.links} userAssocs={userData.assoc} mensagens={messages} />
         <ChatSpaceClient dict={dict.chat} idsala={salaid} userId={userData.id}>
           <ChatSpace dict={dict.chat} idsala={salaid} userId={userData.id} />
         </ChatSpaceClient>

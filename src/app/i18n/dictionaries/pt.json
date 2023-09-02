@@ -184,7 +184,7 @@
       "relatedbrokers": "Corretores afiliados",
       "norelatedbrokersyet": "Sem corretores afiliados por enquanto",
       "myrelatedcompany": "Empresa associada",
-      "norelatedcompanyyet": "Não possui uma corporação afiliada"
+      "norelatedcompanyyet": "Sem corporações associadas por enquanto"
     },
     "pub": {
       "regionfilter": "Filtrar por",
@@ -305,6 +305,8 @@
   "chat": {
     "conversations": "Conversas",
     "you": "Você",
-    "newconversation": "Novo espaço"
+    "newconversation": "Novo espaço",
+    "newconvlabel1": "Associações",
+    "newconvlabel2": "Links"
   }
 }
