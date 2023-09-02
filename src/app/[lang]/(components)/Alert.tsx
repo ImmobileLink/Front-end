@@ -27,7 +27,7 @@ export default function Alert({ type, title, text }: AlertProps) {
               clipRule="evenodd"
             ></path>
           </svg>
-          <span className="sr-only">Info</span>
+          {/*<span className="sr-only">Info</span>*/}
           <div>
             <span className="font-bold">
               {title} {}
@@ -85,7 +85,7 @@ export default function Alert({ type, title, text }: AlertProps) {
               clipRule="evenodd"
             ></path>
           </svg>
-          <span className="sr-only">Info</span>
+          {/*<span className="sr-only">Info</span>*/}
           <div>
             <span className="font-bold">
               {title} {}
@@ -114,7 +114,7 @@ export default function Alert({ type, title, text }: AlertProps) {
               clipRule="evenodd"
             ></path>
           </svg>
-          <span className="sr-only">Info</span>
+          {/*<span className="sr-only">Info</span>*/}
           <div>
             <span className="font-bold">
               {title} {}
@@ -143,7 +143,7 @@ export default function Alert({ type, title, text }: AlertProps) {
               clipRule="evenodd"
             ></path>
           </svg>
-          <span className="sr-only">Info</span>
+          {/*<span className="sr-only">Info</span>*/}
           <div>
             <span className="font-bold">
               {title} {}
