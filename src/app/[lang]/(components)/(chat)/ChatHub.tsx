@@ -121,7 +121,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
       <div className="fixed left-0 top-0 right-0 grid row grid-cols-12 py-2 lg:rounded-lg bg-gray-100 dark:bg-gray-600 border border-gray-200 dark:border-gray-700">
         {
           friendListState ?
-          <div onClick={handleFriendList} className="col-start-1 col-span-4 self-center ml-2 w-fit flex cursor-pointer text-white focus:ring-4 font-medium text-sm px-2 py-1 focus:outline-none rounded-lg">
+          <div onClick={handleFriendList} className="col-start-1 col-span-4 self-center ml-2 w-fit flex cursor-pointer text-gray-900 dark:text-white focus:ring-4 font-medium text-sm px-2 py-1 hover:bg-gray-50 dark:hover:bg-gray-800">
             <BiArrowBack size={20}/>
           </div>
           :

@@ -45,7 +45,8 @@ export type Mensagem = Database['public']['Tables']['mensagem']['Row']
 export interface MensagemAInserir {
     idautor: string,
     idsala: string,
-    mensagem: string
+    mensagem?: string,
+    imagem?: File
 }
 export interface CorretorAssociado {
     id: string,

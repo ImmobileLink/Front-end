@@ -13,7 +13,6 @@ export function ChatProvider({ children }: { children: ReactNode }) {
 
   const toggleChatView = (val:boolean) => {
     setChatView(val)
-    console.log(val)
   }
 
   return (

@@ -389,7 +389,7 @@ export interface Database {
           idautor: string
           idsala: string
           imagem: string | null
-          mensagem: string
+          mensagem: string | null
           nomeautor: string | null
         }
         Insert: {
@@ -399,7 +399,7 @@ export interface Database {
           idautor: string
           idsala: string
           imagem?: string | null
-          mensagem: string
+          mensagem?: string | null
           nomeautor?: string | null
         }
         Update: {
@@ -409,7 +409,7 @@ export interface Database {
           idautor?: string
           idsala?: string
           imagem?: string | null
-          mensagem?: string
+          mensagem?: string | null
           nomeautor?: string | null
         }
         Relationships: [

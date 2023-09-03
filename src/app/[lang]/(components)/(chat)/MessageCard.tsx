@@ -1,6 +1,7 @@
 "use client";
 
 import { formataData } from "../../../../../lib/utils/formataData";
+import Image from "next/image";
 import Avatar from "../Avatar";
 
 interface MessageCardProps { 
@@ -22,6 +23,10 @@ export default function MessageCard({message}: MessageCardProps) {
                     <p className="flex break-all list-none align-bottom items-bottom text-lg font-sans font-semibold text-slate-900 dark:text-gray-300">
                         {message.mensagem}
                     </p>
+                    {
+                        message.imagem &&
+                        <Image src={`mensagens/imagens/${message.imagem}`} alt={message.id} width={1} height={1} className="w-full h-fit mt-2"/>
+                    }
                 </div>
             </div>
         </div>
