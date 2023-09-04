@@ -293,7 +293,7 @@ export default function SignUp({
                             <BsArrowRight />
                         </button>
                     </div>
-                    <div className="hidden md:flex w-2/5 justify-center">
+                    <div className="hidden md:flex w-2/5 2xl:w-full justify-center">
                         <div className="sm:w-1/3 md:w-10/12 lg:w-8/12">
                             <Stepper
                                 atual={telaAtual}

@@ -1,5 +1,4 @@
 export const _UFs = [
-  "UF",
   "AC",
   "AL",
   "AP",

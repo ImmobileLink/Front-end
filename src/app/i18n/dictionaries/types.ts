@@ -129,6 +129,7 @@ export interface Signup3 {
     phone3:       string;
     cep:          string;
     uf:           string;
+    ufacronim:    string;
     city:         string;
     neighborhood: string;
     street:       string;
@@ -169,6 +170,7 @@ export interface Signup4Cityselector {
     selectaestate:      string;
     selectaestatefirst: string;
     nocityfound:        string;
+    ufacronim:          string;
 }
 
 export interface Signup4Logs {

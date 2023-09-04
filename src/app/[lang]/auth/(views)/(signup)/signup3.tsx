@@ -369,6 +369,7 @@ export default function Signup3({
                                 disabled={disabilitarInput}
                                 value={props.estado}
                             >
+                                <option value=""  disabled>{signup3.ufacronim}</option>
                                 {_UFs.map((uf, index) => {
                                     return (
                                         <option

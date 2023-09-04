@@ -227,14 +227,14 @@ export default function Signup4({
                                 </label>
                                 <select
                                     value={selectedState}
-                                    className="bg-dark-200 mb-1 w-16"
+                                    className="bg-dark-200 mb-1 w-16 mx-1"
                                     onChange={(e) => {setSelectedState(e.target.value);}}
                                     onClick={e => {
                                         setDropdownRegiao(false);
                                         setDropdownTipos(false);
                                     }}
                                 >
-                                    <option value=""  disabled>{signup4.cityselector.selectaestate}</option>
+                                    <option value=""  disabled>{signup4.cityselector.ufacronim}</option>
                                     {_UFs.map(uf => {
                                         return (
                                             <option

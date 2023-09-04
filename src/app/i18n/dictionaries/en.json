@@ -58,6 +58,7 @@
         "phone3": "Commercial",
         "cep": "zip",
         "uf": "Estate",
+        "ufacronim": "UF",
         "city": "City",
         "neighborhood": "Neighborhood",
         "street": "Street",
@@ -93,7 +94,8 @@
           "city": "City",
           "selectaestate": "Select a estate",
           "selectaestatefirst": "Select a estate first",
-          "nocityfound": "No city found"
+          "nocityfound": "No city found",
+          "ufacronim": "UF"
         }
       },
       "signup5": {

@@ -58,6 +58,7 @@
         "phone3": "Comercial",
         "cep": "CEP",
         "uf": "Estado",
+        "ufacronim": "UF",
         "city": "Cidade",
         "neighborhood": "Bairro",
         "street": "Logradouro",
@@ -93,7 +94,8 @@
           "city": "Município",
           "selectaestate": "Selecione um estado",
           "selectaestatefirst": "Selecione um estado primeiro",
-          "nocityfound": "Nenhum município encontrado"
+          "nocityfound": "Nenhum município encontrado",
+          "ufacronim": "UF"
         }
       },
       "signup5": {
