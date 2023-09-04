@@ -1,11 +1,10 @@
 "use client"
-import React from "react";
 import { Pesquisa } from "@/app/i18n/dictionaries/types";
 import { useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import UserCard from "./UserCard";
-import { Regiao, TipoImovel, CorretorBuscado, CorporacaoPorRegiao } from "../../../../../lib/modelos";
+import { Regiao, TipoImovel, CorretorBuscado } from "../../../../../lib/modelos";
 
 interface PesquisaCardProps {
   textos: Pesquisa,
