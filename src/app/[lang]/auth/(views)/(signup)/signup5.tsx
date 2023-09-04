@@ -51,7 +51,7 @@ export default function Signup5({
                     <div
                         className={`${
                             !props.premium ? "bg-white/25 rounded-lg" : ""
-                        } w-60 h-fit grid justify-items-center gap-3 justify-self-center md:justify-self-end`}
+                        } px-2 py-2 w-64 h-fit grid justify-items-center gap-3 justify-self-center md:justify-self-end`}
                     >
                         <span className="font-bold text-2xl tracking-wider text-black dark:text-branco">
                             FREE
@@ -159,7 +159,7 @@ export default function Signup5({
                     <div
                         className={`${
                             props.premium ? "bg-white/25 rounded-lg" : ""
-                        } w-60 h-fit grid justify-items-center gap-3 justify-self-center md:justify-self-start`}
+                        } px-2 py-2 w-64 h-fit grid justify-items-center gap-3 justify-self-center md:justify-self-start`}
                     >
                         <span className="font-bold text-2xl tracking-wider text-black dark:text-branco">
                             PREMIUM

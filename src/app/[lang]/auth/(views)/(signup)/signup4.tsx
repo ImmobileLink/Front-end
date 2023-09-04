@@ -6,6 +6,8 @@ import { Signup4 } from "@/app/i18n/dictionaries/types";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import CitySelector from '../../../(components)/CitySelector';
 import Loading from "@/app/[lang]/(components)/(auth)/Loading";
+import { _UFs } from "../../../../../../lib/utils/getRegiao";
+import { stringify } from 'querystring';
 
 interface Signup4Props {
     props: {
@@ -15,12 +17,12 @@ interface Signup4Props {
         setEspecialidade: Dispatch<
             SetStateAction<{ id: any; descricao: any }[]>
         >;
-        regiaoAtuacao: { regiao: any }[];
-        setRegiaoAtuacao: Dispatch<SetStateAction<{ regiao: any }[]>>;
+        regiaoAtuacao: { estado: string, cidade: string }[];
+        setRegiaoAtuacao: Dispatch<SetStateAction<{ estado: string, cidade: string }[]>>;
         especialidadesIncluidas: string[];
         setEspecialidadesIncluidas: Dispatch<SetStateAction<string[]>>;
-        regioesIncluidas: string[];
-        setRegioesIncluidas: Dispatch<SetStateAction<string[]>>;
+        regioesIncluidas: { estado: string, cidade: string }[];
+        setRegioesIncluidas: Dispatch<SetStateAction<{ estado: string, cidade: string }[]>>;
     };
     tipoPerfil: number | undefined;
     setPodeAvancar: Dispatch<SetStateAction<boolean>>;
@@ -31,6 +33,7 @@ interface Signup4Props {
     data: {
         tipoImovel: { id: any; descricao: any }[] | null;
     };
+    fieldErros: { [k: string]: any };
 }
 
 interface City {
@@ -45,9 +48,11 @@ export default function Signup4({
     setAlert,
     signup4,
     data,
+    fieldErros,
 }: Signup4Props) {
     const [dropdownTipos, setDropdownTipos] = useState<boolean>(false); //vai reger esse dropdown de tipos de imóveis
     const [dropdownRegiao, setDropdownRegiao] = useState<boolean>(false); //vai reger esse dropdown de regioes de atuacao
+
     const [selectedState, setSelectedState] = useState<string>('');
     const [cities, setCities] = useState<City[]>([]);
     const [loading, setLoading] = useState<boolean>(false)
@@ -63,36 +68,6 @@ export default function Signup4({
 
         setPodeAvancar(true);
     };
-
-    const _UFs = [
-        "AC",
-        "AL",
-        "AP",
-        "AM",
-        "BA",
-        "CE",
-        "DF",
-        "ES",
-        "GO",
-        "MA",
-        "MT",
-        "MS",
-        "MG",
-        "PA",
-        "PB",
-        "PR",
-        "PE",
-        "PI",
-        "RJ",
-        "RN",
-        "RS",
-        "RO",
-        "RR",
-        "SC",
-        "SP",
-        "SE",
-        "TO",
-    ];
 
     const addEspecialidade = (id: any, descricao: any) => {
         if (!props.especialidadesIncluidas.includes(id)) {
@@ -131,19 +106,19 @@ export default function Signup4({
         fetchCities();
     }, [selectedState]);
 
-    const addRegiao = (regiao: string) => {
-        if (!props.regioesIncluidas.includes(regiao)) {
+    const addRegiao = ({ estado, cidade }: { estado: string, cidade: string }) => {
+        if (!props.regioesIncluidas.some(item => item.estado === estado && item.cidade === cidade)) {
             props.setRegiaoAtuacao((prev) => [
                 ...prev,
-                { regiao: regiao },
+                { estado: estado, cidade: cidade },
             ]);
-            props.setRegioesIncluidas((prev) => [...prev, regiao]);
+            props.setRegioesIncluidas((prev) => [...prev, { estado: estado, cidade: cidade }]);
         }
     };
 
-    const removeRegiao = (regiao: any) => {
-        props.setRegiaoAtuacao((prev) => prev.filter((item) => item.regiao !== regiao));
-        props.setRegioesIncluidas((prev) => prev.filter((item) => item !== regiao));
+    const removeRegiao = ({estado, cidade}: {estado: string, cidade: string}) => {
+        props.setRegiaoAtuacao((prev) => prev.filter((item) => (item.cidade !== cidade || item.estado !== estado)));
+        props.setRegioesIncluidas((prev) => prev.filter((item) => (item.cidade !== cidade || item.estado !== estado)));
     };
 
     return (
@@ -154,7 +129,7 @@ export default function Signup4({
                         <div className="relative z-0 w-full mb-6 group">
                             <InputMask
                                 mask="999999-a"
-                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                className={`${fieldErros?.creci?.[0] != undefined ? "bg-red-500/50" : "bg-transparent"} block py-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                 required
                                 autoFocus
                                 value={props.creci}
@@ -165,17 +140,18 @@ export default function Signup4({
                                 }
                                 onBlur={validaForm}
                             />
-                            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                                 {signup4.creci}
                                 <span className="text-primaria">{" *"}</span>
+                            </label>
+                            <label className="text-red-500 text-xs">
+                                {fieldErros?.creci?.[0]}
                             </label>
                         </div>
 
                         {/* ESPECIALIDADE */}
 
-                        <div
-                            className="relative w-full mb-6 group"
-                        >
+                        <div className="relative w-full mb-6 group">
                             <label className="font-medium text-gray-500 dark:text-gray-400">
                                 {signup4.speciality}
                             </label>
@@ -292,13 +268,13 @@ export default function Signup4({
                                 {props.regiaoAtuacao?.map((item) => (
                                     <li
                                         className="flex bg-gray-500 dark:bg-gray-200 text-branco dark:text-black rounded-2xl px-2 w-fit"
-                                        key={item.regiao}
+                                        key={item.cidade}
                                     >
-                                        {item.regiao}
+                                        {item.estado + " - " + item.cidade}
                                         <AiFillCloseCircle
                                             className="text-lg ml-2 self-center hover:cursor-pointer hover:scale-110"
                                             onClick={(e) =>
-                                                removeRegiao(item.regiao)
+                                                removeRegiao({estado: item.estado, cidade: item.cidade})
                                             }
                                         />
                                     </li>
@@ -317,12 +293,10 @@ export default function Signup4({
                                         cities.map(city => (
                                             <option 
                                             className="px-2 cursor-pointer hover:bg-gray-200"
-                                            key={city.nome} 
+                                            key={selectedState + city.nome} 
                                             value={city.nome}
                                             onClick={(e) =>
-                                                addRegiao(
-                                                    city.nome
-                                                )
+                                                addRegiao({estado: selectedState, cidade: city.nome})
                                             }
                                             >{city.nome}</option>
                                         ))

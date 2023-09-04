@@ -3,6 +3,8 @@
 import { Signup3 } from "@/app/i18n/dictionaries/types";
 import InputMask from "react-input-mask";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { assignError, getCEP } from "./validations";
+import { _UFs } from "../../../../../../lib/utils/getRegiao";
 interface Signup3Props {
     props: {
         nome: string;
@@ -41,223 +43,60 @@ interface Signup3Props {
     setAlert: Dispatch<
         SetStateAction<{ type: string; title: string; message: string }>
     >;
+    setFieldErros: Function;
+    fieldErros: { [k: string]: any };
     signup3: Signup3;
 }
 
 export default function Signup3({
     props,
     tipoPerfil,
-    setPodeAvancar,
-    setAlert,
+    setFieldErros,
+    fieldErros,
     signup3,
 }: Signup3Props) {
     const [disabilitarInput, isDisabilitarInput] = useState(false);
 
-    const validaForm = () => {
-        setPodeAvancar(false);
-
-        if (tipoPerfil == 1) {
-            if (props.nome == "") {
-                return false;
-            }
-
-            if(props.cpf == ""){
-                return false;
-            }
-
-        } else {
-            // o nome fantasia tem no mínimo 12 pontos [LegisWEB]
-            if (props.nomeFantasia == "") {
-                return false;
-            }
-
-            if (props.cnpj == "") {
-                return false;
-            }
-        }
-        if (
-            (props.celular.length != 11 && props.celular.length != 0) ||
-            (props.telefone.length != 10 && props.telefone.length != 0) ||
-            (props.comercial.length != 10 && props.comercial.length != 0)
-        ) {
-            return false;
-        }
-
-        if (props.cep.length != 8) {
-            return false;
-        }
-
-        if (!props.cepValid) {
-            return false;
-        }
-
-        if (props.estado == "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invaliduf,
-            });
-            return false;
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-        }
-
-        if (props.cidade.length < 2 && props.cidade != "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidcity,
-            });
-            return false;
-        }
-
-        if (props.bairro.length < 2 && props.bairro != "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidneighborhood,
-            });
-            return false;
-        }
-
-        if (props.logradouro.length < 2 && props.logradouro != "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidstreet,
-            });
-            return false;
-        }
-
-        if (props.numero != null && props.numero < 0) {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidnumber,
-            });
-            return false;
-        }
-
-        setPodeAvancar(true);
-    };
-
-    const autoCompletaEndereco = async () => {
+    const autoCompletaEndereco = async (erros: {}, assignError: Function) => {
         isDisabilitarInput(false);
-        if (props.cep != "") {
-            const regexCep = /^\d{8}$/;
-            if (!regexCep.test(props.cep)) {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: signup3.logs.invalidcep,
-                });
-                props.isCepValid(false);
-            } else {
-                const res = await fetch(
-                    `https://viacep.com.br/ws/${props.cep}/json/`
-                );
-                const data = await res.json();
+        const data = await getCEP(props.cep);
 
-                if (!data.erro) {
-                    props.setEstado(data.uf);
-                    props.setCidade(data.localidade);
-                    props.setBairro(data.bairro);
-                    props.setLogradouro(data.logradouro);
-                    props.setComplemento(data.complemento);
-
-                    setAlert({
-                        type: "warning",
-                        title: "",
-                        message: "",
-                    });
-                    props.isCepValid(true);
-                    isDisabilitarInput(true);
-                } else {
-                    setAlert({
-                        type: "warning",
-                        title: "",
-                        message: signup3.logs.invalidcepnotfound,
-                    });
-                    props.setEstado("");
-                    props.setCidade("");
-                    props.setBairro("");
-                    props.setLogradouro("");
-                    props.setComplemento("");
-                    props.isCepValid(false);
-                    isDisabilitarInput(false);
-                }
+        if (!data.erro) {
+            props.setEstado(data.uf);
+            props.setCidade(data.localidade);
+            props.setBairro(data.bairro);
+            props.setLogradouro(data.logradouro);
+            if (data.complemento != "") {
+                props.setComplemento(data.complemento);
             }
+            props.isCepValid(true);
+            isDisabilitarInput(true);
+        } else {
+            assignError(erros, "cep", signup3.logs.invalidcepnotfound);
+            props.setEstado("");
+            props.setCidade("");
+            props.setBairro("");
+            props.setLogradouro("");
+            props.setComplemento("");
+            props.isCepValid(false);
+            isDisabilitarInput(false);
         }
+        setFieldErros(erros);
     };
 
     useEffect(() => {
         isDisabilitarInput(false);
-        if (props.cep.length != 8 && props.cep != "") {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: signup3.logs.invalidcep,
-            });
-        } else {
-            setAlert({
-                type: "warning",
-                title: "",
-                message: "",
-            });
-            if (props.cep != "") {
-                const regexCep = /^\d{8}$/;
-                if (!regexCep.test(props.cep)) {
-                    setAlert({
-                        type: "warning",
-                        title: "",
-                        message: signup3.logs.invalidcep,
-                    });
-                } else {
-                    setAlert({
-                        type: "warning",
-                        title: "",
-                        message: "",
-                    });
-                    autoCompletaEndereco();
-                }
+        const erros = fieldErros;
+        const regexCep = /^\d{8}$/;
+        if (props.cep.length == 8) {
+            if (!regexCep.test(props.cep)) {
+                assignError(erros, "cep", signup3.logs.invalidcep);
+            } else {
+                autoCompletaEndereco(erros, assignError);
+                delete erros?.cep;
             }
         }
     }, [props.cep]);
-
-    const _UFs = [
-        "UF",
-        "AC",
-        "AL",
-        "AP",
-        "AM",
-        "BA",
-        "CE",
-        "DF",
-        "ES",
-        "GO",
-        "MA",
-        "MT",
-        "MS",
-        "MG",
-        "PA",
-        "PB",
-        "PR",
-        "PE",
-        "PI",
-        "RJ",
-        "RN",
-        "RS",
-        "RO",
-        "RR",
-        "SC",
-        "SP",
-        "SE",
-        "TO",
-    ];
 
     const handleUFChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
@@ -277,17 +116,23 @@ export default function Signup3({
                         <div className="relative z-0 w-full mb-6 group">
                             <input
                                 type="text"
-                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                className={`${
+                                    fieldErros?.nome?.[0] != undefined
+                                        ? "bg-red-500/50"
+                                        : "bg-transparent"
+                                } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                 placeholder=" "
                                 required
                                 autoFocus
                                 value={props.nome}
                                 onChange={(e) => props.setNome(e.target.value)}
-                                onBlur={validaForm}
                             />
-                            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                                 {signup3.name}
                                 <span className="text-primaria">{" *"}</span>
+                            </label>
+                            <label className="text-red-500 text-xs">
+                                {fieldErros?.nome?.[0]}
                             </label>
                         </div>
                         <div className="grid md:grid-cols-2 md:gap-6">
@@ -295,7 +140,11 @@ export default function Signup3({
                                 <InputMask
                                     type="text"
                                     mask="999.999.999-99"
-                                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    className={`${
+                                        fieldErros?.cpf?.[0] != undefined
+                                            ? "bg-red-500/50"
+                                            : "bg-transparent"
+                                    } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                     placeholder=" "
                                     required
                                     value={props.cpf}
@@ -304,20 +153,26 @@ export default function Signup3({
                                             e.target.value.replace(/\D/g, "")
                                         )
                                     }
-                                    onBlur={validaForm}
                                 />
-                                <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                                     {signup3.cpf}{" "}
                                     <span className="text-primaria">
                                         {" *"}
                                     </span>
+                                </label>
+                                <label className="text-red-500 text-xs">
+                                    {fieldErros?.cpf?.[0]}
                                 </label>
                             </div>
                             <div className="relative z-0 w-full mb-6 group">
                                 <InputMask
                                     type="text"
                                     mask="99.999.999/9999-99"
-                                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    className={`${
+                                        fieldErros?.cnpj?.[0] != undefined
+                                            ? "bg-red-500/50"
+                                            : "bg-transparent"
+                                    } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                     placeholder=" "
                                     required
                                     value={props.cnpj}
@@ -326,10 +181,12 @@ export default function Signup3({
                                             e.target.value.replace(/\D/g, "")
                                         )
                                     }
-                                    onBlur={validaForm}
                                 />
-                                <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                                     {signup3.cnpj}
+                                </label>
+                                <label className="text-red-500 text-xs">
+                                    {fieldErros?.cnpj?.[0]}
                                 </label>
                             </div>
                         </div>
@@ -339,7 +196,11 @@ export default function Signup3({
                         <div className="relative z-0 w-full mb-6 group">
                             <input
                                 type="text"
-                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                className={`${
+                                    fieldErros?.nomeFantasia?.[0] != undefined
+                                        ? "bg-red-500/50"
+                                        : "bg-transparent"
+                                } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                 placeholder=" "
                                 required
                                 autoFocus
@@ -347,17 +208,23 @@ export default function Signup3({
                                 onChange={(e) =>
                                     props.setNomeFantasia(e.target.value)
                                 }
-                                onBlur={validaForm}
                             />
-                            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                                 {signup3.fantasyname}
                                 <span className="text-primaria">{" *"}</span>
+                            </label>
+                            <label className="text-red-500 text-xs">
+                                {fieldErros?.nomeFantasia?.[0]}
                             </label>
                         </div>
                         <div className="relative z-0 w-full mb-6 group">
                             <InputMask
                                 type="text"
-                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                className={`${
+                                    fieldErros?.cnpj?.[0] != undefined
+                                        ? "bg-red-500/50"
+                                        : "bg-transparent"
+                                } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                 placeholder=" "
                                 mask="99.999.999/9999-99"
                                 required
@@ -367,11 +234,13 @@ export default function Signup3({
                                         e.target.value.replace(/\D/g, "")
                                     )
                                 }
-                                onBlur={validaForm}
                             />
-                            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                                 {signup3.cnpj}
                                 <span className="text-primaria">{" *"}</span>
+                            </label>
+                            <label className="text-red-500 text-xs">
+                                {fieldErros?.cnpj?.[0]}
                             </label>
                         </div>
                     </div>
@@ -382,7 +251,11 @@ export default function Signup3({
                     <div className="relative z-0 w-full mb-6 group">
                         <InputMask
                             type="text"
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className={`${
+                                fieldErros?.celular?.[0] != undefined
+                                    ? "bg-red-500/50"
+                                    : "bg-transparent"
+                            } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                             placeholder=" "
                             required
                             mask="(99) 99999-9999"
@@ -392,16 +265,22 @@ export default function Signup3({
                                     e.target.value.replace(/\D/g, "")
                                 )
                             }
-                            onBlur={validaForm}
                         />
-                        <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                             {signup3.phone1}
+                        </label>
+                        <label className="text-red-500 text-xs">
+                            {fieldErros?.celular?.[0]}
                         </label>
                     </div>
                     <div className="relative z-0 w-full mb-6 group">
                         <InputMask
                             type="text"
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className={`${
+                                fieldErros?.telefone?.[0] != undefined
+                                    ? "bg-red-500/50"
+                                    : "bg-transparent"
+                            } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                             placeholder=" "
                             required
                             mask="(99) 9999-9999"
@@ -411,10 +290,12 @@ export default function Signup3({
                                     e.target.value.replace(/\D/g, "")
                                 )
                             }
-                            onBlur={validaForm}
                         />
-                        <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                             {signup3.phone2}
+                        </label>
+                        <label className="text-red-500 text-xs">
+                            {fieldErros?.telefone?.[0]}
                         </label>
                     </div>
                 </div>
@@ -424,7 +305,11 @@ export default function Signup3({
                     <div className="relative z-0 w-full mb-6 group">
                         <InputMask
                             type="text"
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className={`${
+                                fieldErros?.comercial?.[0] != undefined
+                                    ? "bg-red-500/50"
+                                    : "bg-transparent"
+                            } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                             placeholder=" "
                             required
                             mask="(99) 9999-9999"
@@ -434,10 +319,12 @@ export default function Signup3({
                                     e.target.value.replace(/\D/g, "")
                                 )
                             }
-                            onBlur={validaForm}
                         />
-                        <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                             {signup3.phone3}
+                        </label>
+                        <label className="text-red-500 text-xs">
+                            {fieldErros?.comercial?.[0]}
                         </label>
                     </div>
                     <div className="grid md:grid-cols-2 md:gap-6">
@@ -445,7 +332,11 @@ export default function Signup3({
                             <InputMask
                                 type="text"
                                 mask="99999-999"
-                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                className={`${
+                                    fieldErros?.cep?.[0] != undefined
+                                        ? "bg-red-500/50"
+                                        : "bg-transparent"
+                                } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                 placeholder=" "
                                 required
                                 value={props.cep}
@@ -454,11 +345,13 @@ export default function Signup3({
                                         e.target.value.replace(/\D/g, "")
                                     )
                                 }
-                                onBlur={autoCompletaEndereco}
                             />
-                            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                                 {signup3.cep}
                                 <span className="text-primaria">{" *"}</span>
+                            </label>
+                            <label className="text-red-500 text-xs">
+                                {fieldErros?.cep?.[0]}
                             </label>
                         </div>
                         <div className="z-0 group ">
@@ -467,7 +360,11 @@ export default function Signup3({
                                 <span className="text-primaria">{" *"}</span>
                             </label>
                             <select
-                                className="bg-dark-200 mb-1"
+                                className={`${
+                                    fieldErros?.cep?.[0] != undefined
+                                        ? "bg-red-500/50"
+                                        : "bg-dark-200"
+                                } mb-1`}
                                 onChange={handleUFChange}
                                 disabled={disabilitarInput}
                                 value={props.estado}
@@ -486,40 +383,57 @@ export default function Signup3({
                         </div>
                     </div>
                 </div>
+                <div className="md:justify-end w-full flex">
+                    <label className="text-red-500 text-xs mb-8">
+                        {fieldErros?.estado?.[0]}
+                    </label>
+                </div>
 
                 {/* cidade & bairro */}
                 <div className="grid md:grid-cols-2 md:gap-6">
                     <div className="relative z-0 w-full mb-6 group">
                         <input
                             type="text"
-                            className="disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className={`${
+                                fieldErros?.cidade?.[0] != undefined
+                                    ? "bg-red-500/50"
+                                    : "bg-transparent"
+                            } disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                             placeholder=" "
                             required
                             value={props.cidade}
                             disabled={disabilitarInput}
                             onChange={(e) => props.setCidade(e.target.value)}
-                            onBlur={validaForm}
                         />
-                        <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                             {signup3.city}
                             <span className="text-primaria">{" *"}</span>
+                        </label>
+                        <label className="text-red-500 text-xs">
+                            {fieldErros?.cidade?.[0]}
                         </label>
                     </div>
                     <div className="relative z-0 w-full mb-6 group">
                         <input
                             type="text"
-                            className="disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className={`${
+                                fieldErros?.bairro?.[0] != undefined
+                                    ? "bg-red-500/50"
+                                    : "bg-transparent"
+                            } disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                             placeholder=" "
                             required
                             maxLength={11}
                             disabled={disabilitarInput}
                             value={props.bairro}
                             onChange={(e) => props.setBairro(e.target.value)}
-                            onBlur={validaForm}
                         />
-                        <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                             {signup3.neighborhood}
                             <span className="text-primaria">{" *"}</span>
+                        </label>
+                        <label className="text-red-500 text-xs">
+                            {fieldErros?.bairro?.[0]}
                         </label>
                     </div>
                 </div>
@@ -528,17 +442,23 @@ export default function Signup3({
                 <div className="relative z-0 w-full mb-6 group">
                     <input
                         type="text"
-                        className="disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        className={`${
+                            fieldErros?.logradouro?.[0] != undefined
+                                ? "bg-red-500/50"
+                                : "bg-transparent"
+                        } disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                         placeholder=" "
                         required
                         disabled={disabilitarInput}
                         value={props.logradouro}
                         onChange={(e) => props.setLogradouro(e.target.value)}
-                        onBlur={validaForm}
                     />
-                    <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                         {signup3.street}
                         <span className="text-primaria">{" *"}</span>
+                    </label>
+                    <label className="text-red-500 text-xs">
+                        {fieldErros?.logradouro?.[0]}
                     </label>
                 </div>
 
@@ -547,23 +467,30 @@ export default function Signup3({
                     <div className="relative z-0 w-full mb-6 group">
                         <input
                             type="number"
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className={`${
+                                fieldErros?.numero?.[0] != undefined
+                                    ? "bg-red-500/50"
+                                    : "bg-transparent"
+                            } block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                             placeholder=" "
                             required
+                            value={props.numero!}
                             onChange={(e) =>
                                 props.setNumero(e.target.valueAsNumber)
                             }
-                            onBlur={validaForm}
                         />
-                        <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                             {signup3.number}
                             <span className="text-primaria">{" *"}</span>
+                        </label>
+                        <label className="text-red-500 text-xs">
+                            {fieldErros?.numero?.[0]}
                         </label>
                     </div>
                     <div className="relative z-0 w-full mb-6 group">
                         <input
                             type="text"
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                             placeholder=" "
                             required
                             maxLength={18}
@@ -571,9 +498,8 @@ export default function Signup3({
                             onChange={(e) =>
                                 props.setComplemento(e.target.value)
                             }
-                            onBlur={validaForm}
                         />
-                        <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                             {signup3.complement}
                         </label>
                     </div>

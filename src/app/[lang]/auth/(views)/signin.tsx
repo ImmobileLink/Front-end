@@ -75,10 +75,8 @@ export default function SignIn({ setAlert, signin, lang }: SignInProps) {
                     <PasswordInput
                         password={senha}
                         label={signin.passwordlabel}
-                        validaForm={() => {
-                            null;
-                        }}
                         onchange={setSenha}
+                        fieldErros={undefined}
                     />
                 </div>
 

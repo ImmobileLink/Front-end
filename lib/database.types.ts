@@ -33,12 +33,6 @@ export interface Database {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "associacoes_idcorporacao_fkey"
-            columns: ["idcorporacao"]
-            referencedRelation: "corporacao_por_regiao"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "associacoes_idcorretor_fkey"
             columns: ["idcorretor"]
             referencedRelation: "corretor"
@@ -293,6 +287,7 @@ export interface Database {
           estado: string
           id: string
           idcorporacao: string
+          imagem: string | null
           numero: number
           rua: string
           valor: number | null
@@ -304,6 +299,7 @@ export interface Database {
           estado: string
           id?: string
           idcorporacao: string
+          imagem?: string | null
           numero: number
           rua: string
           valor?: number | null
@@ -315,6 +311,7 @@ export interface Database {
           estado?: string
           id?: string
           idcorporacao?: string
+          imagem?: string | null
           numero?: number
           rua?: string
           valor?: number | null
@@ -324,12 +321,6 @@ export interface Database {
             foreignKeyName: "imovel_idcorporacao_fkey"
             columns: ["idcorporacao"]
             referencedRelation: "corporacao"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "imovel_idcorporacao_fkey"
-            columns: ["idcorporacao"]
-            referencedRelation: "corporacao_por_regiao"
             referencedColumns: ["id"]
           }
         ]
@@ -398,7 +389,8 @@ export interface Database {
           idautor: string
           idsala: string
           imagem: string | null
-          mensagem: string
+          mensagem: string | null
+          nomeautor: string | null
         }
         Insert: {
           atualizadoem?: string
@@ -407,7 +399,8 @@ export interface Database {
           idautor: string
           idsala: string
           imagem?: string | null
-          mensagem: string
+          mensagem?: string | null
+          nomeautor?: string | null
         }
         Update: {
           atualizadoem?: string
@@ -416,7 +409,8 @@ export interface Database {
           idautor?: string
           idsala?: string
           imagem?: string | null
-          mensagem?: string
+          mensagem?: string | null
+          nomeautor?: string | null
         }
         Relationships: [
           {
@@ -440,9 +434,8 @@ export interface Database {
           criadoem: string
           id: string
           idautor: string
-          idregiao: string
           imagem: string | null
-          privado: boolean
+          regiao: Json | null
         }
         Insert: {
           atualizadoem?: string
@@ -450,9 +443,8 @@ export interface Database {
           criadoem?: string
           id?: string
           idautor: string
-          idregiao: string
           imagem?: string | null
-          privado: boolean
+          regiao?: Json | null
         }
         Update: {
           atualizadoem?: string
@@ -460,9 +452,8 @@ export interface Database {
           criadoem?: string
           id?: string
           idautor?: string
-          idregiao?: string
           imagem?: string | null
-          privado?: boolean
+          regiao?: Json | null
         }
         Relationships: [
           {
@@ -470,35 +461,8 @@ export interface Database {
             columns: ["idautor"]
             referencedRelation: "usuario"
             referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "publicacao_idregiao_fkey"
-            columns: ["idregiao"]
-            referencedRelation: "regiao"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "publicacao_idregiao_fkey"
-            columns: ["idregiao"]
-            referencedRelation: "corporacao_por_regiao"
-            referencedColumns: ["idregiao"]
           }
         ]
-      }
-      regiao: {
-        Row: {
-          id: string
-          regiao: string
-        }
-        Insert: {
-          id?: string
-          regiao: string
-        }
-        Update: {
-          id?: string
-          regiao?: string
-        }
-        Relationships: []
       }
       resultadoformulario: {
         Row: {
@@ -551,14 +515,17 @@ export interface Database {
       }
       tipoImovel: {
         Row: {
+          classificacao: string | null
           descricao: string
           id: string
         }
         Insert: {
+          classificacao?: string | null
           descricao: string
           id?: string
         }
         Update: {
+          classificacao?: string | null
           descricao?: string
           id?: string
         }
@@ -594,30 +561,18 @@ export interface Database {
       }
       usuarioporregiao: {
         Row: {
-          idregiao: string
           idusuario: string
+          regiao: Json | null
         }
         Insert: {
-          idregiao: string
           idusuario: string
+          regiao?: Json | null
         }
         Update: {
-          idregiao?: string
           idusuario?: string
+          regiao?: Json | null
         }
         Relationships: [
-          {
-            foreignKeyName: "usuarioporregiao_idregiao_fkey"
-            columns: ["idregiao"]
-            referencedRelation: "regiao"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "usuarioporregiao_idregiao_fkey"
-            columns: ["idregiao"]
-            referencedRelation: "corporacao_por_regiao"
-            referencedColumns: ["idregiao"]
-          },
           {
             foreignKeyName: "usuarioporregiao_idusuario_fkey"
             columns: ["idusuario"]
@@ -687,12 +642,6 @@ export interface Database {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "visita_idcorporacao_fkey"
-            columns: ["idcorporacao"]
-            referencedRelation: "corporacao_por_regiao"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "visita_idcorretor_fkey"
             columns: ["idcorretor"]
             referencedRelation: "corretor"
@@ -708,23 +657,6 @@ export interface Database {
       }
     }
     Views: {
-      corporacao_por_regiao: {
-        Row: {
-          cnpj: string | null
-          id: string | null
-          idregiao: string | null
-          nomefantasia: string | null
-          regiao: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "corporacao_id_fkey"
-            columns: ["id"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
       simple_user_data: {
         Row: {
           id: string | null
@@ -741,9 +673,9 @@ export interface Database {
           id_usuario: string
         }
         Returns: {
-          identificador: string
-          premium: boolean
-          role: number
+          nome: string
+          ispremium: boolean
+          role: string
         }[]
       }
       criar_ou_retornar_sala: {
@@ -838,6 +770,17 @@ export interface Database {
           nome: string
         }[]
       }
+      get_dados_sala: {
+        Args: {
+          idsala_param: string
+        }
+        Returns: {
+          idsala: string
+          iddestinatario: string
+          nomedestinatario: string
+          mensagens: Json
+        }[]
+      }
       get_imoveis: {
         Args: {
           id_usuario: string
@@ -853,36 +796,50 @@ export interface Database {
           valor: number
         }[]
       }
-      get_publicacao_com_dados: {
-        Args: Record<PropertyKey, never>
+      get_imoveis_por_id: {
+        Args: {
+          id_imovel: string
+        }
         Returns: {
           id: string
-          idautor: string
-          nomeautor: string
-          idregiao: string
-          regiao: string
-          conteudo: string
-          imagem: string
-          criadoem: string
-          atualizadoem: string
-          privado: boolean
+          rua: string
+          numero: number
+          bairro: string
+          cidade: string
+          estado: string
+          descricao: string
+          valor: number
         }[]
       }
-      get_publicacao_completa: {
+      get_publicacao_por_cidade: {
         Args: {
-          regid: string
+          estado: string
+          cidade: string
         }
         Returns: {
           id: string
           idautor: string
           nomeautor: string
-          idregiao: string
-          regiao: string
+          regiao: Json
           conteudo: string
           imagem: string
           criadoem: string
           atualizadoem: string
-          privado: boolean
+        }[]
+      }
+      get_publicacao_por_estado: {
+        Args: {
+          estado: string
+        }
+        Returns: {
+          id: string
+          idautor: string
+          nomeautor: string
+          regiao: Json
+          conteudo: string
+          imagem: string
+          criadoem: string
+          atualizadoem: string
         }[]
       }
       get_publicacao_por_id: {
@@ -893,13 +850,24 @@ export interface Database {
           id: string
           idautor: string
           nomeautor: string
-          idregiao: string
-          regiao: string
+          regiao: Json
           conteudo: string
           imagem: string
           criadoem: string
           atualizadoem: string
-          privado: boolean
+        }[]
+      }
+      get_publicacoes: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          idautor: string
+          nomeautor: string
+          regiao: Json
+          conteudo: string
+          imagem: string
+          criadoem: string
+          atualizadoem: string
         }[]
       }
       get_tipoimovel_by_idcorretor: {
@@ -937,7 +905,7 @@ export interface Database {
         }
         Returns: {
           id: string
-          corporacao: string
+          nome: string
         }[]
       }
       obter_corretores_por_corporacao: {
@@ -946,7 +914,7 @@ export interface Database {
         }
         Returns: {
           id: string
-          corretor: string
+          nome: string
         }[]
       }
       obter_nomes_corretores: {
@@ -956,6 +924,21 @@ export interface Database {
         Returns: {
           id: string
           nome: string
+        }[]
+      }
+      obter_ultimas_mensagens_por_usuario: {
+        Args: {
+          idusuario: string
+        }
+        Returns: {
+          idmensagem: string
+          idsala: string
+          idautor: string
+          nomeautor: string
+          mensagem: string
+          atualizadoem: string
+          idparticipante: string
+          nomeparticipante: string
         }[]
       }
       obterespecialidade: {

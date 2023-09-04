@@ -18,21 +18,31 @@ import Signup5 from "./signup5";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../../lib/database.types";
 import Loading from "@/app/[lang]/(components)/(auth)/Loading";
+import { handleSignUpDB, verifyFields } from "./validations";
 
 interface SignUpProps {
+    fieldErros: Object;
+    setFieldErros: Function;
     setAlert: Dispatch<
         SetStateAction<{ type: string; title: string; message: string }>
     >;
     signup: Signup;
     data: {
-        tipoImovel: { id: any; descricao: any }[] | null;
+        tipoImovel: { id: string; descricao: string }[] | null;
     };
     lang: string;
 }
 
 const supabase = createClientComponentClient<Database>();
 
-export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
+export default function SignUp({
+    fieldErros,
+    setFieldErros,
+    setAlert,
+    signup,
+    data,
+    lang,
+}: SignUpProps) {
     const router = useRouter();
 
     const [isOK, setIsOK] = useState(false);
@@ -42,6 +52,7 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
     //signup1
     const [email, setEmail] = useState<string>("");
     const [senha, setSenha] = useState<string>("");
+    const [confirmSenha, setConfirmSenha] = useState("");
 
     //signup2
     const [tipoPerfil, setTipoPerfil] = useState<number>(1); //1 -> corretor | 2 -> empresa
@@ -67,8 +78,8 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
     const [creci, setCreci] = useState<string>("");
     const [especialidade, setEspecialidade] = useState<{ id: any; descricao: any }[]>([]);
     const [especialidadesIncluidas, setEspecialidadesIncluidas] = useState<string[]>([]);
-    const [regiaoAtuacao, setRegiaoAtuacao] = useState<{ regiao: string }[]>([]);
-    const [regioesIncluidas, setRegioesIncluidas] = useState<string[]>([]);
+    const [regiaoAtuacao, setRegiaoAtuacao] = useState<{ estado: string, cidade: string }[]>([]);
+    const [regioesIncluidas, setRegioesIncluidas] = useState<{ estado: string, cidade: string }[]>([]);
 
     //signup5
     const [premium, setPremium] = useState<boolean>(false);
@@ -87,329 +98,84 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
     };
 
     const handleBotaoAvancarTela = async () => {
-        if (podeAvancar) {
-            if (telaAtual < 5) {
-                isLoading(true);
-            }
-            if (await verifyFields()) {
-                setAlert({
-                    type: "warning",
-                    title: "",
-                    message: "",
-                });
-                telaAtual < 5 ? setTelaAtual(telaAtual + 1) : {};
-            }
-            isLoading(false);
+        //  if (podeAvancar) {
+        if (telaAtual < 5) {
+            isLoading(true);
         }
-        // Isso aqui está sobreescrevendo as mensagens específicas dos erros
-        // else {
-        // setAlert({
-        //   type: "warning",
-        //   title: "",
-        //   message: signup.fixtheinputs,
-        // });
+        if (
+            await verifyFields(
+                telaAtual,
+                setFieldErros,
+                signup,
+                tipoPerfil,
+                senha,
+                confirmSenha,
+                email,
+                supabase,
+                nome,
+                cpf,
+                cnpj,
+                nomeFantasia,
+                celular,
+                telefone,
+                comercial,
+                creci,
+                estado,
+                cidade,
+                logradouro,
+                numero,
+                bairro,
+                cep
+            )
+        ) {
+            setAlert({
+                type: "warning",
+                title: "",
+                message: "",
+            });
+            telaAtual < 5 ? setTelaAtual(telaAtual + 1) : {};
+        } else {
+            setAlert({
+                type: "warning",
+                title: "",
+                message: signup.fixtheinputs,
+            });
+        }
+        isLoading(false);
         // }
     };
 
-    const verifyFields = async () => {
-        switch (telaAtual) {
-            case 1:
-                // verifica senha
-                if (!hasStrongPassword(senha)) {
-                    setAlert({
-                        type: "warning",
-                        title: "",
-                        message: signup.signup1.logs.invalidpassword,
-                    });
-                    return false;
-                }
-
-                // verifica email
-                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/;
-                if (!regex.test(email)) {
-                    setAlert({
-                        type: "warning",
-                        title: "",
-                        message: signup.signup1.logs.invalidemail,
-                    });
-
-                    return false;
-                }
-
-                let { data: usuario } = await supabase
-                    .from("usuario")
-                    .select("email")
-                    .eq("email", email);
-
-                if (usuario?.length) {
-                    setAlert({
-                        type: "warning",
-                        title: "",
-                        message: signup.signup1.logs.emailalreadyused,
-                    });
-                    return false;
-                }
-                return true;
-            case 2:
-                // Nenhuma validação necessária no passo 2 por enquanto.
-                return true;
-            case 3:
-                if (tipoPerfil == 1) {
-                    // valida nome
-                    if (nome.length < 4) {
-                        setAlert({
-                            type: "warning",
-                            title: "",
-                            message: signup.signup3.logs.invalidname,
-                        });
-                        return false;
-                    }
-                    // valida cpf
-                    if (cpf.length != 11) {
-                        setAlert({
-                            type: "warning",
-                            title: "",
-                            message: signup.signup3.logs.invalidcpf,
-                        });
-                        return false;
-                    }
-
-                    let { data: usuario } = await supabase
-                        .from("corretor")
-                        .select("cpf")
-                        .eq("cpf", cpf);
-
-                    if (usuario?.length) {
-                        setAlert({
-                            type: "warning",
-                            title: "",
-                            message: signup.signup3.logs.invalidcpf,
-                        });
-                        return false;
-                    }
-
-                    // valida cnpj
-                    if (cnpj.length != 14 && cnpj.length > 0) {
-                        setAlert({
-                            type: "warning",
-                            title: "",
-                            message: signup.signup3.logs.invalidcnpj,
-                        });
-                        return false;
-                    } else if (cnpj.length == 14) {
-                        let { data: usuario } = await supabase
-                            .from("corretor")
-                            .select("cnpj")
-                            .eq("cnpj", cnpj);
-
-                        if (usuario?.length) {
-                            setAlert({
-                                type: "warning",
-                                title: "",
-                                message: signup.signup3.logs.invalidcnpj,
-                            });
-                            return false;
-                        }
-                    }
-                } else {
-                    // o nome fantasia tem no mínimo 12 pontos [LegisWEB]
-                    if (nomeFantasia.length < 12) {
-                        setAlert({
-                            type: "warning",
-                            title: "",
-                            message: signup.signup3.logs.invalidfantasyname,
-                        });
-                        return false;
-                    }
-                    if (cnpj.length != 14) {
-                        setAlert({
-                            type: "warning",
-                            title: "",
-                            message: signup.signup3.logs.invalidcnpj,
-                        });
-                        return false;
-                    } else {
-                        let { data: usuario } = await supabase
-                            .from("corporacao")
-                            .select("cnpj")
-                            .eq("cnpj", cnpj);
-
-                        if (usuario?.length) {
-                            setAlert({
-                                type: "warning",
-                                title: "",
-                                message: signup.signup3.logs.invalidcnpj,
-                            });
-                            return false;
-                        }
-                    }
-                }
-                if (
-                    (celular.length != 11 && celular.length != 0) ||
-                    (telefone.length != 10 && telefone.length != 0) ||
-                    (comercial.length != 10 && comercial.length != 0)
-                ) {
-                    setAlert({
-                        type: "warning",
-                        title: "",
-                        message: signup.signup3.logs.invalidphone,
-                    });
-                    return false;
-                }
-                return true;
-            case 4:
-                if (tipoPerfil == 1) {
-                    if (creci.length < 7) {
-                        setAlert({
-                            type: "warning",
-                            title: "",
-                            message: signup.signup4.logs.invalidcreci,
-                        });
-                        return false;
-                    } else {
-                        const regexCreci = /^\d{6}[a-zA-Z]$/;
-                        if (!regexCreci.test(creci)) {
-                            setAlert({
-                                type: "warning",
-                                title: "",
-                                message: signup.signup4.logs.invalidcreci,
-                            });
-                            return false;
-                        }
-                        let { data: usuario } = await supabase
-                            .from("corretor")
-                            .select("creci")
-                            .eq("creci", creci);
-
-                        if (usuario?.length) {
-                            setAlert({
-                                type: "warning",
-                                title: "",
-                                message: signup.signup4.logs.invalidcreci,
-                            });
-                            return false;
-                        }
-                    }
-                }
-                return true;
-            case 5:
-                // Nenhuma validação necessária no passo 5 por enquanto.
-                return true;
-        }
-        // default
-        return false;
-    };
-
-    function hasStrongPassword(object: string) {
-        const password = object;
-        const minLength = 6;
-        const hasUppercase = /[A-Z]/.test(password);
-        const hasLowercase = /[a-z]/.test(password);
-        const hasNumber = /[0-9]/.test(password);
-        const hasSpecialChar = /[!@#$%^&*()\-=_+[\]{}|\\;:'",.<>/?]/.test(
-            password
-        );
-
-        if (
-            password.length >= minLength &&
-            hasUppercase &&
-            hasLowercase &&
-            hasNumber &&
-            hasSpecialChar
-        ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     const handleSignUp = async () => {
-        let { data, error } = await supabase.auth.signUp({
-            email: email,
-            password: senha,
-            options: {
-                emailRedirectTo: `${location.origin}/auth/callback`,
-            },
-        });
-
-        if (!error) {
-            const userId = data.user?.id!;
-
-            if (tipoPerfil == 1) {
-                let { error } = await supabase.from("corretor").insert([
-                    {
-                        id: userId,
-                        nome: nome,
-                        cpf: cpf,
-                        cnpj: cnpj,
-                        creci: creci,
-                        cep: cep,
-                        estado: estado,
-                        cidade: cidade,
-                        bairro: bairro,
-                        logradouro: logradouro,
-                        numero: numero,
-                        complemento: complemento,
-                        telefone: telefone,
-                        celular: celular,
-                        comercial: comercial,
-                        premium: premium,
-                    },
-                ]);
-                // especialidade
-                {
-                    let arrayEspecialidade: any = [];
-
-                    especialidade.map((item) => {
-                        arrayEspecialidade.push({
-                            idcorretor: userId,
-                            idtipoimovel: item.id,
-                        });
-                    });
-
-                    const { error } = await supabase
-                        .from("especialidade")
-                        .insert(arrayEspecialidade);
-                }
-            } else {
-                let { error } = await supabase.from("corporacao").insert([
-                    {
-                        id: userId,
-                        nomefantasia: nomeFantasia,
-                        cnpj: cnpj,
-                        cep: cep,
-                        estado: estado,
-                        cidade: cidade,
-                        bairro: bairro,
-                        logradouro: logradouro,
-                        numero: numero,
-                        complemento: complemento,
-                        telefone1: telefone,
-                        telefone2: celular,
-                        telefone3: comercial,
-                        premium: premium,
-                    },
-                ]);
-            }
-            //usuarioporregiao
-            {
-                let arrayUsuarioPorRegiao: any = [];
-
-                regiaoAtuacao.map((item) => {
-                    arrayUsuarioPorRegiao.push({
-                        idusuario: userId,
-                        cidade: item.regiao,
-                    });
-                });
-
-                const { error } = await supabase
-                    .from("usuarioporregiao")
-                    .insert(arrayUsuarioPorRegiao);
-            }
-
+        const callback = handleSignUpDB(
+            tipoPerfil,
+            senha,
+            email,
+            supabase,
+            nome,
+            cpf,
+            cnpj,
+            nomeFantasia,
+            celular,
+            telefone,
+            comercial,
+            creci,
+            cep,
+            estado,
+            logradouro,
+            numero,
+            complemento,
+            cidade,
+            bairro,
+            premium,
+            especialidade,
+            regiaoAtuacao
+        );
+        if (await callback) {
             setIsOK(true);
-
             router.refresh();
+        } else {
+            //Algo deu errado [Investigar!]
+            console.log("handleSignUpDB error!");
         }
     };
 
@@ -420,10 +186,11 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                     <div>
                         {telaAtual == 1 ? (
                             <SignUp1
-                                props={{ email, setEmail, senha, setSenha }}
+                                props={{ email, setEmail, senha, setSenha, confirmSenha, setConfirmSenha }}
+                                fieldErros={fieldErros}
                                 setPodeAvancar={setPodeAvancar}
-                                setAlert={setAlert}
                                 signup1={signup.signup1}
+                                setFieldErros={setFieldErros}
                             />
                         ) : telaAtual == 2 ? (
                             <Signup2
@@ -468,6 +235,8 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                                 tipoPerfil={tipoPerfil}
                                 setPodeAvancar={setPodeAvancar}
                                 setAlert={setAlert}
+                                setFieldErros={setFieldErros}
+                                fieldErros={fieldErros}
                                 signup3={signup.signup3}
                             />
                         ) : telaAtual == 4 ? (
@@ -489,6 +258,7 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                                 setAlert={setAlert}
                                 signup4={signup.signup4}
                                 data={data}
+                                fieldErros={fieldErros}
                             />
                         ) : telaAtual == 5 ? (
                             <Signup5
@@ -523,7 +293,7 @@ export default function SignUp({ setAlert, signup, data, lang }: SignUpProps) {
                             <BsArrowRight />
                         </button>
                     </div>
-                    <div className="w-full flex justify-center ">
+                    <div className="w-full flex justify-left">
                         <div className="sm:w-full md:w-10/12 lg:w-8/12">
                             <Stepper
                                 atual={telaAtual}

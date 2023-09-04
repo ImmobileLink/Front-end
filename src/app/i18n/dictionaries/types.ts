@@ -23,6 +23,7 @@ export interface Auth {
     signup:         Signup;
     forgetpassword: Forgetpassword;
     recovery:       Recovery;
+    terms:          Terms;
 }
 
 export interface Always {
@@ -32,6 +33,10 @@ export interface Always {
     alreadyhaveanaccount: string;
     singin:               string;
     error:                string;
+    bylogginin:           string;
+    bycreatinganaccount:  string;
+    terms:                string;
+    ofthisplataform:      string;
 }
 
 export interface Forgetpassword {
@@ -97,9 +102,11 @@ export interface Signup1 {
 }
 
 export interface Signup1Logs {
-    invalidemail:     string;
-    invalidpassword:  string;
-    emailalreadyused: string;
+    invalidemail:              string;
+    invalidpassword:           string;
+    emailalreadyused:          string;
+    invaliddifferentpasswords: string;
+    invalidconfirmpassword:    string;
 }
 
 export interface Signup2 {
@@ -198,6 +205,27 @@ export interface Stepper {
     label3: string;
     label4: string;
     label5: string;
+}
+
+export interface Terms {
+    title:            string;
+    warning:          string;
+    introduction:     string;
+    simulationTitle:  string;
+    simulation:       string;
+    fictiontitle:     string;
+    fiction:          string;
+    responsibletitle: string;
+    responsible:      string;
+    copyrighttitle:   string;
+    copyright:        string;
+    feedbacktitle:    string;
+    feedback:         string;
+    disclaimer1:      string;
+    disclaimer2:      string;
+    sincerely:        string;
+    teamimmobile:     string;
+    location:         string;
 }
 
 export interface Calendar {

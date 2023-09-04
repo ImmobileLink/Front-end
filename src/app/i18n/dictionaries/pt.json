@@ -10,7 +10,11 @@
       "forgetpassword": "Esqueceu a senha?",
       "alreadyhaveanaccount": "Já tem uma conta?",
       "singin": "Entre já",
-      "error": "Ops!"
+      "error": "Ops!",
+      "bylogginin": "Ao fazer login você concorda com os",
+      "bycreatinganaccount": "Ao criar uma conta você concorda com os",
+      "terms": "Termos de Uso",
+      "ofthisplataform": "da plataforma"
     },
     "signin": {
       "emaillabel": "Endereço de E-mail",
@@ -30,7 +34,9 @@
         "logs": {
           "invalidemail": "Insira um email válido.",
           "invalidpassword": "A senha precisa ter no mínimo 6 caracteres, números, maiúsculas, minúsculas e caractere especial.",
-          "emailalreadyused": "Email já cadastrado."
+          "emailalreadyused": "Email já cadastrado.",
+          "invaliddifferentpasswords": "As senhas são diferentes.",
+          "invalidconfirmpassword": "Confirme a senha."
         }
       },
       "signup2": {
@@ -156,6 +162,26 @@
         "passwordchanged": "Sua senha foi alterada.",
         "passwordnotchanged": "Não foi possível alterar a senha, tente novamente mais tarde."
       }
+    },
+    "terms": {
+      "title": "TERMOS DE USO DA PLATAFORMA",
+      "warning": "Aviso Importante: Projeto de Conclusão de Curso - Uso Simulado e Fictício",
+      "introduction": "Este site é parte de um projeto de conclusão de curso e foi desenvolvido com o propósito específico de apresentar o conceito de um canal de comunicação de corretores com imobiliárias. Por favor, tenha em mente as seguintes considerações ao utilizar esta plataforma:",
+      "simulationTitle": "Simulação e Ficção: ",
+      "simulation": "Esta plataforma não representa uma plataforma real para corretores de imóveis e não está conectada a quaisquer transações ou atividades reais do mercado imobiliário. Todas as interações, anúncios, imóveis e informações contidas neste site são simuladas e fictícias, destinadas apenas para fins acadêmicos e de demonstração.",
+      "fictiontitle": "Dados Fictícios: ",
+      "fiction": "Quaisquer informações fornecidas para cadastro, incluindo nome, endereço, números de telefone, e-mails e outros detalhes, devem ser inteiramente fictícios. Não é recomendado o uso de informações pessoais reais ou sensíveis. Não utilizamos de forma alguma as informações fornecidas neste site para fins que não sejam apenas para exibição e demonstração de suas funcionalidades.",
+      "responsibletitle": "Uso Responsável: ",
+      "responsible": "Ao interagir com esta plataforma, solicitamos que você a utilize de forma responsável e respeitosa. Não é permitido o compartilhamento de conteúdo ofensivo, discriminatório, ilegal ou prejudicial.",
+      "copyrighttitle": "Direitos Autorais: ",
+      "copyright": "Todas as imagens, logotipos e outros materiais visuais utilizados neste site são usados com fins ilustrativos e de demonstração, e os direitos autorais pertencem aos seus respectivos proprietários.",
+      "feedbacktitle": "Feedback e Contato: ",
+      "feedback": "Caso deseje fornecer feedback sobre esta plataforma, por favor, esteja ciente de que qualquer comentário ou sugestão serão considerados para fins acadêmicos e de melhoria do projeto.",
+      "disclaimer1": "Ao prosseguir e utilizar este site, você reconhece que está ciente da natureza simulada e fictícia desta plataforma e concorda em respeitar as condições e orientações aqui apresentadas.",
+      "disclaimer2": "Para obter informações ou esclarecimentos adicionais sobre este projeto de conclusão de curso, entre em contato através do canal indicado no site. Agradecemos por sua compreensão e interesse em nosso projeto de conclusão de curso.",
+      "sincerely": "Atenciosamente,",
+      "teamimmobile": "Equipe ImmobileLink",
+      "location": "Tecnologia em Análise e Desenvolvimento de SIstemas - IFSP, 2023"
     }
   },
   "pesquisa": {

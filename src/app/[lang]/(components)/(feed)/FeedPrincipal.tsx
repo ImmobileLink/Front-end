@@ -1,11 +1,9 @@
 import React from 'react';
 import PostFormCard from "./PostFormCard";
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
-import { Database } from '../../../../../lib/database.types';
 import { Regiao } from '../../../../../lib/modelos';
 import { Feed } from '@/app/i18n/dictionaries/types';
 import Posts from './Posts';
+import { getRegiao } from '../../feed/utils';
 
 interface FeedPrincipalProps {
   userData: {
@@ -15,17 +13,6 @@ interface FeedPrincipalProps {
     role: number | undefined;
   };
   textos: Feed;
-}
-const supabase = createServerComponentClient<Database>({ cookies })
-
-const getRegiao = async () => {
-  const { data, error } = await supabase
-    .from('regiao')
-    .select('*')
-  if (error)
-    console.log(error)
-  else
-    return data
 }
 
 export default async function FeedPrincipal({ textos, userData }: FeedPrincipalProps) {
