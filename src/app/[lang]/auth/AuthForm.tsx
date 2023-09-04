@@ -9,8 +9,7 @@ import { Auth } from "@/app/i18n/dictionaries/types";
 interface AuthFormProps {
     auth: Auth;
     data: {
-        tipoImovel: { id: any; descricao: any }[] | null;
-        regiao: { id: any; regiao: any }[] | null;
+        tipoImovel: { id: string; descricao: string }[] | null;
     };
     lang: string;
 }

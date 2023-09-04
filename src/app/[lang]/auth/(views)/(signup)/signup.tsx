@@ -28,8 +28,7 @@ interface SignUpProps {
     >;
     signup: Signup;
     data: {
-        tipoImovel: { id: any; descricao: any }[] | null;
-        regiao: { id: any; regiao: any }[] | null;
+        tipoImovel: { id: string; descricao: string }[] | null;
     };
     lang: string;
 }
@@ -77,16 +76,10 @@ export default function SignUp({
 
     //signup4
     const [creci, setCreci] = useState<string>("");
-    const [especialidade, setEspecialidade] = useState<
-        { id: any; descricao: any }[]
-    >([]);
-    const [regiaoAtuacao, setRegiaoAtuacao] = useState<
-        { id: any; regiao: any }[]
-    >([]);
-    const [especialidadesIncluidas, setEspecialidadesIncluidas] = useState<
-        string[]
-    >([]);
-    const [regioesIncluidas, setRegioesIncluidas] = useState<string[]>([]);
+    const [especialidade, setEspecialidade] = useState<{ id: any; descricao: any }[]>([]);
+    const [especialidadesIncluidas, setEspecialidadesIncluidas] = useState<string[]>([]);
+    const [regiaoAtuacao, setRegiaoAtuacao] = useState<{ estado: string, cidade: string }[]>([]);
+    const [regioesIncluidas, setRegioesIncluidas] = useState<{ estado: string, cidade: string }[]>([]);
 
     //signup5
     const [premium, setPremium] = useState<boolean>(false);

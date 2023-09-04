@@ -4,6 +4,7 @@ import { Signup3 } from "@/app/i18n/dictionaries/types";
 import InputMask from "react-input-mask";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { assignError, getCEP } from "./validations";
+import { _UFs } from "../../../../../../lib/utils/getRegiao";
 interface Signup3Props {
     props: {
         nome: string;
@@ -96,37 +97,6 @@ export default function Signup3({
             }
         }
     }, [props.cep]);
-
-    const _UFs = [
-        "UF",
-        "AC",
-        "AL",
-        "AP",
-        "AM",
-        "BA",
-        "CE",
-        "DF",
-        "ES",
-        "GO",
-        "MA",
-        "MT",
-        "MS",
-        "MG",
-        "PA",
-        "PB",
-        "PR",
-        "PE",
-        "PI",
-        "RJ",
-        "RN",
-        "RS",
-        "RO",
-        "RR",
-        "SC",
-        "SP",
-        "SE",
-        "TO",
-    ];
 
     const handleUFChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
@@ -397,11 +367,11 @@ export default function Signup3({
                                 } mb-1`}
                                 onChange={handleUFChange}
                                 disabled={disabilitarInput}
+                                value={props.estado}
                             >
                                 {_UFs.map((uf, index) => {
                                     return (
                                         <option
-                                            selected={uf == props.estado}
                                             key={uf + " - " + index}
                                             className="text-center"
                                         >

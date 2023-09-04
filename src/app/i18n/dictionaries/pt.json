@@ -87,6 +87,13 @@
         "languages": "Idiomas",
         "logs": {
           "invalidcreci": "CRECI inválido"
+        },
+        "cityselector": {
+          "estate": "Estado",
+          "city": "Município",
+          "selectaestate": "Selecione um estado",
+          "selectaestatefirst": "Selecione um estado primeiro",
+          "nocityfound": "Nenhum município encontrado"
         }
       },
       "signup5": {
@@ -317,5 +324,9 @@
       "price": "Valor",
       "description": "Descrição"
     }
+  },
+  "cityselector": {
+    "estate": "Estado",
+    "city": "Município"
   }
 }

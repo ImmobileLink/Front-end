@@ -287,8 +287,8 @@ export const handleSignUpDB = async (
     cidade: string,
     bairro: string,
     premium: boolean,
-    especialidade: Array<any>,
-    regiaoAtuacao: Array<any>
+    especialidade: { id: any; descricao: any }[],
+    regiaoAtuacao: { estado: string; cidade: string; }[]
 ) => {
 
     let { data, error } = await supabase.auth.signUp({
@@ -365,7 +365,7 @@ export const handleSignUpDB = async (
             regiaoAtuacao.map((item) => {
                 arrayUsuarioPorRegiao.push({
                     idusuario: userId,
-                    idregiao: item.id,
+                    regiao: item,
                 });
             });
 

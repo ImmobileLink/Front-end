@@ -1,9 +1,10 @@
-import Image from "next/image";
 import ImmobileLogo from "@/app/[lang]/(components)/ImmobileLogo";
-import { getDictionary } from "../dictionaries";
-import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+import { cache } from "react";
+import Image from "next/image";
 import { Database } from "../../../../lib/database.types";
+import { getDictionary } from "../dictionaries";
 import AuthForm from "./AuthForm";
 // import bg from "assets/login/bg1.jpg";
 
@@ -13,16 +14,19 @@ interface PageProps {
     };
 }
 
-const supabase = createServerActionClient<Database>({ cookies });
+export const createServerSupabaseClient = cache(() => {
+  const cookieStore = cookies()
+  return createServerComponentClient<Database>({ cookies: () => cookieStore })
+})
+
 
 async function getData() {
-    let { data: tipoImovel } = await supabase
-        .from("tipoImovel")
-        .select("id,descricao");
+  const supabase = createServerSupabaseClient();
+  let { data: tipoImovel } = await supabase
+    .from("tipoImovel")
+    .select("id,descricao");
 
-    let { data: regiao } = await supabase.from("regiao").select("id,regiao");
-
-    return { tipoImovel, regiao };
+  return { tipoImovel };
 }
 
 export default async function page({ params: { lang } }: PageProps) {

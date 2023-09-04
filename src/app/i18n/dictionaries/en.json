@@ -87,6 +87,13 @@
         "languages": "Languages",
         "logs": {
           "invalidcreci": "Invalid CRECI"
+        },
+        "cityselector": {
+          "estate": "Estate",
+          "city": "City",
+          "selectaestate": "Select a estate",
+          "selectaestatefirst": "Select a estate first",
+          "nocityfound": "No city found"
         }
       },
       "signup5": {
@@ -317,5 +324,9 @@
       "price": "Price",
       "description": "Description"
     }
+  },
+  "cityselector": {
+    "estate": "Estate",
+    "city": "City"
   }
 }

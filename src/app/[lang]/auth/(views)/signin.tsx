@@ -40,6 +40,7 @@ export default function SignIn({ setAlert, signin, lang }: SignInProps) {
                 message: signin.logs.invalidcredentials,
             });
         } else {
+            router.refresh();
             router.push(`${lang}/feed`);
         }
         isLoading(false);
