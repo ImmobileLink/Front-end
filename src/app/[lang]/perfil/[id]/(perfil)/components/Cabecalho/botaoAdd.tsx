@@ -6,8 +6,6 @@ import { Database } from '@/../../lib/database.types';
 
 
 interface botaoAddProps {
-  associado: string | null;
-  tipo: string;
   idSession: string | null;
   idProfile: string;
   dict: any;
@@ -15,9 +13,9 @@ interface botaoAddProps {
 
 
 
-export default function BotaoAdd({ associado, idProfile, idSession, tipo, dict }: botaoAddProps) {
+export default function BotaoAdd({ idProfile, idSession, dict }: botaoAddProps) {
 
-  const [estado, setEstado] = useState(associado);
+  const [estado, setEstado] = useState("Associar");
   const [popup, setPopup] = useState(false)
   const supabase = createClientComponentClient<Database>()
 

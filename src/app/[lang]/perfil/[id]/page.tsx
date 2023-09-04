@@ -1,10 +1,17 @@
-import { getUserData } from '../../../../../lib/Utils/userProfile'
+import { getAssoc, getLinks, getTipoUsuario } from '../../../../../lib/Utils/userData';
+import { userData } from '../../../../../lib/modelos'
 import { Database } from '../../../../../lib/database.types';
 import { getDictionary } from '../../dictionaries';
-import CorretorProfile from './(perfil)/CorretorProfile';
-import EmpresaProfile from './(perfil)/EmpresaProfile';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import { cache } from "react";
+import { useProfileStore } from '../../../../../lib/store/profileStore';
+import { Page } from './(perfil)/composition/page';
+import Cabecalho from './(perfil)/components/Cabecalho/Cabecalho';
+import Infos from './(perfil)/components/Infos/Infos';
+import Dashboard from './(perfil)/components/Dashboard/Dashboard';
+import Calendario from '../../(components)/Calendario';
+import { getProfileFullData } from '../../../../../lib/Utils/userProfile';
 
 
 interface pageProps {
@@ -14,27 +21,63 @@ interface pageProps {
   };
 }
 
-const supabase = createServerComponentClient<Database>({ cookies })
+export const createServerSupabaseClient = cache(() => {
+  const cookieStore = cookies()
+  return createServerComponentClient<Database>({ cookies: () => cookieStore })
+})
 
-export default async function Page({ params: { id, lang } }: pageProps) {
+async function getUserData(user: userData, id?: string) {
 
+  if (id) {
+    user = await getTipoUsuario(user, id);
+    [user, user] = await Promise.all([getLinks(user), getAssoc(user)]);
+  }
+
+  return user;
+}
+
+
+export default async function page({ params: { id, lang } }: pageProps) {
+
+  let user: userData = {
+    id: undefined,
+    isPremium: undefined,
+    nome: undefined,
+    type: undefined,
+    links: [],
+    assoc: []
+  }
+
+  const supabase = createServerSupabaseClient();
   const { data: { session } } = await supabase.auth.getSession();
 
-  const profile = await getUserData(id)
-
-  const session_data = session ? await getUserData(session.user.id) : null
+  const profileData = await getUserData({ ...user }, id);
+  const sessionData = await getUserData({ ...user }, session?.user.id);
+  const profileFullData = await getProfileFullData(profileData.type!, profileData.id!)
 
   const dict = await getDictionary(lang)
-  // {/* <EmpresaProfile profile={profile} session={session_data} dict={dict}/> */}
+
+
+  useProfileStore.setState({profileData: profileData, profileFullData: profileFullData, sessionData: sessionData, dict: dict})
+
 
   return (
-    <>
-      {profile!.tipo == "corretor" ?
-        <CorretorProfile profile={profile!} session={session_data!} dict={dict}/>
-        :
-        (<p>Perfil de empresa</p>)        
-      }
-    </>
+      <Page.Root>
+            <Page.Main>
+                <Cabecalho/>
+                <Infos dict={dict} corretor={profileFullData} />
+            </Page.Main>
+
+            <Page.Right>
+                <Page.Dashboard>
+                    <Dashboard/>
+                </Page.Dashboard>
+
+                <Page.Calendar>
+                    <Calendario ownId={sessionData.id} idProfile={profileData.id} />
+                </Page.Calendar>
+            </Page.Right>
+        </Page.Root >
 
   );
 }

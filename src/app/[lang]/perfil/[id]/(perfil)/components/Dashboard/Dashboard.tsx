@@ -1,22 +1,24 @@
 import { Session } from "inspector";
-import Line from "./Dashboard/Line"
-import PolarArea from "./Dashboard/PolarArea"
+import Line from "./Line"
+import PolarArea from "./PolarArea"
 import Link from "next/link";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Database } from "@/../lib/database.types";
+import { useProfileStore } from "../../../../../../../../lib/store/profileStore";
 
 
 interface DashboardProps {
-  premium: boolean | null | undefined;
-  dict: any;
 }
 
 
 
-export default async function Dashboard({premium, dict }: DashboardProps) {
+export default async function Dashboard({}: DashboardProps) {
   const supabase = createServerComponentClient<Database>({ cookies })
 
+  const state = useProfileStore.getState()
+  const dict = state.dict
+  const premium = state.sessionData?.isPremium
 
   return (
     <>

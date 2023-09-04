@@ -1,8 +1,8 @@
 "use client"
 
 import React, { useState } from 'react';
-import VisaoGeral from "./Infos/VisaoGeral"
-import Publicacoes from "./Infos/Publicacoes"
+import VisaoGeral from "./VisaoGeral"
+import Publicacoes from "./Publicacoes"
 
 interface InfosProps {
   corretor: any;

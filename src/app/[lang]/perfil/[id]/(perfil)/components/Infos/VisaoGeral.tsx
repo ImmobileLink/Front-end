@@ -14,18 +14,6 @@ interface VisaoGeralProps {
 
 export default function VisaoGeral({ corretor, dict }: VisaoGeralProps) {
   const supabase = createClientComponentClient<Database>()
-  /* const [especialidades, setEspecialidade] = useState<{ descricao: string; }[] | null>()
-
-  useEffect(() => {
-    const fetchData = async () => {
-      let { data: especialidades } = await supabase
-        .rpc('obterespecialidade', {
-          idcorretor: corretor.id
-        })
-      setEspecialidade(especialidades)
-    }
-    fetchData()
-  }, []) */
 
   // Defina a chave única para essa query
   const queryKey = ['especialidades', corretor.id];
@@ -43,7 +31,7 @@ export default function VisaoGeral({ corretor, dict }: VisaoGeralProps) {
   const { data: especialidades, isLoading, isError } = useQuery(queryKey, fetchEspecialidades);
 
   return (
-    <div className="ml-6">
+    <div className="ml-6 text-black">
       <h2 className="font-semibold text-xl mb-5">{dict.profile.infoBroker}</h2>
       <div className="flex items-start justify-between  w-3/5">
         <div>
