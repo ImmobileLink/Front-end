@@ -8,6 +8,8 @@ import { useProfileStore } from "../../../../../../../../lib/store/profileStore"
 import Botoes from "./Botoes";
 import { cache } from "react";
 import EditProfile from "./EditProfile";
+import { Rating } from "flowbite-react";
+import RatingCount from "./Rating";
 
 
 interface InfosPadraoProps {
@@ -65,12 +67,15 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
             <Avatar userId={profile!.id} size={"big"} />
           </div>
           {isOwn && (
-            <EditProfile/>
+            <EditProfile />
           )}
 
         </div>
-        <h2 className="font-bold text-2xl">{profile?.nome}</h2>
-        <p className="text-gray-500">{`${profileFullData?.cidade} - ${profileFullData?.estado}`}</p>
+        <h2 className="font-bold text-2xl dark:text-white">{profile?.nome}</h2>
+        <div className="flex flex-wrap-reverse gap-4 mt-2">
+          <p className="text-gray-500 dark:text-gray-400">{`${profileFullData?.cidade} - ${profileFullData?.estado}`}</p>
+          <RatingCount/>
+        </div>
 
         {session?.id && !isOwn && (
           <Botoes />
@@ -78,7 +83,11 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
 
       </div>
 
-       {/* {profile. != null && (
+      <div className="sm:hidden">
+        <p>Colocar um card com breve info do dashboard aqui</p>
+      </div>
+
+      {/* {profile. != null && (
         <div className="px-5">
           <div className="bg-white mt-3 rounded-md p-3">
             <p className="">{profile?.sobre}</p>

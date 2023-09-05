@@ -33,11 +33,11 @@ export default async function Botoes({ }: BotoesProps) {
   let sala = `/chat/${data}`
 
   return (
-    <div className="mt-3">
-      <BotaoAdd idProfile={profile?.id!} idSession={session?.id!} dict={dict} />
+    <div className="mt-5 flex flex-wrap">
+      <BotaoAdd idProfile={profile?.id!} idSession={session?.id!} dict={dict}  />
       <Link href={sala}>
-        <button className="w-fit ml-3 text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 font-medium rounded-lg text-sm px-10 py-2.5 mb-1 ">
-          Chat
+        <button className="w-fit text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 font-medium rounded-lg text-sm px-10 py-2.5 mb-1 ">
+          Conversar
         </button>
       </Link>
     </div>

@@ -4,40 +4,75 @@ import React, { useState } from 'react';
 import VisaoGeral from "./VisaoGeral"
 import Publicacoes from "./Publicacoes"
 
+import { Tabs } from 'flowbite-react';
+import { HiAdjustments, HiClipboardList, HiUserCircle, HiDocumentText, HiCalendar } from 'react-icons/hi';
+import { MdDashboard } from 'react-icons/md';
+
+
 interface InfosProps {
   corretor: any;
   dict: any;
 }
 
 
-export default function Infos ({ corretor, dict }: InfosProps){
-  const [activeButton, setActiveButton] = useState('overview');
-
-  const handleButtonClick = (buttonName: string) => {
-    setActiveButton(buttonName);
-  };
-
-  const getButtonClasses = (buttonName: string) => {
-    return activeButton === buttonName
-      ? 'w-1/4 h-full text-center bg-slate-200 w-full p-3'
-      : 'w-1/4 h-full text-center hover:bg-slate-100 w-full p-3';
-  };
+export default function Infos({ corretor, dict }: InfosProps) {
 
   return (
-    <div className="w-auto bg-white rounded-md">
-      <div className="flex flex-row flex-nowrap justify-around items-center border-b-2 font-semibold overflow-x-auto whitespace-nowrap scrollbar-none">
-        <button className={getButtonClasses('overview')} onClick={() => handleButtonClick('overview')}>Visão Geral</button>
-        <button className={getButtonClasses('publicacoes')} onClick={() => handleButtonClick('publicacoes')}>Publicações</button>
-        <button className={`${getButtonClasses('calendario')} block lg:hidden`} onClick={() => handleButtonClick('calendario')}>Calendário</button>
-        <button className={`${getButtonClasses('dashboard')}`} onClick={() => handleButtonClick('dashboard')}>Dashboard</button>
-      </div>
-
-      <div className="p-3 pt-8">
-        {activeButton === 'overview' && <VisaoGeral corretor={corretor} dict={dict}/>}
-        {activeButton === 'publicacoes' && <Publicacoes />}
-        {/* {activeButton === 'calendario' && <Calendario />}
-        {activeButton === 'dashboard' && <Dashboard />} */}
-      </div>
-    </div>
+    <Tabs.Group
+      aria-label="Tabs with underline"
+      style="underline"
+      
+    >
+      <Tabs.Item
+        active
+        icon={HiUserCircle}
+        title="Profile"
+      >
+        <VisaoGeral corretor={corretor} dict={dict}/>
+      </Tabs.Item>
+      <Tabs.Item
+        icon={HiDocumentText}
+        title="Posts"
+      >
+        <p>
+          This is
+          <span className="font-medium text-gray-800 dark:text-white">
+            Settings tab's associated content
+          </span>
+          .
+          Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
+          control the content visibility and styling.
+        </p>
+      </Tabs.Item>
+      <Tabs.Item
+        icon={MdDashboard}
+        title="Dashboard"
+      >
+        <p>
+          This is
+          <span className="font-medium text-gray-800 dark:text-white">
+            Dashboard tab's associated content
+          </span>
+          .
+          Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
+          control the content visibility and styling.
+        </p>
+      </Tabs.Item>
+      
+      <Tabs.Item
+        icon={HiCalendar}
+        title="Schedule"
+      >
+        <p>
+          This is
+          <span className="font-medium text-gray-800 dark:text-white">
+            Contacts tab's associated content
+          </span>
+          .
+          Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
+          control the content visibility and styling.
+        </p>
+      </Tabs.Item>
+    </Tabs.Group>
   );
 };
