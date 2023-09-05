@@ -12,7 +12,7 @@ interface RootLayout {
   params: { lang: string };
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
   params: { lang },
 }: RootLayout) {
@@ -23,7 +23,7 @@ export default async function RootLayout({
       dir={dir(lang)}
     >
       <body>
-        {children}
+          {children}
       </body>
     </html>
   );

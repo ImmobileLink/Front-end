@@ -14,6 +14,7 @@ export interface Dictionaries {
   dashboard:     Dashboard;
   calendar:      Calendar;
   imovel:        Imovel;
+  chat:          Chat;
 }
 
 export interface Auth {
@@ -191,6 +192,11 @@ export interface Calendar {
   scheduledVisits: string;
 }
 
+export interface Chat {
+  conversations: string;
+  you:           string;
+}
+
 export interface Dashboard {
   domain:          string;
   professionalism: string;
@@ -222,6 +228,7 @@ export interface Cards {
   schedules:           string;
   visitmyprofile:      string;
   notpremiumyet:       string;
+  premium:             string;
   bepremium:           string;
   connections:         string;
   search:              string;
@@ -233,9 +240,22 @@ export interface Cards {
 }
 
 export interface Form {
-  regionchange: string;
-  post:         string;
-  placeholder:  string;
+  regionchange:    string;
+  post:            string;
+  placeholder:     string;
+  writeamessage:   string;
+  imageinputlabel: string;
+  imageerror:      string;
+  cityselector:    Cityselector;
+}
+
+export interface Cityselector {
+  estate:             string;
+  city:               string;
+  selectaestate:      string;
+  selectacity:        string;
+  selectaestatefirst: string;
+  nocityfound:        string;
 }
 
 export interface Pub {
@@ -245,6 +265,7 @@ export interface Pub {
   comboboxplaceholder:       string;
   noposts:                   string;
   error:                     string;
+  selectaregion:             string;
 }
 
 export interface Imovel {
@@ -297,8 +318,17 @@ export interface Newproperty {
 }
 
 export interface Navbarbuttons {
-  searchbutton: string;
-  logoutbutton: string;
+  feed:             string;
+  myprofile:        string;
+  settings:         string;
+  schedule:         string;
+  links:            string;
+  relatedbrokers:   string;
+  myrelatedcompany: string;
+  search:           string;
+  subscription:     string;
+  loginbutton:      string;
+  logoutbutton:     string;
 }
 
 export interface Pesquisa {

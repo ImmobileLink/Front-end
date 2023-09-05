@@ -4,6 +4,9 @@ module.exports = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./node_modules/flowbite-react/**/*.js",
+  ],
+  plugins: [
   ],
   theme: {
     extend: {
@@ -24,6 +27,11 @@ module.exports = {
       },
       spacing: {
         '0,5': '1px',
+      },
+      minHeight: {
+        '1/2': '50%',
+        '1/3': '40%',
+        '2/3': '66.666666%',
       }
     },
   },

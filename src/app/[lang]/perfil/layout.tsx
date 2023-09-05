@@ -1,7 +1,7 @@
 import NavBar from "../(components)/(navbar)/NavBar";
 
 export const metadata = {
-  title: "ImmobileLink - Pesquisa",
+  title: "ImmobileLink - Perfil",
   description: "Rede social para o mercado imobiliário",
 };
 
@@ -10,10 +10,8 @@ interface RootLayout {
   params: { lang: string };
 }
 
-export default async function RootLayout({
-  children,
-  params: { lang },
-}: RootLayout) {
+export default async function RootLayout({ children, params: { lang } }: RootLayout) {
+
   return (
     <>
       <NavBar params={{ lang: lang }} />

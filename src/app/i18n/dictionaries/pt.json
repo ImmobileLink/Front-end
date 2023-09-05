@@ -1,6 +1,15 @@
 {
   "navbarbuttons": {
-    "searchbutton": "Encontrar",
+    "feed": "Iniciar",
+    "myprofile": "Meu perfil",
+    "settings": "Configurações",
+    "schedule": "Visitas",
+    "links": "Meus Links",
+    "relatedbrokers": "Corretores afiliados",
+    "myrelatedcompany": "Empresa associada",
+    "search": "Pesquisar",
+    "subscription": "Planos",
+    "loginbutton": "Entrar",
     "logoutbutton": "Sair"
   },
   "auth": {
@@ -170,12 +179,13 @@
       "yourenotlogged": "Você não está logado ainda!",
       "enjoyall": "Aproveite todos os benefícios do site",
       "singin": "Entre já",
-      "findbrokers": "Encontrar oportunidades",
+      "findbrokers": "Encontrar corretores",
       "mybrokers": "Meus Corretores",
       "myproperties": "Meus Imóveis",
       "schedules": "Visitas",
       "visitmyprofile": "Ver meu perfil",
-      "notpremiumyet": "Ainda não é PREMIUM?",
+      "notpremiumyet": "Torne-se",
+      "premium": "PREMIUM",
       "bepremium": "Aproveite já",
       "connections": "Meus Links",
       "search": "Procurar",
@@ -186,17 +196,29 @@
       "norelatedcompanyyet": "Não possui uma corporação afiliada"
     },
     "pub": {
-      "regionfilter": "Filtre por região",
+      "regionfilter": "Filtrar por",
       "posted": "fez uma publicação",
       "regioncomboboxplaceholder": "Todos",
       "comboboxplaceholder": "Selecione",
       "noposts":"Nenhuma publicação encontrada na região especificada",
-      "error": "Ops! Algo deu errado. Tente recarregar a página."
+      "error": "Ops! Algo deu errado. Tente recarregar a página.",
+      "selectaregion": "Selecione uma região para filtrar os posts"
     },
     "form": {
       "regionchange": "Região",
       "post": "Publicar",
-      "placeholder": "Nova publicação"
+      "placeholder": "Nova publicação",
+      "writeamessage": "Insira a mensagem",
+      "imageinputlabel":"foto",
+      "imageerror": "Imagem inválida",
+      "cityselector": {
+        "estate": "Estado",
+        "city": "Município",
+        "selectaestate": "Selecione um estado",
+        "selectacity": "Selecione um município",
+        "selectaestatefirst": "Selecione um estado primeiro",
+        "nocityfound": "Nenhum município encontrado"
+      }
     }
   },
   "planos": {
@@ -288,5 +310,9 @@
       "price": "Valor",
       "description": "Descrição"
     }
+  },
+  "chat": {
+    "conversations": "Conversas",
+    "you": "Você"
   }
 }

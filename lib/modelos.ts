@@ -84,11 +84,11 @@ export interface userData {
     nome?: string;
     isPremium?: boolean;
     type?: string;
-    links: {
+    links?: {
         id: string;
         nome: string;
     }[] | null;
-    assoc: {
+    assoc?: {
         id: string;
         nome: string;
     }[] | null;
@@ -114,11 +114,4 @@ export interface PostFormProps {
 export interface filterOption {
     filter: number;
     param?: string;
-}
-
-export interface profileSimpleData{
-    id: string | null;
-    nome: string | null;
-    premium: boolean | null;
-    tipo: string | null; 
 }
