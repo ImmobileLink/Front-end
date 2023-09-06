@@ -1,4 +1,4 @@
-import { getAssoc, getLinks, getTipoUsuario } from '../../../../../lib/Utils/userData';
+import { getAssoc, getLinks, getTipoUsuario } from '../../../../../lib/utils/userData';
 import { userData } from '../../../../../lib/modelos'
 import { Database } from '../../../../../lib/database.types';
 import { getDictionary } from '../../dictionaries';
@@ -11,7 +11,7 @@ import Cabecalho from './(perfil)/components/Cabecalho/Cabecalho';
 import Infos from './(perfil)/components/Infos/Infos';
 import Dashboard from './(perfil)/components/Dashboard/Dashboard';
 import Calendario from '../../(components)/Calendario';
-import { getProfileFullData } from '../../../../../lib/Utils/userProfile';
+import { getProfileFullData } from '../../../../../lib/utils/userProfile';
 
 
 interface pageProps {
