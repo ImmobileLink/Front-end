@@ -1,26 +1,22 @@
-"use client"
-import { ReactNode } from "react";
-import { QueryClient, QueryClientProvider } from 'react-query';
-
-const queryClient = new QueryClient();
-
+import NavBar from "../../(components)/(navbar)/NavBar";
+import ProviderProfile from "./(perfil)/reactQuery/ProviderProfile";
 
 export const metadata = {
-  title: "ImmobileLink - Planos",
+  title: "ImmobileLink - Perfil",
   description: "Rede social para o mercado imobiliário",
 };
 
 interface RootLayout {
-  children: ReactNode;
+  children: any;
+  params: { lang: string };
 }
 
-export default async function RootLayout({ children }: RootLayout) {
+export default async function RootLayout({ children, params: { lang } }: RootLayout) {
 
   return (
-    <>
-      <QueryClientProvider client={queryClient}>
-        {children}
-      </QueryClientProvider>
-    </>
+    <ProviderProfile>
+      <NavBar params={{ lang: lang }} />
+      {children}
+    </ProviderProfile>
   );
 }

@@ -1,6 +1,6 @@
 import { Session } from "inspector";
-import Line from "./Line"
-import PolarArea from "./PolarArea"
+import Line from "./charts/Line"
+import PolarArea from "./charts/PolarArea"
 import Link from "next/link";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";

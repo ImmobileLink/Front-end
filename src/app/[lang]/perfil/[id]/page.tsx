@@ -4,14 +4,10 @@ import { Database } from '../../../../../lib/database.types';
 import { getDictionary } from '../../dictionaries';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
-import { cache } from "react";
 import { useProfileStore } from '../../../../../lib/store/profileStore';
-import { Page } from './(perfil)/composition/page';
-import Cabecalho from './(perfil)/components/Cabecalho/Cabecalho';
-import Infos from './(perfil)/components/Infos/Infos';
-import Dashboard from './(perfil)/components/Dashboard/Dashboard';
-import Calendario from '../../(components)/Calendario';
 import { getProfileFullData } from '../../../../../lib/utils/userProfile';
+import CorretorProfile from './(perfil)/CorretorProfile';
+import EmpresaProfile from './(perfil)/EmpresaProfile';
 
 
 interface pageProps {
@@ -21,10 +17,9 @@ interface pageProps {
   };
 }
 
-export const createServerSupabaseClient = cache(() => {
-  const cookieStore = cookies()
-  return createServerComponentClient<Database>({ cookies: () => cookieStore })
-})
+export const createServerSupabaseClient = () => {
+  return createServerComponentClient<Database>({ cookies })
+}
 
 async function getUserData(user: userData, id?: string) {
 
@@ -57,27 +52,16 @@ export default async function page({ params: { id, lang } }: pageProps) {
 
   const dict = await getDictionary(lang)
 
-
-  useProfileStore.setState({profileData: profileData, profileFullData: profileFullData, sessionData: sessionData, dict: dict})
+  useProfileStore.setState({ profileData: profileData, profileFullData: profileFullData, sessionData: sessionData, dict: dict })
 
 
   return (
-      <Page.Root>
-            <Page.Main>
-                <Cabecalho/>
-                <Infos dict={dict} corretor={profileFullData} />
-            </Page.Main>
-
-            <Page.Right>
-                <Page.Dashboard>
-                    <Dashboard/>
-                </Page.Dashboard>
-
-                <Page.Calendar>
-                    <Calendario ownId={sessionData.id} idProfile={profileData.id} />
-                </Page.Calendar>
-            </Page.Right>
-        </Page.Root >
-
+    <>
+      {profileData.type! == "corretor" ? (
+        <CorretorProfile />
+      ) : (
+        <EmpresaProfile />
+      )}
+    </>
   );
 }

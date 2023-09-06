@@ -37,8 +37,6 @@ export default function Calendario({ ownId, idProfile }: CalendarioProps) {
         fetchData()
     }, [])
 
-    console.log(visitas)
-
 
     let eventos: { title: string; date: string; }[] = []
 

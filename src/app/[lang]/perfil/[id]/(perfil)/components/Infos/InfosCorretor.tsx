@@ -15,7 +15,7 @@ interface InfosProps {
 }
 
 
-export default function Infos({ corretor, dict }: InfosProps) {
+export default function InfosCorretor({ corretor, dict }: InfosProps) {
 
   return (
     <Tabs.Group

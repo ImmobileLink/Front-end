@@ -8,8 +8,9 @@ import { useProfileStore } from "../../../../../../../../lib/store/profileStore"
 import Botoes from "./Botoes";
 import { cache } from "react";
 import EditProfile from "./EditProfile";
-import { Rating } from "flowbite-react";
 import RatingCount from "./Rating";
+import { Card } from "@/app/[lang]/(components)/(compositions)/(card)";
+import Dashboard from "../Dashboard/Dashboard";
 
 
 interface InfosPadraoProps {
@@ -38,9 +39,6 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
   }
 
   const isOwn = isOwnProfile()
-
-  console.log(session)
-
 
   return (
     <>
@@ -74,7 +72,7 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
         <h2 className="font-bold text-2xl dark:text-white">{profile?.nome}</h2>
         <div className="flex flex-wrap-reverse gap-4 mt-2">
           <p className="text-gray-500 dark:text-gray-400">{`${profileFullData?.cidade} - ${profileFullData?.estado}`}</p>
-          <RatingCount/>
+          <RatingCount />
         </div>
 
         {session?.id && !isOwn && (
@@ -83,9 +81,15 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
 
       </div>
 
-      <div className="sm:hidden">
-        <p>Colocar um card com breve info do dashboard aqui</p>
+      <div className="m-5 lg:hidden flex justify-center">
+        <Card.Root className="bg-gray-300 max-w-lg">
+          <Card.Content>
+            <Dashboard />
+          </Card.Content>
+        </Card.Root>
       </div>
+
+
 
       {/* {profile. != null && (
         <div className="px-5">
