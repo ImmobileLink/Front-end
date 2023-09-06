@@ -11,6 +11,8 @@ import EditProfile from "./EditProfile";
 import RatingCount from "./Rating";
 import { Card } from "@/app/[lang]/(components)/(compositions)/(card)";
 import Dashboard from "../Dashboard/Dashboard";
+import { MdWorkspacePremium } from 'react-icons/md';
+
 
 
 interface InfosPadraoProps {
@@ -64,10 +66,12 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
           <div className="w-34 h-34 rounded-full bg-white flex justify-center items-center">
             <Avatar userId={profile!.id} size={"big"} />
           </div>
-          {isOwn && (
-            <EditProfile />
-          )}
-
+          <div className="flex gap-5">
+            {isOwn && (
+              <EditProfile/>
+            )}
+            {profile?.isPremium && (<MdWorkspacePremium size={30} title="Usuário Premium"/>)}
+          </div>
         </div>
         <h2 className="font-bold text-2xl dark:text-white">{profile?.nome}</h2>
         <div className="flex flex-wrap-reverse gap-4 mt-2">

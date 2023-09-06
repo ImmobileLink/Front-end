@@ -15,7 +15,7 @@ export default function EditProfile({ }: EditProfileProps) {
     return (
         <>
             <button onClick={() => props.setOpenModal('default')}>
-                <AiFillEdit size={20} />
+                <AiFillEdit size={30} />
             </button>
 
             <Modal show={props.openModal === 'default'} onClose={() => props.setOpenModal(undefined)}>
