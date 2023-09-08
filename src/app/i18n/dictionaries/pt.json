@@ -307,6 +307,8 @@
     "you": "Você",
     "newconversation": "Novo espaço",
     "newconvlabel1": "Associações",
-    "newconvlabel2": "Links"
+    "newconvlabel2": "Links",
+    "uploadedfile": "Arquivo selecionado",
+    "chathome": "Selecione uma conversa ou clique em \"Novo espaço\" para iniciar uma nova!"
   }
 }

@@ -308,6 +308,8 @@
     "sent": "sent",
     "newconversation": "New space",
     "newconvlabel1": "Partnerships",
-    "newconvlabel2": "Links"
+    "newconvlabel2": "Links",
+    "uploadedfile": "File selected",
+    "chathome": "Select an existing conversation or press \"New space\" to join a new one!"
   }
 }

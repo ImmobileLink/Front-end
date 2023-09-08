@@ -379,6 +379,8 @@ export interface Chat {
   newconversation: string;
   newconvlabel1: string;
   newconvlabel2: string;
+  uploadedfile: string;
+  chathome: string;
 }
 
 // Converts JSON strings to/from your types

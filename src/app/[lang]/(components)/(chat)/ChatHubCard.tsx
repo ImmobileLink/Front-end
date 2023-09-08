@@ -3,17 +3,27 @@ import { Chat } from "@/app/i18n/dictionaries/types";
 import { UltimaMensagemPorSalaPorUsuario } from "../../../../../lib/modelos"
 import Avatar from "../Avatar";
 import Link from "next/link";
+import { ChatContext } from "../../chat/[[...idsala]]/chatContext";
+import { useContext } from "react";
 
 interface ChatHubCardProps {
     dict: Chat,
+    idsala: string,
     mensagem: UltimaMensagemPorSalaPorUsuario | null | undefined,
     userId: string | undefined;
 }
 
-export default function ChatHubCard({ dict, mensagem, userId }: ChatHubCardProps) {
+export default function ChatHubCard({ dict, idsala, mensagem, userId }: ChatHubCardProps) {
+    const { toggleChatView } = useContext(ChatContext)
+
+    const handleClick = (e: any, idsala: string, idsaladestino: string) => {
+        if(idsala == idsaladestino) {
+            toggleChatView(true)
+        }
+    }
     return (
         <>
-            <Link href={`/chat/${mensagem!.idsala}`} className="flex flex-row rounded-md  hover:bg-gray-200 dark:hover:bg-gray-500 p-2">
+            <Link onClick={e=>handleClick(e,idsala, mensagem!.idsala)} href={`/chat/${mensagem!.idsala}`} className="flex flex-row rounded-md  hover:bg-gray-200 dark:hover:bg-gray-500 p-2">
                 <div className="mr-2 min-w-fit">
                     <Avatar size={14} userId={mensagem!.idparticipante} />
                 </div>

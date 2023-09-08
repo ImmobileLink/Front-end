@@ -29,7 +29,12 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
   let chatStyle = 'flex'
 
   if (chatView) {
-    chatStyle = 'hidden lg:block'
+    if(typeof idsala === 'undefined') {
+      chatStyle = 'flex'
+    }
+    else {
+      chatStyle = 'hidden lg:block'
+    }
   }
   else {
     chatStyle = 'flex'
@@ -139,7 +144,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
       <div className={`flex flex-col h-full pt-[46px] overflow-y-auto snap-start gap-2`}>
         {
           friendListState ?
-          <FriendList dict={dict} userType={userType} userLinks={userLinks} userAssocs={userAssocs} userId={userId} />
+          <FriendList dict={dict} idsala={idsala} userType={userType} userLinks={userLinks} userAssocs={userAssocs} userId={userId} />
             :
             ''
         }
@@ -147,7 +152,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
           {
             messages &&
             messages.map((mensagem) =>
-              <ChatHubCard key={mensagem.idmensagem} dict={dict.chat} mensagem={mensagem} userId={userId} />
+              <ChatHubCard key={mensagem.idmensagem} idsala={idsala} dict={dict.chat} mensagem={mensagem} userId={userId} />
             )
           }
         </div>

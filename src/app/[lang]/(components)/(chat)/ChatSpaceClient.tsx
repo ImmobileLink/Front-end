@@ -15,11 +15,19 @@ interface ChatSpaceClientProps {
 export default function ChatSpaceClient({ children, dict, idsala, userId }: ChatSpaceClientProps) {
   const { chatView, toggleChatView } = useContext(ChatContext)
   let style = 'hidden lg:block'
-  if (chatView == true) {
-    style = 'block'
+
+  if (chatView == true ) {
+    if(typeof idsala === 'undefined') {
+      style = 'hidden lg:block'
+    }
+    else {
+      style = 'block'
+    }
+
   }
-  else { 
-    style = 'hidden lg:block'
+  else {
+    if(chatView == false) 
+      style = 'hidden lg:block'
   }
   return (
     <div className={`${style} h-full lg:h-5/6 lg:w-7/12`}>

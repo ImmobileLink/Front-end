@@ -7,6 +7,7 @@ import { BsPersonLinesFill } from 'react-icons/bs';
 
 interface FriendListProps {
     dict: any;
+    idsala: any;
     userType: string | undefined;
     userId: string | undefined;
     userLinks: userGroup;
@@ -61,7 +62,7 @@ const customTheme: FlowbiteTabTheme = {
     "tabpanel": "py-3"
 }
 
-export default function FriendList({ dict, userType, userId, userLinks, userAssocs }: FriendListProps) {
+export default function FriendList({ dict, idsala, userType, userId, userLinks, userAssocs }: FriendListProps) {
     return (
         <>
             <Tabs.Group
@@ -80,6 +81,7 @@ export default function FriendList({ dict, userType, userId, userLinks, userAsso
                                 return (
                                     <FriendListCard
                                         key={item.id}
+                                        idsala={idsala}
                                         idremetente={userId}
                                         iddestinatario={item.id}
                                         nome={item.nome}
@@ -103,6 +105,7 @@ export default function FriendList({ dict, userType, userId, userLinks, userAsso
                                 return (
                                     <FriendListCard
                                         key={item.id}
+                                        idsala={idsala}
                                         idremetente={userId}
                                         iddestinatario={item.id}
                                         nome={item.nome}
