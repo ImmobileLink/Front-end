@@ -6,7 +6,7 @@ interface PageRightProps {
 
 export default async function PageRight({ children }: PageRightProps) {
   return (
-    <div className="hidden lg:flex flex-col lg:w-2/12 gap-4">
+    <div className="hidden lg:flex flex-col lg:w-2/12 lg:max-w-xs gap-4">
       {children}
     </div>
   );

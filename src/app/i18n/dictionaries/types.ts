@@ -337,15 +337,21 @@ export interface Pesquisa {
 }
 
 export interface Labels {
-  name:            string;
-  title:           string;
-  usertype:        string;
-  region:          string;
-  rating:          string;
-  specialty:       string;
-  error:           string;
-  missingcombobox: string;
-  checkprofile:    string;
+  nearbyusers:        string;
+  name:               string;
+  title:              string;
+  usertype:           string;
+  region:             string;
+  state:              string;
+  city:               string;
+  all:                string;
+  nocityfound:        string;
+  selectaestatefirst: string;
+  rating:             string;
+  specialty:          string;
+  error:              string;
+  missingcombobox:    string;
+  checkprofile:       string;
 }
 
 export interface Usertypevalue {

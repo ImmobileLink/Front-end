@@ -4,29 +4,35 @@ import Link from "next/link";
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { Database } from '../../../../../lib/database.types';
+import { cache } from "react";
 
 interface CardUserListProps {
   cards: Cards;
 }
 
-const supabase = createServerComponentClient<Database>({ cookies })
+export const createServerSupabaseClient = cache(() => {
+  const cookieStore = cookies()
+  return createServerComponentClient<Database>({ cookies: () => cookieStore })
+})
 
 async function getData() {
+  const supabase = createServerSupabaseClient();
   let { data, error } = await supabase.rpc("obter_cinco_corretores_id");
 
   return data;
 }
 
 export default async function CardUserList({ cards }: CardUserListProps) {
-  const corretores = await getData();
+  const avatares = await getData();
+
   return (
     <>
       <div className="flex flex-col  justify-center">
-        <div className="flex mb-5 -space-x-4 justify-center">
-          {corretores?.map((item) => {
+        <div className="flex mb-5 p-1 -space-x-4 justify-center">
+          {avatares?.map((item) => {
             return (
               // eslint-disable-next-line react/jsx-key
-              <Avatar userId={item.id} />
+              <Avatar route={item.avatar} />
             );
           })}
         </div>

@@ -1,20 +1,22 @@
 //Arquivo de definição de tipos para o projeto.
 //Exporta os tipos do banco de dados ou tipos personalizados para não ser necessário declará-los toda hora nos códigos;
 import { Database, Json } from "./database.types";
+import Avatar from '../src/app/[lang]/(components)/Avatar';
 
 //Nativos do Banco de dados
 export type Publicacao = Database['public']['Tables']['publicacao']['Row']
 export interface PublicacaoCompleta {
     id: string;
     idautor: string;
+    avatar: string;
     nomeautor: string;
     regiao: Json;
     conteudo: string;
     imagem: string;
     criadoem: string;
     atualizadoem: string;
+
 }
-export type Regiao = Database['public']['Tables']['regiao']['Row']
 export type TipoImovel = Database['public']['Tables']['tipoImovel']['Row']
 export type Usuario = Database['public']['Tables']['usuario']['Row']
 export type Corretor = Database['public']['Tables']['corretor']['Row']
@@ -61,42 +63,59 @@ export interface InsereVisita {
     idimovel: string;
 }
 //Criados/Modificados/Personalizados
-export interface CorretorBuscado {
-    creci: string | null
-    id: string | null
-    idregiao?: string | null
-    idtipoimovel?: string | null
-    nome: string | null
-    nota: number | null
-}
+export type CorretorBuscado = {
+    id: string;
+    nome: string;
+    avatar: string;
+    creci: string;
+    estado: string;
+    cidade: string;
+    sobre: string;
+}[] | null;
+
+export type CorretorBuscadoItem = {
+    id: string;
+    nome: string;
+    avatar: string;
+    creci: string;
+    estado: string;
+    cidade: string;
+    sobre: string;
+};
+
 export interface UltimaMensagemPorSalaPorUsuario {
-  idmensagem: string;
-  idsala: string;
-  idautor: string;
-  nomeautor: string;
-  mensagem: string;
-  atualizadoem: string;
-  idparticipante: string;
-  nomeparticipante: string;
+    idmensagem: string;
+    idsala: string;
+    idautor: string;
+    nomeautor: string;
+    mensagem: string;
+    atualizadoem: string;
+    idparticipante: string;
+    nomeparticipante: string;
 }
-export interface userData {
+
+export type userData = {
     id?: string;
+    avatar?: string;
     nome?: string;
     isPremium?: boolean;
     type?: string;
     links?: {
         id: string;
         nome: string;
+        avatar: string;
     }[] | null;
     assoc?: {
         id: string;
         nome: string;
+        avatar: string;
     }[] | null;
 };
 
 export type userGroup = {
     id: string;
     nome: string;
+    avatar: string;
 }[] | null;
 
 export interface City {
@@ -115,3 +134,11 @@ export interface filterOption {
     filter: number;
     param?: string;
 }
+
+export type CorporacaoPorRegiao = {
+    idcorporacao: string;
+    regiao: {
+        cidade: string,
+        estado: string
+    }[] | null;
+} 

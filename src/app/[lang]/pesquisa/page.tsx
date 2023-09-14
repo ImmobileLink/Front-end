@@ -1,14 +1,16 @@
-import { getDictionary } from "../dictionaries";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import type { Database } from "../../../../lib/database.types";
-import { getTipoUsuario, getLinks, getAssoc } from "../../../../lib/utils/userData";
-import { userData } from "../../../../lib/modelos";
-import { Page } from "../(components)/(compositions)/(page)";
 import { cache } from "react";
-import { Card } from "../(components)/(compositions)/(card)";
-import CardProfile from "../(components)/(cards)/CardProfile";
 import CardNotLogged from "../(components)/(cards)/CardNotLogged";
+import CardProfile from "../(components)/(cards)/CardProfile";
+import { Card } from "../(components)/(compositions)/(card)";
+import { Page } from "../(components)/(compositions)/(page)";
+import type { Database } from "../../../../lib/database.types";
+import { userData } from '../../../../lib/modelos';
+import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/utils/userData";
+import { getDictionary } from "../dictionaries";
+import PesquisaCard from "./components/PesquisaCard";
+import NearbyUsers from "./components/NearbyUsers";
 
 interface pageProps {
   params: {
@@ -45,6 +47,7 @@ export default async function page({ params: { lang } }: pageProps) {
 
   let user: userData = {
     id: undefined,
+    avatar: undefined,
     isPremium: undefined,
     nome: undefined,
     type: undefined,
@@ -54,24 +57,21 @@ export default async function page({ params: { lang } }: pageProps) {
 
   const dict = await getDictionary(lang); // pt
   const userData = await getUserData(user);
+  const tipoImovel = await supabase.from('tipoImovel').select('*');
 
-  //Coleta dados das regiões do banco de dados
-  //Mudar pra pegar da api do ibge (adicionar mais 2 campos, um para estado e outro para cidade)
-  /*
-  const regioes = await supabase.from('regiao').select('*');
-  if(regioes.error){
-    console.log("Erro ao consultar regiões")
-  }
-  */
-  const especialidades = await supabase.from('tipoImovel').select('*')
-  if (especialidades.error) {
-    console.log("Erro ao consultar especialidades")
+  let estadoUsuario: string | null;
+
+  if(userData.id) {
+    let { data: estado, error } = await supabase.rpc('get_user_estado', {id_usuario: userData.id})
+    estadoUsuario = estado![0].estado;
+  } else {
+    estadoUsuario = "SP";
   }
 
   return (
     <div className="flex justify-center gap-5 mt-4">
       <Page.Left>
-      {
+        {
           userData.id ? (
             <>
               <Card.RootStatic>
@@ -93,12 +93,14 @@ export default async function page({ params: { lang } }: pageProps) {
         }
       </Page.Left>
       <Page.Main>
-        <>
-          {/* <PesquisaCard textos={dict.pesquisa} regioes={regioes.data} especialidades={especialidades.data}/>            */}
-        </>
+        <Card.Root>
+          <Card.Content>
+            <NearbyUsers dict={dict.pesquisa.labels} estado={estadoUsuario} userData={userData}/>
+          </Card.Content>
+        </Card.Root>
       </Page.Main>
       <Page.Right>
-
+        {/* <PesquisaCard textos={dict.pesquisa} tipoImovel={tipoImovel.data} /> */}
       </Page.Right>
     </div>
   )

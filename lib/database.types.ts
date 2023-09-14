@@ -279,10 +279,52 @@ export interface Database {
           }
         ]
       }
+      historico: {
+        Row: {
+          data_fim: string | null
+          data_inicio: string
+          descricao: string | null
+          id: string
+          id_corporacao: string | null
+          id_corretor: string
+        }
+        Insert: {
+          data_fim?: string | null
+          data_inicio: string
+          descricao?: string | null
+          id?: string
+          id_corporacao?: string | null
+          id_corretor: string
+        }
+        Update: {
+          data_fim?: string | null
+          data_inicio?: string
+          descricao?: string | null
+          id?: string
+          id_corporacao?: string | null
+          id_corretor?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "historico_id_corporacao_fkey"
+            columns: ["id_corporacao"]
+            referencedRelation: "corporacao"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "historico_id_corretor_fkey"
+            columns: ["id_corretor"]
+            referencedRelation: "corretor"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       imovel: {
         Row: {
           bairro: string
+          cep: string | null
           cidade: string
+          complemento: string | null
           descricao: string | null
           estado: string
           id: string
@@ -294,7 +336,9 @@ export interface Database {
         }
         Insert: {
           bairro: string
+          cep?: string | null
           cidade: string
+          complemento?: string | null
           descricao?: string | null
           estado: string
           id?: string
@@ -306,7 +350,9 @@ export interface Database {
         }
         Update: {
           bairro?: string
+          cep?: string | null
           cidade?: string
+          complemento?: string | null
           descricao?: string | null
           estado?: string
           id?: string
@@ -389,7 +435,7 @@ export interface Database {
           idautor: string
           idsala: string
           imagem: string | null
-          mensagem: string
+          mensagem: string | null
           nomeautor: string | null
         }
         Insert: {
@@ -399,7 +445,7 @@ export interface Database {
           idautor: string
           idsala: string
           imagem?: string | null
-          mensagem: string
+          mensagem?: string | null
           nomeautor?: string | null
         }
         Update: {
@@ -409,7 +455,7 @@ export interface Database {
           idautor?: string
           idsala?: string
           imagem?: string | null
-          mensagem?: string
+          mensagem?: string | null
           nomeautor?: string | null
         }
         Relationships: [
@@ -464,21 +510,6 @@ export interface Database {
           }
         ]
       }
-      regiao: {
-        Row: {
-          id: string
-          regiao: string
-        }
-        Insert: {
-          id?: string
-          regiao: string
-        }
-        Update: {
-          id?: string
-          regiao?: string
-        }
-        Relationships: []
-      }
       resultadoformulario: {
         Row: {
           conteudo: Json
@@ -530,14 +561,17 @@ export interface Database {
       }
       tipoImovel: {
         Row: {
+          classificacao: string | null
           descricao: string
           id: string
         }
         Insert: {
+          classificacao?: string | null
           descricao: string
           id?: string
         }
         Update: {
+          classificacao?: string | null
           descricao?: string
           id?: string
         }
@@ -546,18 +580,21 @@ export interface Database {
       usuario: {
         Row: {
           atualizadoem: string
+          avatar: string
           criadoem: string
           email: string
           id: string
         }
         Insert: {
           atualizadoem?: string
+          avatar?: string
           criadoem?: string
           email: string
           id: string
         }
         Update: {
           atualizadoem?: string
+          avatar?: string
           criadoem?: string
           email?: string
           id?: string
@@ -573,16 +610,16 @@ export interface Database {
       }
       usuarioporregiao: {
         Row: {
-          cidade: string
           idusuario: string
+          regiao: Json | null
         }
         Insert: {
-          cidade: string
           idusuario: string
+          regiao?: Json | null
         }
         Update: {
-          cidade?: string
           idusuario?: string
+          regiao?: Json | null
         }
         Relationships: [
           {
@@ -686,6 +723,7 @@ export interface Database {
         }
         Returns: {
           nome: string
+          avatar: string
           ispremium: boolean
           role: string
         }[]
@@ -704,6 +742,7 @@ export interface Database {
         Returns: {
           id: string
           nome: string
+          avatar: string
         }[]
       }
       get_corretor_info: {
@@ -724,54 +763,6 @@ export interface Database {
           nome: string
         }[]
       }
-      get_corretores_avaliacao: {
-        Args: {
-          avaliacao: number
-        }
-        Returns: {
-          id: string
-          nome: string
-          creci: string
-          nota: number
-        }[]
-      }
-      get_corretores_avaliacao_regiao: {
-        Args: {
-          avaliacao: number
-          idregiao: string
-        }
-        Returns: {
-          id: string
-          nome: string
-          creci: string
-          nota: number
-        }[]
-      }
-      get_corretores_avaliacao_regiao_tipoimovel: {
-        Args: {
-          avaliacao: number
-          idregiao: string
-          idtipoimovel: string
-        }
-        Returns: {
-          id: string
-          nome: string
-          creci: string
-          nota: number
-        }[]
-      }
-      get_corretores_avaliacao_tipoimovel: {
-        Args: {
-          avaliacao: number
-          idtipoimovel: string
-        }
-        Returns: {
-          id: string
-          nome: string
-          creci: string
-          nota: number
-        }[]
-      }
       get_corretores_by_corporacao_especialidade: {
         Args: {
           id_usuario: string
@@ -780,6 +771,87 @@ export interface Database {
         Returns: {
           id: string
           nome: string
+        }[]
+      }
+      get_corretores_por_avaliacao: {
+        Args: {
+          avaliacao: number
+        }
+        Returns: {
+          id: string
+          nome: string
+          sobre: string
+          creci: string
+          nota: number
+        }[]
+      }
+      get_corretores_por_avaliacao_estado: {
+        Args: {
+          avaliacao: number
+          estado: string
+        }
+        Returns: {
+          id: string
+          nome: string
+          sobre: string
+          creci: string
+          nota: number
+        }[]
+      }
+      get_corretores_por_avaliacao_estado_cidade: {
+        Args: {
+          avaliacao: number
+          estado: string
+          cidade: string
+        }
+        Returns: {
+          id: string
+          nome: string
+          sobre: string
+          creci: string
+          nota: number
+        }[]
+      }
+      get_corretores_por_avaliacao_estado_cidade_tipoimovel: {
+        Args: {
+          avaliacao: number
+          estado: string
+          cidade: string
+          idtipoimovel: string
+        }
+        Returns: {
+          id: string
+          nome: string
+          sobre: string
+          creci: string
+          nota: number
+        }[]
+      }
+      get_corretores_por_avaliacao_estado_tipoimovel: {
+        Args: {
+          avaliacao: number
+          estado: string
+          idtipoimovel: string
+        }
+        Returns: {
+          id: string
+          nome: string
+          sobre: string
+          creci: string
+          nota: number
+        }[]
+      }
+      get_corretores_por_avaliacao_tipoimovel: {
+        Args: {
+          avaliacao: number
+          idtipoimovel: string
+        }
+        Returns: {
+          id: string
+          nome: string
+          sobre: string
+          creci: string
+          nota: number
         }[]
       }
       get_dados_sala: {
@@ -831,6 +903,7 @@ export interface Database {
         Returns: {
           id: string
           idautor: string
+          avatar: string
           nomeautor: string
           regiao: Json
           conteudo: string
@@ -846,6 +919,7 @@ export interface Database {
         Returns: {
           id: string
           idautor: string
+          avatar: string
           nomeautor: string
           regiao: Json
           conteudo: string
@@ -861,6 +935,7 @@ export interface Database {
         Returns: {
           id: string
           idautor: string
+          avatar: string
           nomeautor: string
           regiao: Json
           conteudo: string
@@ -874,6 +949,7 @@ export interface Database {
         Returns: {
           id: string
           idautor: string
+          avatar: string
           nomeautor: string
           regiao: Json
           conteudo: string
@@ -888,6 +964,56 @@ export interface Database {
         }
         Returns: {
           descricao: string
+        }[]
+      }
+      get_tipoimovel_por_id: {
+        Args: {
+          id_imovel: string
+        }
+        Returns: {
+          descricao: string
+        }[]
+      }
+      get_user_estado: {
+        Args: {
+          id_usuario: string
+        }
+        Returns: {
+          estado: string
+        }[]
+      }
+      get_user_estado_cidade: {
+        Args: {
+          id_usuario: string
+        }
+        Returns: {
+          estado: string
+          cidade: string
+        }[]
+      }
+      get_usuario_por_estado: {
+        Args: {
+          estado: string
+        }
+        Returns: {
+          idusuario: string
+        }[]
+      }
+      get_usuarios_por_cidade: {
+        Args: {
+          estado: string
+          cidade: string
+        }
+        Returns: {
+          idusuario: string
+        }[]
+      }
+      get_usuarios_por_estado: {
+        Args: {
+          estado: string
+        }
+        Returns: {
+          idusuario: string
         }[]
       }
       mensagem_com_usuario: {
@@ -908,7 +1034,7 @@ export interface Database {
       obter_cinco_corretores_id: {
         Args: Record<PropertyKey, never>
         Returns: {
-          id: string
+          avatar: string
         }[]
       }
       obter_corporacoes_por_corretor: {
@@ -918,6 +1044,7 @@ export interface Database {
         Returns: {
           id: string
           nome: string
+          avatar: string
         }[]
       }
       obter_corretores_por_corporacao: {
@@ -927,6 +1054,21 @@ export interface Database {
         Returns: {
           id: string
           nome: string
+          avatar: string
+        }[]
+      }
+      obter_corretores_por_estado: {
+        Args: {
+          estadoinputado: string
+        }
+        Returns: {
+          id: string
+          nome: string
+          avatar: string
+          creci: string
+          estado: string
+          cidade: string
+          sobre: string
         }[]
       }
       obter_nomes_corretores: {

@@ -1,10 +1,11 @@
 "use client";
 
-import Avatar from "../Avatar";
+
 import { CorretorBuscado, CorporacaoPorRegiao } from "../../../../../lib/modelos";
 import Link from 'next/link'
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { Pesquisa } from "@/app/i18n/dictionaries/types";
+import Avatar from "../../(components)/Avatar";
 
 interface UserCardProps {
   key: any,

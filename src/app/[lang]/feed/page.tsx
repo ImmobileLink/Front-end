@@ -45,6 +45,7 @@ async function getUserData(user: userData) {
 export default async function page({ params: { lang } }: pageProps) {
   let user: userData = {
     id: undefined,
+    avatar: undefined,
     isPremium: undefined,
     nome: undefined,
     type: undefined,
