@@ -318,7 +318,7 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
             }
             {
               <>
-                {JSON.stringify(filters)}
+                {JSON.stringify(filters, null, 2)}
                 <p>tipo de usuário: {filters.userType}</p>
                 <p>estado: {filters.state}</p>
                 <p>cidade: {filters.city}</p>

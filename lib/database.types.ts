@@ -322,6 +322,7 @@ export interface Database {
       imovel: {
         Row: {
           bairro: string
+          caracteristicas: Json[] | null
           cep: string | null
           cidade: string
           complemento: string | null
@@ -336,6 +337,7 @@ export interface Database {
         }
         Insert: {
           bairro: string
+          caracteristicas?: Json[] | null
           cep?: string | null
           cidade: string
           complemento?: string | null
@@ -350,6 +352,7 @@ export interface Database {
         }
         Update: {
           bairro?: string
+          caracteristicas?: Json[] | null
           cep?: string | null
           cidade?: string
           complemento?: string | null

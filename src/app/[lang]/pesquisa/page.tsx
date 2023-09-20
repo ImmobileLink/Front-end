@@ -9,8 +9,8 @@ import type { Database } from "../../../../lib/database.types";
 import { userData } from '../../../../lib/modelos';
 import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/utils/userData";
 import { getDictionary } from "../dictionaries";
-import PesquisaCard from "./components/PesquisaCard";
 import NearbyUsers from "./components/NearbyUsers";
+import PesquisaCard from "./components/PesquisaCard";
 
 interface pageProps {
   params: {
@@ -42,6 +42,17 @@ async function getUserData(user: userData) {
   return user;
 }
 
+async function getCorretores(estado: string) {
+  const supabase = createServerSupabaseClient();
+
+  let { data, error } = await supabase
+    .rpc('obter_corretores_por_estado', {
+      estadoinputado: estado
+    })
+
+  return data;
+}
+
 export default async function page({ params: { lang } }: pageProps) {
   const supabase = createServerSupabaseClient();
 
@@ -60,13 +71,15 @@ export default async function page({ params: { lang } }: pageProps) {
   const tipoImovel = await supabase.from('tipoImovel').select('*');
 
   let estadoUsuario: string | null;
-
+  
   if(userData.id) {
     let { data: estado, error } = await supabase.rpc('get_user_estado', {id_usuario: userData.id})
     estadoUsuario = estado![0].estado;
   } else {
     estadoUsuario = "SP";
   }
+
+  const carouselUsers = await getCorretores(estadoUsuario);
 
   return (
     <div className="flex justify-center gap-5 mt-4">
@@ -95,12 +108,12 @@ export default async function page({ params: { lang } }: pageProps) {
       <Page.Main>
         <Card.Root>
           <Card.Content>
-            <NearbyUsers dict={dict.pesquisa.labels} estado={estadoUsuario} userData={userData}/>
+            <NearbyUsers dict={dict.pesquisa.labels} estado={estadoUsuario} carouselUsers={carouselUsers}/>
           </Card.Content>
         </Card.Root>
       </Page.Main>
       <Page.Right>
-        {/* <PesquisaCard textos={dict.pesquisa} tipoImovel={tipoImovel.data} /> */}
+        <PesquisaCard textos={dict.pesquisa} tipoImovel={tipoImovel.data} />
       </Page.Right>
     </div>
   )

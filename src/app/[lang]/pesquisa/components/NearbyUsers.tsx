@@ -1,36 +1,14 @@
 import { Labels } from "@/app/i18n/dictionaries/types";
-import { userData } from "../../../../../lib/modelos";
+import { CorretorBuscado } from "../../../../../lib/modelos";
 import UserCarousel from "./UserCarousel";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { cache } from "react";
-import { Database } from "../../../../../lib/database.types";
 
 interface NearbyUsersProps {
   dict: Labels;
   estado: string;
-  userData: userData;
+  carouselUsers: CorretorBuscado;
 }
 
-
-export const createServerSupabaseClient = cache(() => {
-  const cookieStore = cookies()
-  return createServerComponentClient<Database>({ cookies: () => cookieStore })
-})
-
-async function getData(estado: string) {
-  const supabase = createServerSupabaseClient();
-
-  let { data, error } = await supabase
-    .rpc('obter_corretores_por_estado', {
-      estadoinputado: estado
-    })
-
-  return data;
-}
-
-export default async function NearbyUsers({ dict, estado, userData }: NearbyUsersProps) {
-  const carouselUsers = await getData(estado);
+export default async function NearbyUsers({ dict, estado, carouselUsers }: NearbyUsersProps) {
 
   return (
     <>
@@ -41,7 +19,7 @@ export default async function NearbyUsers({ dict, estado, userData }: NearbyUser
             {estado}
           </span>
         </span>
-        <UserCarousel data={carouselUsers} />
+        <UserCarousel data={carouselUsers} dict={dict}/>
       </div>
     </>
   );
