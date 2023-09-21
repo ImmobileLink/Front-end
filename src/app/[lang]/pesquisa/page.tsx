@@ -71,9 +71,9 @@ export default async function page({ params: { lang } }: pageProps) {
   const tipoImovel = await supabase.from('tipoImovel').select('*');
 
   let estadoUsuario: string | null;
-  
-  if(userData.id) {
-    let { data: estado, error } = await supabase.rpc('get_user_estado', {id_usuario: userData.id})
+
+  if (userData.id) {
+    let { data: estado, error } = await supabase.rpc('get_user_estado', { id_usuario: userData.id })
     estadoUsuario = estado![0].estado;
   } else {
     estadoUsuario = "SP";
@@ -84,36 +84,17 @@ export default async function page({ params: { lang } }: pageProps) {
   return (
     <div className="flex justify-center gap-5 mt-4">
       <Page.Left>
-        {
-          userData.id ? (
-            <>
-              <Card.RootStatic>
-                <Card.Content>
-                  <CardProfile
-                    userData={userData}
-                    cards={dict.feed.cards}
-                  />
-                </Card.Content>
-              </Card.RootStatic>
-            </>
-          ) : (
-            <Card.Root>
-              <Card.Content>
-                <CardNotLogged cards={dict.feed.cards} />
-              </Card.Content>
-            </Card.Root>
-          )
-        }
+        <PesquisaCard textos={dict.pesquisa} tipoImovel={tipoImovel.data} />
       </Page.Left>
       <Page.Main>
         <Card.Root>
           <Card.Content>
-            <NearbyUsers dict={dict.pesquisa.labels} estado={estadoUsuario} carouselUsers={carouselUsers}/>
+            <NearbyUsers dict={dict.pesquisa.labels} estado={estadoUsuario} carouselUsers={carouselUsers} />
           </Card.Content>
         </Card.Root>
       </Page.Main>
       <Page.Right>
-        <PesquisaCard textos={dict.pesquisa} tipoImovel={tipoImovel.data} />
+
       </Page.Right>
     </div>
   )

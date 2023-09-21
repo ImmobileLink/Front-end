@@ -169,15 +169,23 @@
       "all": "Todos",
       "nocityfound": "Nenhum município encontrado",
       "selectaestatefirst": "Selecione um estado primeiro",
-      "rating": "Classificação",
+      "rating": "Avaliação",
       "specialty": "Especialidade",
       "error": "Ops! Algo deu errado. Por favor, tente novamente.",
       "missingcombobox": "Selecione um filtro.",
-      "checkprofile": "Ver Perfil"
+      "checkprofile": "Ver Perfil",
+      "specializations": "Especializações do corretor",
+      "type": "Tipo de imóvel",
+      "furniture": "Mobília",
+      "condition": "Condição do imóvel",
+      "others": "Outros",
+      "advanced": "Opções avançadas",
+      "reset": "Redefinir",
+      "search": "Pesquisar"
     },
     "usertypevalue": {
       "broker": "Corretor",
-      "corporation": "Corporação"
+      "corporation": "Empresa"
     }
   },
   "feed": {

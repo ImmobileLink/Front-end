@@ -173,7 +173,15 @@
       "specialty": "Specialty",
       "error": "Oops! Something went wrong. Please try again.",
       "missingcombobox": "Select a filter.",
-      "checkprofile": "Check Profile"
+      "checkprofile": "Check Profile",
+      "specializations": "Broker specialization",
+      "type": "Property Type",
+      "furniture": "Furniture",
+      "condition": "Property Condition",
+      "others": "Others",
+      "advanced": "Advanced options",
+      "reset": "Reset",
+      "search": "Search"
     },
     "usertypevalue": {
       "broker": "Broker",

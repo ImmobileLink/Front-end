@@ -352,6 +352,14 @@ export interface Labels {
   error:              string;
   missingcombobox:    string;
   checkprofile:       string;
+  specializations:    string;
+  type:               string;
+  furniture:          string;
+  condition:          string;
+  others:             string;
+  advanced:           string;
+  reset:              string;
+  search:             string;
 }
 
 export interface Usertypevalue {

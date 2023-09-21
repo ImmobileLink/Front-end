@@ -83,6 +83,24 @@ export type CorretorBuscadoItem = {
     sobre: string;
 };
 
+export type CorporacaoBuscada = {
+    id: string;
+    nomefantasia: string;
+    avatar: string;
+    estado: string;
+    cidade: string;
+    sobre: string;
+}[] | null;
+
+export type CorporacaoBuscadaItem = {
+    id: string;
+    nomefantasia: string;
+    avatar: string;
+    estado: string;
+    cidade: string;
+    sobre: string;
+};
+
 export interface UltimaMensagemPorSalaPorUsuario {
     idmensagem: string;
     idsala: string;
