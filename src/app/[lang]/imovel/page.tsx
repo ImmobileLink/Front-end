@@ -55,6 +55,12 @@ async function getUserData() {
   return userData;
 }
 
+async function filterAndMapTipos(tiposImovel, classificacao) {
+  return tiposImovel
+    .filter((obj) => obj.classificacao === classificacao)
+    .map((obj) => ({ id: obj.id, descricao: obj.descricao }));
+}
+
 export default async function page({ params: { lang } }: pageProps) {
   const supabase = createServerSupabaseClient();
   const dict = await getDictionary(lang); // pt
@@ -62,13 +68,19 @@ export default async function page({ params: { lang } }: pageProps) {
 
   const userData = await getUserData();
 
+  let {data: tiposImovel} = await supabase.from('tipoImovel').select('*');
+  const tipos = await filterAndMapTipos(tiposImovel, 'Tipo');
+  const outros = await filterAndMapTipos(tiposImovel, 'Outros');
+  const mobilias = await filterAndMapTipos(tiposImovel, 'Mobília');
+  const condicoes = await filterAndMapTipos(tiposImovel, 'Condição');
+
+  let {data: properties} = await supabase.from("imovel").select("*").eq("idcorporacao", userData.id);
+
   return (
     <>
       <NavBar />
-      <div className="w-auto h-fit min-h-screen  bg-branco dark:bg-dark-200 overflow-x-hidden box-border text-black">
-        <div className="flex relative max-w-6xl mx-auto px-4 my-4">
-          <Imoveis userid={userData.id} textos={textos} />
-        </div>
+      <div className="w-auto h-fit min-h-screen  bg-branco dark:bg-dark-200 box-border text-black flex relative mx-auto px-4 mt-4">
+          <Imoveis userid={userData.id} textos={textos} properties={properties} tipos={tipos} outros={outros} mobilias={mobilias} condicoes={condicoes} />
       </div>
     </>
   );

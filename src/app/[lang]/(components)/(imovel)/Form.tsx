@@ -1,96 +1,96 @@
-"use client"
-import Image from "next/image";
-import { Suspense, useEffect, useState } from "react";
-import { AtualizaImovel, ImovelRegistro } from "../../../../../lib/modelos";
-import { v4 as uuidv4 } from 'uuid';
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+"use client";
+import React, { useEffect, useState } from "react";
 import { Database } from "../../../../../lib/database.types";
-import { useRouter } from "next/router";
+import { Imovel } from "@/app/i18n/dictionaries/types";
+import { ImovelTipado, InsereImovel, TipoImovel } from "../../../../../lib/modelos";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { v4 as uuidv4 } from 'uuid';
+import Select from "react-select";
 import InputMask from "react-input-mask";
+import Form from "./Form";
 import { Spinner } from "flowbite-react";
 
-interface EditFormProps {
-  onCloseModal: any;
-  imovel: ImovelRegistro;
-  userid: string;
+interface FormProps {
+  props: {
+    userid: string,
+    textos: Imovel,
+    tipos: TipoImovel[],
+    outros: TipoImovel[],
+    mobilias: TipoImovel[],
+    condicoes: TipoImovel[],
+    formOpen: boolean,
+    setFormOpen: Dispatch<SetStateAction<boolean>>,
+  }
 }
 
 const supabase = createClientComponentClient<Database>();
 
-// Falta Implementar a Edição
-
-export default function EditForm({ onCloseModal, imovel, userid }: EditFormProps) {
-  const [estado, setEstado] = useState(imovel.estado);
-  const [cidade, setCidade] = useState(imovel.cidade);
-  const [bairro, setBairro] = useState(imovel.bairro);
-  const [rua, setRua] = useState(imovel.rua);
-  const [num, setNum] = useState(imovel.numero);
-  const [valor, setValor] = useState(imovel.valor);
-  const [descricao, setDescricao] = useState(imovel.descricao);
-
+export default function Form({ props }: FormProps) {
+  // Dados
+  const [cep, setCep] = useState("");
+  const [estado, setEstado] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [bairro, setBairro] = useState("");
+  const [rua, setRua] = useState("");
+  const [num, setNum] = useState("");
+  const [complemento, setComplemento] = useState("");
+  const [valor, setValor] = useState("");
+  const [descricao, setDescricao] = useState("");
   const [img, setImg] = useState<File>();
-  const [imagemId, setImagemId] = useState(imovel.imagem);
+  const [imagemId, setImagemId] = useState("");
 
-  const opt = JSON.parse(imovel.caracteristicas);
+  const [loading, setLoading] = useState(false);
 
-  const [mobilia, setMobilia] = useState<TipoImovel>(imovel);
+  // Tipos de imóvel
+  const [mobilia, setMobilia] = useState<TipoImovel>({id: '', descricao: ''});
   const [condicao, setCondicao] = useState<TipoImovel>({id: '', descricao: ''});
   const [type, setType] = useState<TipoImovel>({id: '', descricao: ''});
-  const [selectedOptions, setSelectedOptions] = useState<TipoImovel>(opt);
+  const [selectedOptions, setSelectedOptions] = useState<TipoImovel>({id: '', descricao: ''});
 
   const [disabilitarInput, isDisabilitarInput] = useState(false);
   const [cepValid, isCepValid] = useState(false);
 
-  const handleEditarImagem = async () => {
-    // Apagar o arquivo antigo
-    let { data, error } = await supabase
-      .storage
-      .from('imoveis') // Nome do bucket no Supabase
-      .remove(userid + "/" + imovel.imagem);    
+  const handleCadastrarImagem = async () => {
+    // Enviar o arquivo para o Supabase Storage
+  const { data, error } = await supabase
+    .storage
+    .from('imoveis') // Nome do bucket no Supabase
+    .upload(props.userid + "/" + imagemId, img);  // Cria a pasta se ela ainda não existir
 
-      if (!error) {
-        // Enviar o arquivo para o Supabase Storage
-        let { data, error } = await supabase
-            .storage
-            .from('imoveis') // Nome do bucket no Supabase
-            .upload(userid + "/" + imagemId, img, {
-              upsert: true
-            });    
+  if (error) {
+    console.error('Erro ao fazer upload:', error.message);
+  } else {
+    console.log('Arquivo enviado com sucesso:', data);
+  }
+}
 
-          if (error) {
-            console.error('Erro ao fazer upload:', error.message);
-          } else {
-            console.log('Arquivo enviado com sucesso:', data);
-          }
-        }
-    }
+const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const file = event.target.files?.[0];
+  if (file) {
+    setImagemId(uuidv4());
+    setImg(file);
+  }
+};
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setImagemId(uuidv4());
-      setImg(file);
-    }
-  };
+const handleOptions = async () => {
+  let dados = [type, mobilia, condicao];
 
-  const handleOptions = async () => {
-    let dados = [type, mobilia, condicao];
-  
-    // Verifique se selectedOptions não está vazio e é um array
-    if (Array.isArray(selectedOptions) && selectedOptions.length > 0) {
-      dados = [
-        ...dados,
-        ...selectedOptions.map((option) => ({
-          id: option.id,
-          descricao: option.descricao
-        }))
-      ];
-    }
-    return dados;
-  };
+  // Verifique se selectedOptions não está vazio e é um array
+  if (Array.isArray(selectedOptions) && selectedOptions.length > 0) {
+    dados = [
+      ...dados,
+      ...selectedOptions.map((option) => ({
+        id: option.id,
+        descricao: option.descricao
+      }))
+    ];
+  }
+  return dados;
+};
 
-  const handleEditarImovel = async () => {
-    event.preventDefault();
+// Falta a validação dos dados
+const handleCadastrarImovel = async (event: any) => {
+  event.preventDefault();
 
   setLoading(true);
 
@@ -99,101 +99,111 @@ export default function EditForm({ onCloseModal, imovel, userid }: EditFormProps
 
   const preco = valor.replace(",", ".");
 
-    if (img) {
-      await handleEditarImagem();
-    }
+  if (img) {
+    await handleCadastrarImagem();
+  }
 
-    const updateImovel: AtualizaImovel = {
-      descricao: descricao,
-      estado: estado,
-      cidade: cidade,
-      bairro: bairro,
-      rua: rua,
-      numero: num,
-      valor: valor,
-      imagem: imagemId,
-      caracteristicas: dados
-    };
-    const { data, error } = await supabase
-      .from("imovel")
-      .update(updateImovel)
-      .eq('id', imovel.id)
-      .select();
-
-    if (error) {
-      console.log(error);
-    } else {
-      console.log(data);
-      onCloseModal();
-    }
+  const imovel: InsereImovel = {
+    idcorporacao: props.userid,
+    descricao: descricao,
+    cep: cep,
+    estado: estado,
+    cidade: cidade,
+    bairro: bairro,
+    rua: rua,
+    numero: num,
+    complemento: complemento,
+    valor: preco,
+    imagem: imagemId,
+    caracteristicas: dados
   };
+  const { data, error } = await supabase.from("imovel").insert(imovel).select();
+  if (!error) {
+    props.setFormOpen(false);
+    setLoading(false);
 
-  const handleTipoImovel = (event: any) => {
-    const selectedValue = event.target.value;
-    const selectedObject = props.tipos!.find(
-      (t: TipoImovel) => t.descricao === selectedValue
-    );
-    if (selectedObject != null) {
-      setType(selectedObject);
+    for (let i = 0; i < dados.length; i++) {
+      const imovelTipado: ImovelTipado = {
+        idimovel: data[0].id,
+        idtipoimovel: dados[i].id
+      }
+      const { error } = await supabase.from("imoveltipado").insert(imovelTipado);
+      if (error) {
+        console.log(error);
+      }
     }
-  };
-  
-  const getCEP = async (cep: string) => {
-    try {
-        const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-        const data = await res.json();
-        return data;
-    } catch (error) {
-        return false;
-    }
-  };
+    console.log(data);
+  } else {
+    console.log(error);
+  }
+};
 
-  const apagaCampos = async () => {
-    setEstado("");
-    setCidade("");
-    setBairro("");
-    setRua("");
-    setComplemento("");
-    }
-    
-    const autoCompletaEndereco = async () => {
+const handleTipoImovel = (event: any) => {
+  const selectedValue = event.target.value;
+  const selectedObject = props.tipos!.find(
+    (t: TipoImovel) => t.descricao === selectedValue
+  );
+  if (selectedObject != null) {
+    setType(selectedObject);
+  }
+};
+
+const getCEP = async (cep: string) => {
+  try {
+      const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = await res.json();
+      return data;
+  } catch (error) {
+      return false;
+  }
+};
+
+const apagaCampos = async () => {
+setEstado("");
+setCidade("");
+setBairro("");
+setRua("");
+setComplemento("");
+}
+
+const autoCompletaEndereco = async () => {
+  isDisabilitarInput(false);
+  const data = await getCEP(cep);
+
+  if (!data.erro) {
+      setEstado(data.uf);
+      setCidade(data.localidade);
+      setBairro(data.bairro);
+      setRua(data.logradouro);
+      if (data.complemento != "") {
+          setComplemento(data.complemento);
+      }
+      isCepValid(true);
+      isDisabilitarInput(true);
+  } else {
+      apagaCampos();
+      isCepValid(false);
       isDisabilitarInput(false);
-      const data = await getCEP(cep);
-    
-      if (!data.erro) {
-          setEstado(data.uf);
-          setCidade(data.localidade);
-          setBairro(data.bairro);
-          setRua(data.logradouro);
-          if (data.complemento != "") {
-              setComplemento(data.complemento);
-          }
-          isCepValid(true);
-          isDisabilitarInput(true);
+  }
+  console.log(data.erro)
+};
+
+useEffect(() => {
+  isDisabilitarInput(false);
+  const regexCep = /^\d{8}$/;
+  if (cep.length == 8) {
+      if (!regexCep.test(cep)) {
+        console.log(cep);
       } else {
-          apagaCampos();
-          isCepValid(false);
-          isDisabilitarInput(false);
+        autoCompletaEndereco();
       }
-      console.log(data.erro)
-    };
-    
-    useEffect(() => {
-      isDisabilitarInput(false);
-      const regexCep = /^\d{8}$/;
-      if (cep.length == 8) {
-          if (!regexCep.test(cep)) {
-            console.log(cep);
-          } else {
-            autoCompletaEndereco();
-          }
-      }
-    }, [cep]);
+  }
+}, [cep]);
 
   return (
     <>
       <form
-              onSubmit={handleEditarImovel}
+              onSubmit={handleCadastrarImovel}
               className="relative z-20 group"
               aria-labelledby="slide-over-title"
               aria-modal="true"
@@ -211,7 +221,6 @@ export default function EditForm({ onCloseModal, imovel, userid }: EditFormProps
                           className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
                           onClick={() => {
                             props.setFormOpen(false);
-                            console.log()
                           }}
                         >
                           <svg
@@ -236,16 +245,16 @@ export default function EditForm({ onCloseModal, imovel, userid }: EditFormProps
                           <h2
                             className="text-2xl font-semibold leading-6 text-gray-900"
                           >
-                            Editar Imóvel
+                            {props.textos.newproperty.registerproperty}
                           </h2>
                         </div>
                         <div className="relative mt-6 flex-1 px-4 md:px-6">
-                          <label className="text-gray-500 text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
-                              * Campos obrigatórios
+                          <label className=" text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
+                              <span className="text-red-500">* </span>{props.textos.newproperty.requiredfields}
                           </label>
                           <div className="my-2 flex flex-wrap">
                             <label className="text-gray-700 text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
-                              CEP
+                              CEP<span className="text-red-500">* </span>
                             </label>
                             <div className="w-full md:w-3/4">
                               <InputMask
@@ -265,7 +274,7 @@ export default function EditForm({ onCloseModal, imovel, userid }: EditFormProps
                             </div>
 
                             <label className="text-gray-700 text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
-                              UF
+                              {props.textos.newproperty.uf}<span className="text-red-500">* </span>
                             </label>
                             <div className="w-full md:w-3/4">
                               <input
@@ -279,7 +288,7 @@ export default function EditForm({ onCloseModal, imovel, userid }: EditFormProps
                             </div>
 
                             <label className="text-gray-700 text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
-                              Cidade
+                              {props.textos.newproperty.city}<span className="text-red-500">* </span>
                             </label>
                             <div className="w-full md:w-3/4">
                               <input
@@ -298,7 +307,7 @@ export default function EditForm({ onCloseModal, imovel, userid }: EditFormProps
                             </div>
 
                             <label className="text-gray-700 text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
-                              Bairro
+                              {props.textos.newproperty.neighborhood}<span className="text-red-500">* </span>
                             </label>
                             <div className="w-full md:w-3/4">
                               <input
@@ -317,7 +326,7 @@ export default function EditForm({ onCloseModal, imovel, userid }: EditFormProps
                             </div>
 
                             <label className="text-gray-700 text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
-                              Rua
+                              {props.textos.newproperty.street}<span className="text-red-500">* </span>
                             </label>
                             <div className="w-full md:w-3/4">
                               <input
@@ -336,7 +345,7 @@ export default function EditForm({ onCloseModal, imovel, userid }: EditFormProps
                             </div>
 
                             <label className="text-gray-700 text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
-                               Número
+                              {props.textos.newproperty.number}<span className="text-red-500">* </span>
                             </label>
                             <div className="w-full md:w-3/4">
                               <input
@@ -368,7 +377,7 @@ export default function EditForm({ onCloseModal, imovel, userid }: EditFormProps
                             </div>
 
                             <label className="text-gray-700 text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
-                              Preço
+                              {props.textos.newproperty.price}<span className="text-red-500">* </span>
                             </label>
                             <div className="w-full md:w-3/4">
                               <input
@@ -386,7 +395,7 @@ export default function EditForm({ onCloseModal, imovel, userid }: EditFormProps
                             </div>
 
                             <label className="text-gray-700 text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
-                              Tipo de Imóvel
+                              Tipo de Imóvel<span className="text-red-500">* </span>
                             </label>
                             <select
                               className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline md:w-3/4 bg-gray-200 border-gray-200 focus:bg-white"
@@ -403,7 +412,7 @@ export default function EditForm({ onCloseModal, imovel, userid }: EditFormProps
                             <div className="grid grid-cols-2 w-full justify-center items-start py-2">
                               <div>
                                 <label className="text-gray-700 text-sm font-bold mb-1 w-full py-2 md:pr-4 leading-normal">
-                              Mobília
+                              Mobília<span className="text-red-500">* </span>
                             </label>
                             <div className="w-full">
                             {props.mobilias!.map((option) => (
@@ -425,7 +434,7 @@ export default function EditForm({ onCloseModal, imovel, userid }: EditFormProps
                               </div>
                               <div>
                                 <label className="text-gray-700 text-sm font-bold mb-1 w-full py-2 md:pr-4 leading-normal">
-                              Condição
+                              Condição<span className="text-red-500">* </span>
                             </label>
                             <div className="w-full">
                             {props.condicoes!.map((option) => (
@@ -456,7 +465,7 @@ export default function EditForm({ onCloseModal, imovel, userid }: EditFormProps
                             />   */}      
 
                             <label className="text-gray-700 text-sm font-bold mb-1 w-full md:w-1/4 py-2 md:pr-4 leading-normal">
-                              Descrição
+                              {props.textos.newproperty.description}
                             </label>
                             <div className="w-full md:w-3/4">
                               <textarea
@@ -494,7 +503,7 @@ export default function EditForm({ onCloseModal, imovel, userid }: EditFormProps
                                   </span></>
                                 )
                                 : (
-                                  <span>Confirmar</span>
+                                  <span>{props.textos.newproperty.register}</span>
                                 )}
                               </button>
                             </div>

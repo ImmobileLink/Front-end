@@ -17,7 +17,6 @@ interface VisitaCardProps {
 const supabase = createClientComponentClient<Database>();
 
 export default function VisitaCard({ onCloseModal, formlabels, imovel, corretor, userid }: VisitaCardProps) {
-  const [alert, setAlert] = useState({ type: "", title: "", message: "" });
   const [selectedCorretor, setSelectedCorretor] = useState<Corretor>(
     corretor![0]
   );
@@ -28,7 +27,12 @@ export default function VisitaCard({ onCloseModal, formlabels, imovel, corretor,
   const [time, setTime] = useState("");
   const [visita, setVisita] = useState<Visita>();
 
+  //const currentDate = new Date().toISOString().slice(0, 10);
+  const date = new Date().toLocaleDateString().split('/');
+  const currentDate = `${date[2]}-${date[1]}-${date[0]}`;
+
   const maskPhone = (valor: any) => {
+    console.log(currentDate);
     return valor
       .replace(/\D/g, "")
       .replace(/(\d{2})(\d)/, "($1) $2")
@@ -117,8 +121,9 @@ export default function VisitaCard({ onCloseModal, formlabels, imovel, corretor,
             <div className="inline-block relative">
               <select
                 className="appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-1 px-4 pr-8 my-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                //value={selectedCorretor.id}
                 onChange={(e) => handleCorretor(e)}
+                defaultValue=""
+                required
               >
                 <option disabled value="">
                   {formlabels.selectbroker}
@@ -224,12 +229,13 @@ export default function VisitaCard({ onCloseModal, formlabels, imovel, corretor,
               <div className="w-full sm:w-3/4 px-2">
                 <input
                   onChange={(e) => setData(e.target.value)}
-                  className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                  className={`relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${data !== "" && "invalid:[&:not(:focus)]:border-red-500"} peer`}
                   id="visit-date"
                   type="date"
+                  min={currentDate}
                   required
                 />
-                <span className="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                <span className={`mt-2 hidden text-sm text-red-500 ${data !== "" && "peer-[&:not(:focus):invalid]:block"}`}>
                   {formlabels.formlogs.invaliddate}
                 </span>
               </div>
@@ -243,14 +249,18 @@ export default function VisitaCard({ onCloseModal, formlabels, imovel, corretor,
               <div className="w-full sm:w-3/4 px-2">
                 <input
                   onChange={(e) => setTime(e.target.value)}
-                  className="relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                  className={`relative shadow appearance-none border rounded w-full py-1 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${time !== "" && "invalid:[&:not(:focus)]:border-red-500"} peer`}
                   id="visit-time"
                   type="time"
-                  min="00:00"
+                  min={`${
+                    data === currentDate
+                        ? `${new Date().getHours().toString().padStart(2, "0")}:${new Date().getMinutes().toString().padStart(2, "0")}`
+                        : "00:00"
+                  }`}
                   max="23:59"
                   required
                 />
-                <span className="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                <span className={`mt-2 hidden text-sm text-red-500 ${time !== "" && "peer-[&:not(:focus):invalid]:block"}`}>
                   {formlabels.formlogs.invalidtime}
                 </span>
               </div>

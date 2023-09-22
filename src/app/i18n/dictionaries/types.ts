@@ -286,14 +286,23 @@ export interface Mainlabels {
 
 export interface Newproperty {
   registerproperty: string;
+  requiredfields:   string;
   register:         string;
+  cep:              string;
   uf:               string;
   city:             string;
   neighborhood:     string;
   street:           string;
   number:           string;
+  complement:       string;
   price:            string;
+  propertytype:     string;
+  furniture:        string;
+  condition:        string;
   description:      string;
+  uploadimage:      string;
+  img:              string;
+  loading:          string;
 }
 
 export interface Navbarbuttons {

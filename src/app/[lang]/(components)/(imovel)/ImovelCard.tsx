@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { CorretorAssociado, ImovelRegistro } from "../../../../../lib/modelos";
+import { CorretorAssociado, ImovelRegistro, ImovelTipado, TipoImovel } from "../../../../../lib/modelos";
 import { Database } from "../../../../../lib/database.types";
 import { Imovel } from "@/app/i18n/dictionaries/types";
 import { Session, createClientComponentClient} from "@supabase/auth-helpers-nextjs";
@@ -13,6 +13,10 @@ interface ImovelCardProps {
   imovel: ImovelRegistro;
   userid: string;
 }
+
+type Propriedade = ImovelRegistro & {
+  tipoImovel: TipoImovel[];
+};
 
 const supabase = createClientComponentClient<Database>();
 
@@ -85,12 +89,10 @@ export default function ImovelCard({ textos, imovel, userid }: ImovelCardProps) 
   };
 
   // Deixar a descrição na tabela de imóveis, por enquanto
-  const caracteristicas = imovel!.descricao!.split("; ");
-
   const mainlabels = textos.mainlabels;
 
   return (
-    <div className="relative bg-gray-300 dark:bg-dark-200 text-dark-200 dark:text-white ring-2 ring-gray-300 dark:ring-dark-300 focus:ring-gray-500 focus:ring-2 focus:ring-offset-2 shadow-md rounded-md p-2 mb-2 align-middle w-full my-4">
+    <div className="relative bg-white dark:bg-dark-200 text-dark-200 dark:text-white ring-2 ring-gray-300 dark:ring-dark-300 focus:ring-gray-500 focus:ring-2 focus:ring-offset-2 shadow-md rounded-md px-2 pt-2 pb-4 align-middle w-full my-4">
       <div className="flex justify-end">
         <button ref={svgRef} id="dropdownButton" data-dropdown-toggle="dropdown" className="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button" onClick={() => setDropdownOpen(!dropdownOpen)}>
             <span className="sr-only">Open dropdown</span>
@@ -99,13 +101,13 @@ export default function ImovelCard({ textos, imovel, userid }: ImovelCardProps) 
             </svg>
         </button></div>
         {dropdownOpen && (
-            <div ref={menuRef} id="dropdown" className="absolute right-0 mr-4 z-10 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+            <div ref={menuRef} id="dropdown" className="absolute right-0 mr-2 mt-1 z-10 text-base list-none bg-gray-100 divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
             <ul className="py-2" aria-labelledby="dropdownButton">
-            <li className="block px-4 py-2 text-sm text-center text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white cursor-pointer" onClick={() => {
+            {/*<li className="block px-4 py-2 text-sm text-center text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white cursor-pointer" onClick={() => {
               setDropdownOpen(false);
               setEditOpen(true);
             }}>Edit
-            </li>
+            </li>*/}
             <li className="block px-4 py-2 text-sm text-center text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white cursor-pointer" onClick={() => {
               handleDeletarImovel();
               setDropdownOpen(false);
@@ -124,13 +126,13 @@ export default function ImovelCard({ textos, imovel, userid }: ImovelCardProps) 
       <div className="flex flex-col md:flex-row ">
         <div className="mr-2 ml-2">
           <ImovelImg usuarioId={userid} imovelId={imovel.id} imagemId={imovel!.imagem} onLoad={() => setLoading(false)} />
-          <div className="flex-auto">
+          <div className="flex-auto items-center ">
             <button
               onClick={() => {
                 getCorretores();
                 setFormOpen(true);
               }}
-              className="p-2 w-fit self-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 transition ease-in duration-200 text-center focus:ring-offset-2"
+              className="p-2 w-full self-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 transition ease-in duration-200 text-center focus:ring-offset-2"
             >
               {mainlabels.delegatevisit}
             </button>
@@ -152,9 +154,9 @@ export default function ImovelCard({ textos, imovel, userid }: ImovelCardProps) 
           <div className="w-full mt-2">
             <p className="font-bold">{mainlabels.characteristics}</p>
             <ul className="list-disc">
-              {caracteristicas.map((item, index) => (
+              {imovel.caracteristicas.map((item, index) => (
                 <li key={index} className="ml-4">
-                  {item}
+                  {item.descricao}
                 </li>
               ))}
             </ul>

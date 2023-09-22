@@ -18,6 +18,7 @@ export interface PublicacaoCompleta {
 }
 export type Regiao = Database['public']['Tables']['regiao']['Row']
 export type TipoImovel = Database['public']['Tables']['tipoImovel']['Row']
+export type ImovelTipado = Database['public']['Tables']['imoveltipado']['Row']
 export type Usuario = Database['public']['Tables']['usuario']['Row']
 export type Corretor = Database['public']['Tables']['corretor']['Row']
 export type Corporacao = Database['public']['Tables']['corporacao']['Row']
@@ -25,23 +26,29 @@ export type ImovelRegistro = Database['public']['Tables']['imovel']['Row']
 export interface InsereImovel {
     idcorporacao: string,
     descricao: string,
+    cep: string,
     estado: string,
     cidade: string,
     bairro: string,
     rua: string,
     numero: number,
+    complemento: string,
     valor: number,
-    imagem: string
+    imagem: string,
+    caracteristicas: Json
 }
 export interface AtualizaImovel {
   descricao: string,
+  cep: string,
   estado: string,
   cidade: string,
   bairro: string,
   rua: string,
   numero: number,
+  complemento: string,
   valor: number,
-  imagem: string
+  imagem: string,
+  caracteristicas: Json
 }
 export type Mensagem = Database['public']['Tables']['mensagem']['Row']
 export interface MensagemComUsuario extends Mensagem {
