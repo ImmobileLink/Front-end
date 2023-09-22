@@ -51,7 +51,7 @@ const customTheme: FlowbiteTabTheme = {
                 "fullWidth": {
                     "base": "ml-0 first:ml-0 w-full rounded-none flex",
                     "active": {
-                        "on": "bg-white hover:text-gray-700 hover:bg-gray-50 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700 rounded-none",
+                        "on": "bg-white text-gray-700 bg-gray-50 dark:text-white dark:bg-gray-800 dark:bg-gray-700 rounded-none",
                         "off": "bg-white hover:text-gray-700 hover:bg-gray-50 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700 rounded-none"
                     }
                 }
