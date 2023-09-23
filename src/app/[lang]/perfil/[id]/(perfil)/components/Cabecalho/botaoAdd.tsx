@@ -2,12 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from '../../../../../../lib/database.types';
+import { Database } from '@/../../lib/database.types';
 
 
 interface botaoAddProps {
-  associado: string | null;
-  tipo: string;
   idSession: string | null;
   idProfile: string;
   dict: any;
@@ -15,9 +13,9 @@ interface botaoAddProps {
 
 
 
-export default function BotaoAdd({ associado, idProfile, idSession, tipo, dict }: botaoAddProps) {
+export default function BotaoAdd({ idProfile, idSession, dict }: botaoAddProps) {
 
-  const [estado, setEstado] = useState(associado);
+  const [estado, setEstado] = useState("Associar");
   const [popup, setPopup] = useState(false)
   const supabase = createClientComponentClient<Database>()
 
@@ -92,7 +90,7 @@ export default function BotaoAdd({ associado, idProfile, idSession, tipo, dict }
 
   return (
     <>
-      <button onClick={handleClick} className={`w-fit text-white  focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 mb-1 ${buttonClass}`}>
+      <button onClick={handleClick} className={`w-fit text-white  focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 mb-1 mr-3 ${buttonClass}`}>
         {estado}
       </button>
       {popup ? (

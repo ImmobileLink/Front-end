@@ -11,10 +11,9 @@ interface PageProps {
 
 export default function Page({ params: { lang } }: PageProps) {
   const router = useRouter();
-
-  useEffect(() => {
+  useEffect(()=>{
     router.push(`${lang}/feed`);
-  },[])
+  }, [])
 
   return <></>;
 }

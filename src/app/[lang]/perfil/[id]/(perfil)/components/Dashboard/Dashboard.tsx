@@ -1,37 +1,33 @@
 import { Session } from "inspector";
-import Line from "./Dashboard/Line"
-import PolarArea from "./Dashboard/PolarArea"
+import Line from "./charts/Line"
+import PolarArea from "./charts/PolarArea"
 import Link from "next/link";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { Database } from "../../../../../lib/database.types";
-import { cache } from "react";
+import { Database } from "@/../lib/database.types";
+import { useProfileStore } from "../../../../../../../../lib/store/profileStore";
 
 
 interface DashboardProps {
-  userId: string;
-  session: any;
-  premium: boolean | null;
-  dict: any;
 }
 
-const createServerSupabaseClient = cache(() => {
-  const cookieStore = cookies()
-  return createServerComponentClient<Database>({ cookies: () => cookieStore })
-})
 
 
-export default async function Dashboard({ userId, session, premium, dict }: DashboardProps) {
-  const supabase = createServerSupabaseClient()
+export default async function Dashboard({}: DashboardProps) {
+  const supabase = createServerComponentClient<Database>({ cookies })
+
+  const state = useProfileStore.getState()
+  const dict = state.dict
+  const premium = state.sessionData?.isPremium
 
   return (
     <>
 
-      {session == null || premium == false ? (
+      {!premium && (
         <div>
           <div className="absolute flex justify-center items-center inset-0 backdrop-blur-md">
             <div className="w-3/4 flex justify-center flex-col items-center">
-              {session == null ? (
+              {premium == null ? (
                 <>
                   <p className="text-center font-semibold mb-3">Faça login ou Cadastro para ter acesso ao dashboard</p>
                   <Link href="/auth" className="w-32 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Login</Link>
@@ -50,7 +46,7 @@ export default async function Dashboard({ userId, session, premium, dict }: Dash
           </div>
         </div >
 
-      ) : (<></>)
+      )
       }
 
       <div>
@@ -59,7 +55,7 @@ export default async function Dashboard({ userId, session, premium, dict }: Dash
         </div>
 
         <div className="mt-5">
-          <Line dict={dict}/>
+          <Line dict={dict} />
         </div>
 
       </div>
