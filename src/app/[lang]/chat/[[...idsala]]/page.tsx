@@ -3,12 +3,12 @@ import { cache } from 'react';
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import { getDictionary } from "../../dictionaries";
-import ChatSpace from "../../(components)/(chat)/ChatSpace";
-import ChatHub from "../../(components)/(chat)/ChatHub";
+import ChatSpace from "../components/ChatSpace";
+import ChatHub from "../components/ChatHub";
+import ChatSpaceClient from "../components/ChatSpaceClient";
 import { UltimaMensagemPorSalaPorUsuario, userData } from "../../../../../lib/modelos";
 import { getAssoc, getLinks, getTipoUsuario } from "../../../../../lib/utils/userData";
 import { ChatProvider } from "./chatContext";
-import ChatSpaceClient from "../../(components)/(chat)/ChatSpaceClient";
 
 interface pageProps {
   params: {

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Database } from "../../../../../lib/database.types";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import Avatar from "../Avatar";
+import Avatar from "../../(components)/Avatar";
 import { AiOutlineSend } from "react-icons/ai";
 import { useContext } from "react";
 import { ChatContext } from "../../chat/[[...idsala]]/chatContext";

@@ -1,7 +1,7 @@
 "use client"
 import { Chat } from "@/app/i18n/dictionaries/types";
 import { UltimaMensagemPorSalaPorUsuario } from "../../../../../lib/modelos"
-import Avatar from "../Avatar";
+import Avatar from "../../(components)/Avatar";
 import Link from "next/link";
 import { ChatContext } from "../../chat/[[...idsala]]/chatContext";
 import { useContext } from "react";
