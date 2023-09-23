@@ -2,7 +2,7 @@
 
 import { formataData } from "../../../../../lib/utils/formataData";
 import Image from "next/image";
-import Avatar from "../Avatar";
+import Avatar from "../../(components)/Avatar";
 
 interface MessageCardProps {
     message: any;

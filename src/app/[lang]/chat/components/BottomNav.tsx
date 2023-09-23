@@ -2,7 +2,7 @@
 
 import { AiOutlineUnorderedList } from "react-icons/ai";
 import { BsFillChatFill } from "react-icons/bs";
-import { ChatContext } from "../../chat/[[...idsala]]/chatContext";
+import { ChatContext } from "../[[...idsala]]/chatContext";
 import { useContext } from "react";
 
 interface BottomNavProps { }
