@@ -89,7 +89,7 @@ export default async function Page({ params: { lang, idsala } }: pageProps) {
 
   return (
     <ChatProvider>
-      <div className="flex justify-center lg:items-center h-full pt-[72px] lg:w-auto lg:h-4/6 lg:min-h-screen bg-branco dark:bg-dark-200 gap-5">
+      <div className="flex justify-center lg:items-center h-full lg:w-auto bg-branco dark:bg-dark-200 gap-5">
         <ChatHub dict={dict} idsala={salaid} userType={userData.type} userId={userData.id} userLinks={userData.links} userAssocs={userData.assoc} mensagens={messages} />
         <ChatSpaceClient dict={dict.chat} idsala={salaid} userId={userData.id}>
           <ChatSpace dict={dict.chat} idsala={salaid} userId={userData.id} />

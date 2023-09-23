@@ -19,7 +19,7 @@ interface pageProps {
   };
 }
 
-export const createServerSupabaseClient = cache(() => {
+const createServerSupabaseClient = cache(() => {
   const cookieStore = cookies()
   return createServerComponentClient<Database>({ cookies: () => cookieStore })
 })

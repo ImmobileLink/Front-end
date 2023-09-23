@@ -5,6 +5,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import { cookies } from "next/headers";
 import Link from "next/link";
+import { cache } from "react";
 
 interface CabecalhoProps {
   isAssociado: string | null;
@@ -20,8 +21,13 @@ type User_data = {
   tipo: string | null;
 } | null
 
+const createServerSupabaseClient = cache(() => {
+  const cookieStore = cookies()
+  return createServerComponentClient<Database>({ cookies: () => cookieStore })
+})
+
 export default async function Cabecalho({ isAssociado, session_data, corretor, dict }: CabecalhoProps) {
-  const supabase = createServerComponentClient<Database>({ cookies })
+  const supabase = createServerSupabaseClient()
 
   let { data, error } = await supabase
       .rpc('criar_ou_retornar_sala', {

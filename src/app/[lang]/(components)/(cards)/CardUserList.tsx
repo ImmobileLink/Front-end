@@ -4,14 +4,19 @@ import Link from "next/link";
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { Database } from '../../../../../lib/database.types';
+import { cache } from "react";
 
 interface CardUserListProps {
   cards: Cards;
 }
 
-const supabase = createServerComponentClient<Database>({ cookies })
+const createServerSupabaseClient = cache(() => {
+  const cookieStore = cookies()
+  return createServerComponentClient<Database>({ cookies: () => cookieStore })
+})
 
 async function getData() {
+  const supabase = createServerSupabaseClient()
   let { data, error } = await supabase.rpc("obter_cinco_corretores_id");
 
   return data;

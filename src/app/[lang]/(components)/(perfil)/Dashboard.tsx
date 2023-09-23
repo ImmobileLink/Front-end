@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Database } from "../../../../../lib/database.types";
+import { cache } from "react";
 
 
 interface DashboardProps {
@@ -14,11 +15,14 @@ interface DashboardProps {
   dict: any;
 }
 
+const createServerSupabaseClient = cache(() => {
+  const cookieStore = cookies()
+  return createServerComponentClient<Database>({ cookies: () => cookieStore })
+})
 
 
 export default async function Dashboard({ userId, session, premium, dict }: DashboardProps) {
-  const supabase = createServerComponentClient<Database>({cookies})
-
+  const supabase = createServerSupabaseClient()
 
   return (
     <>

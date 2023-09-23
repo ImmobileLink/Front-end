@@ -10,8 +10,8 @@ interface FriendListProps {
     idsala: any;
     userType: string | undefined;
     userId: string | undefined;
-    userLinks: userGroup;
-    userAssocs: userGroup;
+    userLinks: userGroup | undefined;
+    userAssocs: userGroup | undefined;
 }
 
 const customTheme: FlowbiteTabTheme = {

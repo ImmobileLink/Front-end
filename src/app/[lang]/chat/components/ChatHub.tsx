@@ -16,8 +16,8 @@ interface ChatHubProps {
   idsala: string;
   userId: string | undefined;
   userType: string | undefined;
-  userLinks: userGroup;
-  userAssocs: userGroup;
+  userLinks: userGroup | undefined;
+  userAssocs: userGroup | undefined;
   mensagens: UltimaMensagemPorSalaPorUsuario[] | null | undefined;
 }
 
