@@ -7,7 +7,7 @@ interface PageRootProps {
 export default async function PageRoot( {children}: PageRootProps ) {
   return (
     <>
-       <div className="w-auto h-fit min-h-screen bg-branco dark:bg-dark-200 flex justify-center gap-5 pt-4">
+       <div className="w-auto min-w-full h-fit min-h-screen bg-branco dark:bg-dark-200">
         {children}
        </div>
     </>

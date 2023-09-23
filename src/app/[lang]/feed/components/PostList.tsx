@@ -29,49 +29,6 @@ export default function PostList({ idusuario, textos }: PostListProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [newPost, setNewPost] = useState<PublicacaoCompleta>();
 
-  const getAllPosts = async () => {
-    let { data, error } = await supabase
-      .rpc('get_publicacoes')
-      .order('atualizadoem', { ascending: false })
-      .limit(10);
-
-    if (error) return [];
-    else return data;
-  }
-
-  const getPostById = async (pubid: string) => {
-    let { data, error } = await supabase
-      .rpc('get_publicacao_por_id', { pubid })
-      .order('atualizadoem', { ascending: false })
-
-    if (error) return [];
-    else return data;
-  }
-
-  const getPostsByCity = async (cidade?: string, estado?: string) => {
-    if (cidade && estado) {
-      let { data, error } = await supabase
-        .rpc('get_publicacao_por_cidade', { cidade: cidade, estado: estado })
-        .order('atualizadoem', { ascending: false })
-
-      if (error) return [];
-      else return data;
-    }
-    return [];
-  }
-
-  const getPostsByUf = async (estado?: string) => {
-    if (estado) {
-      let { data, error } = await supabase
-        .rpc('get_publicacao_por_estado', { estado })
-        .order('atualizadoem', { ascending: false })
-
-      if (error) return [];
-      else return data;
-    }
-    return [];
-  }
-
   //atualiza o select das cidades quando muda o estado
   useEffect(() => {
     async function fetchCities() {
@@ -204,32 +161,32 @@ export default function PostList({ idusuario, textos }: PostListProps) {
     }
   }
 
-/*
-  useEffect(() => {
-    if (idusuario != undefined) {
-      const subscription = supabase.channel("post_changes")
-        .on(
-          "postgres_changes",
-          {
-            event: "INSERT",
-            schema: "public",
-            table: "publicacao",
-            filter: `idautor=eq.${idusuario}`
-          },
-          async (payload: { new: PublicacaoCompleta }) => {
-            const newPost = await getPostById(payload.new.id)
-            if (newPost) {
-              setPosts((prev: PublicacaoCompleta[]) => ({ ...prev, newPost }));
+  /*
+    useEffect(() => {
+      if (idusuario != undefined) {
+        const subscription = supabase.channel("post_changes")
+          .on(
+            "postgres_changes",
+            {
+              event: "INSERT",
+              schema: "public",
+              table: "publicacao",
+              filter: `idautor=eq.${idusuario}`
+            },
+            async (payload: { new: PublicacaoCompleta }) => {
+              const newPost = await getPostById(payload.new.id)
+              if (newPost) {
+                setPosts((prev: PublicacaoCompleta[]) => ({ ...prev, newPost }));
+              }
             }
-          }
-        )
-        .subscribe();
-      return () => {
-        subscription.unsubscribe();
+          )
+          .subscribe();
+        return () => {
+          subscription.unsubscribe();
+        }
       }
-    }
-  }, [])
-  */
+    }, [])
+    */
 
 
   return (
@@ -237,7 +194,7 @@ export default function PostList({ idusuario, textos }: PostListProps) {
       <div className="flex justify-between h-12 align-middle place-self-center">
         <div className="flex items-center h-full">
           <div className="w-20 text-sm font-medium">{textos.pub.regionfilter}</div>
-          <select defaultValue={0} onChange={e => { setFilter(parseInt(e.target.value)) }} className="block py-1 px-0 w-24 text-sm text-gray-500 bg-transparent border-0 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer hover:cursor-pointer">
+          <select defaultValue={0} onChange={e => { setFilter(parseInt(e.target.value)) }} className="h-full block py-1 px-0 w-24 text-sm text-gray-500 bg-transparent border-0 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer hover:cursor-pointer">
             <option value={0}>{textos.pub.regioncomboboxplaceholder}</option>
             <option value={1}>{textos.form.cityselector.estate}</option>
             <option value={2}>{textos.form.cityselector.city}</option>
@@ -254,9 +211,9 @@ export default function PostList({ idusuario, textos }: PostListProps) {
                 <select defaultValue={textos.form.cityselector.estate} onChange={e => { setSelectedState(e.target.value) }} className="block py-1 px-0 w-20 mr-4 text-sm text-gray-500 bg-transparent border-0 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer hover:cursor-pointer">
                   <option key={textos.form.cityselector.estate} disabled>{textos.form.cityselector.estate}</option>
                   {
-                    _UFs.map(item => {
+                    _UFs.map((item, index) => {
                       return (
-                        <option key={item}>{item}</option>
+                        <option key={index}>{item}</option>
                       )
                     })
                   }
@@ -268,10 +225,10 @@ export default function PostList({ idusuario, textos }: PostListProps) {
                       <option value={textos.form.cityselector.selectaestatefirst} disabled>{textos.form.cityselector.selectaestatefirst}</option>
                       {
                         selectedState && (
-                          cities.map(city => (
+                          cities.map((city, index) => (
                             <option
                               className="px-2 cursor-pointer hover:bg-gray-200"
-                              key={city.nome}
+                              key={index}
                               value={city.nome}
                             >{city.nome}</option>
                           ))
@@ -285,22 +242,25 @@ export default function PostList({ idusuario, textos }: PostListProps) {
           }
         </div>
       </div>
-      {
-        loading ? <Spinner /> : erro &&
-          <p className="flex justify-center">{logErro}</p>
-      }
       <div>
         {
-
           loading ?
-            <Spinner />
+            <div className="w-full flex items-center justify-center">
+              <Spinner className="w-10 h-auto"/>
+            </div>
             :
-            posts!.map((item: PublicacaoCompleta) => {
-              return (
-                <PostItem key={item.id} publicacao={item} />
-              )
-            })
-
+            (
+              <>
+                {
+                  erro && <p className="flex justify-center">{logErro}</p>
+                }
+                {posts!.map((item: PublicacaoCompleta) => {
+                  return (
+                    <PostItem key={item.id} publicacao={item} />
+                  )
+                })}
+              </>
+            )
         }
       </div>
     </>

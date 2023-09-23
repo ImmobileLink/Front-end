@@ -1,4 +1,5 @@
-import NavBar from "../(components)/NavBar";
+import { Page } from "../(components)/(compositions)/(page)";
+import NavBar from "../(components)/(navbar)/NavBar";
 
 export const metadata = {
   title: "ImmobileLink - Feed",
@@ -14,8 +15,10 @@ export default async function RootLayout({ children, params: { lang } }: RootLay
 
   return (
     <>
-      <NavBar />
-      {children}
+      <Page.Root>
+        <NavBar params={{ lang: lang }} />
+        {children}
+      </Page.Root>
     </>
   );
 }

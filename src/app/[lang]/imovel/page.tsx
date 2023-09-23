@@ -6,7 +6,7 @@ import { ImovelDB, ImovelRegistro, ImovelSemCorporacao } from "../../../../lib/m
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../lib/database.types";
-import NavBar from "../(components)/NavBar";
+import NavBar from "../(components)/(navbar)/NavBar";
 import NovoImovelCard from "../(components)/(imovel)/NovoImovelCard";
 
 interface pageProps {

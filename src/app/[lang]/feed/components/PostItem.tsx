@@ -1,11 +1,10 @@
 "use client";
-import { useState } from "react";
-import Avatar from "../Avatar";
+import Avatar from "../../(components)/Avatar";
 import Image from "next/image";
 import { PublicacaoCompleta } from "../../../../../lib/modelos";
 import { formataData } from "../../../../../lib/utils/formataData";
-import { Card } from "../(compositions)/(card)";
-import Dropdown from "../Dropdown";
+import { Card } from "../../(components)/(compositions)/(card)";
+import Dropdown from "../../(components)/Dropdown";
 import { BsChatSquareText, BsHeart, BsShare, BsThreeDots } from "react-icons/bs";
 
 interface PostItemProps {

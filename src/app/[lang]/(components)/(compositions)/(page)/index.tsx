@@ -1,4 +1,3 @@
-import PageFull from "./PageFull";
 import PageLeft from "./PageLeft";
 import PageMain from "./PageMain";
 import PageRight from "./PageRight";
@@ -9,5 +8,4 @@ export const Page = {
   Left: PageLeft,
   Main: PageMain,
   Right: PageRight,
-  Full: PageFull,
 }

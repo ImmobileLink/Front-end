@@ -5,7 +5,7 @@ import Cabecalho from "../../(components)/(perfil)/Cabecalho";
 import Dashboard from "../../(components)/(perfil)/Dashboard";
 import Infos from "../../(components)/(perfil)/Infos";
 import type { Database } from '../../../../../lib/database.types';
-import NavBar from '../../(components)/NavBar';
+import NavBar from '../../(components)/(navbar)/NavBar';
 import Calendario from '../../(components)/Calendario';
 import { getDictionary } from '../../dictionaries';
 
@@ -44,7 +44,6 @@ export default async function Page({ params: { id, lang } }: pageProps) {
 
   return (
     <>
-      <NavBar />
       <div className="bg-dark-200 overflow-x-hidden box-border text-black">
         <div className="h-screen w-screen">
           <div className="flex relative max-w-6xl mx-auto px-4 mt-4">

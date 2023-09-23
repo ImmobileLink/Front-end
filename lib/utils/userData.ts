@@ -2,15 +2,20 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Database } from "../database.types";
 import { userData } from "../modelos";
+import { cache } from "react";
 
-const supabase = createServerComponentClient<Database>({ cookies });
+export const createServerSupabaseClient = cache(() => {
+  const cookieStore = cookies()
+  return createServerComponentClient<Database>({ cookies: () => cookieStore })
+})
 
 export async function getTipoUsuario(userData: userData, userId: string): Promise<userData> {
+  const supabase = createServerSupabaseClient();
   let { data, error } = await supabase.rpc("consultar_tipo_usuario", {
     id_usuario: userId,
   });
 
-  if(!error) {
+  if (!error) {
     userData.id = userId;
     userData.nome = data![0].nome;
     userData.isPremium = data![0].ispremium;
@@ -20,19 +25,21 @@ export async function getTipoUsuario(userData: userData, userId: string): Promis
   return userData;
 }
 
-export async function getLinks (userData: userData): Promise<userData> {
+export async function getLinks(userData: userData): Promise<userData> {
+  const supabase = createServerSupabaseClient();
   let { data, error } = await supabase.rpc("get_connected_users", {
     id_usuario: userData.id!,
   });
 
-  if(!error) {
+  if (!error) {
     userData.links = data;
   }
 
   return userData;
 }
 
-export async function getAssoc (userData: userData): Promise<userData> {
+export async function getAssoc(userData: userData): Promise<userData> {
+  const supabase = createServerSupabaseClient();
   if (userData.type == "corporacao") {
     let { data, error } = await supabase.rpc(
       "obter_corretores_por_corporacao",
@@ -41,7 +48,7 @@ export async function getAssoc (userData: userData): Promise<userData> {
       }
     );
 
-    if(!error) {
+    if (!error) {
       userData.assoc = data;
     }
   }
@@ -54,7 +61,7 @@ export async function getAssoc (userData: userData): Promise<userData> {
       }
     );
 
-    if(!error) {
+    if (!error) {
       userData.assoc = data;
     }
   }

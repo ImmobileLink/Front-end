@@ -1,4 +1,5 @@
-import NavBar from '../../(components)/NavBar';
+import { Page } from '../../(components)/(compositions)/(page)';
+import NavBar from '../../(components)/(navbar)/NavBar';
 
 export const metadata = {
   title: "ImmobileLink - Chat",
@@ -13,9 +14,11 @@ interface RootLayout {
 export default async function RootLayout({ children, params: { lang }}: RootLayout) {
 
   return (
-    <div className='flex flex-col h-screen'>
-      <NavBar />
+    <>
+    <Page.Root>
+      <NavBar params={{ lang: lang }} />
       {children}
-    </div>
+    </Page.Root>
+    </>
   );
 }

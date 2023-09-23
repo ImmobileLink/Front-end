@@ -1,6 +1,15 @@
 {
   "navbarbuttons": {
-    "searchbutton": "Encontrar",
+    "feed": "Iniciar",
+    "myprofile": "Meu perfil",
+    "settings": "Configurações",
+    "schedule": "Visitas",
+    "links": "Meus Links",
+    "relatedbrokers": "Corretores afiliados",
+    "myrelatedcompany": "Empresa associada",
+    "search": "Pesquisar",
+    "subscription": "Planos",
+    "loginbutton": "Entrar",
     "logoutbutton": "Sair"
   },
   "auth": {

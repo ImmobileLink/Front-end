@@ -1,3 +1,4 @@
+"use client"
 import { v4 } from "uuid";
 import { PostFormProps } from "../modelos";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";

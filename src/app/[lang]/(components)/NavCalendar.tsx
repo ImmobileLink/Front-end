@@ -1,4 +1,3 @@
-import Calendario from "../Calendario";
 
 interface NavCalendarProps {
   userData: {

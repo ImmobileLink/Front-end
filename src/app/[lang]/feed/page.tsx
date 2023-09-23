@@ -1,21 +1,17 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers"; 
-
-import type { Database } from "../../../../lib/database.types";
-import { userData } from "../../../../lib/modelos";
-
-import { getDictionary } from "../dictionaries";
-
-import { Card } from "../(components)/(compositions)/(card)";
-import { Page } from "../(components)/(compositions)/(page)";
-
-import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/utils/userData";
-
+import { cookies } from "next/headers";
+import { cache } from "react";
 import CardLink from "../(components)/(cards)/CardLink";
 import CardNotLogged from "../(components)/(cards)/CardNotLogged";
 import CardProfile from "../(components)/(cards)/CardProfile";
 import CardUserList from "../(components)/(cards)/CardUserList";
-import FeedPrincipal from "../(components)/(feed)/FeedPrincipal";
+import { Card } from "../(components)/(compositions)/(card)";
+import { Page } from "../(components)/(compositions)/(page)";
+import type { Database } from "../../../../lib/database.types";
+import { userData } from "../../../../lib/modelos";
+import { getDictionary } from "../dictionaries";
+import FeedPrincipal from "./components/FeedPrincipal";
+import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/utils/userData";
 
 interface pageProps {
   params: {
@@ -23,37 +19,44 @@ interface pageProps {
   };
 }
 
-let user: userData = {
-  links: [],
-  assoc: []
-};
+export const createServerSupabaseClient = cache(() => {
+  const cookieStore = cookies()
+  return createServerComponentClient<Database>({ cookies: () => cookieStore })
+})
 
-const supabase = createServerComponentClient<Database>({ cookies });
-
-async function getUserData() {
+async function getUserData(user: userData) {
+  const supabase = createServerSupabaseClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  
+
   if (session?.user.id) {
     user = await getTipoUsuario(user, session.user.id);
-    
+
     [user, user] = await Promise.all([
       getLinks(user),
       getAssoc(user)
     ]);
   }
-  
+
   return user;
 }
 
 export default async function page({ params: { lang } }: pageProps) {
-  const dict = await getDictionary(lang); // pt
+  let user: userData = {
+    id: undefined,
+    isPremium: undefined,
+    nome: undefined,
+    type: undefined,
+    links: [],
+    assoc: []
+  }
   
-  const userData = await getUserData();
+  const dict = await getDictionary(lang); // pt
+  const userData = await getUserData(user);
 
   return (
-    <Page.Root>
+    <div className="flex justify-center gap-5 mt-4">
       <Page.Left>
         {
           userData.id ? (
@@ -77,10 +80,10 @@ export default async function page({ params: { lang } }: pageProps) {
         }
       </Page.Left>
       <Page.Main>
-            <FeedPrincipal
-              userData={userData}
-              textos={dict.feed}
-            />
+        <FeedPrincipal
+          userData={userData}
+          textos={dict.feed}
+        />
       </Page.Main>
       <Page.Right>
         {userData.id && (
@@ -90,7 +93,7 @@ export default async function page({ params: { lang } }: pageProps) {
               <Card.Content>
                 <CardLink
                   userId={userData.id}
-                  userLinks={userData.links}
+                  userLinks={userData.links || []}
                   cards={dict.feed.cards}
                 />
               </Card.Content>
@@ -106,13 +109,13 @@ export default async function page({ params: { lang } }: pageProps) {
               <Card.Content>
                 <CardLink
                   userId={userData.id}
-                  userLinks={userData.assoc}
+                  userLinks={userData.assoc || []}
                   cards={dict.feed.cards}
                 />
               </Card.Content>
             </Card.Root>
             <Card.Root>
-              <Card.Title title={dict.feed.cards.findbrokers}/>
+              <Card.Title title={dict.feed.cards.findbrokers} />
               <Card.Content>
                 <CardUserList cards={dict.feed.cards} />
               </Card.Content>
@@ -120,6 +123,6 @@ export default async function page({ params: { lang } }: pageProps) {
           </>
         )}
       </Page.Right>
-    </Page.Root>
+    </div>
   );
 }
