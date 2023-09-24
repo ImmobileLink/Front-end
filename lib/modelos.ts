@@ -24,13 +24,30 @@ export type ImovelRegistro = Database['public']['Tables']['imovel']['Row']
 export interface InsereImovel {
     idcorporacao: string,
     descricao: string,
+    cep: string,
     estado: string,
     cidade: string,
     bairro: string,
     rua: string,
     numero: number,
-    valor: number
+    complemento: string,
+    valor: number,
+    imagem: string,
+    caracteristicas: Json
 }
+export interface AtualizaImovel {
+    descricao: string,
+    cep: string,
+    estado: string,
+    cidade: string,
+    bairro: string,
+    rua: string,
+    numero: number,
+    complemento: string,
+    valor: number,
+    imagem: string,
+    caracteristicas: Json
+  }
 export interface ImovelSemCorporacao {
     id: string,
     rua: string,
