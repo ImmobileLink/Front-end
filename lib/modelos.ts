@@ -71,17 +71,8 @@ export type CorretorBuscado = {
     estado: string;
     cidade: string;
     sobre: string;
+    nota: string;
 }[] | null;
-
-export type CorretorBuscadoItem = {
-    id: string;
-    nome: string;
-    avatar: string;
-    creci: string;
-    estado: string;
-    cidade: string;
-    sobre: string;
-};
 
 export type CorporacaoBuscada = {
     id: string;
@@ -91,15 +82,6 @@ export type CorporacaoBuscada = {
     cidade: string;
     sobre: string;
 }[] | null;
-
-export type CorporacaoBuscadaItem = {
-    id: string;
-    nomefantasia: string;
-    avatar: string;
-    estado: string;
-    cidade: string;
-    sobre: string;
-};
 
 export interface UltimaMensagemPorSalaPorUsuario {
     idmensagem: string;
@@ -160,3 +142,11 @@ export type CorporacaoPorRegiao = {
         estado: string
     }[] | null;
 } 
+
+export type filterType = {
+    tipoUsuario: string;
+    estado: string;
+    cidade: string;
+    avaliacao: number;
+    especialidades: string[];
+  }

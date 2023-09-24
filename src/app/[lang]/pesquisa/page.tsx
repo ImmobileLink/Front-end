@@ -1,15 +1,12 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { cache } from "react";
-import CardNotLogged from "../(components)/(cards)/CardNotLogged";
-import CardProfile from "../(components)/(cards)/CardProfile";
 import { Card } from "../(components)/(compositions)/(card)";
 import { Page } from "../(components)/(compositions)/(page)";
 import type { Database } from "../../../../lib/database.types";
 import { userData } from '../../../../lib/modelos';
 import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/utils/userData";
 import { getDictionary } from "../dictionaries";
-import NearbyUsers from "./components/NearbyUsers";
 import PesquisaCard from "./components/PesquisaCard";
 
 interface pageProps {
@@ -89,12 +86,12 @@ export default async function page({ params: { lang } }: pageProps) {
       <Page.Main>
         <Card.Root>
           <Card.Content>
-            <NearbyUsers dict={dict.pesquisa.labels} estado={estadoUsuario} carouselUsers={carouselUsers} />
+            {/* <NearbyUsers dict={dict.pesquisa.labels} estado={estadoUsuario} carouselUsers={carouselUsers} /> */}
+            
           </Card.Content>
         </Card.Root>
       </Page.Main>
       <Page.Right>
-
       </Page.Right>
     </div>
   )

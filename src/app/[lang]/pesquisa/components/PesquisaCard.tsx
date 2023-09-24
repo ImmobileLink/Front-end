@@ -3,30 +3,13 @@ import { Pesquisa } from "@/app/i18n/dictionaries/types";
 import { FormEvent, useEffect, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
-import { TipoImovel, CorretorBuscado, City, CorporacaoBuscada } from "../../../../../lib/modelos";
+import { TipoImovel, City, filterType } from "../../../../../lib/modelos";
 import { _UF_converter, _UFs } from "../../../../../lib/utils/getRegiao";
 import { Card } from "../../(components)/(compositions)/(card)";
 
 interface PesquisaCardProps {
   textos: Pesquisa,
   tipoImovel: TipoImovel[] | null
-}
-
-type imovelType = {
-  classificacao: string | null;
-  descricao: string;
-  id: string;
-}
-
-type filterType = {
-  tipoUsuario: string;
-  estado: string;
-  cidade: string;
-  avaliacao: string;
-  tipo: imovelType[];
-  mobilia: imovelType[];
-  condicao: imovelType[];
-  outros: imovelType[];
 }
 
 const supabase = createClientComponentClient<Database>()
@@ -37,19 +20,16 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
     tipoUsuario: 'corretor',
     estado: '*',
     cidade: '*',
-    avaliacao: '*',
-    tipo: [],
-    mobilia: [],
-    condicao: [],
-    outros: []
+    avaliacao: 0,
+    especialidades: [],
   })
 
   //array de cidades vindo da api do ibge
   const [cities, setCities] = useState<City[]>([]);
 
   //States relacionados aos resultados
-  const [corretores, setCorretores] = useState<CorretorBuscado[] | null>([]);
-  const [corporacoes, setCorporacoes] = useState<CorporacaoBuscada[] | null>([]);
+  // const [resultado, setResultado] = useState<CorretorBuscado[] | CorporacaoBuscada[] | null>([]);
+  const [resultado, setResultado] = useState<any>();
 
   //loading
   const [loading, setLoading] = useState<boolean>(false);
@@ -82,76 +62,117 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
       fetchCities();
     } else {
       setCities([]);
+      setFilters(prev => ({ ...prev, cidade: "*" }))
     }
   }, [filters.estado]);
 
 
   const handleChangeTipoUsuario = (tipoUsuario: string) => {
-    setFilters((prev) => ({ ...prev, tipoUsuario: tipoUsuario, avaliacao: "*", tipo: [], condicao: [], mobilia: [], outros: [] }));
+    setFilters((prev) => ({ ...prev, tipoUsuario: tipoUsuario, avaliacao: 0, especialidades: [] }));
   }
 
   const handleRedefinirFiltros = () => {
     setShowMore(false);
-    setFilters((prev) => ({ ...prev, tipoUsuario: "corretor", estado: "*", cidade: "*", avaliacao: "*", tipo: [], condicao: [], mobilia: [], outros: [] }));
+    setFilters((prev) => ({ ...prev, tipoUsuario: "corretor", estado: "*", cidade: "*", avaliacao: 0, especialidades: [] }));
   }
 
-  const handleSubmitSearch = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmitSearch = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert(JSON.stringify(filters, null, 2))
-  }
+    alert(JSON.stringify(filters, null, 2));
 
-  const handleAddTipo = (item: imovelType) => {
-    if (filters.tipo.includes(item)) {
-      setFilters((prev) => ({
-        ...prev,
-        tipo: prev.tipo.filter((items) => items !== item),
-      }));
-    } else {
-      setFilters((prev) => ({
-        ...prev,
-        tipo: [...prev.tipo, item]
-      }))
+    setLoading(true);
+
+
+    if (filters.tipoUsuario == "corretor") {
+      if (filters.estado === "*" && filters.cidade === "*" && filters.especialidades.length == 0) {
+        let { data, error } = await supabase
+          .rpc('get_corretores_por_avaliacao', {
+            avaliacao: filters.avaliacao
+          })
+
+        if (error) console.error(error)
+        else setResultado(data)
+        // console.log("get_corretores_por_avaliacao");
+      }
+      if (filters.estado !== "*" && filters.cidade === "*" && filters.especialidades.length == 0) {
+        let { data, error } = await supabase
+          .rpc('get_corretores_por_avaliacao_estado', {
+            avaliacao: filters.avaliacao,
+            estadobuscado: filters.estado
+          })
+
+        if (error) console.error(error);
+        else setResultado(data);
+        // console.log("get_corretores_por_avaliacao_estado");
+      }
+      if (filters.estado !== "*" && filters.cidade !== "*" && filters.especialidades.length == 0) {
+        let { data, error } = await supabase
+        .rpc('get_corretores_por_avaliacao_estado_cidade', {
+          avaliacao: filters.avaliacao, 
+          cidadebuscada: filters.cidade, 
+          estadobuscado: filters.estado
+        })
+
+        if (error) console.error(error);
+        else setResultado(data);
+        // console.log("get_corretores_por_avaliacao_estado_cidade");
+      }
+      if (filters.estado === "*" && filters.cidade === "*" && filters.especialidades.length > 0) {
+        let { data, error } = await supabase
+        .rpc('get_corretores_por_avaliacao_tipoimovel', {
+          avaliacao: filters.avaliacao, 
+          tiposimovel: filters.especialidades
+        })
+
+        if (error) console.error(error);
+        else setResultado(data);
+        // console.log("get_corretores_por_avaliacao_tipoimovel");
+      }
+      if (filters.estado !== "*" && filters.cidade === "*" && filters.especialidades.length > 0) {
+        let { data, error } = await supabase
+        .rpc('get_corretores_por_avaliacao_estado_tipoimovel', {
+          avaliacao: filters.avaliacao, 
+          estadobuscado: filters.estado, 
+          tiposimovel: filters.especialidades
+        })
+
+        if (error) console.error(error);
+        else setResultado(data);
+        // console.log("get_corretores_por_avaliacao_estado_tipoimovel");
+      }
+      if (filters.estado !== "*" && filters.cidade !== "*" && filters.especialidades.length > 0) {
+        let { data, error } = await supabase
+        .rpc('get_corretores_por_avaliacao_estado_cidade_tipoimovel', {
+          avaliacao: filters.avaliacao, 
+          cidadebuscada: filters.cidade, 
+          estadobuscado: filters.estado, 
+          tiposimovel: filters.especialidades
+        })
+
+        if (error) console.error(error);
+        else setResultado(data);
+        // console.log("get_corretores_por_avaliacao_estado_cidade_tipoimovel");
+      }
+
     }
-  }
 
-  const handleAddMobilia = (item: imovelType) => {
-    if (filters.mobilia.includes(item)) {
-      setFilters((prev) => ({
-        ...prev,
-        mobilia: prev.mobilia.filter((items) => items !== item),
-      }));
-    } else {
-      setFilters((prev) => ({
-        ...prev,
-        mobilia: [...prev.mobilia, item]
-      }))
+    if (filters.tipoUsuario == "corporacao") {
+
     }
+
+    setLoading(false);
   }
 
-  const handleAddCondicao = (item: imovelType) => {
-    if (filters.condicao.includes(item)) {
+  const handleAddEspecialidade = (item: string) => {
+    if (filters.especialidades.includes(item)) {
       setFilters((prev) => ({
         ...prev,
-        condicao: prev.condicao.filter((items) => items !== item),
+        especialidades: prev.especialidades.filter((items) => items !== item),
       }));
     } else {
       setFilters((prev) => ({
         ...prev,
-        condicao: [...prev.condicao, item]
-      }))
-    }
-  }
-
-  const handleAddOutros = (item: imovelType) => {
-    if (filters.outros.includes(item)) {
-      setFilters((prev) => ({
-        ...prev,
-        outros: prev.outros.filter((items) => items !== item),
-      }));
-    } else {
-      setFilters((prev) => ({
-        ...prev,
-        outros: [...prev.outros, item]
+        especialidades: [...prev.especialidades, item]
       }))
     }
   }
@@ -222,8 +243,8 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
                   {/* avaliacao */}
                   <div className="w-full flex flex-col justify-around">
                     <label className="mr-4">{textos.labels.rating}:</label>
-                    <select id="avaliacao-select" defaultValue={'*'} onChange={(e) => { setFilters(prev => ({ ...prev, avaliacao: e.target.value })) }} className="block w-full p-2.5 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                      <option value={"*"}>*</option>
+                    <select id="avaliacao-select" defaultValue={'0'} onChange={(e) => { setFilters(prev => ({ ...prev, avaliacao: parseInt(e.target.value) })) }} className="block w-full p-2.5 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option value={"0"}>*</option>
                       <option value={"1"}>1+</option>
                       <option value={"2"}>2+</option>
                       <option value={"3"}>3+</option>
@@ -247,7 +268,7 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
                                 if (item.classificacao == "Tipo") {
                                   return (
                                     <div key={index} className="flex w-1/2 items-center mb-4">
-                                      <input onClick={e => handleAddTipo(item)} type="checkbox" name={item.id} id={item.id} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                      <input onClick={e => handleAddEspecialidade(item.id)} type="checkbox" name={item.id} id={item.id} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                       <p className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 ">{item.descricao}</p>
                                     </div>
                                   )
@@ -265,7 +286,7 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
                                 if (item.classificacao == "Mobília") {
                                   return (
                                     <div key={index} className="flex w-1/2 items-center mb-4">
-                                      <input onClick={e => handleAddMobilia(item)} type="checkbox" name={item.id} id={item.id} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                      <input onClick={e => handleAddEspecialidade(item.id)} type="checkbox" name={item.id} id={item.id} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                       <p className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 ">{item.descricao}</p>
                                     </div>
                                   )
@@ -283,7 +304,7 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
                                 if (item.classificacao == "Condição") {
                                   return (
                                     <div key={index} className="flex w-1/2 items-center mb-4">
-                                      <input onClick={e => handleAddCondicao(item)} type="checkbox" name={item.id} id={item.id} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                      <input onClick={e => handleAddEspecialidade(item.id)} type="checkbox" name={item.id} id={item.id} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                       <p className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 ">{item.descricao}</p>
                                     </div>
                                   )
@@ -301,7 +322,7 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
                                 if (item.classificacao == "Outros") {
                                   return (
                                     <div key={index} className="flex w-1/2 items-center mb-4">
-                                      <input onClick={e => handleAddOutros(item)} type="checkbox" name={item.id} id={item.id} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                      <input onClick={e => handleAddEspecialidade(item.id)} type="checkbox" name={item.id} id={item.id} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                       <p className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 ">{item.descricao}</p>
                                     </div>
                                   )
@@ -339,6 +360,9 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
           </form>
         </Card.Content>
       </Card.Root>
+      {
+        JSON.stringify(resultado)
+      }
     </>
   );
 }

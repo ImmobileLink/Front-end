@@ -42,28 +42,25 @@ export interface Database {
       }
       avaliacao: {
         Row: {
-          atualizadoem: string
-          dados: Json
+          criadoem: string
           id: string
-          nota: number | null
+          nota: number
         }
         Insert: {
-          atualizadoem?: string
-          dados: Json
+          criadoem?: string
           id: string
-          nota?: number | null
+          nota?: number
         }
         Update: {
-          atualizadoem?: string
-          dados?: Json
+          criadoem?: string
           id?: string
-          nota?: number | null
+          nota?: number
         }
         Relationships: [
           {
             foreignKeyName: "avaliacao_id_fkey"
             columns: ["id"]
-            referencedRelation: "usuario"
+            referencedRelation: "corretor"
             referencedColumns: ["id"]
           }
         ]
@@ -146,6 +143,7 @@ export interface Database {
           nomefantasia: string | null
           numero: number | null
           premium: boolean | null
+          sobre: string | null
           telefone1: string | null
           telefone2: string | null
           telefone3: string | null
@@ -162,6 +160,7 @@ export interface Database {
           nomefantasia?: string | null
           numero?: number | null
           premium?: boolean | null
+          sobre?: string | null
           telefone1?: string | null
           telefone2?: string | null
           telefone3?: string | null
@@ -178,6 +177,7 @@ export interface Database {
           nomefantasia?: string | null
           numero?: number | null
           premium?: boolean | null
+          sobre?: string | null
           telefone1?: string | null
           telefone2?: string | null
           telefone3?: string | null
@@ -249,7 +249,14 @@ export interface Database {
           sobre?: string | null
           telefone?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "corretor_id_fkey"
+            columns: ["id"]
+            referencedRelation: "usuario"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       especialidade: {
         Row: {
@@ -515,31 +522,52 @@ export interface Database {
       }
       resultadoformulario: {
         Row: {
-          conteudo: Json
+          campo1: number
+          campo2: number
+          campo3: number
+          campo4: number
+          campo5: number
+          campo6: number
+          campo7: number
+          campo8: number | null
+          criadoem: string
           emailcliente: string
-          enviadoem: string
           id: string
-          idusuario: string
+          idcorretor: string
         }
         Insert: {
-          conteudo: Json
+          campo1: number
+          campo2: number
+          campo3: number
+          campo4: number
+          campo5: number
+          campo6: number
+          campo7: number
+          campo8?: number | null
+          criadoem?: string
           emailcliente: string
-          enviadoem?: string
           id?: string
-          idusuario: string
+          idcorretor: string
         }
         Update: {
-          conteudo?: Json
+          campo1?: number
+          campo2?: number
+          campo3?: number
+          campo4?: number
+          campo5?: number
+          campo6?: number
+          campo7?: number
+          campo8?: number | null
+          criadoem?: string
           emailcliente?: string
-          enviadoem?: string
           id?: string
-          idusuario?: string
+          idcorretor?: string
         }
         Relationships: [
           {
-            foreignKeyName: "resultadoformulario_idusuario_fkey"
-            columns: ["idusuario"]
-            referencedRelation: "usuario"
+            foreignKeyName: "resultadoformulario_idcorretor_fkey"
+            columns: ["idcorretor"]
+            referencedRelation: "corretor"
             referencedColumns: ["id"]
           }
         ]
@@ -783,77 +811,95 @@ export interface Database {
         Returns: {
           id: string
           nome: string
-          sobre: string
+          avatar: string
           creci: string
+          estado: string
+          cidade: string
+          sobre: string
           nota: number
         }[]
       }
       get_corretores_por_avaliacao_estado: {
         Args: {
           avaliacao: number
-          estado: string
+          estadobuscado: string
         }
         Returns: {
           id: string
           nome: string
-          sobre: string
+          avatar: string
           creci: string
+          estado: string
+          cidade: string
+          sobre: string
           nota: number
         }[]
       }
       get_corretores_por_avaliacao_estado_cidade: {
         Args: {
           avaliacao: number
-          estado: string
-          cidade: string
+          estadobuscado: string
+          cidadebuscada: string
         }
         Returns: {
           id: string
           nome: string
-          sobre: string
+          avatar: string
           creci: string
+          estado: string
+          cidade: string
+          sobre: string
           nota: number
         }[]
       }
       get_corretores_por_avaliacao_estado_cidade_tipoimovel: {
         Args: {
           avaliacao: number
-          estado: string
-          cidade: string
-          idtipoimovel: string
+          estadobuscado: string
+          cidadebuscada: string
+          tiposimovel: string[]
         }
         Returns: {
           id: string
           nome: string
-          sobre: string
+          avatar: string
           creci: string
+          estado: string
+          cidade: string
+          sobre: string
           nota: number
         }[]
       }
       get_corretores_por_avaliacao_estado_tipoimovel: {
         Args: {
           avaliacao: number
-          estado: string
-          idtipoimovel: string
+          estadobuscado: string
+          tiposimovel: string[]
         }
         Returns: {
           id: string
           nome: string
-          sobre: string
+          avatar: string
           creci: string
+          estado: string
+          cidade: string
+          sobre: string
           nota: number
         }[]
       }
       get_corretores_por_avaliacao_tipoimovel: {
         Args: {
           avaliacao: number
-          idtipoimovel: string
+          tiposimovel: string[]
         }
         Returns: {
           id: string
           nome: string
-          sobre: string
+          avatar: string
           creci: string
+          estado: string
+          cidade: string
+          sobre: string
           nota: number
         }[]
       }
@@ -866,6 +912,33 @@ export interface Database {
           iddestinatario: string
           nomedestinatario: string
           mensagens: Json
+        }[]
+      }
+      get_empresas_por_estado: {
+        Args: {
+          estadobuscado: string
+        }
+        Returns: {
+          id: string
+          nomefantasia: string
+          avatar: string
+          estado: string
+          cidade: string
+          sobre: string
+        }[]
+      }
+      get_empresas_por_estado_cidade: {
+        Args: {
+          estadobuscado: string
+          cidadebuscada: string
+        }
+        Returns: {
+          id: string
+          nomefantasia: string
+          avatar: string
+          estado: string
+          cidade: string
+          sobre: string
         }[]
       }
       get_imoveis: {
