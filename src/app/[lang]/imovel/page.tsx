@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { getDictionary } from "../dictionaries";
 import { Database } from "../../../../lib/database.types";
-import NavBar from "../(components)/NavBar";
+import NavBar from "../(components)/(navbar)/NavBar";
 import Imoveis from "../(components)/(imovel)/Imoveis";
 import ImovelCard from "../(components)/(imovel)/ImovelCard";
 import { userData } from "../../../../lib/modelos";
@@ -38,7 +38,7 @@ async function getUserData(user: userData) {
   return user;
 }
 
-async function filterAndMapTipos(tiposImovel, classificacao: string) {
+async function filterAndMapTipos(tiposImovel, classificacao) {
   return tiposImovel
     .filter((obj) => obj.classificacao === classificacao)
     .map((obj) => ({ id: obj.id, descricao: obj.descricao }));
@@ -69,7 +69,7 @@ export default async function page({ params: { lang } }: pageProps) {
 
   return (
     <>
-      <NavBar />
+      <NavBar params={{ lang: lang }}/>
       <div className="w-auto h-fit min-h-screen  bg-branco dark:bg-dark-200 box-border text-black flex relative mx-auto px-4 mt-4">
           <Imoveis userData={userData} textos={textos} properties={properties} tipos={tipos} outros={outros} mobilias={mobilias} condicoes={condicoes} />
       </div>
