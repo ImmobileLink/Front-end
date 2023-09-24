@@ -5,6 +5,8 @@ import { Database } from "../../../../lib/database.types";
 import NavBar from "../(components)/NavBar";
 import Imoveis from "../(components)/(imovel)/Imoveis";
 import ImovelCard from "../(components)/(imovel)/ImovelCard";
+import { userData } from "../../../../lib/modelos";
+import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/utils/userData";
 import { cache } from "react";
 
 interface pageProps {
@@ -18,44 +20,25 @@ const createServerSupabaseClient = cache(() => {
   return createServerComponentClient<Database>({ cookies: () => cookieStore })
 })
 
-async function getUserData() {
+async function getUserData(user: userData) {
   const supabase = createServerSupabaseClient();
-
-  let userData: userDataType = {
-    id: undefined,
-    identificador: undefined,
-    premium: undefined,
-    role: undefined,
-    conexoes: null,
-  };
-
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
   if (session?.user.id) {
-    {
-      let { data, error } = await supabase.rpc("consultar_tipo_usuario", {
-        id_usuario: session?.user.id,
-      });
+    user = await getTipoUsuario(user, session.user.id);
 
-      userData.id = session?.user.id;
-      userData.identificador = data![0].identificador;
-      userData.premium = data![0].premium;
-      userData.role = data![0].role;
-    }
-    {
-      let { data, error } = await supabase.rpc("get_connected_users", {
-        id_usuario: session?.user.id,
-      });
-
-      userData.conexoes = data;
-    }
+    [user, user] = await Promise.all([
+      getLinks(user),
+      getAssoc(user)
+    ]);
   }
-  return userData;
+
+  return user;
 }
 
-async function filterAndMapTipos(tiposImovel, classificacao) {
+async function filterAndMapTipos(tiposImovel, classificacao: string) {
   return tiposImovel
     .filter((obj) => obj.classificacao === classificacao)
     .map((obj) => ({ id: obj.id, descricao: obj.descricao }));
@@ -63,10 +46,18 @@ async function filterAndMapTipos(tiposImovel, classificacao) {
 
 export default async function page({ params: { lang } }: pageProps) {
   const supabase = createServerSupabaseClient();
+  let user: userData = {
+    id: undefined,
+    isPremium: undefined,
+    nome: undefined,
+    type: undefined,
+    links: [],
+    assoc: []
+  }
+  const userData = await getUserData(user);
   const dict = await getDictionary(lang); // pt
   const textos = dict.imovel;
 
-  const userData = await getUserData();
 
   let {data: tiposImovel} = await supabase.from('tipoImovel').select('*');
   const tipos = await filterAndMapTipos(tiposImovel, 'Tipo');
@@ -80,7 +71,7 @@ export default async function page({ params: { lang } }: pageProps) {
     <>
       <NavBar />
       <div className="w-auto h-fit min-h-screen  bg-branco dark:bg-dark-200 box-border text-black flex relative mx-auto px-4 mt-4">
-          <Imoveis userid={userData.id} textos={textos} properties={properties} tipos={tipos} outros={outros} mobilias={mobilias} condicoes={condicoes} />
+          <Imoveis userData={userData} textos={textos} properties={properties} tipos={tipos} outros={outros} mobilias={mobilias} condicoes={condicoes} />
       </div>
     </>
   );

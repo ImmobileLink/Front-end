@@ -11,7 +11,7 @@ import EditForm from "./EditForm";
 interface ImovelCardProps {
   textos: Imovel;
   imovel: ImovelRegistro;
-  userid: string;
+  userid: string | undefined;
 }
 
 type Propriedade = ImovelRegistro & {

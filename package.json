@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "update-types": "npx supabase gen types typescript --project-id \"rmnjgueyvmqmccnzvfro\" --schema public > lib/database.types.ts"
+    "update-types": "npx supabase gen types typescript --project-id \"rmnjgueyvmqmccnzvfro\" --schema public > lib/database.types.ts",
     "lint": "next lint",
     "update-types": "npx supabase gen types typescript --project-id \"rmnjgueyvmqmccnzvfro\" --schema public > lib/database.types.ts"
   },

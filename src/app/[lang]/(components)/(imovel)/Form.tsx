@@ -12,7 +12,7 @@ import { Spinner } from "flowbite-react";
 
 interface FormProps {
   props: {
-    userid: string,
+    userid: string | undefined,
     textos: Imovel,
     tipos: TipoImovel[],
     outros: TipoImovel[],

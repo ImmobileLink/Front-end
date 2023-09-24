@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Database } from "../../../../../lib/database.types";
 import { Imovel } from "@/app/i18n/dictionaries/types";
-import { ImovelRegistro, ImovelTipado, InsereImovel, TipoImovel } from "../../../../../lib/modelos";
+import { ImovelRegistro, ImovelTipado, InsereImovel, TipoImovel, userData } from "../../../../../lib/modelos";
 import { Session, createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import ImovelCard from "./ImovelCard";
 import { v4 as uuidv4 } from 'uuid';
@@ -12,7 +12,7 @@ import Form from "./Form";
 import Skeleton from "./Skeleton";
 
 interface ImoveisProps {
-  userid: string,
+  userData: userData;
   textos: Imovel,
   tipos: TipoImovel[],
   outros: TipoImovel[],
@@ -22,10 +22,15 @@ interface ImoveisProps {
 
 const supabase = createClientComponentClient<Database>();
 
-export default function Imoveis({ userid, textos, tipos, outros, mobilias, condicoes }: ImoveisProps) {
+export default function Imoveis({ userData, textos, tipos, outros, mobilias, condicoes }: ImoveisProps) {
   const [properties, setProperties] = useState<ImovelRegistro[]>([]); //imoveis
   const [loading, setLoading] = useState(true);
   const [formOpen, setFormOpen] = useState(false);
+
+  let userid: string | undefined = ''
+  if (userData) {
+    userid = userData.id
+  }
 
   // Realtime
   useEffect(() => {
