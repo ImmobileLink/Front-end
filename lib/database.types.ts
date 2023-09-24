@@ -464,21 +464,6 @@ export interface Database {
           }
         ]
       }
-      regiao: {
-        Row: {
-          id: string
-          regiao: string
-        }
-        Insert: {
-          id?: string
-          regiao: string
-        }
-        Update: {
-          id?: string
-          regiao?: string
-        }
-        Relationships: []
-      }
       resultadoformulario: {
         Row: {
           conteudo: Json
@@ -530,14 +515,17 @@ export interface Database {
       }
       tipoImovel: {
         Row: {
+          classificacao: string | null
           descricao: string
           id: string
         }
         Insert: {
+          classificacao?: string | null
           descricao: string
           id?: string
         }
         Update: {
+          classificacao?: string | null
           descricao?: string
           id?: string
         }
@@ -575,14 +563,17 @@ export interface Database {
         Row: {
           cidade: string
           idusuario: string
+          regiao: Json | null
         }
         Insert: {
           cidade: string
           idusuario: string
+          regiao?: Json | null
         }
         Update: {
           cidade?: string
           idusuario?: string
+          regiao?: Json | null
         }
         Relationships: [
           {
