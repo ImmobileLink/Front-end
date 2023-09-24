@@ -45,8 +45,8 @@
     "react-dom": "18.2.0",
     "react-i18next": "12.3.0",
     "react-icons": "^4.8.0",
-    "react-query": "^3.39.3",
     "react-input-mask": "^2.0.4",
+    "react-query": "^3.39.3",
     "react-select": "^5.7.4",
     "sass": "1.63.4",
     "tailwind-merge": "^1.14.0",
@@ -60,6 +60,7 @@
     "@types/react-big-calendar": "^1.6.4",
     "@types/react-datepicker": "^4.11.2",
     "@types/react-input-mask": "^3.0.2",
+    "@types/uuid": "^9.0.4",
     "supabase": "1.68.6"
   }
 }
