@@ -4,7 +4,7 @@ import Image from "next/image";
 import { PublicacaoCompleta } from "../../../../../lib/modelos";
 import { formataData } from "../../../../../lib/utils/formataData";
 import { Card } from "../../(components)/(compositions)/(card)";
-import Dropdown from "../../(components)/Dropdown";
+import Dropdown from "./Dropdown";
 import { BsChatSquareText, BsHeart, BsShare, BsThreeDots } from "react-icons/bs";
 
 interface PostItemProps {
@@ -18,8 +18,8 @@ export default function PostItem({ publicacao }: PostItemProps) {
         <Card.Content>
           <div className="w-full h-fit min-h-[50px] px-4">
             <div className="w-full h-fit flex justify-between mb-4">
-              <div className="flex justify-center items-center gap-2">
-                <Avatar userId={publicacao.idautor} />
+              <div className="flex justify-center items-center gap-2 mt-1">
+                <Avatar route={publicacao.avatar} />
                 <div>
                   <p>{publicacao.nomeautor}</p>
                   <p className="text-xs">{formataData(publicacao.criadoem)}</p>

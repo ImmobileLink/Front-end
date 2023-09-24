@@ -1,8 +1,8 @@
 // To parse this data:
 //
-//   import { Convert, Dictionaries } from "./file";
+//   import { Convert, Welcome } from "./file";
 //
-//   const dictionaries = Convert.toDictionaries(json);
+//   const welcome = Convert.toWelcome(json);
 
 export interface Dictionaries {
     navbarbuttons: Navbarbuttons;
@@ -394,15 +394,31 @@ export interface Pesquisa {
 }
 
 export interface Labels {
-    name:            string;
-    title:           string;
-    usertype:        string;
-    region:          string;
-    rating:          string;
-    specialty:       string;
-    error:           string;
-    missingcombobox: string;
-    checkprofile:    string;
+  nearbyusers:        string;
+  name:               string;
+  title:              string;
+  usertype:           string;
+  region:             string;
+  state:              string;
+  city:               string;
+  all:                string;
+  nocityfound:        string;
+  selectaestatefirst: string;
+  rating:             string;
+  specialty:          string;
+  error:              string;
+  missingcombobox:    string;
+  checkprofile:       string;
+  specializations:    string;
+  type:               string;
+  furniture:          string;
+  condition:          string;
+  others:             string;
+  advanced:           string;
+  reset:              string;
+  search:             string;
+  selectafilter:      string;
+  nouserfound:        string;
 }
 
 export interface Usertypevalue {

@@ -42,7 +42,7 @@ export default async function NavBar({ params: { lang } }: NavBarProps) {
   const dict = await getDictionary(lang); // pt
 
   return (
-    <nav className="w-full sticky top-0 z-50 bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 shadow-white dark:shadow-gray-800 shadow-lg">
+    <nav className="w-full sticky top-0 z-50 bg-white dark:bg-gray-900 ">
       <div className="max-w-2xl md:max-w-3xl lg:max-w-6xl flex flex-wrap items-center justify-between mx-auto p-4">
         <div className="flex items-center">
           <Link

@@ -1,3 +1,4 @@
+import { Page } from "../(components)/(compositions)/(page)";
 import NavBar from "../(components)/(navbar)/NavBar";
 
 export const metadata = {
@@ -16,8 +17,10 @@ export default async function RootLayout({
 }: RootLayout) {
   return (
     <>
-      <NavBar params={{ lang: lang }} />
-      {children}
+      <Page.Root>
+        <NavBar params={{ lang: lang }} />
+        {children}
+      </Page.Root>
     </>
   );
 }
