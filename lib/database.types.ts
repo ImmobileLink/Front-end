@@ -739,6 +739,7 @@ export interface Database {
     Views: {
       simple_user_data: {
         Row: {
+          avatar: string | null
           id: string | null
           nome: string | null
           premium: boolean | null
@@ -1176,10 +1177,12 @@ export interface Database {
           idsala: string
           idautor: string
           nomeautor: string
+          avatarautor: string
           mensagem: string
           atualizadoem: string
           idparticipante: string
           nomeparticipante: string
+          avatarparticipante: string
         }[]
       }
       obterespecialidade: {

@@ -11,9 +11,10 @@ interface ChatHubCardProps {
     idsala: string,
     mensagem: UltimaMensagemPorSalaPorUsuario | null | undefined,
     userId: string | undefined;
+    userAvatar: string;
 }
 
-export default function ChatHubCard({ dict, idsala, mensagem, userId }: ChatHubCardProps) {
+export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar }: ChatHubCardProps) {
     const { toggleChatView } = useContext(ChatContext)
 
     const handleClick = (e: any, idsala: string, idsaladestino: string) => {
@@ -25,7 +26,7 @@ export default function ChatHubCard({ dict, idsala, mensagem, userId }: ChatHubC
         <>
             <Link onClick={e=>handleClick(e,idsala, mensagem!.idsala)} href={`/chat/${mensagem!.idsala}`} className="flex flex-row rounded-md  hover:bg-gray-200 dark:hover:bg-gray-500 p-2">
                 <div className="mr-2 min-w-fit">
-                    <Avatar size={14} userId={mensagem!.idparticipante} />
+                    <Avatar size={14} route={userAvatar} />
                 </div>
                 <div className="flex flex-col truncate">
                     <div className="text-lg md:text-xl font-bold text-slate-900 dark:text-gray-300">

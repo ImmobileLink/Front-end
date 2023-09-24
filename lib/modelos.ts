@@ -137,10 +137,12 @@ export interface UltimaMensagemPorSalaPorUsuario {
     idsala: string;
     idautor: string;
     nomeautor: string;
+    avatarautor: string;
     mensagem: string;
     atualizadoem: string;
     idparticipante: string;
     nomeparticipante: string;
+    avatarparticipante: string;
 }
 
 export type userData = {

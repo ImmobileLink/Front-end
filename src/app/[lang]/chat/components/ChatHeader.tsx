@@ -8,9 +8,10 @@ import { ChatContext } from "../../chat/[[...idsala]]/chatContext";
 interface ChatHeaderProps {
     idparticipante: string | null,
     nomeparticipante: string | null
+    avatarparticipante: string | null
 }
 
-export default function ChatHeader({ idparticipante, nomeparticipante }: ChatHeaderProps) {
+export default function ChatHeader({ idparticipante, nomeparticipante, avatarparticipante }: ChatHeaderProps) {
     const {toggleChatView} = useContext(ChatContext)
     return (
         <div className="flex flex-row items-center lg:justify-start lg:px-3 lg:py-1 lg:rounded-lg bg-gray-100 dark:bg-gray-600 border border-gray-200 dark:border-gray-700">

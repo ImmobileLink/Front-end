@@ -89,7 +89,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
           table: "mensagem",
           filter: `idsala=eq.${idsala}`
         },
-        async (payload) => {
+        async () => {
           atualizaHub()
         }
       )
@@ -152,7 +152,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
           {
             messages &&
             messages.map((mensagem) =>
-              <ChatHubCard key={mensagem.idmensagem} idsala={idsala} dict={dict.chat} mensagem={mensagem} userId={userId} />
+              <ChatHubCard key={mensagem.idmensagem} idsala={idsala} dict={dict.chat} mensagem={mensagem} userId={userId} userAvatar={mensagem.avatarparticipante} />
             )
           }
         </div>

@@ -22,45 +22,14 @@ const createServerSupabaseClient = cache(() => {
   return createServerComponentClient<Database>({ cookies: () => cookieStore })
 })
 
-async function getUserSession() {
-  const supabase = createServerSupabaseClient()
-  const {
-    data: { session }, error
-  } = await supabase.auth.getSession();
-  if (error)
-    console.log(error)
-  else
-    return session
-}
-
 export default async function Page({ params: { lang, idsala } }: pageProps) {
   const supabase = createServerSupabaseClient()
   const dict = await getDictionary(lang); // pt
 
-  const session = await getUserSession();
   let salaid = idsala
   if (Array.isArray(idsala)) {
     salaid = idsala[0]
   }
-
-  const getLastMessages = async () => {
-    const { data, error } = await supabase
-      .rpc('obter_ultimas_mensagens_por_usuario', {
-        idusuario: session?.user.id!
-      })
-      .order('atualizadoem', { ascending: false })
-    if (error) {
-      console.log("error")
-    }
-    else {
-      return data
-    }
-  }
-
-  let user: userData = {
-    links: [],
-    assoc: []
-  };
 
   async function getUserData() {
     const {
@@ -77,6 +46,32 @@ export default async function Page({ params: { lang, idsala } }: pageProps) {
     }
     return user;
   }
+
+  const getLastMessages = async () => {
+    const userData = await getUserData()
+    let userId = ''
+    if (userData.id) {
+      userId = userData.id
+    }
+    const { data, error } = await supabase
+      .rpc('obter_ultimas_mensagens_por_usuario', {
+        idusuario: userId
+      })
+      .order('atualizadoem', { ascending: false })
+    if (error) {
+      console.log("error")
+    }
+    else {
+      return data
+    }
+  }
+
+  let user: userData = {
+    links: [],
+    assoc: []
+  };
+
+
 
 
   const resultado: UltimaMensagemPorSalaPorUsuario[] | null | undefined = await getLastMessages()
