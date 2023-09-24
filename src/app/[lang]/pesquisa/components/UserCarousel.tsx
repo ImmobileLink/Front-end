@@ -9,7 +9,7 @@ interface UserCarouselProps {
 
 export default async function UserCarousel({ data, dict }: UserCarouselProps) {
   return (
-    <div className="w-full overflow-x-scroll">
+    <div className="w-full overflow-x-auto">
       <div className='w-fit flex mt-2 gap-2'>
         {
           data?.map(item => {

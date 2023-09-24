@@ -28,7 +28,11 @@ export const _UFs = [
   "TO",
 ];
 
-export const _UF_converter = {
+interface UFConverter {
+  [key: string]: string;
+}
+
+export const _UF_converter: UFConverter = {
   "AC": "Acre",
   "AL": "Alagoas",
   "AP": "Amapá",

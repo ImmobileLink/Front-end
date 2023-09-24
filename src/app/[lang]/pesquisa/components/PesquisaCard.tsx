@@ -72,7 +72,6 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
 
   const handleSubmitSearch = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert(JSON.stringify(filters, null, 2));
 
     setLoading(true);
 
@@ -207,12 +206,12 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
           <form onSubmit={e => { handleSubmitSearch(e) }} className="flex flex-col space-y-2 px-4">
             {/* tipoUsuario */}
             <div className="w-full flex justify-around">
-              <div onClick={e => handleChangeTipoUsuario("corretor")}>
-                <input type="radio" id="corretor" name="tipoUsuario" value="corretor" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+              <div className="flex items-center">
+                <input onChange={e => handleChangeTipoUsuario("corretor")} type="radio" id="corretor" name="tipoUsuario" value="corretor" checked={filters.tipoUsuario === "corretor"} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                 <label htmlFor="corretor" className="ml-2 font-medium text-gray-900 dark:text-gray-300">{textos.usertypevalue.broker}</label>
               </div>
-              <div onClick={e => handleChangeTipoUsuario("corporacao")}>
-                <input type="radio" id="corporacao" name="tipoUsuario" value="corporacao" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+              <div className="flex items-center">
+                <input onChange={e => handleChangeTipoUsuario("corporacao")} type="radio" id="corporacao" name="tipoUsuario" value="corporacao" checked={filters.tipoUsuario === "corporacao"} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                 <label htmlFor="corporacao" className="ml-2 font-medium text-gray-900 dark:text-gray-300">{textos.usertypevalue.corporation}</label>
               </div>
             </div>
@@ -281,7 +280,7 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
                           <hr className="w-2/3 h-0,5 mt-2 border-0 bg-gray-300 dark:bg-gray-700" />
                         </div>
                         {/* tipo */}
-                        <label>{textos.labels.specializations}</label>
+                        <label className="text-xl text-center">{textos.labels.specializations}</label>
                         <div className="w-full flex flex-col justify-around">
                           <label className="text-center">{textos.labels.type}</label>
                           <div className="flex flex-wrap max-h-16 overflow-y-scroll mt-2">
@@ -289,7 +288,7 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
                               tipoImovel?.map((item, index) => {
                                 if (item.classificacao == "Tipo") {
                                   return (
-                                    <div key={index} className="flex w-1/2 items-center mb-4">
+                                    <div key={index} className="flex w-full items-center mb-4">
                                       <input onClick={e => handleAddEspecialidade(item.id)} type="checkbox" name={item.id} id={item.id} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                       <p className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 ">{item.descricao}</p>
                                     </div>
@@ -298,6 +297,9 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
                               })
                             }
                           </div>
+                        </div>
+                        <div className="flex justify-center align-middle items-center">
+                          <hr className="w-2/3 h-0,5 mt-2 border-0 bg-gray-300 dark:bg-gray-700" />
                         </div>
                         {/* mobilia */}
                         <div className="w-full flex flex-col justify-around">
@@ -307,7 +309,7 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
                               tipoImovel?.map((item, index) => {
                                 if (item.classificacao == "Mobília") {
                                   return (
-                                    <div key={index} className="flex w-1/2 items-center mb-4">
+                                    <div key={index} className="flex w-full items-center mb-4">
                                       <input onClick={e => handleAddEspecialidade(item.id)} type="checkbox" name={item.id} id={item.id} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                       <p className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 ">{item.descricao}</p>
                                     </div>
@@ -316,6 +318,9 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
                               })
                             }
                           </div>
+                        </div>
+                        <div className="flex justify-center align-middle items-center">
+                          <hr className="w-2/3 h-0,5 mt-2 border-0 bg-gray-300 dark:bg-gray-700" />
                         </div>
                         {/* condicao */}
                         <div className="w-full flex flex-col justify-around">
@@ -325,7 +330,7 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
                               tipoImovel?.map((item, index) => {
                                 if (item.classificacao == "Condição") {
                                   return (
-                                    <div key={index} className="flex w-1/2 items-center mb-4">
+                                    <div key={index} className="flex w-full items-center mb-4">
                                       <input onClick={e => handleAddEspecialidade(item.id)} type="checkbox" name={item.id} id={item.id} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                       <p className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 ">{item.descricao}</p>
                                     </div>
@@ -335,6 +340,9 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
                             }
                           </div>
                         </div>
+                        <div className="flex justify-center align-middle items-center">
+                          <hr className="w-2/3 h-0,5 mt-2 border-0 bg-gray-300 dark:bg-gray-700" />
+                        </div>
                         {/* outros */}
                         <div className="w-full flex flex-col justify-around">
                           <label className="text-center">{textos.labels.others}</label>
@@ -343,7 +351,7 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
                               tipoImovel?.map((item, index) => {
                                 if (item.classificacao == "Outros") {
                                   return (
-                                    <div key={index} className="flex w-1/2 items-center mb-4">
+                                    <div key={index} className="flex w-full items-center mb-4">
                                       <input onClick={e => handleAddEspecialidade(item.id)} type="checkbox" name={item.id} id={item.id} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                       <p className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 ">{item.descricao}</p>
                                     </div>
