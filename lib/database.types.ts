@@ -914,6 +914,17 @@ export interface Database {
           mensagens: Json
         }[]
       }
+      get_empresas: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          nomefantasia: string
+          avatar: string
+          estado: string
+          cidade: string
+          sobre: string
+        }[]
+      }
       get_empresas_por_estado: {
         Args: {
           estadobuscado: string

@@ -181,7 +181,9 @@
       "others": "Outros",
       "advanced": "Opções avançadas",
       "reset": "Redefinir",
-      "search": "Pesquisar"
+      "search": "Pesquisar",
+      "selectafilter": "Selecione os campos que deseja usar como filtro e clique em Pesquisar",
+      "nouserfound": "Não foi encontrado nenhum usuário com os filtros escolhidos"
     },
     "usertypevalue": {
       "broker": "Corretor",

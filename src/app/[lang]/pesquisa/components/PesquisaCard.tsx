@@ -1,11 +1,12 @@
 "use client"
 import { Pesquisa } from "@/app/i18n/dictionaries/types";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
-import { TipoImovel, City, filterType } from "../../../../../lib/modelos";
+import { TipoImovel, City, filterType, CorporacaoBuscada, CorretorBuscado } from "../../../../../lib/modelos";
 import { _UF_converter, _UFs } from "../../../../../lib/utils/getRegiao";
 import { Card } from "../../(components)/(compositions)/(card)";
+import { SearchContext } from "./SearchContext";
 
 interface PesquisaCardProps {
   textos: Pesquisa,
@@ -15,6 +16,8 @@ interface PesquisaCardProps {
 const supabase = createClientComponentClient<Database>()
 
 export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) {
+  const { setResultado, setLoading } = useContext(SearchContext)
+
   //Estados dos combo box, usados para fazer a pesquisa
   const [filters, setFilters] = useState<filterType>({
     tipoUsuario: 'corretor',
@@ -27,13 +30,6 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
   //array de cidades vindo da api do ibge
   const [cities, setCities] = useState<City[]>([]);
 
-  //States relacionados aos resultados
-  // const [resultado, setResultado] = useState<CorretorBuscado[] | CorporacaoBuscada[] | null>([]);
-  const [resultado, setResultado] = useState<any>();
-
-  //loading
-  const [loading, setLoading] = useState<boolean>(false);
-
   //mais filtros
   const [showMore, setShowMore] = useState<boolean>(false);
 
@@ -45,11 +41,9 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
     async function fetchCities() {
       if (filters.estado) {
         try {
-          setLoading(true)
           const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${filters.estado}/municipios`);
           const citiesData = await response.json();
           setCities(citiesData);
-          setLoading(false)
         } catch (error) {
           console.error(error);
         }
@@ -107,11 +101,11 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
       }
       if (filters.estado !== "*" && filters.cidade !== "*" && filters.especialidades.length == 0) {
         let { data, error } = await supabase
-        .rpc('get_corretores_por_avaliacao_estado_cidade', {
-          avaliacao: filters.avaliacao, 
-          cidadebuscada: filters.cidade, 
-          estadobuscado: filters.estado
-        })
+          .rpc('get_corretores_por_avaliacao_estado_cidade', {
+            avaliacao: filters.avaliacao,
+            cidadebuscada: filters.cidade,
+            estadobuscado: filters.estado
+          })
 
         if (error) console.error(error);
         else setResultado(data);
@@ -119,10 +113,10 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
       }
       if (filters.estado === "*" && filters.cidade === "*" && filters.especialidades.length > 0) {
         let { data, error } = await supabase
-        .rpc('get_corretores_por_avaliacao_tipoimovel', {
-          avaliacao: filters.avaliacao, 
-          tiposimovel: filters.especialidades
-        })
+          .rpc('get_corretores_por_avaliacao_tipoimovel', {
+            avaliacao: filters.avaliacao,
+            tiposimovel: filters.especialidades
+          })
 
         if (error) console.error(error);
         else setResultado(data);
@@ -130,11 +124,11 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
       }
       if (filters.estado !== "*" && filters.cidade === "*" && filters.especialidades.length > 0) {
         let { data, error } = await supabase
-        .rpc('get_corretores_por_avaliacao_estado_tipoimovel', {
-          avaliacao: filters.avaliacao, 
-          estadobuscado: filters.estado, 
-          tiposimovel: filters.especialidades
-        })
+          .rpc('get_corretores_por_avaliacao_estado_tipoimovel', {
+            avaliacao: filters.avaliacao,
+            estadobuscado: filters.estado,
+            tiposimovel: filters.especialidades
+          })
 
         if (error) console.error(error);
         else setResultado(data);
@@ -142,12 +136,12 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
       }
       if (filters.estado !== "*" && filters.cidade !== "*" && filters.especialidades.length > 0) {
         let { data, error } = await supabase
-        .rpc('get_corretores_por_avaliacao_estado_cidade_tipoimovel', {
-          avaliacao: filters.avaliacao, 
-          cidadebuscada: filters.cidade, 
-          estadobuscado: filters.estado, 
-          tiposimovel: filters.especialidades
-        })
+          .rpc('get_corretores_por_avaliacao_estado_cidade_tipoimovel', {
+            avaliacao: filters.avaliacao,
+            cidadebuscada: filters.cidade,
+            estadobuscado: filters.estado,
+            tiposimovel: filters.especialidades
+          })
 
         if (error) console.error(error);
         else setResultado(data);
@@ -157,7 +151,35 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
     }
 
     if (filters.tipoUsuario == "corporacao") {
+      if (filters.estado === "*" && filters.cidade === "*") {
+        let { data, error } = await supabase
+          .rpc('get_empresas')
 
+        if (error) console.error(error)
+        else setResultado(data)
+        // console.log("get_corretores_por_avaliacao");
+      }
+      if (filters.estado !== "*" && filters.cidade === "*") {
+        let { data, error } = await supabase
+          .rpc('get_empresas_por_estado', {
+            estadobuscado: filters.estado
+          })
+
+        if (error) console.error(error)
+        else setResultado(data)
+        // console.log("get_corretores_por_avaliacao");
+      }
+      if (filters.estado !== "*" && filters.cidade !== "*") {
+        let { data, error } = await supabase
+          .rpc('get_empresas_por_estado_cidade', {
+            cidadebuscada: filters.cidade,
+            estadobuscado: filters.estado
+          })
+
+        if (error) console.error(error)
+        else setResultado(data)
+        // console.log("get_corretores_por_avaliacao");
+      }
     }
 
     setLoading(false);
@@ -217,8 +239,8 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
             {/* cidade */}
             <div className="w-full flex flex-col justify-around">
               <label>{textos.labels.city}:</label>
-              <select defaultValue={""} onChange={e => { setFilters(prev => ({ ...prev, cidade: e.target.value })) }} className="block w-full p-2.5 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option value="">*</option>
+              <select defaultValue={"*"} onChange={e => { setFilters(prev => ({ ...prev, cidade: e.target.value })) }} className="block w-full p-2.5 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="*">*</option>
                 {
                   filters.estado ? (
                     cities.map((city, index) => (
@@ -360,9 +382,6 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
           </form>
         </Card.Content>
       </Card.Root>
-      {
-        JSON.stringify(resultado)
-      }
     </>
   );
 }

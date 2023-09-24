@@ -1,10 +1,10 @@
 // To parse this data:
 //
-//   import { Convert, Dictionaries } from "./file";
+//   import { Convert, Welcome } from "./file";
 //
-//   const dictionaries = Convert.toDictionaries(json);
+//   const welcome = Convert.toWelcome(json);
 
-export interface Dictionaries {
+export interface Welcome {
   navbarbuttons: Navbarbuttons;
   auth:          Auth;
   pesquisa:      Pesquisa;
@@ -360,6 +360,8 @@ export interface Labels {
   advanced:           string;
   reset:              string;
   search:             string;
+  selectafilter:      string;
+  nouserfound:        string;
 }
 
 export interface Usertypevalue {
@@ -404,11 +406,11 @@ export interface Profile {
 
 // Converts JSON strings to/from your types
 export class Convert {
-  public static toDictionaries(json: string): Dictionaries {
+  public static toWelcome(json: string): Welcome {
       return JSON.parse(json);
   }
 
-  public static dictionariesToJson(value: Dictionaries): string {
+  public static welcomeToJson(value: Welcome): string {
       return JSON.stringify(value);
   }
 }

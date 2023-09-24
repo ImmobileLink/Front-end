@@ -1,11 +1,11 @@
 import { Labels } from "@/app/i18n/dictionaries/types";
-import { CorretorBuscado } from "../../../../../lib/modelos";
 import UserCarousel from "./UserCarousel";
+import { CorretorCarouselItem } from "../../../../../lib/modelos";
 
 interface NearbyUsersProps {
   dict: Labels;
   estado: string;
-  carouselUsers: CorretorBuscado;
+  carouselUsers: CorretorCarouselItem[] | null;
 }
 
 export default async function NearbyUsers({ dict, estado, carouselUsers }: NearbyUsersProps) {

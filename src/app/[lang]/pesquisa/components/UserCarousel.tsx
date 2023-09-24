@@ -1,9 +1,9 @@
 import { Labels } from "@/app/i18n/dictionaries/types";
-import { CorretorBuscado } from "../../../../../lib/modelos";
+import { CorretorCarouselItem } from "../../../../../lib/modelos";
 import UserCarouselItem from "./UserCarouselItem";
 
 interface UserCarouselProps {
-  data: CorretorBuscado;
+  data: CorretorCarouselItem[] | null;
   dict: Labels;
 }
 

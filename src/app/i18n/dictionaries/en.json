@@ -181,7 +181,9 @@
       "others": "Others",
       "advanced": "Advanced options",
       "reset": "Reset",
-      "search": "Search"
+      "search": "Search",
+      "selectafilter": "Select the fields you want to use as a filter and click Search",
+      "nouserfound": "No users were found with the chosen filters"
     },
     "usertypevalue": {
       "broker": "Broker",

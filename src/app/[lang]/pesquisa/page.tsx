@@ -8,6 +8,9 @@ import { userData } from '../../../../lib/modelos';
 import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/utils/userData";
 import { getDictionary } from "../dictionaries";
 import PesquisaCard from "./components/PesquisaCard";
+import { SearchProvider } from "./components/SearchContext";
+import ResultContainer from "./components/ResultContainer";
+import NearbyUsers from "./components/NearbyUsers";
 
 interface pageProps {
   params: {
@@ -79,21 +82,28 @@ export default async function page({ params: { lang } }: pageProps) {
   const carouselUsers = await getCorretores(estadoUsuario);
 
   return (
-    <div className="flex justify-center gap-5 mt-4">
-      <Page.Left>
-        <PesquisaCard textos={dict.pesquisa} tipoImovel={tipoImovel.data} />
-      </Page.Left>
-      <Page.Main>
-        <Card.Root>
-          <Card.Content>
-            {/* <NearbyUsers dict={dict.pesquisa.labels} estado={estadoUsuario} carouselUsers={carouselUsers} /> */}
-            
-          </Card.Content>
-        </Card.Root>
-      </Page.Main>
-      <Page.Right>
-      </Page.Right>
-    </div>
+    <SearchProvider>
+      <div className="flex justify-center gap-5 mt-4">
+        <Page.Left>
+          <div className="hidden md:block">
+            <PesquisaCard textos={dict.pesquisa} tipoImovel={tipoImovel.data} />
+          </div>
+        </Page.Left>
+        <Page.Main>
+          <div className="block md:hidden mb-4">
+            <PesquisaCard textos={dict.pesquisa} tipoImovel={tipoImovel.data} />
+          </div>
+          <Card.Root>
+            <Card.Content>
+              <NearbyUsers dict={dict.pesquisa.labels} estado={estadoUsuario} carouselUsers={carouselUsers} />
+            </Card.Content>
+          </Card.Root>
+          <ResultContainer dict={dict.pesquisa} />
+        </Page.Main>
+        <Page.Right>
+        </Page.Right>
+      </div>
+    </SearchProvider>
   )
 }
 
