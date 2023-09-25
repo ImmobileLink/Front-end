@@ -122,7 +122,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
   }
 
   return (
-    <div className={`${chatStyle} flex-col justify-start h-full w-screen lg:h-5/6 lg:w-3/12 rounded-md bg-white dark:bg-dark-100 drop-shadow-md`}>
+    <div className={`${chatStyle} flex-col justify-start h-full lg:h-5/6 w-screen lg:w-3/12 rounded-md bg-white dark:bg-dark-100 drop-shadow-md`}>
       <div className="fixed left-0 top-0 right-0 grid row grid-cols-12 py-2 lg:rounded-lg bg-gray-100 dark:bg-gray-600 border border-gray-200 dark:border-gray-700">
         {
           friendListState ?

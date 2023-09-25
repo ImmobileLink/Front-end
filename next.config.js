@@ -13,10 +13,6 @@ const nextConfig = {
         source: '/(.*)',
         headers: [
           {
-            key: 'Content-Security-Policy',
-            value: "default-src 'self' 'unsafe-inline' https://rmnjgueyvmqmccnzvfro.supabase.co; img-src *; script-src 'self' 'unsafe-eval' 'unsafe-inline';",
-          },
-          {
             key: 'X-Frame-Options',
             value: 'SAMEORIGIN',
           },

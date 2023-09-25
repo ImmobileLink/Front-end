@@ -440,6 +440,7 @@ export interface Database {
       mensagem: {
         Row: {
           atualizadoem: string
+          avatarautor: string | null
           enviadoem: string
           id: string
           idautor: string
@@ -450,6 +451,7 @@ export interface Database {
         }
         Insert: {
           atualizadoem?: string
+          avatarautor?: string | null
           enviadoem?: string
           id?: string
           idautor: string
@@ -460,6 +462,7 @@ export interface Database {
         }
         Update: {
           atualizadoem?: string
+          avatarautor?: string | null
           enviadoem?: string
           id?: string
           idautor?: string
@@ -912,6 +915,7 @@ export interface Database {
           idsala: string
           iddestinatario: string
           nomedestinatario: string
+          avatar: string
           mensagens: Json
         }[]
       }

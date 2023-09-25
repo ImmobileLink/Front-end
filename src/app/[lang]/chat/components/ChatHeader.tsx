@@ -20,10 +20,10 @@ export default function ChatHeader({ idparticipante, nomeparticipante, avatarpar
             </button>
             <div className="flex flex-row items-center">
                 <div className="flex lg:hidden my-0,5">
-                    <Avatar key={idparticipante} userId={idparticipante} size={10} />
+                    <Avatar key={idparticipante} route={avatarparticipante!} size={10} />
                 </div>
                 <div className="hidden lg:flex ml-2">
-                    <Avatar key={idparticipante} userId={idparticipante} />
+                    <Avatar key={idparticipante} route={avatarparticipante!} />
                 </div>
                 <div className="ml-2 font-sans font-semibold text-lg" >
                     {nomeparticipante}

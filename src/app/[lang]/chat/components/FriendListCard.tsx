@@ -16,11 +16,12 @@ interface FriendListCardProps {
     idsala: string;
     idremetente: string;
     iddestinatario: string;
+    avatardestinatario: string;
     key: string;
     nome: string;
 }
 
-export default function FriendListCard({ idsala, idremetente, iddestinatario, nome }: FriendListCardProps) {
+export default function FriendListCard({ idsala, idremetente, iddestinatario, nome, avatardestinatario }: FriendListCardProps) {
     const { toggleChatView } = useContext(ChatContext)
     const router = useRouter()
 
@@ -45,7 +46,7 @@ export default function FriendListCard({ idsala, idremetente, iddestinatario, no
         <>
             <div onClick={e=>handleEnviarMensagem(idsala)} className="flex flex-row rounded-md mx-1 p-2 bg-gray-300 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-500">
                 <div className="flex w-3/4 rounded-full">
-                    <Avatar userId={iddestinatario} />
+                    <Avatar route={avatardestinatario} />
                     <div className="w-2/3 self-center capitalize text-black dark:text-white truncate ml-2">{nome}</div>
                 </div>
                 <div className="flex w-1/4 justify-end mr-5">

@@ -25,6 +25,7 @@ export default async function ChatSpace({ dict, idsala, userId }: ChatSpaceProps
 
   let iddestinatario = null;
   let nomedestinatario = null;
+  let avatardestinatario = null;
   let mensagens: Mensagem[] = []
   if (idsala != null) {
     const { data, error } = await supabase
@@ -38,6 +39,7 @@ export default async function ChatSpace({ dict, idsala, userId }: ChatSpaceProps
       try {
         iddestinatario = data[0].iddestinatario
         nomedestinatario = data[0].nomedestinatario
+        avatardestinatario = data[0].avatar
 
         Object.assign(mensagens, data[0].mensagens)
         if (mensagens[0].idsala == null) {
@@ -53,10 +55,10 @@ export default async function ChatSpace({ dict, idsala, userId }: ChatSpaceProps
     <>
       {
         idsala != null ?
-          <div className="h-full lg:h-full lg:w-full flex flex-col w-screen rounded-md bg-white dark:bg-dark-100 drop-shadow-md">
+          <div className="flex flex-col h-full lg:w-full w-screen rounded-md bg-white dark:bg-dark-100 drop-shadow-md">
             {
               idsala != null &&
-              <ChatHeader key={iddestinatario} idparticipante={iddestinatario} nomeparticipante={nomedestinatario} />
+              <ChatHeader key={iddestinatario} idparticipante={iddestinatario} nomeparticipante={nomedestinatario} avatarparticipante={avatardestinatario} />
             }
             <MessageSpace dict={dict} mensagens={mensagens} idsala={idsala} />
             {
@@ -66,7 +68,7 @@ export default async function ChatSpace({ dict, idsala, userId }: ChatSpaceProps
             {/* <BottomNav /> */}
           </div>
           :
-          <div className="hidden lg:flex h-full lg:h-full lg:w-full flex-col w-screen rounded-md bg-white dark:bg-dark-100 drop-shadow-md">
+          <div className="hidden lg:flex h-full lg:w-full flex-col w-screen rounded-md bg-white dark:bg-dark-100 drop-shadow-md">
 
             <div className="flex flex-col justify-center items-center h-full w-full text-2xl p-10">
               <div className="flex items-center">
