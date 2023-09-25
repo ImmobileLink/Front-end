@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode, useContext } from "react";
-import { ChatContext } from "../../chat/[[...idsala]]/chatContext";
+import { ChatContext } from "../[[...idsala]]/ChatContext";
 import BottomNav from "./BottomNav";
 import { Chat } from "@/app/i18n/dictionaries/types";
 

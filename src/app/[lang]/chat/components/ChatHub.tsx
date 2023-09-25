@@ -6,7 +6,7 @@ import { useContext, useEffect, useState, useTransition } from "react";
 import { useRouter } from 'next/navigation';
 import ChatHubCard from "./ChatHubCard";
 import BottomNav from "./BottomNav";
-import { ChatContext } from "../../chat/[[...idsala]]/chatContext";
+import { ChatContext } from "../[[...idsala]]/ChatContext";
 import {BiArrowBack} from 'react-icons/bi'
 import FriendList from "./FriendList";
 

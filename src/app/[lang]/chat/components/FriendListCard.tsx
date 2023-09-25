@@ -8,7 +8,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Avatar from "../../(components)/Avatar";
 import { AiOutlineSend } from "react-icons/ai";
 import { useContext } from "react";
-import { ChatContext } from "../../chat/[[...idsala]]/chatContext";
+import { ChatContext } from "../[[...idsala]]/ChatContext";
 
 const supabase = createClientComponentClient<Database>()
 
