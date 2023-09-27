@@ -1,5 +1,5 @@
 interface AlertProps {
-  type: string;
+  type: "info" | "danger" | "warning" | "success" | "dark";
   title: string;
   text: string;
 }

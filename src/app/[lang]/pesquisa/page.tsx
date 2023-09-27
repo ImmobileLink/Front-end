@@ -106,4 +106,3 @@ export default async function page({ params: { lang } }: pageProps) {
     </SearchProvider>
   )
 }
-

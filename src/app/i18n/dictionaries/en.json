@@ -295,7 +295,8 @@
     "oportunitiesposting": "Oportunities posts",
     "linktotenbrokers": "Link up to 10 brokers",
     "illimitedlinks": "Link up to many brokers",
-    "buynow": "Buy now"
+    "buynow": "Try now",
+    "confirmchange": "Do you really want to change your plan to"
   },
   "profile": {
     "noAssociation": "No association at the moment",
