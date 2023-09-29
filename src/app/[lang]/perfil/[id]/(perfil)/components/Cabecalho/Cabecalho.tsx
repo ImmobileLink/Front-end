@@ -62,9 +62,9 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
 
 
       <div className="p-8 -mt-28 relative">
-        <div className="flex justify-between w-full items-baseline mb-3">
+        <div className="flex justify-between w-full mb-3 items-end">
           <div className="w-34 h-34 rounded-full bg-white flex justify-center items-center">
-            <Avatar route={""} size={"l"} />
+            <Avatar route={"nopfp"} size={"l"} />
           </div>
           <div className="flex gap-5">
             {isOwn && (

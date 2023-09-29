@@ -10,7 +10,7 @@ export default async function page() {
     const state = useProfileStore.getState()
 
     return (
-        <Page.Root>
+        <>
             <Page.Main>
                 <Cabecalho />
                 <InfosEmpresa dict={state.dict} corretor={state.profileFullData} />
@@ -25,7 +25,6 @@ export default async function page() {
                     <Calendario ownId={state.sessionData?.id} idProfile={state.profileData?.id} />
                 </Page.Calendar>
             </Page.Right>
-        </Page.Root >
-
+        </>
     );
 }

@@ -15,7 +15,7 @@ export async function getTipoUsuario(userData: userData, userId: string): Promis
     id_usuario: userId,
   });
 
-  if (!error) {
+  if (!error && data!.length > 0) {
     userData.id = userId;
     userData.nome = data![0].nome;
     userData.isPremium = data![0].ispremium;

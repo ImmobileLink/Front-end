@@ -1,4 +1,5 @@
 import NavBar from "../../(components)/(navbar)/NavBar";
+import { Page } from "./(perfil)/composition/page";
 import ProviderProfile from "./(perfil)/reactQuery/ProviderProfile";
 
 export const metadata = {
@@ -16,7 +17,9 @@ export default async function RootLayout({ children, params: { lang } }: RootLay
   return (
     <ProviderProfile>
       <NavBar params={{ lang: lang }} />
-      {children}
+      <Page.Root>
+        {children}
+      </Page.Root>
     </ProviderProfile>
   );
 }
