@@ -84,24 +84,24 @@ export default async function page({ params: { lang } }: pageProps) {
   return (
     <SearchProvider>
       <div className="flex justify-center gap-5 mt-4">
-        <Page.Left>
+        <div className="hidden lg:flex flex-col lg:w-3/12 lg:max-w-xs lg:min-w-[320px]">
           <div className="hidden md:block">
             <PesquisaCard textos={dict.pesquisa} tipoImovel={tipoImovel.data} />
           </div>
-        </Page.Left>
-        <Page.Main>
-          <div className="block md:hidden mb-4">
+        </div>
+        <div className="w-11/12 lg:w-7/12 lg:min-w-[650px]">
+          <div className="block lg:hidden mb-4">
             <PesquisaCard textos={dict.pesquisa} tipoImovel={tipoImovel.data} />
           </div>
-          <Card.Root>
-            <Card.Content>
-              <NearbyUsers dict={dict.pesquisa.labels} estado={estadoUsuario} carouselUsers={carouselUsers} />
-            </Card.Content>
-          </Card.Root>
+          <div className="hidden lg:block">
+            <Card.Root>
+              <Card.Content>
+                <NearbyUsers dict={dict.pesquisa.labels} estado={estadoUsuario} carouselUsers={carouselUsers} />
+              </Card.Content>
+            </Card.Root>
+          </div>
           <ResultContainer dict={dict.pesquisa} />
-        </Page.Main>
-        <Page.Right>
-        </Page.Right>
+        </div>
       </div>
     </SearchProvider>
   )

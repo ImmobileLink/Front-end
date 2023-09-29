@@ -62,6 +62,7 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
 
 
   const handleChangeTipoUsuario = (tipoUsuario: string) => {
+    alert("mudar tipo")
     setFilters((prev) => ({ ...prev, tipoUsuario: tipoUsuario, avaliacao: 0, especialidades: [] }));
   }
 
@@ -71,10 +72,9 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
   }
 
   const handleSubmitSearch = async (e: FormEvent<HTMLFormElement>) => {
+
     e.preventDefault();
-
     setLoading(true);
-
 
     if (filters.tipoUsuario == "corretor") {
       if (filters.estado === "*" && filters.cidade === "*" && filters.especialidades.length == 0) {
@@ -206,11 +206,11 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
           <form onSubmit={e => { handleSubmitSearch(e) }} className="flex flex-col space-y-2 px-4">
             {/* tipoUsuario */}
             <div className="w-full flex justify-around">
-              <div className="flex items-center">
+              <div >
                 <input onChange={e => handleChangeTipoUsuario("corretor")} type="radio" id="corretor" name="tipoUsuario" value="corretor" checked={filters.tipoUsuario === "corretor"} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                 <label htmlFor="corretor" className="ml-2 font-medium text-gray-900 dark:text-gray-300">{textos.usertypevalue.broker}</label>
               </div>
-              <div className="flex items-center">
+              <div >
                 <input onChange={e => handleChangeTipoUsuario("corporacao")} type="radio" id="corporacao" name="tipoUsuario" value="corporacao" checked={filters.tipoUsuario === "corporacao"} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                 <label htmlFor="corporacao" className="ml-2 font-medium text-gray-900 dark:text-gray-300">{textos.usertypevalue.corporation}</label>
               </div>
