@@ -13,16 +13,19 @@ export interface Database {
         Row: {
           idcorporacao: string
           idcorretor: string
+          iniciativa: string
           pendente: boolean | null
         }
         Insert: {
           idcorporacao: string
           idcorretor: string
+          iniciativa: string
           pendente?: boolean | null
         }
         Update: {
           idcorporacao?: string
           idcorretor?: string
+          iniciativa?: string
           pendente?: boolean | null
         }
         Relationships: [
@@ -1106,6 +1109,31 @@ export interface Database {
         }
         Returns: {
           idusuario: string
+        }[]
+      }
+      getcorretorwithavatar: {
+        Args: {
+          corretor_id: string
+        }
+        Returns: {
+          id: string
+          nome: string
+          cpf: string
+          cnpj: string
+          creci: string
+          cep: string
+          estado: string
+          cidade: string
+          bairro: string
+          logradouro: string
+          numero: number
+          complemento: string
+          telefone: string
+          celular: string
+          comercial: string
+          premium: boolean
+          sobre: string
+          avatar: string
         }[]
       }
       mensagem_com_usuario: {
