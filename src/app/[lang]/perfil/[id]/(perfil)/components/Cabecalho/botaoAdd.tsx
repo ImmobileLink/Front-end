@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from '@/../../lib/database.types';
+import { getEstadoBtnAssoc } from '@/../../lib/Utils/Associacao'
+import { Spinner } from "flowbite-react";
 
 
 interface botaoAddProps {
@@ -17,62 +19,101 @@ export default function BotaoAdd({ idProfile, idSession, dict }: botaoAddProps) 
 
   const [estado, setEstado] = useState("Associar");
   const [popup, setPopup] = useState(false)
+  const [loading, setLoading] = useState<boolean>(true)
+
   const supabase = createClientComponentClient<Database>()
 
   useEffect(() => {
-    
+    const fetchData = async () => {
+      const estadoBtn = await getEstadoBtnAssoc(idProfile, idSession!)
+
+      console.log(estadoBtn)
+      if (estadoBtn!.length > 0) {
+        if (estadoBtn![0].pendente) {
+          if (estadoBtn![0].iniciativa == idSession) {
+            setEstado("Pendente")
+          } else {
+            setEstado("Aceitar")
+          }
+        } else {
+          setEstado("Associado")
+        }
+      }
+      setLoading(false);
+    }
+    fetchData()
   }, [])
 
+
   const desassociar = async () => {
+    setLoading(true)
     const { data, error } = await supabase
       .from('associacoes')
       .delete()
       .eq('idcorretor', idProfile)
       .eq('idcorporacao', idSession)
-    setEstado("Associar")
+
+    if (!error) {
+      setLoading(false)
+      setEstado("Associar")
+    }
     setPopup(false)
   }
 
-  const associar = async () => {
+
+  const sendConvite = async () => {
+    setLoading(true)
+    const { data, error } = await supabase
+      .from('associacoes')
+      .insert([
+        { idcorretor: idProfile, idcorporacao: idSession!, iniciativa: idSession! },
+      ])
+
+    if (!error) {
+      setLoading(false)
+      setEstado("Pendente")
+    }
+  }
+
+  const cancelaConvite = async () => {
+    setLoading(true)
+
+    const { data, error } = await supabase
+      .from('associacoes')
+      .delete()
+      .eq('idcorretor', idProfile)
+      .eq('idcorporacao', idSession)
+
+    if (!error) {
+      setLoading(false)
+      setEstado("Associar")
+    }
+  }
+
+  const aceitarConvite = async () => {
+    setLoading(true)
     const { data, error } = await supabase
       .from('associacoes')
       .update({ pendente: false })
       .eq('idcorretor', idProfile)
       .eq('idcorporacao', idSession)
+
+    if (!error) {
+      setLoading(false)
       setEstado("Associado")
+    }
   }
-
-  const sendConvite = async () => {
-    const { data, error } = await supabase
-      .from('associacoes')
-      .insert([
-        { idcorretor: idProfile, idcorporacao: idSession! },
-      ])
-    setEstado("SolicitacaoEnviada")
-  }
-
-  const cancelaConvite = async () => {
-    const { data, error } = await supabase
-      .from('associacoes')
-      .delete()
-      .eq('idcorretor', idProfile)
-      .eq('idcorporacao', idSession)
-    setEstado("Associar")
-  }
-
-
 
 
   const handleClick = () => {
     if (estado == "Associar") {
       sendConvite()
-      setTimeout(() => {
-          associar()
-      }, 5000);
-    } else if (estado === "SolicitacaoEnviada") {
+    } else if (estado === "Pendente") {
       cancelaConvite()
     } else if (estado === "Associado") {
       setPopup(true)
+    } else if (estado === "Aceitar") {
+      aceitarConvite()
     }
   };
 
@@ -81,21 +122,22 @@ export default function BotaoAdd({ idProfile, idSession, dict }: botaoAddProps) 
   }
 
 
-
-
-
   const buttonClass = classNames('py-2 px-4 rounded', {
-    'bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800': estado === 'Associar',
-    'bg-green-700 hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800': estado === 'Associado',
-    'bg-yellow-700 hover:bg-yellow-800 dark:bg-yellow-600 dark:hover:bg-yellow-700 focus:outline-none dark:focus:ring-yellow-800': estado === 'SolicitacaoEnviada',
+    'bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 ': estado === 'Associar',
+    'bg-green-700 hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-700 ': estado === 'Associado',
+    'bg-yellow-700 hover:bg-yellow-800 dark:bg-yellow-600 dark:hover:bg-yellow-700 ': estado === 'Pendente',
+    'bg-blue-800 hover:bg-yellow-800 dark:bg-yellow-600 dark:hover:bg-yellow-700 ': estado === 'Aceitar'
   });
 
 
   return (
     <>
-      <button onClick={handleClick} className={`w-fit text-white  focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 mb-1 mr-3 ${buttonClass}`}>
-        {estado}
+      <button onClick={handleClick} className={`min-w-[100px] h-[40px] text-white font-medium rounded-lg text-sm mb-1 mr-3 ${buttonClass}`}>
+        {
+          loading ? (<Spinner />) : (estado)
+        }
       </button>
+
       {popup ? (
         <div className='absolute inset-0 backdrop-blur-md'>
           <div className='flex justify-center mt-44'>

@@ -68,7 +68,7 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
           </div>
           <div className="flex gap-5">
             {isOwn && (
-              <EditProfile/>
+              <EditProfile data={profileFullData}/>
             )}
             {profile?.isPremium && (<MdWorkspacePremium size={30} title="Usuário Premium"/>)}
           </div>

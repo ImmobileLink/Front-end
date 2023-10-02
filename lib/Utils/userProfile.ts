@@ -68,5 +68,6 @@ async function getAvaliacao(id: string) {
     return avaliacao;
 }
 
+
 export { getUserData, getProfileFullData, verifyIfIsAssociado }
 
