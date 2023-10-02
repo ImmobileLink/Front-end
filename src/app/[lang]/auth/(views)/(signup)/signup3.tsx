@@ -363,7 +363,7 @@ export default function Signup3({
                                 className={`${
                                     fieldErros?.cep?.[0] != undefined
                                         ? "bg-red-500/50"
-                                        : "bg-dark-200"
+                                        : "bg-branco dark:bg-dark-200"
                                 } mb-1`}
                                 onChange={handleUFChange}
                                 disabled={disabilitarInput}

@@ -50,7 +50,7 @@ export default function Signup5({
                 <div className="w-full h-fit grid grid-cols-1 justify-items-center gap-x-32 gap-y-10 md:grid-cols-2">
                     <div
                         className={`${
-                            !props.premium ? "bg-white/25 rounded-lg" : ""
+                            !props.premium ? "bg-dark-100/25 dark:bg-white/25 rounded-lg" : ""
                         } px-2 py-2 w-64 h-fit grid justify-items-center gap-3 justify-self-center md:justify-self-end`}
                     >
                         <span className="font-bold text-2xl tracking-wider text-black dark:text-branco">
@@ -158,7 +158,7 @@ export default function Signup5({
 
                     <div
                         className={`${
-                            props.premium ? "bg-white/25 rounded-lg" : ""
+                            props.premium ? "bg-dark-100/25 dark:bg-white/25 rounded-lg" : ""
                         } px-2 py-2 w-64 h-fit grid justify-items-center gap-3 justify-self-center md:justify-self-start`}
                     >
                         <span className="font-bold text-2xl tracking-wider text-black dark:text-branco">
