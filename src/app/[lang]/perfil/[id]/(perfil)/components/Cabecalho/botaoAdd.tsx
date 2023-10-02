@@ -19,6 +19,9 @@ export default function BotaoAdd({ idProfile, idSession, dict }: botaoAddProps) 
   const [popup, setPopup] = useState(false)
   const supabase = createClientComponentClient<Database>()
 
+  useEffect(() => {
+    
+  }, [])
 
   const desassociar = async () => {
     const { data, error } = await supabase
@@ -45,7 +48,7 @@ export default function BotaoAdd({ idProfile, idSession, dict }: botaoAddProps) 
       .insert([
         { idcorretor: idProfile, idcorporacao: idSession! },
       ])
-    setEstado("Pendente")
+    setEstado("SolicitacaoEnviada")
   }
 
   const cancelaConvite = async () => {
@@ -66,7 +69,7 @@ export default function BotaoAdd({ idProfile, idSession, dict }: botaoAddProps) 
       setTimeout(() => {
           associar()
       }, 5000);
-    } else if (estado === "Pendente") {
+    } else if (estado === "SolicitacaoEnviada") {
       cancelaConvite()
     } else if (estado === "Associado") {
       setPopup(true)
@@ -84,7 +87,7 @@ export default function BotaoAdd({ idProfile, idSession, dict }: botaoAddProps) 
   const buttonClass = classNames('py-2 px-4 rounded', {
     'bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800': estado === 'Associar',
     'bg-green-700 hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800': estado === 'Associado',
-    'bg-yellow-700 hover:bg-yellow-800 dark:bg-yellow-600 dark:hover:bg-yellow-700 focus:outline-none dark:focus:ring-yellow-800': estado === 'Pendente',
+    'bg-yellow-700 hover:bg-yellow-800 dark:bg-yellow-600 dark:hover:bg-yellow-700 focus:outline-none dark:focus:ring-yellow-800': estado === 'SolicitacaoEnviada',
   });
 
 
