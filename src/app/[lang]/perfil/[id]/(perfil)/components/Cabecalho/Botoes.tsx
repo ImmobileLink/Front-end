@@ -1,5 +1,5 @@
-import Link from "next/link";
 import BotaoAdd from "./botaoAdd";
+import BotaoChat from "./BotaoChat"
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../../../../lib/database.types";
 import { cookies } from "next/headers";
@@ -37,11 +37,7 @@ export default async function Botoes({ }: BotoesProps) {
       {profile?.type != session?.type && (
         <BotaoAdd idProfile={profile?.id!} idSession={session?.id!} dict={dict} />
       )}
-      <Link href={sala}>
-        <button className="w-[100px] text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 font-medium rounded-lg text-sm py-2.5 mb-1 ">
-          Conversar
-        </button>
-      </Link>
+      <BotaoChat sala={sala} />
     </div>
   );
 }
