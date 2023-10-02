@@ -378,5 +378,13 @@
   "cityselector": {
     "estate": "Estate",
     "city": "City"
+  },
+  "survey":{
+    "welcome": "WELCOME TO IMMOBILELINK'S SATISFACTION SURVEY",
+    "explanationsurveysite": "Here you can share your experience using our platform and help Immobilelink to be improved further! This survey takes less than 3 minutes to be concluded, all needed is to indicate on a scale between 1 to 5, how pleased you are with our services, being that 5 = Very satisfied e 1 = Not satisfied.",
+    "pleased": "Very satisfied",
+    "notpleased": "Not satisfied",
+    "share": "Share a little more of your experience:",
+    "finish": "FINISH SURVEY"
   }
 }

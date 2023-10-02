@@ -1,5 +1,3 @@
-"use client";
-
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,17 +8,22 @@ import { FcGoogle } from "react-icons/fc";
 import { Database } from "../../../../lib/database.types";
 import CardRoot from "../(components)/(compositions)/(card)/CardRoot";
 import RadioSelector from "../(components)/(survey)/radioSelector";
+import { getDictionary } from "../dictionaries";
 // import { Database } from "../../../../../lib/database.types";
 // import PasswordInput from "../../(components)/(auth)/PasswordInput";
 // import Loading from "../../(components)/(auth)/Loading";
 
 interface PageProps {
-    lang: string;
+    params: {
+        lang: string;
+    };
 }
 
 const supabase = createClientComponentClient<Database>();
 
-export default function Survey({ lang }: PageProps) {
+export default async function Survey({ params: { lang } }: PageProps) {
+    const dict = await getDictionary(lang);
+    const survey = dict.survey;
     return (
         <div className="w-full h-screen bg-branco dark:bg-dark-200 ">
             <nav className="w-full sticky top-0 z-50 bg-white dark:bg-gray-900 ">
@@ -46,43 +49,32 @@ export default function Survey({ lang }: PageProps) {
                     <CardRoot className="max-h-[34rem] overflow-y-scroll">
                         <div className="my-2 mx-2 md:my-4 md:mx-8">
                             <h1 className="text-xl md:text-2xl my-2 md:my-4">
-                                BEM-VINDO(A) À PESQUISA DE SATISFAÇÃO DA
-                                IMMOBILELINK
+                                {survey.welcome}
                             </h1>
-                            <p>
-                                Aqui você pode avaliar a sua experiência
-                                utilizando a plataforma e ajudar a tornar a
-                                ImmobileLink ainda melhor!
-                                <br />A pesquisa leva menos de 3 minutos para
-                                ser concluída, basta indicar em uma escala de 1
-                                a 5, o quão satisfeito está com nossos serviços,
-                                sendo 5 = Muito satisfeito e 1 = Nada
-                                satisfeito.
-                            </p>
+                            <p className="pb-8">{survey.explanationsurveysite}</p>
                             <form>
                                 <RadioSelector
                                     params={{
-                                        lang: lang,
+                                        lang: survey,
                                         pergunta: "Pergunta 1",
                                     }}
                                 />
                                 <RadioSelector
                                     params={{
-                                        lang: lang,
+                                        lang: survey,
                                         pergunta: "Pergunta 2",
                                     }}
                                 />
                                 <RadioSelector
                                     params={{
-                                        lang: lang,
+                                        lang: survey,
                                         pergunta: "Pergunta 3",
                                     }}
                                 />
 
                                 <div className="my-4">
                                     <label className="py-2">
-                                        Compartilhe um pouco mais sobre sua
-                                        experiência:
+                                        {survey.share}
                                     </label>
                                     <br />
                                     <textarea
@@ -96,7 +88,7 @@ export default function Survey({ lang }: PageProps) {
                                         className="flex justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
                                     >
                                         {/* <Loading loading={loading} /> */}
-                                        FINALIZAR PESQUISA
+                                        {survey.finish}
                                     </button>
                                 </div>
                             </form>

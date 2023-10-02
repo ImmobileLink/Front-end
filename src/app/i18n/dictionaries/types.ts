@@ -16,6 +16,7 @@ export interface Dictionaries {
     imovel:        Imovel;
     chat:          Chat;
     cityselector:  DictionariesCityselector;
+    survey: Survey;
 }
 
 export interface Auth {
@@ -469,6 +470,15 @@ export interface Chat {
   newconvlabel2: string;
   uploadedfile: string;
   chathome: string;
+}
+
+export interface Survey {
+    welcome: string;
+    explanationsurveysite: string;
+    pleased: string;
+    notpleased: string;
+    share: string;
+    finish: string;
 }
 
 // Converts JSON strings to/from your types

@@ -377,5 +377,13 @@
   "cityselector": {
     "estate": "Estado",
     "city": "Município"
+  },
+  "survey":{
+    "welcome": "BEM-VINDO(A) À PESQUISA DE SATISFAÇÃO DA IMMOBILELINK",
+    "explanationsurveysite": "Aqui você pode avaliar a sua experiência utilizando a plataforma e ajudar a tornar a ImmobileLink ainda melhor! A pesquisa leva menos de 3 minutos para ser concluída, basta indicar em uma escala de 1 a 5, o quão satisfeito está com nossos serviços, sendo 5 = Muito satisfeito e 1 = Nada satisfeito.",
+    "pleased": "Muito satisfeito",
+    "notpleased": "Nada satisfeito",
+    "share": "Compartilhe um pouco mais sobre sua experiência:",
+    "finish": "FINALIZAR PESQUISA"
   }
 }

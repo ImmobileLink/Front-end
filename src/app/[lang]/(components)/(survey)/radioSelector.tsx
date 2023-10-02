@@ -1,8 +1,11 @@
 // seletor de satisfação horizontal de 1 a 5...
 "use client";
+
+import { Survey } from "@/app/i18n/dictionaries/types";
+
 interface RadioSelectorProps {
     params: {
-        lang: string;
+        lang: Survey
         pergunta: string;
     };
 }
@@ -43,8 +46,8 @@ export default function RadioSelector({
                 </div>
             </div>
             <div className="flex flex-row justify-between">
-                <p>Nada satisfeito</p>
-                <p>Muito satisfeito</p>
+                <p>{lang.notpleased}</p>
+                <p>{lang.pleased}</p>
             </div>
         </>
     );
