@@ -479,6 +479,19 @@ export interface Survey {
     notpleased: string;
     share: string;
     finish: string;
+    questions: SurveyQuestions;
+}
+
+export interface SurveyQuestions {
+    question1 : string;
+    question2 : string;
+    question3 : string;
+    question4 : string;
+    question5 : string;
+    question6 : string;
+    question7 : string;
+    question8 : string;
+    question9 : string;
 }
 
 // Converts JSON strings to/from your types

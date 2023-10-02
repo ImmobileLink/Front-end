@@ -56,19 +56,64 @@ export default async function Survey({ params: { lang } }: PageProps) {
                                 <RadioSelector
                                     params={{
                                         lang: survey,
-                                        pergunta: "Pergunta 1",
+                                        pergunta: survey.questions.question1,
+                                        optional: false
                                     }}
                                 />
                                 <RadioSelector
                                     params={{
                                         lang: survey,
-                                        pergunta: "Pergunta 2",
+                                        pergunta: survey.questions.question2,
+                                        optional: false
                                     }}
                                 />
                                 <RadioSelector
                                     params={{
                                         lang: survey,
-                                        pergunta: "Pergunta 3",
+                                        pergunta: survey.questions.question3,
+                                        optional: false
+                                    }}
+                                />
+                                <RadioSelector
+                                    params={{
+                                        lang: survey,
+                                        pergunta: survey.questions.question4,
+                                        optional: false
+                                    }}
+                                />
+                                <RadioSelector
+                                    params={{
+                                        lang: survey,
+                                        pergunta: survey.questions.question5,
+                                        optional: false
+                                    }}
+                                />
+                                <RadioSelector
+                                    params={{
+                                        lang: survey,
+                                        pergunta: survey.questions.question6,
+                                        optional: false
+                                    }}
+                                />
+                                <RadioSelector
+                                    params={{
+                                        lang: survey,
+                                        pergunta: survey.questions.question7,
+                                        optional: false
+                                    }}
+                                />
+                                <RadioSelector
+                                    params={{
+                                        lang: survey,
+                                        pergunta: survey.questions.question8,
+                                        optional: false
+                                    }}
+                                />
+                                <RadioSelector
+                                    params={{
+                                        lang: survey,
+                                        pergunta: survey.questions.question9,
+                                        optional: true
                                     }}
                                 />
 
