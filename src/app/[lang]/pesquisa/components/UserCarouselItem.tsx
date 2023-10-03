@@ -8,6 +8,7 @@ import { Labels } from "@/app/i18n/dictionaries/types";
 interface UserCarouselItemProps {
   corretor: CorretorCarouselItem | null;
   dict: Labels;
+  key: number
 }
 
 export default function UserCarouselItem({ corretor, dict }: UserCarouselItemProps) {

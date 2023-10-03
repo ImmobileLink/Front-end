@@ -20,7 +20,7 @@ export default function ResultContainer({ dict }: ResultContainerProps) {
         !loading ? (
           resultado ? (
             resultado.length > 0 ? (
-              <div className="w-full h-fit flex flex-wrap gap-4">
+              <div className="w-full h-fit grid grid-cols-1 md:grid-cols-2 gap-4">
                 {
                   resultado.map((item, index) => {
                     return (

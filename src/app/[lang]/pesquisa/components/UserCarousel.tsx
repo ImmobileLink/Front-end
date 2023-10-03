@@ -12,9 +12,9 @@ export default async function UserCarousel({ data, dict }: UserCarouselProps) {
     <div className="w-full overflow-x-auto">
       <div className='w-fit flex mt-2 gap-2'>
         {
-          data?.map(item => {
+          data?.map((item, index) => {
             return (
-              <UserCarouselItem corretor={item} dict={dict}/>
+              <UserCarouselItem key={index} corretor={item} dict={dict}/>
             )
           })
         }
