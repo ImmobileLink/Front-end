@@ -16,7 +16,6 @@ interface ChatHubCardProps {
 
 export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar }: ChatHubCardProps) {
     const { toggleChatView } = useContext(ChatContext)
-    console.log(mensagem)
 
     const handleClick = (e: any, idsala: string, idsaladestino: string) => {
         if(idsala == idsaladestino) {
