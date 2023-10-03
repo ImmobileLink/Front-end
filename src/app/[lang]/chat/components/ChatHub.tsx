@@ -72,7 +72,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
         })
         .order('atualizadoem', { ascending: false })
       if (error) {
-        console.log("error")
+        console.log(error)
       }
       else {
         setMessages(data)
