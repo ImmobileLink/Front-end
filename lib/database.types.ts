@@ -13,16 +13,19 @@ export interface Database {
         Row: {
           idcorporacao: string
           idcorretor: string
+          iniciativa: string
           pendente: boolean | null
         }
         Insert: {
           idcorporacao: string
           idcorretor: string
+          iniciativa: string
           pendente?: boolean | null
         }
         Update: {
           idcorporacao?: string
           idcorretor?: string
+          iniciativa?: string
           pendente?: boolean | null
         }
         Relationships: [
@@ -525,52 +528,58 @@ export interface Database {
       }
       resultadoformulario: {
         Row: {
-          campo1: number
-          campo2: number
-          campo3: number
-          campo4: number
-          campo5: number
-          campo6: number
-          campo7: number
+          atualizadoem: string
+          campo1: number | null
+          campo10: string | null
+          campo2: number | null
+          campo3: number | null
+          campo4: number | null
+          campo5: number | null
+          campo6: number | null
+          campo7: number | null
           campo8: number | null
-          criadoem: string
-          emailcliente: string
+          campo9: number | null
           id: string
-          idcorretor: string
+          idvisita: string
+          status: boolean | null
         }
         Insert: {
-          campo1: number
-          campo2: number
-          campo3: number
-          campo4: number
-          campo5: number
-          campo6: number
-          campo7: number
+          atualizadoem?: string
+          campo1?: number | null
+          campo10?: string | null
+          campo2?: number | null
+          campo3?: number | null
+          campo4?: number | null
+          campo5?: number | null
+          campo6?: number | null
+          campo7?: number | null
           campo8?: number | null
-          criadoem?: string
-          emailcliente: string
+          campo9?: number | null
           id?: string
-          idcorretor: string
+          idvisita: string
+          status?: boolean | null
         }
         Update: {
-          campo1?: number
-          campo2?: number
-          campo3?: number
-          campo4?: number
-          campo5?: number
-          campo6?: number
-          campo7?: number
+          atualizadoem?: string
+          campo1?: number | null
+          campo10?: string | null
+          campo2?: number | null
+          campo3?: number | null
+          campo4?: number | null
+          campo5?: number | null
+          campo6?: number | null
+          campo7?: number | null
           campo8?: number | null
-          criadoem?: string
-          emailcliente?: string
+          campo9?: number | null
           id?: string
-          idcorretor?: string
+          idvisita?: string
+          status?: boolean | null
         }
         Relationships: [
           {
-            foreignKeyName: "resultadoformulario_idcorretor_fkey"
-            columns: ["idcorretor"]
-            referencedRelation: "corretor"
+            foreignKeyName: "resultadoformulario_idvisita_fkey"
+            columns: ["idvisita"]
+            referencedRelation: "visita"
             referencedColumns: ["id"]
           }
         ]
@@ -796,6 +805,9 @@ export interface Database {
         Returns: {
           id: string
           nome: string
+          estado: string
+          cidade: string
+          bairro: string
         }[]
       }
       get_corretores_by_corporacao_especialidade: {
@@ -1108,6 +1120,31 @@ export interface Database {
           idusuario: string
         }[]
       }
+      getcorretorwithavatar: {
+        Args: {
+          corretor_id: string
+        }
+        Returns: {
+          id: string
+          nome: string
+          cpf: string
+          cnpj: string
+          creci: string
+          cep: string
+          estado: string
+          cidade: string
+          bairro: string
+          logradouro: string
+          numero: number
+          complemento: string
+          telefone: string
+          celular: string
+          comercial: string
+          premium: boolean
+          sobre: string
+          avatar: string
+        }[]
+      }
       mensagem_com_usuario: {
         Args: {
           sala: string
@@ -1161,6 +1198,17 @@ export interface Database {
           estado: string
           cidade: string
           sobre: string
+        }[]
+      }
+      obter_dados_survey: {
+        Args: {
+          visita_id: string
+        }
+        Returns: {
+          corporacao: string
+          corretor: string
+          datavisita: string
+          cliente: string
         }[]
       }
       obter_nomes_corretores: {
