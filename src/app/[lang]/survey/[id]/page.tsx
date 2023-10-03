@@ -80,12 +80,14 @@ export default async function Survey({ params: { id, lang } }: PageProps) {
                                     :
                                     surveyData.formularioresposta[0].status ?
                                         <>
-                                            <h1 className="text-xl md:text-2xl my-2 md:my-4">
-                                                {survey.thanksforanswering}
-                                            </h1>
                                             <div className="text-justify lg:text-start">
-                                                <p>{survey.bestregards + ","}</p>
-                                                <p>ImmobileLink</p>
+                                                <h1 className="text-xl md:text-2xl my-2 md:my-4">
+                                                    {survey.thanksforanswering}
+                                                </h1>
+                                                <div className="text-justify lg:text-start">
+                                                    <p>{survey.bestregards + ","}</p>
+                                                    <p>ImmobileLink</p>
+                                                </div>
                                             </div>
                                         </>
                                         :
@@ -98,17 +100,17 @@ export default async function Survey({ params: { id, lang } }: PageProps) {
                                             </h2>
                                             <div className="text-justify lg:text-start">
                                                 <p className="pb-2">
-                                                    { survey.referenceday + " " }
+                                                    {survey.referenceday + " "}
                                                     <span className="font-bold">{formataDataSemHora(surveyData.visita!.data![0].datavisita) + " "}</span>
-                                                    { survey.referencebroker + " " }
+                                                    {survey.referencebroker + " "}
                                                     <span className="font-bold">{surveyData.visita!.data![0].corretor + ", "}</span>
-                                                    { survey.referencecompany + " " }
+                                                    {survey.referencecompany + " "}
                                                     <span className="font-bold">{surveyData.visita!.data![0].corporacao + "."}</span>
                                                 </p>
                                                 <p>{survey.explanationsurveysite1}</p>
                                                 <p className="pb-8">{survey.explanationsurveysite2}</p>
                                             </div>
-                                            <SurveyForm survey={survey} />
+                                            <SurveyForm survey={survey} id={id} />
                                         </>
                             }
                         </div>

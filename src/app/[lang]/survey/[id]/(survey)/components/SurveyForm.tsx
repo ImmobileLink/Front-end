@@ -2,10 +2,15 @@
 
 import RadioSelector from "@/app/[lang]/(components)/(survey)/radioSelector";
 import { Survey } from "@/app/i18n/dictionaries/types";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { Database } from "../../../../../../../lib/database.types";
+import { useRouter } from "next/navigation";
+import { Spinner } from "flowbite-react";
 
 interface SurveyFormProps {
   survey: Survey;
+  id: string
 }
 
 interface FormDataProps {
@@ -21,7 +26,11 @@ interface FormDataProps {
   campo10?: string,
 }
 
-export default function SurveyForm({ survey }: SurveyFormProps) {
+const supabase = createClientComponentClient<Database>()
+
+export default function SurveyForm({ survey, id }: SurveyFormProps) {
+  const route = useRouter()
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState<FormDataProps>({
     campo1: undefined,
@@ -43,9 +52,30 @@ export default function SurveyForm({ survey }: SurveyFormProps) {
     });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+
+    setLoading(true);
+
     e.preventDefault();
-    console.log(formData)
+    const { data } = await supabase.from("resultadoformulario").update(
+      {
+        campo1: formData.campo1,
+        campo2: formData.campo2,
+        campo3: formData.campo3,
+        campo4: formData.campo4,
+        campo5: formData.campo5,
+        campo6: formData.campo6,
+        campo7: formData.campo7,
+        campo8: formData.campo8,
+        campo9: formData.campo9,
+        campo10: formData.campo10,
+        status: true
+      }
+    ).eq("id", id)
+
+    setLoading(false);
+    route.refresh();
+
   }
 
   return (
@@ -153,7 +183,8 @@ export default function SurveyForm({ survey }: SurveyFormProps) {
             className="flex justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
           >
             {/* <Loading loading={loading} /> */}
-            {survey.finish}
+            { loading && <Spinner className="mr-2"/> }
+            { survey.finish }
           </button>
         </div>
       </form>
