@@ -59,10 +59,25 @@ export default async function Page({ params: { lang, idsala } }: pageProps) {
       })
       .order('atualizadoem', { ascending: false })
     if (error) {
-      console.log("error")
+      console.log(error)
     }
     else {
       return data
+    }
+  }
+
+  const getUserRooms = async (idusuario: string) => {
+    const { data, error } = await supabase
+      .from('usuarioporsala')
+      .select('idsala')
+      .eq('idusuario', idusuario)
+    if (error) {
+      console.log(error)
+    }
+    else {
+      const array = data.map(item => item.idsala)
+      const string = array.toString()
+      return string
     }
   }
 
@@ -71,9 +86,6 @@ export default async function Page({ params: { lang, idsala } }: pageProps) {
     assoc: []
   };
 
-
-
-
   const resultado: UltimaMensagemPorSalaPorUsuario[] | null | undefined = await getLastMessages()
   let messages: UltimaMensagemPorSalaPorUsuario[] = []
 
@@ -81,11 +93,14 @@ export default async function Page({ params: { lang, idsala } }: pageProps) {
     messages = resultado
   }
   const userData = await getUserData();
-
+  let userRooms: string | undefined = ''
+  if(userData.id){
+    userRooms = await getUserRooms(userData.id)
+  }
   return (
     <ChatProvider>
       <div className="fixed flex top-0 bottom-0 pt-[72px] left-0 right-0 justify-center lg:items-center lg:w-auto gap-5">
-        <ChatHub dict={dict} idsala={salaid} userType={userData.type} userId={userData.id} userLinks={userData.links} userAssocs={userData.assoc} mensagens={messages} />
+        <ChatHub dict={dict} idsala={salaid} userType={userData.type} userId={userData.id} userLinks={userData.links} userAssocs={userData.assoc} mensagens={messages} userRooms={userRooms}/>
         <ChatSpaceClient dict={dict.chat} idsala={salaid} userId={userData.id}>
           <ChatSpace dict={dict.chat} idsala={salaid} userId={userData.id} />
         </ChatSpaceClient>

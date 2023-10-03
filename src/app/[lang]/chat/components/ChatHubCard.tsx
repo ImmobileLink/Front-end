@@ -16,6 +16,7 @@ interface ChatHubCardProps {
 
 export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar }: ChatHubCardProps) {
     const { toggleChatView } = useContext(ChatContext)
+    console.log(mensagem)
 
     const handleClick = (e: any, idsala: string, idsaladestino: string) => {
         if(idsala == idsaladestino) {
@@ -38,7 +39,7 @@ export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar
                                 mensagem!.idautor === userId ?
                                     <div>{dict.you}: {mensagem!.mensagem}</div>
                                     :
-                                    mensagem!.nomeautor
+                                    <div>{mensagem!.nomeautor}: {mensagem!.mensagem}</div>
                             }
                         </div>
                     </div>

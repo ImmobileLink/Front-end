@@ -24,6 +24,7 @@ export type Corretor = Database['public']['Tables']['corretor']['Row']
 export type Corporacao = Database['public']['Tables']['corporacao']['Row']
 export type ImovelDB = Database['public']['Tables']['imovel']['Row']
 export type ImovelRegistro = Database['public']['Tables']['imovel']['Row']
+export type UsuarioPorSala = Database['public']['Tables']['usuarioporsala']['Row']
 export interface InsereImovel {
     idcorporacao: string,
     descricao: string,
@@ -200,4 +201,8 @@ export type filterType = {
     cidade: string;
     avaliacao: number;
     especialidades: string[];
+  }
+
+  export type salaUsuario = {
+    idsala:string
   }
