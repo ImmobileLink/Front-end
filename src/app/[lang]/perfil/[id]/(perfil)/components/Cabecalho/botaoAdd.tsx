@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from '@/../../lib/database.types';
-import { getEstadoBtnAssoc } from '@/../../lib/Utils/Associacao'
+import { getEstadoBtnAssoc } from '../../../../../../../../lib/utils/Associacao'
 import { Spinner } from "flowbite-react";
 
 

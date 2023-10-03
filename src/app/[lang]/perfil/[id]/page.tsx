@@ -53,7 +53,6 @@ export default async function page({ params: { id, lang } }: pageProps) {
 
   useProfileStore.setState({ profileData: profileData, profileFullData: profileFullData, sessionData: sessionData, dict: dict })
 
-
   return (
     <>
       {profileData.id ?
@@ -62,7 +61,7 @@ export default async function page({ params: { id, lang } }: pageProps) {
         ) : (<EmpresaProfile />)
         : 
           <div className='flex justify-center items-center flex-col'>
-            <h1 className='text-3xl font-semibold text-gray-800'>Ops, esse perfil não existe</h1>
+            <h1 className='text-3xl font-semibold text-gray-800 dark:text-white'>Ops, esse perfil não existe</h1>
             <Link href={'/feed'} className='mt-4 text-blue-600 hover:underline'>Voltar ao feed</Link>
           </div>
         }

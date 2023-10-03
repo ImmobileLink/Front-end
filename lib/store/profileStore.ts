@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Corporacao, Corretor, userData } from "../modelos";
+import { Corporacao, Corretor, userData, } from "../modelos";
 import { Dictionaries } from "@/app/i18n/dictionaries/types";
 
 
@@ -7,7 +7,7 @@ import { Dictionaries } from "@/app/i18n/dictionaries/types";
 interface ProfileStoreState {
   profileData: userData | null;
   sessionData: userData | null;
-  profileFullData: Corretor | Corporacao | null;
+  profileFullData: (Corretor & { avatar: string }) | (Corporacao & { avatar: string }) | null;
   dict: Dictionaries | null;
 }
 
