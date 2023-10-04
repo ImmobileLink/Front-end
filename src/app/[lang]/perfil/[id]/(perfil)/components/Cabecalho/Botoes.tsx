@@ -19,6 +19,7 @@ export default async function Botoes({ }: BotoesProps) {
 
   const state = useProfileStore.getState()
 
+
   const profile = state.profileData
   const session = state.sessionData
   const dict = state.dict
@@ -32,12 +33,10 @@ export default async function Botoes({ }: BotoesProps) {
 
   let sala = `/chat/${data}`
 
-  console.log(session)
-
   return (
     <div className="mt-5 flex flex-wrap">
       {profile?.type != session?.type && (
-        <BotaoAdd idProfile={profile?.id!} idSession={session?.id!} dict={dict} />
+        <BotaoAdd idProfile={profile?.id!} idSession={session?.id} typeSession ={session?.type} dict={dict} />
       )}
       <BotaoChat sala={sala} />
     </div>
