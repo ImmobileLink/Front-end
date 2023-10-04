@@ -9,6 +9,8 @@ import BottomNav from "./BottomNav";
 import { ChatContext } from "../[[...idsala]]/ChatContext";
 import { BiArrowBack } from 'react-icons/bi'
 import FriendList from "./FriendList";
+import { getUserRooms } from "../../../../../lib/utils/userRooms";
+import { NotificationContext } from "../../(components)/(navbar)/NotificationContext";
 
 
 interface ChatHubProps {
@@ -26,6 +28,7 @@ const supabase = createClientComponentClient<Database>()
 
 export default function ChatHub({ dict, idsala, userType, userId, userLinks, userAssocs, mensagens, userRooms }: ChatHubProps) {
   const { chatView, toggleChatView } = useContext(ChatContext)
+  const {toggleChatNotification} = useContext(NotificationContext)
   const [rooms, setRooms] = useState<string | undefined>(userRooms)
 
   let chatStyle = 'flex'
@@ -46,9 +49,9 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
   const [messages, setMessages] = useState<UltimaMensagemPorSalaPorUsuario[]>(mensagens!)
 
   //Estados e useRouter para atualizar a lista de conversas quando uma nova msg é enviada (envia o item da conversa para o topo da lista).
-  const router = useRouter()
-  const [isPending, startTransition] = useTransition();
-  const [isFetching, setIsFetching] = useState(false);
+  // const router = useRouter()
+  // const [isPending, startTransition] = useTransition();
+  // const [isFetching, setIsFetching] = useState(false);
 
   // //Função para atualizar a lista de conversas
   // const atualizaHub = () => {
@@ -80,23 +83,34 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
     }
   }
 
-  const getUserRooms = async (idusuario: string) => {
-    const { data, error } = await supabase
-      .from('usuarioporsala')
-      .select('idsala')
-      .eq('idusuario', idusuario)
-    if (error) {
-      console.log(error)
-    }
-    else {
-      const array = data.map(item => item.idsala)
-      const string = array.toString()
-      return string
-    }
+  useEffect(() => {
+    const subscription = supabase.channel("userRoom_changes")
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "usuarioporsala",
+        filter: `idusuario=eq.${userId}`
+      },
+      () => {
+        if (userId) {
+          getUserRooms(userId)
+            .then((response) => {
+              setRooms(response)
+            })
+        }
+      }
+    )
+    .subscribe();
+  return () => {
+    subscription.unsubscribe();
   }
+  },[])
 
   //useEffect com o realtime do supabase para atualizar a lista de conversas quando uma nova mensagem é inserida na mesma sala da URL atual
   useEffect(() => {
+    toggleChatNotification(false)
     const subscription = supabase.channel("chathub_changes")
       .on(
         "postgres_changes",
@@ -107,12 +121,6 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
           filter: `idsala=in.(${userRooms})`
         },
         () => {
-          if (userId) {
-            getUserRooms(userId)
-              .then((response) => {
-                setRooms(response)
-              })
-          }
           getLastMessages()
         }
       )

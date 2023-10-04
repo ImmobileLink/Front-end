@@ -1,6 +1,7 @@
 import "@/app/globals.css";
 
 import { dir } from "i18next";
+import { NotificationProvider } from "./(components)/(navbar)/NotificationContext";
 
 export const metadata = {
   title: "ImmobileLink",
@@ -23,7 +24,9 @@ export default async function RootLayout({
       dir={dir(lang)}
     >
       <body>
-        {children}
+        <NotificationProvider>
+          {children}
+        </NotificationProvider>
       </body>
     </html>
   );

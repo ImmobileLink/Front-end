@@ -9,6 +9,7 @@ import { userData } from "../../../../../lib/modelos";
 import NavBarHamburguerMenu from "./NavBarHamburguerMenu";
 import NavBarProfileMenu from "./NavBarProfileMenu";
 import { cache } from "react";
+import ChatIcon from "./ChatIcon";
 
 interface NavBarProps {
   params: {
@@ -37,7 +38,7 @@ export default async function NavBar({ params: { lang } }: NavBarProps) {
   let user: userData = {
     id: undefined
   }
-  
+
   const userData = await getUserData(user);
   const dict = await getDictionary(lang); // pt
 
@@ -100,7 +101,7 @@ export default async function NavBar({ params: { lang } }: NavBarProps) {
                     </Link>
                   </li>
                   <li>
-                    <Link href="/chat" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                    {/* <Link href="/chat" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                       <Image
                         className="mx-auto h-6 w-auto"
                         src="assets/icons/chat.svg"
@@ -108,7 +109,8 @@ export default async function NavBar({ params: { lang } }: NavBarProps) {
                         width={1}
                         height={1}
                       />
-                    </Link>
+                    </Link> */}
+                    <ChatIcon userId={userData.id}/>
                   </li>
                 </>
               )
