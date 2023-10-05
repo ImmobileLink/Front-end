@@ -35,7 +35,7 @@ export default function PostFormCard({ textos, idusuario, avatarusuario }: PostF
       setLogErro(textos.form.writeamessage);
     } else if (!selectedCity) {
       setErro(true);
-      setLogErro(textos.form.cityselector.selectacity);
+      setLogErro(textos.form.cityselector.selectacity!);
     } else {
       setLoading(true);
       const response = await publishPost({ idusuario, regiao: { estado: selectedState, cidade: selectedCity }, texto, imagem })

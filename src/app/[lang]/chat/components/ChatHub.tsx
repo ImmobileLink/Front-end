@@ -9,7 +9,6 @@ import BottomNav from "./BottomNav";
 import { ChatContext } from "../[[...idsala]]/ChatContext";
 import { BiArrowBack } from 'react-icons/bi'
 import FriendList from "./FriendList";
-import { getUserRooms } from "../../../../../lib/utils/userRooms";
 import { NotificationContext } from "../../(components)/(navbar)/NotificationContext";
 
 
@@ -30,7 +29,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
   const { chatView, toggleChatView } = useContext(ChatContext)
   const {toggleChatNotification} = useContext(NotificationContext)
   const [rooms, setRooms] = useState<string | undefined>(userRooms)
-
+  
   let chatStyle = 'flex'
 
   if (chatView) {
@@ -49,22 +48,22 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
   const [messages, setMessages] = useState<UltimaMensagemPorSalaPorUsuario[]>(mensagens!)
 
   //Estados e useRouter para atualizar a lista de conversas quando uma nova msg é enviada (envia o item da conversa para o topo da lista).
-  // const router = useRouter()
-  // const [isPending, startTransition] = useTransition();
-  // const [isFetching, setIsFetching] = useState(false);
+  const router = useRouter()
+  const [isPending, startTransition] = useTransition();
+  const [isFetching, setIsFetching] = useState(false);
 
-  // //Função para atualizar a lista de conversas
-  // const atualizaHub = () => {
-  //   setIsFetching(true);
-  //   getLastMessages()
-  //   setIsFetching(false);
+  //Função para atualizar a lista de conversas
+  const atualizaHub = () => {
+    setIsFetching(true);
+    getLastMessages()
+    setIsFetching(false);
 
-  //   startTransition(() => {
-  //     // Refresh the current route and fetch new data from the server without
-  //     // losing client-side browser or React state.
-  //     router.refresh();
-  //   });
-  // }
+    startTransition(() => {
+      // Refresh the current route and fetch new data from the server without
+      // losing client-side browser or React state.
+      router.refresh();
+    });
+  }
 
   //Função de fetch que é chamada pela função atualizaHub
   const getLastMessages = async () => {
@@ -83,6 +82,22 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
     }
   }
 
+  const getUserRooms = async (idusuario: string) => {
+    const supabase = createClientComponentClient<Database>()
+    const { data, error } = await supabase
+        .from('usuarioporsala')
+        .select('idsala')
+        .eq('idusuario', idusuario)
+    if (error) {
+        console.log(error)
+    }
+    else {
+        const array = data.map(item => item.idsala)
+        const string = array.toString()
+        return string
+    }
+}
+
   useEffect(() => {
     const subscription = supabase.channel("userRoom_changes")
     .on(
@@ -94,12 +109,14 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
         filter: `idusuario=eq.${userId}`
       },
       () => {
+        console.log(rooms)
         if (userId) {
           getUserRooms(userId)
             .then((response) => {
               setRooms(response)
             })
         }
+        console.log('room change')
       }
     )
     .subscribe();
@@ -111,6 +128,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
   //useEffect com o realtime do supabase para atualizar a lista de conversas quando uma nova mensagem é inserida na mesma sala da URL atual
   useEffect(() => {
     toggleChatNotification(false)
+    console.log(rooms)
     const subscription = supabase.channel("chathub_changes")
       .on(
         "postgres_changes",
@@ -118,17 +136,18 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
           event: "INSERT",
           schema: "public",
           table: "mensagem",
-          filter: `idsala=in.(${userRooms})`
+          filter: `idsala=in.(${rooms})`
         },
         () => {
-          getLastMessages()
+          console.log('chathub change')
+          atualizaHub()
         }
       )
       .subscribe();
     return () => {
       subscription.unsubscribe();
     }
-  }, [messages])
+  }, [])
 
   const style = 'bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
   //Exibe a lista de amigos

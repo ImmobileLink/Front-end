@@ -3,10 +3,10 @@ import { Navbarbuttons } from "@/app/i18n/dictionaries/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { BsList } from "react-icons/bs";
 import { Database } from "../../../../../lib/database.types";
 import Link from "next/link";
 import { Spinner } from "flowbite-react";
+import { HiMenu } from "react-icons/hi";
 
 interface NavBarHamburguerMenuProps {
   textos: Navbarbuttons;
@@ -34,13 +34,13 @@ export default function NavBarHamburguerMenu({ textos, userId }: NavBarHamburgue
   return (
     <>
       <div className="relative md:hidden">
-        <button onClick={toggleHamburguerMenu} className="flex items-center justify-between w-full p-1 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
-          <BsList className="text-3xl" />
+        <button onClick={toggleHamburguerMenu} className="flex justify-between rounded hover:bg-gray-100 hover:bg-transparent border-0 hover:text-blue-700 p-0 w-auto md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:bg-transparent">
+          <HiMenu size={32}/>
         </button>
         {
           isHamburguerMenuOpen && (
             <div className="absolute top-12 right-0 z-10 w-44 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-xl dark:bg-gray-700 dark:divide-gray-600" >
-              <ul className="py-2 text-sm text-gray-700 dark:text-gray-400">
+              <ul className="text-start py-2 text-sm text-gray-700 dark:text-gray-400">
                 <li>
                   <Link
                     href="/feed"
@@ -54,7 +54,7 @@ export default function NavBarHamburguerMenu({ textos, userId }: NavBarHamburgue
                     <>
                       <li>
                         <Link
-                          href={`perfil/${userId}`}
+                          href={`/perfil/${userId}`}
                           className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
                           {textos.myprofile}

@@ -8,6 +8,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import { useRouter } from "next/navigation";
 import { Spinner } from "flowbite-react";
+import { HiUserCircle } from "react-icons/hi2";
 
 interface NavBarProfileMenuProps {
   textos: Navbarbuttons;
@@ -35,27 +36,29 @@ export default function NavBarProfileMenu({ textos, userId }: NavBarProfileMenuP
 
   return (
     <li className="relative">
-      <button onClick={toggleProfileMenu} className="flex items-center justify-between w-full py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent" >
-        <Image
-          className="mx-auto h-6 w-auto"
-          src="assets/icons/perfil.svg"
-          alt="Ícone"
-          width={1}
-          height={1}
-        />
+      <button onClick={toggleProfileMenu} className="hidden md:block items-center justify-between text-gray-900 rounded hover:bg-gray-100 hover:bg-transparent border-0 hover:text-blue-700 p-0 w-auto dark:text-white dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:bg-transparent" >
+        <HiUserCircle size={32}/>
       </button>
       {isProfileMenuOpen && (
         <div className="absolute top-8 right-0 z-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600" >
-          <ul className="py-2 text-sm text-gray-700 dark:text-gray-400">
+          <ul className="py-2 text-start text-sm text-gray-700 dark:text-gray-400">
             {
               userId && (
                 <>
                   <li>
                     <Link
-                      href={`perfil/${userId}`}
+                      href={`/perfil/${userId}`}
                       className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     >
                       {textos.myprofile}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href={`/visita/${userId}`}
+                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    >
+                      {textos.schedule}
                     </Link>
                   </li>
                 </>
@@ -79,7 +82,7 @@ export default function NavBarProfileMenu({ textos, userId }: NavBarProfileMenuP
                   className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white"
                 >
                   {
-                    loading ? <Spinner/> : textos.logoutbutton
+                    loading ? <Spinner /> : textos.logoutbutton
                   }
                 </a>
               ) : (
