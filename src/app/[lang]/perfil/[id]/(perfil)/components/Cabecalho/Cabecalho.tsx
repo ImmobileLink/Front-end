@@ -6,11 +6,13 @@ import { cookies } from "next/headers";
 import { useProfileStore } from "../../../../../../../../lib/store/profileStore";
 import Botoes from "./Botoes";
 import { cache } from "react";
-import EditProfile from "./EditProfile";
 import RatingCount from "./Rating";
 import { Card } from "@/app/[lang]/(components)/(compositions)/(card)";
 import Dashboard from "../Dashboard/Dashboard";
 import { MdWorkspacePremium } from 'react-icons/md';
+import EditProfileCorporacao from "./EditProfileCorporacao";
+import EditProfileCorretor from "./EditProfileCorretor";
+import { Corporacao, Corretor } from "../../../../../../../../lib/modelos";
 
 
 
@@ -31,6 +33,8 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
   const session = state.sessionData
   const profile = state.profileData
   const profileFullData = state.profileFullData
+
+
 
   const isOwnProfile = () => {
     if (session?.id == profile?.id) {
@@ -63,13 +67,17 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
       <div className="p-8 -mt-28 relative">
         <div className="flex justify-between w-full mb-3 items-end">
           <div className="w-34 h-34 rounded-full bg-white flex justify-center items-center">
-            <Avatar route={profileFullData!.avatar} size={"l"} />
+            <Avatar route={profile?.avatar!} size={"l"} />
           </div>
           <div className="flex gap-5">
             {isOwn && (
-              <EditProfile data={profileFullData}/>
+              session?.type == "corretor" ? (
+                <EditProfileCorretor data={profileFullData as Corretor} />
+              ) : (
+                <EditProfileCorporacao data={profileFullData as Corporacao} />
+              )
             )}
-            {profile?.isPremium && (<MdWorkspacePremium size={30} title="Usuário Premium"/>)}
+            {profile?.isPremium && (<MdWorkspacePremium size={30} title="Usuário Premium" />)}
           </div>
         </div>
         <h2 className="font-bold text-2xl dark:text-white">{profile?.nome}</h2>

@@ -7,7 +7,7 @@ import { Dictionaries } from "@/app/i18n/dictionaries/types";
 interface ProfileStoreState {
   profileData: userData | null;
   sessionData: userData | null;
-  profileFullData: (Corretor & { avatar: string }) | (Corporacao & { avatar: string }) | null;
+  profileFullData: Corretor  | Corporacao | null;
   dict: Dictionaries | null;
 }
 

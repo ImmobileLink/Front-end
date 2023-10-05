@@ -5,10 +5,11 @@ import { AiFillEdit } from "react-icons/ai";
 import { Button, Modal } from 'flowbite-react';
 import { useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
+import { Corporacao, Corretor } from "../../../../../../../../lib/modelos";
 
 
 interface EditProfileProps {
-    data: any;
+    data: Corretor;
 }
 
 export default function EditProfile({ data }: EditProfileProps) {
@@ -16,7 +17,6 @@ export default function EditProfile({ data }: EditProfileProps) {
     const props = { openModal, setOpenModal };
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-
 
     const onSubmit = (data: any) => {
         console.log(errors)
@@ -33,19 +33,19 @@ export default function EditProfile({ data }: EditProfileProps) {
                 <Modal.Body>
                     <div className="space-y-6 sm:mx-auto sm:w-full sm:max-w-sm text-sm" >
                         <div className="flex flex-col">
-                            <label className="text-gray-300">Nome</label>
-                            <input type="text" {...register("name", { required: true })} className={`text-base py-2.5 px-0 w-full text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent`} />
+                            <label className="text-gray-500 dark:text-gray-300">Nome</label>
+                            <input type="text"  {...register("name", { required: true })} className={`text-base py-2.5 px-0 w-full text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent`} />
                             {errors?.name?.type == 'required' && <p className="text-red-500 text-xs mt-1">É preciso inserir um nome</p>}
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="text-gray-300">Sobrenome</label>
+                            <label className="text-gray-500 dark:text-gray-300">Sobrenome</label>
                             <input type="text" {...register("lastName", { required: true })} className="py-2.5 px-0 w-full text-base text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent" />
                             {errors?.lastName?.type == 'required' && <p className="text-red-500 text-xs mt-1">É preciso inserir um sobrenome</p>}
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="text-gray-300">Sobre</label>
+                            <label className="text-gray-500 dark:text-gray-300">Sobre</label>
                             <textarea id="" {...register("about")} cols={30} rows={2} className="py-2.5 px-0 w-full text-base text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent"></textarea>
                         </div>
 

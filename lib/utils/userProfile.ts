@@ -13,17 +13,17 @@ export const createServerSupabaseClient = cache(() => {
 async function getProfileFullData(type: string, id: string) {
     const supabase = createServerSupabaseClient();
     if(type == "corretor"){
-        let { data: corretorData, error } = await supabase
-        .rpc('get_corretor_com_avatar', {
-          corretor_id: id
-        })
+        let { data: corretorData } = await supabase
+        .from('corretor')
+        .select('*')
+        .eq('id', id)
         .single()
         return corretorData;
     } else{
-        let { data: corporacaoData, error } = await supabase
-        .rpc('get_corporacao_com_avatar', {
-          corporacao_id: id
-        })
+        let { data: corporacaoData } = await supabase
+        .from('corporacao')
+        .select('*')
+        .eq('id', id)
         .single()
         return corporacaoData;
     }
