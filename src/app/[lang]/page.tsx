@@ -12,7 +12,7 @@ interface PageProps {
 export default function Page({ params: { lang } }: PageProps) {
   const router = useRouter();
   useEffect(()=>{
-    router.push(`${lang}/feed`);
+    router.push(`${lang}/home`);
   }, [])
 
   return <></>;
