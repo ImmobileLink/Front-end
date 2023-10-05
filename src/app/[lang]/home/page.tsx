@@ -5,6 +5,7 @@ import { userData } from "../../../../lib/modelos";
 import { getDictionary } from "../dictionaries";
 import Banner from "./components/banner";
 import Card1 from "./components/card1";
+import Card2 from "./components/card2";
 
 interface HomeProps {
     params: {
@@ -20,6 +21,7 @@ export default async function Home({ params: { lang } }: HomeProps) {
             <NavBarHome lang={lang}/>
             <Banner lang={lang}/>
             <Card1 lang={lang}/>
+            <Card2 lang={lang}/>
         </div>
     );
 }
