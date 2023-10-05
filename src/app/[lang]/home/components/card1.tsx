@@ -20,11 +20,11 @@ export default function Card1({ lang }: Card1Props) {
                 iaculis dolor, vel aliquet nisl aliquet iaculis.
             </p>
             <div>
-            <div className="bg-gray-400 rounded-full h-60 w-60">
+            <div className="bg-gray-400 rounded-full h-72 w-72">
                         <Suspense fallback="Loading...">
                             <Image
                                 className="mx-auto h-56 w-auto"
-                                src="assets/login/contacorretor.png"
+                                src="assets/landingpage/teamup.svg"
                                 width={1}
                                 height={1}
                                 alt="Encontre oportunidades"
