@@ -31,16 +31,15 @@ export default function NavBarHome({ lang }: NavBarHomeProps) {
                             </span>
                         </Link>
                         <div className="ml-5 relative hidden md:block">
-                        <a className="font-semibold px-4 py-2 mx-4 cursor-pointer">Sobre a plataforma</a>
-                        <a className="font-semibold px-4 py-2 mx-4 cursor-pointer">Recursos</a>
-                        <a className="font-semibold px-4 py-2 mx-4">
-                            <Link href="/plano">Premium</Link>
-                        </a>
+                        <a className="font-semibold px-4 py-2 mx-2 cursor-pointer">Sobre a plataforma</a>
+                        <a className="font-semibold px-4 py-2 mx-2 cursor-pointer">Recursos</a>
+                        <Link className="font-semibold px-4 py-2 mx-2" href="/plano">Premium</Link>
+
                     </div>
                     </div>
                     <button
                         onClick={() => console.log("trata acesso")}
-                        className="flex justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
+                        className="hidden md:flex justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
                     >
                         <Loading loading={loading} />
                         ACESSAR PLATAFORMA
