@@ -16,6 +16,7 @@ export interface Dictionaries {
     imovel:        Imovel;
     chat:          Chat;
     cityselector:  DictionariesCityselector;
+    home: Home;
 }
 
 export interface Auth {
@@ -469,6 +470,10 @@ export interface Chat {
   newconvlabel2: string;
   uploadedfile: string;
   chathome: string;
+}
+
+export interface Home{
+ // types da landing page / home
 }
 
 // Converts JSON strings to/from your types
