@@ -6,6 +6,7 @@ import { getDictionary } from "../dictionaries";
 import Banner from "./components/banner";
 import Card1 from "./components/card1";
 import Card2 from "./components/card2";
+import Card3 from "./components/card3";
 
 interface HomeProps {
     params: {
@@ -22,6 +23,7 @@ export default async function Home({ params: { lang } }: HomeProps) {
             <Banner lang={lang}/>
             <Card1 lang={lang}/>
             <Card2 lang={lang}/>
+            <Card3 lang={lang}/>
         </div>
     );
 }
