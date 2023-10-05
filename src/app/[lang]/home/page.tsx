@@ -12,10 +12,6 @@ interface HomeProps {
     };
 }
 
-// TO DO:
-// Diferenciação para ir para o auth ou para o feed ao acessar
-// scroll para os elementos respectivos na landing page
-
 export default async function Home({ params: { lang } }: HomeProps) {
     const dict = await getDictionary(lang); // pt
         
