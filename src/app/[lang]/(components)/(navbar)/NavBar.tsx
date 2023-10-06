@@ -49,7 +49,7 @@ export default async function NavBar({ params: { lang } }: NavBarProps) {
   return (
     <>
       <nav className="w-full sticky top-0 z-50 bg-white dark:bg-gray-900 ">
-        <div className="max-w-2xl md:max-w-3xl lg:max-w-6xl flex flex-wrap items-center justify-between mx-auto p-2 sm:p-4">
+        <div className="max-w-2xl md:max-w-3xl lg:max-w-6xl flex flex-wrap items-center justify-between mx-auto px-2 py-4 sm:p-4">
           <div className="flex items-center">
             <Link
               href="/feed"

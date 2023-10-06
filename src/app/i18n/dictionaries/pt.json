@@ -10,7 +10,8 @@
     "search": "Pesquisar",
     "subscription": "Planos",
     "loginbutton": "Entrar",
-    "logoutbutton": "Sair"
+    "logoutbutton": "Sair",
+    "language": "Idioma"
   },
   "auth": {
     "always": {

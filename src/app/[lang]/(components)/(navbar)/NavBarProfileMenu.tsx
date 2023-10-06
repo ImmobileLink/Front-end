@@ -6,9 +6,12 @@ import Image from "next/image";
 import { Navbarbuttons } from "@/app/i18n/dictionaries/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Spinner } from "flowbite-react";
 import { HiUserCircle } from "react-icons/hi2";
+import { CircleFlag } from 'react-circle-flags'
+import { Dropdown } from "flowbite-react";
+import CountryDropdown from "./CountryDropdown";
 
 interface NavBarProfileMenuProps {
   textos: Navbarbuttons;
@@ -33,11 +36,10 @@ export default function NavBarProfileMenu({ textos, userId }: NavBarProfileMenuP
     router.push("/auth")
   };
 
-
   return (
     <li className="relative">
       <button onClick={toggleProfileMenu} className="hidden md:block items-center justify-between text-gray-900 rounded hover:bg-gray-100 hover:bg-transparent border-0 hover:text-blue-700 p-0 w-auto dark:text-white dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:bg-transparent" >
-        <HiUserCircle size={32}/>
+        <HiUserCircle size={32} />
       </button>
       {isProfileMenuOpen && (
         <div className="absolute top-8 right-0 z-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600" >
@@ -71,6 +73,14 @@ export default function NavBarProfileMenu({ textos, userId }: NavBarProfileMenuP
               >
                 {textos.subscription}
               </Link>
+            </li>
+            <li>
+              <div
+                className="flex flex-wrap flex-row items-center justify-between px-4 py-2 gap-x-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >
+                {textos.language}
+                <CountryDropdown/>
+              </div>
             </li>
           </ul>
           <div className="py-1">

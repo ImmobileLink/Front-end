@@ -7,6 +7,7 @@ import { Database } from "../../../../../lib/database.types";
 import Link from "next/link";
 import { Spinner } from "flowbite-react";
 import { HiMenu } from "react-icons/hi";
+import CountryDropdown from "./CountryDropdown";
 
 interface NavBarHamburguerMenuProps {
   textos: Navbarbuttons;
@@ -35,7 +36,7 @@ export default function NavBarHamburguerMenu({ textos, userId }: NavBarHamburgue
     <>
       <div className="relative md:hidden">
         <button onClick={toggleHamburguerMenu} className="flex justify-between rounded hover:bg-gray-100 hover:bg-transparent border-0 hover:text-blue-700 p-0 w-auto md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:bg-transparent">
-          <HiMenu size={32}/>
+          <HiMenu size={32} />
         </button>
         {
           isHamburguerMenuOpen && (
@@ -86,6 +87,14 @@ export default function NavBarHamburguerMenu({ textos, userId }: NavBarHamburgue
                   >
                     {textos.subscription}
                   </Link>
+                </li>
+                <li>
+                  <div
+                    className="flex flex-wrap flex-row items-center justify-between px-4 py-2 gap-x-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >
+                    {textos.language}
+                    <CountryDropdown />
+                  </div>
                 </li>
               </ul>
               <div className="py-1">

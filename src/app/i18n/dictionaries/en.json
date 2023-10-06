@@ -10,7 +10,8 @@
     "search": "Search",
     "subscription": "Subscription",
     "loginbutton": "Login",
-    "logoutbutton": "Logout"
+    "logoutbutton": "Logout",
+    "language": "Language"
   },
   "auth": {
     "always": {
