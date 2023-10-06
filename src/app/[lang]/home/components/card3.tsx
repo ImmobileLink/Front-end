@@ -11,7 +11,7 @@ export default function Card3({ lang }: Card3Props) {
         <div className="bg-white dark:bg-gray-900 text-center items-center py-12 md:px-12">
             <div className="md:flex md:flex-col md:text-left">
                 <div>
-                    <p className="text-xl font-semibold md:px-8 md:text-2xl md:pb-8">
+                    <p id="amazing-resources" className="text-xl font-semibold md:px-8 md:text-2xl md:pb-8">
                         Recursos incríveis para corretores e empresas
                     </p>
                     <p className="px-8 pb-4">

@@ -7,7 +7,7 @@ interface Card1Props {
 
 export default function Card1({ lang }: Card1Props) {
     return (
-        <div className="flex flex-col items-center md:text-left text-center justify-center py-8">
+        <div id="about-immobilelink" className="flex flex-col items-center md:text-left text-center justify-center py-8">
             <div className="md:flex md:flex-row">
                 <div className="px-8 md:pl-8">
                     <p className="text-xl font-semibold pb-8 md:pt-12 md:pl-12 md:text-2xl">

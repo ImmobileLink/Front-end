@@ -31,8 +31,8 @@ export default function NavBarHome({ lang }: NavBarHomeProps) {
                             </span>
                         </Link>
                         <div className="ml-5 relative hidden md:block">
-                        <a className="font-semibold px-4 py-2 mx-2 cursor-pointer">Sobre a plataforma</a>
-                        <a className="font-semibold px-4 py-2 mx-2 cursor-pointer">Recursos</a>
+                        <a href="#about-immobilelink" className="font-semibold px-4 py-2 mx-2 cursor-pointer">Sobre a plataforma</a>
+                        <a href="#amazing-resources" className="font-semibold px-4 py-2 mx-2 cursor-pointer">Recursos</a>
                         <Link className="font-semibold px-4 py-2 mx-2" href="/plano">Premium</Link>
 
                     </div>

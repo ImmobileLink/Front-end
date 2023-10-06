@@ -19,6 +19,7 @@ export default async function RootLayout({
 
   return (
     <html
+    className="scroll-smooth"
       lang={lang}
       dir={dir(lang)}
     >
