@@ -19,7 +19,7 @@ export default async function Home({ params: { lang } }: HomeProps) {
 
     return (
         <div className="w-full h-fit min-h-screen bg-branco dark:bg-dark-200">
-            <NavBarHome lang={dict} />
+            <NavBarHome lang={dict}/>
             <Banner lang={dict} />
             <Card1 lang={dict} />
             <Card2 lang={dict} />

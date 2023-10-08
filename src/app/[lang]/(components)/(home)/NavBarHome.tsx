@@ -6,6 +6,7 @@ import { Home } from "@/app/i18n/dictionaries/types";
 import NavBarHamburguerHome from "./NavBarHamburguerHome";
 import { useState } from "react";
 import Loading from "../(auth)/Loading";
+import CountryDropdown from "../(navbar)/CountryDropdown";
 
 interface NavBarHomeProps {
     lang: Home;
@@ -31,20 +32,39 @@ export default function NavBarHome({ lang }: NavBarHomeProps) {
                             </span>
                         </Link>
                         <div className="ml-5 relative hidden md:block">
-                        <a href="#about-immobilelink" className="font-semibold px-4 py-2 mx-2 cursor-pointer">Sobre a plataforma</a>
-                        <a href="#amazing-resources" className="font-semibold px-4 py-2 mx-2 cursor-pointer">Recursos</a>
-                        <Link className="font-semibold px-4 py-2 mx-2" href="/plano">Premium</Link>
-
+                            <a
+                                href="#about-immobilelink"
+                                className="font-semibold px-4 py-2 mx-2 cursor-pointer"
+                            >
+                                Sobre a plataforma
+                            </a>
+                            <a
+                                href="#amazing-resources"
+                                className="font-semibold px-4 py-2 mx-2 cursor-pointer"
+                            >
+                                Recursos
+                            </a>
+                            <Link
+                                className="font-semibold px-4 py-2 mx-2"
+                                href="/plano"
+                            >
+                                Premium
+                            </Link>
+                        </div>
                     </div>
+                    <div className="flex justify-end">
+                        <button
+                            onClick={() => console.log("trata acesso")}
+                            className="hidden md:flex justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
+                        >
+                            <Loading loading={loading} />
+                            ACESSAR PLATAFORMA
+                        </button>
+                        <NavBarHamburguerHome lang={lang} />
+                        <div className="md:ml-12 mt-2 ml-2">
+                            <CountryDropdown />
+                        </div>
                     </div>
-                    <button
-                        onClick={() => console.log("trata acesso")}
-                        className="hidden md:flex justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
-                    >
-                        <Loading loading={loading} />
-                        ACESSAR PLATAFORMA
-                    </button>
-                    <NavBarHamburguerHome lang={lang} />
                 </div>
             </nav>
         </>
