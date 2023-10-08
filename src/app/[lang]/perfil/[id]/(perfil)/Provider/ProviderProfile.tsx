@@ -13,7 +13,7 @@ export default function ProviderProfile({ children }: RootLayout) {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        {children}
+          {children}
       </QueryClientProvider>
     </>
   );

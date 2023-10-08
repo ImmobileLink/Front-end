@@ -1,6 +1,6 @@
 import NavBar from "../../(components)/(navbar)/NavBar";
 import { Page } from "./(perfil)/composition/page";
-import ProviderProfile from "./(perfil)/reactQuery/ProviderProfile";
+import ProviderProfile from "./(perfil)/Provider/ProviderProfile";
 
 export const metadata = {
   title: "ImmobileLink - Perfil",

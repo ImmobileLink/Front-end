@@ -13,6 +13,7 @@ import { MdWorkspacePremium } from 'react-icons/md';
 import EditProfileCorporacao from "./EditProfileCorporacao";
 import EditProfileCorretor from "./EditProfileCorretor";
 import { Corporacao, Corretor } from "../../../../../../../../lib/modelos";
+import CabecalhoData from "./CabecalhoData";
 
 
 
@@ -80,11 +81,8 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
             {profile?.isPremium && (<MdWorkspacePremium size={30} title="Usuário Premium" />)}
           </div>
         </div>
-        <h2 className="font-bold text-2xl dark:text-white">{profile?.nome}</h2>
-        <div className="flex flex-wrap-reverse gap-4 mt-2">
-          <p className="text-gray-500 dark:text-gray-400">{`${profileFullData?.cidade} - ${profileFullData?.estado}`}</p>
-          <RatingCount />
-        </div>
+        
+        <CabecalhoData cidade={profileFullData?.cidade!} estado={profileFullData?.estado!} nome={profile?.nome!} id={profile?.id!} tipo={profile?.type!}/>
 
         {session?.id && !isOwn && (
           <Botoes />

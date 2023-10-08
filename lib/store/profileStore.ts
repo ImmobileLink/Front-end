@@ -7,7 +7,7 @@ import { Dictionaries } from "@/app/i18n/dictionaries/types";
 interface ProfileStoreState {
   profileData: userData | null;
   sessionData: userData | null;
-  profileFullData: Corretor  | Corporacao | null;
+  profileFullData: Corretor | Corporacao | null;
   dict: Dictionaries | null;
 }
 
@@ -16,5 +16,5 @@ export const useProfileStore = create<ProfileStoreState>((set) => ({
   profileData: null,
   sessionData: null,
   profileFullData: null,
-  dict: null
+  dict: null,
 }));
