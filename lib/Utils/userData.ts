@@ -1,7 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Database } from "../database.types";
-import { userData } from "../modelos";
+import { userData } from '../modelos';
 import { cache } from "react";
 
 export const createServerSupabaseClient = cache(() => {
@@ -18,6 +18,7 @@ export async function getTipoUsuario(userData: userData, userId: string): Promis
   if (!error) {
     userData.id = userId;
     userData.nome = data![0].nome;
+    userData.avatar = data![0].avatar;
     userData.isPremium = data![0].ispremium;
     userData.type = data![0].role;
   }

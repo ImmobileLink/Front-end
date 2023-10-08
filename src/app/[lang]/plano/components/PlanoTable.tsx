@@ -1,12 +1,11 @@
 "use client"
 import { Planos } from "@/app/i18n/dictionaries/types";
+import { BsCheckCircle, BsXCircle } from "react-icons/bs";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
-
-import { BsCheckCircle, BsXCircle } from "react-icons/bs"
-
-import { Table } from 'flowbite-react';
-import DismissableModal from "../../(components)/(flowbite)/DismissableModal";
+import { setPremiumFalse, setPremiumTrue } from "../utils";
+import { useRouter } from "next/navigation";
+import { Table } from "flowbite-react";
 
 interface PlanoTableProps {
   role: string;
@@ -14,37 +13,31 @@ interface PlanoTableProps {
   id?: string;
 }
 
-const supabase = createClientComponentClient<Database>({});
+const supabase = createClientComponentClient<Database>();
 
-const setPremiumTrue = async (id: string, role: string) => {
-  if(role == "corretor") {
-    const { data, error } = await supabase
-      .from('corretor')
-      .update({ premium: true })
-      .eq('id', id)
-  } else if (role == "corporacao") {
-    const { data, error } = await supabase
-      .from('corporacao')
-      .update({ premium: true })
-      .eq('id', id)
+export default function PlanoTable({ role, sub, id }: PlanoTableProps) {
+  const router = useRouter()
+
+  const handleSetPremiumFalse = async () => {
+    if(window.confirm(sub.confirmchange + " FREE?")){
+      const callback = await setPremiumFalse(id, role, supabase)
+      if (!callback) {
+        console.log("Error while updating in DB")
+      }
+      router.refresh()
+    }
   }
-}
 
-const setPremiumFalse = async (id: string, role: string) => {
-  if(role == "corretor") {
-    const { data, error } = await supabase
-      .from('corretor')
-      .update({ premium: false })
-      .eq('id', id)
-  } else if (role == "corporacao") {
-    const { data, error } = await supabase
-      .from('corporacao')
-      .update({ premium: false })
-      .eq('id', id)
+  const handleSetPremiumTrue = async () => {
+    if(window.confirm(sub.confirmchange + " PREMIUM?")){
+      const callback = await setPremiumTrue(id, role, supabase)
+      if (!callback) {
+        console.log("Error while updating in DB")
+      }
+      router.refresh()
+    }
   }
-}
 
-export default async function PlanoTable({ role, sub, id }: PlanoTableProps) {
   return (
     <div className="overflow-x-auto">
       <Table>
@@ -158,8 +151,8 @@ export default async function PlanoTable({ role, sub, id }: PlanoTableProps) {
           }
           <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white"></Table.Cell>
-            <Table.Cell className="hover:cursor-pointer hover:font-bold"><DismissableModal buttonLabel={sub.buynow} modalTitle="MUDAR PLANO" modalBody="Tem certeza?" onAccept={setPremiumFalse(id || "", role)} onDecline={setPremiumFalse(id || "", role)}/></Table.Cell>
-            <Table.Cell className="hover:cursor-pointer hover:font-bold"><DismissableModal buttonLabel={sub.buynow} modalTitle="MUDAR PLANO" modalBody="Tem certeza?" onAccept={setPremiumTrue(id || "", role)} onDecline={setPremiumTrue(id || "", role)}/></Table.Cell>
+            <Table.Cell className="hover:cursor-pointer hover:font-bold"><button onClick={() => handleSetPremiumFalse()} className="flex p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg">{sub.buynow}</button></Table.Cell>
+            <Table.Cell className="hover:cursor-pointer hover:font-bold"><button onClick={() => handleSetPremiumTrue()} className="flex p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg">{sub.buynow}</button></Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>
