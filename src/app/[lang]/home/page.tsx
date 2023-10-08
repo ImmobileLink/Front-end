@@ -7,6 +7,9 @@ import Card1 from "./components/card1";
 import Card2 from "./components/card2";
 import Card3 from "./components/card3";
 import CallToAction from "./components/callToAction";
+import { cookies } from "next/headers";
+import { cache } from "react";
+import { Database } from "../../../../lib/database.types";
 
 interface HomeProps {
     params: {
@@ -14,17 +17,34 @@ interface HomeProps {
     };
 }
 
+const createServerSupabaseClient = cache(() => {
+    const cookieStore = cookies();
+    return createServerComponentClient<Database>({
+        cookies: () => cookieStore,
+    });
+});
+
+async function getLoginStatus() {
+    const supabase = createServerSupabaseClient();
+    const {
+        data: { session },
+    } = await supabase.auth.getSession();
+
+    return session != null;
+}
+
 export default async function Home({ params: { lang } }: HomeProps) {
     const dict = await getDictionary(lang); // pt
+    const isUserLoggedIn = await getLoginStatus();
 
     return (
         <div className="w-full h-fit min-h-screen bg-branco dark:bg-dark-200">
             <NavBarHome lang={dict}/>
-            <Banner lang={dict} />
+            <Banner lang={dict} isUserLoggedIn={isUserLoggedIn}/>
             <Card1 lang={dict} />
             <Card2 lang={dict} />
             <Card3 lang={dict} />
-            <CallToAction lang={dict} />
+            <CallToAction lang={dict} isUserLoggedIn={isUserLoggedIn}/>
         </div>
     );
 }
