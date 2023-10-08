@@ -14,8 +14,9 @@ import EditProfileCorporacao from "./EditProfileCorporacao";
 import EditProfileCorretor from "./EditProfileCorretor";
 import { Corporacao, Corretor } from "../../../../../../../../lib/modelos";
 import CabecalhoData from "./CabecalhoData";
-
-
+import Capa from "./Capa";
+import EditCapa from "./EditCapa";
+import AvatarCabecalho from "./AvatarCabecalho";
 
 interface InfosPadraoProps {
 }
@@ -35,59 +36,40 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
   const profile = state.profileData
   const profileFullData = state.profileFullData
 
+  const isOwnProfile = session?.id == profile?.id
 
-
-  const isOwnProfile = () => {
-    if (session?.id == profile?.id) {
-      return true;
-    }
-    return false;
-  }
-
-  const isOwn = isOwnProfile()
 
   return (
     <>
       <div className="h-44 overflow-hidden rounded-md relative">
-        <Image
-          className="w-screen my-auto"
-          src="users/cover/cover.jpg"
-          alt="capa"
-          width={1}
-          height={1}
-        />
-        {isOwn && (
-          <button className="absolute top-2 right-2 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
-            Alterar Imagem
-          </button>
-        )}
-
+        <Capa />
+        {isOwnProfile && <EditCapa />}
       </div>
-
 
       <div className="p-8 -mt-28 relative">
         <div className="flex justify-between w-full mb-3 items-end">
-          <div className="w-34 h-34 rounded-full bg-white flex justify-center items-center">
-            <Avatar route={profile?.avatar!} size={"l"} />
-          </div>
+          <AvatarCabecalho route={profile?.avatar!} />
           <div className="flex gap-5">
-            {isOwn && (
+            {isOwnProfile && (
               session?.type == "corretor" ? (
                 <EditProfileCorretor data={profileFullData as Corretor} />
               ) : (
                 <EditProfileCorporacao data={profileFullData as Corporacao} />
               )
             )}
-            {profile?.isPremium && (<MdWorkspacePremium size={30} title="Usuário Premium" />)}
+            {profile?.isPremium && <MdWorkspacePremium size={30} title="Usuário Premium" />}
           </div>
         </div>
-        
-        <CabecalhoData cidade={profileFullData?.cidade!} estado={profileFullData?.estado!} nome={profile?.nome!} id={profile?.id!} tipo={profile?.type!}/>
 
-        {session?.id && !isOwn && (
-          <Botoes />
-        )}
-
+        <CabecalhoData
+          cidade={profileFullData?.cidade!}
+          sobre={profileFullData?.sobre}
+          estado={profileFullData?.estado!}
+          nome={profile?.nome!}
+          id={profile?.id!}
+          tipo={profile?.type!}
+          action={session?.id && !isOwnProfile && <Botoes />}
+        />
       </div>
 
       <div className="m-5 lg:hidden flex justify-center">
@@ -98,15 +80,6 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
         </Card.Root>
       </div>
 
-
-
-      {/* {profile. != null && (
-        <div className="px-5">
-          <div className="bg-white mt-3 rounded-md p-3">
-            <p className="">{profile?.sobre}</p>
-          </div>
-        </div>
-      )} */}
     </>
   );
 }
