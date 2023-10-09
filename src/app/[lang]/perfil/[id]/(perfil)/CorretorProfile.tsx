@@ -15,7 +15,7 @@ export default async function page() {
         <>
             <Page.Main>
                 <Cabecalho />
-                <InfosCorretor dict={state.dict!} id={state.profileFullData?.id!} corretor={state.profileFullData as Corretor} isOwn={state.isOwn}/>
+                <InfosCorretor/>
             </Page.Main>
 
             <Page.Right>

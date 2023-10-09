@@ -37,7 +37,7 @@ export default async function Botoes({ }: BotoesProps) {
   return (
     <div className="mt-5 flex flex-wrap">
       {profile?.type != session?.type && (
-        <BotaoAdd idProfile={profile?.id!} idSession={session?.id!} typeSession ={session?.type!} dict={dict} />
+        <BotaoAdd/>
       )}
       <BotaoChat sala={sala} />
     </div>

@@ -62,6 +62,6 @@
     "@types/react-datepicker": "^4.11.2",
     "@types/react-input-mask": "^3.0.2",
     "@types/uuid": "^9.0.4",
-    "supabase": "1.68.6"
+    "supabase": "^1.100.1"
   }
 }

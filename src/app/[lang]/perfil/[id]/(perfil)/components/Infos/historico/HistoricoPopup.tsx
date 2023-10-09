@@ -5,7 +5,6 @@ import { Button, Modal } from "flowbite-react";
 
 interface HistoricoPopupProps {
     props: any;
-    edit: boolean
 }
 
 export default function HistoricoPopup({ props }: HistoricoPopupProps) {

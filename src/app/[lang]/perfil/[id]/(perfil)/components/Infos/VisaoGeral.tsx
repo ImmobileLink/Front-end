@@ -5,26 +5,26 @@ import Historico from "./historico/Historico";
 import { useQuery } from 'react-query';
 import { Dictionaries } from "@/app/i18n/dictionaries/types";
 import { Corretor } from "../../../../../../../../lib/modelos";
+import { useProfileStore } from "../../../../../../../../lib/store/profileStore";
 
 
 interface VisaoGeralProps {
-  corretor: Corretor;
-  dict: Dictionaries;
-  id: string;
-  isOwn: boolean;
+ 
 }
 
-export default function VisaoGeral({ corretor, dict, id,isOwn }: VisaoGeralProps) {
+export default function VisaoGeral({ }: VisaoGeralProps) {
   const supabase = createClientComponentClient<Database>()
 
+  const state = useProfileStore.getState()
+  const corretor = state.profileFullData as Corretor;
   // Defina a chave única para essa query
-  const queryKey = ['especialidades', corretor.id];
+  const queryKey = ['especialidades', state.profileData?.id];
 
   // Defina a função para buscar as especialidades
   const fetchEspecialidades = async () => {
     const { data: especialidades } = await supabase
       .rpc('obterespecialidade', {
-        idcorretor: corretor.id
+        idcorretor: state.profileData?.id!
       });
     return especialidades;
   };
@@ -34,7 +34,7 @@ export default function VisaoGeral({ corretor, dict, id,isOwn }: VisaoGeralProps
 
   return (
     <div className="mx-6">
-      <h2 className="font-semibold text-xl mb-5">{dict.profile.infoBroker}</h2>
+      <h2 className="font-semibold text-xl mb-5">{state.dict!.profile.infoBroker}</h2>
       <div className="flex items-start justify-between  w-3/5">
         <div>
           <p className="font-semibold ">Creci</p>
@@ -61,7 +61,7 @@ export default function VisaoGeral({ corretor, dict, id,isOwn }: VisaoGeralProps
 
 
       <div className="mt-5">
-        <Historico dict ={dict} id={id} isOwn={isOwn}/>
+        <Historico/>
       </div>
 
     </div>

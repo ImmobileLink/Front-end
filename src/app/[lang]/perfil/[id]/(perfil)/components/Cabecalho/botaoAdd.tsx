@@ -7,21 +7,24 @@ import { getEstadoBtnAssoc, desassociarPerfis, sendConvite, cancelaConvite, acei
 import { Spinner } from "flowbite-react";
 import { Button, Modal } from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { useProfileStore } from '../../../../../../../../lib/store/profileStore';
 
 interface botaoAddProps {
-  idSession: string;
-  idProfile: string;
-  typeSession: string;
-  dict: any;
+  
 }
 
 
 
-export default function BotaoAdd({ idProfile, idSession, typeSession, dict }: botaoAddProps) {
+export default function BotaoAdd({  }: botaoAddProps) {
   const supabase = createClientComponentClient<Database>({});
 
+  const state = useProfileStore.getState()
+
+ const idProfile = state.profileData?.id!
+ const idSession = state.sessionData?.id!
+ const typeSession = state.sessionData?.type
+
   const [estado, setEstado] = useState("Associar");
-  const [popup, setPopup] = useState(false)
   const [loading, setLoading] = useState<boolean>(true)
 
   const [openModal, setOpenModal] = useState<string | undefined>();
@@ -50,9 +53,12 @@ export default function BotaoAdd({ idProfile, idSession, typeSession, dict }: bo
         event: '*',
         schema: 'public',
         table: 'associacoes',
-        filter: `idcorretor=eq.${id.corretor}`
+        filter: `idcorretor=eq.${id.corretor}`,
       },
       (payload) => {
+       if(payload.new.idcorporacao =! id.corporacao){
+        return;
+       }
         switch (payload.eventType) {
           case "INSERT":
             if (estado == "Associar") {
@@ -70,7 +76,6 @@ export default function BotaoAdd({ idProfile, idSession, typeSession, dict }: bo
             } else if (estado == "Aceitar") {
               setEstado("Associar")
             }
-
         }
       }
     )

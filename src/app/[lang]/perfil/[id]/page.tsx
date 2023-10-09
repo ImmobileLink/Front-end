@@ -58,7 +58,7 @@ export default async function page({ params: { id, lang } }: pageProps) {
 
   return (
     <>
-    <StoreInitializer isOwn={isOwnProfile}/>
+    <StoreInitializer isOwn={isOwnProfile} profileData={profileData} sessionData={sessionData} profileFullData={profileFullData} dict={dict}/>
       {profileData.id ?
         profileData.type! == "corretor" ? (
           <CorretorProfile />
