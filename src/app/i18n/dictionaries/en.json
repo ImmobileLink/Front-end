@@ -197,15 +197,31 @@
   },
   "pesquisa": {
     "labels": {
+      "nearbyusers": "People you might know from",
       "name": "Name",
       "title": "Find Users",
       "usertype": "User Type",
       "region": "Region",
+      "state": "State",
+      "city": "City",
+      "all": "All",
+      "nocityfound": "No city found",
+      "selectaestatefirst": "Select a estate first",
       "rating": "Rating",
       "specialty": "Specialty",
       "error": "Oops! Something went wrong. Please try again.",
       "missingcombobox": "Select a filter.",
-      "checkprofile": "Check Profile"
+      "checkprofile": "Check Profile",
+      "specializations": "Broker specialization",
+      "type": "Property Type",
+      "furniture": "Furniture",
+      "condition": "Property Condition",
+      "others": "Others",
+      "advanced": "Advanced options",
+      "reset": "Reset",
+      "search": "Search",
+      "selectafilter": "Select the fields you want to use as a filter and click Search",
+      "nouserfound": "No users were found with the chosen filters"
     },
     "usertypevalue": {
       "broker": "Broker",
@@ -217,7 +233,7 @@
       "yourenotlogged": "You are not logged in yet!",
       "enjoyall": "Enjoy all the benefits from the website",
       "singin": "Sign in",
-      "findbrokers": "Find brokers",
+      "findbrokers": "Find new links",
       "mybrokers": "My Brokers",
       "myproperties": "My properties",
       "schedules": "Schedules",
@@ -279,7 +295,8 @@
     "oportunitiesposting": "Oportunities posts",
     "linktotenbrokers": "Link up to 10 brokers",
     "illimitedlinks": "Link up to many brokers",
-    "buynow": "Buy now"
+    "buynow": "Try now",
+    "confirmchange": "Do you really want to change your plan to"
   },
   "profile": {
     "noAssociation": "No association at the moment",

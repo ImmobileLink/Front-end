@@ -11,12 +11,12 @@ interface RootLayout {
   params: { lang: string };
 }
 
-export default async function RootLayout({ children, params: { lang }}: RootLayout) {
+export default async function RootLayout({ children, params: { lang } }: RootLayout) {
 
   return (
-    <div className='flex flex-col h-screen'>
+    <Page.Root>
       <NavBar params={{ lang: lang }} />
       {children}
-    </div>
+    </Page.Root>
   );
 }

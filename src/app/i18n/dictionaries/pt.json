@@ -197,19 +197,35 @@
   },
   "pesquisa": {
     "labels": {
+      "nearbyusers": "Pessoas que talvez você conheça de",
       "name": "Nome",
       "title": "Encontrar Usuários",
       "usertype": "Tipo de usuário",
       "region": "Região",
-      "rating": "Classificação",
+      "state": "Estado",
+      "city": "Município",
+      "all": "Todos",
+      "nocityfound": "Nenhum município encontrado",
+      "selectaestatefirst": "Selecione um estado primeiro",
+      "rating": "Avaliação",
       "specialty": "Especialidade",
       "error": "Ops! Algo deu errado. Por favor, tente novamente.",
       "missingcombobox": "Selecione um filtro.",
-      "checkprofile": "Ver Perfil"
+      "checkprofile": "Ver Perfil",
+      "specializations": "Especializações do corretor",
+      "type": "Tipo de imóvel",
+      "furniture": "Mobília",
+      "condition": "Condição do imóvel",
+      "others": "Outros",
+      "advanced": "Opções avançadas",
+      "reset": "Redefinir",
+      "search": "Pesquisar",
+      "selectafilter": "Selecione os campos que deseja usar como filtro e clique em Pesquisar",
+      "nouserfound": "Não foi encontrado nenhum usuário com os filtros escolhidos"
     },
     "usertypevalue": {
       "broker": "Corretor",
-      "corporation": "Corporação"
+      "corporation": "Empresa"
     }
   },
   "feed": {
@@ -217,7 +233,7 @@
       "yourenotlogged": "Você não está logado ainda!",
       "enjoyall": "Aproveite todos os benefícios do site",
       "singin": "Entre já",
-      "findbrokers": "Encontrar corretores",
+      "findbrokers": "Achar novos links",
       "mybrokers": "Meus Corretores",
       "myproperties": "Meus Imóveis",
       "schedules": "Visitas",
@@ -279,7 +295,8 @@
     "oportunitiesposting": "publicação de oportunidades",
     "linktotenbrokers": "Afiliar-se a até 10 corretores",
     "illimitedlinks": "Afliliar-se a inúmeros corretores",
-    "buynow": "Compre já"
+    "buynow": "Experimente já",
+    "confirmchange": "Deseja realmente alterar seu plano para"
   },
   "profile": {
     "noAssociation": "Sem Associação no momento",

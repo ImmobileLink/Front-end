@@ -171,7 +171,8 @@ export interface Signup4Cityselector {
     selectaestate:      string;
     selectaestatefirst: string;
     nocityfound:        string;
-    ufacronim:          string;
+    ufacronim?:         string;
+    selectacity?:       string;
 }
 
 export interface Signup4Logs {
@@ -236,8 +237,13 @@ export interface Calendar {
 }
 
 export interface Chat {
-  conversations: string;
-  you:           string;
+    conversations:   string;
+    you:             string;
+    newconversation: string;
+    newconvlabel1:   string;
+    newconvlabel2:   string;
+    uploadedfile:    string;
+    chathome:        string;
 }
 
 export interface DictionariesCityselector {
@@ -267,53 +273,44 @@ export interface Feed {
 }
 
 export interface Cards {
-  yourenotlogged:      string;
-  enjoyall:            string;
-  singin:              string;
-  findbrokers:         string;
-  mybrokers:           string;
-  myproperties:        string;
-  schedules:           string;
-  visitmyprofile:      string;
-  notpremiumyet:       string;
-  premium:             string;
-  bepremium:           string;
-  connections:         string;
-  search:              string;
-  nolinksyet:          string;
-  relatedbrokers:      string;
-  norelatedbrokersyet: string;
-  myrelatedcompany:    string;
-  norelatedcompanyyet: string;
+    yourenotlogged:      string;
+    enjoyall:            string;
+    singin:              string;
+    findbrokers:         string;
+    mybrokers:           string;
+    myproperties:        string;
+    schedules:           string;
+    visitmyprofile:      string;
+    notpremiumyet:       string;
+    premium:             string;
+    bepremium:           string;
+    connections:         string;
+    search:              string;
+    nolinksyet:          string;
+    relatedbrokers:      string;
+    norelatedbrokersyet: string;
+    myrelatedcompany:    string;
+    norelatedcompanyyet: string;
 }
 
 export interface Form {
-  regionchange:    string;
-  post:            string;
-  placeholder:     string;
-  writeamessage:   string;
-  imageinputlabel: string;
-  imageerror:      string;
-  cityselector:    Cityselector;
-}
-
-export interface Cityselector {
-  estate:             string;
-  city:               string;
-  selectaestate:      string;
-  selectacity:        string;
-  selectaestatefirst: string;
-  nocityfound:        string;
+    regionchange:    string;
+    post:            string;
+    placeholder:     string;
+    writeamessage:   string;
+    imageinputlabel: string;
+    imageerror:      string;
+    cityselector:    Signup4Cityselector;
 }
 
 export interface Pub {
-  regionfilter:              string;
-  posted:                    string;
-  regioncomboboxplaceholder: string;
-  comboboxplaceholder:       string;
-  noposts:                   string;
-  error:                     string;
-  selectaregion:             string;
+    regionfilter:              string;
+    posted:                    string;
+    regioncomboboxplaceholder: string;
+    comboboxplaceholder:       string;
+    noposts:                   string;
+    error:                     string;
+    selectaregion:             string;
 }
 
 export interface Imovel {
@@ -387,17 +384,17 @@ export interface Newpropertylogs {
 }
 
 export interface Navbarbuttons {
-  feed:             string;
-  myprofile:        string;
-  settings:         string;
-  schedule:         string;
-  links:            string;
-  relatedbrokers:   string;
-  myrelatedcompany: string;
-  search:           string;
-  subscription:     string;
-  loginbutton:      string;
-  logoutbutton:     string;
+    feed:             string;
+    myprofile:        string;
+    settings:         string;
+    schedule:         string;
+    links:            string;
+    relatedbrokers:   string;
+    myrelatedcompany: string;
+    search:           string;
+    subscription:     string;
+    loginbutton:      string;
+    logoutbutton:     string;
 }
 
 export interface Pesquisa {
@@ -406,15 +403,31 @@ export interface Pesquisa {
 }
 
 export interface Labels {
-    name:            string;
-    title:           string;
-    usertype:        string;
-    region:          string;
-    rating:          string;
-    specialty:       string;
-    error:           string;
-    missingcombobox: string;
-    checkprofile:    string;
+    nearbyusers:        string;
+    name:               string;
+    title:              string;
+    usertype:           string;
+    region:             string;
+    state:              string;
+    city:               string;
+    all:                string;
+    nocityfound:        string;
+    selectaestatefirst: string;
+    rating:             string;
+    specialty:          string;
+    error:              string;
+    missingcombobox:    string;
+    checkprofile:       string;
+    specializations:    string;
+    type:               string;
+    furniture:          string;
+    condition:          string;
+    others:             string;
+    advanced:           string;
+    reset:              string;
+    search:             string;
+    selectafilter:      string;
+    nouserfound:        string;
 }
 
 export interface Usertypevalue {
@@ -443,6 +456,7 @@ export interface Planos {
     linktotenbrokers:    string;
     illimitedlinks:      string;
     buynow:              string;
+    confirmchange:       string;
 }
 
 export interface Profile {
@@ -455,16 +469,6 @@ export interface Profile {
     posts:          string;
     infoBroker:     string;
     historic:       string;
-}
-
-export interface Chat {
-  conversations: string;
-  you: string;
-  newconversation: string;
-  newconvlabel1: string;
-  newconvlabel2: string;
-  uploadedfile: string;
-  chathome: string;
 }
 
 // Converts JSON strings to/from your types

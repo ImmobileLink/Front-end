@@ -59,6 +59,15 @@ const customTheme: FlowbiteTabTheme = {
             "icon": "mr-2 h-5 w-5"
         }
     },
+    "tabitemcontainer": {
+        "base": "",
+        "styles": {
+          "default": "",
+          "underline": "",
+          "pills": "",
+          "fullWidth": ""
+        }
+      },
     "tabpanel": "py-3"
 }
 
@@ -84,6 +93,7 @@ export default function FriendList({ dict, idsala, userType, userId, userLinks, 
                                         idsala={idsala}
                                         idremetente={userId}
                                         iddestinatario={item.id}
+                                        avatardestinatario={item.avatar}
                                         nome={item.nome}
                                     />
                                 );
@@ -108,6 +118,7 @@ export default function FriendList({ dict, idsala, userType, userId, userLinks, 
                                         idsala={idsala}
                                         idremetente={userId}
                                         iddestinatario={item.id}
+                                        avatardestinatario={item.avatar}
                                         nome={item.nome}
                                     />
                                 );

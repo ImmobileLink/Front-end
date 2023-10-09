@@ -17,7 +17,7 @@ export default async function FeedPrincipal({ textos, userData }: FeedPrincipalP
         userData.id && (
           <Card.Root>
             <Card.Content>
-              <PostFormCard idusuario={userData.id}  textos={textos}/>
+              <PostFormCard idusuario={userData.id} avatarusuario={userData.avatar!}  textos={textos}/>
             </Card.Content>
           </Card.Root>
         )

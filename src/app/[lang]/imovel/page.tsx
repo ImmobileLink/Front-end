@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { getDictionary } from "../dictionaries";
 import { Database } from "../../../../lib/database.types";
+import NavBar from "../(components)/(navbar)/NavBar";
 import Imoveis from "../(components)/(imovel)/Imoveis";
 import ImovelCard from "../(components)/(imovel)/ImovelCard";
 import { TipoImovel, userData } from "../../../../lib/modelos";
@@ -68,7 +69,7 @@ export default async function page({ params: { lang } }: pageProps) {
 
   return (
     <>
-      <div className="w-full h-fit bg-branco dark:bg-dark-200 text-black flex justify-center">
+      <div className="w-full h-fit min-h-screen bg-branco dark:bg-dark-200 text-black flex justify-center">
         <div className="flex justify-center w-11/12 max-w-6xl pt-5">
           <Imoveis userData={userData} textos={textos} count={count} tipos={tipos} outros={outros} mobilias={mobilias} condicoes={condicoes} />
           </div>

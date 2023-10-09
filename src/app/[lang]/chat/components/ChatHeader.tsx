@@ -3,14 +3,15 @@
 import { useContext, useEffect, useState } from "react";
 import Avatar from "../../(components)/Avatar";
 import { BiArrowBack } from "react-icons/bi";
-import { ChatContext } from "../../chat/[[...idsala]]/chatContext";
+import { ChatContext } from "../[[...idsala]]/ChatContext";
 
 interface ChatHeaderProps {
     idparticipante: string | null,
     nomeparticipante: string | null
+    avatarparticipante: string | null
 }
 
-export default function ChatHeader({ idparticipante, nomeparticipante }: ChatHeaderProps) {
+export default function ChatHeader({ idparticipante, nomeparticipante, avatarparticipante }: ChatHeaderProps) {
     const {toggleChatView} = useContext(ChatContext)
     return (
         <div className="flex flex-row items-center lg:justify-start lg:px-3 lg:py-1 lg:rounded-lg bg-gray-100 dark:bg-gray-600 border border-gray-200 dark:border-gray-700">
@@ -19,10 +20,10 @@ export default function ChatHeader({ idparticipante, nomeparticipante }: ChatHea
             </button>
             <div className="flex flex-row items-center">
                 <div className="flex lg:hidden my-0,5">
-                    <Avatar key={idparticipante} userId={idparticipante} size={10} />
+                    <Avatar key={idparticipante} route={avatarparticipante!} size={10} />
                 </div>
                 <div className="hidden lg:flex ml-2">
-                    <Avatar key={idparticipante} userId={idparticipante} />
+                    <Avatar key={idparticipante} route={avatarparticipante!} />
                 </div>
                 <div className="ml-2 font-sans font-semibold text-lg" >
                     {nomeparticipante}

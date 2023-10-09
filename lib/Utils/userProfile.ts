@@ -1,7 +1,6 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/dist/client/components/headers';
 import { Database } from '../database.types'
-import { profileSimpleData } from '../modelos';
 import { cache } from "react";
 
 

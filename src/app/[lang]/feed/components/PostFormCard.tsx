@@ -8,14 +8,15 @@ import { City } from "../../../../../lib/modelos";
 import { publishPost } from "../../../../../lib/utils/Posts";
 import { _UFs } from "../../../../../lib/utils/getRegiao";
 import Avatar from "../../(components)/Avatar";
-import ImageUpload from "../../(components)/ImageUpload";
+import ImageUpload from "./ImageUpload";
 
 interface PostFormCardProps {
   textos: Feed,
   idusuario: string,
+  avatarusuario: string
 }
 
-export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
+export default function PostFormCard({ textos, idusuario, avatarusuario }: PostFormCardProps) {
   const [selectedState, setSelectedState] = useState<string>()
   const [cities, setCities] = useState<City[]>([]);
   const [selectedCity, setSelectedCity] = useState<string>()
@@ -81,7 +82,7 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
   return (
     <div className="flex flex-col">
       <div className="flex mx-4 gap-4">
-        <Avatar userId={idusuario} />
+        <Avatar route={avatarusuario} />
         <div className="flex grow">
           <textarea
             className="block p-2.5 w-full text-sm text-gray-900 bg-gray-100 border-gray-300 rounded-lg border focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -92,14 +93,15 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
         </div>
       </div>
       <div className="flex flex-wrap w-auto h-auto mt-1 justify-end items-center align-middle px-4">
-        <div className="w-full md:w-1/2 lg:w-2/12 h-14 rounded-lg">
+        <div className="w-full md:w-1/2 lg:w-3/12 h-14 rounded-lg px-1">
           <div className="w-full h-full flex justify-center align-middle items-center gap-2">
-            <ImageUpload onImageUpload={handleImageUpload} label={<BsFillImageFill />} />
+            <ImageUpload onImageUpload={handleImageUpload} fileName={imagem?.name}/>
           </div>
         </div>
-        <div className="w-full md:w-1/2 lg:w-4/12 h-14 rounded-lg">
+        <div className="w-full md:w-1/2 lg:w-4/12 h-14 rounded-lg px-1">
           <div className="w-full h-full flex justify-center align-middle items-center gap-2">
-            <select defaultValue={textos.form.cityselector.selectacity} onChange={e => { setSelectedState(e.target.value) }} className="w-auto lg:w-16 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <select defaultValue={"UF"} onChange={e => { setSelectedState(e.target.value) }} className="w-auto lg:w-14 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option key={"UF"} disabled>UF</option>
               {
                 _UFs.map((item, index) => {
                   return (
@@ -108,7 +110,7 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
                 })
               }
             </select>
-            <select defaultValue={textos.form.cityselector.selectacity} onChange={e => { setSelectedCity(e.target.value) }} className="w-full lg:w-40 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <select defaultValue={textos.form.cityselector.selectacity} onChange={e => { setSelectedCity(e.target.value) }} className="w-full lg:w-32 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               {
                 selectedState ? (
                   cities.length > 0 ? (
@@ -129,18 +131,18 @@ export default function PostFormCard({ textos, idusuario }: PostFormCardProps) {
             </select>
           </div>
         </div>
-        <div className="w-full md:w-1/2 lg:w-3/12 h-14 rounded-lg">
+        <div className="w-full md:w-1/2 lg:w-2/12 h-14 rounded-lg px-1">
           {
             erro &&
             (
-              <div className="w-full h-full flex justify-center align-middle items-center text-yellow-500 gap-2">
+              <div className="w-full h-full flex justify-center align-middle items-center text-sm text-yellow-500 gap-2">
                 <BsFillExclamationCircleFill />
                 <span>{logErro}</span>
               </div>
             )
           }
         </div>
-        <div className="w-full md:w-1/2 lg:w-3/12 h-14 rounded-lg">
+        <div className="w-full md:w-1/2 lg:w-3/12 h-14 rounded-lg px-1">
           <div className="w-full h-full flex justify-center align-middle items-center">
             <button onClick={inserePub} className="p-2 w-full cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-10 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg">
               {

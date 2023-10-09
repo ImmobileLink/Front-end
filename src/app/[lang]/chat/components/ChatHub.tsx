@@ -1,13 +1,13 @@
 "use client"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { UltimaMensagemPorSalaPorUsuario, userGroup } from "../../../../../lib/modelos";
+import { UltimaMensagemPorSalaPorUsuario, salaUsuario, userGroup } from "../../../../../lib/modelos";
 import { Database } from "../../../../../lib/database.types";
 import { useContext, useEffect, useState, useTransition } from "react";
 import { useRouter } from 'next/navigation';
 import ChatHubCard from "./ChatHubCard";
 import BottomNav from "./BottomNav";
-import { ChatContext } from "../../chat/[[...idsala]]/chatContext";
-import {BiArrowBack} from 'react-icons/bi'
+import { ChatContext } from "../[[...idsala]]/ChatContext";
+import { BiArrowBack } from 'react-icons/bi'
 import FriendList from "./FriendList";
 
 
@@ -19,17 +19,19 @@ interface ChatHubProps {
   userLinks: userGroup | undefined;
   userAssocs: userGroup | undefined;
   mensagens: UltimaMensagemPorSalaPorUsuario[] | null | undefined;
+  userRooms: string | undefined
 }
 
 const supabase = createClientComponentClient<Database>()
 
-export default function ChatHub({ dict, idsala, userType, userId, userLinks, userAssocs, mensagens}: ChatHubProps) {
+export default function ChatHub({ dict, idsala, userType, userId, userLinks, userAssocs, mensagens, userRooms }: ChatHubProps) {
   const { chatView, toggleChatView } = useContext(ChatContext)
+  const [rooms, setRooms] = useState<string | undefined>(userRooms)
 
   let chatStyle = 'flex'
 
   if (chatView) {
-    if(typeof idsala === 'undefined') {
+    if (typeof idsala === 'undefined') {
       chatStyle = 'flex'
     }
     else {
@@ -48,18 +50,18 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
   const [isPending, startTransition] = useTransition();
   const [isFetching, setIsFetching] = useState(false);
 
-  //Função para atualizar a lista de conversas
-  const atualizaHub = () => {
-    setIsFetching(true);
-    getLastMessages()
-    setIsFetching(false);
+  // //Função para atualizar a lista de conversas
+  // const atualizaHub = () => {
+  //   setIsFetching(true);
+  //   getLastMessages()
+  //   setIsFetching(false);
 
-    startTransition(() => {
-      // Refresh the current route and fetch new data from the server without
-      // losing client-side browser or React state.
-      router.refresh();
-    });
-  }
+  //   startTransition(() => {
+  //     // Refresh the current route and fetch new data from the server without
+  //     // losing client-side browser or React state.
+  //     router.refresh();
+  //   });
+  // }
 
   //Função de fetch que é chamada pela função atualizaHub
   const getLastMessages = async () => {
@@ -70,11 +72,26 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
         })
         .order('atualizadoem', { ascending: false })
       if (error) {
-        console.log("error")
+        console.log(error)
       }
       else {
         setMessages(data)
       }
+    }
+  }
+
+  const getUserRooms = async (idusuario: string) => {
+    const { data, error } = await supabase
+      .from('usuarioporsala')
+      .select('idsala')
+      .eq('idusuario', idusuario)
+    if (error) {
+      console.log(error)
+    }
+    else {
+      const array = data.map(item => item.idsala)
+      const string = array.toString()
+      return string
     }
   }
 
@@ -87,17 +104,23 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
           event: "INSERT",
           schema: "public",
           table: "mensagem",
-          filter: `idsala=eq.${idsala}`
+          filter: `idsala=in.(${userRooms})`
         },
-        async (payload) => {
-          atualizaHub()
+        () => {
+          if (userId) {
+            getUserRooms(userId)
+              .then((response) => {
+                setRooms(response)
+              })
+          }
+          getLastMessages()
         }
       )
       .subscribe();
     return () => {
       subscription.unsubscribe();
     }
-  }, [])
+  }, [messages])
 
   const style = 'bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
   //Exibe a lista de amigos
@@ -122,14 +145,14 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
   }
 
   return (
-    <div className={`${chatStyle} flex-col justify-start h-full w-screen lg:h-5/6 lg:w-3/12 rounded-md bg-white dark:bg-dark-100 drop-shadow-md`}>
+    <div className={`${chatStyle} flex-col justify-start h-full lg:h-5/6 w-screen lg:w-3/12 rounded-md bg-white dark:bg-dark-100 drop-shadow-md`}>
       <div className="fixed left-0 top-0 right-0 grid row grid-cols-12 py-2 lg:rounded-lg bg-gray-100 dark:bg-gray-600 border border-gray-200 dark:border-gray-700">
         {
           friendListState ?
-          <div onClick={handleFriendList} className="col-start-1 col-span-4 self-center ml-2 w-fit flex cursor-pointer text-gray-900 dark:text-white focus:ring-4 font-medium text-sm px-2 py-1 hover:bg-gray-50 dark:hover:bg-gray-800">
-            <BiArrowBack size={20}/>
-          </div>
-          :
+            <div onClick={handleFriendList} className="col-start-1 col-span-4 self-center ml-2 w-fit flex cursor-pointer text-gray-900 dark:text-white focus:ring-4 font-medium text-sm px-2 py-1 hover:bg-gray-50 dark:hover:bg-gray-800">
+              <BiArrowBack size={20} />
+            </div>
+            :
             <div className="col-start-1 col-span-4 self-center ml-2 px-2 rounded-md w-fit font-sans font-semibold">
               {dict.chat.conversations}
             </div>
@@ -144,7 +167,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
       <div className={`flex flex-col h-full pt-[46px] overflow-y-auto snap-start gap-2`}>
         {
           friendListState ?
-          <FriendList dict={dict} idsala={idsala} userType={userType} userLinks={userLinks} userAssocs={userAssocs} userId={userId} />
+            <FriendList dict={dict} idsala={idsala} userType={userType} userLinks={userLinks} userAssocs={userAssocs} userId={userId} />
             :
             ''
         }
@@ -152,7 +175,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
           {
             messages &&
             messages.map((mensagem) =>
-              <ChatHubCard key={mensagem.idmensagem} idsala={idsala} dict={dict.chat} mensagem={mensagem} userId={userId} />
+              <ChatHubCard key={mensagem.idmensagem} idsala={idsala} dict={dict.chat} mensagem={mensagem} userId={userId} userAvatar={mensagem.avatarparticipante} />
             )
           }
         </div>

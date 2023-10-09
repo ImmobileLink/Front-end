@@ -41,7 +41,7 @@ export default function SignIn({ setAlert, signin, lang }: SignInProps) {
             });
         } else {
             router.refresh();
-            router.push(`${lang}/feed`);
+            router.push(`/feed`);
         }
         isLoading(false);
     };
