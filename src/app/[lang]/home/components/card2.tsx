@@ -28,12 +28,12 @@ export default function Card2({ lang }: Card2Props) {
                             Gerencie sua agenda, controle seus links e receba
                             feedback de verdade!{" "}
                         </p>
-                        <p className="px-8 pb-4">
-                            Desfrute de recursos que auxiliam a gestão do tempo,
-                            atividades, agendamentos, comunicação, visualização
-                            e avaliação de desempenho do seu trabalho e de seus
-                            parceiros com nosso dashboard completo e
-                            personalizado.
+                        <p className="px-8 pb-4 text-lg">
+                            Aproveite os melhores recursos para auxiliar a
+                            gestão do tempo, atividades, agendamentos,
+                            comunicação, visualização e avaliação de desempenho
+                            do seu trabalho e de seus parceiros com nosso
+                            dashboard completo e personalizado.
                         </p>
                     </div>
                 </div>

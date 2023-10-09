@@ -16,16 +16,14 @@ export default function Card1({ lang }: Card1Props) {
                     <p className="text-xl font-semibold pb-8 md:pt-12 md:pl-12 md:text-2xl">
                         Encontre oportunidades
                     </p>
-                    <p className="pb-4 md:pr-20 md:pl-12">
-                        Aproveite os mecanismos de desempenho exclusivos para
-                        avaliação de profissionais corretores de imóveis e
-                        encontre o profissional certo para a parceria certa. A
-                        ImmobileLink procura facilitar o contato entre
-                        corretores, construtoras e imobiliárias de forma
-                        simplificada, oferecendo uma rede de divulgação e busca
-                        de oportunidades de parceria direta. Divulgue seu
-                        trabalho e encontre as melhores parcerias por região
-                        para se associar.
+                    <p className="pb-4 md:pr-20 md:pl-12 text-lg">
+                        Busque por oportunidades de parceria com diversas
+                        imobiliárias e corretores do mercado. Aqui oferecemos um
+                        ambiente colaborativo que contribui para a construção e
+                        demonstração de credibilidade de profissionais autônomos
+                        e empresas do ramo imobiliário. Demonstre sua
+                        experiência, atuação, seu portfólio e forme laços com
+                        diversos profissionais e organizações se assim desejar.
                     </p>
                 </div>
                 <div className="flex justify-center md:mr-36">

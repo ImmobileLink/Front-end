@@ -17,14 +17,11 @@ export default function Card3({ lang }: Card3Props) {
                     >
                         Recursos incríveis para corretores e empresas
                     </p>
-                    <p className="px-8 pb-4">
+                    <p className="px-8 pb-4 text-lg">
                         A ImmobileLink conta com recursos exclusivos para
-                        atender as principais necessidades de corretores e
-                        empresas. Com nossa rede exclusiva, é possível divulgar
-                        oportunidades de associação, convites de parceria,
-                        entrar em contato diretamente com outros usuários,
-                        consultar e contribuir com sua reputação e seu trabalho,
-                        além de diversos outros recursos incríveis:
+                        atender as principais necessidades do mercado. Explore
+                        uma vasta gama de funcionalidades gratuitas e premium
+                        para suas necessidades e de seu negócio:
                     </p>
                 </div>
                 <div className="md:flex">
