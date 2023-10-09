@@ -4,6 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
+/.react-email/
+/.react-email-temp/
 
 # testing
 /coverage
