@@ -4,6 +4,7 @@ import Cabecalho from './components/Cabecalho/Cabecalho';
 import InfosCorretor from './components/Infos/InfosCorretor';
 import Dashboard from './components/Dashboard/Dashboard';
 import Calendario from '@/app/[lang]/(components)/Calendario';
+import { Corretor } from '../../../../../../lib/modelos';
 
 export default async function page() {
 
@@ -14,7 +15,7 @@ export default async function page() {
         <>
             <Page.Main>
                 <Cabecalho />
-                <InfosCorretor dict={state.dict} corretor={state.profileFullData} />
+                <InfosCorretor dict={state.dict!} id={state.profileFullData?.id!} corretor={state.profileFullData as Corretor} isOwn={state.isOwn}/>
             </Page.Main>
 
             <Page.Right>

@@ -294,25 +294,25 @@ export interface Database {
           data_fim: string | null
           data_inicio: string
           descricao: string | null
-          id: string
           id_corporacao: string | null
           id_corretor: string
+          nome_empresa: string | null
         }
         Insert: {
           data_fim?: string | null
           data_inicio: string
           descricao?: string | null
-          id?: string
           id_corporacao?: string | null
           id_corretor: string
+          nome_empresa?: string | null
         }
         Update: {
           data_fim?: string | null
           data_inicio?: string
           descricao?: string | null
-          id?: string
           id_corporacao?: string | null
           id_corretor?: string
+          nome_empresa?: string | null
         }
         Relationships: [
           {
@@ -485,6 +485,55 @@ export interface Database {
             foreignKeyName: "mensagem_idsala_fkey"
             columns: ["idsala"]
             referencedRelation: "sala"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      notificacao: {
+        Row: {
+          artefato: string
+          data: string
+          id: string
+          iddestinatario: string | null
+          idremetente: string | null
+          nomedestinatario: string | null
+          nomeremetente: string | null
+          tipo: string
+          visualizada: boolean
+        }
+        Insert: {
+          artefato: string
+          data?: string
+          id?: string
+          iddestinatario?: string | null
+          idremetente?: string | null
+          nomedestinatario?: string | null
+          nomeremetente?: string | null
+          tipo: string
+          visualizada?: boolean
+        }
+        Update: {
+          artefato?: string
+          data?: string
+          id?: string
+          iddestinatario?: string | null
+          idremetente?: string | null
+          nomedestinatario?: string | null
+          nomeremetente?: string | null
+          tipo?: string
+          visualizada?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notificacao_iddestinatario_fkey"
+            columns: ["iddestinatario"]
+            referencedRelation: "usuario"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notificacao_idremetente_fkey"
+            columns: ["idremetente"]
+            referencedRelation: "usuario"
             referencedColumns: ["id"]
           }
         ]

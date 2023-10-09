@@ -7,28 +7,31 @@ import Publicacoes from "./Publicacoes"
 import { Tabs } from 'flowbite-react';
 import { HiAdjustments, HiClipboardList, HiUserCircle, HiDocumentText, HiCalendar } from 'react-icons/hi';
 import { MdDashboard } from 'react-icons/md';
+import { Corretor } from '../../../../../../../../lib/modelos';
+import { Dictionaries } from '@/app/i18n/dictionaries/types';
 
 
 interface InfosProps {
-  corretor: any;
-  dict: any;
+  corretor: Corretor;
+  dict: Dictionaries;
+  isOwn: boolean;
+  id: string;
 }
 
 
-export default function InfosCorretor({ corretor, dict }: InfosProps) {
+export default function InfosCorretor({ corretor, dict, id, isOwn }: InfosProps) {
 
   return (
     <Tabs.Group
       aria-label="Tabs with underline"
       style="underline"
-      
     >
       <Tabs.Item
         active
         icon={HiUserCircle}
         title="Profile"
       >
-        <VisaoGeral corretor={corretor} dict={dict}/>
+        <VisaoGeral corretor={corretor} dict={dict} id = {id} isOwn = {isOwn}/>
       </Tabs.Item>
       <Tabs.Item
         icon={HiDocumentText}

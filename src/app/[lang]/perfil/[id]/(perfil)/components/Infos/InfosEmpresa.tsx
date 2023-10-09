@@ -9,17 +9,15 @@ import { MdDashboard } from 'react-icons/md';
 
 
 interface InfosProps {
-  corretor: any;
   dict: any;
 }
 
 
-export default function InfosEmpresa({ corretor, dict }: InfosProps) {
+export default function InfosEmpresa({  dict }: InfosProps) {
 
   return (
     <Tabs.Group aria-label="Tabs with underline" style="underline">
       <Tabs.Item active icon={HiOfficeBuilding} title="Profile" >
-        <VisaoGeral corretor={corretor} dict={dict}/>
       </Tabs.Item>
 
       <Tabs.Item icon={HiDocumentText} title="Posts">

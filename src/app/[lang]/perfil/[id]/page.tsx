@@ -9,6 +9,7 @@ import { getProfileFullData } from '../../../../../lib/utils/userProfile';
 import CorretorProfile from './(perfil)/CorretorProfile';
 import EmpresaProfile from './(perfil)/EmpresaProfile';
 import Link from 'next/link';
+import StoreInitializer from './(perfil)/components/StoreInitializer';
 
 interface pageProps {
   params: {
@@ -51,10 +52,13 @@ export default async function page({ params: { id, lang } }: pageProps) {
   const profileFullData = await getProfileFullData(profileData.type!, profileData.id!)
   const dict = await getDictionary(lang)
 
-  useProfileStore.setState({ profileData: profileData, profileFullData: profileFullData, sessionData: sessionData, dict: dict })
+  const isOwnProfile = sessionData?.id == profileData?.id
+
+  useProfileStore.setState({ profileData: profileData, profileFullData: profileFullData, sessionData: sessionData, dict: dict, isOwn: isOwnProfile })
 
   return (
     <>
+    <StoreInitializer isOwn={isOwnProfile}/>
       {profileData.id ?
         profileData.type! == "corretor" ? (
           <CorretorProfile />

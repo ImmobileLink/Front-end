@@ -15,7 +15,7 @@ interface CabecalhoDataProps {
     action?: ReactNode;
 }
 
-export default function CabecalhoData({ id, tipo, nome, cidade, estado, sobre, action, info }: CabecalhoDataProps) {
+export default function CabecalhoData({ id, tipo, nome, cidade, estado, sobre, action }: CabecalhoDataProps) {
     const supabase = createClientComponentClient<Database>({});
 
     const tabela = tipo == "corretor" ? "corretor" : "corporacao"

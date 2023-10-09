@@ -1,18 +1,20 @@
 "use client"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../lib/database.types";
-import { cookies } from "next/headers";
-import { useEffect, useState } from "react";
 import Historico from "./historico/Historico";
 import { useQuery } from 'react-query';
+import { Dictionaries } from "@/app/i18n/dictionaries/types";
+import { Corretor } from "../../../../../../../../lib/modelos";
 
 
 interface VisaoGeralProps {
-  corretor: any;
-  dict: any;
+  corretor: Corretor;
+  dict: Dictionaries;
+  id: string;
+  isOwn: boolean;
 }
 
-export default function VisaoGeral({ corretor, dict }: VisaoGeralProps) {
+export default function VisaoGeral({ corretor, dict, id,isOwn }: VisaoGeralProps) {
   const supabase = createClientComponentClient<Database>()
 
   // Defina a chave única para essa query
@@ -31,7 +33,7 @@ export default function VisaoGeral({ corretor, dict }: VisaoGeralProps) {
   const { data: especialidades, isLoading, isError } = useQuery(queryKey, fetchEspecialidades);
 
   return (
-    <div className="ml-6">
+    <div className="mx-6">
       <h2 className="font-semibold text-xl mb-5">{dict.profile.infoBroker}</h2>
       <div className="flex items-start justify-between  w-3/5">
         <div>
@@ -59,8 +61,7 @@ export default function VisaoGeral({ corretor, dict }: VisaoGeralProps) {
 
 
       <div className="mt-5">
-        <h2 className="font-semibold text-xl">{dict.profile.historic}</h2>
-        <Historico />
+        <Historico dict ={dict} id={id} isOwn={isOwn}/>
       </div>
 
     </div>

@@ -9,6 +9,7 @@ interface ProfileStoreState {
   sessionData: userData | null;
   profileFullData: Corretor | Corporacao | null;
   dict: Dictionaries | null;
+  isOwn: boolean;
 }
 
 // Função para criar a store
@@ -17,4 +18,5 @@ export const useProfileStore = create<ProfileStoreState>((set) => ({
   sessionData: null,
   profileFullData: null,
   dict: null,
+  isOwn: false
 }));

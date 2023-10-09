@@ -150,11 +150,6 @@ export default function BotaoAdd({ idProfile, idSession, typeSession, dict }: bo
     props.setOpenModal(undefined)
   }
 
-
-
-
-
-
   const buttonClass = classNames('py-2 px-4 rounded', {
     'bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 ': estado === 'Associar',
     'bg-green-700 hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-700 ': estado === 'Associado',
