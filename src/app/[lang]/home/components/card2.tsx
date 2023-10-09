@@ -29,11 +29,11 @@ export default function Card2({ lang }: Card2Props) {
                             feedback de verdade!{" "}
                         </p>
                         <p className="px-8 pb-4">
-                            Integer sed pretium erat. Nam ac orci finibus,
-                            faucibus lectus et, lacinia risus. Ut efficitur
-                            augue id diam ultrices, vel ornare ipsum pretium.
-                            Integer felis elit, iaculis quis congue vitae,
-                            pretium at erat.
+                            Desfrute de recursos que auxiliam a gestão do tempo,
+                            atividades, agendamentos, comunicação, visualização
+                            e avaliação de desempenho do seu trabalho e de seus
+                            parceiros com nosso dashboard completo e
+                            personalizado.
                         </p>
                     </div>
                 </div>

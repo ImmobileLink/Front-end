@@ -11,18 +11,20 @@ export default function Card3({ lang }: Card3Props) {
         <div className="bg-white dark:bg-gray-900 text-center items-center py-12 md:px-12">
             <div className="md:flex md:flex-col md:text-left">
                 <div>
-                    <p id="amazing-resources" className="text-xl font-semibold md:px-8 md:text-2xl md:pb-8">
+                    <p
+                        id="amazing-resources"
+                        className="text-xl font-semibold md:px-8 md:text-2xl md:pb-8"
+                    >
                         Recursos incríveis para corretores e empresas
                     </p>
                     <p className="px-8 pb-4">
-                        Orci varius natoque penatibus et magnis dis parturient
-                        montes, nascetur ridiculus mus. Vestibulum consectetur
-                        condimentum mollis. Mauris velit est, rutrum ut leo in,
-                        scelerisque auctor diam. Mauris aliquam lectus in mi
-                        pretium, in posuere nibh porttitor. Donec volutpat quam
-                        ut erat auctor molestie. Nullam feugiat turpis vel quam
-                        luctus volutpat. Morbi gravida mi eu odio rutrum, sit
-                        amet consectetur leo faucibus.
+                        A ImmobileLink conta com recursos exclusivos para
+                        atender as principais necessidades de corretores e
+                        empresas. Com nossa rede exclusiva, é possível divulgar
+                        oportunidades de associação, convites de parceria,
+                        entrar em contato diretamente com outros usuários,
+                        consultar e contribuir com sua reputação e seu trabalho,
+                        além de diversos outros recursos incríveis:
                     </p>
                 </div>
                 <div className="md:flex">

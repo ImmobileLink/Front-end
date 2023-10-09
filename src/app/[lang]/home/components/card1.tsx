@@ -7,22 +7,25 @@ interface Card1Props {
 
 export default function Card1({ lang }: Card1Props) {
     return (
-        <div id="about-immobilelink" className="flex flex-col items-center md:text-left text-center justify-center py-8">
+        <div
+            id="about-immobilelink"
+            className="flex flex-col items-center md:text-left text-center justify-center py-8"
+        >
             <div className="md:flex md:flex-row">
                 <div className="px-8 md:pl-8">
                     <p className="text-xl font-semibold pb-8 md:pt-12 md:pl-12 md:text-2xl">
                         Encontre oportunidades
                     </p>
                     <p className="pb-4 md:pr-20 md:pl-12">
-                        Orci varius natoque penatibus et magnis dis parturient
-                        montes, nascetur ridiculus mus. Vestibulum consectetur
-                        condimentum mollis. Mauris velit est, rutrum ut leo in,
-                        scelerisque auctor diam. Mauris aliquam lectus in mi
-                        pretium, in posuere nibh porttitor. Donec volutpat quam
-                        ut erat auctor molestie. Nullam feugiat turpis vel quam
-                        luctus volutpat. Morbi gravida mi eu odio rutrum, sit
-                        amet consectetur leo faucibus. Nam mollis iaculis dolor,
-                        vel aliquet nisl aliquet iaculis.
+                        Aproveite os mecanismos de desempenho exclusivos para
+                        avaliação de profissionais corretores de imóveis e
+                        encontre o profissional certo para a parceria certa. A
+                        ImmobileLink procura facilitar o contato entre
+                        corretores, construtoras e imobiliárias de forma
+                        simplificada, oferecendo uma rede de divulgação e busca
+                        de oportunidades de parceria direta. Divulgue seu
+                        trabalho e encontre as melhores parcerias por região
+                        para se associar.
                     </p>
                 </div>
                 <div className="flex justify-center md:mr-36">
