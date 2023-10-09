@@ -369,9 +369,21 @@ export interface Newproperty {
   furniture:        string;
   condition:        string;
   description:      string;
-  uploadimage:      string;
-  img:              string;
+  imageupload:      string;
+  imageformat:      string;
   loading:          string;
+  newpropertylogs:  Newpropertylogs;
+}
+
+export interface Newpropertylogs {
+  invalidcep:           string;
+  invalidcepnotfound:   string;
+  invaliduf:            string;
+  invalidcity:          string;
+  invalidneighborhood:  string;
+  invalidstreet:        string;
+  invalidnumber:        string;
+  invalidprice:         string;
 }
 
 export interface Navbarbuttons {

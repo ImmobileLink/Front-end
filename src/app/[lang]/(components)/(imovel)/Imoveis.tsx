@@ -12,8 +12,9 @@ import Form from "./Form";
 import Skeleton from "./Skeleton";
 
 interface ImoveisProps {
-  userData: userData;
+  userData: userData,
   textos: Imovel,
+  count: number | null,
   tipos: TipoImovel[],
   outros: TipoImovel[],
   mobilias: TipoImovel[],
@@ -22,7 +23,7 @@ interface ImoveisProps {
 
 const supabase = createClientComponentClient<Database>();
 
-export default function Imoveis({ userData, textos, tipos, outros, mobilias, condicoes }: ImoveisProps) {
+export default function Imoveis({ userData, textos, count, tipos, outros, mobilias, condicoes }: ImoveisProps) {
   const [properties, setProperties] = useState<ImovelRegistro[]>([]); //imoveis
   const [loading, setLoading] = useState(true);
   const [formOpen, setFormOpen] = useState(false);
@@ -34,6 +35,20 @@ export default function Imoveis({ userData, textos, tipos, outros, mobilias, con
 
   // Realtime
   useEffect(() => {
+    async function getProperties() {
+      if (userid) {
+        const { data, error } = await supabase
+          .from("imovel")
+          .select("*")
+          .eq("idcorporacao", userid);
+        if (error) {
+          setLoading(false)
+        } else {
+          setProperties(data)
+          setLoading(false)
+        }
+      }
+    }
     getProperties();
   }, []);
 
@@ -88,27 +103,19 @@ export default function Imoveis({ userData, textos, tipos, outros, mobilias, con
     };
   }, []);
 
-  const getProperties = async () => {  
-    if (userid) {
-      const { data, error } = await supabase
-        .from("imovel")
-        .select("*")
-        .eq("idcorporacao", userid);
-      if (error) {
-        setLoading(false)
-      }
-      else {
-        setProperties(data)
-        setLoading(false)
-      }
+  useEffect(() => {
+    if (formOpen === true) {
+      document.body.classList.add("overflow-y-hidden")
+    } else {
+      document.body.classList.remove("overflow-y-hidden")
     }
-  }
+  }, [formOpen]);
 
   return (
     <>
     <div className="w-screen">
-    <div className="ring-2 ring-gray-300 rounded-md bg-white dark:bg-gray-600 dark:ring-gray-700 drop-shadow-md overflow-hidden p-3">
-      <div className="flex items-center justify-between mb-2">
+    <div className="rounded-md bg-white dark:bg-gray-700 dark:ring-gray-600 drop-shadow-md px-3 py-4 mb-4">
+      <div className="flex items-center justify-between">
         <h2 className="text-4xl text-black dark:text-white">
           {textos.mainlabels.title}
         </h2>
@@ -117,7 +124,7 @@ export default function Imoveis({ userData, textos, tipos, outros, mobilias, con
             onClick={() => {
               setFormOpen(true);
             }}
-            className="flex items-center justify-between p-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 transition ease-in duration-200 text-center focus:ring-offset-2"
+            className="flex items-center justify-between text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 text-center focus:ring-offset-2"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -142,8 +149,8 @@ export default function Imoveis({ userData, textos, tipos, outros, mobilias, con
       </div>
       <div className="grid grid-cols-2 gap-x-4 w-full justify-center items-start">
         {
-          loading ? (
-          <Skeleton num={properties.length} />
+          (loading && (count > 0)) ? (
+          <Skeleton num={count} />
           ) : (
           properties!.map((imovel: ImovelRegistro) => {
             return (
@@ -155,7 +162,9 @@ export default function Imoveis({ userData, textos, tipos, outros, mobilias, con
       </div>
     </div>
     {formOpen ? (
+      <div className="fixed inset-0 bg-gray-500 bg-opacity-75 z-50 overflow-auto flex overflow-y-auto overflow-x-hidden">
       <Form props={{ userid, textos, tipos, outros, mobilias, condicoes, formOpen, setFormOpen }} />
+      </div>
     ) : (
       false
     )}

@@ -49,16 +49,6 @@ export interface AtualizaImovel {
     imagem: string,
     caracteristicas: Json
   }
-export interface ImovelSemCorporacao {
-    id: string,
-    rua: string,
-    numero: number,
-    bairro: string,
-    cidade: string,
-    estado: string,
-    descricao: string,
-    valor: number
-}
 export type Mensagem = Database['public']['Tables']['mensagem']['Row']
 export interface MensagemAInserir {
     idautor: string,
@@ -69,6 +59,12 @@ export interface MensagemAInserir {
 export interface CorretorAssociado {
     id: string,
     nome: string,
+    estado: string,
+    cidade: string,
+    tipoImovel?: {
+      id: string;
+      descricao: string;
+  }[] | null;
 }
 export type Sala = Database['public']['Tables']['sala']['Row']
 export type Visita = Database['public']['Tables']['visita']['Row']

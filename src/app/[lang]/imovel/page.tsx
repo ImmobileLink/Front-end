@@ -2,10 +2,9 @@ import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { getDictionary } from "../dictionaries";
 import { Database } from "../../../../lib/database.types";
-import NavBar from "../(components)/NavBar";
 import Imoveis from "../(components)/(imovel)/Imoveis";
 import ImovelCard from "../(components)/(imovel)/ImovelCard";
-import { userData } from "../../../../lib/modelos";
+import { TipoImovel, userData } from "../../../../lib/modelos";
 import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/utils/userData";
 import { cache } from "react";
 
@@ -38,10 +37,10 @@ async function getUserData(user: userData) {
   return user;
 }
 
-async function filterAndMapTipos(tiposImovel, classificacao: string) {
+async function filterAndMapTipos(tiposImovel: TipoImovel, classificacao: string) {
   return tiposImovel
-    .filter((obj) => obj.classificacao === classificacao)
-    .map((obj) => ({ id: obj.id, descricao: obj.descricao }));
+    .filter((obj: TipoImovel) => obj.classificacao === classificacao)
+    .map((obj: TipoImovel) => ({ id: obj.id, descricao: obj.descricao }));
 }
 
 export default async function page({ params: { lang } }: pageProps) {
@@ -65,13 +64,14 @@ export default async function page({ params: { lang } }: pageProps) {
   const mobilias = await filterAndMapTipos(tiposImovel, 'Mobília');
   const condicoes = await filterAndMapTipos(tiposImovel, 'Condição');
 
-  let {data: properties} = await supabase.from("imovel").select("*").eq("idcorporacao", userData.id);
+  const { count } = await supabase.from('imovel').select('*', { count: 'estimated', head: true }).eq("idcorporacao", userData.id);
 
   return (
     <>
-      <NavBar />
-      <div className="w-auto h-fit min-h-screen  bg-branco dark:bg-dark-200 box-border text-black flex relative mx-auto px-4 mt-4">
-          <Imoveis userData={userData} textos={textos} properties={properties} tipos={tipos} outros={outros} mobilias={mobilias} condicoes={condicoes} />
+      <div className="w-full h-fit bg-branco dark:bg-dark-200 text-black flex justify-center">
+        <div className="flex justify-center w-11/12 max-w-6xl pt-5">
+          <Imoveis userData={userData} textos={textos} count={count} tipos={tipos} outros={outros} mobilias={mobilias} condicoes={condicoes} />
+          </div>
       </div>
     </>
   );

@@ -333,20 +333,39 @@
         "invalidname": "Name must be at least 10 characters long",
         "invalidphone": "Phone must be 10 or 11 characters long",
         "invalidemail": "Enter a valid email",
-        "invaliddate": "Selecione a date",
-        "invalidtime": "Selecione a time"
+        "invaliddate": "Select a valid date",
+        "invalidtime": "Select a valid time"
       }
     },
     "newproperty": {
       "registerproperty": "Register Property",
+      "requiredfields": "Required fields",
       "register": "Register",
+      "cep": "zip",
       "uf": "Estate",
       "city": "City",
       "neighborhood": "Neighborhood",
       "street": "Street",
       "number": "Number",
+      "complement": "Complement",
       "price": "Price",
-      "description": "Description"
+      "propertytype": "Property Type",
+      "furniture": "",
+      "condition": "",
+      "description": "Description",
+      "imageupload": "Upload Image",
+      "imageformat": "PNG, JPG or JPEG (MAX. 800x400px).",
+      "loading": "Loading",
+      "newpropertylogs": {
+        "invalidcep": "",
+        "invalidcepnotfound": "",
+        "invaliduf": "",
+        "invalidcity": "",
+        "invalidneighborhood": "",
+        "invalidstreet": "",
+        "invalidnumber": "",
+        "invalidprice": ""
+      }
     }
   },
   "chat": {

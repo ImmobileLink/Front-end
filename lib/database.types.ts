@@ -13,16 +13,19 @@ export interface Database {
         Row: {
           idcorporacao: string
           idcorretor: string
+          iniciativa: string
           pendente: boolean | null
         }
         Insert: {
           idcorporacao: string
           idcorretor: string
+          iniciativa: string
           pendente?: boolean | null
         }
         Update: {
           idcorporacao?: string
           idcorretor?: string
+          iniciativa?: string
           pendente?: boolean | null
         }
         Relationships: [
@@ -440,6 +443,7 @@ export interface Database {
       mensagem: {
         Row: {
           atualizadoem: string
+          avatarautor: string | null
           enviadoem: string
           id: string
           idautor: string
@@ -450,6 +454,7 @@ export interface Database {
         }
         Insert: {
           atualizadoem?: string
+          avatarautor?: string | null
           enviadoem?: string
           id?: string
           idautor: string
@@ -460,6 +465,7 @@ export interface Database {
         }
         Update: {
           atualizadoem?: string
+          avatarautor?: string | null
           enviadoem?: string
           id?: string
           idautor?: string
@@ -739,6 +745,7 @@ export interface Database {
     Views: {
       simple_user_data: {
         Row: {
+          avatar: string | null
           id: string | null
           nome: string | null
           premium: boolean | null
@@ -792,6 +799,9 @@ export interface Database {
         Returns: {
           id: string
           nome: string
+          estado: string
+          cidade: string
+          bairro: string
         }[]
       }
       get_corretores_by_corporacao_especialidade: {
@@ -911,6 +921,7 @@ export interface Database {
           idsala: string
           iddestinatario: string
           nomedestinatario: string
+          avatar: string
           mensagens: Json
         }[]
       }
@@ -1103,6 +1114,31 @@ export interface Database {
           idusuario: string
         }[]
       }
+      getcorretorwithavatar: {
+        Args: {
+          corretor_id: string
+        }
+        Returns: {
+          id: string
+          nome: string
+          cpf: string
+          cnpj: string
+          creci: string
+          cep: string
+          estado: string
+          cidade: string
+          bairro: string
+          logradouro: string
+          numero: number
+          complemento: string
+          telefone: string
+          celular: string
+          comercial: string
+          premium: boolean
+          sobre: string
+          avatar: string
+        }[]
+      }
       mensagem_com_usuario: {
         Args: {
           sala: string
@@ -1176,10 +1212,12 @@ export interface Database {
           idsala: string
           idautor: string
           nomeautor: string
+          avatarautor: string
           mensagem: string
           atualizadoem: string
           idparticipante: string
           nomeparticipante: string
+          avatarparticipante: string
         }[]
       }
       obterespecialidade: {

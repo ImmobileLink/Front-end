@@ -333,20 +333,40 @@
         "invalidname": "O nome precisa ter no mínimo 10 caracteres",
         "invalidphone": "O telefone precisa ter 10 ou 11 caracteres",
         "invalidemail": "Insira um email válido",
-        "invaliddate": "Selecione uma data",
-        "invalidtime": "Selecione um horário"
+        "invaliddate": "Selecione uma data válida",
+        "invalidtime": "Selecione um horário válido"
       }
     },
     "newproperty": {
       "registerproperty": "Cadastrar Imóvel",
+      "requiredfields": "Campos obrigatórios",
       "register": "Cadastrar",
+      "cep": "CEP",
       "uf": "Estado",
       "city": "Cidade",
       "neighborhood": "Bairro",
       "street": "Rua",
       "number": "Número",
+      "complement": "Complemento",
       "price": "Valor",
-      "description": "Descrição"
+      "propertytype": "Tipo de Imóvel",
+      "furniture": "",
+      "condition": "",
+      "other": "",
+      "description": "Descrição",
+      "imageupload": "Carregar imagem",
+      "imageformat": "PNG, JPG ou JPEG (MAX. 800x400px).",
+      "loading": "Carregando",
+      "formlogs": {
+        "invalidcep": "",
+        "invalidcepnotfound": "",
+        "invaliduf": "",
+        "invalidcity": "",
+        "invalidneighborhood": "",
+        "invalidstreet": "",
+        "invalidnumber": "",
+        "invalidprice": ""
+      }
     }
   },
   "chat": {
