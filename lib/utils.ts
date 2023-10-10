@@ -56,9 +56,9 @@ export const getCurrentDateTimeWithTimezone = () => {
   return currentDateTimeString;
 };
 
-export const isDateBeforeCurrent = (specificDate: string, currentDateTime: string) => {
+export const isDateBeforeCurrent = (specificDate: string) => {
   const specificDateObj = new Date(specificDate);
-  const currentDateTimeObj = new Date(currentDateTime);
+  const currentDateTimeObj = new Date(getCurrentDateTimeWithTimezone());
 
   // Compare as datas usando a função getTime(), que retorna o timestamp
   return specificDateObj.getTime() < currentDateTimeObj.getTime();

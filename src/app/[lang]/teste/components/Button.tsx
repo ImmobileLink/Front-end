@@ -8,7 +8,6 @@ interface ButtonProps {}
 export default function Button({}: ButtonProps) {
 
   const handleSendEmail = async () => {
-
     try {
       const url = '/api/survey/';
       
@@ -17,7 +16,7 @@ export default function Button({}: ButtonProps) {
         clientName: 'Luan Guilherme Rodrigues',
         visitDate: '2023-10-05 19:18:00-03',
         surveyId: 'random_uuid_survey',
-        scheduledDate: '2023-10-09 19:20:00-03',
+        scheduledDate: '2023-10-10 19:50:00-03'
       };
       
       const response = await fetch(url, {
@@ -52,7 +51,7 @@ export default function Button({}: ButtonProps) {
 
   return (
     <>
-      {formataData('2023-10-09 19:18:00-03')}
+      {/* {getCurrentDateTimeWithTimezone()} */}
       <button onClick={handleSendEmail} className="bg-emerald-800 text-white  px-4 py-2 hover:bg-emerald-600 rounded-lg">Enviar email</button>
     </>
   );

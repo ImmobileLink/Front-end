@@ -19,7 +19,7 @@ export default function SurveyEmail({ name, date, surveyId }: SurveyEmailProps) 
           <Container className="text-start">
             <Img src="https://rmnjgueyvmqmccnzvfro.supabase.co/storage/v1/object/public/assets/icons/logo.png" alt="ImmobileLink logo" width="279" height="59"  />
             <Text className="text-3xl leading-5 font-bold text-[#484848]">Olá, <span className="font-bold">{name}</span>!</Text>
-            <Text className="text-lg leading-4 text-[#484848]">Você foi selecionado para responder uma pesquisa de satisfação referente a sua visita a um imóvel no dia <span className="font-bold">{date}</span>.</Text>
+            <Text className="text-lg leading-4 text-[#484848]">Você foi convidado a responder uma pesquisa de satisfação referente a sua visita a um imóvel no dia <span className="font-bold">{date}</span>.</Text>
             <Text className="text-lg leading-4 text-[#484848]">Contamos com sua participação respondendo a nossa <Link className="font-bold" target="_blank" href={`http://immobilelink.vercel.app/pt/survey/${surveyId}`}>pesquisa de satisfação.</Link></Text>
           </Container>
         </Section>
