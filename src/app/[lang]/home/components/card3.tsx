@@ -26,45 +26,45 @@ export default function Card3({ lang }: Card3Props) {
                 </div>
                 <div className="md:flex text-left">
                     <div>
-                        <div className="flex flex-row align-center">
+                        <div className="flex flex-row align-center font-semibold">
                             <AiFillStar className="text-orange-400 text-4xl ml-8 mr-2" />
                             <a className="mt-2">Avaliação de corretores</a>
                         </div>
-                        <div className="flex flex-row align-center">
+                        <div className="flex flex-row align-center font-semibold">
                             <AiFillStar className="text-orange-400 text-4xl ml-8 mr-2" />
                             <a className="mt-2">
                                 Dashboard de métricas do usuário
                             </a>
                         </div>
-                        <div className="flex flex-row align-center">
+                        <div className="flex flex-row align-center font-semibold">
                             <AiFillStar className="text-orange-400 text-4xl ml-8 mr-2" />
                             <a className="mt-2">
                                 Feedback de desempenho profissional
                             </a>
                         </div>
-                        <div className="flex flex-row align-center">
+                        <div className="flex flex-row align-center font-semibold">
                             <AiFillStar className="text-orange-400 text-4xl ml-8 mr-2" />
                             <a className="mt-2">Criação de comunidades</a>
                         </div>
                     </div>
                     <div>
-                        <div className="flex flex-row align-center">
+                        <div className="flex flex-row align-center font-semibold">
                             <AiFillStar className="text-orange-400 text-4xl ml-8 mr-2" />
                             <a className="mt-2">Afiliação à empresas</a>
                         </div>
-                        <div className="flex flex-row align-center">
+                        <div className="flex flex-row align-center font-semibold">
                             <AiFillStar className="text-orange-400 text-4xl ml-8 mr-2" />
                             <a className="mt-2">
                                 Oportunidades por setor e região
                             </a>
                         </div>
-                        <div className="flex flex-row align-center">
+                        <div className="flex flex-row align-center font-semibold">
                             <AiFillStar className="text-orange-400 text-4xl ml-8 mr-2" />
                             <a className="mt-2">
                                 Agendamento e controle de visitas
                             </a>
                         </div>
-                        <div className="flex flex-row align-center">
+                        <div className="flex flex-row align-center font-semibold">
                             <AiFillStar className="text-orange-400 text-4xl ml-8 mr-2" />
                             <a className="mt-2">E muito mais!</a>
                         </div>

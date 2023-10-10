@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { AiFillYoutube } from "react-icons/ai";
+import { BiLogoBlogger } from "react-icons/bi";
 
 interface FooterProps {
     lang: string;
@@ -10,7 +12,6 @@ interface FooterProps {
 export default function Footer({ lang }: FooterProps) {
     return (
         <>
-            <div className="bg-gradient-to-t from-white to-transparent dark:from-gray-900 dark:to-transparent py-4" />
             <div className="w-full bg-white dark:bg-gray-900 py-8 ">
                 <div className="flex px-12 items-center ">
                     <Image
@@ -23,25 +24,36 @@ export default function Footer({ lang }: FooterProps) {
                     <span className="block self-center text-md md:text-xl font-semibold whitespace-nowrap dark:text-white">
                         ImmobileLink
                     </span>
-                    <div className="hidden md:flex flex-col px-24 py-4 md:flex-row md:justify-end">
+                    <div className="md:w-full hidden md:flex flex-col px-24 py-4 md:flex-row md:justify-end">
                         <div className="flex flex-col">
                             <a className="text-base font-semibold">
                                 Links úteis
                             </a>
-                            <Link href={"/auth"}>Acessar plataforma</Link>
-                            <Link href={"/plano"}>Premium</Link>
+                            <li>
+                                <Link href={"/auth"}>Acessar plataforma</Link>
+                            </li>
+
+                            <li>
+                                <Link href={"/plano"}>Premium</Link>
+                            </li>
                             <br />
                         </div>
                         <div className="flex flex-col md:px-12">
                             <a className="text-base font-semibold">
                                 Mais links
                             </a>
-                            <Link href={"https://immobilelink.blogspot.com/"}>
+                            <Link
+                                href={"https://immobilelink.blogspot.com/"}
+                                className="flex"
+                            >
+                                <BiLogoBlogger size={24} className="mr-2" />
                                 Blog
                             </Link>
                             <Link
                                 href={"https://www.youtube.com/@ImmobileLink"}
+                                className="flex"
                             >
+                                <AiFillYoutube size={24} className="mr-2" />
                                 Canal do YouTube
                             </Link>
                         </div>
@@ -50,16 +62,29 @@ export default function Footer({ lang }: FooterProps) {
                 <div className="flex md:hidden flex-col px-24 py-4 md:flex-row md:justify-end">
                     <div className="flex flex-col">
                         <a className="text-base font-semibold">Links úteis</a>
-                        <Link href={"/auth"}>Acessar plataforma</Link>
-                        <Link href={"/plano"}>Premium</Link>
+                        <li>
+                            <Link href={"/auth"}>Acessar plataforma</Link>
+                        </li>
+
+                        <li>
+                            <Link href={"/plano"}>Premium</Link>
+                        </li>
                         <br />
                     </div>
                     <div className="flex md:hidden flex-col md:px-12">
                         <a className="text-base font-semibold">Mais links</a>
-                        <Link href={"https://immobilelink.blogspot.com/"}>
+                        <Link
+                            href={"https://immobilelink.blogspot.com/"}
+                            className="flex"
+                        >
+                            <BiLogoBlogger size={24} className="mr-2" />
                             Blog
                         </Link>
-                        <Link href={"https://www.youtube.com/@ImmobileLink"}>
+                        <Link
+                            className="flex"
+                            href={"https://www.youtube.com/@ImmobileLink"}
+                        >
+                            <AiFillYoutube size={24} className="mr-2" />
                             Canal do YouTube
                         </Link>
                     </div>

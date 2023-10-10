@@ -17,7 +17,7 @@ export default function Banner({ lang, isUserLoggedIn }: BannerProps) {
         }
     }, []);
     return (
-        <div className="h-screen bg-gradient-to-b from-white to-secundaria-100/25 dark:from-gray-900 dark:to-black/25 flex flex-col items-center text-center justify-center">
+        <div className="h-screen bg-gradient-to-b from-white to-transparent dark:from-gray-900 dark:to-black/25 flex flex-col items-center text-center justify-center">
             <p className="font-semibold text-5xl px-8 md:text-7xl md:font-normal">
                 Unindo imóveis,
             </p>

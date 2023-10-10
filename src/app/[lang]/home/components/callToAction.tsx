@@ -14,7 +14,7 @@ export default function CallToAction({
 }: CallToActionProps) {
     return (
         <div>
-            <div className="flex flex-col items-center py-12">
+            <div className="bg-white dark:bg-gray-900 flex flex-col items-center py-24">
                 <p className="text-4xl px-12 py-6">Vamos começar?</p>
                 <Link
                     href={isUserLoggedIn ? "/feed" : "auth"}
