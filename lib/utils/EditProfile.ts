@@ -15,6 +15,7 @@ export async function updateCorporacaoProfile(formData: any, id: string){
                 logradouro: formData.logradouro,
                 numero: formData.numero,
                 complemento: formData.complemento,
+                estado: formData.uf
             })
             .eq('id', id); // Substitua 'id' pelo campo correto que identifica a corporação
 
@@ -33,6 +34,7 @@ export async function updateCorretorProfile(formData: any, id: string){
                 logradouro: formData.logradouro,
                 numero: formData.numero,
                 complemento: formData.complemento,
+                estado: formData.uf
             })
             .eq('id', id); 
 

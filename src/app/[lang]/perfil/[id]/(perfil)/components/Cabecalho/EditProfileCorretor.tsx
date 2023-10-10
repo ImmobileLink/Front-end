@@ -32,10 +32,10 @@ export default function EditProfile({ data }: EditProfileProps) {
         logradouro: data?.logradouro,
         numero: data?.numero,
         complemento: data?.complemento,
+        uf: data?.estado
     }
 
     const { register, handleSubmit, watch, reset, setValue, getValues, formState: { errors, isDirty } } = useForm({ defaultValues });
-
 
     const [isProcessing, setIsProcessing] = useState<boolean>(false)
 
@@ -46,9 +46,9 @@ export default function EditProfile({ data }: EditProfileProps) {
             console.error('Erro ao atualizar os dados:', error);
         } else {
             console.log('Dados atualizados com sucesso:', updatedData);
-            setIsProcessing(false)
             props.setOpenModal(undefined);
         }
+        setIsProcessing(false)
     }
 
     const watchCep = watch("cep")
@@ -62,6 +62,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                 reset({
                     nome: getValues().nome,
                     sobre: getValues().sobre,
+                    uf: defaultValues.uf,
                     cep: defaultValues.cep,
                     cidade: defaultValues.cidade,
                     bairro: defaultValues.bairro,
@@ -76,10 +77,11 @@ export default function EditProfile({ data }: EditProfileProps) {
 
     const autoCompletaEndereco = async (cleanedCep: string) => {
         const data = await getCEP(cleanedCep);
-
+        console.log(data)
         if (!data.erro) {
             setErrorCep(undefined)
             setValue('cidade', data.localidade);
+            setValue('uf', data.uf);
             setValue('bairro', data.bairro);
             setValue('logradouro', data.logradouro);
             setValue('numero', null);
@@ -87,6 +89,7 @@ export default function EditProfile({ data }: EditProfileProps) {
         } else {
             setValue('cidade', '');
             setValue('bairro', '');
+            setValue('uf', '');
             setValue('logradouro', '');
             setErrorCep("Esse cep não existe")
         }
@@ -171,23 +174,16 @@ export default function EditProfile({ data }: EditProfileProps) {
 
                                 </div>
 
-                                <div className="z-0 group space-y-3">
+                                <div className="z-0 group">
                                     <label className="text-sm text-gray-500 dark:text-gray-300">
                                         UF
                                     </label>
-                                    <select className={`mb-1 bg-transparent`}>
-                                        <option value="" disabled>SP</option>
-                                        {/* {_UFs.map((uf, index) => {
-                                            return (
-                                                <option
-                                                    key={uf + " - " + index}
-                                                    className="text-center"
-                                                >
-                                                    {uf}
-                                                </option>
-                                            );
-                                        })} */}
-                                    </select>
+                                    <input
+                                    disabled
+                                    type="text"
+                                    {...register("uf", { required: true })}
+                                    className={`bg-transparent disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                                />
                                 </div>
                             </div>
                         </div>

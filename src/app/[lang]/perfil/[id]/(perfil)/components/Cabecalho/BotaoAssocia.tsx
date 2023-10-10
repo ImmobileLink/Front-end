@@ -15,7 +15,7 @@ interface botaoAddProps {
 
 
 
-export default function BotaoAdd({  }: botaoAddProps) {
+export default function BotaoAssocia({  }: botaoAddProps) {
   const supabase = createClientComponentClient<Database>({});
 
   const state = useProfileStore.getState()

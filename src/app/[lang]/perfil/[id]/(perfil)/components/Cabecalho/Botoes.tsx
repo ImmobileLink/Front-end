@@ -1,11 +1,12 @@
 
-import BotaoAdd from "./botaoAdd";
+import BotaoAdd from "./BotaoAssocia";
 import BotaoChat from "./BotaoChat"
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../../../../lib/database.types";
 import { cookies } from "next/headers";
 import { useProfileStore } from "../../../../../../../../lib/store/profileStore";
 import { cache } from "react";
+import BotaoAssocia from "./BotaoAssocia";
 
 interface BotoesProps {
 }
@@ -36,9 +37,9 @@ export default async function Botoes({ }: BotoesProps) {
 
   return (
     <div className="mt-5 flex flex-wrap">
-      {profile?.type != session?.type && (
-        <BotaoAdd/>
-      )}
+      {profile?.type != session?.type ? (
+        <BotaoAssocia/>
+      ): (<BotaoConecta/>)}
       <BotaoChat sala={sala} />
     </div>
   );
