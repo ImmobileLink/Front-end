@@ -39,12 +39,12 @@ export default async function Home({ params: { lang } }: HomeProps) {
 
     return (
         <div className="w-full h-fit min-h-screen bg-branco dark:bg-dark-200">
-            <NavBarHome lang={dict}/>
-            <Banner lang={dict} isUserLoggedIn={isUserLoggedIn}/>
-            <Card1 lang={dict} />
-            <Card2 lang={dict} />
-            <Card3 lang={dict} />
-            <CallToAction lang={dict} isUserLoggedIn={isUserLoggedIn}/>
+            <NavBarHome lang={dict.home}/>
+            <Banner lang={dict.home} isUserLoggedIn={isUserLoggedIn}/>
+            <Card1 lang={dict.home} />
+            <Card2 lang={dict.home} />
+            <Card3 lang={dict.home} />
+            <CallToAction lang={dict.home} isUserLoggedIn={isUserLoggedIn}/>
         </div>
     );
 }

@@ -453,7 +453,15 @@ export interface Profile {
 }
 
 export interface Home{
- // types da landing page / home
+    about: string;
+    resources: string;
+    premium: string;
+    access: string;
+    conecting: string;
+    ties: string;
+    whatIsImmobileLink: string;
+    searchOpportunities: string;
+    searchParagraph: string;
 }
 
 // Converts JSON strings to/from your types

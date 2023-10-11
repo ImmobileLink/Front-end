@@ -1,8 +1,9 @@
+import { Home } from "@/app/i18n/dictionaries/types";
 import Image from "next/image";
 import { Suspense } from "react";
 
 interface Card1Props {
-    lang: string;
+    lang: Home;
 }
 
 export default function Card1({ lang }: Card1Props) {
@@ -14,16 +15,10 @@ export default function Card1({ lang }: Card1Props) {
             <div className="md:flex md:flex-row">
                 <div className="px-8 md:pl-8">
                     <p className="text-xl font-semibold pb-8 md:pt-12 md:pl-12 md:text-2xl">
-                        Encontre oportunidades
+                        {lang.searchOpportunities}
                     </p>
                     <p className="pb-4 md:pr-20 md:pl-12 text-lg">
-                        Busque por oportunidades de parceria com diversas
-                        imobiliárias e corretores do mercado. Aqui oferecemos um
-                        ambiente colaborativo que contribui para a construção e
-                        demonstração de credibilidade de profissionais autônomos
-                        e empresas do ramo imobiliário. Demonstre sua
-                        experiência, atuação, seu portfólio e forme laços com
-                        diversos profissionais e organizações se assim desejar.
+                        {lang.searchParagraph}
                     </p>
                 </div>
                 <div className="flex justify-center md:mr-36">

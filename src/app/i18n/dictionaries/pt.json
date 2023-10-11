@@ -379,5 +379,16 @@
   "cityselector": {
     "estate": "Estado",
     "city": "Município"
+  },
+  "home": {
+    "about": "Sobre a plataforma",
+    "resources": "Recursos",
+    "premium": "Premium",
+    "access": "ACESSAR PLATAFORMA",
+    "conecting": "Unindo imóveis,",
+    "ties": "laços e negócios",
+    "whatIsImmobileLink": "A ImmobileLink é uma plataforma que busca facilitar o contato entre corretores, construtoras e imobiliárias. Encontre o profissional certo para a parceria certa.",
+    "searchOpportunities": "Encontre oportunidades",
+    "searchParagraph": "Busque por oportunidades de parceria com diversas imobiliárias e corretores do mercado. Aqui oferecemos um ambiente colaborativo que contribui para a construção e demonstração de credibilidade de profissionais autônomos e empresas do ramo imobiliário. Demonstre sua experiência, atuação, seu portfólio e forme laços com diversos profissionais e organizações se assim desejar."
   }
 }

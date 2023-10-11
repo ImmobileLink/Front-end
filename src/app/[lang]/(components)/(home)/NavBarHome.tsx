@@ -36,19 +36,19 @@ export default function NavBarHome({ lang }: NavBarHomeProps) {
                                 href="#about-immobilelink"
                                 className="font-semibold px-4 py-2 mx-2 cursor-pointer"
                             >
-                                Sobre a plataforma
+                                {lang.about}
                             </a>
                             <a
                                 href="#amazing-resources"
                                 className="font-semibold px-4 py-2 mx-2 cursor-pointer"
                             >
-                                Recursos
+                                {lang.resources}
                             </a>
                             <Link
                                 className="font-semibold px-4 py-2 mx-2"
                                 href="/plano"
                             >
-                                Premium
+                                {lang.premium}
                             </Link>
                         </div>
                     </div>
@@ -58,7 +58,7 @@ export default function NavBarHome({ lang }: NavBarHomeProps) {
                             className="hidden md:flex justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
                         >
                             <Loading loading={loading} />
-                            ACESSAR PLATAFORMA
+                            {lang.access}
                         </button>
                         <NavBarHamburguerHome lang={lang} />
                         <div className="md:ml-12 mt-2 ml-2">
