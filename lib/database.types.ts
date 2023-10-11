@@ -843,6 +843,24 @@ export interface Database {
         }
         Returns: string
       }
+      deleta_conexao: {
+        Args: {
+          uuid1: string
+          uuid2: string
+        }
+        Returns: undefined
+      }
+      get_conexao: {
+        Args: {
+          uuid1: string
+          uuid2: string
+        }
+        Returns: {
+          id: string
+          iniciativa: string
+          pendente: boolean
+        }[]
+      }
       get_connected_users: {
         Args: {
           id_usuario: string
@@ -1079,6 +1097,15 @@ export interface Database {
           estado: string
           cidade: string
           sobre: string
+        }[]
+      }
+      get_id_conexao: {
+        Args: {
+          uuid1: string
+          uuid2: string
+        }
+        Returns: {
+          id: string
         }[]
       }
       get_imoveis: {
