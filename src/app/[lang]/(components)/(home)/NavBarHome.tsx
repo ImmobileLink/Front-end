@@ -10,9 +10,10 @@ import CountryDropdown from "../(navbar)/CountryDropdown";
 
 interface NavBarHomeProps {
     lang: Home;
+    isUserLoggedIn: boolean;
 }
 
-export default function NavBarHome({ lang }: NavBarHomeProps) {
+export default function NavBarHome({ lang, isUserLoggedIn }: NavBarHomeProps) {
     const [loading, isLoading] = useState(false);
     return (
         <>
@@ -53,13 +54,13 @@ export default function NavBarHome({ lang }: NavBarHomeProps) {
                         </div>
                     </div>
                     <div className="flex justify-end">
-                        <button
-                            onClick={() => console.log("trata acesso")}
+                        <Link
+                            href={isUserLoggedIn ? "/feed" : "auth"}
                             className="hidden md:flex justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
                         >
                             <Loading loading={loading} />
                             {lang.access}
-                        </button>
+                        </Link>
                         <NavBarHamburguerHome lang={lang} />
                         <div className="md:ml-12 mt-2 ml-2">
                             <CountryDropdown />
