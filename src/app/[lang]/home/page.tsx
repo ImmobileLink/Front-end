@@ -44,7 +44,7 @@ export default async function Home({ params: { lang } }: HomeProps) {
             <Card1 lang={dict.home} />
             <Card2 lang={dict.home} />
             <Card3 lang={dict.home} />
-            <CallToAction lang={dict.home} isUserLoggedIn={isUserLoggedIn}/>
+            <CallToAction lang={dict.home} footer={dict.footer} isUserLoggedIn={isUserLoggedIn}/>
         </div>
     );
 }

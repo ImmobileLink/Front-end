@@ -1,10 +1,11 @@
 "use client";
 
+import { Home } from "@/app/i18n/dictionaries/types";
 import Image from "next/image";
 import { Suspense } from "react";
 
 interface Card2Props {
-    lang: string;
+    lang: Home;
 }
 
 export default function Card2({ lang }: Card2Props) {
@@ -25,15 +26,10 @@ export default function Card2({ lang }: Card2Props) {
                     </div>
                     <div className="md:flex md:flex-col md:text-left">
                         <p className="text-xl font-semibold py-8 px-8 md:text-2xl">
-                            Gerencie sua agenda, controle seus links e receba
-                            feedback de verdade!{" "}
+                            {lang.manageYourCalendar}
                         </p>
                         <p className="px-8 pb-4 text-lg">
-                            Aproveite os melhores recursos para auxiliar a
-                            gestão do tempo, atividades, agendamentos,
-                            comunicação, visualização e avaliação de desempenho
-                            do seu trabalho e de seus parceiros com nosso
-                            dashboard completo e personalizado.
+                            {lang.manageParagraph}
                         </p>
                     </div>
                 </div>

@@ -17,6 +17,7 @@ export interface Dictionaries {
     chat: Chat;
     cityselector: DictionariesCityselector;
     home: Home;
+    footer: FooterLang;
 }
 
 export interface Auth {
@@ -462,6 +463,32 @@ export interface Home{
     whatIsImmobileLink: string;
     searchOpportunities: string;
     searchParagraph: string;
+    manageYourCalendar: string;
+    manageParagraph: string;
+    amazingResources: string;
+    amazingParagraph: string;
+    itemResources: ItemResources;
+    tryPremium: string;
+    start: string;
+}
+export interface ItemResources{
+    item1: string;
+    item2: string;
+    item3: string;
+    item4: string;
+    item5: string;
+    item6: string;
+    item7: string;
+    item8: string;
+}
+
+export interface FooterLang {
+    usefulLinks: string;
+    access: string;
+    premium: string;
+    moreLinks: string;
+    blog: string;
+    ytChannel: string;
 }
 
 // Converts JSON strings to/from your types

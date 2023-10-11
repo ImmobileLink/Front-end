@@ -1,9 +1,10 @@
 "use client";
 
+import { Home } from "@/app/i18n/dictionaries/types";
 import { AiFillStar } from "react-icons/ai";
 
 interface Card3Props {
-    lang: string;
+    lang: Home;
 }
 
 export default function Card3({ lang }: Card3Props) {
@@ -15,58 +16,55 @@ export default function Card3({ lang }: Card3Props) {
                         id="amazing-resources"
                         className="text-xl font-semibold md:px-8 md:text-2xl md:pb-8"
                     >
-                        Recursos incríveis para corretores e empresas
+                        {lang.amazingResources}
                     </p>
                     <p className="px-8 pb-4 text-lg">
-                        A ImmobileLink conta com recursos exclusivos para
-                        atender as principais necessidades do mercado. Explore
-                        uma vasta gama de funcionalidades gratuitas e premium
-                        para suas necessidades e de seu negócio:
+                        {lang.amazingParagraph}
                     </p>
                 </div>
                 <div className="md:flex text-left">
                     <div>
                         <div className="flex flex-row align-center font-semibold">
                             <AiFillStar className="text-orange-400 text-4xl ml-8 mr-2" />
-                            <a className="mt-2">Avaliação de corretores</a>
+                            <a className="mt-2">{lang.itemResources.item1}</a>
                         </div>
                         <div className="flex flex-row align-center font-semibold">
                             <AiFillStar className="text-orange-400 text-4xl ml-8 mr-2" />
                             <a className="mt-2">
-                                Dashboard de métricas do usuário
+                            {lang.itemResources.item2}
                             </a>
                         </div>
                         <div className="flex flex-row align-center font-semibold">
                             <AiFillStar className="text-orange-400 text-4xl ml-8 mr-2" />
                             <a className="mt-2">
-                                Feedback de desempenho profissional
+                            {lang.itemResources.item3}
                             </a>
                         </div>
                         <div className="flex flex-row align-center font-semibold">
                             <AiFillStar className="text-orange-400 text-4xl ml-8 mr-2" />
-                            <a className="mt-2">Criação de comunidades</a>
+                            <a className="mt-2">{lang.itemResources.item4}</a>
                         </div>
                     </div>
                     <div>
                         <div className="flex flex-row align-center font-semibold">
                             <AiFillStar className="text-orange-400 text-4xl ml-8 mr-2" />
-                            <a className="mt-2">Afiliação à empresas</a>
+                            <a className="mt-2">{lang.itemResources.item5}</a>
                         </div>
                         <div className="flex flex-row align-center font-semibold">
                             <AiFillStar className="text-orange-400 text-4xl ml-8 mr-2" />
                             <a className="mt-2">
-                                Oportunidades por setor e região
+                            {lang.itemResources.item6}
                             </a>
                         </div>
                         <div className="flex flex-row align-center font-semibold">
                             <AiFillStar className="text-orange-400 text-4xl ml-8 mr-2" />
                             <a className="mt-2">
-                                Agendamento e controle de visitas
+                            {lang.itemResources.item7}
                             </a>
                         </div>
                         <div className="flex flex-row align-center font-semibold">
                             <AiFillStar className="text-orange-400 text-4xl ml-8 mr-2" />
-                            <a className="mt-2">E muito mais!</a>
+                            <a className="mt-2">{lang.itemResources.item8}</a>
                         </div>
                     </div>
                 </div>
@@ -75,7 +73,7 @@ export default function Card3({ lang }: Card3Props) {
                         href="/plano"
                         className="md:mt-6 md:mb-12 flex w-fit justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200 md:text-xs"
                     >
-                        EXPERIMENTE O PREMIUM
+                        {lang.tryPremium}
                     </a>
                 </div>
             </div>

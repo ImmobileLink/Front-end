@@ -389,6 +389,30 @@
     "ties": "laços e negócios",
     "whatIsImmobileLink": "A ImmobileLink é uma plataforma que busca facilitar o contato entre corretores, construtoras e imobiliárias. Encontre o profissional certo para o imóvel certo.",
     "searchOpportunities": "Encontre oportunidades",
-    "searchParagraph": "Busque por oportunidades de parceria com diversas imobiliárias e corretores do mercado. Aqui oferecemos um ambiente colaborativo que contribui para a construção e demonstração de credibilidade de profissionais e empresas do ramo imobiliário. Demonstre sua experiência, atuação, seu portfólio e forme laços com diversos profissionais e organizações se assim desejar."
+    "searchParagraph": "Busque por oportunidades de parceria com diversas imobiliárias e corretores do mercado. Aqui oferecemos um ambiente colaborativo que contribui para a construção e demonstração de credibilidade de profissionais e empresas do ramo imobiliário. Demonstre sua experiência, atuação, seu portfólio e forme laços com diversos profissionais e organizações se assim desejar.",
+    "manageYourCalendar": "Gerencie sua agenda, controle seus links e receba feedback de verdade!",
+    "manageParagraph": "Aproveite os melhores recursos para auxiliar a gestão do tempo, atividades, agendamentos, comunicação, visualização e avaliação de desempenho do seu trabalho e de seus parceiros com nosso dashboard completo e personalizado.",
+    "amazingResources": "Recursos incríveis para corretores e empresas",
+    "amazingParagraph": "A ImmobileLink conta com recursos exclusivos para atender as principais necessidades do mercado. Explore uma vasta gama de funcionalidades gratuitas e premium para suas necessidades e de seu negócio:",
+    "itemResources": {
+      "item1": "Avaliação de corretores",
+      "item2": "Dashboard de métricas do usuário",
+      "item3": "Feedback de desempenho profissional",
+      "item4": "Criação de comunidades",
+      "item5": "Afiliação à empresas",
+      "item6": "Oportunidades por setor e região",
+      "item7": "Agendamento e controle de visitas",
+      "item8": "E muito mais!"
+    },
+    "tryPremium": "EXPERIMENTE O PREMIUM",
+    "start": "Vamos começar?"
+  },
+  "footer": {
+    "usefulLinks": "Links úteis",
+    "access": "Acessar plataforma",
+    "premium": "Premium",
+    "moreLinks": "Mais links",
+    "blog": "Blog",
+    "ytChannel": "Canal do YouTube"
   }
 }
