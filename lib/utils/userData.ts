@@ -21,6 +21,7 @@ export async function getTipoUsuario(userData: userData, userId: string): Promis
     userData.avatar = data![0].avatar;
     userData.isPremium = data![0].ispremium;
     userData.type = data![0].role;
+    userData.capa = data![0].capa;
   }
 
   return userData;

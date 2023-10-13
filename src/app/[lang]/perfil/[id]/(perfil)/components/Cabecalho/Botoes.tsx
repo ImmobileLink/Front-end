@@ -21,10 +21,8 @@ export default async function Botoes({ }: BotoesProps) {
 
   const state = useProfileStore.getState()
 
-
   const profile = state.profileData
   const session = state.sessionData
-  const dict = state.dict
 
 
   let { data, error } = await supabase

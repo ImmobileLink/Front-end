@@ -10,14 +10,14 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../../lib/database.types";
 import { updateCorretorProfile } from "../../../../../../../../lib/utils/EditProfile";
 import EditEspecialidades from "./EditEspecialidades";
+import { useRouter } from "next/navigation";
 
 interface EditProfileProps {
     data: Corretor | null;
 }
 
 export default function EditProfile({ data }: EditProfileProps) {
-    const supabase = createClientComponentClient<Database>({});
-
+    const router = useRouter()
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
 
@@ -47,8 +47,11 @@ export default function EditProfile({ data }: EditProfileProps) {
         } else {
             console.log('Dados atualizados com sucesso:', updatedData);
             props.setOpenModal(undefined);
+            router.refresh()
         }
+        console.log("oiodioasi")
         setIsProcessing(false)
+       
     }
 
     const watchCep = watch("cep")
@@ -86,6 +89,7 @@ export default function EditProfile({ data }: EditProfileProps) {
             setValue('logradouro', data.logradouro);
             setValue('numero', null);
             setValue('complemento', '');
+
         } else {
             setValue('cidade', '');
             setValue('bairro', '');

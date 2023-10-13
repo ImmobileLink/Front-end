@@ -148,6 +148,7 @@ export interface UltimaMensagemPorSalaPorUsuario {
 export type userData = {
     id?: string;
     avatar?: string;
+    capa?: string;
     nome?: string;
     isPremium?: boolean;
     type?: string;

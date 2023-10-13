@@ -688,6 +688,7 @@ export interface Database {
         Row: {
           atualizadoem: string
           avatar: string
+          capa: string
           criadoem: string
           email: string
           id: string
@@ -695,6 +696,7 @@ export interface Database {
         Insert: {
           atualizadoem?: string
           avatar?: string
+          capa?: string
           criadoem?: string
           email: string
           id: string
@@ -702,6 +704,7 @@ export interface Database {
         Update: {
           atualizadoem?: string
           avatar?: string
+          capa?: string
           criadoem?: string
           email?: string
           id?: string
@@ -832,6 +835,7 @@ export interface Database {
         Returns: {
           nome: string
           avatar: string
+          capa: string
           ispremium: boolean
           role: string
         }[]

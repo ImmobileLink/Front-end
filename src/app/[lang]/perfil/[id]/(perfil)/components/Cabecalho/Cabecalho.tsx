@@ -8,7 +8,6 @@ import EditProfileCorretor from "./EditProfileCorretor";
 import { Corporacao, Corretor } from "../../../../../../../../lib/modelos";
 import CabecalhoData from "./CabecalhoData";
 import Capa from "./Capa";
-import EditCapa from "./EditCapa";
 import AvatarCabecalho from "./AvatarCabecalho";
 
 interface InfosPadraoProps {
@@ -28,7 +27,6 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
     <>
       <div className="h-44 overflow-hidden rounded-md relative">
         <Capa />
-        {state.isOwn && <EditCapa />}
       </div>
 
       <div className="p-8 -mt-28 relative">
@@ -47,12 +45,6 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
         </div>
 
         <CabecalhoData
-          cidade={profileFullData?.cidade!}
-          sobre={profileFullData?.sobre}
-          estado={profileFullData?.estado!}
-          nome={profile?.nome!}
-          id={profile?.id!}
-          tipo={profile?.type!}
           action={session?.id && !state.isOwn && <Botoes />}
         />
       </div>
