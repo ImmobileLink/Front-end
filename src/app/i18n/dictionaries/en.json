@@ -11,7 +11,18 @@
     "subscription": "Subscription",
     "loginbutton": "Login",
     "logoutbutton": "Logout",
-    "language": "Language"
+    "language": "Language",
+    "notifications":"Notifications",
+    "messages":"Messages",
+    "account": "Account",
+    "notificationlabels": {
+      "check": "Check details",
+      "association": "has proposed an association",
+      "connection": "would like to connect",
+      "accept": "Accept",
+      "refuse": "Refuse",
+      "nonotifications": "No notifications"
+    }
   },
   "auth": {
     "always": {

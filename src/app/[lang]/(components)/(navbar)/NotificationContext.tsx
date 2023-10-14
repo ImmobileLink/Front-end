@@ -6,6 +6,8 @@ interface ChatContextType {
   toggleChatNotification: (val: boolean) => void
   chatNewMessages: any
   toggleChatNewMessages: (val: any) => void
+  assocNot: any
+  toggleAssocNot: (val: any) => void
 }
 
 export const NotificationContext = createContext({} as ChatContextType);
@@ -13,7 +15,7 @@ export const NotificationContext = createContext({} as ChatContextType);
 export function NotificationProvider({ children }: { children: ReactNode }) {
   const [chatNotification, setChatNotification] = useState<boolean>(false);
   const [chatNewMessages, setChatNewMessages] = useState([])
-
+  const [assocNot, setAssocNot] = useState([])
   const toggleChatNotification = (val:boolean) => {
     setChatNotification(val)
   }
@@ -22,8 +24,12 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     setChatNewMessages(val)
   }
 
+  const toggleAssocNot = (val:any) => {
+    setAssocNot(val)
+  }
+
   return (
-    <NotificationContext.Provider value={{ chatNotification, toggleChatNotification, chatNewMessages, toggleChatNewMessages }}>
+    <NotificationContext.Provider value={{ chatNotification, toggleChatNotification, chatNewMessages, toggleChatNewMessages, assocNot, toggleAssocNot }}>
       {children}
     </NotificationContext.Provider>
   );

@@ -52,11 +52,11 @@ export default async function NavBar({ params: { lang } }: NavBarProps) {
  
   return (
     <>
-      <nav className="w-full sticky top-0 z-50 bg-white dark:bg-gray-900 ">
-        <div className="max-w-2xl md:max-w-3xl lg:max-w-6xl flex flex-wrap items-center justify-between mx-auto px-2 py-4 sm:p-4">
+      <nav className="w-full sticky top-0 z-50 bg-white dark:bg-gray-900 h-[72px] max-h-[72px]">
+        <div className="max-w-2xl md:max-w-3xl lg:max-w-6xl flex flex-wrap items-center justify-between mx-auto px-2 py-4 md:pt-3 md:pb-3 max-h-[72px]">
           <div className="flex items-center">
             <Link
-              href="/feed"
+              href="/"
               className="flex items-center"
             >
               <Image
@@ -72,25 +72,27 @@ export default async function NavBar({ params: { lang } }: NavBarProps) {
             </Link>
           </div>
           <div className="block w-auto">
-            <ul className="flex font-medium p-0 gap-x-1 sm:gap-x-3 text-end border-gray-100 rounded-lg flex-row mspace-x-8 mt-0 border-0">
-              <li className="hidden md:block">
-                <Link href="/feed" className="p-0 w-auto text-gray-900 rounded hover:bg-gray-100 hover:bg-transparent border-0 hover:text-blue-700 dark:text-white dark:hover:bg-transparent">
-                  <HiHome size={32} />
+            <ul className="flex font-medium p-0 gap-x-2 md:gap-x-3 justify-between text-end border-gray-100 rounded-lg flex-row mspace-x-8 mt-0 border-0">
+              <li className="hidden md:block mr-2">
+                <Link href="/feed" className="flex flex-col justify-center items-center p-0 w-auto text-gray-900 rounded hover:bg-gray-100 hover:bg-transparent border-0 hover:text-blue-700 dark:text-white dark:hover:bg-transparent">
+                  <HiHome size={30} />
+                  <p className="hidden md:block md:text-sm">{dict.navbarbuttons.feed}</p>
                 </Link>
               </li>
               <li className="hidden md:block">
-                <Link href="/pesquisa" className="p-0 w-auto text-center text-gray-900 rounded hover:bg-gray-100 hover:bg-transparent border-0 hover:text-blue-700 dark:text-white dark:hover:bg-transparent">
-                  <MdPersonSearch size={32} />
+                <Link href="/pesquisa" className="flex flex-col justify-center items-center p-0 w-auto text-gray-900 rounded hover:bg-gray-100 hover:bg-transparent border-0 hover:text-blue-700 dark:text-white dark:hover:bg-transparent">
+                  <MdPersonSearch size={30} />
+                  <p className="hidden md:block md:text-sm">{dict.navbarbuttons.search}</p>
                 </Link>
               </li>
               {
                 userData.id && (
                   <>
                     <li>                
-                      <NotificationDropdown/>
+                      <NotificationDropdown textos={dict.navbarbuttons} userId={userData.id}/>
                     </li>
                     <li>
-                      <ChatIcon userId={userData.id} newMessages={newmessages}/>
+                      <ChatIcon userId={userData.id} newMessages={newmessages} textos={dict.navbarbuttons}/>
                     </li>
                     <li className="block md:hidden">
                       <NavBarHamburguerMenu textos={dict.navbarbuttons} userId={userData.id} />
@@ -101,7 +103,6 @@ export default async function NavBar({ params: { lang } }: NavBarProps) {
               <NavBarProfileMenu textos={dict.navbarbuttons} userId={userData.id} />
             </ul>
           </div>
-
         </div>
       </nav>
     </>
