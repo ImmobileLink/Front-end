@@ -46,11 +46,11 @@ export default function SignIn({ setAlert, signin, lang }: SignInProps) {
         isLoading(false);
     };
 
-    const signInWithGoogle = async () => {
-        const { data, error } = await supabase.auth.signInWithOAuth({
-            provider: "google",
-        });
-    };
+    // const signInWithGoogle = async () => {
+    //     const { data, error } = await supabase.auth.signInWithOAuth({
+    //         provider: "google",
+    //     });
+    // };
 
     return (
         <>
@@ -90,7 +90,7 @@ export default function SignIn({ setAlert, signin, lang }: SignInProps) {
                     </button>
                 </div>
 
-                <div className="flex flex-row">
+                {/* <div className="flex flex-row">
                     <hr className="w-5/12 h-0,5 mt-2 border-0 bg-gray-600" />
                     <p className="w-2/12 h-full leading-none text-center text-md text-gray-600">
                         {signin.or}
@@ -106,7 +106,7 @@ export default function SignIn({ setAlert, signin, lang }: SignInProps) {
                         <FcGoogle className="text-lg m-1" />{" "}
                         {signin.signinwithgoogle}
                     </button>
-                </div>
+                </div> */}
             </div>
         </>
     );

@@ -227,7 +227,7 @@ export default function Signup4({
                                 </label>
                                 <select
                                     value={selectedState}
-                                    className="bg-dark-200 mb-1 w-16 mx-1"
+                                    className="bg-branco dark:bg-dark-200 mb-1 w-16 mx-1"
                                     onChange={(e) => {setSelectedState(e.target.value);}}
                                     onClick={e => {
                                         setDropdownRegiao(false);
