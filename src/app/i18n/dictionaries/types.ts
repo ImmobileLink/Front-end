@@ -320,10 +320,14 @@ export interface Imovel {
 }
 
 export interface Formlabels {
+    infoproperty:  Infoproperty;
     selectbroker:  string;
     findbroker:    string;
     delegatevisit: string;
+    requiredfields:string;
+    warningmsg:    string;
     brokerdata:    string;
+    specialty:     string;
     clientdata:    string;
     scheduling:    string;
     name:          string;
@@ -332,6 +336,7 @@ export interface Formlabels {
     date:          string;
     time:          string;
     formlogs:      Formlogs;
+    editimg:       Editimg;
 }
 
 export interface Formlogs {
@@ -342,9 +347,20 @@ export interface Formlogs {
     invalidtime:  string;
 }
 
+export interface Editimg {
+    title:        string;
+    imageupload:  string;
+    imageformat:  string;
+    loading:      string;
+    confirm:      string;
+}
+
 export interface Mainlabels {
     title:           string;
-    delegatevisit:   string;
+    delegatevisit:   string;    
+}
+
+export interface Infoproperty {
     location:        string;
     characteristics: string;
     price:           string;
@@ -362,9 +378,12 @@ export interface Newproperty {
   number:           string;
   complement:       string;
   price:            string;
-  propertytype:     string;
+  type:             string;
   furniture:        string;
   condition:        string;
+  others:           string;
+  selectopt:        string;
+  selectopts:       string;
   description:      string;
   imageupload:      string;
   imageformat:      string;

@@ -329,16 +329,21 @@
   "imovel": {
     "mainlabels": {
       "title": "My Properties",
-      "delegatevisit": "Delegate Visit",
-      "location": "Location",
-      "characteristics": "Characteristics",
-      "price": "Price"
+      "delegatevisit": "Delegate Visit"
     },
     "formlabels": {
+      "infoproperty": {
+        "location": "Location",
+        "characteristics": "Characteristics",
+        "price": "Price"
+      },
       "selectbroker": "Select a broker",
       "findbroker": "Find Brokers",
       "delegatevisit": "Delegate Visit",
+      "requiredfields": "Please fill out all the fields",
+      "warningmsg": "Your corporation does not have associated brokers yet. Please click the button below.",
       "brokerdata": "Broker",
+      "specialty": "Specialty",
       "clientdata": "Client's Data",
       "scheduling": "Appointment",
       "name": "Name",
@@ -352,6 +357,13 @@
         "invalidemail": "Enter a valid email",
         "invaliddate": "Select a valid date",
         "invalidtime": "Select a valid time"
+      },
+      "editimg": {
+        "title": "Change Property Image",
+        "imageupload": "Click to upload or drag and drop",
+        "imageformat": "PNG, JPG ou JPEG (MAX. 800x400px).",
+        "loading": "Loading",
+        "confirm": "Confirm"
       }
     },
     "newproperty": {
@@ -366,22 +378,25 @@
       "number": "Number",
       "complement": "Complement",
       "price": "Price",
-      "propertytype": "Property Type",
-      "furniture": "",
-      "condition": "",
+      "type": "Property Type",
+      "furniture": "Furniture",
+      "condition": "Condition",
+      "others": "Other Characteristics",
+      "selectopt": "Select an option",
+      "selectopts": "Select...",
       "description": "Description",
       "imageupload": "Upload Image",
       "imageformat": "PNG, JPG or JPEG (MAX. 800x400px).",
       "loading": "Loading",
       "newpropertylogs": {
-        "invalidcep": "",
-        "invalidcepnotfound": "",
-        "invaliduf": "",
-        "invalidcity": "",
-        "invalidneighborhood": "",
-        "invalidstreet": "",
-        "invalidnumber": "",
-        "invalidprice": ""
+        "invalidcep": "Invalid zip code",
+        "invalidcepnotfound": "Zip code not found",
+        "invaliduf": "Insert the abbreviation of the federative unit",
+        "invalidcity": "City must be at least 2 characters long",
+        "invalidneighborhood": "Neighborhood must be at least 2 characters long",
+        "invalidstreet": "The street must have at least 2 characters",
+        "invalidnumber": "The property number cannot be negative",
+        "invalidprice": "Enter a maximum of two decimal places"
       }
     }
   },

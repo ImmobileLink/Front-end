@@ -8,7 +8,7 @@ import { Spinner } from 'flowbite-react';
 import EditForm from "./EditForm";
 
 interface ImovelImgProps {
-    usuarioId: any;
+    usuarioId: string;
     imovel: ImovelRegistro;
     imovelId: any;
     imagemId: string;
@@ -31,10 +31,10 @@ export default function ImovelImg({ usuarioId, imovel, imovelId, imagemId }: Imo
   }, [imagemId]);
 
     return (
-        <div className="relative group">
+        <div className="absolute inset-0">
           {(imagemId.length !== 0) ? (
             <Image
-                className="object-cover my-2 w-full h-32 rounded-md md:w-52 flex-none text-center z-0"
+                className="object-cover w-full rounded-md flex-none text-center z-0"
                 src={src}
                 width={1}
                 height={1}
@@ -44,7 +44,7 @@ export default function ImovelImg({ usuarioId, imovel, imovelId, imagemId }: Imo
             />
           ) : (
             <Image
-              className="object-cover my-2 w-full h-32 rounded-md md:w-52 flex-none text-center z-0"
+              className="object-cover w-full rounded-md flex-none text-center z-0"
               src="imoveis/default"
               width={1}
               height={1}
@@ -53,14 +53,10 @@ export default function ImovelImg({ usuarioId, imovel, imovelId, imagemId }: Imo
               loading="lazy"
             />
           )}
-            { loading ? 
-              ( 
+            { loading &&
                 <div className="object-cover rounded-md absolute inset-0 flex items-center justify-center z-10 bg-white opacity-70"><Spinner size="xl" /></div>
-              ) : (
-                <div></div>
-              )
             }
-            {
+            {/*
               !loading && (
               <div className="object-cover absolute inset-0 flex items-center justify-center z-10">
                 <button className="invisible group-hover:visible absolute px-3 py-1 bg-blue-500 text-white"
@@ -76,7 +72,7 @@ export default function ImovelImg({ usuarioId, imovel, imovelId, imagemId }: Imo
               editImage && (
               <EditForm formOpen={editImage} setFormOpen={setEditImage} imovel={imovel} userid={usuarioId} />
               )
-            }
+              */}
         </div>
     )
 }

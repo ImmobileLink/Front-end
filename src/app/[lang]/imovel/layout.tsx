@@ -10,7 +10,7 @@ interface RootLayout {
   params: { lang: string };
 }
 
-export default function RootLayout({ children, params: { lang }, }: RootLayout) {
+export default async function RootLayout({ children, params: { lang }, }: RootLayout) {
 
   return (
     <>
