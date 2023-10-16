@@ -35,9 +35,6 @@ export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar
         if (error) {
             console.log(error)
         }
-        else {
-            console.log(data)
-        }
     }
 
     const handleClick = (e: any, idsala: string, idsaladestino: string) => {
