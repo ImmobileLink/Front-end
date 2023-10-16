@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Signup5 } from "@/app/i18n/dictionaries/types";
 import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import Loading from "@/app/[lang]/(components)/(auth)/Loading";
+import PaymentMethod from "./payment";
 
 interface Signup5Props {
     props: {
@@ -50,7 +51,9 @@ export default function Signup5({
                 <div className="w-full h-fit grid grid-cols-1 justify-items-center gap-x-32 gap-y-10 md:grid-cols-2">
                     <div
                         className={`${
-                            !props.premium ? "bg-dark-100/25 dark:bg-white/25 rounded-lg" : ""
+                            !props.premium
+                                ? "bg-dark-100/25 dark:bg-white/25 rounded-lg"
+                                : ""
                         } px-2 py-2 w-64 h-fit grid justify-items-center gap-3 justify-self-center md:justify-self-end`}
                     >
                         <span className="font-bold text-2xl tracking-wider text-black dark:text-branco">
@@ -96,6 +99,12 @@ export default function Signup5({
                         <div className="w-full text-center text-black dark:text-branco">
                             {tipoPerfil == 1 ? (
                                 <div>
+                                    {/* <div className="py-2">
+                                        <a className="font-bold text-3xl pr-2">
+                                            R$0
+                                        </a>
+                                        <a>/ mês</a>
+                                    </div> */}
                                     <div className="flex justify-left">
                                         <AiOutlineCheck className="self-center" />
                                         {signup5.corretor.freedescription1}
@@ -125,6 +134,12 @@ export default function Signup5({
                                 </div>
                             ) : (
                                 <div>
+                                    {/* <div className="py-2">
+                                        <a className="font-bold text-3xl pr-2">
+                                            R$0
+                                        </a>
+                                        <a>/ mês</a>
+                                    </div> */}
                                     <div className="flex justify-left">
                                         <AiOutlineCheck className="self-center" />
                                         {signup5.company.freedescription1}
@@ -158,7 +173,9 @@ export default function Signup5({
 
                     <div
                         className={`${
-                            props.premium ? "bg-dark-100/25 dark:bg-white/25 rounded-lg" : ""
+                            props.premium
+                                ? "bg-dark-100/25 dark:bg-white/25 rounded-lg"
+                                : ""
                         } px-2 py-2 w-64 h-fit grid justify-items-center gap-3 justify-self-center md:justify-self-start`}
                     >
                         <span className="font-bold text-2xl tracking-wider text-black dark:text-branco">
@@ -204,6 +221,12 @@ export default function Signup5({
                         <div className="w-full text-center text-black dark:text-branco">
                             {tipoPerfil == 1 ? (
                                 <div>
+                                    {/* <div className="py-2">
+                                        <a className="font-bold text-3xl pr-2">
+                                            R$50
+                                        </a>
+                                        <a>/ mês</a>
+                                    </div> */}
                                     <div className="flex justify-left">
                                         <AiOutlineCheck className="self-center" />
                                         {signup5.corretor.premiumdescription1}
@@ -233,6 +256,12 @@ export default function Signup5({
                                 </div>
                             ) : (
                                 <div>
+                                    {/* <div className="py-2">
+                                        <a className="font-bold text-3xl pr-2">
+                                            R$240
+                                        </a>
+                                        <a>/ mês</a>
+                                    </div> */}
                                     <div className="flex justify-left">
                                         <AiOutlineCheck className="self-center" />
                                         {signup5.company.premiumdescription1}
@@ -307,29 +336,15 @@ export default function Signup5({
             </div>
 
             {metodoPagamento ? (
-                <div className="absolute flex justify-center align-middle w-screen h-screen top-0 left-0">
-                    <div className="self-center w-10/12 md:w-8/12 lg:w-4/12 h-5/6 bg-green-500 rounded-2xl ring-1 ring-gray-800">
-                        <div className="w-full h-fit flex justify-end p-3">
-                            <AiOutlineClose
-                                className="text-3xl cursor-pointer"
-                                onClick={(e) =>
-                                    setMetodoPagamento(!metodoPagamento)
-                                }
-                            />
-                        </div>
-                        <h1>{signup5.subscriptionmessage3}</h1>
-                        <button
-                            onClick={() => {
-                                isLoading(true);
-                                handleSignUp;
-                            }}
-                            className="flex w-full mt-7 justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
-                        >
-                            {<Loading loading={loading} />}
-                            <span>{signup5.subscriptionmessage1}</span>
-                        </button>
-                    </div>
-                </div>
+                <PaymentMethod
+                    metodoPagamento={metodoPagamento}
+                    setMetodoPagamento={setMetodoPagamento}
+                    signup5={signup5}
+                    isLoading={isLoading}
+                    loading={loading}
+                    handleSignUp={handleSignUp}
+                    tipoPerfil={tipoPerfil}
+                />
             ) : (
                 <></>
             )}
