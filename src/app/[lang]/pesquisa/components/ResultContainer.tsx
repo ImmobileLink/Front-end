@@ -7,10 +7,11 @@ import { Pesquisa } from "@/app/i18n/dictionaries/types";
 import { Spinner } from "flowbite-react";
 
 interface ResultContainerProps {
-  dict: Pesquisa
+  dict: Pesquisa;
+  userId: string;
 }
 
-export default function ResultContainer({ dict }: ResultContainerProps) {
+export default function ResultContainer({ dict, userId }: ResultContainerProps) {
 
   const { resultado, loading } = useContext(SearchContext)
 
@@ -23,9 +24,11 @@ export default function ResultContainer({ dict }: ResultContainerProps) {
               <div className="w-full h-fit grid grid-cols-1 md:grid-cols-2 gap-4">
                 {
                   resultado.map((item, index) => {
-                    return (
-                      <UserCard key={index} textos={dict} usuario={item} />
-                    )
+                    if(item.id != userId) {
+                      return (
+                        <UserCard key={index} textos={dict} usuario={item} />
+                      )
+                    }           
                   })
                 }
               </div>

@@ -385,9 +385,13 @@ export interface Notificationlabels {
     check: string;
     association: string;
     connection: string;
+    visit: string;
     accept: string;
     refuse: string;
-    nonotifications: string
+    nonotifications: string;
+    acceptedvisit: string;
+    refusedvisit: string;
+    updatedvisit: string;
 }
 
 export interface Pesquisa {

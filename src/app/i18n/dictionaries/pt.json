@@ -16,12 +16,16 @@
     "messages": "Mensagens",
     "account": "Conta",
     "notificationlabels": {
-      "check": "Ver detalhes",
+      "check": "Visualizar",
       "association": "propôs uma associação",
       "connection": "gostaria de se conectar",
+      "visit": "agendou uma nova visita em seu nome",
       "accept": "Aceitar",
       "refuse": "Recusar",
-      "nonotifications": "Sem notificações"
+      "nonotifications": "Sem notificações",
+      "acceptedvisit": "aceitou uma visita",
+      "refusedvisit": "cancelou ou negou uma visita",
+      "updatedvisit": "atualizou os dados de uma visita"
     }
   },
   "auth": {

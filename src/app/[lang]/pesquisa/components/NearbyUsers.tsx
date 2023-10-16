@@ -6,9 +6,10 @@ interface NearbyUsersProps {
   dict: Labels;
   estado: string;
   carouselUsers: CorretorCarouselItem[] | null;
+  userId: string;
 }
 
-export default async function NearbyUsers({ dict, estado, carouselUsers }: NearbyUsersProps) {
+export default async function NearbyUsers({ dict, estado, carouselUsers, userId }: NearbyUsersProps) {
 
   return (
     <>
@@ -19,7 +20,7 @@ export default async function NearbyUsers({ dict, estado, carouselUsers }: Nearb
             {estado}
           </span>
         </span>
-        <UserCarousel data={carouselUsers} dict={dict}/>
+        <UserCarousel data={carouselUsers} dict={dict} userId={userId!}/>
       </div>
     </>
   );

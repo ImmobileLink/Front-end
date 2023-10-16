@@ -16,12 +16,16 @@
     "messages":"Messages",
     "account": "Account",
     "notificationlabels": {
-      "check": "Check details",
+      "check": "Check",
       "association": "has proposed an association",
       "connection": "would like to connect",
+      "visit": "scheduled a new visit for you",
       "accept": "Accept",
       "refuse": "Refuse",
-      "nonotifications": "No notifications"
+      "nonotifications": "No notifications",
+      "acceptedvisit": "has accepted a visit",
+      "refusedvisit": "has canceled or refused a visit",
+      "updatedvisit": "has updated a visit's data"
     }
   },
   "auth": {

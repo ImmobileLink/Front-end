@@ -767,28 +767,34 @@ export interface Database {
       }
       visita: {
         Row: {
+          aceito: boolean | null
           dadosmarcador: Json
           dataAgendamento: string
           id: string
           idcorporacao: string
           idcorretor: string
           idimovel: string
+          ultimaalteracao: string | null
         }
         Insert: {
+          aceito?: boolean | null
           dadosmarcador: Json
           dataAgendamento: string
           id?: string
           idcorporacao: string
           idcorretor: string
           idimovel: string
+          ultimaalteracao?: string | null
         }
         Update: {
+          aceito?: boolean | null
           dadosmarcador?: Json
           dataAgendamento?: string
           id?: string
           idcorporacao?: string
           idcorretor?: string
           idimovel?: string
+          ultimaalteracao?: string | null
         }
         Relationships: [
           {
@@ -1204,9 +1210,10 @@ export interface Database {
       }
       get_tipoimovel_by_idcorretor: {
         Args: {
-          idcorretor: string
+          idcorret: string
         }
         Returns: {
+          id: string
           descricao: string
         }[]
       }
