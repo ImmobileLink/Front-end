@@ -72,7 +72,7 @@ export default function ChatIcon({ textos, userId, newMessages }: ChatIconProps)
                 </div>
                 {
                     chatNotification && ( // Verifica se há notificações antes de exibir a bolinha
-                        <span className="absolute top-0 right-0 h-3 w-3 bg-orange-600 rounded-full"></span>
+                    <span className="absolute top-0 right-0 md:top-0 md:right-5 h-3 w-3 bg-orange-600 rounded-full"></span>
                     )
                 }
             </Link>

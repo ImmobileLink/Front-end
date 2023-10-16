@@ -82,6 +82,15 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
     },[notificationList])
 
     useEffect(() => {
+        if (newNot.length > 0) {
+            setNotification(true)
+        }
+        else {
+            setNotification(false)
+        }
+    },[newNot])
+
+    useEffect(() => {
         getNotifications(userId)
         const subscription = supabase.channel("Notification_changes")
             .on(
@@ -206,12 +215,12 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
                     )
                 }
             </button>
-            <div className={`fixed md:absolute top-16 w-screen md:w-auto z-50 left-0 right-0 md:-left-52 md:-right-52 flex items-center justify-center ${notBellClicked ? 'block' : 'hidden'}`}>
+            <div className={`fixed md:absolute top-16 w-screen md:w-auto md:h/3-5 z-50 left-0 right-0 md:-left-52 md:-right-52 flex items-center justify-center ${notBellClicked ? 'block' : 'hidden'}`}>
                 <div className="z-20 w-screen md:w-auto h-[calc(100vh-72px)] md:h-3/6 md:min-w-full md:max-w-sm bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-dark-100 dark:divide-gray-700" aria-labelledby="dropdownNotificationButton">
                     <div className="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-50 dark:bg-gray-800 dark:text-white">
                         {textos.notifications}
                     </div>
-                    <div className="flex flex-col divide-y divide-gray-100 dark:divide-gray-700 overflow-y-auto">
+                    <div className="flex flex-col max-h-screen md:max-h-96 divide-y divide-gray-100 dark:divide-gray-700 overflow-y-auto">
                         {
                             newNot.length > 0 &&
                             newNot.map((item: any) => {
