@@ -11,7 +11,6 @@ export interface Database {
     Tables: {
       associacoes: {
         Row: {
-          aceito: boolean | null
           id: string
           idcorporacao: string
           idcorretor: string
@@ -19,7 +18,6 @@ export interface Database {
           pendente: boolean | null
         }
         Insert: {
-          aceito?: boolean | null
           id?: string
           idcorporacao: string
           idcorretor: string
@@ -27,7 +25,6 @@ export interface Database {
           pendente?: boolean | null
         }
         Update: {
-          aceito?: boolean | null
           id?: string
           idcorporacao?: string
           idcorretor?: string
@@ -770,6 +767,7 @@ export interface Database {
       }
       visita: {
         Row: {
+          aceito: boolean | null
           dadosmarcador: Json
           dataAgendamento: string
           id: string
@@ -778,6 +776,7 @@ export interface Database {
           idimovel: string
         }
         Insert: {
+          aceito?: boolean | null
           dadosmarcador: Json
           dataAgendamento: string
           id?: string
@@ -786,6 +785,7 @@ export interface Database {
           idimovel: string
         }
         Update: {
+          aceito?: boolean | null
           dadosmarcador?: Json
           dataAgendamento?: string
           id?: string
@@ -1207,9 +1207,10 @@ export interface Database {
       }
       get_tipoimovel_by_idcorretor: {
         Args: {
-          idcorretor: string
+          idcorret: string
         }
         Returns: {
+          id: string
           descricao: string
         }[]
       }
@@ -1276,6 +1277,15 @@ export interface Database {
           atualizadoem: string
           mensagem: string
           imagem: string
+        }[]
+      }
+      obter_cidade_estado_por_usuario: {
+        Args: {
+          user_id: string
+        }
+        Returns: {
+          cidade: string
+          estado: string
         }[]
       }
       obter_cinco_corretores_id: {

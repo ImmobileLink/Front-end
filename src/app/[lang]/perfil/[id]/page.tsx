@@ -1,4 +1,4 @@
-import { getAssoc, getLinks, getTipoUsuario } from '../../../../../lib/utils/userData';
+import { getAreasAtuacao, getAssoc, getEspecialidades, getLinks, getTipoUsuario } from '../../../../../lib/utils/userData';
 import { userData } from '../../../../../lib/modelos'
 import { Database } from '../../../../../lib/database.types';
 import { getDictionary } from '../../dictionaries';
@@ -54,11 +54,14 @@ export default async function page({ params: { id, lang } }: pageProps) {
 
   const isOwnProfile = sessionData?.id == profileData?.id
 
-  useProfileStore.setState({ profileData: profileData, profileFullData: profileFullData, sessionData: sessionData, dict: dict, isOwn: isOwnProfile })
+  const areasAtuacao = (await getAreasAtuacao(profileData?.id!)).usuarioporregiao
+  const especialidades = profileData.type == "corretor" ? (await getEspecialidades(id)).especialidades : null
+
+  useProfileStore.setState({ profileData: profileData, profileFullData: profileFullData, sessionData: sessionData, dict: dict, isOwn: isOwnProfile})
 
   return (
     <>
-    <StoreInitializer isOwn={isOwnProfile} profileData={profileData} sessionData={sessionData} profileFullData={profileFullData} dict={dict}/>
+    <StoreInitializer isOwn={isOwnProfile} profileData={profileData} sessionData={sessionData} profileFullData={profileFullData} dict={dict} areasAtuacao={areasAtuacao} especialidades={especialidades}/>
       {profileData.id ?
         profileData.type! == "corretor" ? (
           <CorretorProfile />

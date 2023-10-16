@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Corporacao, Corretor, userData, } from "../modelos";
+import { AreaAtuacao, Corporacao, Corretor, Especialidades, userData, } from "../modelos";
 import { Dictionaries } from "@/app/i18n/dictionaries/types";
 
 
@@ -10,6 +10,10 @@ interface ProfileStoreState {
   profileFullData: Corretor | Corporacao | null;
   dict: Dictionaries | null;
   isOwn: boolean;
+  areasAtuacao: AreaAtuacao | null;
+  especialidades: Especialidades | null;
+  setEspecialidades: (newEspecialidades: Especialidades) => void;
+
 }
 
 // Função para criar a store
@@ -18,5 +22,9 @@ export const useProfileStore = create<ProfileStoreState>((set) => ({
   sessionData: null,
   profileFullData: null,
   dict: null,
-  isOwn: false
+  isOwn: false,
+  areasAtuacao: null,
+  especialidades: null,
+  setEspecialidades: (newEspecialidades: Especialidades) => set({ especialidades: newEspecialidades }),
+
 }));

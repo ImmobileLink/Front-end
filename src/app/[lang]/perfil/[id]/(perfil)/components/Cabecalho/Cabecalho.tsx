@@ -21,7 +21,8 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
   const profile = state.profileData
   const profileFullData = state.profileFullData
 
-
+  //passar para o corretor suas especialidades e areas de atuacao
+  //passar para corporarcao areas de atuacao
 
   return (
     <>

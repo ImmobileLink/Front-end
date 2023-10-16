@@ -70,3 +70,26 @@ export async function getAssoc(userData: userData): Promise<userData> {
 
   return userData;
 }
+
+export async function getAreasAtuacao(id: string) {
+  const supabase = createServerSupabaseClient();
+
+  let { data: usuarioporregiao, error } = await supabase
+  .rpc('obter_cidade_estado_por_usuario', {
+    user_id: id
+  })
+
+  return { usuarioporregiao }
+}
+
+export async function getEspecialidades(id: string) {
+  const supabase = createServerSupabaseClient();
+
+  let { data: especialidades, error } = await supabase
+    .rpc('get_tipoimovel_by_idcorretor', {
+      idcorret: id
+    })
+
+  return { especialidades }
+}
+

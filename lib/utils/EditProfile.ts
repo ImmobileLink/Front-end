@@ -41,4 +41,23 @@ export async function updateCorretorProfile(formData: any, id: string){
             return {updatedData, error}
 }  
 
+export async function adicionarEspecialidade(idcorretor: string, idtipoimovel: string){
+    const { data, error } = await supabase
+    .from('especialidade')
+    .insert([
+      { idcorretor, idtipoimovel },
+    ])
+    .select()
 
+    return {data, error}
+}
+
+export async function removerEspecialidade(idcorretor: string, idtipoimovel: string){
+    const { data, error } = await supabase
+    .from('especialidade')
+    .delete()
+    .eq('idcorretor', idcorretor)
+    .eq('idtipoimovel', idtipoimovel)
+
+    return {data, error}
+}

@@ -6,20 +6,35 @@ import { Button, Modal } from 'flowbite-react';
 import { useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
 import { Corporacao, Corretor } from "../../../../../../../../lib/modelos";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "@/../../lib/database.types";
 import { updateCorretorProfile } from "../../../../../../../../lib/utils/EditProfile";
 import EditEspecialidades from "./EditEspecialidades";
 import { useRouter } from "next/navigation";
+import EditRegiaoAtuacao from "./EditRegiaoAtuacao";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../../../../../../../../lib/database.types";
 
 interface EditProfileProps {
     data: Corretor | null;
+}
+
+async function getImoveis() {
+    const supabase = createClientComponentClient<Database>({});
+
+    let { data: tipoImovel } = await supabase
+        .from("tipoImovel")
+        .select("id,descricao");
+
+    return { tipoImovel };
 }
 
 export default function EditProfile({ data }: EditProfileProps) {
     const router = useRouter()
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
+
+    const [dropdownTipos, setDropdownTipos] = useState<boolean>(false); //vai reger esse dropdown de tipos de imóveis
+    const [dropdownRegiao, setDropdownRegiao] = useState<boolean>(false); //vai reger esse dropdown de regioes de atuacao
+    const dropdown = { dropdownTipos, setDropdownTipos, dropdownRegiao, setDropdownRegiao }
 
     const [errorCep, setErrorCep] = useState<string | undefined>()
 
@@ -38,6 +53,7 @@ export default function EditProfile({ data }: EditProfileProps) {
     const { register, handleSubmit, watch, reset, setValue, getValues, formState: { errors, isDirty } } = useForm({ defaultValues });
 
     const [isProcessing, setIsProcessing] = useState<boolean>(false)
+    const [imoveis, setImoveis] = useState<{ id: any; descricao: any }[] | null>([])
 
     const onSubmit = async (formData: any) => {
         setIsProcessing(true)
@@ -49,10 +65,17 @@ export default function EditProfile({ data }: EditProfileProps) {
             props.setOpenModal(undefined);
             router.refresh()
         }
-        console.log("oiodioasi")
         setIsProcessing(false)
-       
+
     }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const imoveis = await (await getImoveis()).tipoImovel
+            setImoveis(imoveis)
+        }
+        fetchData()
+    }, [])
 
     const watchCep = watch("cep")
 
@@ -145,8 +168,6 @@ export default function EditProfile({ data }: EditProfileProps) {
                             {errors?.nome?.type == 'required' && <p className="text-red-500 text-xs mt-1">É preciso inserir um nome</p>}
                         </div>
 
-
-
                         <div className="flex flex-col">
                             <label className="text-gray-500 dark:text-gray-300">Sobre</label>
                             <textarea
@@ -157,7 +178,12 @@ export default function EditProfile({ data }: EditProfileProps) {
                                 className="py-2.5 px-0 w-full text-base text-gray-900   border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent"></textarea>
                         </div>
 
-                        <h2 className="text-lg font-bold">Localidade</h2>
+                        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                            <EditEspecialidades props={dropdown} imoveis={imoveis}/>
+                            <EditRegiaoAtuacao props={dropdown} />
+                        </div>
+
+                        <h2 className="font-medium text-gray-500 dark:text-gray-400">Localidade</h2>
 
                         {/* comercial & { cep & UF } */}
                         <div className="grid md:grid-cols-2 md:gap-6">
@@ -183,11 +209,11 @@ export default function EditProfile({ data }: EditProfileProps) {
                                         UF
                                     </label>
                                     <input
-                                    disabled
-                                    type="text"
-                                    {...register("uf", { required: true })}
-                                    className={`bg-transparent disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
-                                />
+                                        disabled
+                                        type="text"
+                                        {...register("uf", { required: true })}
+                                        className={`bg-transparent disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -209,7 +235,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                                     {...register("cidade", { required: true })}
                                     className={`bg-transparent disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                 />
-                               {/*  {errors?.cidade?.type == 'required' && (<label className="text-red-500 text-xs">
+                                {/*  {errors?.cidade?.type == 'required' && (<label className="text-red-500 text-xs">
                                     erro
                                 </label>)} */}
                             </div>
@@ -272,11 +298,6 @@ export default function EditProfile({ data }: EditProfileProps) {
                             </div>
                         </div>
 
-                        <h2 className="text-lg font-bold">Especialidades</h2>
-
-                        <div className="relative z-0 w-full mb-6 group">
-                            {/* <EditEspecialidades/> */}
-                        </div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer className="flex justify-end">

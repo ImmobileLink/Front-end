@@ -50,7 +50,7 @@ export interface AtualizaImovel {
     valor: number,
     imagem: string,
     caracteristicas: Json
-  }
+}
 export interface ImovelSemCorporacao {
     id: string,
     rua: string,
@@ -193,7 +193,7 @@ export type CorporacaoPorRegiao = {
         cidade: string,
         estado: string
     }[] | null;
-} 
+}
 
 export type filterType = {
     tipoUsuario: string;
@@ -201,7 +201,7 @@ export type filterType = {
     cidade: string;
     avaliacao: number;
     especialidades: string[];
-  }
+}
 
 
 export type Historico = {
@@ -212,3 +212,13 @@ export type Historico = {
     id_corretor: string;
     nome_empresa: string | null;
 }[] | null;
+
+export type AreaAtuacao = {
+    cidade: string;
+    estado: string;
+}[] | null
+
+export type Especialidades = {
+    id: string;
+    descricao: string;
+}[] | null

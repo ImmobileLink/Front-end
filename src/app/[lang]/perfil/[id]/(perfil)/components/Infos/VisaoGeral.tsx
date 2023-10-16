@@ -6,6 +6,8 @@ import { useQuery } from 'react-query';
 import { Dictionaries } from "@/app/i18n/dictionaries/types";
 import { Corretor } from "../../../../../../../../lib/modelos";
 import { useProfileStore } from "../../../../../../../../lib/store/profileStore";
+import { useEffect } from "react";
+import { useProfileContext } from "../../Provider/ProviderProfile";
 
 
 interface VisaoGeralProps {
@@ -13,24 +15,11 @@ interface VisaoGeralProps {
 }
 
 export default function VisaoGeral({ }: VisaoGeralProps) {
-  const supabase = createClientComponentClient<Database>()
-
   const state = useProfileStore.getState()
   const corretor = state.profileFullData as Corretor;
-  // Defina a chave única para essa query
-  const queryKey = ['especialidades', state.profileData?.id];
 
-  // Defina a função para buscar as especialidades
-  const fetchEspecialidades = async () => {
-    const { data: especialidades } = await supabase
-      .rpc('obterespecialidade', {
-        idcorretor: state.profileData?.id!
-      });
-    return especialidades;
-  };
+  const {  especialidades, areasAtuacao } = useProfileContext();
 
-  // Use a função useQuery para buscar os dados
-  const { data: especialidades, isLoading, isError } = useQuery(queryKey, fetchEspecialidades);
 
   return (
     <div className="mx-6">
@@ -60,9 +49,9 @@ export default function VisaoGeral({ }: VisaoGeralProps) {
       </div>
 
 
-      <div className="mt-5">
+      {/* <div className="mt-5">
         <Historico/>
-      </div>
+      </div> */}
 
     </div>
 

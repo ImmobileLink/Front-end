@@ -9,13 +9,14 @@ import { Corporacao, Corretor } from "../../../../../../../../lib/modelos";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../../lib/database.types";
 import { updateCorporacaoProfile } from "../../../../../../../../lib/utils/EditProfile";
+import { useRouter } from "next/navigation";
 
 interface EditProfileProps {
     data: Corporacao | null;
 }
 
 export default function EditProfile({ data }: EditProfileProps) {
-    const supabase = createClientComponentClient<Database>({});
+    const router = useRouter()
 
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
@@ -47,6 +48,7 @@ export default function EditProfile({ data }: EditProfileProps) {
         } else {
             console.log('Dados atualizados com sucesso:', updatedData);
             props.setOpenModal(undefined);
+            router.refresh()
         }
         setIsProcessing(false)
 

@@ -1,20 +1,49 @@
-
 "use client"
-import { ReactNode } from "react";
-import { QueryClient, QueryClientProvider } from 'react-query';
+import React, { createContext, useContext, ReactNode, useState, useEffect } from 'react';
+import { AreaAtuacao, Especialidades } from '../../../../../../../lib/modelos';
 
-const queryClient = new QueryClient();
+type ProfileContextType = {
+  areasAtuacao: AreaAtuacao;
+  especialidades: Especialidades;
+  setEspecialidades: (newEspecialidades: Especialidades) => void;
+  setAreasAtuacao: (newAreasAtuacao: AreaAtuacao) => void;
+};
 
-interface RootLayout {
-  children: ReactNode;
+
+
+
+const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
+
+export function useProfileContext() {
+  const context = useContext(ProfileContext);
+  if (!context) {
+    throw new Error('useProfileContext must be used within a ProfileProvider');
+  }
+  return context;
 }
 
-export default function ProviderProfile({ children }: RootLayout) {
+type ProfileProviderProps = {
+  children: ReactNode;
+};
+
+export function ProfileProvider({ children }: ProfileProviderProps) {
+
+  const [areasAtuacao, setAreasAtuacao] = useState<AreaAtuacao | null>(null);
+  const [especialidades, setEspecialidades] = useState<Especialidades | null>(null);
+
+
   return (
-    <>
-      <QueryClientProvider client={queryClient}>
-          {children}
-      </QueryClientProvider>
-    </>
+    <ProfileContext.Provider
+      value={{
+        areasAtuacao,
+        especialidades,
+        setEspecialidades: (newEspecialidades: Especialidades) =>
+          setEspecialidades(newEspecialidades),
+        setAreasAtuacao: (newAreasAtuacao: AreaAtuacao) =>
+          setAreasAtuacao(newAreasAtuacao)
+      }}
+    >
+      {children}
+    </ProfileContext.Provider>
   );
 }
