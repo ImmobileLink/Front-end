@@ -34,18 +34,18 @@ export default function PaymentMethod({
                 </div>
                 <div className=" px-4 py-2">
                     <p className="text-xl font-bold mb-2">
-                        PREMIUM - OFERTA ESPECIAL
+                        {signup5.subscriptionmessage0}
                     </p>
                     <a className="pr-2 py-4 text-3xl font-bold text-secundaria-100">
-                        R$0
+                        {signup5.freetier}
                     </a>
                     {tipoPerfil == 1 ? (
-                        <a className="line-through text-current/25">R$50</a>
+                        <a className="line-through text-current/25">{signup5.brokertier}</a>
                     ) : (
-                        <a className="line-through text-current/25">R$240</a>
+                        <a className="line-through text-current/25">{signup5.companytier}</a>
                     )}
 
-                    <h1 className="mb-2">{signup5.subscriptionmessage3}</h1>
+                    <h1 className="md:mb-2">{signup5.subscriptionmessage3}</h1>
                     <PaymentForm
                     signup5={signup5}
                     isLoading={isLoading}

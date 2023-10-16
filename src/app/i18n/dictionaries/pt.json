@@ -56,6 +56,7 @@
       "signup1": {
         "emaillabel": "Endereço de E-mail",
         "passwordlabel": "Senha",
+        "confirmpassword": "Confirme a senha",
         "logs": {
           "invalidemail": "Insira um email válido.",
           "invalidpassword": "A senha precisa ter no mínimo 6 caracteres, números, maiúsculas, minúsculas e caractere especial.",
@@ -148,12 +149,21 @@
           "premiumdescription3": "Maior visibilidade.",
           "premiumdescription4": "Funcionalidades exclusivas."
         },
-        "subscriptionmessage1": "Desejo me tornar um membro PREMIUM",
+        "subscriptionmessage0": "PREMIUM - OFERTA ESPECIAL",
+        "subscriptionmessage1": "Inscrever-se como PREMIUM",
         "subscriptionmessage2": "PREMIUM",
         "subscriptionmessage3": "Insira o método de pagamento",
+        "freetier": "R$0",
+        "brokertier": "R$50",
+        "companytier": "R$240",
+        "fullname": "Nome do titular",
+        "cardnumber": "Número do cartão",
+        "expirydate": "Validade",
+        "code": "CVV",
         "signupbutton": "Finalizar Cadastro",
         "select": "SELECIONAR",
-        "selected": "SELECIONADO"
+        "selected": "SELECIONADO",
+        "disclaimer": "A função de inserir dados de pagamento é apenas demonstrativa e não está ativa. Por favor, não insira informações reais de seu cartão de crédito."
       },
       "stepper": {
         "label1": "Email & Senha",

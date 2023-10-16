@@ -70,7 +70,7 @@ export default function PaymentForm({
                     onChange={(e) => setNome(e.target.value)}
                 />
                 <label className="peer-focus:font-medium text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
-                    Nome do titular
+                    {signup5.fullname}
                 </label>
                 <div>
                     <InputMask
@@ -84,7 +84,7 @@ export default function PaymentForm({
                         onChange={(e) => setCartao(e.target.value)}
                     />
                     <label className="peer-focus:font-medium text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
-                        Número do cartão
+                        {signup5.cardnumber}
                     </label>
                 </div>
                 <div className="flex flex-row justify-between">
@@ -100,7 +100,7 @@ export default function PaymentForm({
                             onChange={(e) => setVencimento(e.target.value)}
                         />
                         <label className="peer-focus:font-medium text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
-                            Vencimento
+                            {signup5.expirydate}
                         </label>
                     </div>
                     <div>
@@ -110,20 +110,18 @@ export default function PaymentForm({
                             id="floating_name_title"
                             className={`bg-transparent border-gray-300 block py-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                             placeholder=" "
-                            max={9999}
+                            max={4}
                             required
                             onChange={(e) => setCvv(e.target.value)}
                         />
                         <label className="peer-focus:font-medium text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
-                            CVV
+                            {signup5.code}
                         </label>
                     </div>
                 </div>
             </div>
             <a className="text-sm mt-8 text-black/50 dark:text-white/50">
-                A função de inserir dados de pagamento é apenas demonstrativa e
-                não está ativa. Por favor, não insira informações reais de seu
-                cartão de crédito.
+                {signup5.disclaimer}
             </a>
             {/* <a className="text-sm font-medium text-secundaria-100 cursor-pointer">{" "}Saiba mais</a> */}
             <button

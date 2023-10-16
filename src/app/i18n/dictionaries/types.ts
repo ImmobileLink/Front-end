@@ -101,6 +101,7 @@ export interface Signup {
 export interface Signup1 {
     emaillabel: string;
     passwordlabel: string;
+    confirmpassword: string;
     logs: Signup1Logs;
 }
 
@@ -184,12 +185,21 @@ export interface Signup4Logs {
 export interface Signup5 {
     corretor: Company;
     company: Company;
+    subscriptionmessage0: string;
     subscriptionmessage1: string;
     subscriptionmessage2: string;
     subscriptionmessage3: string;
     signupbutton: string;
     select: string;
     selected: string;
+    freetier: string;
+    brokertier: string;
+    companytier: string;
+    fullname: string;
+    cardnumber: string;
+    expirydate: string;
+    code: string;
+    disclaimer: string;
 }
 
 export interface Company {

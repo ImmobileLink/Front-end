@@ -56,6 +56,7 @@
       "signup1": {
         "emaillabel": "Email Address",
         "passwordlabel": "Password",
+        "confirmpassword": "Confirm password",
         "logs": {
           "invalidemail": "Please enter a valid email address.",
           "invalidpassword": "Password must be at least 6 characters long, include numbers, uppercase, lowercase and special character.",
@@ -148,12 +149,21 @@
           "premiumdescription3": "View dashboard of other users.",
           "premiumdescription4": "Exclusive features."
         },
+        "subscriptionmessage0": "PREMIUM - SPECIAL OFFER",
         "subscriptionmessage1": "Subscribe to PREMIUM",
         "subscriptionmessage2": "PREMIUM",
         "subscriptionmessage3": "Insert payment method",
+        "freetier": "US$0",
+        "brokertier": "US$10",
+        "companytier": "US$48",
+        "fullname": "Name on card",
+        "cardnumber": "Card number",
+        "expirydate": "Expiry date",
+        "code": "Security code",
         "signupbutton": "Finalize Registration",
         "select": "SELECT",
-        "selected": "SELECTED"
+        "selected": "SELECTED",
+        "disclaimer": "The function of entering payment data is for demonstration purposes only and is not active. Please do not enter your actual credit card information."
       },
       "stepper": {
         "label1": "Email & Password",
