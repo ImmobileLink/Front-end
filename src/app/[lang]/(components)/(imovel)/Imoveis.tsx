@@ -4,19 +4,13 @@ import { Database } from "../../../../../lib/database.types";
 import { Imovel } from "@/app/i18n/dictionaries/types";
 import {
   ImovelRegistro,
-  ImovelTipado,
-  InsereImovel,
   TipoImovel,
   userData,
 } from "../../../../../lib/modelos";
 import {
-  Session,
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
 import ImovelCard from "./ImovelCard";
-import { v4 as uuidv4 } from "uuid";
-import Select from "react-select";
-import InputMask from "react-input-mask";
 import Form from "./Form";
 import Skeleton from "./Skeleton";
 
@@ -103,22 +97,6 @@ export default function Imoveis({
           });
         }
       )
-      .on(
-        "postgres_changes",
-        {
-          event: "DELETE",
-          schema: "public",
-          table: "imovel",
-          filter: `idcorporacao=eq.${userid}`,
-        },
-        async (payload: { old: ImovelRegistro }) => {
-          setProperties((properties: ImovelRegistro[]) => {
-            return properties.filter(
-              (property) => property.id !== payload.old.id
-            );
-          });
-        }
-      )
       .subscribe();
     return () => {
       subscription.unsubscribe();
@@ -138,7 +116,7 @@ export default function Imoveis({
       <div className="w-screen">
         <div className="rounded-md bg-white dark:bg-gray-700 dark:ring-gray-600 drop-shadow-md px-3 py-4 mb-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl md:text-4xl text-black dark:text-white">
+            <h2 className="text-3xl sm:text-4xl text-black dark:text-white">
               {textos.mainlabels.title}
             </h2>
             <div>
@@ -146,7 +124,7 @@ export default function Imoveis({
                 onClick={() => {
                   setFormOpen(true);
                 }}
-                className="flex items-center justify-between text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs md:text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 text-center focus:ring-offset-2"
+                className="flex items-center justify-between text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs sm:text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 text-center focus:ring-offset-2"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -167,9 +145,9 @@ export default function Imoveis({
             </div>
           </div>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 w-full justify-center items-start">
-          {loading && count > 0 ? (
-            <Skeleton num={count} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 w-full justify-center items-start">
+          {loading && count! > 0 ? (
+            <Skeleton num={count!} />
           ) : (
             properties!.map((imovel: ImovelRegistro) => {
               return (

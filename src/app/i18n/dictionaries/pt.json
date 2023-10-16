@@ -388,7 +388,7 @@
       "imageupload": "Carregar imagem",
       "imageformat": "PNG, JPG ou JPEG (MAX. 800x400px).",
       "loading": "Carregando",
-      "formlogs": {
+      "newpropertylogs": {
         "invalidcep": "CEP inválido",
         "invalidcepnotfound": "CEP não encontrado",
         "invaliduf": "Insira a sigla da unidade federativa",

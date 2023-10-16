@@ -1,14 +1,11 @@
 "use client";
-import Image from "next/image";
-import { Suspense, useEffect, useState } from "react";
-import { AtualizaImovel, ImovelRegistro } from "../../../../../lib/modelos";
+import { ChangeEvent, Dispatch, SetStateAction, Suspense, useEffect, useState } from "react";
+import { ImovelRegistro } from "../../../../../lib/modelos";
 import { v4 as uuidv4 } from "uuid";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
-import { useRouter } from "next/router";
-import InputMask from "react-input-mask";
-import { CustomFlowbiteTheme, Spinner } from "flowbite-react";
-import { Button, Modal } from "flowbite-react";
+import { Spinner } from "flowbite-react";
+import { Modal } from "flowbite-react";
 import { FlowbiteModalHeaderTheme } from "flowbite-react/lib/esm/components/Modal/ModalHeader";
 import { Editimg } from "@/app/i18n/dictionaries/types";
 
@@ -38,13 +35,13 @@ export default function EditForm({
     // Apagar o arquivo antigo
     let { data, error } = await supabase.storage
       .from("imoveis") // Nome do bucket no Supabase
-      .remove(userid + "/" + imovel.imagem);
+      .remove([`${userid}/${imovel.imagem}`]);
 
     if (!error) {
       // Enviar o arquivo para o Supabase Storage
       let { data, error } = await supabase.storage
         .from("imoveis") // Nome do bucket no Supabase
-        .upload(userid + "/" + imagemId, img, {
+        .upload(userid + "/" + imagemId, img!, {
           upsert: true,
         });
 
@@ -84,8 +81,13 @@ export default function EditForm({
   };
 
   const customTheme: FlowbiteModalHeaderTheme = {
-    base: "flex items-center justify-between rounded-t dark:border-gray-600 border-b p-5",
-    title: "text-base md:text-xl font-medium items-center",
+    "base": "flex items-center justify-between rounded-t dark:border-gray-600 border-b p-5",
+    "popup": "p-2 border-b-0",
+    "title": "text-base sm:text-xl font-medium items-center",
+    "close": {
+      "base": "ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white",
+      "icon": "h-5 w-5"
+    }
   };
 
   return (

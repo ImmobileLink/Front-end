@@ -1,17 +1,14 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
-  Corretor,
   CorretorAssociado,
   ImovelRegistro,
   InsereVisita,
-  Visita,
 } from "../../../../../lib/modelos";
 import { Database } from "../../../../../lib/database.types";
 import { Formlabels } from "@/app/i18n/dictionaries/types";
 import {
-  Session,
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
 import {
@@ -48,9 +45,7 @@ export default function VisitaCard({
   const [phone, setPhone] = useState("");
   const [data, setData] = useState("");
   const [time, setTime] = useState("");
-  const [visita, setVisita] = useState<Visita>();
 
-  const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [editImage, setEditImage] = useState(false);
 
@@ -58,8 +53,8 @@ export default function VisitaCard({
   const date = new Date().toLocaleDateString().split("/");
   const currentDate = `${date[2]}-${date[1]}-${date[0]}`;
 
-  let dropdownRef = useRef();
-  let bttnRef = useRef();
+  let dropdownRef = useRef<HTMLDivElement | null>(null);
+  let bttnRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     let handler = (e: any) => {
@@ -74,7 +69,7 @@ export default function VisitaCard({
     return () => {
       document.removeEventListener("mousedown", handler);
     };
-  });
+  }, [dropdownRef, bttnRef]);
 
   const maskPhone = (valor: any) => {
     console.log(currentDate);
@@ -92,16 +87,6 @@ export default function VisitaCard({
     setPhone(formatPhone);
   };
 
-  const handleCorretor = (event: any) => {
-    const selectedValue = event.target.value;
-    const selectedObject = corretor!.find(
-      (c: CorretorAssociado) => c!.nome === selectedValue
-    );
-    if (selectedObject != null) {
-      setSelectedCorretor(selectedObject);
-    }
-  };
-
   const insertVisita = async (visita: InsereVisita) => {
     const { error } = await supabase.from("visita").insert(visita);
     if (error) {
@@ -116,14 +101,14 @@ export default function VisitaCard({
 
     const visita: InsereVisita = {
       idcorporacao: userid,
-      idcorretor: selectedCorretor?.id,
+      idcorretor: selectedCorretor!.id,
       idimovel: imovel.id,
       dadosmarcador: {
         name: nome,
         email: email,
         phone: phone,
       },
-      dataAgendamento: `${data} ${time}`,
+      dataagendamento: `${data} ${time}`,
     };
 
     insertVisita(visita);
@@ -161,21 +146,21 @@ export default function VisitaCard({
                   />
                 </svg>
               </button>
-              <div className="bg-gray-200 dark:bg-dark-200 rounded py-4 px-8 md:p-8">
-                <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-3">
-                  <div className="md:col-span-1 mt-4 md:mt-0 text-dark-200 dark:text-white">
-                    <div className="flex justify-center relative rounded-lg overflow-hidden h-36 md:h-32">
+              <div className="bg-gray-200 dark:bg-dark-200 rounded py-4 px-8 sm:p-8">
+                <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 sm:grid-cols-3">
+                  <div className="sm:col-span-1 mt-4 sm:mt-0 text-dark-200 dark:text-white">
+                    <div className="flex justify-center relative rounded-lg overflow-hidden h-36 sm:h-28">
                       <ImovelImg
                         usuarioId={userid}
                         imovel={imovel}
                         imovelId={imovel.id}
-                        imagemId={imovel!.imagem}
+                        imagemId={imovel!.imagem!}
                       />
                       <div className="w-full">
                         <div className="absolute inset-0 flex items-end justify-end z-50">
                           <button
                             type="button"
-                            className="px-3 py-1 rounded-tl-lg bg-blue-700 text-white text-xs md:text-sm hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                            className="px-3 py-1 rounded-tl-lg bg-blue-700 text-white text-xs sm:text-sm hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                             onClick={() => {
                               setEditImage(true);
                             }}
@@ -207,7 +192,7 @@ export default function VisitaCard({
                         )}
                       </div>
                     </div>
-                    <div className="flex-auto md:text-sm text-xs">
+                    <div className="flex-auto sm:text-sm text-xs">
                       <div className="w-full">
                         <p className="font-bold mt-2">{formlabels.infoproperty.location}</p>
                         <p>{`${imovel!.rua}, ${imovel!.numero}`}</p>
@@ -221,11 +206,12 @@ export default function VisitaCard({
                           currency: "BRL",
                         })}`}</p>
                       </div>
-                      <div className="w-full mt-2 mb-2 md:mb-0">
+                      <div className="w-full mt-2 mb-2 sm:mb-0">
                         <p className="font-bold">{formlabels.infoproperty.characteristics}</p>
                         <ul className="list-disc">
-                          {imovel.caracteristicas.map((item, index) => (
+                          {imovel.caracteristicas!.map((item, index) => (
                             <li key={index} className="ml-4">
+                              {/* @ts-ignore */}
                               {item.descricao}
                             </li>
                           ))}
@@ -234,17 +220,17 @@ export default function VisitaCard({
                     </div>
                   </div>
 
-                  <div className="md:col-span-2">
+                  <div className="sm:col-span-2">
                     <div className="bg-white dark:bg-gray-700 rounded-md p-2">
                       <div className="text-dark-200 dark:text-white mb-4">
-                        <p className="font-bold text-base md:text-xl">
+                        <p className="font-bold text-base sm:text-xl">
                           {formlabels.delegatevisit}
                         </p>
-                        <p className="text-xs md:text-sm">
+                        <p className="text-xs sm:text-sm">
                           {formlabels.requiredfields}
                         </p>
                       </div>
-                      {corretor?.length === 0 ? (
+                      {/*corretor?.length === 0 ? (
                         <div className="mb-4">
                           <Alert
                             additionalContent={
@@ -252,7 +238,7 @@ export default function VisitaCard({
                                 <div className="flex ml-8">
                                   <Link
                                     href={"/pesquisa"}
-                                    className="text-xs md:text-sm text-white bg-dark-200 focus:ring-4 font-medium rounded-lg px-4 py-1.5 focus:outline-none"
+                                    className="text-xs sm:text-sm text-white bg-dark-200 focus:ring-4 font-medium rounded-lg px-4 py-1.5 focus:outline-none"
                                   >
                                     {formlabels.findbroker}
                                   </Link>
@@ -262,25 +248,23 @@ export default function VisitaCard({
                             color="warning"
                             icon={HiInformationCircle}
                           >
-                            <p className="text-xs md:text-sm">
+                            <p className="text-xs sm:text-sm">
                               {formlabels.warningmsg}
                             </p>
                           </Alert>
                         </div>
                       ) : (
                         <div></div>
-                      )}
-                      <div className="grid gap-3 gap-y-2 text-sm grid-cols-1 md:grid-cols-2">
-                        <div className="md:col-span-2">
+                      )*/}
+                      <div className="grid gap-3 gap-y-2 text-sm grid-cols-1 sm:grid-cols-2">
+                        <div className="sm:col-span-2">
                           <div className="flex justify-between items-center">
-                            <h4 className="text-base md:text-lg font-medium text-gray-900 dark:text-gray-200">
+                            <h4 className="text-base sm:text-lg font-medium text-gray-900 dark:text-gray-200">
                               {formlabels.brokerdata}
                             </h4>
                             <Link
                               href={"/pesquisa"}
-                              className={`${
-                                corretor?.length > 0 ? "visible" : "hidden"
-                              } text-xs md:text-sm text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-4 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mb-1`}
+                              className={`text-xs sm:text-sm text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-4 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mb-1`}
                             >
                               {formlabels.findbroker}
                             </Link>
@@ -291,7 +275,7 @@ export default function VisitaCard({
                               ref={bttnRef}
                               type="button"
                               onClick={() => setIsOpen((prev) => !prev)}
-                              className="text-xs md:text-sm bg-gray-100 border border-gray-300 focus:outline-none focus:bg-white leading-tight text-gray-900 dark:bg-gray-600 dark:border-gray-500 dark:text-gray-200 dark:focus:bg-gray-700 focus:border-gray-500 p-2 w-full flex items-center justify-between rounded"
+                              className="text-xs sm:text-sm bg-gray-100 border border-gray-300 focus:outline-none focus:bg-white leading-tight text-gray-900 dark:bg-gray-600 dark:border-gray-500 dark:text-gray-200 dark:focus:bg-gray-700 focus:border-gray-500 p-2 w-full flex items-center justify-between rounded"
                             >
                               {select.length === 0 ? (
                                 <span>{formlabels.selectbroker}</span>
@@ -299,31 +283,24 @@ export default function VisitaCard({
                                 <span>{select}</span>
                               )}
                             </button>
-                            {isOpen && corretor?.length > 0 && (
+                            {isOpen && corretor?.length! > 0 && (
                               <div
                                 ref={dropdownRef}
-                                className="text-xs md:text-sm bg-gray-100 border text-gray-900 leading-tight focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-gray-200 border-gray-500 absolute top-11 items-start rounded p-1 w-full z-50 gap-y-2 max-h-64 overflow-auto"
+                                className="text-xs sm:text-sm bg-gray-100 border text-gray-900 leading-tight focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-gray-200 border-gray-500 absolute top-11 items-start rounded p-1 w-full z-50 gap-y-2 max-h-64 overflow-auto"
                               >
-                                {corretor?.map((c: CorretorAssociado) => {
-                                  const withDescription = c.tipoImovel?.filter(
-                                    (item: CorretorAssociado) =>
-                                      imovel.caracteristicas
-                                        ?.map((i) => i.id === item.id)
-                                        .includes(true)
-                                  );
-                                  const withoutDescription =
-                                    c.tipoImovel?.filter(
-                                      (item: CorretorAssociado) =>
-                                        !imovel.caracteristicas
-                                          ?.map((i) => i.id === item.id)
-                                          .includes(true)
-                                    );
+                                {corretor?.map((c) => {
+                                  {/* @ts-ignore */}
+                                  const withDescription: { id: string; descricao: string; }[] = c.tipoImovel?.filter((item: CorretorAssociado) => imovel.caracteristicas?.map((i) => i.id === item.id).includes(true));
+
+                                  {/* @ts-ignore */}
+                                  const withoutDescription: { id: string; descricao: string; }[] = c.tipoImovel?.filter((item: CorretorAssociado) => !imovel.caracteristicas?.map((i) => i.id === item.id).includes(true));
+
                                   return (
                                     <div
                                       key={c.id}
                                       onClick={() => {
                                         console.log(c);
-                                        setSelect(c.nome);
+                                        setSelect(c.nome!);
                                         setSelectedCorretor(c);
                                         setIsOpen(false);
                                       }}
@@ -378,8 +355,8 @@ export default function VisitaCard({
                           </div>
                         </div>
 
-                        <div className="mt-2 md:col-span-2">
-                          <h4 className="mb-1 text-base md:text-lg font-medium text-gray-900 dark:text-gray-200">
+                        <div className="mt-2 sm:col-span-2">
+                          <h4 className="mb-1 text-base sm:text-lg font-medium text-gray-900 dark:text-gray-200">
                             {formlabels.clientdata}
                           </h4>
                           <hr className="h-px border-0 bg-gray-900 dark:bg-gray-200 mb-2" />
@@ -388,7 +365,7 @@ export default function VisitaCard({
                           </label>
                           <input
                             onChange={(e) => setNome(e.target.value)}
-                            className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-900 leading-tight focus:outline-none bg-gray-100 md:text-sm focus:border-gray-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                            className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-900 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                             id="client-name"
                             type="text"
                             pattern="(?=^.{4,}$)[A-Za-z\s]+"
@@ -400,12 +377,12 @@ export default function VisitaCard({
                           </span>
                         </div>
 
-                        <div className="mt-1 md:col-span-2">
+                        <div className="mt-1 sm:col-span-2">
                           <label className="text-gray-900 dark:text-gray-200 text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                             {formlabels.phone}
                           </label>
                           <input
-                            className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-900 leading-tight focus:outline-none bg-gray-100 md:text-sm focus:border-gray-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                            className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-900 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                             id="client-phone"
                             type="tel"
                             onChange={handleChange}
@@ -419,13 +396,13 @@ export default function VisitaCard({
                           </span>
                         </div>
 
-                        <div className="mt-1 md:col-span-2">
+                        <div className="mt-1 sm:col-span-2">
                           <label className="text-gray-900 dark:text-gray-200 text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                             {formlabels.email}
                           </label>
                           <input
                             onChange={(e) => setEmail(e.target.value)}
-                            className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-900 leading-tight focus:outline-none bg-gray-100 md:text-sm focus:border-gray-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                            className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-900 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                             id="client-email"
                             type="email"
                             pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
@@ -437,19 +414,19 @@ export default function VisitaCard({
                           </span>
                         </div>
 
-                        <div className="mt-2 md:col-span-2">
-                          <h4 className="mb-1 text-base md:text-lg font-medium text-gray-900 dark:text-gray-200">
+                        <div className="mt-2 sm:col-span-2">
+                          <h4 className="mb-1 text-base sm:text-lg font-medium text-gray-900 dark:text-gray-200">
                             {formlabels.scheduling}
                           </h4>
                           <hr className="h-px border-0 bg-gray-900 dark:bg-gray-200" />
                         </div>
-                        <div className="md:col-span-1">
+                        <div className="sm:col-span-1">
                           <label className="text-gray-900 dark:text-gray-200 text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                             {formlabels.date}
                           </label>
                           <input
                             onChange={(e) => setData(e.target.value)}
-                            className={`text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-900 leading-tight focus:outline-none bg-gray-100 md:text-sm focus:border-gray-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 dark:[color-scheme:dark] ${
+                            className={`text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-900 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 dark:[color-scheme:dark] ${
                               data !== "" &&
                               "invalid:[&:not(:focus)]:border-red-500"
                             } peer`}
@@ -468,13 +445,13 @@ export default function VisitaCard({
                           </span>
                         </div>
 
-                        <div className="md:col-span-1">
+                        <div className="sm:col-span-1">
                           <label className="text-gray-900 dark:text-gray-200 text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                             {formlabels.time}
                           </label>
                           <input
                             onChange={(e) => setTime(e.target.value)}
-                            className={`text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-900 leading-tight focus:outline-none bg-gray-100 md:text-sm focus:border-gray-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 dark:[color-scheme:dark] ${
+                            className={`text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-900 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 dark:[color-scheme:dark] ${
                               time !== "" &&
                               "invalid:[&:not(:focus)]:border-red-500"
                             } peer`}
@@ -504,11 +481,11 @@ export default function VisitaCard({
                           </span>
                         </div>
 
-                        <div className="md:col-span-2 text-right">
+                        <div className="sm:col-span-2 text-right">
                           <div className="mt-4 inline-flex items-end">
                             <button
                               type="submit"
-                              className={`p-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs md:text-sm px-10 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 transition ease-in duration-200 text-center focus:ring-offset-2 group-invalid:pointer-events-none group-invalid:opacity-30 ${
+                              className={`p-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs sm:text-sm px-10 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 transition ease-in duration-200 text-center focus:ring-offset-2 group-invalid:pointer-events-none group-invalid:opacity-30 ${
                                 select.length === 0 &&
                                 "pointer-events-none opacity-30"
                               }`}

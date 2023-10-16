@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ImovelRegistro } from "../../../../../lib/modelos";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
@@ -19,7 +19,6 @@ const supabase = createClientComponentClient<Database>();
 export default function ImovelImg({ usuarioId, imovel, imovelId, imagemId }: ImovelImgProps) {
   const [src, setSrc] = useState(`imoveis/${usuarioId}/${imagemId}`);
   const [loading, setLoading] = useState(true);
-  const [editImage, setEditImage] = useState(false);
 
   useEffect(() => {
     const setImageURL = async () => {
@@ -56,23 +55,6 @@ export default function ImovelImg({ usuarioId, imovel, imovelId, imagemId }: Imo
             { loading &&
                 <div className="object-cover rounded-md absolute inset-0 flex items-center justify-center z-10 bg-white opacity-70"><Spinner size="xl" /></div>
             }
-            {/*
-              !loading && (
-              <div className="object-cover absolute inset-0 flex items-center justify-center z-10">
-                <button className="invisible group-hover:visible absolute px-3 py-1 bg-blue-500 text-white"
-                onClick={() => {
-                  setEditImage(true);
-                }}>
-                  Editar Imagem
-                </button>
-              </div>
-              )
-            }
-            {
-              editImage && (
-              <EditForm formOpen={editImage} setFormOpen={setEditImage} imovel={imovel} userid={usuarioId} />
-              )
-              */}
         </div>
     )
 }

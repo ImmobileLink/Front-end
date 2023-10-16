@@ -3,7 +3,7 @@ import { Database } from "../../../../../lib/database.types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface SkeletonProps {
-  num: Number;
+  num: number;
 }
 
 const supabase = createClientComponentClient<Database>();

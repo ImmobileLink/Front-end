@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Database } from "../../../../../lib/database.types";
 import { Imovel } from "@/app/i18n/dictionaries/types";
 import {
@@ -9,9 +9,10 @@ import {
 } from "../../../../../lib/modelos";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { v4 as uuidv4 } from "uuid";
-import Select, { StylesConfig } from "react-select";
 import InputMask from "react-input-mask";
-import { Spinner, FileInput } from "flowbite-react";
+import { Spinner } from "flowbite-react";
+{/* @ts-ignore */}
+import Select, { StylesConfig, ValueType } from "react-select";
 
 interface FormProps {
   props: {
@@ -45,25 +46,18 @@ export default function Form({ props }: FormProps) {
   const [loading, setLoading] = useState(false);
 
   // Tipos de imóvel
-  const [mobilia, setMobilia] = useState<TipoImovel>({ id: "", descricao: "" });
-  const [condicao, setCondicao] = useState<TipoImovel>({
-    id: "",
-    descricao: "",
-  });
-  const [type, setType] = useState<TipoImovel>({ id: "", descricao: "" });
-  const [selectedOptions, setSelectedOptions] = useState<TipoImovel>({
-    id: "",
-    descricao: "",
-  });
+  const [mobilia, setMobilia] = useState<TipoImovel>();
+  const [condicao, setCondicao] = useState<TipoImovel>();
+  const [type, setType] = useState<TipoImovel>();
+  const [selectedOptions, setSelectedOptions] = useState<ValueType<TipoImovel>>();
 
   const [disabilitarInput, isDisabilitarInput] = useState(false);
-  const [cepValid, isCepValid] = useState(false);
 
   const handleCadastrarImagem = async () => {
     // Enviar o arquivo para o Supabase Storage
     const { data, error } = await supabase.storage
       .from("imoveis") // Nome do bucket no Supabase
-      .upload(props.userid + "/" + imagemId, img); // Cria a pasta se ela ainda não existir
+      .upload(props.userid + "/" + imagemId, img!); // Cria a pasta se ela ainda não existir
 
     if (error) {
       console.error("Erro ao fazer upload:", error.message);
@@ -81,19 +75,19 @@ export default function Form({ props }: FormProps) {
   };
 
   const handleOptions = async () => {
-    let dados = [type, mobilia, condicao];
+    let data = [type, mobilia, condicao];
 
     // Verifique se selectedOptions não está vazio e é um array
     if (Array.isArray(selectedOptions) && selectedOptions.length > 0) {
-      dados = [
-        ...dados,
-        ...selectedOptions.map((option) => ({
-          id: option.id,
-          descricao: option.descricao,
-        })),
-      ];
+      data = [...data, ...selectedOptions];
     }
-    return dados;
+    
+    let newdata = [...data.map((option) => ({
+      id: option!.id,
+      descricao: option!.descricao,
+    }))]
+
+    return newdata;
   };
 
   // Falta a validação dos dados
@@ -103,7 +97,7 @@ export default function Form({ props }: FormProps) {
     setLoading(true);
 
     const dados = await handleOptions();
-    console.log(dados);
+    //console.log(dados);
 
     const preco = valor.replace(",", ".");
 
@@ -112,16 +106,16 @@ export default function Form({ props }: FormProps) {
     }
 
     const imovel: InsereImovel = {
-      idcorporacao: props.userid,
+      idcorporacao: props.userid!,
       descricao: descricao,
       cep: cep,
       estado: estado,
       cidade: cidade,
       bairro: bairro,
       rua: rua,
-      numero: num,
+      numero: parseInt(num),
       complemento: complemento,
-      valor: preco,
+      valor: parseFloat(preco),
       imagem: imagemId,
       caracteristicas: dados,
     };
@@ -148,16 +142,6 @@ export default function Form({ props }: FormProps) {
       console.log(data);
     } else {
       console.log(error);
-    }
-  };
-
-  const handleTipoImovel = (event: any) => {
-    const selectedValue = event.target.value;
-    const selectedObject = props.tipos!.find(
-      (t: TipoImovel) => t.descricao === selectedValue
-    );
-    if (selectedObject != null) {
-      setType(selectedObject);
     }
   };
 
@@ -191,11 +175,9 @@ export default function Form({ props }: FormProps) {
       if (data.complemento != "") {
         setComplemento(data.complemento);
       }
-      isCepValid(true);
       isDisabilitarInput(true);
     } else {
       apagaCampos();
-      isCepValid(false);
       isDisabilitarInput(false);
     }
     console.log(data.erro);
@@ -221,7 +203,7 @@ export default function Form({ props }: FormProps) {
   );
 
   const colourStyles: StylesConfig = {
-    menu: (styles, state) => ({
+    menu: (styles) => ({
       ...styles,
       backgroundColor: darkMode.matches ? "rgb(55 65 81)" : "rgb(243 244 246)",
     }),
@@ -229,11 +211,9 @@ export default function Form({ props }: FormProps) {
       ...styles,
       fontSize: minSize.matches ? "0.875rem" : "0.75rem",
       color: darkMode.matches ? "white" : "rgb(55 65 81)",
-      backgroundColor: darkMode.matches
-        ? state.isFocused && "rgb(59 130 246)"
-        : state.isFocused && "rgb(147 197 253)",
+      backgroundColor: state.isFocused ? darkMode.matches ? "rgb(59 130 246)" : "rgb(147 197 253)" : undefined
     }),
-    control: (styles, state) => ({
+    control: (styles) => ({
       ...styles,
       backgroundColor: darkMode.matches ? "rgb(55 65 81)" : "rgb(243 244 246)",
       borderColor: darkMode.matches ? "rgb(75 85 99)" : "rgb(209 213 219)",
@@ -282,8 +262,8 @@ export default function Form({ props }: FormProps) {
       <form onSubmit={handleCadastrarImovel} className="z-50 group" noValidate>
         <div className="pointer-events-auto fixed top-0 right-0 flex pl-10">
           <div className="relative w-screen">
-            <div className="fixed h-full w-screen md:max-w-lg top-0 md:right-0 flex-col bg-white dark:bg-dark-200 py-6 shadow-xl overflow-y-auto overflow-x-hidden">
-              <div className="flex px-4 md:px-6 items-center justify-between">
+            <div className="fixed h-full w-screen sm:max-w-lg top-0 sm:right-0 flex-col bg-white dark:bg-dark-200 py-6 shadow-xl overflow-y-auto overflow-x-hidden">
+              <div className="flex px-4 sm:px-6 items-center justify-between">
                 <h2 className="text-xl font-semibold leading-6 text-gray-900 dark:text-white">
                   {props.textos.newproperty.registerproperty}
                 </h2>
@@ -312,16 +292,16 @@ export default function Form({ props }: FormProps) {
                 </button>
               </div>
 
-              <div className="px-4 md:px-6 text-xs py-2 mt-1">
+              <div className="px-4 sm:px-6 text-xs py-2 mt-1">
                 <span className="text-red-500"> * </span>
                 <span className="text-gray-900 dark:text-white">
                   {props.textos.newproperty.requiredfields}
                 </span>
               </div>
 
-              <div className="mt-6 flex flex-col px-4 md:px-6">
-                <div className="-mx-3 md:flex mb-6">
-                  <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+              <div className="mt-6 flex flex-col px-4 sm:px-6">
+                <div className="-mx-3 sm:flex mb-6">
+                  <div className="sm:w-1/2 px-3 mb-6 sm:mb-0">
                     <label className="text-gray-700 dark:text-white text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                       {props.textos.newproperty.cep}
                       <span className="text-red-500"> * </span>
@@ -332,17 +312,17 @@ export default function Form({ props }: FormProps) {
                       onChange={(e) =>
                         setCep(e.target.value.replace(/\D/g, ""))
                       }
-                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 md:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                       type="text"
                       pattern="\d{5}-\d{3}"
                       placeholder=" "
                       required
                     />
                     <span className="mt-2 hidden text-xs italic text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-                      {props.textos.newproperty.formlogs.invalidcep}
+                      {props.textos.newproperty.newpropertylogs.invalidcep}
                     </span>
                   </div>
-                  <div className="md:w-1/2 px-3">
+                  <div className="sm:w-1/2 px-3">
                     <label className="text-gray-700 dark:text-white text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                       {props.textos.newproperty.uf}
                       <span className="text-red-500"> * </span>
@@ -351,14 +331,14 @@ export default function Form({ props }: FormProps) {
                       disabled={disabilitarInput}
                       value={estado}
                       onChange={(e) => setEstado(e.target.value)}
-                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 md:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500"
+                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500"
                       type="text"
                       placeholder=" "
                     />
                   </div>
                 </div>
-                <div className="-mx-3 md:flex mb-6">
-                  <div className="md:w-full px-3">
+                <div className="-mx-3 sm:flex mb-6">
+                  <div className="sm:w-full px-3">
                     <label className="text-gray-700 dark:text-white text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                       {props.textos.newproperty.city}
                       <span className="text-red-500"> * </span>
@@ -367,19 +347,19 @@ export default function Form({ props }: FormProps) {
                       disabled={disabilitarInput}
                       value={cidade}
                       onChange={(e) => setCidade(e.target.value)}
-                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 md:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                       type="text"
                       pattern=".{2,}"
                       placeholder=" "
                       required
                     />
                     <span className="mt-2 hidden text-xs italic text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-                      {props.textos.newproperty.formlogs.invalidcity}
+                      {props.textos.newproperty.newpropertylogs.invalidcity}
                     </span>
                   </div>
                 </div>
-                <div className="-mx-3 md:flex mb-6">
-                  <div className="md:w-full px-3">
+                <div className="-mx-3 sm:flex mb-6">
+                  <div className="sm:w-full px-3">
                     <label className="text-gray-700 dark:text-white text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                       {props.textos.newproperty.neighborhood}
                       <span className="text-red-500"> * </span>
@@ -388,19 +368,19 @@ export default function Form({ props }: FormProps) {
                       disabled={disabilitarInput}
                       value={bairro}
                       onChange={(e) => setBairro(e.target.value)}
-                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 md:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                       type="text"
                       pattern=".{2,}"
                       placeholder=" "
                       required
                     />
                     <span className="mt-2 hidden text-xs italic text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-                      {props.textos.newproperty.formlogs.invalidneighborhood}
+                      {props.textos.newproperty.newpropertylogs.invalidneighborhood}
                     </span>
                   </div>
                 </div>
-                <div className="-mx-3 md:flex mb-6">
-                  <div className="md:w-full px-3">
+                <div className="-mx-3 sm:flex mb-6">
+                  <div className="sm:w-full px-3">
                     <label className="text-gray-700 dark:text-white text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                       {props.textos.newproperty.street}
                       <span className="text-red-500"> * </span>
@@ -409,19 +389,19 @@ export default function Form({ props }: FormProps) {
                       disabled={disabilitarInput}
                       value={rua}
                       onChange={(e) => setRua(e.target.value)}
-                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 md:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                       type="text"
                       pattern=".{2,}"
                       placeholder=" "
                       required
                     />
                     <span className="mt-2 hidden text-xs italic text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-                      {props.textos.newproperty.formlogs.invalidstreet}
+                      {props.textos.newproperty.newpropertylogs.invalidstreet}
                     </span>
                   </div>
                 </div>
-                <div className="-mx-3 md:flex mb-6">
-                  <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+                <div className="-mx-3 sm:flex mb-6">
+                  <div className="sm:w-1/2 px-3 mb-6 sm:mb-0">
                     <label className="text-gray-700 dark:text-white text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                       {props.textos.newproperty.number}
                       <span className="text-red-500"> * </span>
@@ -431,29 +411,29 @@ export default function Form({ props }: FormProps) {
                       onChange={(e) =>
                         setNum(e.target.value.replace(/\D/g, ""))
                       }
-                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 md:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                       type="text"
                       pattern="^[0-9]+$"
                       placeholder=" "
                       required
                     />
                     <span className="mt-2 hidden text-xs italic text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-                      {props.textos.newproperty.formlogs.invalidnumber}
+                      {props.textos.newproperty.newpropertylogs.invalidnumber}
                     </span>
                   </div>
-                  <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+                  <div className="sm:w-1/2 px-3 mb-6 sm:mb-0">
                     <label className="text-gray-700 dark:text-white text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                       {props.textos.newproperty.complement}
                     </label>
                     <input
                       value={complemento}
                       onChange={(e) => setComplemento(e.target.value)}
-                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 md:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500"
+                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500"
                       type="text"
                       placeholder=" "
                     />
                   </div>
-                  <div className="md:w-1/2 px-3">
+                  <div className="sm:w-1/2 px-3">
                     <label className="text-gray-700 dark:text-white text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                       {props.textos.newproperty.price}
                       <span className="text-red-500"> * </span>
@@ -463,19 +443,19 @@ export default function Form({ props }: FormProps) {
                       onChange={(e) =>
                         setValor(e.target.value.replace(/[^0-9,.]/g, ""))
                       }
-                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 md:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                       type="text"
                       placeholder=" "
                       pattern="^\d+(,\d{0,2})?|\d+(\.\d{0,2})?$"
                       required
                     />
                     <span className="mt-2 hidden text-xs italic text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-                      {props.textos.newproperty.formlogs.invalidprice}
+                      {props.textos.newproperty.newpropertylogs.invalidprice}
                     </span>
                   </div>
                 </div>
-                <div className="-mx-3 md:flex mb-6">
-                  <div className="md:w-full px-3">
+                <div className="-mx-3 sm:flex mb-6">
+                  <div className="sm:w-full px-3">
                     <label className="text-gray-700 dark:text-white text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                       {props.textos.newproperty.type}
                       <span className="text-red-500"> * </span>
@@ -483,16 +463,16 @@ export default function Form({ props }: FormProps) {
                     <Select
                       placeholder={props.textos.newproperty.selectopt}
                       options={props.tipos}
-                      getOptionValue={(option) => option.id}
-                      getOptionLabel={(option) => option.descricao}
-                      onChange={(item) => setType(item)}
+                      getOptionValue={(option: ValueType<TipoImovel>) => option.id}
+                      getOptionLabel={(option: ValueType<TipoImovel>) => option.descricao}
+                      onChange={(option: ValueType<TipoImovel>) => setType(option)}
                       styles={colourStyles}
                       isSearchable={false}
                     />
                   </div>
                 </div>
-                <div className="-mx-3 md:flex mb-6">
-                  <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+                <div className="-mx-3 sm:flex mb-6">
+                  <div className="sm:w-1/2 px-3 mb-6 sm:mb-0">
                     <label className="text-gray-700 dark:text-white text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                       {props.textos.newproperty.furniture}
                       <span className="text-red-500"> * </span>
@@ -510,7 +490,7 @@ export default function Form({ props }: FormProps) {
                               onChange={() => setMobilia(option)}
                               required
                             />
-                            <span className="ml-2 text-xs md:text-sm text-gray-700 dark:text-white">
+                            <span className="ml-2 text-xs sm:text-sm text-gray-700 dark:text-white">
                               {option.descricao}
                             </span>
                           </label>
@@ -518,7 +498,7 @@ export default function Form({ props }: FormProps) {
                       ))}
                     </div>
                   </div>
-                  <div className="md:w-1/2 px-3">
+                  <div className="sm:w-1/2 px-3">
                     <label className="text-gray-700 dark:text-white text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                       {props.textos.newproperty.condition}
                       <span className="text-red-500"> * </span>
@@ -536,7 +516,7 @@ export default function Form({ props }: FormProps) {
                               onChange={() => setCondicao(option)}
                               required
                             />
-                            <span className="ml-2 text-xs md:text-sm text-gray-700 dark:text-white">
+                            <span className="ml-2 text-xs sm:text-sm text-gray-700 dark:text-white">
                               {option.descricao}
                             </span>
                           </label>
@@ -545,17 +525,17 @@ export default function Form({ props }: FormProps) {
                     </div>
                   </div>
                 </div>
-                <div className="-mx-3 md:flex mb-6">
-                  <div className="md:w-full px-3">
+                <div className="-mx-3 sm:flex mb-6">
+                  <div className="sm:w-full px-3">
                     <label className="text-gray-700 dark:text-white text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                       {props.textos.newproperty.others}
                     </label>
                     <Select
                       placeholder={props.textos.newproperty.selectopts}
                       options={props.outros}
-                      getOptionValue={(option) => option.id}
-                      getOptionLabel={(option) => option.descricao}
-                      onChange={(item) => setSelectedOptions(item)}
+                      getOptionValue={(option: ValueType<TipoImovel>) => option.id}
+                      getOptionLabel={(option: ValueType<TipoImovel>) => option.descricao}
+                      onChange={(option: ValueType<TipoImovel>) => setSelectedOptions(option)}
                       isMulti
                       styles={colourStyles}
                       isSearchable={false}
@@ -563,8 +543,8 @@ export default function Form({ props }: FormProps) {
                     />
                   </div>
                 </div>
-                <div className="-mx-3 md:flex mb-6">
-                  <div className="md:w-full px-3">
+                <div className="-mx-3 sm:flex mb-6">
+                  <div className="sm:w-full px-3">
                     <label className="text-gray-700 dark:text-white text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                       {props.textos.newproperty.description}
                     </label>
@@ -573,17 +553,17 @@ export default function Form({ props }: FormProps) {
                       rows={3}
                       value={descricao}
                       onChange={(e) => setDescricao(e.target.value)}
-                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 md:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500"
+                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500"
                     ></textarea>
                   </div>
                 </div>
-                <div className="-mx-3 md:flex mb-6">
-                  <div className="md:w-full px-3">
+                <div className="-mx-3 sm:flex mb-6">
+                  <div className="sm:w-full px-3">
                     <label className="text-gray-700 dark:text-white text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
                       {props.textos.newproperty.imageupload}
                     </label>
                     <input
-                      className="block w-full text-xs md:text-sm relative m-0 min-w-0 flex-auto border-solid px-3 py-1.5
+                      className="block w-full text-xs sm:text-sm relative m-0 min-w-0 flex-auto border-solid px-3 py-1.5
                                 text-gray-700 border border-gray-300 rounded bg-gray-100 focus:outline-none dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                                 
                                 file:-mx-3 file:-my-1.5 file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit 
@@ -602,8 +582,8 @@ export default function Form({ props }: FormProps) {
                 <div className="w-full flex justify-end">
                   <button
                     type="submit"
-                    className={`p-2 mt-2 grow text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs md:text-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 transition ease-in duration-200 text-center focus:ring-offset-2 group-invalid:pointer-events-none group-invalid:opacity-30 ${
-                      type.id.length === 0 && "pointer-events-none opacity-30"
+                    className={`p-2 mt-2 grow text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs sm:text-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 transition ease-in duration-200 text-center focus:ring-offset-2 group-invalid:pointer-events-none group-invalid:opacity-30 ${
+                      type?.id.length === 0 && "pointer-events-none opacity-30"
                     }`}
                   >
                     {loading ? (

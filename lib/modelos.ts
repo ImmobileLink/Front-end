@@ -37,7 +37,10 @@ export interface InsereImovel {
     complemento: string,
     valor: number,
     imagem: string,
-    caracteristicas: Json
+    caracteristicas: {
+      id: string;
+      descricao: string;
+  }[]
 }
 export interface AtualizaImovel {
     descricao: string,
@@ -51,7 +54,7 @@ export interface AtualizaImovel {
     valor: number,
     imagem: string,
     caracteristicas: Json
-  }
+}
 export type Mensagem = Database['public']['Tables']['mensagem']['Row']
 export interface MensagemAInserir {
     idautor: string,
@@ -61,10 +64,13 @@ export interface MensagemAInserir {
 }
 export interface CorretorAssociado {
     id: string,
-    nome: string,
-    estado: string,
-    cidade: string,
-    tipoImovel?: {
+    nome: string | null,
+    estado: string | null,
+    cidade: string | null,
+    tipoImovel: {
+      id: string;
+      descricao: string;
+  } | {
       id: string;
       descricao: string;
   }[] | null;
@@ -73,7 +79,7 @@ export type Sala = Database['public']['Tables']['sala']['Row']
 export type Visita = Database['public']['Tables']['visita']['Row']
 export interface InsereVisita {
     dadosmarcador: Json;
-    dataAgendamento: string;
+    dataagendamento: string;
     idcorporacao: string;
     idcorretor: string;
     idimovel: string;

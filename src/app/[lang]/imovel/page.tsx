@@ -2,9 +2,7 @@ import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { getDictionary } from "../dictionaries";
 import { Database } from "../../../../lib/database.types";
-import NavBar from "../(components)/(navbar)/NavBar";
 import Imoveis from "../(components)/(imovel)/Imoveis";
-import ImovelCard from "../(components)/(imovel)/ImovelCard";
 import { TipoImovel, userData } from "../../../../lib/modelos";
 import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/utils/userData";
 import { cache } from "react";
@@ -38,10 +36,10 @@ async function getUserData(user: userData) {
   return user;
 }
 
-async function filterAndMapTipos(tiposImovel: TipoImovel, classificacao: string) {
+async function filterAndMapTipos(tiposImovel: TipoImovel[], classificacao: string) {
   return tiposImovel
     .filter((obj: TipoImovel) => obj.classificacao === classificacao)
-    .map((obj: TipoImovel) => ({ id: obj.id, descricao: obj.descricao }));
+    .map((obj: TipoImovel) => ({ id: obj.id, descricao: obj.descricao, classificacao: obj.classificacao }));
 }
 
 export default async function page({ params: { lang } }: pageProps) {
@@ -60,10 +58,10 @@ export default async function page({ params: { lang } }: pageProps) {
 
 
   let {data: tiposImovel} = await supabase.from('tipoImovel').select('*');
-  const tipos = await filterAndMapTipos(tiposImovel, 'Tipo');
-  const outros = await filterAndMapTipos(tiposImovel, 'Outros');
-  const mobilias = await filterAndMapTipos(tiposImovel, 'Mobília');
-  const condicoes = await filterAndMapTipos(tiposImovel, 'Condição');
+  const tipos = await filterAndMapTipos(tiposImovel!, 'Tipo');
+  const outros = await filterAndMapTipos(tiposImovel!, 'Outros');
+  const mobilias = await filterAndMapTipos(tiposImovel!, 'Mobília');
+  const condicoes = await filterAndMapTipos(tiposImovel!, 'Condição');
 
   const { count } = await supabase.from('imovel').select('*', { count: 'estimated', head: true }).eq("idcorporacao", userData.id);
 
