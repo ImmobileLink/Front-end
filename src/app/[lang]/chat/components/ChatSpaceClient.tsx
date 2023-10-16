@@ -1,10 +1,11 @@
 "use client";
 
-import { ReactNode, useContext, useEffect } from "react";
+import { ReactNode, Suspense, useContext, useEffect } from "react";
 import { ChatContext } from "../[[...idsala]]/ChatContext";
 import BottomNav from "./BottomNav";
 import { Chat } from "@/app/i18n/dictionaries/types";
 import { NotificationContext } from "../../(components)/(navbar)/NotificationContext";
+import { Spinner } from "flowbite-react";
 
 interface ChatSpaceClientProps {
   children: ReactNode,
@@ -15,12 +16,12 @@ interface ChatSpaceClientProps {
 
 export default function ChatSpaceClient({ children, dict, idsala, userId }: ChatSpaceClientProps) {
   const { chatView, toggleChatView } = useContext(ChatContext)
-  const {toggleChatNotification} = useContext(NotificationContext)
+  const { toggleChatNotification } = useContext(NotificationContext)
 
   let style = 'hidden lg:block'
 
-  if (chatView == true ) {
-    if(typeof idsala === 'undefined') {
+  if (chatView == true) {
+    if (typeof idsala === 'undefined') {
       style = 'hidden lg:block'
     }
     else {
@@ -28,17 +29,19 @@ export default function ChatSpaceClient({ children, dict, idsala, userId }: Chat
     }
   }
   else {
-    if(chatView == false) 
+    if (chatView == false)
       style = 'hidden lg:block'
   }
 
-  useEffect(() => {
-    toggleChatNotification(false)
-  })
-  
   return (
-    <div className={`${style} h-full lg:h-5/6 lg:w-7/12`}>
-      {children}
-    </div>
+    <Suspense fallback={
+      <div className={`${style} h-full lg:h-5/6 lg:w-7/12 flex flex-col w-screen rounded-md bg-white dark:bg-dark-100 drop-shadow-md justify-center items-center`}>
+        <Spinner size='xl'/>
+      </div>
+    }>
+      <div className={`${style} h-full lg:h-5/6 lg:w-7/12 flex flex-col w-screen rounded-md bg-white dark:bg-dark-100 drop-shadow-md`}>
+        {children}
+      </div>
+    </Suspense>
   );
 }

@@ -1,419 +1,399 @@
 {
-    "navbarbuttons": {
-        "feed": "Feed",
-        "myprofile": "My profile",
-        "settings": "Settings",
-        "schedule": "Schedules",
-        "links": "My links",
-        "relatedbrokers": "Related Brokers",
-        "myrelatedcompany": "Related company",
-        "search": "Search",
-        "subscription": "Subscription",
-        "loginbutton": "Login",
-        "logoutbutton": "Logout",
-        "language": "Language"
-    },
-    "auth": {
-        "always": {
-            "donthaveanaccount": "Don't have an account?",
-            "signup": "Sign up",
-            "forgetpassword": "Forgot password?",
-            "alreadyhaveanaccount": "Already have an account?",
-            "singin": "Sign in",
-            "error": "Oops!",
-            "bylogginin": "By logging in you agree with the ",
-            "bycreatinganaccount": "By creating an account you agree with the",
-            "terms": "Terms of Use",
-            "ofthisplataform": "of this platform"
-        },
-        "signin": {
-            "emaillabel": "Email Address",
-            "passwordlabel": "Password",
-            "signinbutton": "Sign in",
-            "or": "OR",
-            "signinwithgoogle": "Sign in with Google",
-            "error": "Something went wrong!",
-            "logs": {
-                "invalidcredentials": "Incorrect email and/or password."
-            }
-        },
-        "signup": {
-            "signup1": {
-                "emaillabel": "Email Address",
-                "passwordlabel": "Password",
-                "logs": {
-                    "invalidemail": "Please enter a valid email address.",
-                    "invalidpassword": "Password must be at least 6 characters long, include numbers, uppercase, lowercase and special character.",
-                    "emailalreadyused": "Email already registered.",
-                    "invaliddifferentpasswords": "The passwords are different.",
-                    "invalidconfirmpassword": "Confirm your password."
-                }
-            },
-            "signup2": {
-                "corretorlabel": "Recomended for real estate agents",
-                "corretorbutton": "Individual",
-                "companylabel": "For construction and real estate companies",
-                "companybutton": "Company",
-                "yourchoiceis": "Your choice:",
-                "corretor": "Estate broker",
-                "company": "Company"
-            },
-            "signup3": {
-                "name": "Full name",
-                "fantasyname": "Fantasy Name",
-                "cpf": "CPF",
-                "cnpj": "CNPJ",
-                "phone1": "Mobile",
-                "phone2": "Phone",
-                "phone3": "Commercial",
-                "cep": "zip",
-                "uf": "Estate",
-                "ufacronim": "UF",
-                "city": "City",
-                "neighborhood": "Neighborhood",
-                "street": "Street",
-                "number": "Number",
-                "complement": "Complement",
-                "optional": "Optional",
-                "logs": {
-                    "invalidname": "Name must be at least 4 characters long",
-                    "invalidfantasyname": "The fantasy name must be at least 12 characters long",
-                    "invalidcpf": "Invalid CPF",
-                    "invalidcnpj": "Invalid CNPJ",
-                    "invalidphone": "Invalid phone number",
-                    "invalidcep": "Invalid zip code",
-                    "invalidcepnotfound": "Zip code not found",
-                    "invaliduf": "Insert the abbreviation of the federative unit",
-                    "invalidcity": "City must be at least 2 characters long",
-                    "invalidneighborhood": "Neighborhood must be at least 2 characters long",
-                    "invalidstreet": "The street must have at least 2 characters",
-                    "invalidnumber": "The house number must be a positive number",
-                    "invalidcomplement": "Household complement must be at least 2 characters"
-                }
-            },
-            "signup4": {
-                "creci": "CRECI",
-                "speciality": "Speciality",
-                "region": "Working region",
-                "languages": "Languages",
-                "logs": {
-                    "invalidcreci": "Invalid CRECI"
-                },
-                "cityselector": {
-                    "estate": "Estate",
-                    "city": "City",
-                    "selectaestate": "Select a estate",
-                    "selectaestatefirst": "Select a estate first",
-                    "nocityfound": "No city found",
-                    "ufacronim": "UF"
-                }
-            },
-            "signup5": {
-                "corretor": {
-                    "freelabel": "Ideal for brokers who have just entered the job market and want to start their career.",
-                    "freedescription1": "Simple profile assessment.",
-                    "freedescription2": "Opportunities feed.",
-                    "freedescription3": "Company affiliation.",
-                    "freedescription4": "Individual and group chat.",
-                    "premiumlabel": "Ideal for brokers who want to invest heavily in their profile and reach more people.",
-                    "premiumdescription1": "All benefits of the Free plan.",
-                    "premiumdescription2": "Complete dashboard of your performance.",
-                    "premiumdescription3": "View dashboard of other users.",
-                    "premiumdescription4": "Exclusive features."
-                },
-                "company": {
-                    "freelabel": "Ideal for small and medium-sized businesses.",
-                    "freedescription1": "Search for brokers in the region.",
-                    "freedescription2": "Posting opportunities.",
-                    "freedescription3": "Affiliate up to 10 brokers.",
-                    "freedescription4": "Individual and group chat.",
-                    "premiumlabel": "Ideal for established companies or companies that want to improve their sales.",
-                    "premiumdescription1": "All benefits of the Free plan.",
-                    "premiumdescription2": "Complete dashboard of your performance.",
-                    "premiumdescription3": "View dashboard of other users.",
-                    "premiumdescription4": "Exclusive features."
-                },
-                "subscriptionmessage1": "Subscribe to PREMIUM",
-                "subscriptionmessage2": "PREMIUM",
-                "subscriptionmessage3": "Choose payment method",
-                "signupbutton": "Finalize Registration",
-                "select": "SELECT",
-                "selected": "SELECTED"
-            },
-            "stepper": {
-                "label1": "Email & Password",
-                "label2": "Choose your Profile",
-                "label3": "Personal data",
-                "label4": "Additional Information",
-                "label5": "Choose your Plan"
-            },
-            "nextbutton": "Next",
-            "previousbutton": "Back",
-            "success": "Done!",
-            "error": "Something went wrong!",
-            "fixtheinputs": "Fix the inputs before going forward!",
-            "successsignup": "Check your inbox for the authentication link (may be in spam)."
-        },
-        "forgetpassword": {
-            "emaillabel": "Email Address",
-            "forgetpasswordbutton": "Send password reset email",
-            "success": "Done!",
-            "error": "Something went wrong!",
-            "logs": {
-                "invalidemail": "Please enter a valid email address.",
-                "emailnotfound": "Email not found.",
-                "emailsend": "Check your inbox for password reset link (may be in spam)."
-            }
-        },
-        "recovery": {
-            "newpassword": "New password",
-            "recoverybutton": "Update",
-            "success": "Done!",
-            "error": "Something went wrong!",
-            "logs": {
-                "passwordchanged": "Your password has been changed.",
-                "passwordnotchanged": "Could not change password, please try again later."
-            }
-        },
-        "terms": {
-            "title": "PLATFORM'S TERMS OF USE",
-            "warning": "Important Notice: Course Completion Project - Simulated and Fictitious Use",
-            "introduction": "This site is part of a course completion project and was developed with the specific purpose of presenting the concept of a communication channel between brokers and real estate agents. Please keep the following considerations in mind when using this platform :",
-            "simulationTitle": "Simulation and Fiction: ",
-            "simulation": "This platform does not represent a real platform for realtors and is not connected to any real estate market transactions or activities. This plataform only has academic and demonstrative purposes.",
-            "fictiontitle": "Fictious Data: ",
-            "fiction": "Any information provided for registration, including name, address, phone numbers, emails and other details, must be entirely fictitious. It is not recommended to use real personal information. We do not use any type of information provided on this site for purposes other than just displaying and demonstrating it's functionality.",
-            "responsibletitle": "Responsible Usage: ",
-            "responsible": "By interacting with this platform, we request that you use it responsibly and respectfully. Sharing offensive, discriminatory, illegal or harmful content is not allowed.",
-            "copyrighttitle": "Copyright: ",
-            "copyright": "All images, logos and other visual materials used on this site are used for illustrative and demonstration purposes. Copyrights belong to their respective owners.",
-            "feedbacktitle": "Feedback and Contact: ",
-            "feedback": "If you wish to provide feedback on this platform, please be aware that any comments or suggestions will be considered for academic purposes and to improve the project.",
-            "disclaimer1": "By proceeding and using this site, you acknowledge that you are aware of the simulated and fictitious nature of this platform and agree to respect the conditions and guidelines presented here.",
-            "disclaimer2": "For additional information or clarifications about this course completion project, contact us through the channel indicated on the website. Thank you for your understanding and for your interest in our project.",
-            "sincerely": "Sincerely,",
-            "teamimmobile": "ImmobileLink's Team",
-            "location": "Federal Institute of Education, Sciente and Technoly of São Paulo - IFSP, 2023"
-        }
-    },
-    "pesquisa": {
-        "labels": {
-            "nearbyusers": "People you might know from",
-            "name": "Name",
-            "title": "Find Users",
-            "usertype": "User Type",
-            "region": "Region",
-            "state": "State",
-            "city": "City",
-            "all": "All",
-            "nocityfound": "No city found",
-            "selectaestatefirst": "Select a estate first",
-            "rating": "Rating",
-            "specialty": "Specialty",
-            "error": "Oops! Something went wrong. Please try again.",
-            "missingcombobox": "Select a filter.",
-            "checkprofile": "Check Profile",
-            "specializations": "Broker specialization",
-            "type": "Property Type",
-            "furniture": "Furniture",
-            "condition": "Property Condition",
-            "others": "Others",
-            "advanced": "Advanced options",
-            "reset": "Reset",
-            "search": "Search",
-            "selectafilter": "Select the fields you want to use as a filter and click Search",
-            "nouserfound": "No users were found with the chosen filters"
-        },
-        "usertypevalue": {
-            "broker": "Broker",
-            "corporation": "Corporation"
-        }
-    },
-    "feed": {
-        "cards": {
-            "yourenotlogged": "You are not logged in yet!",
-            "enjoyall": "Enjoy all the benefits from the website",
-            "singin": "Sign in",
-            "findbrokers": "Find new links",
-            "mybrokers": "My Brokers",
-            "myproperties": "My properties",
-            "schedules": "Schedules",
-            "visitmyprofile": "See my profile",
-            "notpremiumyet": "Become",
-            "premium": "PREMIUM",
-            "bepremium": "Become premium",
-            "connections": "My Links",
-            "search": "Search",
-            "nolinksyet": "Looks like you don't have any Links yet",
-            "relatedbrokers": "Related Brokers",
-            "norelatedbrokersyet": "Looks like you don't have any related brokers yet",
-            "myrelatedcompany": "Related company",
-            "norelatedcompanyyet": "No related companies yet"
-        },
-        "pub": {
-            "regionfilter": "Filter by",
-            "posted": "posted",
-            "regioncomboboxplaceholder": "All",
-            "comboboxplaceholder": "Select",
-            "noposts": "No posts found for the specified region",
-            "error": "Ops! Something went wrong. Try reloading the page.",
-            "selectaregion": "Select a region to filter posts"
-        },
-        "form": {
-            "regionchange": "Region",
-            "post": "Post",
-            "placeholder": "New post",
-            "writeamessage": "Write the message",
-            "imageinputlabel": "picture",
-            "imageerror": "Invalid Image",
-            "cityselector": {
-                "estate": "Estate",
-                "city": "City",
-                "selectaestate": "Select a estate",
-                "selectacity": "Select a city",
-                "selectaestatefirst": "Select a estate first",
-                "nocityfound": "No city found"
-            }
-        }
-    },
-    "planos": {
-        "subscription": "Signatures for your profile",
-        "broker": "broker",
-        "company": "company",
-        "month": "month",
-        "tryforfree": "Try it free",
-        "allsubscriptions": "Conheça todos nossos planos",
-        "usertype": "Tipo de perfil",
-        "sublabel": "Planos",
-        "feedbackreview": "Feedback review",
-        "dashboard": "Complete Dashboard",
-        "feed": "Oportunity's feed",
-        "companyafiliation": "Affiliation to a company",
-        "chat": "Chats",
-        "visibility": "Better visibility",
-        "exclusivefunctions": "Exclusive features",
-        "searchfilters": "Better search params",
-        "oportunitiesposting": "Oportunities posts",
-        "linktotenbrokers": "Link up to 10 brokers",
-        "illimitedlinks": "Link up to many brokers",
-        "buynow": "Try now",
-        "confirmchange": "Do you really want to change your plan to"
-    },
-    "profile": {
-        "noAssociation": "No association at the moment",
-        "hasAssociation": "Has associated company(ies)",
-        "btnAssociate": "Associate",
-        "btnPending": "Pending",
-        "btnConnect": "Connect",
-        "overview": "Overview",
-        "posts": "Posts",
-        "infoBroker": "Information about the broker",
-        "historic": "historic"
-    },
-    "dashboard": {
-        "domain": "Domain",
-        "professionalism": "Professionalism",
-        "goodService": "Good service",
-        "educated": "educated",
-        "visited": "real estate visits",
-        "sales": "Sales",
-        "january": "January",
-        "february": "February",
-        "march": "March",
-        "april": "April",
-        "may": "May",
-        "june": "June"
-    },
-    "calendar": {
-        "scheduledVisits": "scheduled visits"
-    },
-    "imovel": {
-        "mainlabels": {
-            "title": "My Properties",
-            "delegatevisit": "Delegate Visit",
-            "location": "Location",
-            "characteristics": "Characteristics",
-            "price": "Price"
-        },
-        "formlabels": {
-            "selectbroker": "Select a broker",
-            "findbroker": "Find Brokers",
-            "delegatevisit": "Delegate Visit",
-            "brokerdata": "Broker",
-            "clientdata": "Client's Data",
-            "scheduling": "Appointment",
-            "name": "Name",
-            "phone": "Telephone",
-            "email": "Email",
-            "date": "Date",
-            "time": "Time",
-            "formlogs": {
-                "invalidname": "Name must be at least 10 characters long",
-                "invalidphone": "Phone must be 10 or 11 characters long",
-                "invalidemail": "Enter a valid email",
-                "invaliddate": "Selecione a date",
-                "invalidtime": "Selecione a time"
-            }
-        },
-        "newproperty": {
-            "registerproperty": "Register Property",
-            "register": "Register",
-            "uf": "Estate",
-            "city": "City",
-            "neighborhood": "Neighborhood",
-            "street": "Street",
-            "number": "Number",
-            "price": "Price",
-            "description": "Description"
-        }
-    },
-    "chat": {
-        "conversations": "Conversations",
-        "you": "You",
-        "sent": "sent",
-        "newconversation": "New space",
-        "newconvlabel1": "Partnerships",
-        "newconvlabel2": "Links",
-        "uploadedfile": "File selected",
-        "chathome": "Select an existing conversation or press \"New space\" to join a new one!"
-    },
-    "cityselector": {
-        "estate": "Estate",
-        "city": "City"
-    },
-    "home": {
-        "about": "About the platform",
-        "resources": "Resources",
-        "premium": "Premium",
-        "access": "ACCESS PLATFORM",
-        "conecting": "Connecting business,",
-        "ties": " ties and real estate",
-        "whatIsImmobileLink": "ImmobileLink is a platform that seeks to facilitate contact between brokers, construction companies and real estate agencies. Find the right professional for the right property.",
-        "searchOpportunities": "Search for opportunities",
-        "searchParagraph": "Look for partnership opportunities with different real estate agencies and brokers in the market. We offer a collaborative environment that contributes to build and demonstrate credibility for professionals and real estate companies. Demonstrate your experience, performance, portfolio and form ties with different professionals and organizations as you wish.",
-        "manageYourCalendar": "Manage your calendar, control your links and get real feedback!",
-        "manageParagraph": "Take advantage of the best resources to help manage time, activities, scheduling, communication, visualization and performance evaluation of your work and your partners with our complete and personalized dashboard.",
-        "amazingResources": "Amazing resources for brokers and companies",
-        "amazingParagraph": "ImmobileLink has exclusive resources to meet the main market needs. Explore a wide range of free and premium features for your needs and your business:",
-        "itemResources": {
-            "item1": "Broker Review",
-            "item2": "User Metrics Dashboard",
-            "item3": "Professional performance feedback",
-            "item4": "Creation of communities",
-            "item5": "Company affiliation",
-            "item6": "Opportunities by sector and region",
-            "item7": "Schedule and control of visits",
-            "item8": "And much more!"
-        },
-        "tryPremium": "TRY PREMIUM",
-        "start": "Let's start?"
-    },
-    "footer": {
-        "usefulLinks": "Useful Links",
-        "access": "Access platform",
-        "premium": "Premium",
-        "moreLinks": "More links",
-        "blog": "Blog",
-        "ytChannel": "YouTube Channel"
+  "navbarbuttons": {
+    "feed": "Feed",
+    "myprofile": "My profile",
+    "settings": "Settings",
+    "schedule": "Schedules",
+    "links": "My links",
+    "relatedbrokers": "Related Brokers",
+    "myrelatedcompany": "Related company",
+    "search": "Search",
+    "subscription": "Subscription",
+    "loginbutton": "Login",
+    "logoutbutton": "Logout",
+    "language": "Language",
+    "notifications":"Notifications",
+    "messages":"Messages",
+    "account": "Account",
+    "notificationlabels": {
+      "check": "Check",
+      "association": "has proposed an association",
+      "connection": "would like to connect",
+      "visit": "scheduled a new visit for you",
+      "accept": "Accept",
+      "refuse": "Refuse",
+      "nonotifications": "No notifications",
+      "acceptedvisit": "has accepted a visit",
+      "refusedvisit": "has canceled or refused a visit",
+      "updatedvisit": "has updated a visit's data"
     }
+  },
+  "auth": {
+    "always": {
+      "donthaveanaccount": "Don't have an account?",
+      "signup": "Sign up",
+      "forgetpassword": "Forgot password?",
+      "alreadyhaveanaccount": "Already have an account?",
+      "singin": "Sign in",
+      "error": "Oops!",
+      "bylogginin": "By logging in you agree with the ",
+      "bycreatinganaccount": "By creating an account you agree with the",
+      "terms": "Terms of Use",
+      "ofthisplataform": "of this platform"
+    },
+    "signin": {
+      "emaillabel": "Email Address",
+      "passwordlabel": "Password",
+      "signinbutton": "Sign in",
+      "or": "OR",
+      "signinwithgoogle": "Sign in with Google",
+      "error": "Something went wrong!",
+      "logs": {
+        "invalidcredentials": "Incorrect email and/or password."
+      }
+    },
+    "signup": {
+      "signup1": {
+        "emaillabel": "Email Address",
+        "passwordlabel": "Password",
+        "logs": {
+          "invalidemail": "Please enter a valid email address.",
+          "invalidpassword": "Password must be at least 6 characters long, include numbers, uppercase, lowercase and special character.",
+          "emailalreadyused": "Email already registered.",
+          "invaliddifferentpasswords": "The passwords are different.",
+          "invalidconfirmpassword": "Confirm your password."
+        }
+      },
+      "signup2": {
+        "corretorlabel": "Recomended for real estate agents",
+        "corretorbutton": "Individual",
+        "companylabel": "For construction and real estate companies",
+        "companybutton": "Company",
+        "yourchoiceis": "Your choice:",
+        "corretor": "Estate broker",
+        "company": "Company"
+      },
+      "signup3": {
+        "name": "Full name",
+        "fantasyname": "Fantasy Name",
+        "cpf": "CPF",
+        "cnpj": "CNPJ",
+        "phone1": "Mobile",
+        "phone2": "Phone",
+        "phone3": "Commercial",
+        "cep": "zip",
+        "uf": "Estate",
+        "ufacronim": "UF",
+        "city": "City",
+        "neighborhood": "Neighborhood",
+        "street": "Street",
+        "number": "Number",
+        "complement": "Complement",
+        "optional": "Optional",
+        "logs": {
+          "invalidname": "Name must be at least 4 characters long",
+          "invalidfantasyname": "The fantasy name must be at least 12 characters long",
+          "invalidcpf": "Invalid CPF",
+          "invalidcnpj": "Invalid CNPJ",
+          "invalidphone": "Invalid phone number",
+          "invalidcep": "Invalid zip code",
+          "invalidcepnotfound": "Zip code not found",
+          "invaliduf": "Insert the abbreviation of the federative unit",
+          "invalidcity": "City must be at least 2 characters long",
+          "invalidneighborhood": "Neighborhood must be at least 2 characters long",
+          "invalidstreet": "The street must have at least 2 characters",
+          "invalidnumber": "The house number must be a positive number",
+          "invalidcomplement": "Household complement must be at least 2 characters"
+        }
+      },
+      "signup4": {
+        "creci": "CRECI",
+        "speciality": "Speciality",
+        "region": "Working region",
+        "languages": "Languages",
+        "logs": {
+          "invalidcreci": "Invalid CRECI"
+        },
+        "cityselector": {
+          "estate": "Estate",
+          "city": "City",
+          "selectaestate": "Select a estate",
+          "selectaestatefirst": "Select a estate first",
+          "nocityfound": "No city found",
+          "ufacronim": "UF"
+        }
+      },
+      "signup5": {
+        "corretor": {
+          "freelabel": "Ideal for brokers who have just entered the job market and want to start their career.",
+          "freedescription1": "Simple profile assessment.",
+          "freedescription2": "Opportunities feed.",
+          "freedescription3": "Company affiliation.",
+          "freedescription4": "Individual and group chat.",
+          "premiumlabel": "Ideal for brokers who want to invest heavily in their profile and reach more people.",
+          "premiumdescription1": "All benefits of the Free plan.",
+          "premiumdescription2": "Complete dashboard of your performance.",
+          "premiumdescription3": "View dashboard of other users.",
+          "premiumdescription4": "Exclusive features."
+        },
+        "company": {
+          "freelabel": "Ideal for small and medium-sized businesses.",
+          "freedescription1": "Search for brokers in the region.",
+          "freedescription2": "Posting opportunities.",
+          "freedescription3": "Affiliate up to 10 brokers.",
+          "freedescription4": "Individual and group chat.",
+          "premiumlabel": "Ideal for established companies or companies that want to improve their sales.",
+          "premiumdescription1": "All benefits of the Free plan.",
+          "premiumdescription2": "Complete dashboard of your performance.",
+          "premiumdescription3": "View dashboard of other users.",
+          "premiumdescription4": "Exclusive features."
+        },
+        "subscriptionmessage1": "Subscribe to PREMIUM",
+        "subscriptionmessage2": "PREMIUM",
+        "subscriptionmessage3": "Choose payment method",
+        "signupbutton": "Finalize Registration",
+        "select": "SELECT",
+        "selected": "SELECTED"
+      },
+      "stepper": {
+        "label1": "Email & Password",
+        "label2": "Choose your Profile",
+        "label3": "Personal data",
+        "label4": "Additional Information",
+        "label5": "Choose your Plan"
+      },
+      "nextbutton": "Next",
+      "previousbutton": "Back",
+      "success": "Done!",
+      "error": "Something went wrong!",
+      "fixtheinputs": "Fix the inputs before going forward!",
+      "successsignup": "Check your inbox for the authentication link (may be in spam)."
+    },
+    "forgetpassword": {
+      "emaillabel": "Email Address",
+      "forgetpasswordbutton": "Send password reset email",
+      "success": "Done!",
+      "error": "Something went wrong!",
+      "logs": {
+        "invalidemail": "Please enter a valid email address.",
+        "emailnotfound": "Email not found.",
+        "emailsend": "Check your inbox for password reset link (may be in spam)."
+      }
+    },
+    "recovery": {
+      "newpassword": "New password",
+      "recoverybutton": "Update",
+      "success": "Done!",
+      "error": "Something went wrong!",
+      "logs": {
+        "passwordchanged": "Your password has been changed.",
+        "passwordnotchanged": "Could not change password, please try again later."
+      }
+    },
+    "terms": {
+      "title": "PLATFORM'S TERMS OF USE",
+      "warning": "Important Notice: Course Completion Project - Simulated and Fictitious Use",
+      "introduction": "This site is part of a course completion project and was developed with the specific purpose of presenting the concept of a communication channel between brokers and real estate agents. Please keep the following considerations in mind when using this platform :",
+      "simulationTitle": "Simulation and Fiction: ",
+      "simulation": "This platform does not represent a real platform for realtors and is not connected to any real estate market transactions or activities. This plataform only has academic and demonstrative purposes.",
+      "fictiontitle": "Fictious Data: ",
+      "fiction": "Any information provided for registration, including name, address, phone numbers, emails and other details, must be entirely fictitious. It is not recommended to use real personal information. We do not use any type of information provided on this site for purposes other than just displaying and demonstrating it's functionality.",
+      "responsibletitle": "Responsible Usage: ",
+      "responsible": "By interacting with this platform, we request that you use it responsibly and respectfully. Sharing offensive, discriminatory, illegal or harmful content is not allowed.",
+      "copyrighttitle": "Copyright: ",
+      "copyright": "All images, logos and other visual materials used on this site are used for illustrative and demonstration purposes. Copyrights belong to their respective owners.",
+      "feedbacktitle": "Feedback and Contact: ",
+      "feedback": "If you wish to provide feedback on this platform, please be aware that any comments or suggestions will be considered for academic purposes and to improve the project.",
+      "disclaimer1": "By proceeding and using this site, you acknowledge that you are aware of the simulated and fictitious nature of this platform and agree to respect the conditions and guidelines presented here.",
+      "disclaimer2": "For additional information or clarifications about this course completion project, contact us through the channel indicated on the website. Thank you for your understanding and for your interest in our project.",
+      "sincerely": "Sincerely,",
+      "teamimmobile": "ImmobileLink's Team",
+      "location": "Federal Institute of Education, Sciente and Technoly of São Paulo - IFSP, 2023"
+    }
+  },
+  "pesquisa": {
+    "labels": {
+      "nearbyusers": "People you might know from",
+      "name": "Name",
+      "title": "Find Users",
+      "usertype": "User Type",
+      "region": "Region",
+      "state": "State",
+      "city": "City",
+      "all": "All",
+      "nocityfound": "No city found",
+      "selectaestatefirst": "Select a estate first",
+      "rating": "Rating",
+      "specialty": "Specialty",
+      "error": "Oops! Something went wrong. Please try again.",
+      "missingcombobox": "Select a filter.",
+      "checkprofile": "Check Profile",
+      "specializations": "Broker specialization",
+      "type": "Property Type",
+      "furniture": "Furniture",
+      "condition": "Property Condition",
+      "others": "Others",
+      "advanced": "Advanced options",
+      "reset": "Reset",
+      "search": "Search",
+      "selectafilter": "Select the fields you want to use as a filter and click Search",
+      "nouserfound": "No users were found with the chosen filters"
+    },
+    "usertypevalue": {
+      "broker": "Broker",
+      "corporation": "Corporation"
+    }
+  },
+  "feed": {
+    "cards": {
+      "yourenotlogged": "You are not logged in yet!",
+      "enjoyall": "Enjoy all the benefits from the website",
+      "singin": "Sign in",
+      "findbrokers": "Find new links",
+      "mybrokers": "My Brokers",
+      "myproperties": "My properties",
+      "schedules": "Schedules",
+      "visitmyprofile": "See my profile",
+      "notpremiumyet": "Become",
+      "premium": "PREMIUM",
+      "bepremium": "Become premium",
+      "connections": "My Links",
+      "search": "Search",
+      "nolinksyet": "Looks like you don't have any Links yet",
+      "relatedbrokers": "Related Brokers",
+      "norelatedbrokersyet": "Looks like you don't have any related brokers yet",
+      "myrelatedcompany": "Related company",
+      "norelatedcompanyyet": "No related companies yet"
+    },
+    "pub": {
+      "regionfilter": "Filter by",
+      "posted": "posted",
+      "regioncomboboxplaceholder": "All",
+      "comboboxplaceholder": "Select",
+      "noposts":"No posts found for the specified region",
+      "error": "Ops! Something went wrong. Try reloading the page.",
+      "selectaregion": "Select a region to filter posts"
+    },
+    "form": {
+      "regionchange": "Region",
+      "post": "Post",
+      "placeholder": "New post",
+      "writeamessage": "Write the message",
+      "imageinputlabel":"picture",
+      "imageerror": "Invalid Image",
+      "cityselector": {
+        "estate": "Estate",
+        "city": "City",
+        "selectaestate": "Select a estate",
+        "selectacity": "Select a city",
+        "selectaestatefirst": "Select a estate first",
+        "nocityfound": "No city found"
+      }
+    }
+  },
+  "planos": {
+    "subscription": "Signatures for your profile",
+    "broker": "broker",
+    "company": "company",
+    "month": "month",
+    "tryforfree": "Try it free",
+    "allsubscriptions": "Conheça todos nossos planos",
+    "usertype": "Tipo de perfil",
+    "sublabel": "Planos",
+    "feedbackreview": "Feedback review",
+    "dashboard": "Complete Dashboard",
+    "feed": "Oportunity's feed",
+    "companyafiliation": "Affiliation to a company",
+    "chat": "Chats",
+    "visibility": "Better visibility",
+    "exclusivefunctions": "Exclusive features",
+    "searchfilters": "Better search params",
+    "oportunitiesposting": "Oportunities posts",
+    "linktotenbrokers": "Link up to 10 brokers",
+    "illimitedlinks": "Link up to many brokers",
+    "buynow": "Try now",
+    "confirmchange": "Do you really want to change your plan to"
+  },
+  "profile": {
+    "noAssociation": "No association at the moment",
+    "hasAssociation":"Has associated company(ies)",
+    "btnAssociate": "Associate",
+    "btnPending": "Pending",
+    "btnConnect": "Connect",
+    "overview": "Overview",
+    "posts": "Posts",
+    "infoBroker": "Information about the broker",
+    "historic": "historic"
+  },
+  "dashboard": {
+    "domain": "Domain",
+    "professionalism": "Professionalism",
+    "goodService": "Good service",
+    "educated": "educated",
+    "visited": "real estate visits",
+    "sales": "Sales",
+    "january": "January",
+    "february": "February",
+    "march":"March",
+    "april": "April",
+    "may": "May",
+    "june": "June"
+  },
+  "calendar":{
+    "scheduledVisits": "scheduled visits"
+  },
+  "imovel": {
+    "mainlabels": {
+      "title": "My Properties",
+      "delegatevisit": "Delegate Visit",
+      "location": "Location",
+      "characteristics": "Characteristics",
+      "price": "Price"
+    },
+    "formlabels": {
+      "selectbroker": "Select a broker",
+      "findbroker": "Find Brokers",
+      "delegatevisit": "Delegate Visit",
+      "brokerdata": "Broker",
+      "clientdata": "Client's Data",
+      "scheduling": "Appointment",
+      "name": "Name",
+      "phone": "Telephone",
+      "email": "Email",
+      "date": "Date",
+      "time": "Time",
+      "formlogs": {
+        "invalidname": "Name must be at least 10 characters long",
+        "invalidphone": "Phone must be 10 or 11 characters long",
+        "invalidemail": "Enter a valid email",
+        "invaliddate": "Selecione a date",
+        "invalidtime": "Selecione a time"
+      }
+    },
+    "newproperty": {
+      "registerproperty": "Register Property",
+      "register": "Register",
+      "uf": "Estate",
+      "city": "City",
+      "neighborhood": "Neighborhood",
+      "street": "Street",
+      "number": "Number",
+      "price": "Price",
+      "description": "Description"
+    }
+  },
+  "chat": {
+    "conversations": "Conversations",
+    "you": "You",
+    "sent": "sent",
+    "newconversation": "New space",
+    "newconvlabel1": "Partnerships",
+    "newconvlabel2": "Links",
+    "uploadedfile": "File selected",
+    "chathome": "Select an existing conversation or press \"New space\" to join a new one!"
+  },
+  "cityselector": {
+    "estate": "Estate",
+    "city": "City"
+  }
 }

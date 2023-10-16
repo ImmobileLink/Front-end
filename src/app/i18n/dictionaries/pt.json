@@ -11,7 +11,22 @@
     "subscription": "Planos",
     "loginbutton": "Entrar",
     "logoutbutton": "Sair",
-    "language": "Idioma"
+    "language": "Idioma",
+    "notifications": "Notificações",
+    "messages": "Mensagens",
+    "account": "Conta",
+    "notificationlabels": {
+      "check": "Visualizar",
+      "association": "propôs uma associação",
+      "connection": "gostaria de se conectar",
+      "visit": "agendou uma nova visita em seu nome",
+      "accept": "Aceitar",
+      "refuse": "Recusar",
+      "nonotifications": "Sem notificações",
+      "acceptedvisit": "aceitou uma visita",
+      "refusedvisit": "cancelou ou negou uma visita",
+      "updatedvisit": "atualizou os dados de uma visita"
+    }
   },
   "auth": {
     "always": {
@@ -255,7 +270,7 @@
       "posted": "fez uma publicação",
       "regioncomboboxplaceholder": "Todos",
       "comboboxplaceholder": "Selecione",
-      "noposts":"Nenhuma publicação encontrada na região especificada",
+      "noposts": "Nenhuma publicação encontrada na região especificada",
       "error": "Ops! Algo deu errado. Tente recarregar a página.",
       "selectaregion": "Selecione uma região para filtrar os posts"
     },
@@ -264,7 +279,7 @@
       "post": "Publicar",
       "placeholder": "Nova publicação",
       "writeamessage": "Insira a mensagem",
-      "imageinputlabel":"foto",
+      "imageinputlabel": "foto",
       "imageerror": "Imagem inválida",
       "cityselector": {
         "estate": "Estado",
@@ -301,7 +316,7 @@
   },
   "profile": {
     "noAssociation": "Sem Associação no momento",
-    "hasAssociation":"Possui empresa(s) associada(s)",
+    "hasAssociation": "Possui empresa(s) associada(s)",
     "btnAssociate": "Associate",
     "btnPending": "Pending",
     "btnConnect": "Connect",
@@ -319,12 +334,12 @@
     "sales": "Vendas",
     "january": "Janeiro",
     "february": "Fevereiro",
-    "march":"Março",
+    "march": "Março",
     "april": "Abril",
     "may": "Maio",
     "june": "Junho"
   },
-  "calendar":{
+  "calendar": {
     "scheduledVisits": "Visitas agendadas"
   },
   "imovel": {

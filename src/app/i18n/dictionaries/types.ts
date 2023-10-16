@@ -377,6 +377,23 @@ export interface Navbarbuttons {
     loginbutton: string;
     logoutbutton: string;
     language: string;
+    notifications: string;
+    messages: string;
+    account: string;
+    notificationlabels: Notificationlabels;
+}
+
+export interface Notificationlabels {
+    check: string;
+    association: string;
+    connection: string;
+    visit: string;
+    accept: string;
+    refuse: string;
+    nonotifications: string;
+    acceptedvisit: string;
+    refusedvisit: string;
+    updatedvisit: string;
 }
 
 export interface Pesquisa {

@@ -96,11 +96,11 @@ export default async function page({ params: { lang } }: pageProps) {
           <div className="hidden lg:block">
             <Card.Root>
               <Card.Content>
-                <NearbyUsers dict={dict.pesquisa.labels} estado={estadoUsuario} carouselUsers={carouselUsers} />
+                <NearbyUsers dict={dict.pesquisa.labels} estado={estadoUsuario} carouselUsers={carouselUsers} userId={userData.id!} />
               </Card.Content>
             </Card.Root>
           </div>
-          <ResultContainer dict={dict.pesquisa} />
+          <ResultContainer dict={dict.pesquisa} userId={userData.id!} />
         </div>
       </div>
     </SearchProvider>

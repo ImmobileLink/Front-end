@@ -34,9 +34,10 @@ export default function NavBarHamburguerMenu({ textos, userId }: NavBarHamburgue
 
   return (
     <>
-      <div className="relative md:hidden">
-        <button onClick={toggleHamburguerMenu} className="flex justify-between rounded hover:bg-gray-100 hover:bg-transparent border-0 hover:text-blue-700 p-0 w-auto md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:bg-transparent">
-          <HiMenu size={32} />
+      <div className="md:hidden flex justify-center">
+        <button onClick={toggleHamburguerMenu} className="flex flex-col justify-center items-center text-center rounded hover:bg-gray-100 hover:bg-transparent border-0 hover:text-blue-700 p-0 w-auto md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:bg-transparent">
+          <HiMenu size={30} />
+          <p className="hidden md:block md:text-sm">Menu</p>
         </button>
         {
           isHamburguerMenuOpen && (

@@ -25,6 +25,7 @@ export type Corporacao = Database['public']['Tables']['corporacao']['Row']
 export type ImovelDB = Database['public']['Tables']['imovel']['Row']
 export type ImovelRegistro = Database['public']['Tables']['imovel']['Row']
 export type UsuarioPorSala = Database['public']['Tables']['usuarioporsala']['Row']
+export type Notificacao = Database['public']['Tables']['notificacao']['Row']
 export interface InsereImovel {
     idcorporacao: string,
     descricao: string,
