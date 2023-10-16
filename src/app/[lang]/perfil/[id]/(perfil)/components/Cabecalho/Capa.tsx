@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useProfileStore } from "@/../../lib/store/profileStore";
-import EditCapa from "./EditCapa";
+import EditCapa from "./Edit/EditCapa";
 
 interface CapaProps { }
 

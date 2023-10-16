@@ -5,10 +5,10 @@ import { AiFillEdit } from "react-icons/ai";
 import { Button, Modal } from 'flowbite-react';
 import { useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
-import { Corporacao, Corretor } from "../../../../../../../../lib/modelos";
+import { Corporacao, Corretor } from "../../../../../../../../../lib/modelos";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../../lib/database.types";
-import { updateCorporacaoProfile } from "../../../../../../../../lib/utils/EditProfile";
+import { updateCorporacaoProfile } from "../../../../../../../../../lib/utils/EditProfile";
 import { useRouter } from "next/navigation";
 
 interface EditProfileProps {

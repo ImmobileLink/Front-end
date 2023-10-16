@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
-import VisaoGeral from "./VisaoGeral"
+import VisaoGeral from "./Corretor/VisaoGeral/VisaoGeral"
 import Publicacoes from "./Publicacoes"
 
 import { Tabs } from 'flowbite-react';
@@ -33,6 +33,7 @@ export default function InfosCorretor({ }: InfosProps) {
       <Tabs.Item
         icon={HiDocumentText}
         title="Posts"
+        disabled
       >
         <p>
           This is

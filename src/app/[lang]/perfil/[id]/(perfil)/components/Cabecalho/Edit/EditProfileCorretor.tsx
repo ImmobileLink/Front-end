@@ -5,13 +5,15 @@ import { AiFillEdit } from "react-icons/ai";
 import { Button, Modal } from 'flowbite-react';
 import { useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
-import { Corporacao, Corretor } from "../../../../../../../../lib/modelos";
-import { updateCorretorProfile } from "../../../../../../../../lib/utils/EditProfile";
+import { Corporacao, Corretor } from "../../../../../../../../../lib/modelos";
+import { updateCorretorProfile } from "../../../../../../../../../lib/utils/EditProfile";
 import EditEspecialidades from "./EditEspecialidades";
 import { useRouter } from "next/navigation";
 import EditRegiaoAtuacao from "./EditRegiaoAtuacao";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../../../../lib/database.types";
+import { Database } from "../../../../../../../../../lib/database.types";
+import { useProfileContext } from "../../../Provider/ProviderProfile";
+import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
 
 interface EditProfileProps {
     data: Corretor | null;
@@ -38,8 +40,10 @@ export default function EditProfile({ data }: EditProfileProps) {
 
     const [errorCep, setErrorCep] = useState<string | undefined>()
 
+    const corretor = useProfileStore.getState().profileFullData as Corretor
+
     const defaultValues = {
-        nome: data?.nome,
+        nome: corretor.nome,
         sobre: data?.sobre,
         cep: data?.cep,
         cidade: data?.cidade,
@@ -62,6 +66,7 @@ export default function EditProfile({ data }: EditProfileProps) {
             console.error('Erro ao atualizar os dados:', error);
         } else {
             console.log('Dados atualizados com sucesso:', updatedData);
+            reset(getValues())
             props.setOpenModal(undefined);
             router.refresh()
         }

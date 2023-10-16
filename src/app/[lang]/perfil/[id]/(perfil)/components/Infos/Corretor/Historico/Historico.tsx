@@ -4,7 +4,7 @@ import { HiDocumentAdd } from "react-icons/hi/";
 import HistoricoPopup from "./HistoricoPopup";
 import HistoricoCard from "./HistoricoCard";
 import { getHistorico } from "@/../../lib/utils/Historico";
-import { Historico } from "../../../../../../../../../lib/modelos";
+import { Historico } from "../../../../../../../../../../lib/modelos";
 import { useProfileStore } from "@/../../lib/store/profileStore";
 
 

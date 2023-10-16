@@ -1,10 +1,10 @@
 import { useProfileStore } from "../../../../../../../../lib/store/profileStore";
-import Botoes from "./Botoes";
+import Botoes from "./Botao/Botoes";
 import { Card } from "@/app/[lang]/(components)/(compositions)/(card)";
 import Dashboard from "../Dashboard/Dashboard";
 import { MdWorkspacePremium } from 'react-icons/md';
-import EditProfileCorporacao from "./EditProfileCorporacao";
-import EditProfileCorretor from "./EditProfileCorretor";
+import EditProfileCorporacao from "./Edit/EditProfileCorporacao";
+import EditProfileCorretor from "./Edit/EditProfileCorretor";
 import { Corporacao, Corretor } from "../../../../../../../../lib/modelos";
 import CabecalhoData from "./CabecalhoData";
 import Capa from "./Capa";

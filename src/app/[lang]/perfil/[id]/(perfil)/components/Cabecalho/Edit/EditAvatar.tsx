@@ -3,7 +3,7 @@
 import { useState } from "react";
 import EditImage from "./EditImage";
 import { AiFillEdit } from "react-icons/ai";
-import { useProfileStore } from "../../../../../../../../lib/store/profileStore";
+import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
 
 interface EditAvatar {
 }

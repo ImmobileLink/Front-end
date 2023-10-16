@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
-import VisaoGeral from "./VisaoGeral"
+import VisaoGeral from "./Corretor/VisaoGeral/VisaoGeral"
 
 import { Tabs } from 'flowbite-react';
 import { HiOfficeBuilding, HiDocumentText, HiCalendar } from 'react-icons/hi';
@@ -18,6 +18,7 @@ export default function InfosEmpresa({  dict }: InfosProps) {
   return (
     <Tabs.Group aria-label="Tabs with underline" style="underline">
       <Tabs.Item active icon={HiOfficeBuilding} title="Profile" >
+        <p>Colocar algo relevante para empresa. site, numuero de telefone,...</p>
       </Tabs.Item>
 
       <Tabs.Item icon={HiDocumentText} title="Posts">

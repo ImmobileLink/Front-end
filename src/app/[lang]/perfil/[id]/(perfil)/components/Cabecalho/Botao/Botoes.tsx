@@ -1,9 +1,9 @@
 
 import BotaoChat from "./BotaoChat"
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../../../../lib/database.types";
+import { Database } from "../../../../../../../../../lib/database.types";
 import { cookies } from "next/headers";
-import { useProfileStore } from "../../../../../../../../lib/store/profileStore";
+import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
 import { cache } from "react";
 import BotaoAssocia from "./BotaoAssocia";
 import BotaoConecta from "./BotaoConecta";

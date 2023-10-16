@@ -3,97 +3,69 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from '@/../../lib/database.types';
-import { getEstadoBtnAssoc, desassociarPerfis, sendConvite, cancelaConvite, aceitarConvite } from '../../../../../../../../lib/utils/Associacao'
+import { getEstadoBtnConexao, desassociarPerfis, sendConvite, cancelaConvite, aceitarConvite, getIdConexao } from '../../../../../../../../../lib/utils/Conexao'
 import { Spinner } from "flowbite-react";
 import { Button, Modal } from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
-import { useProfileStore } from '../../../../../../../../lib/store/profileStore';
+import { useProfileStore } from '../../../../../../../../../lib/store/profileStore';
 
 interface botaoAddProps {
-  
+
 }
 
 
 
-export default function BotaoAssocia({  }: botaoAddProps) {
+export default function BotaoAssocia({ }: botaoAddProps) {
   const supabase = createClientComponentClient<Database>({});
 
   const state = useProfileStore.getState()
 
- const idProfile = state.profileData?.id!
- const idSession = state.sessionData?.id!
- const typeSession = state.sessionData?.type
 
-  const [estado, setEstado] = useState("Associar");
+  const [estado, setEstado] = useState("Solicitar amizade");
+  const [idConexao, setIdConexao] = useState<string | undefined>()
   const [loading, setLoading] = useState<boolean>(true)
 
   const [openModal, setOpenModal] = useState<string | undefined>();
   const props = { openModal, setOpenModal };
 
-  const getId = () => {
-    let corporacao = null
-    let corretor = null
-    if (typeSession == "corporacao") {
-      corporacao = idSession
-      corretor = idProfile
-    } else {
-      corporacao = idProfile
-      corretor = idSession
-    }
-    return { corporacao, corretor }
-  }
-
-  const id = getId()
-
-  const channelA = supabase
-    .channel('associacao_changes')
+  const conexoes = supabase.channel('custom-all-channel')
     .on(
       'postgres_changes',
-      {
-        event: '*',
-        schema: 'public',
-        table: 'associacoes',
-        filter: `idcorretor=eq.${id.corretor}`,
-      },
+      { event: '*', schema: 'public', table: 'conexoes', filter: `id=eq.${idConexao}` },
       (payload) => {
-       if(payload.new.idcorporacao =! id.corporacao){
-        return;
-       }
         switch (payload.eventType) {
           case "INSERT":
-            if (estado == "Associar") {
-              setEstado("Aceitar")
+            if (estado == "Solicitar amizade") {
+              setEstado("Aceitar amizade")
             }
 
           case "DELETE":
-            if (estado == "Associado") {
-              setEstado("Associar")
+            if (estado == "Amigo") {
+              setEstado("Solicitar amizade")
             }
 
           case "UPDATE":
             if (estado == "Pendente") {
-              setEstado("Associado")
-            } else if (estado == "Aceitar") {
-              setEstado("Associar")
+              setEstado("Amigo")
+            } else if (estado == "Aceitar amizade") {
+              setEstado("Solicitar amizade")
             }
         }
       }
-    )
-    .subscribe()
+    ).subscribe()
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await getEstadoBtnAssoc(id.corretor, id.corporacao)
-
+      const { data } = await getEstadoBtnConexao(state.profileData?.id!, state.sessionData?.id!)
       if (data!.length > 0) {
         if (data![0].pendente) {
-          if (data![0].iniciativa == idSession) {
+          if (data![0].iniciativa == state.sessionData?.id!) {
             setEstado("Pendente")
           } else {
-            setEstado("Aceitar")
+            setEstado("Aceitar amizade")
           }
         } else {
-          setEstado("Associado")
+          setEstado("Amigo")
         }
       }
       setLoading(false);
@@ -101,15 +73,27 @@ export default function BotaoAssocia({  }: botaoAddProps) {
     fetchData()
   }, [])
 
+  useEffect(() => {
+    const fetchId = async () => {
+      const { data } = await getIdConexao(state.profileData?.id!, state.sessionData?.id!)
+      if (data!.length > 0) {
+        setIdConexao(data![0].id)
+      }else{
+        setIdConexao(undefined)
+      }
+    }
+    fetchId()
+  }, [estado])
+
 
   const desassocia = async () => {
     setLoading(true)
 
-    const { data, error } = await desassociarPerfis(id.corretor, id.corporacao)
+    const { data, error } = await desassociarPerfis(idConexao!)
 
     if (!error) {
       setLoading(false)
-      setEstado("Associar")
+      setEstado("Solicitar amizade")
     }
     props.setOpenModal(undefined)
   }
@@ -118,10 +102,10 @@ export default function BotaoAssocia({  }: botaoAddProps) {
 
   const handleClick = async () => {
 
-    if (estado == "Associar") {
+    if (estado == "Solicitar amizade") {
       setLoading(true)
 
-      const { data, error } = await sendConvite(id.corretor, id.corporacao, idSession)
+      const { data, error } = await sendConvite(state.profileData?.id!, state.sessionData?.id!)
       if (!error) {
         setLoading(false)
         setEstado("Pendente")
@@ -129,24 +113,23 @@ export default function BotaoAssocia({  }: botaoAddProps) {
 
     } else if (estado === "Pendente") {
       setLoading(true)
-
-      const { data, error } = await cancelaConvite(id.corretor, id.corporacao)
+      const { data, error } = await cancelaConvite(idConexao!)
 
       if (!error) {
         setLoading(false)
-        setEstado("Associar")
+        setEstado("Solicitar amizade")
       }
 
-    } else if (estado === "Associado") {
+    } else if (estado === "Amigo") {
       props.setOpenModal('pop-up')
 
-    } else if (estado === "Aceitar") {
+    } else if (estado === "Aceitar amizade") {
       setLoading(true)
-      const { data, error } = await aceitarConvite(id.corretor, id.corporacao)
+      const { data, error } = await aceitarConvite(idConexao!)
 
       if (!error) {
         setLoading(false)
-        setEstado("Associado")
+        setEstado("Amigo")
       }
     }
   };
@@ -156,10 +139,10 @@ export default function BotaoAssocia({  }: botaoAddProps) {
   }
 
   const buttonClass = classNames('py-2 px-4 rounded', {
-    'bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 ': estado === 'Associar',
-    'bg-green-700 hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-700 ': estado === 'Associado',
+    'bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 ': estado === 'Solicitar amizade',
+    'bg-green-700 hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-700 ': estado === 'Amigo',
     'bg-yellow-700 hover:bg-yellow-800 dark:bg-yellow-600 dark:hover:bg-yellow-700 ': estado === 'Pendente',
-    'bg-blue-800 hover:bg-yellow-800 dark:bg-yellow-600 dark:hover:bg-yellow-700 ': estado === 'Aceitar'
+    'bg-blue-800 hover:bg-yellow-800 dark:bg-yellow-600 dark:hover:bg-yellow-700 ': estado === 'Aceitar amizade'
   });
 
 
@@ -177,7 +160,7 @@ export default function BotaoAssocia({  }: botaoAddProps) {
           <div className="text-center">
             <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              Você tem certeza que deseja de desassociar?
+              Você tem certeza que deseja remover a amizade?
             </h3>
             <div className="flex justify-center gap-4">
               <Button color="failure" onClick={desassocia}>
