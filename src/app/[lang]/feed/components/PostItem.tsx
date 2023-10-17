@@ -38,7 +38,7 @@ export default function PostItem({ publicacao }: PostItemProps) {
                 }
               </div>
             </div>
-            <div className="flex gap-4 mb-4">
+            {/* <div className="flex gap-4 mb-4">
               <div className="flex text-xl items-center gap-3">
                 <button onClick={() => { alert("curtiu") }}><BsHeart className="hover:cursor-pointer hover:text-red-400 ease-in duration-100" /></button>
                 <span>10</span>
@@ -57,7 +57,7 @@ export default function PostItem({ publicacao }: PostItemProps) {
                 className="w-full bg-gray-100 grow p-3 h-12 rounded-md text-slate-900"
                 placeholder={"Leave a comment"}
               ></textarea>
-            </div>
+            </div> */}
           </div>
         </Card.Content>
       </Card.Root>

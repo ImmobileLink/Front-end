@@ -3,6 +3,8 @@ import { userData } from '../../../../../lib/modelos';
 import { Feed } from '@/app/i18n/dictionaries/types';
 import { Card } from "../../(components)/(compositions)/(card)";
 import PostList from "./PostList";
+import Botoes from "../../perfil/[id]/(perfil)/components/Cabecalho/Botoes";
+import BotaoChat from "./BotaoChat";
 
 interface FeedPrincipalProps {
   userData: userData;
@@ -22,7 +24,7 @@ export default async function FeedPrincipal({ textos, userData }: FeedPrincipalP
           </Card.Root>
         )
       }
-      <PostList idusuario={userData.id} textos={textos} />
+      <PostList idusuario={userData.id} textos={textos}><BotaoChat/></PostList>
     </>
   );
 }
