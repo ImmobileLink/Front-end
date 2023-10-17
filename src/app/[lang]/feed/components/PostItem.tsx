@@ -9,9 +9,10 @@ import { BsChatSquareText, BsHeart, BsShare, BsThreeDots } from "react-icons/bs"
 
 interface PostItemProps {
   publicacao: PublicacaoCompleta;
+  children: any;
 }
 
-export default function PostItem({ publicacao }: PostItemProps) {
+export default function PostItem({ publicacao, children }: PostItemProps) {
   return (
     <div className="mb-4">
       <Card.Root>
@@ -37,6 +38,9 @@ export default function PostItem({ publicacao }: PostItemProps) {
                   <Image src={`publicacoes/imagens/${publicacao.imagem}`} alt={publicacao.id} width={1} height={1} className="w-auto h-fit max-h-[480px] mt-2" />
                 }
               </div>
+            </div>
+            <div className="flex justify-end">
+                {children}
             </div>
             {/* <div className="flex gap-4 mb-4">
               <div className="flex text-xl items-center gap-3">

@@ -11,12 +11,13 @@ import PostItem from "./PostItem";
 interface PostListProps {
   textos: Feed,
   idusuario?: string,
+  children: any;
 }
 
 // const supabase = createServerComponentClient<Database>({ cookies });
 const supabase = createClientComponentClient<Database>()
 
-export default function PostList({ idusuario, textos }: PostListProps) {
+export default function PostList({ idusuario, textos, children }: PostListProps) {
   const [selectedState, setSelectedState] = useState<string>("");
   const [cities, setCities] = useState<City[]>([]);
   const [selectedCity, setSelectedCity] = useState<string>("");
@@ -256,7 +257,7 @@ export default function PostList({ idusuario, textos }: PostListProps) {
                 }
                 {posts!.map((item: PublicacaoCompleta) => {
                   return (
-                    <PostItem key={item.id} publicacao={item} />
+                    <PostItem key={item.id} publicacao={item}>{children}</PostItem>
                   )
                 })}
               </>
