@@ -75,9 +75,9 @@ export async function getAreasAtuacao(id: string) {
   const supabase = createServerSupabaseClient();
 
   let { data: usuarioporregiao, error } = await supabase
-  .rpc('obter_cidade_estado_por_usuario', {
-    user_id: id
-  })
+    .rpc('obter_cidade_estado_por_usuario', {
+      user_id: id
+    })
 
   return { usuarioporregiao }
 }
@@ -92,4 +92,17 @@ export async function getEspecialidades(id: string) {
 
   return { especialidades }
 }
+
+export async function getHistorico(id: string) {
+  const supabase = createServerSupabaseClient();
+
+  const { data: historico, error } = await supabase
+    .from('historico')
+    .select('*')
+    .eq('id_corretor', id);
+
+  return { historico, error }
+}
+
+
 

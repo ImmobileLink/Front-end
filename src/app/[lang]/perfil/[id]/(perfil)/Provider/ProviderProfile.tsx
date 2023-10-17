@@ -1,12 +1,16 @@
 "use client"
 import React, { createContext, useContext, ReactNode, useState, useEffect } from 'react';
-import { AreaAtuacao, Especialidades } from '../../../../../../../lib/modelos';
+import { AreaAtuacao, Especialidades, Historico } from '../../../../../../../lib/modelos';
 
 type ProfileContextType = {
   areasAtuacao: AreaAtuacao;
   especialidades: Especialidades;
+  historico: Historico;
   setEspecialidades: (newEspecialidades: Especialidades) => void;
   setAreasAtuacao: (newAreasAtuacao: AreaAtuacao) => void;
+  setHistorico: (newHistorico: Historico) => void;
+
+
 };
 
 
@@ -24,12 +28,17 @@ export function useProfileContext() {
 
 type ProfileProviderProps = {
   children: ReactNode;
+  areas: AreaAtuacao | null;
+  esp: Especialidades | null;
+  hist: Historico | null;
 };
 
-export function ProfileProvider({ children }: ProfileProviderProps) {
+export function ProfileProvider({ children, areas, esp, hist }: ProfileProviderProps) {
 
-  const [areasAtuacao, setAreasAtuacao] = useState<AreaAtuacao | null>(null);
-  const [especialidades, setEspecialidades] = useState<Especialidades | null>(null);
+  const [areasAtuacao, setAreasAtuacao] = useState<AreaAtuacao>(areas);
+  const [especialidades, setEspecialidades] = useState<Especialidades>(esp);
+  const [historico, setHistorico] = useState<Historico>(hist);
+
 
 
   return (
@@ -37,10 +46,13 @@ export function ProfileProvider({ children }: ProfileProviderProps) {
       value={{
         areasAtuacao,
         especialidades,
+        historico,
         setEspecialidades: (newEspecialidades: Especialidades) =>
           setEspecialidades(newEspecialidades),
         setAreasAtuacao: (newAreasAtuacao: AreaAtuacao) =>
-          setAreasAtuacao(newAreasAtuacao)
+          setAreasAtuacao(newAreasAtuacao),
+        setHistorico:(newHistorico: Historico) =>
+          setHistorico(newHistorico)
       }}
     >
       {children}

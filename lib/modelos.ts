@@ -208,6 +208,7 @@ export type Historico = {
     data_fim: string | null;
     data_inicio: string;
     descricao: string | null;
+    id: string | null;
     id_corporacao: string | null;
     id_corretor: string;
     nome_empresa: string | null;

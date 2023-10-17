@@ -26,7 +26,7 @@ const supabase = createClientComponentClient<Database>()
 export default function Calendario({ ownId, idProfile }: CalendarioProps) {
     const [visitas, setVisitas] = useState<Visita[] | null>()
 
-    useEffect(() => {
+/*     useEffect(() => {
         const fetchData = async () => {
             let { data: visita, error } = await supabase
                 .from('visita')
@@ -37,7 +37,7 @@ export default function Calendario({ ownId, idProfile }: CalendarioProps) {
         fetchData()
     }, [])
 
-
+ */
     let eventos: { title: string; date: string; }[] = []
 
     if (visitas) {

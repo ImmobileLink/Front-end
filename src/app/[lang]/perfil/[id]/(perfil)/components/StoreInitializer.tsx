@@ -1,8 +1,8 @@
 "use client";
 
 import { useProfileStore } from "@/../../lib/store/profileStore"
-import { useRef } from "react";
-import { AreaAtuacao, Corporacao, Corretor, Especialidades, userData } from "../../../../../../../lib/modelos";
+import { useEffect, useRef } from "react";
+import { AreaAtuacao, Corporacao, Corretor, Especialidades, Historico, userData } from "../../../../../../../lib/modelos";
 import { Dictionaries } from "@/app/i18n/dictionaries/types";
 import { useProfileContext } from "../Provider/ProviderProfile";
 
@@ -12,22 +12,23 @@ interface StoreInitializerProps {
   profileFullData: Corretor | Corporacao | null;
   dict: Dictionaries | null;
   isOwn: boolean;
-  areasAtuacao: AreaAtuacao | null;
-  especialidades: Especialidades | null;
 }
 
 
-export default function StoreInitializer({isOwn, profileData, sessionData, profileFullData, dict, areasAtuacao, especialidades}: StoreInitializerProps) {
+export default function StoreInitializer({ isOwn, profileData, sessionData, profileFullData, dict}: StoreInitializerProps) {
   const initialized = useRef(false);
 
-  const { setEspecialidades, setAreasAtuacao } = useProfileContext();
+/*   const { setEspecialidades, setAreasAtuacao, setHistorico } = useProfileContext();
 
-
-  if(!initialized.current){
-    useProfileStore.setState({profileData, sessionData, profileFullData, dict, isOwn})
+  useEffect(() => {
     setEspecialidades(especialidades)
     setAreasAtuacao(areasAtuacao)
+    setHistorico(historico)
+  }, []) */
 
+
+  if (!initialized.current) {
+    useProfileStore.setState({ profileData, sessionData, profileFullData, dict, isOwn })
     initialized.current = true;
   }
   return null

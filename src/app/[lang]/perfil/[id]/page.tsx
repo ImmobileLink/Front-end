@@ -1,4 +1,4 @@
-import { getAreasAtuacao, getAssoc, getEspecialidades, getLinks, getTipoUsuario } from '../../../../../lib/utils/userData';
+import { getAreasAtuacao, getAssoc, getEspecialidades, getHistorico, getLinks, getTipoUsuario } from '../../../../../lib/utils/userData';
 import { userData } from '../../../../../lib/modelos'
 import { Database } from '../../../../../lib/database.types';
 import { getDictionary } from '../../dictionaries';
@@ -10,6 +10,7 @@ import CorretorProfile from './(perfil)/CorretorProfile';
 import EmpresaProfile from './(perfil)/EmpresaProfile';
 import Link from 'next/link';
 import StoreInitializer from './(perfil)/components/StoreInitializer';
+import { ProfileProvider } from './(perfil)/Provider/ProviderProfile';
 
 interface pageProps {
   params: {
@@ -56,23 +57,24 @@ export default async function page({ params: { id, lang } }: pageProps) {
 
   const areasAtuacao = (await getAreasAtuacao(profileData?.id!)).usuarioporregiao
   const especialidades = profileData.type == "corretor" ? (await getEspecialidades(id)).especialidades : null
+  const historico = profileData.type == "corretor" ? (await getHistorico(id)).historico : null
 
-  useProfileStore.setState({ profileData: profileData, profileFullData: profileFullData, sessionData: sessionData, dict: dict, isOwn: isOwnProfile})
+
+  useProfileStore.setState({ profileData: profileData, profileFullData: profileFullData, sessionData: sessionData, dict: dict, isOwn: isOwnProfile })
 
   return (
-    <>
-    <StoreInitializer isOwn={isOwnProfile} profileData={profileData} sessionData={sessionData} profileFullData={profileFullData} dict={dict} areasAtuacao={areasAtuacao} especialidades={especialidades}/>
+    <ProfileProvider areas={areasAtuacao} esp={especialidades} hist={historico}>
+      <StoreInitializer isOwn={isOwnProfile} profileData={profileData} sessionData={sessionData} profileFullData={profileFullData} dict={dict} />
       {profileData.id ?
         profileData.type! == "corretor" ? (
           <CorretorProfile />
         ) : (<EmpresaProfile />)
-        : 
-          <div className='flex justify-center items-center flex-col'>
-            <h1 className='text-3xl font-semibold text-gray-800 dark:text-white'>Ops, esse perfil não existe</h1>
-            <Link href={'/feed'} className='mt-4 text-blue-600 hover:underline'>Voltar ao feed</Link>
-          </div>
-        }
-
-    </>
+        :
+        <div className='flex justify-center items-center flex-col'>
+          <h1 className='text-3xl font-semibold text-gray-800 dark:text-white'>Ops, esse perfil não existe</h1>
+          <Link href={'/feed'} className='mt-4 text-blue-600 hover:underline'>Voltar ao feed</Link>
+        </div>
+      }
+    </ProfileProvider>
   );
 }

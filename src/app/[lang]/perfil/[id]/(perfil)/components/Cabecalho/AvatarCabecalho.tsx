@@ -23,6 +23,7 @@ export default async function AvatarCabecalho({ route }: AvatarProps) {
                     width={1}
                     height={1}
                     quality={10}
+                    priority 
                     alt="Profile Picture"
                 />
             </>
