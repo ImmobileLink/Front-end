@@ -23,7 +23,6 @@ export default function PostItem({
     publicacao,
     children,
 }: PostItemProps) {
-    console.log(JSON.stringify(publicacao));
     return (
         <div className="mb-4">
             <Card.Root>
