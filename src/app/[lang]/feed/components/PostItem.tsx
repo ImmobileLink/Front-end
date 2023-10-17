@@ -5,44 +5,78 @@ import { PublicacaoCompleta } from "../../../../../lib/modelos";
 import { formataData } from "../../../../../lib/utils/formataData";
 import { Card } from "../../(components)/(compositions)/(card)";
 import Dropdown from "./Dropdown";
-import { BsChatSquareText, BsHeart, BsShare, BsThreeDots } from "react-icons/bs";
+import {
+    BsChatSquareText,
+    BsHeart,
+    BsShare,
+    BsThreeDots,
+} from "react-icons/bs";
 
 interface PostItemProps {
-  publicacao: PublicacaoCompleta;
-  children: any;
+    publicacao: PublicacaoCompleta;
+    children: any;
+    idusuario?: string;
 }
 
-export default function PostItem({ publicacao, children }: PostItemProps) {
-  return (
-    <div className="mb-4">
-      <Card.Root>
-        <Card.Content>
-          <div className="w-full h-fit min-h-[50px] px-4">
-            <div className="w-full h-fit flex justify-between mb-4">
-              <div className="flex justify-center items-center gap-2 mt-1">
-                <Avatar route={publicacao.avatar} />
-                <div>
-                  <p>{publicacao.nomeautor}</p>
-                  <p className="text-xs">{formataData(publicacao.criadoem)}</p>
-                </div>
-              </div>
-              <div className="h-full">
-                <Dropdown label={<BsThreeDots />} items={[{ label: "reportar", onClick: () => { alert("reportado!") } }, { label: "ver mais", onClick: () => { alert("ver mais!") } }]} />
-              </div>
-            </div>
-            <div className="mb-4">
-              <p className="text-sm">{publicacao.conteudo}</p>
-              <div className="flex w-full justify-center">
-                {
-                  publicacao.imagem &&
-                  <Image src={`publicacoes/imagens/${publicacao.imagem}`} alt={publicacao.id} width={1} height={1} className="w-auto h-fit max-h-[480px] mt-2" />
-                }
-              </div>
-            </div>
-            <div className="flex justify-end">
-                {children}
-            </div>
-            {/* <div className="flex gap-4 mb-4">
+export default function PostItem({
+    idusuario,
+    publicacao,
+    children,
+}: PostItemProps) {
+    console.log(JSON.stringify(publicacao));
+    return (
+        <div className="mb-4">
+            <Card.Root>
+                <Card.Content>
+                    <div className="w-full h-fit min-h-[50px] px-4">
+                        <div className="w-full h-fit flex justify-between mb-4">
+                            <div className="flex justify-center items-center gap-2 mt-1">
+                                <Avatar route={publicacao.avatar} />
+                                <div>
+                                    <p>{publicacao.nomeautor}</p>
+                                    <p className="text-xs">
+                                        {formataData(publicacao.criadoem)}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="h-full">
+                                <Dropdown
+                                    label={<BsThreeDots />}
+                                    items={[
+                                        {
+                                            label: "reportar",
+                                            onClick: () => {
+                                                alert("reportado!");
+                                            },
+                                        },
+                                        {
+                                            label: "ver mais",
+                                            onClick: () => {
+                                                alert("ver mais!");
+                                            },
+                                        },
+                                    ]}
+                                />
+                            </div>
+                        </div>
+                        <div className="mb-4">
+                            <p className="text-sm">{publicacao.conteudo}</p>
+                            <div className="flex w-full justify-center">
+                                {publicacao.imagem && (
+                                    <Image
+                                        src={`publicacoes/imagens/${publicacao.imagem}`}
+                                        alt={publicacao.id}
+                                        width={1}
+                                        height={1}
+                                        className="w-auto h-fit max-h-[480px] mt-2"
+                                    />
+                                )}
+                            </div>
+                        </div>
+                        <div className="flex justify-end">
+                            {publicacao.idautor != idusuario ? children : null}
+                        </div>
+                        {/* <div className="flex gap-4 mb-4">
               <div className="flex text-xl items-center gap-3">
                 <button onClick={() => { alert("curtiu") }}><BsHeart className="hover:cursor-pointer hover:text-red-400 ease-in duration-100" /></button>
                 <span>10</span>
@@ -62,9 +96,9 @@ export default function PostItem({ publicacao, children }: PostItemProps) {
                 placeholder={"Leave a comment"}
               ></textarea>
             </div> */}
-          </div>
-        </Card.Content>
-      </Card.Root>
-    </div>
-  );
+                    </div>
+                </Card.Content>
+            </Card.Root>
+        </div>
+    );
 }

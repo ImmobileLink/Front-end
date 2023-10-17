@@ -257,7 +257,7 @@ export default function PostList({ idusuario, textos, children }: PostListProps)
                 }
                 {posts!.map((item: PublicacaoCompleta) => {
                   return (
-                    <PostItem key={item.id} publicacao={item}>{children}</PostItem>
+                    <PostItem idusuario={idusuario} key={item.id} publicacao={item}>{children}</PostItem>
                   )
                 })}
               </>
