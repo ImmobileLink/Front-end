@@ -28,7 +28,7 @@ export default async function FeedPrincipal({ textos, userData }: FeedPrincipalP
           </Card.Root>
         )
       }
-      <PostList idusuario={userData.id} textos={textos}><></></PostList>
+      <PostList idusuario={userData.id} textos={textos}/>
     </>
   );
 }

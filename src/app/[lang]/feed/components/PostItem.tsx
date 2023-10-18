@@ -13,18 +13,20 @@ import {
     BsThreeDots,
 } from "react-icons/bs";
 import Link from "next/link";
+import { Feed } from "@/app/i18n/dictionaries/types";
 
 interface PostItemProps {
     publicacao: PublicacaoCompleta;
-    children: any;
     idusuario?: string;
+    dict: Feed;
 }
 
 export default function PostItem({
     idusuario,
     publicacao,
-    children,
+    dict,
 }: PostItemProps) {
+
     return (
         <div className="mb-4">
             <Card.Root>
@@ -36,7 +38,7 @@ export default function PostItem({
                                 <div>
                                     <p>{publicacao.nomeautor}</p>
                                     <p className="text-xs">
-                                        {formataData(publicacao.criadoem)}
+                                        {formataData(publicacao.criadoem, dict.pub.dateformat)}
                                     </p>
                                 </div>
                             </div>
@@ -81,31 +83,49 @@ export default function PostItem({
                                 >
                                     {/* {children} */}
                                     <button className="w-fit text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 font-medium rounded-lg text-sm px-10 py-2.5">
-                                        Conversar
+                                        {dict.pub.chat}
                                     </button>
                                 </Link>
                             ) : null}
                         </div>
                         {/* <div className="flex gap-4 mb-4">
-              <div className="flex text-xl items-center gap-3">
-                <button onClick={() => { alert("curtiu") }}><BsHeart className="hover:cursor-pointer hover:text-red-400 ease-in duration-100" /></button>
-                <span>10</span>
-              </div>
-              <div className="flex text-xl items-center gap-3">
-                <button onClick={() => { alert("comentou") }}><BsChatSquareText className="hover:cursor-pointer" /></button>
-                <span>10</span>
-              </div>
-              <div className="flex text-xl items-center gap-3">
-                <button onClick={() => { alert("compartilhou") }}><BsShare className="hover:cursor-pointer" /></button>
-                <span>10</span>
-              </div>
-            </div>
-            <div>
-              <textarea
-                className="w-full bg-gray-100 grow p-3 h-12 rounded-md text-slate-900"
-                placeholder={"Leave a comment"}
-              ></textarea>
-            </div> */}
+                            <div className="flex text-xl items-center gap-3">
+                                <button
+                                    onClick={() => {
+                                        alert("curtiu");
+                                    }}
+                                >
+                                    <BsHeart className="hover:cursor-pointer hover:text-red-400 ease-in duration-100" />
+                                </button>
+                                <span>10</span>
+                            </div>
+                            <div className="flex text-xl items-center gap-3">
+                                <button
+                                    onClick={() => {
+                                        alert("comentou");
+                                    }}
+                                >
+                                    <BsChatSquareText className="hover:cursor-pointer" />
+                                </button>
+                                <span>10</span>
+                            </div>
+                            <div className="flex text-xl items-center gap-3">
+                                <button
+                                    onClick={() => {
+                                        alert("compartilhou");
+                                    }}
+                                >
+                                    <BsShare className="hover:cursor-pointer" />
+                                </button>
+                                <span>10</span>
+                            </div>
+                        </div>
+                        <div>
+                            <textarea
+                                className="w-full bg-gray-100 grow p-3 h-12 rounded-md text-slate-900"
+                                placeholder={"Leave a comment"}
+                            ></textarea>
+                                </div> */}
                     </div>
                 </Card.Content>
             </Card.Root>

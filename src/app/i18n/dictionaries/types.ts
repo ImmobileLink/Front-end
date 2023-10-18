@@ -323,6 +323,8 @@ export interface Pub {
     noposts: string;
     error: string;
     selectaregion: string;
+    chat: string;
+    dateformat: string;
 }
 
 export interface Imovel {

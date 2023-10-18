@@ -1,6 +1,6 @@
-export const formataData = (datahora:string) => {
+export const formataData = (datahora:string, dateformat:string = 'pt-BR') => {
     let data = new Date(datahora)
-    const formatter = new Intl.DateTimeFormat('pt-BR', {
+    const formatter = new Intl.DateTimeFormat(dateformat, {
       year: 'numeric',
       'month': 'numeric',
       'day': 'numeric',
