@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Database } from "../../../../../lib/database.types";
 import { Imovel } from "@/app/i18n/dictionaries/types";
 import {
+  CorretorAssociado,
   ImovelRegistro,
   TipoImovel,
   userData,
@@ -15,33 +16,28 @@ import Form from "./Form";
 import Skeleton from "./Skeleton";
 
 interface ImoveisProps {
-  userData: userData;
-  textos: Imovel;
-  count: number | null;
-  tipos: TipoImovel[];
-  outros: TipoImovel[];
-  mobilias: TipoImovel[];
-  condicoes: TipoImovel[];
+  props: {
+    userData: userData;
+    textos: Imovel;
+    count: number | null;
+    tipos: TipoImovel[];
+    outros: TipoImovel[];
+    mobilias: TipoImovel[];
+    condicoes: TipoImovel[];
+    corretor: CorretorAssociado[];
+  }
 }
 
 const supabase = createClientComponentClient<Database>();
 
-export default function Imoveis({
-  userData,
-  textos,
-  count,
-  tipos,
-  outros,
-  mobilias,
-  condicoes,
-}: ImoveisProps) {
+export default function Imoveis({ props }: ImoveisProps) {
   const [properties, setProperties] = useState<ImovelRegistro[]>([]); //imoveis
   const [loading, setLoading] = useState(true);
   const [formOpen, setFormOpen] = useState(false);
 
   let userid: string | undefined = "";
-  if (userData) {
-    userid = userData.id;
+  if (props.userData) {
+    userid = props.userData.id;
   }
 
   // Realtime
@@ -116,8 +112,8 @@ export default function Imoveis({
       <div className="w-screen">
         <div className="rounded-md bg-white dark:bg-gray-700 dark:ring-gray-600 drop-shadow-md px-3 py-4 mb-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-3xl sm:text-4xl text-black dark:text-white">
-              {textos.mainlabels.title}
+            <h2 className="text-2xl sm:text-3xl text-black dark:text-white">
+              {props.textos.mainlabels.title}
             </h2>
             <div>
               <button
@@ -140,22 +136,23 @@ export default function Imoveis({
                     d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
                   />
                 </svg>
-                <span>{textos.newproperty.registerproperty}</span>
+                <span>{props.textos.newproperty.registerproperty}</span>
               </button>
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 w-full justify-center items-start">
-          {loading && count! > 0 ? (
-            <Skeleton num={count!} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {loading && props.count! > 0 ? (
+            <Skeleton num={props.count!} />
           ) : (
             properties!.map((imovel: ImovelRegistro) => {
               return (
                 <ImovelCard
                   key={imovel.id}
-                  textos={textos}
+                  textos={props.textos}
                   imovel={imovel}
                   userid={userid}
+                  corretor={props.corretor}
                 />
               );
             })
@@ -167,11 +164,11 @@ export default function Imoveis({
           <Form
             props={{
               userid,
-              textos,
-              tipos,
-              outros,
-              mobilias,
-              condicoes,
+              textos: props.textos,
+              tipos: props.tipos,
+              outros: props.outros,
+              mobilias: props.mobilias,
+              condicoes: props.condicoes,
               formOpen,
               setFormOpen,
             }}

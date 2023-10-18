@@ -326,6 +326,7 @@ export interface Formlabels {
     delegatevisit: string;
     requiredfields:string;
     warningmsg:    string;
+    clickhere:     string;
     brokerdata:    string;
     specialty:     string;
     clientdata:    string;
@@ -335,6 +336,7 @@ export interface Formlabels {
     email:         string;
     date:          string;
     time:          string;
+    loading:       string;
     formlogs:      Formlogs;
     editimg:       Editimg;
 }

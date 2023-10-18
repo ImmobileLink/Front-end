@@ -341,7 +341,8 @@
       "findbroker": "Encontrar Corretores",
       "delegatevisit": "Delegar Visita",
       "requiredfields": "Por favor, preencha todos os campos",
-      "warningmsg": "Sua corporação ainda não possui corretores associados. Por favor, clique no botão abaixo.",
+      "warningmsg": "Sua corporação ainda não possui corretores associados.",
+      "clickhere": "Clique aqui para encontrar corretores",
       "brokerdata": "Corretor",
       "specialty": "Especialidade",
       "clientdata": "Dados do Cliente",
@@ -351,6 +352,7 @@
       "email": "Email",
       "date": "Data",
       "time": "Horário",
+      "loading": "Carregando",
       "formlogs": {
         "invalidname": "O nome precisa ter no mínimo 10 caracteres",
         "invalidphone": "O telefone precisa ter 10 ou 11 caracteres",

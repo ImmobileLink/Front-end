@@ -12,32 +12,25 @@ import {
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
 import {
-  Alert,
-  Modal,
+  Modal, Spinner,
 } from "flowbite-react";
-import { HiInformationCircle } from "react-icons/hi";
 import ImovelImg from "./ImovelImg";
 import EditForm from "./EditForm";
 
 interface VisitaCardProps {
-  formlabels: Formlabels;
-  imovel: ImovelRegistro;
-  corretor: CorretorAssociado[] | null;
-  userid: string;
-  formOpen: boolean;
-  setFormOpen: Dispatch<SetStateAction<boolean>>;
+  props: {
+    formlabels: Formlabels;
+    imovel: ImovelRegistro;
+    corretor: CorretorAssociado[];
+    userid: string | undefined;
+    formOpen: boolean;
+    setFormOpen: Dispatch<SetStateAction<boolean>>;
+  }
 }
 
 const supabase = createClientComponentClient<Database>();
 
-export default function VisitaCard({
-  formlabels,
-  imovel,
-  corretor,
-  userid,
-  formOpen,
-  setFormOpen,
-}: VisitaCardProps) {
+export default function VisitaCard({ props }: VisitaCardProps) {
   const [selectedCorretor, setSelectedCorretor] = useState<CorretorAssociado>();
   const [select, setSelect] = useState("");
   const [nome, setNome] = useState("");
@@ -48,6 +41,7 @@ export default function VisitaCard({
 
   const [isOpen, setIsOpen] = useState(false);
   const [editImage, setEditImage] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   //const currentDate = new Date().toISOString().slice(0, 10);
   const date = new Date().toLocaleDateString().split("/");
@@ -72,7 +66,6 @@ export default function VisitaCard({
   }, [dropdownRef, bttnRef]);
 
   const maskPhone = (valor: any) => {
-    console.log(currentDate);
     return valor
       .replace(/\D/g, "")
       .replace(/(\d{2})(\d)/, "($1) $2")
@@ -92,17 +85,19 @@ export default function VisitaCard({
     if (error) {
       console.log(error);
     } else {
-      setFormOpen(false);
+      props.setFormOpen(false);
+      setLoading(false);
     }
   };
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    setLoading(true);
 
     const visita: InsereVisita = {
-      idcorporacao: userid,
+      idcorporacao: props.userid!,
       idcorretor: selectedCorretor!.id,
-      idimovel: imovel.id,
+      idimovel: props.imovel.id,
       dadosmarcador: {
         name: nome,
         email: email,
@@ -118,8 +113,8 @@ export default function VisitaCard({
     <>
       <Modal
         dismissible
-        show={formOpen}
-        onClose={() => setFormOpen(false)}
+        show={props.formOpen}
+        onClose={() => props.setFormOpen(false)}
         size="3xl"
       >
         <Modal.Body className="p-0 rounded-lg">
@@ -128,7 +123,7 @@ export default function VisitaCard({
               <button
                 type="button"
                 className="absolute right-3 top-2 xl:right-1 xl:top-1 text-gray-700 dark:text-gray-200 bg-transparent hover:bg-gray-100 hover:text-gray-900 rounded-lg text-xs w-8 h-8 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
-                onClick={() => setFormOpen(false)}
+                onClick={() => props.setFormOpen(false)}
               >
                 <svg
                   className="w-3 h-3"
@@ -149,18 +144,18 @@ export default function VisitaCard({
               <div className="bg-gray-200 dark:bg-dark-200 rounded py-4 px-8 sm:p-8">
                 <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 sm:grid-cols-3">
                   <div className="sm:col-span-1 mt-4 sm:mt-0 text-dark-200 dark:text-white">
-                    <div className="flex justify-center relative rounded-lg overflow-hidden h-36 sm:h-28">
+                    <div className="columns-2 sm:columns-1">
+                    <div className="flex justify-center relative rounded-lg overflow-hidden mb-2 sm:mb-0">
+                      <div className="relative bg-cover bg-no-repeat">
                       <ImovelImg
-                        usuarioId={userid}
-                        imovel={imovel}
-                        imovelId={imovel.id}
-                        imagemId={imovel!.imagem!}
+                        usuarioId={props.userid!}
+                        imagemId={props.imovel!.imagem!}
                       />
-                      <div className="w-full">
-                        <div className="absolute inset-0 flex items-end justify-end z-50">
+                      </div>
+                      <div className="absolute inset-0 flex items-end justify-end">
                           <button
                             type="button"
-                            className="px-3 py-1 rounded-tl-lg bg-blue-700 text-white text-xs sm:text-sm hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                            className="px-3 py-1 rounded-tl-lg rounded-br-lg bg-blue-700 text-white text-xs sm:text-sm hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 outline-none hover:ring-1 hover:ring-white"
                             onClick={() => {
                               setEditImage(true);
                             }}
@@ -180,36 +175,37 @@ export default function VisitaCard({
                               />
                             </svg>
                           </button>
-                        </div>
                         {editImage && (
                           <EditForm
-                            imovel={imovel}
-                            userid={userid}
-                            formOpen={editImage}
-                            setFormOpen={setEditImage}
-                            editimg={formlabels.editimg}
+                            props={{
+                              imovel: props.imovel,
+                              userid: props.userid,
+                              formOpen: editImage,
+                              setFormOpen: setEditImage,
+                              editimg: props.formlabels.editimg
+                            }}
                           />
                         )}
                       </div>
                     </div>
-                    <div className="flex-auto sm:text-sm text-xs">
+                    <div className="break-before-column sm:break-before-avoid flex-auto sm:text-sm text-xs">
                       <div className="w-full">
-                        <p className="font-bold mt-2">{formlabels.infoproperty.location}</p>
-                        <p>{`${imovel!.rua}, ${imovel!.numero}`}</p>
-                        <p>{`${imovel!.bairro} - ${imovel!.cidade}/${
-                          imovel!.estado
+                        <p className="font-bold sm:mt-2">{props.formlabels.infoproperty.location}</p>
+                        <p>{`${props.imovel!.rua}, ${props.imovel!.numero}`}</p>
+                        <p>{`${props.imovel!.bairro} - ${props.imovel!.cidade}/${
+                          props.imovel!.estado
                         }`}</p>
 
-                        <p className="font-bold mt-2">{formlabels.infoproperty.price}</p>
-                        <p>{`${imovel!.valor!.toLocaleString("pt-br", {
+                        <p className="font-bold mt-2">{props.formlabels.infoproperty.price}</p>
+                        <p>{`${props.imovel!.valor!.toLocaleString("pt-br", {
                           style: "currency",
                           currency: "BRL",
                         })}`}</p>
                       </div>
                       <div className="w-full mt-2 mb-2 sm:mb-0">
-                        <p className="font-bold">{formlabels.infoproperty.characteristics}</p>
+                        <p className="font-bold">{props.formlabels.infoproperty.characteristics}</p>
                         <ul className="list-disc">
-                          {imovel.caracteristicas!.map((item, index) => (
+                          {props.imovel.caracteristicas!.map((item, index) => (
                             <li key={index} className="ml-4">
                               {/* @ts-ignore */}
                               {item.descricao}
@@ -218,55 +214,47 @@ export default function VisitaCard({
                         </ul>
                       </div>
                     </div>
+                    </div>
                   </div>
 
                   <div className="sm:col-span-2">
                     <div className="bg-white dark:bg-gray-700 rounded-md p-2">
-                      <div className="text-dark-200 dark:text-white mb-4">
-                        <p className="font-bold text-base sm:text-xl">
-                          {formlabels.delegatevisit}
-                        </p>
-                        <p className="text-xs sm:text-sm">
-                          {formlabels.requiredfields}
-                        </p>
-                      </div>
-                      {/*corretor?.length === 0 ? (
-                        <div className="mb-4">
-                          <Alert
-                            additionalContent={
-                              <>
-                                <div className="flex ml-8">
-                                  <Link
-                                    href={"/pesquisa"}
-                                    className="text-xs sm:text-sm text-white bg-dark-200 focus:ring-4 font-medium rounded-lg px-4 py-1.5 focus:outline-none"
-                                  >
-                                    {formlabels.findbroker}
-                                  </Link>
-                                </div>
-                              </>
-                            }
-                            color="warning"
-                            icon={HiInformationCircle}
-                          >
-                            <p className="text-xs sm:text-sm">
-                              {formlabels.warningmsg}
-                            </p>
-                          </Alert>
+                      <p className="text-dark-200 dark:text-white font-bold text-base sm:text-xl">
+                        {props.formlabels.delegatevisit}
+                      </p>
+                      {props.corretor?.length === 0 ? (
+                        <div className="my-4">
+                          <div className="flex items-center p-4 mb-4 text-yellow-800 border-t-4 border-yellow-300 bg-yellow-50 dark:text-yellow-300 dark:bg-gray-800 dark:border-yellow-800">
+                            <svg className="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                            </svg>
+                            <div className="ml-3 text-xs sm:text-sm font-medium">
+                              <p>{props.formlabels.warningmsg}</p>
+                              <Link
+                                href={"/pesquisa"}
+                                className="text-xs sm:text-sm font-semibold underline hover:no-underline hover:text-dark-200 dark:hover:text-white"
+                                >
+                                <p>{props.formlabels.clickhere}</p>
+                              </Link>
+                            </div>
+                          </div>
                         </div>
                       ) : (
-                        <div></div>
-                      )*/}
+                        <p className="text-dark-200 dark:text-white text-xs sm:text-sm mb-4">
+                          {props.formlabels.requiredfields}
+                        </p>
+                      )}
                       <div className="grid gap-3 gap-y-2 text-sm grid-cols-1 sm:grid-cols-2">
                         <div className="sm:col-span-2">
                           <div className="flex justify-between items-center">
                             <h4 className="text-base sm:text-lg font-medium text-gray-900 dark:text-gray-200">
-                              {formlabels.brokerdata}
+                              {props.formlabels.brokerdata}
                             </h4>
                             <Link
                               href={"/pesquisa"}
-                              className={`text-xs sm:text-sm text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-4 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mb-1`}
+                              className={`${props.corretor?.length === 0 ? "hidden" : "visible" } text-xs sm:text-sm text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-4 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mb-1`}
                             >
-                              {formlabels.findbroker}
+                              {props.formlabels.findbroker}
                             </Link>
                           </div>
                           <hr className="h-px border-0 bg-gray-900 dark:bg-gray-200 mb-2" />
@@ -278,28 +266,27 @@ export default function VisitaCard({
                               className="text-xs sm:text-sm bg-gray-100 border border-gray-300 focus:outline-none focus:bg-white leading-tight text-gray-900 dark:bg-gray-600 dark:border-gray-500 dark:text-gray-200 dark:focus:bg-gray-700 focus:border-gray-500 p-2 w-full flex items-center justify-between rounded"
                             >
                               {select.length === 0 ? (
-                                <span>{formlabels.selectbroker}</span>
+                                <span>{props.formlabels.selectbroker}</span>
                               ) : (
                                 <span>{select}</span>
                               )}
                             </button>
-                            {isOpen && corretor?.length! > 0 && (
+                            {isOpen && props.corretor?.length! > 0 && (
                               <div
                                 ref={dropdownRef}
                                 className="text-xs sm:text-sm bg-gray-100 border text-gray-900 leading-tight focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-gray-200 border-gray-500 absolute top-11 items-start rounded p-1 w-full z-50 gap-y-2 max-h-64 overflow-auto"
                               >
-                                {corretor?.map((c) => {
+                                {props.corretor?.map((c) => {
                                   {/* @ts-ignore */}
-                                  const withDescription: { id: string; descricao: string; }[] = c.tipoImovel?.filter((item: CorretorAssociado) => imovel.caracteristicas?.map((i) => i.id === item.id).includes(true));
+                                  const withDescription: { id: string; descricao: string; }[] = c.tipoImovel?.filter((item: CorretorAssociado) => props.imovel.caracteristicas?.map((i) => i.id === item.id).includes(true));
 
                                   {/* @ts-ignore */}
-                                  const withoutDescription: { id: string; descricao: string; }[] = c.tipoImovel?.filter((item: CorretorAssociado) => !imovel.caracteristicas?.map((i) => i.id === item.id).includes(true));
+                                  const withoutDescription: { id: string; descricao: string; }[] = c.tipoImovel?.filter((item: CorretorAssociado) => !props.imovel.caracteristicas?.map((i) => i.id === item.id).includes(true));
 
                                   return (
                                     <div
                                       key={c.id}
                                       onClick={() => {
-                                        console.log(c);
                                         setSelect(c.nome!);
                                         setSelectedCorretor(c);
                                         setIsOpen(false);
@@ -308,13 +295,13 @@ export default function VisitaCard({
                                     >
                                       <div className="flex w-full justify-between mb-0.5 font-bold">
                                         <p>{c.nome}</p>
-                                        <p>{`${imovel!.cidade}/${
-                                          imovel!.estado
+                                        <p>{`${props.imovel!.cidade}/${
+                                          props.imovel!.estado
                                         }`}</p>
                                       </div>
                                       <hr className="h-px border-0 bg-gray-200 mb-0.5" />
                                       <div className="flex flex-wrap items-center mb-1">
-                                        {formlabels.specialty}:
+                                        {props.formlabels.specialty}:
                                         {withDescription?.map((item, index) => (
                                           <div
                                             key={index}
@@ -357,11 +344,11 @@ export default function VisitaCard({
 
                         <div className="mt-2 sm:col-span-2">
                           <h4 className="mb-1 text-base sm:text-lg font-medium text-gray-900 dark:text-gray-200">
-                            {formlabels.clientdata}
+                            {props.formlabels.clientdata}
                           </h4>
                           <hr className="h-px border-0 bg-gray-900 dark:bg-gray-200 mb-2" />
                           <label className="text-gray-900 dark:text-gray-200 text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
-                            {formlabels.name}
+                            {props.formlabels.name}
                           </label>
                           <input
                             onChange={(e) => setNome(e.target.value)}
@@ -373,13 +360,13 @@ export default function VisitaCard({
                             required
                           />
                           <span className="mt-2 hidden text-xs italic text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-                            {formlabels.formlogs.invalidname}
+                            {props.formlabels.formlogs.invalidname}
                           </span>
                         </div>
 
                         <div className="mt-1 sm:col-span-2">
                           <label className="text-gray-900 dark:text-gray-200 text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
-                            {formlabels.phone}
+                            {props.formlabels.phone}
                           </label>
                           <input
                             className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-900 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
@@ -392,13 +379,13 @@ export default function VisitaCard({
                             required
                           />
                           <span className="mt-2 hidden text-xs italic text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-                            {formlabels.formlogs.invalidphone}
+                            {props.formlabels.formlogs.invalidphone}
                           </span>
                         </div>
 
                         <div className="mt-1 sm:col-span-2">
                           <label className="text-gray-900 dark:text-gray-200 text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
-                            {formlabels.email}
+                            {props.formlabels.email}
                           </label>
                           <input
                             onChange={(e) => setEmail(e.target.value)}
@@ -410,19 +397,19 @@ export default function VisitaCard({
                             required
                           />
                           <span className="mt-2 hidden text-xs italic text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-                            {formlabels.formlogs.invalidemail}
+                            {props.formlabels.formlogs.invalidemail}
                           </span>
                         </div>
 
                         <div className="mt-2 sm:col-span-2">
                           <h4 className="mb-1 text-base sm:text-lg font-medium text-gray-900 dark:text-gray-200">
-                            {formlabels.scheduling}
+                            {props.formlabels.scheduling}
                           </h4>
                           <hr className="h-px border-0 bg-gray-900 dark:bg-gray-200" />
                         </div>
                         <div className="sm:col-span-1">
                           <label className="text-gray-900 dark:text-gray-200 text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
-                            {formlabels.date}
+                            {props.formlabels.date}
                           </label>
                           <input
                             onChange={(e) => setData(e.target.value)}
@@ -441,13 +428,13 @@ export default function VisitaCard({
                               "peer-[&:not(:focus):invalid]:block"
                             }`}
                           >
-                            {formlabels.formlogs.invaliddate}
+                            {props.formlabels.formlogs.invaliddate}
                           </span>
                         </div>
 
                         <div className="sm:col-span-1">
                           <label className="text-gray-900 dark:text-gray-200 text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
-                            {formlabels.time}
+                            {props.formlabels.time}
                           </label>
                           <input
                             onChange={(e) => setTime(e.target.value)}
@@ -477,7 +464,7 @@ export default function VisitaCard({
                               "peer-[&:not(:focus):invalid]:block"
                             }`}
                           >
-                            {formlabels.formlogs.invalidtime}
+                            {props.formlabels.formlogs.invalidtime}
                           </span>
                         </div>
 
@@ -490,7 +477,15 @@ export default function VisitaCard({
                                 "pointer-events-none opacity-30"
                               }`}
                             >
-                              {formlabels.delegatevisit}
+                              {loading ? (
+                                <>
+                                  <Spinner />
+                                  <span className="pl-3">{props.formlabels.loading}</span>
+                                </>
+                              ) : (
+                                <span>{props.formlabels.delegatevisit}</span>
+                              )}
+                              
                             </button>
                           </div>
                         </div>

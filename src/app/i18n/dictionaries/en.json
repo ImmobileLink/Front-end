@@ -341,7 +341,8 @@
       "findbroker": "Find Brokers",
       "delegatevisit": "Delegate Visit",
       "requiredfields": "Please fill out all the fields",
-      "warningmsg": "Your corporation does not have associated brokers yet. Please click the button below.",
+      "warningmsg": "Your corporation does not have associated brokers yet.",
+      "clickhere": "Click here to find brokers",
       "brokerdata": "Broker",
       "specialty": "Specialty",
       "clientdata": "Client's Data",
@@ -351,6 +352,7 @@
       "email": "Email",
       "date": "Date",
       "time": "Time",
+      "loading": "Loading",
       "formlogs": {
         "invalidname": "Name must be at least 10 characters long",
         "invalidphone": "Phone must be 10 or 11 characters long",

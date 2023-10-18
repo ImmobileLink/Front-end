@@ -10,24 +10,20 @@ import { FlowbiteModalHeaderTheme } from "flowbite-react/lib/esm/components/Moda
 import { Editimg } from "@/app/i18n/dictionaries/types";
 
 interface EditFormProps {
-  imovel: ImovelRegistro;
-  userid: string;
-  formOpen: boolean;
-  setFormOpen: Dispatch<SetStateAction<boolean>>;
-  editimg: Editimg;
+  props: {
+    imovel: ImovelRegistro;
+    userid: string | undefined;
+    formOpen: boolean;
+    setFormOpen: Dispatch<SetStateAction<boolean>>;
+    editimg: Editimg;
+  }
 }
 
 const supabase = createClientComponentClient<Database>();
 
-export default function EditForm({
-  imovel,
-  userid,
-  formOpen,
-  setFormOpen,
-  editimg
-}: EditFormProps) {
+export default function EditForm({ props }: EditFormProps) {
   const [img, setImg] = useState<File>();
-  const [imagemId, setImagemId] = useState(imovel.imagem);
+  const [imagemId, setImagemId] = useState(props.imovel.imagem);
 
   const [loading, setLoading] = useState(false);
 
@@ -35,13 +31,13 @@ export default function EditForm({
     // Apagar o arquivo antigo
     let { data, error } = await supabase.storage
       .from("imoveis") // Nome do bucket no Supabase
-      .remove([`${userid}/${imovel.imagem}`]);
+      .remove([`${props.userid}/${props.imovel.imagem}`]);
 
     if (!error) {
       // Enviar o arquivo para o Supabase Storage
       let { data, error } = await supabase.storage
         .from("imoveis") // Nome do bucket no Supabase
-        .upload(userid + "/" + imagemId, img!, {
+        .upload(props.userid + "/" + imagemId, img!, {
           upsert: true,
         });
 
@@ -70,13 +66,13 @@ export default function EditForm({
       const { error } = await supabase
         .from("imovel")
         .update({ imagem: imagemId })
-        .eq("id", imovel.id);
+        .eq("id", props.imovel.id);
       if (!error) {
-        setFormOpen(false);
+        props.setFormOpen(false);
         setLoading(false);
       }
     } else {
-      setFormOpen(false);
+      props.setFormOpen(false);
     }
   };
 
@@ -92,9 +88,9 @@ export default function EditForm({
 
   return (
     <>
-      <Modal dismissible show={formOpen} onClose={() => setFormOpen(false)}>
+      <Modal dismissible show={props.formOpen} onClose={() => props.setFormOpen(false)}>
         <Modal.Header theme={customTheme}>
-          {editimg.title}
+          {props.editimg.title}
         </Modal.Header>
         <Modal.Body>
           <div className="flex items-center justify-center w-full">
@@ -116,10 +112,10 @@ export default function EditForm({
                   />
                 </svg>
                 <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                  {editimg.imageupload}
+                  {props.editimg.imageupload}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {editimg.imageformat}
+                  {props.editimg.imageformat}
                 </p>
               </div>
               <input
@@ -143,10 +139,10 @@ export default function EditForm({
               {loading ? (
                 <>
                   <Spinner />
-                  <span className="pl-3">{editimg.loading}</span>
+                  <span className="pl-3">{props.editimg.loading}</span>
                 </>
               ) : (
-                <span>{editimg.confirm}</span>
+                <span>{props.editimg.confirm}</span>
               )}
             </button>
           </div>

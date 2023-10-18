@@ -46,10 +46,10 @@ export default function Form({ props }: FormProps) {
   const [loading, setLoading] = useState(false);
 
   // Tipos de imóvel
-  const [mobilia, setMobilia] = useState<TipoImovel>();
-  const [condicao, setCondicao] = useState<TipoImovel>();
-  const [type, setType] = useState<TipoImovel>();
-  const [selectedOptions, setSelectedOptions] = useState<ValueType<TipoImovel>>();
+  const [mobilia, setMobilia] = useState<TipoImovel>({id:"", descricao:"", classificacao:""});
+  const [condicao, setCondicao] = useState<TipoImovel>({id:"", descricao:"", classificacao:""});
+  const [type, setType] = useState<TipoImovel>({id:"", descricao:"", classificacao:""});
+  const [selectedOptions, setSelectedOptions] = useState<ValueType<TipoImovel>>({id:"", descricao:"", classificacao:""});
 
   const [disabilitarInput, isDisabilitarInput] = useState(false);
 
@@ -75,7 +75,7 @@ export default function Form({ props }: FormProps) {
   };
 
   const handleOptions = async () => {
-    let data = [type, mobilia, condicao];
+    let data: TipoImovel[] = [type, mobilia, condicao];
 
     // Verifique se selectedOptions não está vazio e é um array
     if (Array.isArray(selectedOptions) && selectedOptions.length > 0) {
@@ -83,8 +83,8 @@ export default function Form({ props }: FormProps) {
     }
     
     let newdata = [...data.map((option) => ({
-      id: option!.id,
-      descricao: option!.descricao,
+      id: option.id,
+      descricao: option.descricao,
     }))]
 
     return newdata;
@@ -93,12 +93,9 @@ export default function Form({ props }: FormProps) {
   // Falta a validação dos dados
   const handleCadastrarImovel = async (event: any) => {
     event.preventDefault();
-
     setLoading(true);
 
     const dados = await handleOptions();
-    //console.log(dados);
-
     const preco = valor.replace(",", ".");
 
     if (img) {
@@ -139,7 +136,6 @@ export default function Form({ props }: FormProps) {
           console.log(error);
         }
       }
-      console.log(data);
     } else {
       console.log(error);
     }
