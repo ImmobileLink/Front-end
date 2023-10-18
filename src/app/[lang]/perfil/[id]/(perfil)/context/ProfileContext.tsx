@@ -6,10 +6,11 @@ type ProfileContextType = {
   areasAtuacao: AreaAtuacao;
   especialidades: Especialidades;
   historico: Historico;
+  activeTab: number;
   setEspecialidades: (newEspecialidades: Especialidades) => void;
   setAreasAtuacao: (newAreasAtuacao: AreaAtuacao) => void;
   setHistorico: (newHistorico: Historico) => void;
-
+  setActiveTab: (newTab: number) => void
 
 };
 
@@ -38,7 +39,7 @@ export function ProfileProvider({ children, areas, esp, hist }: ProfileProviderP
   const [areasAtuacao, setAreasAtuacao] = useState<AreaAtuacao>(areas);
   const [especialidades, setEspecialidades] = useState<Especialidades>(esp);
   const [historico, setHistorico] = useState<Historico>(hist);
-
+  const [activeTab, setActiveTab] = useState<number>(0);
 
 
   return (
@@ -47,12 +48,15 @@ export function ProfileProvider({ children, areas, esp, hist }: ProfileProviderP
         areasAtuacao,
         especialidades,
         historico,
+        activeTab,
         setEspecialidades: (newEspecialidades: Especialidades) =>
           setEspecialidades(newEspecialidades),
         setAreasAtuacao: (newAreasAtuacao: AreaAtuacao) =>
           setAreasAtuacao(newAreasAtuacao),
-        setHistorico:(newHistorico: Historico) =>
-          setHistorico(newHistorico)
+        setHistorico: (newHistorico: Historico) =>
+          setHistorico(newHistorico),
+        setActiveTab: (newTab: number) =>
+            setActiveTab(newTab)
       }}
     >
       {children}

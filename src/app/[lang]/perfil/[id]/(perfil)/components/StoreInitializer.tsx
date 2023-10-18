@@ -4,7 +4,7 @@ import { useProfileStore } from "@/../../lib/store/profileStore"
 import { useEffect, useRef } from "react";
 import { AreaAtuacao, Corporacao, Corretor, Especialidades, Historico, userData } from "../../../../../../../lib/modelos";
 import { Dictionaries } from "@/app/i18n/dictionaries/types";
-import { useProfileContext } from "../Provider/ProviderProfile";
+import { useProfileContext } from "../Provider/ProviderContext";
 
 interface StoreInitializerProps {
   profileData: userData | null;

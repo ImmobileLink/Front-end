@@ -1,10 +1,10 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { HiDocumentAdd } from "react-icons/hi/";
 import HistoricoPopup from "./HistoricoPopup";
 import HistoricoCard from "./HistoricoCard";
 import { useProfileStore } from "@/../../lib/store/profileStore";
-import { useProfileContext } from "../../../../Provider/ProviderProfile";
+import { useProfileContext} from "../../../../context/ProfileContext";
 
 type ItemHistorico = {
     data_fim: string | null;

@@ -1,12 +1,12 @@
 "use client"
 
 import React, { useState } from 'react';
-import VisaoGeral from "./Empresa/VisaoGeral/VisaoGeral"
+import VisaoGeral from "./Empresa/VisaoGeral"
 
 import { Tabs } from 'flowbite-react';
 import { HiOfficeBuilding, HiDocumentText, HiCalendar } from 'react-icons/hi';
 import { MdDashboard } from 'react-icons/md';
-import { useProfileContext } from '../../Provider/ProviderProfile';
+import { useProfileContext } from '../../Provider/ProviderContext';
 import { useProfileStore } from '../../../../../../../../lib/store/profileStore';
 
 

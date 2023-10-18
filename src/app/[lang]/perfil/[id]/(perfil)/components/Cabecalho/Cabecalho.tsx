@@ -1,7 +1,6 @@
 import { useProfileStore } from "../../../../../../../../lib/store/profileStore";
 import Botoes from "./Botao/Botoes";
 import { Card } from "@/app/[lang]/(components)/(compositions)/(card)";
-import Dashboard from "../Dashboard/Dashboard";
 import { MdWorkspacePremium } from 'react-icons/md';
 import EditProfileCorporacao from "./Edit/EditProfileCorporacao";
 import EditProfileCorretor from "./Edit/EditProfileCorretor";
@@ -9,6 +8,8 @@ import { Corporacao, Corretor } from "../../../../../../../../lib/modelos";
 import CabecalhoData from "./CabecalhoData";
 import Capa from "./Capa";
 import AvatarCabecalho from "./AvatarCabecalho";
+import DashboardCorretor from "../Infos/Corretor/Dashboard/DashboardCorretor";
+import DashboardEmpresa from "../Infos/Empresa/Dashboard/DashboardEmpresa";
 
 interface InfosPadraoProps {
 }
@@ -54,7 +55,9 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
         <div className=" pb-7 mx-5 lg:hidden flex justify-center">
           <Card.Root className="bg-gray-300 max-w-lg">
             <Card.Content>
-              <Dashboard />
+              {profile?.type == "corretor" ? (
+                <DashboardCorretor />
+              ): ( <DashboardEmpresa/>)}
             </Card.Content>
           </Card.Root>
         </div>

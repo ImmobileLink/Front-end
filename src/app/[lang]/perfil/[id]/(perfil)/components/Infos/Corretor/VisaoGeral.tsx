@@ -1,13 +1,13 @@
 "use client"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../lib/database.types";
-import Historico from "../Historico/Historico";
+import Historico from "./Historico/Historico";
 import { useQuery } from 'react-query';
 import { Dictionaries } from "@/app/i18n/dictionaries/types";
-import { Corretor } from "../../../../../../../../../../lib/modelos";
-import { useProfileStore } from "../../../../../../../../../../lib/store/profileStore";
+import { Corretor } from "../../../../../../../../../lib/modelos";
+import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
 import { useEffect } from "react";
-import { useProfileContext } from "../../../../Provider/ProviderProfile";
+import { useProfileContext } from "../../../context/ProfileContext";
 
 
 interface VisaoGeralProps {

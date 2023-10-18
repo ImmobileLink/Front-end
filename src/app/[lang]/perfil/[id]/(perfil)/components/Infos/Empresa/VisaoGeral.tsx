@@ -2,10 +2,10 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../lib/database.types";
 import { Dictionaries } from "@/app/i18n/dictionaries/types";
-import { Corporacao, Corretor } from "../../../../../../../../../../lib/modelos";
-import { useProfileStore } from "../../../../../../../../../../lib/store/profileStore";
+import { Corporacao, Corretor } from "../../../../../../../../../lib/modelos";
+import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
 import { useEffect } from "react";
-import { useProfileContext } from "../../../../Provider/ProviderProfile";
+import { useProfileContext } from "../../../context/ProfileContext";
 
 
 interface VisaoGeralProps {

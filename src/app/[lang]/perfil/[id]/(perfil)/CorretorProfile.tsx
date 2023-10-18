@@ -2,7 +2,7 @@ import { useProfileStore } from '../../../../../../lib/store/profileStore';
 import { Page } from './composition/page';
 import Cabecalho from './components/Cabecalho/Cabecalho';
 import InfosCorretor from './components/Infos/InfosCorretor';
-import Dashboard from './components/Dashboard/Dashboard';
+import DashboardCorretor from './components/Infos/Corretor/Dashboard/DashboardCorretor';
 import Calendario from '@/app/[lang]/(components)/Calendario';
 import { Corretor } from '../../../../../../lib/modelos';
 
@@ -20,7 +20,7 @@ export default async function page() {
 
             <Page.Right>
                 <Page.Dashboard>
-                    <Dashboard />
+                    <DashboardCorretor />
                 </Page.Dashboard>
 
                 <Page.Calendar>

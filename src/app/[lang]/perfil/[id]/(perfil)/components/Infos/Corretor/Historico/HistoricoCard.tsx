@@ -4,7 +4,7 @@ import { AiFillEdit } from 'react-icons/ai'
 import { HiTrash } from 'react-icons/hi'
 import { useProfileStore } from "@/../../lib/store/profileStore"
 import { deleteHistorico } from '../../../../../../../../../../lib/utils/Historico';
-import { useProfileContext } from '../../../../Provider/ProviderProfile';
+import { useProfileContext } from '../../../../context/ProfileContext';
 
 interface HistoricoCardProps {
     item: ItemHistorico;

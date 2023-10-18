@@ -7,7 +7,7 @@ import { _UFs } from "@/../../lib/utils/getRegiao"
 import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../../lib/database.types";
-import { useProfileContext } from "../../../Provider/ProviderProfile";
+import { useProfileContext } from "../../../context/ProfileContext";
 import { adicionarRegiao, removerRegiao } from "../../../../../../../../../lib/utils/EditProfile";
 
 interface EditEspecialidades {
@@ -15,23 +15,11 @@ interface EditEspecialidades {
 }
 
 
-
 interface City {
     id: number;
     nome: string;
 }
 
-/* async function getData(id: string) {
-    const supabase = createClientComponentClient<Database>({});
-
-    let { data: usuarioporregiao, error } = await supabase
-        .from('usuarioporregiao')
-        .select('*')
-        .eq('idusuario', id)
-
-    return { usuarioporregiao }
-}
- */
 export default function EditEspecialidades({ props }: EditEspecialidades) {
 
     const [selectedState, setSelectedState] = useState<string>('');

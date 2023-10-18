@@ -10,7 +10,7 @@ import CorretorProfile from './(perfil)/CorretorProfile';
 import EmpresaProfile from './(perfil)/EmpresaProfile';
 import Link from 'next/link';
 import StoreInitializer from './(perfil)/components/StoreInitializer';
-import { ProfileProvider } from './(perfil)/Provider/ProviderProfile';
+import { ProviderContext } from './(perfil)/Provider/ProviderContext';
 
 interface pageProps {
   params: {
@@ -63,7 +63,7 @@ export default async function page({ params: { id, lang } }: pageProps) {
   useProfileStore.setState({ profileData: profileData, profileFullData: profileFullData, sessionData: sessionData, dict: dict, isOwn: isOwnProfile })
 
   return (
-    <ProfileProvider areas={areasAtuacao} esp={especialidades} hist={historico}>
+    <ProviderContext areas={areasAtuacao} esp={especialidades} hist={historico}>
       <StoreInitializer isOwn={isOwnProfile} profileData={profileData} sessionData={sessionData} profileFullData={profileFullData} dict={dict} />
       {profileData.id ?
         profileData.type! == "corretor" ? (
@@ -75,6 +75,6 @@ export default async function page({ params: { id, lang } }: pageProps) {
           <Link href={'/feed'} className='mt-4 text-blue-600 hover:underline'>Voltar ao feed</Link>
         </div>
       }
-    </ProfileProvider>
+    </ProviderContext>
   );
 }

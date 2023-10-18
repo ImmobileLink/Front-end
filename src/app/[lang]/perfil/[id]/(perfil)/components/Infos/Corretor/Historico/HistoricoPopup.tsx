@@ -4,7 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { Button, Modal } from "flowbite-react";
 import { useProfileStore } from '../../../../../../../../../../lib/store/profileStore';
 import { insertHistorico, updateHistorico } from '../../../../../../../../../../lib/utils/Historico';
-import { useProfileContext } from '../../../../Provider/ProviderProfile';
+import { useProfileContext } from '../../../../context/ProfileContext';
 import { v4 as uuidv4 } from 'uuid';
 
 interface HistoricoPopupProps {

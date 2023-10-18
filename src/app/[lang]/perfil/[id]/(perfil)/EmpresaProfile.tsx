@@ -1,7 +1,7 @@
 import { useProfileStore } from '../../../../../../lib/store/profileStore';
 import { Page } from './composition/page';
 import Cabecalho from './components/Cabecalho/Cabecalho';
-import Dashboard from './components/Dashboard/Dashboard';
+import Dashboard from './components/Infos/Empresa/Dashboard/DashboardEmpresa';
 import Calendario from '@/app/[lang]/(components)/Calendario';
 import InfosEmpresa from './components/Infos/InfosEmpresa';
 

@@ -1,6 +1,5 @@
 import NavBar from "../../(components)/(navbar)/NavBar";
 import { Page } from "./(perfil)/composition/page";
-import { ProfileProvider } from "./(perfil)/Provider/ProviderProfile"
 
 export const metadata = {
   title: "ImmobileLink - Perfil",
