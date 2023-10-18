@@ -284,6 +284,8 @@
       "error": "Ops! Something went wrong. Try reloading the page.",
       "selectaregion": "Select a region to filter posts",
       "chat": "Chat",
+      "more": "Show more",
+      "less": "See less",
       "dateformat": "en-US"
     },
     "form": {

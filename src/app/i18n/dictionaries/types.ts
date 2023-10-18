@@ -324,6 +324,8 @@ export interface Pub {
     error: string;
     selectaregion: string;
     chat: string;
+    more: string;
+    less: string;
     dateformat: string;
 }
 

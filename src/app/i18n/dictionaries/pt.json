@@ -284,6 +284,8 @@
       "error": "Ops! Algo deu errado. Tente recarregar a página.",
       "selectaregion": "Selecione uma região para filtrar os posts",
       "chat": "Conversar",
+      "more": "Ler mais",
+      "less": "Mostrar menos",
       "dateformat": "pt-BR"
     },
     "form": {

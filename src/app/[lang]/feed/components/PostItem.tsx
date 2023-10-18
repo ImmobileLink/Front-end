@@ -14,6 +14,7 @@ import {
 } from "react-icons/bs";
 import Link from "next/link";
 import { Feed } from "@/app/i18n/dictionaries/types";
+import { useState } from "react";
 
 interface PostItemProps {
     publicacao: PublicacaoCompleta;
@@ -26,6 +27,7 @@ export default function PostItem({
     publicacao,
     dict,
 }: PostItemProps) {
+    const [readMore, isReadMore] = useState(false);
 
     return (
         <div className="mb-4">
@@ -38,7 +40,10 @@ export default function PostItem({
                                 <div>
                                     <p>{publicacao.nomeautor}</p>
                                     <p className="text-xs">
-                                        {formataData(publicacao.criadoem, dict.pub.dateformat)}
+                                        {formataData(
+                                            publicacao.criadoem,
+                                            dict.pub.dateformat
+                                        )}
                                     </p>
                                 </div>
                             </div>
@@ -63,7 +68,30 @@ export default function PostItem({
                             </div>
                         </div>
                         <div className="mb-4">
-                            <p className="text-sm">{publicacao.conteudo}</p>
+                            <p
+                                className={`text-sm 
+                                ${
+                                    readMore
+                                        ? "line-clamp-none"
+                                        : publicacao.conteudo.length > 140
+                                        ? "line-clamp-3 md:line-clamp-4 "
+                                        : "line-clamp-none "
+                                }`}
+                            >
+                                {publicacao.conteudo}
+                            </p>
+                            <a
+                                className={`${
+                                    publicacao.conteudo.length > 140
+                                        ? publicacao.conteudo.length > 325
+                                            ? "flex"
+                                            : "flex lg:hidden"
+                                        : "hidden"
+                                } opacity-75 cursor-pointer hover:underline`}
+                                onClick={() => isReadMore(!readMore)}
+                            >
+                                {readMore ? dict.pub.less : dict.pub.more}
+                            </a>
                             <div className="flex w-full justify-center">
                                 {publicacao.imagem && (
                                     <Image
