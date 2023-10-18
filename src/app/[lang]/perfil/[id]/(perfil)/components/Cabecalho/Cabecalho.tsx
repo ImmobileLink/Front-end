@@ -26,38 +26,39 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
 
   return (
     <>
-      <div className="h-44 overflow-hidden rounded-md relative">
-        <Capa />
-      </div>
-
-      <div className="p-8 -mt-28 relative">
-        <div className="flex justify-between w-full mb-3 items-end">
-          <AvatarCabecalho route={profile?.avatar!} />
-          <div className="flex gap-5">
-            {state.isOwn && (
-              session?.type == "corretor" ? (
-                <EditProfileCorretor data={profileFullData as Corretor} />
-              ) : (
-                <EditProfileCorporacao data={profileFullData as Corporacao} />
-              )
-            )}
-            {profile?.isPremium && <MdWorkspacePremium size={30} title="Usuário Premium" />}
-          </div>
+      <div className="ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-700 drop-shadow-md bg-white rounded-md">
+        <div className="h-44 relative">
+          <Capa />
         </div>
 
-        <CabecalhoData
-          action={session?.id && !state.isOwn && <Botoes />}
-        />
-      </div>
+        <div className="p-8 -mt-28 relative">
+          <div className="flex justify-between w-full mb-3 items-end">
+            <AvatarCabecalho route={profile?.avatar!} />
+            <div className="flex gap-5">
+              {state.isOwn && (
+                session?.type == "corretor" ? (
+                  <EditProfileCorretor data={profileFullData as Corretor} />
+                ) : (
+                  <EditProfileCorporacao data={profileFullData as Corporacao} />
+                )
+              )}
+              {profile?.isPremium && <MdWorkspacePremium size={30} title="Usuário Premium" />}
+            </div>
+          </div>
 
-      <div className="m-5 lg:hidden flex justify-center">
-        <Card.Root className="bg-gray-300 max-w-lg">
-          <Card.Content>
-            <Dashboard />
-          </Card.Content>
-        </Card.Root>
-      </div>
+          <CabecalhoData
+            action={session?.id && !state.isOwn && <Botoes />}
+          />
+        </div>
 
+        <div className=" pb-7 mx-5 lg:hidden flex justify-center">
+          <Card.Root className="bg-gray-300 max-w-lg">
+            <Card.Content>
+              <Dashboard />
+            </Card.Content>
+          </Card.Root>
+        </div>
+      </div>
     </>
   );
 }

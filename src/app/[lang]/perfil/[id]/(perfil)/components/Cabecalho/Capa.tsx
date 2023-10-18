@@ -12,7 +12,7 @@ export default function Capa({ }: CapaProps) {
 
     return (
         <>
-            <div className="h-44 overflow-hidden rounded-md relative">
+            <div className="h-44 overflow-hidden rounded-t-md relative">
                 <Image
                     className="w-screen my-auto"
                     src={`users/cover/${route}?random=${Math.random()}`}

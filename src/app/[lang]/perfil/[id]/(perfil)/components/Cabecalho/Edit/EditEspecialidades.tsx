@@ -43,7 +43,6 @@ export default function EditEspecialidades({ props, imoveis }: EditEspecialidade
 
     useEffect(() => {
         setEspecialidades(especialidade);
-        console.log(especialidade)
     }, [especialidade])
 
     const addEspecialidade = async (id: any, descricao: any) => {

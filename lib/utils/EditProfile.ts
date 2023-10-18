@@ -1,5 +1,5 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../database.types";
+import { Database, Json } from "../database.types";
 
 const supabase = createClientComponentClient<Database>({});
 
@@ -61,3 +61,25 @@ export async function removerEspecialidade(idcorretor: string, idtipoimovel: str
 
     return {data, error}
 }
+
+export async function removerRegiao(id: string, regiao: {estado: string, cidade: string}){
+    const { data, error } = await supabase
+    .from('usuarioporregiao')
+    .delete()
+    .eq('idusuario', id)
+    .eq('regiao->>cidade', regiao.cidade)
+    .eq('regiao->>estado', regiao.estado)
+
+    return {data, error}
+}
+
+export async function adicionarRegiao(id: string, regiao: Json){
+    const { data, error } = await supabase
+    .from('usuarioporregiao')
+    .insert([{idusuario: id, regiao}])
+    .select()
+
+    return {data, error}
+}
+
+

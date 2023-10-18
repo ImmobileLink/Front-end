@@ -10,6 +10,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../../lib/database.types";
 import { updateCorporacaoProfile } from "../../../../../../../../../lib/utils/EditProfile";
 import { useRouter } from "next/navigation";
+import EditRegiaoAtuacao from "./EditRegiaoAtuacao";
 
 interface EditProfileProps {
     data: Corporacao | null;
@@ -20,6 +21,10 @@ export default function EditProfile({ data }: EditProfileProps) {
 
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
+
+    const [dropdownTipos, setDropdownTipos] = useState<boolean>(false); //vai reger esse dropdown de tipos de imóveis
+    const [dropdownRegiao, setDropdownRegiao] = useState<boolean>(false); //vai reger esse dropdown de regioes de atuacao
+    const dropdown = { dropdownTipos, setDropdownTipos, dropdownRegiao, setDropdownRegiao }
 
     const [errorCep, setErrorCep] = useState<string | undefined>()
 
@@ -153,6 +158,10 @@ export default function EditProfile({ data }: EditProfileProps) {
                                 cols={30}
                                 rows={2}
                                 className="py-2.5 px-0 w-full text-base text-gray-900   border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent"></textarea>
+                        </div>
+
+                        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                            <EditRegiaoAtuacao props={dropdown} />
                         </div>
 
                         <h2 className="text-lg font-bold">Localidade</h2>

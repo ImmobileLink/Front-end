@@ -8,6 +8,7 @@ import { useProfileStore } from "../../../../../../../../../lib/store/profileSto
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../../lib/database.types";
 import { useProfileContext } from "../../../Provider/ProviderProfile";
+import { adicionarRegiao, removerRegiao } from "../../../../../../../../../lib/utils/EditProfile";
 
 interface EditEspecialidades {
     props: any;
@@ -36,11 +37,11 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
     const [selectedState, setSelectedState] = useState<string>('');
     const [cities, setCities] = useState<City[]>([]);
     const [loading, setLoading] = useState<boolean>(false)
-    const [error, setError] = useState(false)
-    const [sucess, setSucess] = useState(false)
+    const [error, setError] = useState<string | undefined>(undefined)
+    const [sucess, setSucess] = useState<string | undefined>(undefined)
 
-    const [regiaoAtuacao, setRegiaoAtuacao] = useState<{ estado: string, cidade: string }[]>([]);
-    const [regioesIncluidas, setRegioesIncluidas] = useState<{ cidade: string;estado: string;}[]>([]);
+    const [regioesIncluidas, setRegioesIncluidas] = useState<{ cidade: string; estado: string; }[]>([]);
+
 
     const state = useProfileStore.getState()
     const signup4 = state.dict?.auth.signup.signup4!
@@ -51,16 +52,13 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
     useEffect(() => {
         if (areasAtuacao) {
             areasAtuacao?.forEach((item) => {
-
-                setRegiaoAtuacao((prev) => [...prev, { estado: item.estado, cidade: item.cidade }])
-                setRegioesIncluidas((prev) => [...prev, { estado: item.estado, cidade: item.cidade  }]);
+                setRegioesIncluidas((prev) => [...prev, { estado: item.estado, cidade: item.cidade }]);
             })
         }
     }, [])
 
     useEffect(() => {
         setAreasAtuacao(regioesIncluidas)
-        console.log(regioesIncluidas)
     }, [regioesIncluidas])
 
 
@@ -84,19 +82,45 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
         fetchCities();
     }, [selectedState]);
 
-    const addRegiao = ({ estado, cidade }: { estado: string, cidade: string }) => {
+    const addRegiao = async ({ estado, cidade }: { estado: string, cidade: string }) => {
         if (!regioesIncluidas.some(item => item.estado === estado && item.cidade === cidade)) {
-            setRegiaoAtuacao((prev) => [
-                ...prev,
-                { estado: estado, cidade: cidade },
-            ]);
-            setRegioesIncluidas((prev) => [...prev, { estado: estado, cidade: cidade }]);
+            const { error } = await adicionarRegiao(state.profileData?.id!, { cidade, estado })
+            if (!error) {
+                props.setDropdownRegiao(!props.dropdownRegiao);
+                setSucess("Regiões atualizadas!")
+                setTimeout(() => {
+                    setSucess(undefined)
+                }, 3000);
+                setRegioesIncluidas((prev) => [...prev, { estado: estado, cidade: cidade }]);
+            } else {
+                setError("Falha ao atualizar regiões")
+                setTimeout(() => {
+                    setError(undefined)
+                }, 3000);
+            }
+        } else {
+            props.setDropdownRegiao(!props.dropdownRegiao);
+            setError("Região já incluida")
+            setTimeout(() => {
+                setError(undefined)
+            }, 3000);
         }
     };
 
-    const removeRegiao = ({ estado, cidade }: { estado: string, cidade: string }) => {
-        setRegiaoAtuacao((prev) => prev.filter((item) => (item.cidade !== cidade || item.estado !== estado)));
-        setRegioesIncluidas((prev) => prev.filter((item) => (item.cidade !== cidade || item.estado !== estado)));
+    const removeRegiao = async ({ estado, cidade }: { estado: string, cidade: string }) => {
+        const { error } = await removerRegiao(state.profileData?.id!, { cidade, estado })
+        if (!error) {
+            setSucess("Regiões atualizadas!")
+            setTimeout(() => {
+                setSucess(undefined)
+            }, 3000);
+            setRegioesIncluidas((prev) => prev.filter((item) => (item.cidade !== cidade || item.estado !== estado)));
+        } else {
+            setError("Falha ao atualizar regiões")
+            setTimeout(() => {
+                setError(undefined)
+            }, 3000);
+        }
     };
 
     return (
@@ -104,9 +128,9 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
             <form className="sm:mx-auto sm:w-full sm:max-w-sm">
                 {/* REGIAO */}
                 <div>
-                    <div className="relative w-full mb-6 group">
+                    <div className="relative w-full mb-2 group">
                         <div className="flex justify-between">
-                            <label className="font-medium text-gray-500 dark:text-gray-400">
+                            <label className="text-gray-500 dark:text-gray-300">
                                 {signup4.region}
                             </label>
                             <div className="">
@@ -115,7 +139,7 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
                                 </label>
                                 <select
                                     value={selectedState}
-                                    className="bg-dark-200 mb-1 w-16 mx-1"
+                                    className="bg-gray-300 dark:bg-dark-200 mb-1 w-16 mx-1"
                                     onChange={(e) => { setSelectedState(e.target.value); }}
                                     onClick={e => {
                                         props.setDropdownRegiao(false);
@@ -153,7 +177,7 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
                                         : `flex pr-8 flex-wrap gap-2 h-5`
                                 }
                             >
-                                {regiaoAtuacao?.map((item) => (
+                                {regioesIncluidas?.map((item) => (
                                     <li
                                         className="flex bg-gray-500 dark:bg-gray-200 text-branco dark:text-black rounded-2xl px-2 w-fit"
                                         key={item.cidade}
@@ -197,8 +221,8 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
                             </ul>
                         )}
                     </div>
-                    {sucess && <p className="text-green-500 text-xs mt-1">Especialidade atualizada!</p>}
-                    {error && <p className="text-red-500 text-xs mt-1">Falha ao atualizar especialidades</p>}
+                    {sucess && <p className="text-green-500 text-xs mt-1">{sucess}</p>}
+                    {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
                 </div>
             </form>
         </>

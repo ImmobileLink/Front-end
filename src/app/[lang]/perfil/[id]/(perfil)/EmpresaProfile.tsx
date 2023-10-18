@@ -13,7 +13,7 @@ export default async function page() {
         <>
             <Page.Main>
                 <Cabecalho />
-                <InfosEmpresa dict={state.dict}/>
+                <InfosEmpresa/>
             </Page.Main>
 
             <Page.Right>

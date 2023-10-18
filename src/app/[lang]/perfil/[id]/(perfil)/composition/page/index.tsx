@@ -9,5 +9,5 @@ export const Page = {
   Main: PageMain,
   Right: PageRight,
   Calendar: PageCalendar,
-  Dashboard: PageDashboard
+  Dashboard: PageDashboard,
 }

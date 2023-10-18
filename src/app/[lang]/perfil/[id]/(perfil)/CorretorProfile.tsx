@@ -15,7 +15,7 @@ export default async function page() {
         <>
             <Page.Main>
                 <Cabecalho />
-                <InfosCorretor/>
+                <InfosCorretor />
             </Page.Main>
 
             <Page.Right>
