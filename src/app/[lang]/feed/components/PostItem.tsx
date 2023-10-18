@@ -2,15 +2,17 @@
 import Avatar from "../../(components)/Avatar";
 import Image from "next/image";
 import { PublicacaoCompleta } from "../../../../../lib/modelos";
-import { formataData } from "../../../../../lib/utils/formataData";
+import { formataData } from "../../../../../lib/Utils/formataData";
 import { Card } from "../../(components)/(compositions)/(card)";
 import Dropdown from "./Dropdown";
+import { useRouter } from "next/navigation";
 import {
     BsChatSquareText,
     BsHeart,
     BsShare,
     BsThreeDots,
 } from "react-icons/bs";
+import Link from "next/link";
 
 interface PostItemProps {
     publicacao: PublicacaoCompleta;
@@ -73,7 +75,16 @@ export default function PostItem({
                             </div>
                         </div>
                         <div className="flex justify-end">
-                            {publicacao.idautor != idusuario ? children : null}
+                            {publicacao.idautor != idusuario ? (
+                                <Link
+                                    href={`/redirect/chat/${publicacao.idautor}`}
+                                >
+                                    {/* {children} */}
+                                    <button className="w-fit text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 font-medium rounded-lg text-sm px-10 py-2.5">
+                                        Conversar
+                                    </button>
+                                </Link>
+                            ) : null}
                         </div>
                         {/* <div className="flex gap-4 mb-4">
               <div className="flex text-xl items-center gap-3">
