@@ -4,26 +4,29 @@ import Cabecalho from './components/Cabecalho/Cabecalho';
 import Dashboard from './components/Infos/Empresa/Dashboard/DashboardEmpresa';
 import Calendario from '@/app/[lang]/(components)/Calendario';
 import InfosEmpresa from './components/Infos/InfosEmpresa';
+import DashboardEmpresa from './components/Infos/Empresa/Dashboard/DashboardEmpresa';
 
 export default async function page() {
 
-    const state = useProfileStore.getState()
+    const isAssociado = useProfileStore.getState().isAssociado
 
     return (
         <>
             <Page.Main>
                 <Cabecalho />
-                <InfosEmpresa/>
+                <InfosEmpresa />
             </Page.Main>
 
             <Page.Right>
                 <Page.Dashboard>
-                    <Dashboard />
+                    <DashboardEmpresa />
                 </Page.Dashboard>
 
-                <Page.Calendar>
-                    <Calendario ownId={state.sessionData?.id} idProfile={state.profileData?.id} />
-                </Page.Calendar>
+                {isAssociado && (
+                    <Page.Calendar>
+                        <Calendario />
+                    </Page.Calendar>
+                )}
             </Page.Right>
         </>
     );

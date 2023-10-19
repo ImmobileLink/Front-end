@@ -10,6 +10,7 @@ import Capa from "./Capa";
 import AvatarCabecalho from "./AvatarCabecalho";
 import DashboardCorretor from "../Infos/Corretor/Dashboard/DashboardCorretor";
 import DashboardEmpresa from "../Infos/Empresa/Dashboard/DashboardEmpresa";
+import { Page } from "../../composition/page";
 
 interface InfosPadraoProps {
 }
@@ -53,13 +54,12 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
         </div>
 
         <div className=" pb-7 mx-5 lg:hidden flex justify-center">
-          <Card.Root className="bg-gray-300 max-w-lg">
-            <Card.Content>
+         
+            <Page.Dashboard>
               {profile?.type == "corretor" ? (
                 <DashboardCorretor />
               ): ( <DashboardEmpresa/>)}
-            </Card.Content>
-          </Card.Root>
+            </Page.Dashboard>
         </div>
       </div>
     </>

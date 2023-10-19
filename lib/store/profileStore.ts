@@ -12,8 +12,7 @@ interface ProfileStoreState {
   isOwn: boolean;
   areasAtuacao: AreaAtuacao | null;
   especialidades: Especialidades | null;
-  setEspecialidades: (newEspecialidades: Especialidades) => void;
-
+  isAssociado: boolean | null | undefined;
 }
 
 // Função para criar a store
@@ -25,6 +24,5 @@ export const useProfileStore = create<ProfileStoreState>((set) => ({
   isOwn: false,
   areasAtuacao: null,
   especialidades: null,
-  setEspecialidades: (newEspecialidades: Especialidades) => set({ especialidades: newEspecialidades }),
-
+  isAssociado: false
 }));

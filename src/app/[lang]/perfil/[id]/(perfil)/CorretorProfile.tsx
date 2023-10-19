@@ -8,7 +8,7 @@ import { Corretor } from '../../../../../../lib/modelos';
 
 export default async function page() {
 
-    const state = useProfileStore.getState()
+    const isAssociado = useProfileStore.getState().isAssociado
 
     return (
 
@@ -23,9 +23,13 @@ export default async function page() {
                     <DashboardCorretor />
                 </Page.Dashboard>
 
-                <Page.Calendar>
-                    <Calendario ownId={state.sessionData?.id} idProfile={state.profileData?.id} />
-                </Page.Calendar>
+                {isAssociado && (
+                    <Page.Calendar>
+                        <Calendario />
+                    </Page.Calendar>
+                )}
+
+
             </Page.Right>
         </>
 

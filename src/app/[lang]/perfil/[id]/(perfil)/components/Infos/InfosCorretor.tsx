@@ -22,9 +22,6 @@ export default function InfosCorretor({ }: InfosProps) {
 
   const { activeTab, setTab, tabsRef } = useButtonContext()
 
-/*   useEffect(() => {
-
-  }, [activeTab]) */
 
   return (
     <div className='ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-700 drop-shadow-md bg-white rounded-md mt-3'>
@@ -63,7 +60,7 @@ export default function InfosCorretor({ }: InfosProps) {
         >
           <p>
             This is
-            <span className="font-medium text-gray-800 dark:text-white">
+            <span id='dashboard' className="font-medium text-gray-800 dark:text-white">
               Dashboard tab's associated content
             </span>
             .
@@ -86,23 +83,7 @@ export default function InfosCorretor({ }: InfosProps) {
             control the content visibility and styling.
           </p>
         </Tabs.Item>
-      </Tabs.Group>
-
-      <div className="pb-4 pt-2 text-sm text-gray-500 dark:text-gray-400">Active tab: {activeTab}</div>
-      <Button.Group>
-        <Button color="gray" onClick={() => tabsRef.current?.setActiveTab(0)}>
-          Profile
-        </Button>
-        <Button color="gray" onClick={() => tabsRef.current?.setActiveTab(1)}>
-          Dashboard
-        </Button>
-        <Button color="gray" onClick={() => tabsRef.current?.setActiveTab(2)}>
-          Settings
-        </Button>
-        <Button color="gray" onClick={() => tabsRef.current?.setActiveTab(3)}>
-          Contacts
-        </Button>
-      </Button.Group>
+      </Tabs.Group>      
     </div>
   );
 };

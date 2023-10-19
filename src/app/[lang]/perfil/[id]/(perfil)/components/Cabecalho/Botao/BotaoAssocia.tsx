@@ -103,13 +103,12 @@ export default function BotaoAssocia({  }: botaoAddProps) {
 
 
   const desassocia = async () => {
-    setLoading(true)
+    setEstado("Associar")
 
     const { data, error } = await desassociarPerfis(id.corretor, id.corporacao)
 
-    if (!error) {
-      setLoading(false)
-      setEstado("Associar")
+    if (error) {
+      setEstado("Associado")
     }
     props.setOpenModal(undefined)
   }
@@ -119,34 +118,31 @@ export default function BotaoAssocia({  }: botaoAddProps) {
   const handleClick = async () => {
 
     if (estado == "Associar") {
-      setLoading(true)
+      setEstado("Pendente")
 
       const { data, error } = await sendConvite(id.corretor, id.corporacao, idSession)
-      if (!error) {
-        setLoading(false)
-        setEstado("Pendente")
+      if (error) {
+        setEstado("Associar")
       }
 
     } else if (estado === "Pendente") {
-      setLoading(true)
+      setEstado("Associar")
 
       const { data, error } = await cancelaConvite(id.corretor, id.corporacao)
 
-      if (!error) {
-        setLoading(false)
-        setEstado("Associar")
+      if (error) {
+        setEstado("Pendente")
       }
 
     } else if (estado === "Associado") {
       props.setOpenModal('pop-up')
 
     } else if (estado === "Aceitar") {
-      setLoading(true)
+      setEstado("Associado")
       const { data, error } = await aceitarConvite(id.corretor, id.corporacao)
 
-      if (!error) {
-        setLoading(false)
-        setEstado("Associado")
+      if (error) {
+        setEstado("Aceitar")
       }
     }
   };
@@ -159,7 +155,7 @@ export default function BotaoAssocia({  }: botaoAddProps) {
     'bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 ': estado === 'Associar',
     'bg-green-700 hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-700 ': estado === 'Associado',
     'bg-yellow-700 hover:bg-yellow-800 dark:bg-yellow-600 dark:hover:bg-yellow-700 ': estado === 'Pendente',
-    'bg-blue-800 hover:bg-yellow-800 dark:bg-yellow-600 dark:hover:bg-yellow-700 ': estado === 'Aceitar'
+    'bg-blue-800 hover:bg-blue-900 dark:bg-blue-800  dark:hover:bg-blue-900 ': estado === 'Aceitar'
   });
 
 

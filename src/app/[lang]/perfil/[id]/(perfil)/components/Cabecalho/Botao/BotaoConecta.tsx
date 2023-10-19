@@ -87,13 +87,12 @@ export default function BotaoAssocia({ }: botaoAddProps) {
 
 
   const desassocia = async () => {
-    setLoading(true)
+    setEstado("Solicitar amizade")
 
     const { data, error } = await desassociarPerfis(idConexao!)
 
-    if (!error) {
-      setLoading(false)
-      setEstado("Solicitar amizade")
+    if (error) {
+      setEstado("Amigo")
     }
     props.setOpenModal(undefined)
   }
@@ -103,33 +102,30 @@ export default function BotaoAssocia({ }: botaoAddProps) {
   const handleClick = async () => {
 
     if (estado == "Solicitar amizade") {
-      setLoading(true)
+      setEstado("Pendente")
 
       const { data, error } = await sendConvite(state.profileData?.id!, state.sessionData?.id!)
-      if (!error) {
-        setLoading(false)
-        setEstado("Pendente")
+      if (error) {
+        setEstado("Solicitar amizade")
       }
 
     } else if (estado === "Pendente") {
-      setLoading(true)
+      setEstado("Solicitar amizade")
       const { data, error } = await cancelaConvite(idConexao!)
 
-      if (!error) {
-        setLoading(false)
-        setEstado("Solicitar amizade")
+      if (error) {
+        setEstado("Pendente")
       }
 
     } else if (estado === "Amigo") {
       props.setOpenModal('pop-up')
 
     } else if (estado === "Aceitar amizade") {
-      setLoading(true)
+      setEstado("Amigo")
       const { data, error } = await aceitarConvite(idConexao!)
 
-      if (!error) {
-        setLoading(false)
-        setEstado("Amigo")
+      if (error) {
+        setEstado("Aceitar amizade")
       }
     }
   };

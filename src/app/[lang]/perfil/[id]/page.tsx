@@ -54,17 +54,18 @@ export default async function page({ params: { id, lang } }: pageProps) {
   const dict = await getDictionary(lang)
 
   const isOwnProfile = sessionData?.id == profileData?.id
+  const isAssociado = !!(sessionData.id && sessionData.assoc?.some((item) => item.id === profileData.id));
 
   const areasAtuacao = (await getAreasAtuacao(profileData?.id!)).usuarioporregiao
   const especialidades = profileData.type == "corretor" ? (await getEspecialidades(id)).especialidades : null
   const historico = profileData.type == "corretor" ? (await getHistorico(id)).historico : null
 
 
-  useProfileStore.setState({ profileData: profileData, profileFullData: profileFullData, sessionData: sessionData, dict: dict, isOwn: isOwnProfile })
+  useProfileStore.setState({ profileData: profileData, profileFullData: profileFullData, sessionData: sessionData, dict: dict, isOwn: isOwnProfile, isAssociado: isAssociado })
 
   return (
     <ProviderContext areas={areasAtuacao} esp={especialidades} hist={historico}>
-      <StoreInitializer isOwn={isOwnProfile} profileData={profileData} sessionData={sessionData} profileFullData={profileFullData} dict={dict} />
+      <StoreInitializer isOwn={isOwnProfile} profileData={profileData} sessionData={sessionData} profileFullData={profileFullData} dict={dict} isAssociado={isAssociado}/>
       {profileData.id ?
         profileData.type! == "corretor" ? (
           <CorretorProfile />
