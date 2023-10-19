@@ -7,9 +7,8 @@ import { Card } from "../../(components)/(compositions)/(card)";
 import Dropdown from "./Dropdown";
 import { useRouter } from "next/navigation";
 import {
-    BsChatSquareText,
-    BsHeart,
-    BsShare,
+    BsFillBookmarkPlusFill,
+    BsBookmarkCheckFill,
     BsThreeDots,
 } from "react-icons/bs";
 import Link from "next/link";
@@ -27,6 +26,7 @@ export default function PostItem({
     publicacao,
     dict,
 }: PostItemProps) {
+    const router = useRouter();
     const [readMore, isReadMore] = useState(false);
 
     return (
@@ -48,19 +48,34 @@ export default function PostItem({
                                 </div>
                             </div>
                             <div className="h-full">
+                                {/** TO DO: Incluir variação de botões para o próprio post -> Meu perfil, salvar, excluir */}
                                 <Dropdown
                                     label={<BsThreeDots />}
                                     items={[
+                                        // if not from the author && not saved -> Salvar
+                                        // else -> option "Remover dos items salvos"
                                         {
-                                            label: "reportar",
+                                            label: (
+                                                <div className="flex items-center">
+                                                    <BsFillBookmarkPlusFill />
+                                                    <a className="pl-1">{"Salvar publicação"}</a>
+                                                </div>
+                                            ),
                                             onClick: () => {
-                                                alert("reportado!");
+                                                console.log("ver mais!");
                                             },
                                         },
                                         {
-                                            label: "ver mais",
+                                            label: "Ver perfil",
                                             onClick: () => {
-                                                alert("ver mais!");
+                                                router.push(`/perfil/${publicacao.idautor}`)
+                                            },
+                                        },
+                                        
+                                        {
+                                            label: "Denunciar",
+                                            onClick: () => {
+                                                console.log("reportar");
                                             },
                                         },
                                     ]}
