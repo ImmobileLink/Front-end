@@ -3,7 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import Avatar from "../../(components)/Avatar";
 import { BiArrowBack } from "react-icons/bi";
-import { ChatContext } from "../[[...idsala]]/ChatContext";
+import { ChatContext } from "../[[...idsala]]/chatContext";
 
 interface ChatHeaderProps {
     idparticipante: string | null,

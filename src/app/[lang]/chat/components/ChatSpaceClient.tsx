@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode, Suspense, useContext, useEffect } from "react";
-import { ChatContext } from "../[[...idsala]]/ChatContext";
+import { ChatContext } from "../[[...idsala]]/chatContext";
 import BottomNav from "./BottomNav";
 import { Chat } from "@/app/i18n/dictionaries/types";
 import { NotificationContext } from "../../(components)/(navbar)/NotificationContext";
