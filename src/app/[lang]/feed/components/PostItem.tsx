@@ -75,7 +75,7 @@ export default function PostItem({
                                         {
                                             label: "Denunciar",
                                             onClick: () => {
-                                                console.log("reportar");
+                                                router.push(`/denuncia/${publicacao.id}`)
                                             },
                                         },
                                     ]}

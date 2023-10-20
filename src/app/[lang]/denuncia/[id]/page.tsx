@@ -6,6 +6,8 @@ import NavBar from "../../(components)/(navbar)/NavBar";
 import { getDictionary } from "../../dictionaries";
 import Link from "next/link";
 import Image from "next/image";
+import CardRoot from "../../(components)/(compositions)/(card)/CardRoot";
+import CabecalhoForm from "./components/CabecalhoForm";
 
 interface pageProps {
     params: {
@@ -24,9 +26,12 @@ export const createServerSupabaseClient = cache(() => {
 export default async function ReportForm({ params: { id, lang } }: pageProps) {
     const supabase = createServerSupabaseClient();
     const dict = await getDictionary(lang);
-    // publi -> params.id
+    
+    let { data } = await supabase
+    .rpc('get_publicacao_por_id', {pubid: id})
+
     return (
-        <div className="w-screen h-screen bg-branco dark:bg-dark-200 justify-center">
+        <div className="w-full h-fit min-h-screen bg-branco dark:bg-dark-200">
             <nav className="w-full sticky top-0 z-50 bg-white dark:bg-gray-900 h-[72px] max-h-[72px]">
                 <div className="max-w-2xl md:max-w-3xl lg:max-w-6xl flex flex-wrap items-center justify-center mx-auto px-2 py-4 md:pt-3 md:pb-3 max-h-[72px]">
                     <div className="flex items-center">
@@ -45,7 +50,13 @@ export default async function ReportForm({ params: { id, lang } }: pageProps) {
                     </div>
                 </div>
             </nav>
-            DENÚNCIA
+            <div className="space-y-6 sm:mx-auto w-full lg:w-11/12 lg:min-w-[900px]">
+                <div className="relative z-0 w-full group py-4">
+                    <CardRoot className="h-full px-8 md:px-0">
+                        <CabecalhoForm publicacao={data}/>
+                    </CardRoot>
+                </div>
+            </div>
         </div>
     );
 }
