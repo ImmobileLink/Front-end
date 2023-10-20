@@ -3,7 +3,7 @@ import { Chat } from "@/app/i18n/dictionaries/types";
 import { UltimaMensagemPorSalaPorUsuario } from "../../../../../lib/modelos"
 import Avatar from "../../(components)/Avatar";
 import Link from "next/link";
-import { ChatContext } from "../[[...idsala]]/ChatContext";
+import { ChatContext } from "../[[...idsala]]/chatContext";
 import { useContext, useEffect, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";

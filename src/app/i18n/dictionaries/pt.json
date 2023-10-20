@@ -359,16 +359,22 @@
   "imovel": {
     "mainlabels": {
       "title": "Meus Imóveis",
-      "delegatevisit": "Delegar Visita",
-      "location": "Localização",
-      "characteristics": "Características",
-      "price": "Valor"
+      "delegatevisit": "Delegar Visita"
     },
     "formlabels": {
+      "infoproperty": {
+        "location": "Localização",
+        "characteristics": "Características",
+        "price": "Valor"
+      },
       "selectbroker": "Selecione um corretor",
       "findbroker": "Encontrar Corretores",
       "delegatevisit": "Delegar Visita",
+      "requiredfields": "Por favor, preencha todos os campos",
+      "warningmsg": "Sua corporação ainda não possui corretores associados.",
+      "clickhere": "Clique aqui para encontrar corretores",
       "brokerdata": "Corretor",
+      "specialty": "Especialidade",
       "clientdata": "Dados do Cliente",
       "scheduling": "Agendamento",
       "name": "Nome",
@@ -376,24 +382,54 @@
       "email": "Email",
       "date": "Data",
       "time": "Horário",
+      "loading": "Carregando",
       "formlogs": {
         "invalidname": "O nome precisa ter no mínimo 10 caracteres",
         "invalidphone": "O telefone precisa ter 10 ou 11 caracteres",
         "invalidemail": "Insira um email válido",
-        "invaliddate": "Selecione uma data",
-        "invalidtime": "Selecione um horário"
+        "invaliddate": "Selecione uma data válida",
+        "invalidtime": "Selecione um horário válido"
+      },
+      "editimg": {
+        "title": "Alterar Imagem do Imóvel",
+        "imageupload": "Clique para fazer upload ou arraste e solte",
+        "imageformat": "PNG, JPG ou JPEG (MAX. 800x400px).",
+        "loading": "Carregando",
+        "confirm": "Confirmar"
       }
     },
     "newproperty": {
       "registerproperty": "Cadastrar Imóvel",
+      "requiredfields": "Campos obrigatórios",
       "register": "Cadastrar",
+      "cep": "CEP",
       "uf": "Estado",
       "city": "Cidade",
       "neighborhood": "Bairro",
       "street": "Rua",
       "number": "Número",
+      "complement": "Complemento",
       "price": "Valor",
-      "description": "Descrição"
+      "type": "Tipo de Imóvel",
+      "furniture": "Mobília",
+      "condition": "Condição",
+      "others": "Outras Características",
+      "selectopt": "Selecione uma opção",
+      "selectopts": "Selecione...",
+      "description": "Descrição",
+      "imageupload": "Carregar imagem",
+      "imageformat": "PNG, JPG ou JPEG (MAX. 800x400px).",
+      "loading": "Carregando",
+      "newpropertylogs": {
+        "invalidcep": "CEP inválido",
+        "invalidcepnotfound": "CEP não encontrado",
+        "invaliduf": "Insira a sigla da unidade federativa",
+        "invalidcity": "A cidade precisa ter no mínimo 2 caracteres",
+        "invalidneighborhood": "O bairro precisa ter no mínimo 2 caracteres",
+        "invalidstreet": "A rua precisa ter no mínimo 2 caracteres",
+        "invalidnumber": "O número da residência não pode ser negativo",
+        "invalidprice": "Coloque, no máximo, duas casas decimais"
+      }
     }
   },
   "chat": {

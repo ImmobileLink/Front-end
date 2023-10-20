@@ -5,10 +5,10 @@ import 'react-calendar/dist/Calendar.css';
 import { Database } from '../../../../lib/database.types';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
+import { useProfileStore } from '../../../../lib/store/profileStore';
 
 interface CalendarioProps {
-    ownId: any;
-    idProfile: any;
+
 }
 
 type Visita = {
@@ -23,10 +23,11 @@ type Eventos = {
 const supabase = createClientComponentClient<Database>()
 
 
-export default function Calendario({ ownId, idProfile }: CalendarioProps) {
+export default function Calendario({  }: CalendarioProps) {
+
     const [visitas, setVisitas] = useState<Visita[] | null>()
 
-    useEffect(() => {
+/*     useEffect(() => {
         const fetchData = async () => {
             let { data: visita, error } = await supabase
                 .from('visita')
@@ -37,7 +38,7 @@ export default function Calendario({ ownId, idProfile }: CalendarioProps) {
         fetchData()
     }, [])
 
-
+ */
     let eventos: { title: string; date: string; }[] = []
 
     if (visitas) {

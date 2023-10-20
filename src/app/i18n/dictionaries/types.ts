@@ -336,46 +336,88 @@ export interface Imovel {
 }
 
 export interface Formlabels {
-    selectbroker: string;
-    findbroker: string;
+    infoproperty:  Infoproperty;
+    selectbroker:  string;
+    findbroker:    string;
     delegatevisit: string;
-    brokerdata: string;
-    clientdata: string;
-    scheduling: string;
-    name: string;
-    phone: string;
-    email: string;
-    date: string;
-    time: string;
-    formlogs: Formlogs;
+    requiredfields:string;
+    warningmsg:    string;
+    clickhere:     string;
+    brokerdata:    string;
+    specialty:     string;
+    clientdata:    string;
+    scheduling:    string;
+    name:          string;
+    phone:         string;
+    email:         string;
+    date:          string;
+    time:          string;
+    loading:       string;
+    formlogs:      Formlogs;
+    editimg:       Editimg;
 }
 
 export interface Formlogs {
-    invalidname: string;
+    invalidname:  string;
     invalidphone: string;
     invalidemail: string;
-    invaliddate: string;
-    invalidtime: string;
+    invaliddate:  string;
+    invalidtime:  string;
+}
+
+export interface Editimg {
+    title:        string;
+    imageupload:  string;
+    imageformat:  string;
+    loading:      string;
+    confirm:      string;
 }
 
 export interface Mainlabels {
-    title: string;
-    delegatevisit: string;
-    location: string;
+    title:           string;
+    delegatevisit:   string;    
+}
+
+export interface Infoproperty {
+    location:        string;
     characteristics: string;
     price: string;
 }
 
 export interface Newproperty {
-    registerproperty: string;
-    register: string;
-    uf: string;
-    city: string;
-    neighborhood: string;
-    street: string;
-    number: string;
-    price: string;
-    description: string;
+  registerproperty: string;
+  requiredfields:   string;
+  register:         string;
+  cep:              string;
+  uf:               string;
+  city:             string;
+  neighborhood:     string;
+  street:           string;
+  number:           string;
+  complement:       string;
+  price:            string;
+  type:             string;
+  furniture:        string;
+  condition:        string;
+  others:           string;
+  selectopt:        string;
+  selectopts:       string;
+  description:      string;
+  imageupload:      string;
+  imageformat:      string;
+  loading:          string;
+  newpropertylogs:  Newpropertylogs;
+}
+
+export interface Newpropertylogs {
+  invalidcep:           string;
+  invalidcepnotfound:   string;
+  invaliduf:            string;
+  invalidcity:          string;
+  invalidneighborhood:  string;
+  invalidstreet:        string;
+  invalidnumber:        string;
+  invalidprice:         string;
 }
 
 export interface Navbarbuttons {

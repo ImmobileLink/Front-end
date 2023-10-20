@@ -8,7 +8,7 @@ import ChatHub from "../components/ChatHub";
 import ChatSpaceClient from "../components/ChatSpaceClient";
 import { UltimaMensagemPorSalaPorUsuario, userData } from "../../../../../lib/modelos";
 import { getAssoc, getLinks, getTipoUsuario } from "../../../../../lib/utils/userData";
-import { ChatProvider } from "./ChatContext";
+import { ChatProvider } from "./chatContext";
 
 interface pageProps {
   params: {

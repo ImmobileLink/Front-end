@@ -1,5 +1,5 @@
 import NavBar from "../../(components)/(navbar)/NavBar";
-import ProviderProfile from "./(perfil)/reactQuery/ProviderProfile";
+import { Page } from "./(perfil)/composition/page";
 
 export const metadata = {
   title: "ImmobileLink - Perfil",
@@ -14,9 +14,11 @@ interface RootLayout {
 export default async function RootLayout({ children, params: { lang } }: RootLayout) {
 
   return (
-    <ProviderProfile>
+    <>
       <NavBar params={{ lang: lang }} />
-      {children}
-    </ProviderProfile>
+      <Page.Root>
+        {children}
+      </Page.Root>
+    </>
   );
 }
