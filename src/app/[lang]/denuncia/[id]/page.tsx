@@ -51,8 +51,8 @@ export default async function ReportForm({ params: { id, lang } }: pageProps) {
                 </div>
             </nav>
             <div className="space-y-6 sm:mx-auto w-full lg:w-11/12 lg:min-w-[900px]">
-                <div className="relative z-0 w-full group py-4">
-                    <CardRoot className="h-full px-8 md:px-0">
+                <div className="flex justify-center z-0 w-full group py-4">
+                    <CardRoot className="h-full md:w-8/12 px-8 md:px-0">
                         <CabecalhoForm publicacao={data}/>
                     </CardRoot>
                 </div>
