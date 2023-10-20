@@ -8,11 +8,13 @@ import { Spinner } from 'flowbite-react';
 interface ImovelImgProps {
     usuarioId: string;
     imagemId: string;
+    smHeight: string;
+    lgHeight: string;
 }
 
 const supabase = createClientComponentClient<Database>();
 
-export default function ImovelImg({ usuarioId, imagemId }: ImovelImgProps) {
+export default function ImovelImg({ usuarioId, imagemId, smHeight, lgHeight }: ImovelImgProps) {
   const [src, setSrc] = useState(`imoveis/${usuarioId}/${imagemId}`);
   const [loading, setLoading] = useState(true);
 
@@ -29,7 +31,7 @@ export default function ImovelImg({ usuarioId, imagemId }: ImovelImgProps) {
         <>
           {(imagemId.length !== 0) ? (
             <Image
-                className="w-full max-h-64 sm:h-56 lg:h-48 rounded-md z-0"
+                className={`w-full max-h-64 ${smHeight} ${lgHeight} rounded-md z-0`}
                 src={src}
                 width={1}
                 height={1}
@@ -39,7 +41,7 @@ export default function ImovelImg({ usuarioId, imagemId }: ImovelImgProps) {
             />
           ) : (
             <Image
-              className="w-full max-h-64 sm:h-56 lg:h-48 rounded-md z-0"
+              className={`w-full max-h-64 ${smHeight} ${lgHeight} rounded-md z-0`}
               src="imoveis/default"
               width={1}
               height={1}

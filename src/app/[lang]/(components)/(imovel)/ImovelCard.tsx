@@ -54,6 +54,8 @@ export default function ImovelCard({
             <ImovelImg
               usuarioId={userid!}
               imagemId={imovel!.imagem!}
+              smHeight="sm:h-56"
+              lgHeight="lg:h-48"
             />
         </div>
 

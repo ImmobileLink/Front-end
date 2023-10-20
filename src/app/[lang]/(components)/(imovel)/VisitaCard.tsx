@@ -150,6 +150,8 @@ export default function VisitaCard({ props }: VisitaCardProps) {
                       <ImovelImg
                         usuarioId={props.userid!}
                         imagemId={props.imovel!.imagem!}
+                        smHeight=""
+                        lgHeight=""
                       />
                       </div>
                       <div className="absolute inset-0 flex items-end justify-end">
