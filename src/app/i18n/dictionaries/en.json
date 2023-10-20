@@ -405,5 +405,40 @@
   "cityselector": {
     "estate": "Estate",
     "city": "City"
+  },
+  "home": {
+      "about": "About the platform",
+      "resources": "Resources",
+      "premium": "Premium",
+      "access": "ACCESS PLATFORM",
+      "conecting": "Connecting business,",
+      "ties": " ties and real estate",
+      "whatIsImmobileLink": "ImmobileLink is a platform that seeks to facilitate contact between brokers, construction companies and real estate agencies. Find the right professional for the right property.",
+      "searchOpportunities": "Search for opportunities",
+      "searchParagraph": "Look for partnership opportunities with different real estate agencies and brokers in the market. We offer a collaborative environment that contributes to build and demonstrate credibility for professionals and real estate companies. Demonstrate your experience, performance, portfolio and form ties with different professionals and organizations as you wish.",
+      "manageYourCalendar": "Manage your calendar, control your links and get real feedback!",
+      "manageParagraph": "Take advantage of the best resources to help manage time, activities, scheduling, communication, visualization and performance evaluation of your work and your partners with our complete and personalized dashboard.",
+      "amazingResources": "Amazing resources for brokers and companies",
+      "amazingParagraph": "ImmobileLink has exclusive resources to meet the main market needs. Explore a wide range of free and premium features for your needs and your business:",
+      "itemResources": {
+          "item1": "Broker Review",
+          "item2": "User Metrics Dashboard",
+          "item3": "Professional performance feedback",
+          "item4": "Creation of communities",
+          "item5": "Company affiliation",
+          "item6": "Opportunities by sector and region",
+          "item7": "Schedule and control of visits",
+          "item8": "And much more!"
+      },
+      "tryPremium": "TRY PREMIUM",
+      "start": "Let's start?"
+  },
+  "footer": {
+      "usefulLinks": "Useful Links",
+      "access": "Access platform",
+      "premium": "Premium",
+      "moreLinks": "More links",
+      "blog": "Blog",
+      "ytChannel": "YouTube Channel"
   }
 }
