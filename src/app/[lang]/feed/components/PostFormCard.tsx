@@ -5,8 +5,8 @@ import { Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { BsFillExclamationCircleFill, BsFillImageFill } from "react-icons/bs";
 import { City } from "../../../../../lib/modelos";
-import { publishPost } from "../../../../../lib/Utils/Posts";
-import { _UFs } from "../../../../../lib/Utils/getRegiao";
+import { publishPost } from "../../../../../lib/utils/Posts";
+import { _UFs } from "../../../../../lib/utils/getRegiao";
 import Avatar from "../../(components)/Avatar";
 import ImageUpload from "./ImageUpload";
 

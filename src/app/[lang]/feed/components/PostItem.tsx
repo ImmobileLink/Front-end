@@ -2,7 +2,7 @@
 import Avatar from "../../(components)/Avatar";
 import Image from "next/image";
 import { PublicacaoCompleta } from "../../../../../lib/modelos";
-import { formataData } from "../../../../../lib/Utils/formataData";
+import { formataData } from "../../../../../lib/utils/formataData";
 import { Card } from "../../(components)/(compositions)/(card)";
 import Dropdown from "./Dropdown";
 import { BsChatSquareText, BsHeart, BsShare, BsThreeDots } from "react-icons/bs";

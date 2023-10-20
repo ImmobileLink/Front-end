@@ -4,7 +4,7 @@ import { useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import { AiOutlineFileImage, AiOutlineSend } from "react-icons/ai";
-import { insertMessage } from "../../../../../lib/Utils/Messages";
+import { insertMessage } from "../../../../../lib/utils/Messages";
 import ImageUpload from "./ImageUpload";
 import { MdInsertEmoticon } from "react-icons/md";
 import { BiSolidImage } from "react-icons/bi";
