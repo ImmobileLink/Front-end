@@ -4,7 +4,7 @@ import { FormEvent, useContext, useEffect, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import { TipoImovel, City, filterType, CorporacaoBuscada, CorretorBuscado } from "../../../../../lib/modelos";
-import { _UF_converter, _UFs } from "../../../../../lib/utils/getRegiao";
+import { _UF_converter, _UFs } from "../../../../../lib/Utils/getRegiao";
 import { Card } from "../../(components)/(compositions)/(card)";
 import { SearchContext } from "./SearchContext";
 

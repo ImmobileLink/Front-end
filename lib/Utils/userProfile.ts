@@ -36,9 +36,9 @@ async function verifyIfIsAssociado(idProfile: string, idSession:string) {
     const supabase = createServerSupabaseClient();
 
     let { data: isAssociado } = await supabase
-        .rpc('verifica_associacao', {
-            valor1: idProfile,
-            valor2: idSession!
+        .rpc('verifica_se_conexao_existe', {
+            uuid1: idProfile,
+            uuid2: idSession!
         })
 
     return isAssociado;

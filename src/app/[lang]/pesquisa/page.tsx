@@ -5,7 +5,7 @@ import { Card } from "../(components)/(compositions)/(card)";
 import { Page } from "../(components)/(compositions)/(page)";
 import type { Database } from "../../../../lib/database.types";
 import { userData } from '../../../../lib/modelos';
-import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/utils/userData";
+import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/Utils/userData";
 import { getDictionary } from "../dictionaries";
 import PesquisaCard from "./components/PesquisaCard";
 import { SearchProvider } from "./components/SearchContext";
