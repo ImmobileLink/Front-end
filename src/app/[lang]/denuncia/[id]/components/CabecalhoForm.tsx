@@ -32,19 +32,16 @@ const submitReport = async (
 ) => {
     const supabase = createClientComponentClient<Database>({});
     if (problema != "") {
-        let motivoDenuncia = problema;
         const {
             data: { session },
         } = await supabase.auth.getSession();
 
-        if (motivo != "") {
-            motivoDenuncia += ": " + motivo;
-        }
         let { data } = await supabase.from("denuncia").insert({
             idusuario: session?.user.id!,
             idpublicacao: publicacao![0]?.id,
             idautor: publicacao![0]?.idautor,
-            motivo: motivoDenuncia,
+            motivo: problema,
+            descricao: motivo,
         });
 
         isSubmitted(true);
