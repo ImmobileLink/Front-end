@@ -1282,6 +1282,15 @@ export interface Database {
           imagem: string
         }[]
       }
+      obter_cidade_estado_por_usuario: {
+        Args: {
+          user_id: string
+        }
+        Returns: {
+          cidade: string
+          estado: string
+        }[]
+      }
       obter_cinco_corretores_id: {
         Args: Record<PropertyKey, never>
         Returns: {

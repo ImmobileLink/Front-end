@@ -52,7 +52,7 @@ export interface AtualizaImovel {
     valor: number,
     imagem: string,
     caracteristicas: Json
-  }
+}
 export interface ImovelSemCorporacao {
     id: string,
     rua: string,
@@ -150,6 +150,7 @@ export interface UltimaMensagemPorSalaPorUsuario {
 export type userData = {
     id?: string;
     avatar?: string;
+    capa?: string;
     nome?: string;
     isPremium?: boolean;
     type?: string;
@@ -194,16 +195,37 @@ export type CorporacaoPorRegiao = {
         cidade: string,
         estado: string
     }[] | null;
-} 
+}
 
 export type filterType = {
     tipoUsuario: string;
     estado: string;
     cidade: string;
     avaliacao: number;
-    especialidades: string[];
-  }
+    especialidades: string[];}
+
 
   export type salaUsuario = {
     idsala:string
   }
+
+
+export type Historico = {
+    data_fim: string | null;
+    data_inicio: string;
+    descricao: string | null;
+    id: string | null;
+    id_corporacao: string | null;
+    id_corretor: string;
+    nome_empresa: string | null;
+}[] | null;
+
+export type AreaAtuacao = {
+    cidade: string;
+    estado: string;
+}[] | null
+
+export type Especialidades = {
+    id: string;
+    descricao: string;
+}[] | null
