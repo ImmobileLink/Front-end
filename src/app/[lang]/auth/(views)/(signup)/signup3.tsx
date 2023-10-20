@@ -4,7 +4,7 @@ import { Signup3 } from "@/app/i18n/dictionaries/types";
 import InputMask from "react-input-mask";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { assignError, getCEP } from "./validations";
-import { _UFs } from "../../../../../../lib/utils/getRegiao";
+import { _UFs } from "../../../../../../lib/Utils/getRegiao";
 interface Signup3Props {
     props: {
         nome: string;

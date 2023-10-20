@@ -6,7 +6,7 @@ import NavBar from "../(components)/(navbar)/NavBar";
 import Imoveis from "../(components)/(imovel)/Imoveis";
 import ImovelCard from "../(components)/(imovel)/ImovelCard";
 import { userData } from "../../../../lib/modelos";
-import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/utils/userData";
+import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/Utils/userData";
 import { cache } from "react";
 
 interface pageProps {
