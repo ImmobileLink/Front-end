@@ -26,9 +26,12 @@ export default async function Page({ params: { lang, idsala } }: pageProps) {
   const supabase = createServerSupabaseClient()
   const dict = await getDictionary(lang); // pt
 
-  let salaid = idsala
+  let salaid = ''
   if (Array.isArray(idsala)) {
     salaid = idsala[0]
+  }
+  else {
+    salaid=idsala
   }
 
   async function getUserData() {
