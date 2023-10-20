@@ -769,7 +769,7 @@ export interface Database {
         Row: {
           aceito: boolean | null
           dadosmarcador: Json
-          dataAgendamento: string
+          dataagendamento: string
           id: string
           idcorporacao: string
           idcorretor: string
@@ -779,7 +779,7 @@ export interface Database {
         Insert: {
           aceito?: boolean | null
           dadosmarcador: Json
-          dataAgendamento: string
+          dataagendamento: string
           id?: string
           idcorporacao: string
           idcorretor: string
@@ -789,7 +789,7 @@ export interface Database {
         Update: {
           aceito?: boolean | null
           dadosmarcador?: Json
-          dataAgendamento?: string
+          dataagendamento?: string
           id?: string
           idcorporacao?: string
           idcorretor?: string
