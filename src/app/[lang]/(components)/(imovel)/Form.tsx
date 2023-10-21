@@ -11,6 +11,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { v4 as uuidv4 } from "uuid";
 import InputMask from "react-input-mask";
 import { Spinner } from "flowbite-react";
+import { _UFs } from "../../../../../lib/Utils/getRegiao";
 {/* @ts-ignore */}
 import Select, { StylesConfig, ValueType } from "react-select";
 
@@ -51,7 +52,8 @@ export default function Form({ props }: FormProps) {
   const [type, setType] = useState<TipoImovel>({id:"", descricao:"", classificacao:""});
   const [selectedOptions, setSelectedOptions] = useState<ValueType<TipoImovel>>({id:"", descricao:"", classificacao:""});
 
-  const [disabilitarInput, isDisabilitarInput] = useState(false);
+  const [disableInput, isDisableInput] = useState(false);
+  const [notFound, isNotFound] = useState(false);
 
   const handleCadastrarImagem = async () => {
     // Enviar o arquivo para o Supabase Storage
@@ -158,7 +160,7 @@ export default function Form({ props }: FormProps) {
   };
 
   const autoCompletaEndereco = async () => {
-    isDisabilitarInput(false);
+    isDisableInput(false);
     const data = await getCEP(cep);
 
     if (!data.erro) {
@@ -169,16 +171,18 @@ export default function Form({ props }: FormProps) {
       if (data.complemento != "") {
         setComplemento(data.complemento);
       }
-      isDisabilitarInput(true);
+      isNotFound(false);
+      isDisableInput(true);
     } else {
+      isNotFound(true);
       apagaCampos();
-      isDisabilitarInput(false);
+      isDisableInput(false);
     }
     console.error(data.erro);
   };
 
   useEffect(() => {
-    isDisabilitarInput(false);
+    isDisableInput(false);
     const regexCep = /^\d{8}$/;
     if (cep.length == 8) {
       if (!regexCep.test(cep)) {
@@ -218,7 +222,7 @@ export default function Form({ props }: FormProps) {
     }),
     placeholder: (styles) => ({
       ...styles,
-      color: darkMode.matches ? "#fff" : "rgb(55 65 81)",
+      color: darkMode.matches ? "white" : "rgb(55 65 81)",
       fontSize: minSize.matches ? "0.875rem" : "0.75rem",
       height: "20px",
     }),
@@ -231,6 +235,10 @@ export default function Form({ props }: FormProps) {
       ...styles,
       color: "rgb(55 65 81)",
       fontSize: minSize.matches ? "0.875rem" : "0.75rem",
+    }),
+    multiValueRemove: (styles) => ({
+      ...styles,
+      color: "rgb(55 65 81)",
     }),
     valueContainer: (styles) => ({ ...styles, minHeight: "30px" }),
     indicatorsContainer: (styles) => ({ ...styles, minHeight: "30px" }),
@@ -306,15 +314,18 @@ export default function Form({ props }: FormProps) {
                       onChange={(e) =>
                         setCep(e.target.value.replace(/\D/g, ""))
                       }
-                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                      value={cep}
+                      className={`text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 
+                      ${ (notFound || cep.length !== 8) && "[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"}`}
                       type="text"
-                      pattern="\d{5}-\d{3}"
                       placeholder=" "
                       required
                     />
-                    <span className="mt-2 hidden text-xs italic text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-                      {props.textos.newproperty.newpropertylogs.invalidcep}
-                    </span>
+                    { (notFound || cep.length !== 8) && (
+                      <span className="mt-2 hidden text-xs italic text-red-500 peer-[&:not(:placeholder-shown):not(:focus)]:block">
+                        {props.textos.newproperty.newpropertylogs.invalidcep}
+                      </span>
+                    )}
                   </div>
                   <div className="sm:w-1/2 px-3">
                     <label className="text-gray-700 dark:text-white text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
@@ -322,13 +333,20 @@ export default function Form({ props }: FormProps) {
                       <span className="text-red-500"> * </span>
                     </label>
                     <input
-                      disabled={disabilitarInput}
+                      disabled={disableInput}
                       value={estado}
                       onChange={(e) => setEstado(e.target.value)}
-                      className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500"
+                      className={`text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 uppercase 
+                      ${ !_UFs.includes(`${estado.toUpperCase()}`) && "[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"}`}
                       type="text"
                       placeholder=" "
+                      required
                     />
+                    { !_UFs.includes(`${estado}`) && (
+                      <span className="mt-2 hidden text-xs italic text-red-500 peer-[&:not(:placeholder-shown):not(:focus)]:block">
+                        {props.textos.newproperty.newpropertylogs.invaliduf}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="-mx-3 sm:flex mb-6">
@@ -338,7 +356,7 @@ export default function Form({ props }: FormProps) {
                       <span className="text-red-500"> * </span>
                     </label>
                     <input
-                      disabled={disabilitarInput}
+                      disabled={disableInput}
                       value={cidade}
                       onChange={(e) => setCidade(e.target.value)}
                       className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
@@ -359,7 +377,7 @@ export default function Form({ props }: FormProps) {
                       <span className="text-red-500"> * </span>
                     </label>
                     <input
-                      disabled={disabilitarInput}
+                      disabled={disableInput}
                       value={bairro}
                       onChange={(e) => setBairro(e.target.value)}
                       className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
@@ -380,7 +398,7 @@ export default function Form({ props }: FormProps) {
                       <span className="text-red-500"> * </span>
                     </label>
                     <input
-                      disabled={disabilitarInput}
+                      disabled={disableInput}
                       value={rua}
                       onChange={(e) => setRua(e.target.value)}
                       className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
