@@ -5,7 +5,7 @@ import { Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Database } from '../../../../../lib/database.types';
 import { City, PublicacaoCompleta } from "../../../../../lib/modelos";
-import { _UFs } from "../../../../../lib/utils/getRegiao";
+import { _UFs } from "../../../../../lib/Utils/getRegiao";
 import PostItem from "./PostItem";
 
 interface PostListProps {
@@ -16,7 +16,7 @@ interface PostListProps {
 // const supabase = createServerComponentClient<Database>({ cookies });
 const supabase = createClientComponentClient<Database>()
 
-export default function PostList({ idusuario, textos }: PostListProps) {
+export default function PostList({ idusuario, textos}: PostListProps) {
   const [selectedState, setSelectedState] = useState<string>("");
   const [cities, setCities] = useState<City[]>([]);
   const [selectedCity, setSelectedCity] = useState<string>("");
@@ -256,7 +256,7 @@ export default function PostList({ idusuario, textos }: PostListProps) {
                 }
                 {posts!.map((item: PublicacaoCompleta) => {
                   return (
-                    <PostItem key={item.id} publicacao={item} />
+                    <PostItem dict={textos} idusuario={idusuario} key={item.id} publicacao={item}/>
                   )
                 })}
               </>

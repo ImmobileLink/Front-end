@@ -12,7 +12,7 @@ import { cache } from "react";
 import ChatIcon from "./ChatIcon";
 import { MdPersonSearch } from "react-icons/md";
 import { HiBell, HiHome } from "react-icons/hi2";
-import { getMessageNotifications } from "../../../../../lib/utils/userNotification";
+import { getMessageNotifications } from "../../../../../lib/Utils/userNotification";
 import NotificationDropdown from "./NotificationDropdown";
 
 interface NavBarProps {
