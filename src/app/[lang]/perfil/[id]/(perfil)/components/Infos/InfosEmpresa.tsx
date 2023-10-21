@@ -21,7 +21,7 @@ export default function InfosEmpresa({ }: InfosProps) {
 
 
   return (
-    <div className='ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-700 drop-shadow-md bg-white rounded-md mt-3'>
+    <div className='ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-700 drop-shadow-md bg-white rounded-md mt-3 pb-10'>
       <Tabs.Group
         aria-label="Tabs with underline"
         style="underline"
@@ -34,13 +34,6 @@ export default function InfosEmpresa({ }: InfosProps) {
 
         <Tabs.Item icon={HiDocumentText} title="Posts">
           <p>
-            Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
-            control the content visibility and styling.
-          </p>
-        </Tabs.Item>
-
-        <Tabs.Item icon={MdDashboard} title="Dashboard">
-          <p id='dashboard'>
             Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
             control the content visibility and styling.
           </p>

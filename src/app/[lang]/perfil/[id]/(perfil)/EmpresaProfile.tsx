@@ -1,10 +1,9 @@
 import { useProfileStore } from '../../../../../../lib/store/profileStore';
 import { Page } from './composition/page';
 import Cabecalho from './components/Cabecalho/Cabecalho';
-import Dashboard from './components/Infos/Empresa/Dashboard/DashboardEmpresa';
 import Calendario from '@/app/[lang]/(components)/Calendario';
 import InfosEmpresa from './components/Infos/InfosEmpresa';
-import DashboardEmpresa from './components/Infos/Empresa/Dashboard/DashboardEmpresa';
+import Dashboard from './components/Dashboard/Dashboard';
 
 export default async function page() {
 
@@ -19,7 +18,7 @@ export default async function page() {
 
             <Page.Right>
                 <Page.Dashboard>
-                    <DashboardEmpresa />
+                    <Dashboard/>
                 </Page.Dashboard>
 
                 {isAssociado && (

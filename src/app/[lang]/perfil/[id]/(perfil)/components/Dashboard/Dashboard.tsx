@@ -4,8 +4,10 @@ import Line from "./charts/Line"
 import PolarArea from "./charts/PolarArea"
 import Link from "next/link";
 import { Database } from "@/../lib/database.types";
-import { useButtonContext } from "../../../../context/TabsContext";
-import { useProfileStore } from "../../../../../../../../../../lib/store/profileStore";
+import { useButtonContext } from "../../context/TabsContext";
+import { useProfileStore } from "../../../../../../../../lib/store/profileStore";
+import { useEffect, useState } from "react";
+import Radar from "./charts/Radar";
 
 
 interface DashboardProps {
@@ -13,12 +15,15 @@ interface DashboardProps {
 
 
 
-export default function DashboardEmpresa({}: DashboardProps) {
+export default function Dashboard({ }: DashboardProps) {
 
   const state = useProfileStore.getState()
   const dict = state.dict
   const premium = state.sessionData?.isPremium
   const isLogged = state.sessionData?.id
+
+  const [openCalendar, setOpenCalendar] = useState(false)
+
 
   const { activeTab, setTab, tabsRef } = useButtonContext()
 
@@ -52,20 +57,21 @@ export default function DashboardEmpresa({}: DashboardProps) {
       )
       }
 
-      <div>
-        <div >
+      <div className={`${!openCalendar && "max-h-[380px] md:max-h-[600px]"}`}>
+        <div className="gap-5">
           <PolarArea dict={dict} />
-        </div>
-
-        <div className="mt-5">
           <Line dict={dict} />
+          <Radar />
         </div>
 
-        <div className="flex items-center justify-center underline text-blue-600">
-          <Link href="#dashboard" onClick={() => tabsRef.current?.setActiveTab(2)} className="cursor-pointer">Veja mais</Link>
-        </div>
-
+        {premium && (
+          <div className={`flex items-center justify-center absolute bottom-0 w-full right-0 bg-gradient-to-b from-transparent to-opacity-100 via-yellow-400 to-yellow-700 h-14`}>
+            <Link href="#dashboard" onClick={() => setOpenCalendar(!openCalendar)} className="cursor-pointer text-white font-bold mt-4">{openCalendar ? "Veja menos" : "Veja mais"}</Link>
+          </div>
+        )}
       </div>
+
+
     </>
 
 
