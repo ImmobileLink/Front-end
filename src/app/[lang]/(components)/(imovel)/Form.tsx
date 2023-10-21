@@ -164,6 +164,7 @@ export default function Form({ props }: FormProps) {
     const data = await getCEP(cep);
 
     if (!data.erro) {
+      isNotFound(false);
       setEstado(data.uf);
       setCidade(data.localidade);
       setBairro(data.bairro);
@@ -171,7 +172,6 @@ export default function Form({ props }: FormProps) {
       if (data.complemento != "") {
         setComplemento(data.complemento);
       }
-      isNotFound(false);
       isDisableInput(true);
     } else {
       isNotFound(true);
@@ -321,11 +321,9 @@ export default function Form({ props }: FormProps) {
                       placeholder=" "
                       required
                     />
-                    { (notFound || cep.length !== 8) && (
-                      <span className="mt-2 hidden text-xs italic text-red-500 peer-[&:not(:placeholder-shown):not(:focus)]:block">
-                        {props.textos.newproperty.newpropertylogs.invalidcep}
-                      </span>
-                    )}
+                    <span className="mt-2 hidden text-xs italic text-red-500 peer-[&:not(:placeholder-shown):not(:focus)]:block">
+                      {props.textos.newproperty.newpropertylogs.invalidcep}
+                    </span>
                   </div>
                   <div className="sm:w-1/2 px-3">
                     <label className="text-gray-700 dark:text-white text-xs mb-1 block uppercase tracking-wide text-grey-darker font-bold">
@@ -342,11 +340,9 @@ export default function Form({ props }: FormProps) {
                       placeholder=" "
                       required
                     />
-                    { !_UFs.includes(`${estado}`) && (
-                      <span className="mt-2 hidden text-xs italic text-red-500 peer-[&:not(:placeholder-shown):not(:focus)]:block">
-                        {props.textos.newproperty.newpropertylogs.invaliduf}
-                      </span>
-                    )}
+                    <span className="mt-2 hidden text-xs italic text-red-500 peer-[&:not(:placeholder-shown):not(:focus)]:block">
+                      {props.textos.newproperty.newpropertylogs.invaliduf}
+                    </span>
                   </div>
                 </div>
                 <div className="-mx-3 sm:flex mb-6">
