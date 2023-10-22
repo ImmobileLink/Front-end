@@ -185,58 +185,6 @@ export default function PostFormCard({
                         </button>
                     </div>
                 </div>
-
-                {/* <div className="w-1/3 lg:w-auto">
-          <ImageUpload onImageUpload={handleImageUpload} label={<BsFillImageFill />} />
-        </div>
-        <div className="w-1/3 lg:w-auto flex justify-center align-middle ">
-          <select defaultValue={textos.form.cityselector.selectacity} onChange={e => { setSelectedState(e.target.value) }} className="w-20 mr-4 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            {
-              _UFs.map((item, index) => {
-                return (
-                  <option key={index}>{item}</option>
-                )
-              })
-            }
-          </select>
-          <select defaultValue={textos.form.cityselector.selectacity} onChange={e => { setSelectedCity(e.target.value) }} className="w-52 bg-gray-200 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            {
-              selectedState ? (
-                cities.length > 0 ? (
-                  cities.map((city, index) => (
-                    <option
-                      className="px-2 cursor-pointer hover:bg-gray-200"
-                      key={index}
-                      value={city.nome}
-                    >{city.nome}</option>
-                  ))
-                ) : (
-                  <option value="" disabled>{textos.form.cityselector.nocityfound}</option>
-                )
-              ) : (
-                <option value="" disabled>{textos.form.cityselector.selectaestatefirst}</option>
-              )
-            }
-          </select>
-        </div>
-        <div className="flex gap-1 w-1/2 lg:w-auto h-auto items-center justify-center text-yellow-500 ">
-          {
-            erro &&
-            (
-              <>
-                <BsFillExclamationCircleFill />
-                <span>{logErro}</span>
-              </>
-            )
-          }
-        </div>
-        <div className="">
-          <button onClick={inserePub} className="flex w-full p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-10 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg">
-            {
-              loading ? (<Spinner />) : (<span>{textos.form.post}</span>)
-            }
-          </button>
-        </div> */}
             </div>
             <div className="flex w-full justify-left">
                 {erro && (
