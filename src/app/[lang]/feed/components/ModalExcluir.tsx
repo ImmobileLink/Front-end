@@ -1,23 +1,27 @@
+"use client";
 import { Feed } from "@/app/i18n/dictionaries/types";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../../../../../lib/database.types";
 
 interface ModalExcluirProps {
     setDeletePost: Function;
     id: string;
-    supabase: any;
     dict: Feed;
-}
-
-const handleDeletePost = async (supabase: any, id: string) => {
-    let {erro} = await supabase.from("publicacao").delete().eq("id", id);
-    //window.location.reload();
 }
 
 export default function ModalExcluir({
     setDeletePost,
     id,
-    dict,
-    supabase
+    dict
 }: ModalExcluirProps) {
+
+    const supabase = createClientComponentClient<Database>();
+
+    const handleDeletePost = async () => {
+        const {data} = await supabase.from("publicacao").delete().eq("id", id);
+        //window.location.reload();
+    }
+
     return (
         <div className="fixed flex justify-center align-middle w-screen h-full top-0 left-0 bg-black/25">
             <div className="self-center w-10/12 md:w-8/12 lg:w-4/12 h-fit bg-white dark:bg-gray-900 rounded-2xl ring-1 ring-gray-800">
@@ -36,7 +40,7 @@ export default function ModalExcluir({
                         <button
                             className="p-2 w-full md:w-2/5 mt-4 md:mt-0 text-center cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-10 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg"
                             onClick={() => {
-                                handleDeletePost(supabase, id)
+                                handleDeletePost();
                                 setDeletePost(false);
                             }}
                         >

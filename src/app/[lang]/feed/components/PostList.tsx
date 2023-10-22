@@ -286,7 +286,7 @@ export default function PostList({ idusuario, textos }: PostListProps) {
                 )}
             </div>
             {deletePost ? (
-                <ModalExcluir setDeletePost={setDeletePost} id={pubid} dict={textos} supabase={supabase}/>
+                <ModalExcluir setDeletePost={setDeletePost} id={pubid} dict={textos}/>
             ) : (
                 <></>
             )}
