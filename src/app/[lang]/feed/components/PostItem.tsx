@@ -14,17 +14,22 @@ import {
 import Link from "next/link";
 import { Feed } from "@/app/i18n/dictionaries/types";
 import { useState } from "react";
+import ModalExcluir from "./ModalExcluir";
 
 interface PostItemProps {
     publicacao: PublicacaoCompleta;
     idusuario?: string;
     dict: Feed;
+    setDeletePost: Function;
+    setPubid: Function;
 }
 
 export default function PostItem({
     idusuario,
     publicacao,
     dict,
+    setDeletePost,
+    setPubid
 }: PostItemProps) {
     const router = useRouter();
     const [readMore, isReadMore] = useState(false);
@@ -48,12 +53,9 @@ export default function PostItem({
                                 </div>
                             </div>
                             <div className="h-full">
-                                {/** TO DO: Incluir variação de botões para o próprio post -> Meu perfil, salvar, excluir */}
                                 <Dropdown
                                     label={<BsThreeDots />}
                                     items={[
-                                        // if not from the author && not saved -> Salvar
-                                        // else -> option "Remover dos items salvos"
                                         {
                                             label: (
                                                 <div className="flex items-center">
@@ -72,7 +74,14 @@ export default function PostItem({
                                         },
                                         {
                                             label: (
-                                                <>{dict.dropdown.seeprofile}</>
+                                                <>
+                                                    {publicacao.idautor ==
+                                                    idusuario
+                                                        ? dict.cards
+                                                              .visitmyprofile
+                                                        : dict.dropdown
+                                                              .seeprofile}
+                                                </>
                                             ),
                                             onClick: () => {
                                                 router.push(
@@ -82,11 +91,26 @@ export default function PostItem({
                                         },
 
                                         {
-                                            label: <>{dict.dropdown.report}</>,
+                                            label: (
+                                                <>
+                                                    {publicacao.idautor ==
+                                                    idusuario
+                                                        ? dict.pub.deletepub
+                                                        : dict.dropdown.report}
+                                                </>
+                                            ),
                                             onClick: () => {
-                                                router.push(
-                                                    `/denuncia/${publicacao.id}`
-                                                );
+                                                if (
+                                                    publicacao.idautor ==
+                                                    idusuario
+                                                ) {
+                                                    setPubid(publicacao.id);
+                                                    setDeletePost(true);
+                                                } else {
+                                                    router.push(
+                                                        `/denuncia/${publicacao.id}`
+                                                    );
+                                                }
                                             },
                                         },
                                     ]}

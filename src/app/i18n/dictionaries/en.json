@@ -286,7 +286,12 @@
             "chat": "Chat",
             "more": "Show more",
             "less": "See less",
-            "dateformat": "en-US"
+            "dateformat": "en-US",
+            "deletepub": "Delete post",
+            "areyousure": "Are you sure you want to delete the post?",
+             "irreversibleaction": "This action cannot be undone.",
+             "cancel": "CANCEL",
+             "delete": "DELETE"
         },
         "form": {
             "regionchange": "Region",
@@ -320,6 +325,9 @@
         "returntofeed": "RETURN TO FEED",
         "cancel": "CANCEL",
         "finishreport": "SUBMIT REPORT",
+        "dateformat": "en-US",
+        "more": "Show more",
+        "less": "See less",
         "issues": {
             "offensive": "Offensive or discriminatory behavior",
             "abuse": "Abuse and harassment",

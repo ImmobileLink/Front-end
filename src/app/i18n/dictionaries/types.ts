@@ -288,11 +288,14 @@ export interface Denuncia {
     returntofeed: string;
     cancel: string;
     finishreport: string;
+    dateformat: string;
+    more: string;
+    less: string;
     issues: Issues;
     issuesdescription: IssuesDescription;
 }
 
-export interface Issues{
+export interface Issues {
     offensive: string;
     abuse: string;
     harm: string;
@@ -300,7 +303,7 @@ export interface Issues{
     other: string;
 }
 
-export interface IssuesDescription{
+export interface IssuesDescription {
     offensive: string;
     abuse: string;
     harm: string;
@@ -357,6 +360,11 @@ export interface Pub {
     more: string;
     less: string;
     dateformat: string;
+    deletepub: string;
+    areyousure: string;
+    irreversibleaction: string;
+    cancel: string;
+    delete: string;
 }
 
 export interface Dropdown {

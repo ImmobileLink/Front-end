@@ -93,7 +93,7 @@ export default function CabecalhoForm({
                         <b>{publicacao![0]?.nomeautor}</b> {dict.has}
                     </p>
                     <div className="w-full flex justify-center ">
-                        <MiniaturePostItem publicacao={publicacao} />
+                        <MiniaturePostItem dict={dict} publicacao={publicacao} />
                     </div>
 
                     <div className="flex flex-col md:pl-8 md:mr-12">

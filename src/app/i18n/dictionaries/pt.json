@@ -286,7 +286,12 @@
             "chat": "Conversar",
             "more": "Ler mais",
             "less": "Mostrar menos",
-            "dateformat": "pt-BR"
+            "dateformat": "pt-BR",
+            "deletepub": "Excluir publicação",
+            "areyousure": "Tem certeza que deseja excluir a publicação?",
+            "irreversibleaction": "Essa ação não poderá ser desfeita.",
+            "cancel": "CANCELAR",
+            "delete": "EXCLUIR"
         },
         "form": {
             "regionchange": "Região",
@@ -320,6 +325,9 @@
         "returntofeed": "VOLTAR PARA O FEED",
         "cancel":"CANCELAR",
         "finishreport": "FINALIZAR DENÚNCIA",
+        "dateformat": "pt-BR",
+        "more": "Ler mais",
+        "less": "Mostrar menos",
             "issues":{
                 "offensive": "Comportamento ofensivo ou discriminatório",
                 "abuse": "Abuso e assédio",
