@@ -20,10 +20,12 @@ interface MiniaturePostItemProps {
               atualizadoem: string;
           }[]
         | null;
+    lang: string;
 }
 
 export default function MiniaturePostItem({
     publicacao,
+    lang,
 }: MiniaturePostItemProps) {
     const [readMore, isReadMore] = useState(false);
     return (
@@ -37,8 +39,8 @@ export default function MiniaturePostItem({
                                 <p>{publicacao![0]?.nomeautor}</p>
                                 <p className="text-xs">
                                     {formataData(
-                                        publicacao![0]?.criadoem
-                                        // dict.pub.dateformat
+                                        publicacao![0]?.criadoem,
+                                        lang
                                     )}
                                 </p>
                             </div>
