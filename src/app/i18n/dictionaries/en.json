@@ -312,9 +312,28 @@
         }
     },
     "denuncia": {
-      "reportpostoruser": "REPORT POST OR USER",
-      "whichproblem": "What type of issue does ",
-      "has": "'s post or account present?"
+        "reportpostoruser": "REPORT POST OR USER",
+        "reportmade": "REPORT FILED",
+        "whichproblem": "What type of issue does ",
+        "has": "'s post or account present?",
+        "reportparagraph": "Your report was successfully filed and is under review. Thank you for helping ImmobileLink be a safer platform!",
+        "returntofeed": "RETURN TO FEED",
+        "cancel": "CANCEL",
+        "finishreport": "SUBMIT REPORT",
+        "issues": {
+            "offensive": "Offensive or discriminatory behavior",
+            "abuse": "Abuse and harassment",
+            "harm": "Harmful or dangerous behavior",
+            "spam": "Spam or fraud",
+            "other": "Other issue"
+        },
+        "issuesdescription": {
+            "offensive": "Includes insults and actions that harm, belittle, or discriminate against people based on personal characteristics, such as race, ethnicity, gender, sexual orientation, religion, disability, or other characteristics protected by law.",
+            "abuse": "It includes harassment carried out within the platform, directed at specific users or groups, as well as the sharing of content of sexual nature or that incites acts of abuse and harassment.",
+            "harm": "Includes criminal organization, threats, blackmail, sharing of disturbing or illegal graphic content, encouragement or mention of self-harm and suicide, violent speech or speech that encourages violent acts.",
+            "spam": "Sharing fraudulent information, publishing malicious links, applying scams, false identities, posts and profiles unrelated to the platform's proposal.",
+            "describe": "Describe more about the issue:"
+        }
     },
     "planos": {
         "subscription": "Signatures for your profile",

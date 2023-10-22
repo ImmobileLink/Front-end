@@ -312,9 +312,29 @@
         }
     },
     "denuncia": {
-      "reportpostoruser": "DENUNCIAR PUBLICAÇÃO OU USUÁRIO",
-      "whichproblem": "Que tipo de problema a publicação ou perfil de ",
-      "has": " apresenta?"
+        "reportpostoruser": "DENUNCIAR PUBLICAÇÃO OU USUÁRIO",
+        "reportmade": "DENÚNCIA REALIZADA",
+        "whichproblem": "Que tipo de problema a publicação ou perfil de ",
+        "has": " apresenta?",
+        "reportparagraph": "Sua denúncia foi feita com sucesso e está em análise. Agradecemos por ajudar a tornar a ImmobileLink uma plataforma mais segura!",
+        "returntofeed": "VOLTAR PARA O FEED",
+        "cancel":"CANCELAR",
+        "finishreport": "FINALIZAR DENÚNCIA",
+            "issues":{
+                "offensive": "Comportamento ofensivo ou discriminatório",
+                "abuse": "Abuso e assédio",
+                "harm": "Comportamento nocivo ou perigoso",
+                "spam": "Spam ou fraude",
+                "other": "Outro problema"
+                
+            },
+            "issuesdescription":{
+                "offensive": "Inclui insultos e ações que prejudicam, menosprezam ou discriminam pessoas com base em características pessoais, como raça, etnia, gênero, orientação sexual, religião, deficiência, ou outras características protegidas por lei.",
+                "abuse": "Inclui assédio praticado dentro da plataforma, direcionado a usuários ou grupos específicos, assim como o compartilhamento de conteúdo de cunho sexual ou que incite atos de abuso e assédio.",
+                "harm": "Inclui organização criminosa, ameaças, chantagens, compartilhamento de conteúdo gráfico perturbador ou ilegal, incentivo ou menção a automutilação e suicídio, discurso violento ou que incentive atos violentos.",
+                "spam": "Compartilhamento de informações fraudulentas, publicação de links mal-intencionados, aplicação de golpes, identidade falsa, postagens e perfis não relacionados a proposta da plataforma.",
+                "describe": "Descreva melhor o problema:"
+            }
     },
     "planos": {
         "subscription": "Planos para o seu perfil",

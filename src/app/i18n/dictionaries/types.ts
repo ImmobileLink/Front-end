@@ -281,10 +281,32 @@ export interface Dashboard {
 
 export interface Denuncia {
     reportpostoruser: string;
+    reportmade: string;
     whichproblem: string;
     has: string;
+    reportparagraph: string;
+    returntofeed: string;
+    cancel: string;
+    finishreport: string;
+    issues: Issues;
+    issuesdescription: IssuesDescription;
 }
 
+export interface Issues{
+    offensive: string;
+    abuse: string;
+    harm: string;
+    spam: string;
+    other: string;
+}
+
+export interface IssuesDescription{
+    offensive: string;
+    abuse: string;
+    harm: string;
+    spam: string;
+    describe: string;
+}
 export interface Feed {
     cards: Cards;
     pub: Pub;

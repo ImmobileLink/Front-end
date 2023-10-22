@@ -70,23 +70,16 @@ export default function CabecalhoForm({
         <div className="">
             {submitted ? (
                 <>
-                {/**
-                 * CONTINUAR DICIONÁRIO, E COMEÇAR SAVE ITEMS
-                 */}
                     <h1 className="ml-0 md:ml-8 text-xl md:text-2xl my-2 md:my-4">
-                        DENÚNCIA REALIZADA
+                        {dict.reportmade}
                     </h1>
-                    <p className="ml-0 md:ml-8 pb-4">
-                        Sua denúncia foi feita com sucesso e está em análise.
-                        Agradecemos por ajudar a tornar a ImmobileLink uma
-                        plataforma mais segura!
-                    </p>
+                    <p className="ml-0 md:ml-8 pb-4">{dict.reportparagraph}</p>
                     <div className="flex justify-center p-8">
                         <button
                             className="w-fit text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 font-medium rounded-lg text-sm px-10 py-2.5"
                             onClick={() => router.push("/feed")}
                         >
-                            VOLTAR PARA O FEED
+                            {dict.returntofeed}
                         </button>
                     </div>
                 </>
@@ -117,15 +110,10 @@ export default function CabecalhoForm({
                             />
                             <div className="flex flex-col">
                                 <label className="pl-4 font-medium text-lg">
-                                    Comportamento ofensivo ou discriminatório
+                                    {dict.issues.offensive}
                                 </label>
                                 <p className="pl-4 pr-8">
-                                    Inclui insultos e ações que prejudicam,
-                                    menosprezam ou discriminam pessoas com base
-                                    em características pessoais, como raça,
-                                    etnia, gênero, orientação sexual, religião,
-                                    deficiência, ou outras características
-                                    protegidas por lei.
+                                    {dict.issuesdescription.offensive}
                                 </p>
                             </div>
                         </div>
@@ -142,14 +130,10 @@ export default function CabecalhoForm({
                             />
                             <div className="flex flex-col">
                                 <label className="pl-4 font-medium text-lg">
-                                    Abuso e assédio
+                                    {dict.issues.abuse}
                                 </label>
                                 <p className="pl-4 pr-8">
-                                    Inclui assédio praticado dentro da
-                                    plataforma, direcionado a usuários ou grupos
-                                    específicos, assim como o compartilhamento
-                                    de conteúdo de cunho sexual ou que incite
-                                    atos de abuso e assédio.
+                                    {dict.issuesdescription.abuse}
                                 </p>
                             </div>
                         </div>
@@ -166,14 +150,10 @@ export default function CabecalhoForm({
                             />
                             <div className="flex flex-col">
                                 <label className="pl-4 font-medium text-lg">
-                                    Comportamento nocivo ou perigoso
+                                    {dict.issues.harm}
                                 </label>
                                 <p className="pl-4 pr-8">
-                                    Inclui organização criminosa, ameaças,
-                                    chantagens, compartilhamento de conteúdo
-                                    gráfico perturbador ou ilegal, incentivo ou
-                                    menção a automutilação e suicídio, discurso
-                                    violento ou que incentive atos violentos.
+                                    {dict.issuesdescription.harm}
                                 </p>
                             </div>
                         </div>
@@ -190,14 +170,10 @@ export default function CabecalhoForm({
                             />
                             <div className="flex flex-col">
                                 <label className="pl-4 font-medium text-lg">
-                                    Spam ou fraude
+                                    {dict.issues.spam}
                                 </label>
                                 <p className="pl-4 pr-8">
-                                    Compartilhamento de informações
-                                    fraudulentas, publicação de links
-                                    mal-intencionados, aplicação de golpes,
-                                    identidade falsa, postagens e perfis não
-                                    relacionados a proposta da plataforma.
+                                    {dict.issuesdescription.spam}
                                 </p>
                             </div>
                         </div>
@@ -214,12 +190,12 @@ export default function CabecalhoForm({
                             />
                             <div className="flex flex-col items-center">
                                 <label className="pl-4 font-medium text-lg">
-                                    Outro problema
+                                    {dict.issues.other}
                                 </label>
                             </div>
                         </div>
                         <label className="pl-4 mt-2 mb-2 font-medium text-lg">
-                            Descreva melhor o problema:
+                            {dict.issuesdescription.describe}
                         </label>
                         <textarea
                             className="bg-branco dark:bg-dark-200 rounded h-36 md:h-16 w-full py-2 px-2"
@@ -233,7 +209,7 @@ export default function CabecalhoForm({
                             className="w-fit text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 font-medium rounded-lg text-sm px-10 py-2.5"
                             onClick={() => router.push("/feed")}
                         >
-                            CANCELAR
+                            {dict.cancel}
                         </button>
                         <div className="px-2" />
                         <button
@@ -251,7 +227,8 @@ export default function CabecalhoForm({
                             }}
                         >
                             <div className="flex">
-                                <Loading loading={loading} /> FINALIZAR DENÚNCIA
+                                <Loading loading={loading} />{" "}
+                                {dict.finishreport}
                             </div>
                         </button>
                     </div>
