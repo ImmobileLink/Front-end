@@ -281,6 +281,7 @@
       "regioncomboboxplaceholder": "Todos",
       "comboboxplaceholder": "Selecione",
       "noposts": "Nenhuma publicação encontrada na região especificada",
+      "noposts": "Nenhuma publicação encontrada na região especificada",
       "error": "Ops! Algo deu errado. Tente recarregar a página.",
       "selectaregion": "Selecione uma região para filtrar os posts"
     },
@@ -289,6 +290,7 @@
       "post": "Publicar",
       "placeholder": "Nova publicação",
       "writeamessage": "Insira a mensagem",
+      "imageinputlabel": "foto",
       "imageinputlabel": "foto",
       "imageerror": "Imagem inválida",
       "cityselector": {
@@ -327,6 +329,7 @@
   "profile": {
     "noAssociation": "Sem Associação no momento",
     "hasAssociation": "Possui empresa(s) associada(s)",
+    "hasAssociation": "Possui empresa(s) associada(s)",
     "btnAssociate": "Associate",
     "btnPending": "Pending",
     "btnConnect": "Connect",
@@ -345,10 +348,12 @@
     "january": "Janeiro",
     "february": "Fevereiro",
     "march": "Março",
+    "march": "Março",
     "april": "Abril",
     "may": "Maio",
     "june": "Junho"
   },
+  "calendar": {
   "calendar": {
     "scheduledVisits": "Visitas agendadas"
   },
@@ -458,5 +463,32 @@
     "close": "Fechar",
     "delete": "Deseja cancelar esta visita?",
     "cannotbeundone": "Esta ação não pode ser desfeita."
+  },
+  "survey": {
+    "dear": "Prezado(a)",
+    "nosurveyfound": "Não foi encontrada nenhuma pesquisa de satisfação com a URL especificada.",
+    "thanksforanswering": "Agradecemos sinceramente por dedicar seu tempo para preencher nosso formulário. Suas respostas são valiosas e nos ajudarão a melhorar nossos serviços.",
+    "bestregards": "Atenciosamente",
+    "welcome": "BEM-VINDO(A) À PESQUISA DE SATISFAÇÃO DA IMMOBILELINK",
+    "referenceday": "A pesquisa em questão refere-se à visita do dia",
+    "referencebroker": "conduzida pelo corretor(a)",
+    "referencecompany": "representando a Empresa",
+    "explanationsurveysite1": "Valorizamos sua opinião e estamos ansiosos para entender sua experiência durante a visita ao imóvel.",
+    "explanationsurveysite2": "Para ajudar a melhorar nossos serviços e garantir que atendamos suas expectativas da melhor maneira possível pedimos que faça uma avaliação em uma escala de 1 a 5, onde 5 representa Muito satisfeito e 1 representa Muito insatisfeito, para indicar o quanto nosso corretor atendeu suas expectativas durante a visita.",
+    "pleased": "Muito satisfeito",
+    "notpleased": "Muito insatisfeito",
+    "finish": "FINALIZAR PESQUISA",
+    "questions": {
+      "question1": "1 - Profissionalismo do Corretor",
+      "question2": "2- Comunicação do Corretor",
+      "question3": "3- Conhecimento do Corretor sobre o Imóvel",
+      "question4": "4 - Transparência nas Informações Fornecidas pelo Corretor",
+      "question5": "5 - Atenção aos Detalhes Durante a Visita",
+      "question6": "6 - Clareza na Explicação dos Termos e Condições",
+      "question7": "7 - Probabilidade de Recomendar o Corretor e o Imóvel a Outros",
+      "question8": "8 - Experiência Geral da Visita",
+      "question9": "9 - Caso tenha se interessado pelo imóvel, de 1 a 5, qual foi o peso que o corretor teve em sua decisão? (Opcional)",
+      "question10": "Compartilhe um pouco mais sobre sua experiência: (Opcional)"
+    }
   }
 }

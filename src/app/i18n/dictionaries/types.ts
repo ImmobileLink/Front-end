@@ -16,29 +16,6 @@ export interface Dictionaries {
     imovel:        Imovel;
     chat:          Chat;
     cityselector:  DictionariesCityselector;
-    home:          Home;
-    footer:        Footer;
-    agenda:        Agenda;
-}
-
-export interface Agenda {
-    visitdetails:   string;
-    companyname:    string;
-    clientname:     string;
-    telefone:       string;
-    date:           string;
-    placedetails:   string;
-    address:        string;
-    uf:             string;
-    cidade:         string;
-    cep:            string;
-    bairro:         string;
-    rua:            string;
-    numero:         string;
-    complemento:    string;
-    close:          string;
-    delete:         string;
-    cannotbeundone: string;
 }
 
 export interface Auth {
@@ -435,35 +412,17 @@ export interface Newproperty {
 }
 
 export interface Navbarbuttons {
-    feed:               string;
-    myprofile:          string;
-    settings:           string;
-    schedule:           string;
-    links:              string;
-    relatedbrokers:     string;
-    myrelatedcompany:   string;
-    search:             string;
-    subscription:       string;
-    loginbutton:        string;
-    logoutbutton:       string;
-    language:           string;
-    notifications:      string;
-    messages:           string;
-    account:            string;
-    notificationlabels: Notificationlabels;
-}
-
-export interface Notificationlabels {
-    check:           string;
-    association:     string;
-    connection:      string;
-    visit:           string;
-    accept:          string;
-    refuse:          string;
-    nonotifications: string;
-    acceptedvisit:   string;
-    refusedvisit:    string;
-    updatedvisit:    string;
+  feed:             string;
+  myprofile:        string;
+  settings:         string;
+  schedule:         string;
+  links:            string;
+  relatedbrokers:   string;
+  myrelatedcompany: string;
+  search:           string;
+  subscription:     string;
+  loginbutton:      string;
+  logoutbutton:     string;
 }
 
 export interface Pesquisa {
@@ -538,6 +497,16 @@ export interface Profile {
     posts:          string;
     infoBroker:     string;
     historic:       string;
+}
+
+export interface Chat {
+  conversations: string;
+  you: string;
+  newconversation: string;
+  newconvlabel1: string;
+  newconvlabel2: string;
+  uploadedfile: string;
+  chathome: string;
 }
 
 // Converts JSON strings to/from your types

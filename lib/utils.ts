@@ -8,7 +8,6 @@ export const formataData = (datahora:string) => {
       'minute': 'numeric'
     });
     let fdata = formatter.format(data)
-    return fdata
 }
 
 export const formataDataSemHora = (datahora:string) => {

@@ -280,7 +280,7 @@
       "posted": "posted",
       "regioncomboboxplaceholder": "All",
       "comboboxplaceholder": "Select",
-      "noposts":"No posts found for the specified region",
+      "noposts": "No posts found for the specified region",
       "error": "Ops! Something went wrong. Try reloading the page.",
       "selectaregion": "Select a region to filter posts"
     },
@@ -289,7 +289,7 @@
       "post": "Post",
       "placeholder": "New post",
       "writeamessage": "Write the message",
-      "imageinputlabel":"picture",
+      "imageinputlabel": "picture",
       "imageerror": "Invalid Image",
       "cityselector": {
         "estate": "Estate",
@@ -326,7 +326,7 @@
   },
   "profile": {
     "noAssociation": "No association at the moment",
-    "hasAssociation":"Has associated company(ies)",
+    "hasAssociation": "Has associated company(ies)",
     "btnAssociate": "Associate",
     "btnPending": "Pending",
     "btnConnect": "Connect",
@@ -344,12 +344,12 @@
     "sales": "Sales",
     "january": "January",
     "february": "February",
-    "march":"March",
+    "march": "March",
     "april": "April",
     "may": "May",
     "june": "June"
   },
-  "calendar":{
+  "calendar": {
     "scheduledVisits": "scheduled visits"
   },
   "imovel": {
@@ -424,5 +424,32 @@
     "close": "Close",
     "delete": "Do you want to cancel this visit?",
     "cannotbeundone": "This action cannot be undone."
+  },
+  "survey": {
+    "dear": "Dear",
+    "nosurveyfound": "No survey was found with the specified URL.",
+    "thanksforanswering": "We sincerely appreciate you taking the time to fill out our form. Your responses are valuable and will help us enhance our services.",
+    "bestregards": "Best regards",
+    "welcome": "WELCOME TO IMMOBILELINK'S SATISFACTION SURVEY",
+    "referenceday": "The research in question refers to the visit of the day",
+    "referencebroker": "conducted by the broker",
+    "referencecompany": "representing the Company",
+    "explanationsurveysite1": "We value your opinion and look forward to understand your experience during your visit to the property.",
+    "explanationsurveysite2": "To help us improve our services and ensure that we meet your expectations in the best way possible we ask that you leave a rating on a scale of 1 to 5, where 5 represents Very satisfied and 1 represents Very insatisfied, to indicate how well our broker has met your expectations during the visit.",
+    "pleased": "Very satisfied",
+    "notpleased": "Very insatisfied",
+    "finish": "FINISH SURVEY",
+    "questions": {
+      "question1": "1 - Broker Professionalism",
+      "question2": "2- Broker Communication",
+      "question3": "3- Broker's Knowledge of the Property",
+      "question4": "4 - Transparency in the Information Provided by the Broker",
+      "question5": "5 - Attention to Details During the Visit",
+      "question6": "6 - Clarity in the Explanation of Terms and Conditions",
+      "question7": "7 - Probability of Recommending the Broker and the Property to Others",
+      "question8": "8 - General Visit Experience",
+      "question9": "9 - If you were interested in the property, from 1 to 5, how much weight did the broker have in your decision? (Optional)",
+      "question10": "Share a little more of your experience: (Optional)"
+    }
   }
 }
