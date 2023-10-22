@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { getAssoc, getLinks, getTipoUsuario } from '../../../../../lib/Utils/userData';
-=======
 import { getAreasAtuacao, getAssoc, getEspecialidades, getHistorico, getLinks, getTipoUsuario } from '../../../../../lib/utils/userData';
->>>>>>> 1beef48b9fb35bcc162f148fdf557c5f81a657cf
 import { userData } from '../../../../../lib/modelos'
 import { Database } from '../../../../../lib/database.types';
 import { getDictionary } from '../../dictionaries';
