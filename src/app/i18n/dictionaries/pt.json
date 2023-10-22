@@ -439,5 +439,24 @@
     "moreLinks": "Mais links",
     "blog": "Blog",
     "ytChannel": "Canal do YouTube"
+  },
+  "agenda": {
+    "visitdetails": "Detalhes da visita",
+    "companyname": "Corporação responsável",
+    "clientname": "Nome do cliente",
+    "telefone": "Tel",
+    "date": "Dia agendado",
+    "placedetails": "Detalhes do imóvel",
+    "address": "Endereço",
+    "uf": "Estado",
+    "cidade": "Cidade",
+    "cep": "CEP",
+    "bairro": "Bairro",
+    "rua": "Rua",
+    "numero": "Número",
+    "complemento": "Complemento",
+    "close": "Fechar",
+    "delete": "Deseja cancelar esta visita?",
+    "cannotbeundone": "Esta ação não pode ser desfeita."
   }
 }

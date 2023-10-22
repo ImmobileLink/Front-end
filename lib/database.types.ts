@@ -15,21 +15,21 @@ export interface Database {
           idcorporacao: string
           idcorretor: string
           iniciativa: string
-          pendente: boolean | null
+          pendente: boolean
         }
         Insert: {
           id?: string
           idcorporacao: string
           idcorretor: string
           iniciativa: string
-          pendente?: boolean | null
+          pendente?: boolean
         }
         Update: {
           id?: string
           idcorporacao?: string
           idcorretor?: string
           iniciativa?: string
-          pendente?: boolean | null
+          pendente?: boolean
         }
         Relationships: [
           {
@@ -270,6 +270,55 @@ export interface Database {
           }
         ]
       }
+      denuncia: {
+        Row: {
+          aberta: boolean
+          descricao: string | null
+          id: string
+          idautor: string
+          idpublicacao: string
+          idusuario: string
+          motivo: string
+        }
+        Insert: {
+          aberta?: boolean
+          descricao?: string | null
+          id?: string
+          idautor: string
+          idpublicacao: string
+          idusuario: string
+          motivo: string
+        }
+        Update: {
+          aberta?: boolean
+          descricao?: string | null
+          id?: string
+          idautor?: string
+          idpublicacao?: string
+          idusuario?: string
+          motivo?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "denuncia_idautor_fkey"
+            columns: ["idautor"]
+            referencedRelation: "usuario"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "denuncia_idpublicacao_fkey"
+            columns: ["idpublicacao"]
+            referencedRelation: "publicacao"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "denuncia_idusuario_fkey"
+            columns: ["idusuario"]
+            referencedRelation: "usuario"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       especialidade: {
         Row: {
           idcorretor: string
@@ -302,8 +351,8 @@ export interface Database {
         Row: {
           data_fim: string | null
           data_inicio: string
-          descricao: string | null
-          id: string | null
+          descricao: string
+          id: string
           id_corporacao: string | null
           id_corretor: string
           nome_empresa: string | null
@@ -311,8 +360,8 @@ export interface Database {
         Insert: {
           data_fim?: string | null
           data_inicio: string
-          descricao?: string | null
-          id?: string | null
+          descricao: string
+          id?: string
           id_corporacao?: string | null
           id_corretor: string
           nome_empresa?: string | null
@@ -320,8 +369,8 @@ export interface Database {
         Update: {
           data_fim?: string | null
           data_inicio?: string
-          descricao?: string | null
-          id?: string | null
+          descricao?: string
+          id?: string
           id_corporacao?: string | null
           id_corretor?: string
           nome_empresa?: string | null
@@ -587,6 +636,34 @@ export interface Database {
           }
         ]
       }
+      publicacaosalva: {
+        Row: {
+          idpublicacao: string
+          idusuario: string
+        }
+        Insert: {
+          idpublicacao: string
+          idusuario: string
+        }
+        Update: {
+          idpublicacao?: string
+          idusuario?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "publicacaosalva_idpublicacao_fkey"
+            columns: ["idpublicacao"]
+            referencedRelation: "publicacao"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "publicacaosalva_idusuario_fkey"
+            columns: ["idusuario"]
+            referencedRelation: "usuario"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       resultadoformulario: {
         Row: {
           atualizadoem: string
@@ -769,32 +846,29 @@ export interface Database {
         Row: {
           aceito: boolean | null
           dadosmarcador: Json
-          dataAgendamento: string
+          dataagendamento: string
           id: string
           idcorporacao: string
           idcorretor: string
           idimovel: string
-          ultimaalteracao: string | null
         }
         Insert: {
           aceito?: boolean | null
           dadosmarcador: Json
-          dataAgendamento: string
+          dataagendamento: string
           id?: string
           idcorporacao: string
           idcorretor: string
           idimovel: string
-          ultimaalteracao?: string | null
         }
         Update: {
           aceito?: boolean | null
           dadosmarcador?: Json
-          dataAgendamento?: string
+          dataagendamento?: string
           id?: string
           idcorporacao?: string
           idcorretor?: string
           idimovel?: string
-          ultimaalteracao?: string | null
         }
         Relationships: [
           {
@@ -1282,6 +1356,15 @@ export interface Database {
           imagem: string
         }[]
       }
+      obter_cidade_estado_por_usuario: {
+        Args: {
+          user_id: string
+        }
+        Returns: {
+          cidade: string
+          estado: string
+        }[]
+      }
       obter_cinco_corretores_id: {
         Args: Record<PropertyKey, never>
         Returns: {
@@ -1369,6 +1452,25 @@ export interface Database {
           idparticipante: string
           nomeparticipante: string
           avatarparticipante: string
+        }[]
+      }
+      obter_visitas_aceitas_pelo_corretor: {
+        Args: {
+          corretor_id: string
+        }
+        Returns: {
+          visita_id: string
+          nome_corporacao: string
+          data_agendamento: string
+          nome_marcador: string
+          telefone_marcador: string
+          estado_imovel: string
+          cidade_imovel: string
+          bairro_imovel: string
+          rua_imovel: string
+          numero_imovel: number
+          cep_imovel: string
+          complemento_imovel: string
         }[]
       }
       obterespecialidade: {
