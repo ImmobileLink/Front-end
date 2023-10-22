@@ -9,6 +9,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 export default async function page() {
 
     const isAssociado = useProfileStore.getState().isAssociado
+    const isOwn = useProfileStore.getState().isOwn
 
     return (
 
@@ -23,7 +24,7 @@ export default async function page() {
                     <Dashboard />
                 </Page.Dashboard>
 
-                {isAssociado && (
+                {isAssociado || isOwn && (
                     <Page.Calendar>
                         <Calendario />
                     </Page.Calendar>

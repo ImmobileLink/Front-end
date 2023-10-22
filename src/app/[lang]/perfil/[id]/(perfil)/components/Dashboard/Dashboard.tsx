@@ -1,13 +1,14 @@
 "use client"
-import { Session } from "inspector";
 import Line from "./charts/Line"
 import PolarArea from "./charts/PolarArea"
 import Link from "next/link";
 import { Database } from "@/../lib/database.types";
-import { useButtonContext } from "../../context/TabsContext";
 import { useProfileStore } from "../../../../../../../../lib/store/profileStore";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import Radar from "./charts/Radar";
+import Doughnut from "./charts/Doughnut";
+import Pie from "./charts/Pie";
+import DashboardSkeleton from "../loading/DashboardSkeleton";
 
 
 interface DashboardProps {
@@ -25,11 +26,8 @@ export default function Dashboard({ }: DashboardProps) {
   const [openCalendar, setOpenCalendar] = useState(false)
 
 
-  const { activeTab, setTab, tabsRef } = useButtonContext()
-
   return (
     <>
-
 
       {!premium && (
         <div>
@@ -58,10 +56,14 @@ export default function Dashboard({ }: DashboardProps) {
       }
 
       <div className={`${!openCalendar && "max-h-[380px] md:max-h-[600px]"}`}>
+        {/* <DashboardSkeleton/> */}
+
         <div className="gap-5">
           <PolarArea dict={dict} />
           <Line dict={dict} />
           <Radar />
+          <Pie/>
+          <Doughnut/>
         </div>
 
         {premium && (
@@ -70,7 +72,6 @@ export default function Dashboard({ }: DashboardProps) {
           </div>
         )}
       </div>
-
 
     </>
 

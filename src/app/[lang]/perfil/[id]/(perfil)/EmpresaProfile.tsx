@@ -4,10 +4,12 @@ import Cabecalho from './components/Cabecalho/Cabecalho';
 import Calendario from '@/app/[lang]/(components)/Calendario';
 import InfosEmpresa from './components/Infos/InfosEmpresa';
 import Dashboard from './components/Dashboard/Dashboard';
+import { isObject } from 'chart.js/dist/helpers/helpers.core';
 
 export default async function page() {
 
     const isAssociado = useProfileStore.getState().isAssociado
+    const isOwn = useProfileStore.getState().isOwn
 
     return (
         <>
@@ -21,7 +23,7 @@ export default async function page() {
                     <Dashboard/>
                 </Page.Dashboard>
 
-                {isAssociado && (
+                {isAssociado || isOwn  && (
                     <Page.Calendar>
                         <Calendario />
                     </Page.Calendar>

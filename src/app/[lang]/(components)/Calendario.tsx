@@ -1,82 +1,124 @@
 "use client";
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import React, { useEffect, useState } from 'react';
-import 'react-calendar/dist/Calendar.css';
-import { Database } from '../../../../lib/database.types';
-import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import { useProfileStore } from '../../../../lib/store/profileStore';
+import * as React from 'react';
+import dayjs, { Dayjs } from 'dayjs';
+import Badge from '@mui/material/Badge';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
+
+
 
 interface CalendarioProps {
 
 }
 
-type Visita = {
-    dataAgendamento: string;
+function getRandomNumber(min: number, max: number) {
+    return Math.round(Math.random() * (max - min) + min);
 }
 
-type Eventos = {
-    title: string;
-    date: string;
-}
-
-const supabase = createClientComponentClient<Database>()
-
-
-export default function Calendario({  }: CalendarioProps) {
-
-    const [visitas, setVisitas] = useState<Visita[] | null>()
-
-/*     useEffect(() => {
-        const fetchData = async () => {
-            let { data: visita, error } = await supabase
-                .from('visita')
-                .select('dataAgendamento')
-                .eq('idcorretor', idProfile)
-            setVisitas(visita)
-        }
-        fetchData()
-    }, [])
-
+/**
+ * Mimic fetch with abort controller https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
+ * ⚠️ No IE11 support
  */
-    let eventos: { title: string; date: string; }[] = []
+function fakeFetch(date: Dayjs, { signal }: { signal: AbortSignal }) {
+    return new Promise<{ daysToHighlight: number[] }>((resolve, reject) => {
+        const timeout = setTimeout(() => {
+            const daysInMonth = date.daysInMonth();
+            const daysToHighlight = [1, 2, 3].map(() => getRandomNumber(1, daysInMonth));
 
-    if (visitas) {
-        visitas.map((item) => {
-            eventos.push({ title: "visita", date: item.dataAgendamento.substring(0, 10) })
-        })
-    }
-    /* (prev: any) => [...prev, { title: "visita", date: item.dataAgendamento }] */
+            resolve({ daysToHighlight });
+        }, 500);
 
+        signal.onabort = () => {
+            clearTimeout(timeout);
+            reject(new DOMException('aborted', 'AbortError'));
+        };
+    });
+}
 
+const initialValue = dayjs('2022-04-17');
 
-    /*   if (!props.especialidadesIncluidas.includes(id)) {
-          props.setEspecialidade((prev) => [
-            ...prev,
-            { id: id, descricao: descricao },
-          ]);
-          props.setEspecialidadesIncluidas((prev) => [...prev, id]);
-        } */
+function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] }) {
+    const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
+
+    const isSelected =
+        !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0;
 
     return (
-        <div className='flex items-center flex-col'>
-            <div className='w-4/5'>
+        <Badge
+            key={props.day.toString()}
+            overlap="circular"
+            badgeContent={isSelected ? '🌚' : undefined}
+        >
+            <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
+        </Badge>
+    );
+}
 
-                <FullCalendar
-                    plugins={[dayGridPlugin]}
-                    initialView='dayGridMonth'
-                    weekends={false}
-                    headerToolbar={false}
-                    height={400}
+/* const supabase = createClientComponentClient<Database>()
+ */
 
+export default function Calendario({ }: CalendarioProps) {
+    const requestAbortController = React.useRef<AbortController | null>(null);
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
+  
+    const fetchHighlightedDays = (date: Dayjs) => {
+      const controller = new AbortController();
+      fakeFetch(date, {
+        signal: controller.signal,
+      })
+        .then(({ daysToHighlight }) => {
+          setHighlightedDays(daysToHighlight);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          // ignore the error if it's caused by `controller.abort`
+          if (error.name !== 'AbortError') {
+            throw error;
+          }
+        });
+  
+      requestAbortController.current = controller;
+    };
+  
+    React.useEffect(() => {
+      fetchHighlightedDays(initialValue);
+      // abort request on unmount
+      return () => requestAbortController.current?.abort();
+    }, []);
+  
+    const handleMonthChange = (date: Dayjs) => {
+      if (requestAbortController.current) {
+        // make sure that you are aborting useless requests
+        // because it is possible to switch between months pretty quickly
+        requestAbortController.current.abort();
+      }
+  
+      setIsLoading(true);
+      setHighlightedDays([]);
+      fetchHighlightedDays(date);
+    };
+  
 
-                    events={eventos}
-
-
-
-
-                />
-            </div>
-        </div>
+    return (
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DateCalendar
+          defaultValue={initialValue}
+          loading={isLoading}
+          onMonthChange={handleMonthChange}
+          renderLoading={() => <DayCalendarSkeleton />}
+          slots={{
+            day: ServerDay,
+          }}
+          slotProps={{
+            day: {
+              highlightedDays,
+            } as any,
+          }}
+        />
+      </LocalizationProvider>
     );
 }

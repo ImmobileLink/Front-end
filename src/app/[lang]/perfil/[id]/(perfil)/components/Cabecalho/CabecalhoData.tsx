@@ -12,6 +12,7 @@ export default function CabecalhoData({ action }: CabecalhoDataProps) {
    
     const state = useProfileStore.getState()
     const sobre = state.profileFullData?.sobre
+    const type = state.profileData?.type
 
     return (
         <>
@@ -19,7 +20,7 @@ export default function CabecalhoData({ action }: CabecalhoDataProps) {
             <h2 className="font-bold text-2xl dark:text-white">{state.profileData?.nome}</h2>
             <div className="flex flex-wrap-reverse gap-4 mt-2">
                 <p className="text-gray-500 dark:text-gray-400">{`${state.profileFullData?.cidade} - ${state.profileFullData?.estado}`}</p>
-                <RatingCount />
+                {type == "corretor" && <RatingCount />}
             </div>
 
             {action}
