@@ -11,7 +11,7 @@ import type { Database } from "../../../../lib/database.types";
 import { userData } from "../../../../lib/modelos";
 import { getDictionary } from "../dictionaries";
 import FeedPrincipal from "./components/FeedPrincipal";
-import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/Utils/userData";
+import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/utils/userData";
 
 interface pageProps {
   params: {

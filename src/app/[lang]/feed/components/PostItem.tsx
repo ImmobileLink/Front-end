@@ -15,6 +15,8 @@ import Link from "next/link";
 import { Feed } from "@/app/i18n/dictionaries/types";
 import { useState } from "react";
 import ModalExcluir from "./ModalExcluir";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../../../../../lib/database.types";
 
 interface PostItemProps {
     publicacao: PublicacaoCompleta;
@@ -22,6 +24,7 @@ interface PostItemProps {
     dict: Feed;
     setDeletePost: Function;
     setPubid: Function;
+    savedItems: any;
 }
 
 export default function PostItem({
@@ -29,10 +32,25 @@ export default function PostItem({
     publicacao,
     dict,
     setDeletePost,
-    setPubid
+    setPubid,
+    savedItems,
 }: PostItemProps) {
     const router = useRouter();
     const [readMore, isReadMore] = useState(false);
+
+    const supabase = createClientComponentClient<Database>();
+
+    const handleSavePost = async () => {
+        let savedItem = {
+            idusuario: idusuario,
+            idpublicacao: publicacao.id,
+        };
+        const { data } = await supabase
+            .from("publicacaosalva")
+            .insert(savedItem);
+    };
+
+    console.log(savedItems)
 
     return (
         <div className="mb-4">
@@ -59,17 +77,35 @@ export default function PostItem({
                                         {
                                             label: (
                                                 <div className="flex items-center">
-                                                    <BsFillBookmarkPlusFill />
-                                                    <a className="pl-1">
-                                                        {
-                                                            dict.dropdown
-                                                                .addsaveditem
-                                                        }
-                                                    </a>
+                                                    {
+                                                    /**
+                                                     * CORRIGIR
+                                                     * Encontrar no savedItems o item cujo
+                                                     * idpublicacao = publicacao.id
+                                                     * Fazer diferenciação de funcionamento
+                                                     * incluir função para remover dos itens salvos
+                                                     */
+                                                    savedItems.includes(
+                                                        idusuario,
+                                                        publicacao.id
+                                                    ) ? (
+                                                        "REMOVER"
+                                                    ) : (
+                                                        <>
+                                                            <BsFillBookmarkPlusFill />
+                                                            <a className="pl-1">
+                                                                {
+                                                                    dict
+                                                                        .dropdown
+                                                                        .addsaveditem
+                                                                }
+                                                            </a>
+                                                        </>
+                                                    )}
                                                 </div>
                                             ),
                                             onClick: () => {
-                                                console.log("ver mais!");
+                                                handleSavePost();
                                             },
                                         },
                                         {

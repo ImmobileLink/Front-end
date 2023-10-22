@@ -17,7 +17,7 @@ interface PostListProps {
 // const supabase = createServerComponentClient<Database>({ cookies });
 const supabase = createClientComponentClient<Database>();
 
-export default function PostList({ idusuario, textos }: PostListProps) {
+export default async function PostList({ idusuario, textos }: PostListProps) {
     const [selectedState, setSelectedState] = useState<string>("");
     const [cities, setCities] = useState<City[]>([]);
     const [selectedCity, setSelectedCity] = useState<string>("");
@@ -173,6 +173,14 @@ export default function PostList({ idusuario, textos }: PostListProps) {
                 break;
         }
     };
+
+    const getSavedItems = async () =>{
+        const {data} = await supabase.from('publicacaosalva').select().eq('idusuario', idusuario);
+        return data;
+    }
+
+    let savedItems = await getSavedItems();
+
     return (
         <>
             <div className="flex justify-between h-12 align-middle place-self-center">
@@ -279,6 +287,7 @@ export default function PostList({ idusuario, textos }: PostListProps) {
                                     publicacao={item}
                                     setDeletePost={setDeletePost}
                                     setPubid={setPubid}
+                                    savedItems={savedItems}
                                 />
                             );
                         })}
