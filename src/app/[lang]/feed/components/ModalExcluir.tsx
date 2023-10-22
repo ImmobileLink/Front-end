@@ -19,7 +19,7 @@ export default function ModalExcluir({
 
     const handleDeletePost = async () => {
         const {data} = await supabase.from("publicacao").delete().eq("id", id);
-        //window.location.reload();
+        window.location.reload();
     }
 
     return (
