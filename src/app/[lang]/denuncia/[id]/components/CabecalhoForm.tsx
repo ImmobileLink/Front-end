@@ -7,6 +7,7 @@ import MiniaturePostItem from "./MiniaturePostItem";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../../lib/database.types";
 import Loading from "../../../(components)/(auth)/Loading";
+import { Denuncia } from "@/app/i18n/dictionaries/types";
 
 interface CabecalhoFormProps {
     publicacao:
@@ -22,6 +23,7 @@ interface CabecalhoFormProps {
               atualizadoem: string;
           }[]
         | null;
+    dict: Denuncia;
 }
 
 const submitReport = async (
@@ -48,7 +50,10 @@ const submitReport = async (
     }
 };
 
-export default function CabecalhoForm({ publicacao }: CabecalhoFormProps) {
+export default function CabecalhoForm({
+    publicacao,
+    dict,
+}: CabecalhoFormProps) {
     const router = useRouter();
     const supabase = createClientComponentClient<Database>({});
 
@@ -65,6 +70,9 @@ export default function CabecalhoForm({ publicacao }: CabecalhoFormProps) {
         <div className="">
             {submitted ? (
                 <>
+                {/**
+                 * CONTINUAR DICIONÁRIO, E COMEÇAR SAVE ITEMS
+                 */}
                     <h1 className="ml-0 md:ml-8 text-xl md:text-2xl my-2 md:my-4">
                         DENÚNCIA REALIZADA
                     </h1>
@@ -85,11 +93,11 @@ export default function CabecalhoForm({ publicacao }: CabecalhoFormProps) {
             ) : (
                 <>
                     <h1 className="ml-0 md:ml-8 text-xl md:text-2xl my-2 md:my-4">
-                        DENUNCIAR PUBLICAÇÃO OU USUÁRIO
+                        {dict.reportpostoruser}
                     </h1>
                     <p className="ml-0 md:ml-8 pb-4">
-                        Que tipo de problema a publicação ou perfil de{" "}
-                        <b>{publicacao![0]?.nomeautor}</b> apresenta?
+                        {dict.whichproblem}
+                        <b>{publicacao![0]?.nomeautor}</b> {dict.has}
                     </p>
                     <div className="w-full flex justify-center ">
                         <MiniaturePostItem publicacao={publicacao} />

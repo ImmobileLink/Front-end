@@ -12,6 +12,7 @@ export interface Dictionaries {
     planos: Planos;
     profile: Profile;
     dashboard: Dashboard;
+    denuncia: Denuncia;
     calendar: Calendar;
     imovel: Imovel;
     chat: Chat;
@@ -278,10 +279,17 @@ export interface Dashboard {
     june: string;
 }
 
+export interface Denuncia {
+    reportpostoruser: string;
+    whichproblem: string;
+    has: string;
+}
+
 export interface Feed {
     cards: Cards;
     pub: Pub;
     form: Form;
+    dropdown: Dropdown;
 }
 
 export interface Cards {
@@ -329,6 +337,13 @@ export interface Pub {
     dateformat: string;
 }
 
+export interface Dropdown {
+    addsaveditem: string;
+    removedsaveditem: string;
+    seeprofile: string;
+    report: string;
+}
+
 export interface Imovel {
     mainlabels: Mainlabels;
     formlabels: Formlabels;
@@ -336,88 +351,88 @@ export interface Imovel {
 }
 
 export interface Formlabels {
-    infoproperty:  Infoproperty;
-    selectbroker:  string;
-    findbroker:    string;
+    infoproperty: Infoproperty;
+    selectbroker: string;
+    findbroker: string;
     delegatevisit: string;
-    requiredfields:string;
-    warningmsg:    string;
-    clickhere:     string;
-    brokerdata:    string;
-    specialty:     string;
-    clientdata:    string;
-    scheduling:    string;
-    name:          string;
-    phone:         string;
-    email:         string;
-    date:          string;
-    time:          string;
-    loading:       string;
-    formlogs:      Formlogs;
-    editimg:       Editimg;
+    requiredfields: string;
+    warningmsg: string;
+    clickhere: string;
+    brokerdata: string;
+    specialty: string;
+    clientdata: string;
+    scheduling: string;
+    name: string;
+    phone: string;
+    email: string;
+    date: string;
+    time: string;
+    loading: string;
+    formlogs: Formlogs;
+    editimg: Editimg;
 }
 
 export interface Formlogs {
-    invalidname:  string;
+    invalidname: string;
     invalidphone: string;
     invalidemail: string;
-    invaliddate:  string;
-    invalidtime:  string;
+    invaliddate: string;
+    invalidtime: string;
 }
 
 export interface Editimg {
-    title:        string;
-    imageupload:  string;
-    imageformat:  string;
-    loading:      string;
-    confirm:      string;
+    title: string;
+    imageupload: string;
+    imageformat: string;
+    loading: string;
+    confirm: string;
 }
 
 export interface Mainlabels {
-    title:           string;
-    delegatevisit:   string;    
+    title: string;
+    delegatevisit: string;
 }
 
 export interface Infoproperty {
-    location:        string;
+    location: string;
     characteristics: string;
     price: string;
 }
 
 export interface Newproperty {
-  registerproperty: string;
-  requiredfields:   string;
-  register:         string;
-  cep:              string;
-  uf:               string;
-  city:             string;
-  neighborhood:     string;
-  street:           string;
-  number:           string;
-  complement:       string;
-  price:            string;
-  type:             string;
-  furniture:        string;
-  condition:        string;
-  others:           string;
-  selectopt:        string;
-  selectopts:       string;
-  description:      string;
-  imageupload:      string;
-  imageformat:      string;
-  loading:          string;
-  newpropertylogs:  Newpropertylogs;
+    registerproperty: string;
+    requiredfields: string;
+    register: string;
+    cep: string;
+    uf: string;
+    city: string;
+    neighborhood: string;
+    street: string;
+    number: string;
+    complement: string;
+    price: string;
+    type: string;
+    furniture: string;
+    condition: string;
+    others: string;
+    selectopt: string;
+    selectopts: string;
+    description: string;
+    imageupload: string;
+    imageformat: string;
+    loading: string;
+    newpropertylogs: Newpropertylogs;
 }
 
 export interface Newpropertylogs {
-  invalidcep:           string;
-  invalidcepnotfound:   string;
-  invaliduf:            string;
-  invalidcity:          string;
-  invalidneighborhood:  string;
-  invalidstreet:        string;
-  invalidnumber:        string;
-  invalidprice:         string;
+    invalidcep: string;
+    invalidcepnotfound: string;
+    invaliduf: string;
+    invalidcity: string;
+    invalidneighborhood: string;
+    invalidstreet: string;
+    invalidnumber: string;
+    invalidprice: string;
 }
 
 export interface Navbarbuttons {
@@ -526,7 +541,7 @@ export interface Profile {
     historic: string;
 }
 
-export interface Home{
+export interface Home {
     about: string;
     resources: string;
     premium: string;
@@ -544,7 +559,7 @@ export interface Home{
     tryPremium: string;
     start: string;
 }
-export interface ItemResources{
+export interface ItemResources {
     item1: string;
     item2: string;
     item3: string;

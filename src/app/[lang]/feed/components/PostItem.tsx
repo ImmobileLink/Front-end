@@ -58,7 +58,12 @@ export default function PostItem({
                                             label: (
                                                 <div className="flex items-center">
                                                     <BsFillBookmarkPlusFill />
-                                                    <a className="pl-1">{"Salvar publicação"}</a>
+                                                    <a className="pl-1">
+                                                        {
+                                                            dict.dropdown
+                                                                .addsaveditem
+                                                        }
+                                                    </a>
                                                 </div>
                                             ),
                                             onClick: () => {
@@ -66,16 +71,22 @@ export default function PostItem({
                                             },
                                         },
                                         {
-                                            label: "Ver perfil",
+                                            label: (
+                                                <>{dict.dropdown.seeprofile}</>
+                                            ),
                                             onClick: () => {
-                                                router.push(`/perfil/${publicacao.idautor}`)
+                                                router.push(
+                                                    `/perfil/${publicacao.idautor}`
+                                                );
                                             },
                                         },
-                                        
+
                                         {
-                                            label: "Denunciar",
+                                            label: <>{dict.dropdown.report}</>,
                                             onClick: () => {
-                                                router.push(`/denuncia/${publicacao.id}`)
+                                                router.push(
+                                                    `/denuncia/${publicacao.id}`
+                                                );
                                             },
                                         },
                                     ]}
@@ -124,51 +135,12 @@ export default function PostItem({
                                 <Link
                                     href={`/redirect/chat/${publicacao.idautor}`}
                                 >
-                                    {/* {children} */}
                                     <button className="w-fit text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 font-medium rounded-lg text-sm px-10 py-2.5">
                                         {dict.pub.chat}
                                     </button>
                                 </Link>
                             ) : null}
                         </div>
-                        {/* <div className="flex gap-4 mb-4">
-                            <div className="flex text-xl items-center gap-3">
-                                <button
-                                    onClick={() => {
-                                        alert("curtiu");
-                                    }}
-                                >
-                                    <BsHeart className="hover:cursor-pointer hover:text-red-400 ease-in duration-100" />
-                                </button>
-                                <span>10</span>
-                            </div>
-                            <div className="flex text-xl items-center gap-3">
-                                <button
-                                    onClick={() => {
-                                        alert("comentou");
-                                    }}
-                                >
-                                    <BsChatSquareText className="hover:cursor-pointer" />
-                                </button>
-                                <span>10</span>
-                            </div>
-                            <div className="flex text-xl items-center gap-3">
-                                <button
-                                    onClick={() => {
-                                        alert("compartilhou");
-                                    }}
-                                >
-                                    <BsShare className="hover:cursor-pointer" />
-                                </button>
-                                <span>10</span>
-                            </div>
-                        </div>
-                        <div>
-                            <textarea
-                                className="w-full bg-gray-100 grow p-3 h-12 rounded-md text-slate-900"
-                                placeholder={"Leave a comment"}
-                            ></textarea>
-                                </div> */}
                     </div>
                 </Card.Content>
             </Card.Root>
