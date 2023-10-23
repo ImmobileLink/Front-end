@@ -6,16 +6,29 @@ import {CategoryScale} from 'chart.js';
 Chart.register(CategoryScale);
 
 
-interface PieProps {}
+interface PieProps {
+  satisfacao: Satisfacao
+}
 
-export default function Pie({}: PieProps) {
+type Satisfacao = {
+  id: string;
+  muito_insatisfeito: number;
+  insatisfeito: number;
+  neutro: number;
+  satisfeito: number;
+  muito_satisfeito: number;
+}[] | null
 
+
+export default function Pie({satisfacao}: PieProps) {
+
+    const sat = satisfacao![0]
     const data = {
-        labels: ['Maçãs', 'Bananas', 'Laranjas'],
+        labels: ['Muito Satisfeito', 'Satisfeito', 'Neutro', 'Insatisfeito', 'Muito Insatisfeito'],
         datasets: [
           {
-            data: [30, 40, 20],
-            backgroundColor: ['red', 'yellow', 'orange'],
+            data: [sat.muito_satisfeito, sat.satisfeito, sat.neutro, sat.insatisfeito, sat.muito_insatisfeito],
+            backgroundColor: ['#114f08', '#5cc063', '#c0bbbb', '#793d3d', '#870b0b'],
           },
         ],
       };

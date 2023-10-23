@@ -1,47 +1,60 @@
 "use client";
-
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Chart from 'chart.js/auto';
 import { Radar as R } from "react-chartjs-2";
 import { CategoryScale } from 'chart.js';
+
 Chart.register(CategoryScale);
 
 interface RadarProps {
+  avaliacao: Avaliacao
 }
 
+type Avaliacao = {
+  id: string;
+  profissionalismo: number;
+  comunicacao: number;
+  conhecimento: number;
+  transparencia: number;
+  detalhista: number;
+  clareza: number;
+}[] | null
 
+Chart.defaults.color = '#000';
 
+export default function Radar({ avaliacao }: RadarProps) {
 
-export default function Radar({ }: RadarProps) {
+  const aval = avaliacao![0]
 
-    const data = {
-        labels: ['Habilidade 1', 'Habilidade 2', 'Habilidade 3', 'Habilidade 4', 'Habilidade 5'],
-        datasets: [
-          {
-            label: 'Pontuações',
-            data: [80, 70, 60, 90, 75],
-            backgroundColor: 'rgba(75, 192, 192, 0.6)', // Cor de preenchimento do gráfico
-            borderColor: 'rgba(75, 192, 192, 1)', // Cor da borda do gráfico
-          },
-        ],
-      };
-    
-      const options = {
-        scale: {
-          angleLines: {
-            display: true,
-          },
-          ticks: {
-            beginAtZero: true,
-            min: 0,
-            max: 100,
-            stepSize: 20,
-          },
-        },
-      };
+  const data = {
+    labels: ['Profissionalismo', 'Comunicação', 'Conhecimento', 'Clareza', 'Transparência', 'Detalhista'],
+    datasets: [
+      {
+        label: 'Pontuações',
+        data: [aval.profissionalismo, aval.comunicacao, aval.conhecimento, aval.clareza, aval.transparencia, aval.detalhista],
+        backgroundColor: 'rgba(75, 192, 192, 0.6)', // Cor de preenchimento do gráfico
+        borderColor: 'rgba(75, 192, 192, 1)', // Cor da borda do gráfico
+      },
+    ],
+  };
 
-    return (
-        <>
-            <R data={data} />
-        </>
-    );
+  const options = {
+    scale: {
+      angleLines: {
+        display: true,
+      },
+      ticks: {
+        beginAtZero: true,
+        min: 0,
+        max: 5,
+        stepSize: 0.5,
+      }
+    },
+  };
+
+  return (
+    <>
+      <R data={data} />
+    </>
+  );
 }

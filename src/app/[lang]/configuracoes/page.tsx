@@ -35,8 +35,6 @@ export default async function page({ params: { lang } }: pageProps) {
   const email = session?.user.email
   const profileFullData = session?.user.id && await getProfileFullData(data![0].role, session?.user.id!)
 
-  console.log(email)
-
 
   return (
     <>

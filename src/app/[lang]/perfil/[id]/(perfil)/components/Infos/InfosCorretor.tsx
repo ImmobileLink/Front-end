@@ -42,19 +42,10 @@ export default function InfosCorretor({ }: InfosProps) {
         <Tabs.Item
           icon={HiDocumentText}
           title="Posts"
-          disabled
         >
-          <p>
-            This is
-            <span className="font-medium text-gray-800 dark:text-white">
-              Settings tab's associated content
-            </span>
-            .
-            Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
-            control the content visibility and styling.
-          </p>
+          
         </Tabs.Item>
-       
+          
 
         <Tabs.Item
           icon={HiCalendar}
