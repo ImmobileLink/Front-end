@@ -3,7 +3,7 @@
 import { AiFillPlusCircle, AiFillCloseCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import Loading from "@/app/[lang]/(components)/(auth)/Loading";
-import { _UFs } from "@/../../lib/utils/getRegiao"
+import { _UFs } from "../../../../../../../../../lib/utils/getRegiao"
 import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../../lib/database.types";
@@ -40,7 +40,7 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
     useEffect(() => {
         if (areasAtuacao) {
             areasAtuacao?.forEach((item) => {
-                setRegioesIncluidas((prev) => [...prev, { estado: item.estado, cidade: item.cidade }]);
+                setRegioesIncluidas([{ estado: item.estado, cidade: item.cidade }]);
             })
         }
     }, [])
@@ -152,7 +152,7 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
                         <div className="mt-3 ring-2 ring-gray-300 dark:ring-gray-500 rounded-s-lg p-2 h-fit max-h-36 overflow-y-scroll">
                             <AiFillPlusCircle
                                 className="absolute text-xl right-3 hover:cursor-pointer hover:scale-110"
-                                onClick={(e) => {
+                                onClick={() => {
                                     props.setDropdownRegiao(!props.dropdownRegiao);
                                     props.setDropdownTipos(false);
                                 }}
@@ -173,7 +173,7 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
                                         {item.estado + " - " + item.cidade}
                                         <AiFillCloseCircle
                                             className="text-lg ml-2 self-center hover:cursor-pointer hover:scale-110"
-                                            onClick={(e) =>
+                                            onClick={() =>
                                                 removeRegiao({ estado: item.estado, cidade: item.cidade })
                                             }
                                         />
