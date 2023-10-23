@@ -24,7 +24,6 @@ interface PostItemProps {
     dict: Feed;
     setDeletePost: Function;
     setPubid: Function;
-    savedItems: any;
 }
 
 export default function PostItem({
@@ -33,7 +32,6 @@ export default function PostItem({
     dict,
     setDeletePost,
     setPubid,
-    savedItems,
 }: PostItemProps) {
     const router = useRouter();
     const [readMore, isReadMore] = useState(false);
@@ -49,8 +47,6 @@ export default function PostItem({
             .from("publicacaosalva")
             .insert(savedItem);
     };
-
-    console.log(savedItems)
 
     return (
         <div className="mb-4">
@@ -77,19 +73,9 @@ export default function PostItem({
                                         {
                                             label: (
                                                 <div className="flex items-center">
-                                                    {
-                                                    /**
-                                                     * CORRIGIR
-                                                     * Encontrar no savedItems o item cujo
-                                                     * idpublicacao = publicacao.id
-                                                     * Fazer diferenciação de funcionamento
-                                                     * incluir função para remover dos itens salvos
-                                                     */
-                                                    savedItems.includes(
-                                                        idusuario,
-                                                        publicacao.id
-                                                    ) ? (
-                                                        "REMOVER"
+                                                    {publicacao.isSalvo ==
+                                                    true ? (
+                                                        <>REMOVER</>
                                                     ) : (
                                                         <>
                                                             <BsFillBookmarkPlusFill />

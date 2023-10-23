@@ -73,10 +73,11 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
 
                 //faz consulta ao bd
                 {
-                    let { data } = await supabase
-                        .rpc("get_publicacoes")
+                    let response = await supabase
+                        .rpc("get_publicacoes_salvas", { idusuario })
                         .order("atualizadoem", { ascending: false })
                         .limit(10);
+                    let data = response.data;
 
                     //atualiza o estado dos posts
                     //se retornar 1+ posts mapeia na tela
@@ -104,11 +105,12 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
                 //verifica se tem algum estado selecionado
                 if (selectedState != "") {
                     //faz consulta ao bd
-                    let { data, error } = await supabase
-                        .rpc("get_publicacao_por_estado", {
-                            estado: selectedState!,
-                        })
-                        .order("atualizadoem", { ascending: false });
+                    let response = await supabase
+                        .rpc("get_publicacoes_salvas", { idusuario })
+                        .eq("regiao", selectedState)
+                        .order("atualizadoem", { ascending: false })
+                        .limit(10);
+                    let data = response.data;
 
                     //atualiza o estado dos posts
                     //se retornar 1+ posts mapeia na tela
@@ -139,12 +141,15 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
                 //verifica se tem algum estado/cidade selecionados
                 if (selectedState != "" && selectedCity != "") {
                     //faz consulta ao bd
-                    let { data, error } = await supabase
-                        .rpc("get_publicacao_por_cidade", {
+                    let response = await supabase
+                        .rpc("get_publicacoes_salvas", { idusuario })
+                        .eq("regiao", {
                             cidade: selectedCity!,
                             estado: selectedState!,
                         })
-                        .order("atualizadoem", { ascending: false });
+                        .order("atualizadoem", { ascending: false })
+                        .limit(10);
+                    let data = response.data;
 
                     //atualiza o estado dos posts
                     //se retornar 1+ posts mapeia na tela
@@ -173,13 +178,6 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
                 break;
         }
     };
-
-    const getSavedItems = async () =>{
-        const {data} = await supabase.from('publicacaosalva').select().eq('idusuario', idusuario);
-        return data;
-    }
-
-    let savedItems = await getSavedItems();
 
     return (
         <>
@@ -287,7 +285,6 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
                                     publicacao={item}
                                     setDeletePost={setDeletePost}
                                     setPubid={setPubid}
-                                    savedItems={savedItems}
                                 />
                             );
                         })}
@@ -295,7 +292,11 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
                 )}
             </div>
             {deletePost ? (
-                <ModalExcluir setDeletePost={setDeletePost} id={pubid} dict={textos}/>
+                <ModalExcluir
+                    setDeletePost={setDeletePost}
+                    id={pubid}
+                    dict={textos}
+                />
             ) : (
                 <></>
             )}
