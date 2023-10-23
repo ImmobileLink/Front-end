@@ -4,7 +4,7 @@ import React, { cache } from 'react';
 import CardConfig from "./components/CardConfig";
 import { cookies } from "next/headers";
 import { getDictionary } from "../dictionaries";
-import { getProfileFullData } from "../../../../lib/utils/userProfile";
+import { getProfileFullData } from "../../../../lib/Utils/userProfile";
 
 
 interface pageProps {

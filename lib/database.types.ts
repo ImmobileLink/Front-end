@@ -15,7 +15,7 @@ export interface Database {
           idcorporacao: string
           idcorretor: string
           iniciativa: string
-          pendente: boolean | null
+          pendente: boolean
         }
         Insert: {
           id?: string
@@ -259,8 +259,20 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "corretor_id_fkey"
-            columns: ["id"]
+            foreignKeyName: "denuncia_idautor_fkey"
+            columns: ["idautor"]
+            referencedRelation: "usuario"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "denuncia_idpublicacao_fkey"
+            columns: ["idpublicacao"]
+            referencedRelation: "publicacao"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "denuncia_idusuario_fkey"
+            columns: ["idusuario"]
             referencedRelation: "usuario"
             referencedColumns: ["id"]
           }
@@ -309,8 +321,6 @@ export interface Database {
           data_inicio: string
           descricao: string
           id?: string
-          descricao: string
-          id?: string
           id_corporacao?: string | null
           id_corretor: string
           nome_empresa?: string | null
@@ -318,8 +328,6 @@ export interface Database {
         Update: {
           data_fim?: string | null
           data_inicio?: string
-          descricao?: string
-          id?: string
           descricao?: string
           id?: string
           id_corporacao?: string | null
@@ -1277,15 +1285,6 @@ export interface Database {
           atualizadoem: string
           mensagem: string
           imagem: string
-        }[]
-      }
-      obter_cidade_estado_por_usuario: {
-        Args: {
-          user_id: string
-        }
-        Returns: {
-          cidade: string
-          estado: string
         }[]
       }
       obter_avaliacao_media: {

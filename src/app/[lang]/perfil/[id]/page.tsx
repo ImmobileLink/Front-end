@@ -1,4 +1,4 @@
-import { getAreasAtuacao, getAssoc, getEspecialidades, getHistorico, getLinks, getTipoUsuario } from '../../../../../lib/utils/userData';
+import { getAreasAtuacao, getAssoc, getEspecialidades, getHistorico, getLinks, getTipoUsuario } from '../../../../../lib/Utils/userData';
 import { userData } from '../../../../../lib/modelos'
 import { Database } from '../../../../../lib/database.types';
 import { getDictionary } from '../../dictionaries';

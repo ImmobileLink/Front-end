@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from '@/../../lib/database.types';
-import { getEstadoBtnConexao, desassociarPerfis, sendConvite, cancelaConvite, aceitarConvite, getIdConexao } from '../../../../../../../../../lib/utils/Conexao'
+import { getEstadoBtnConexao, desassociarPerfis, sendConvite, cancelaConvite, aceitarConvite, getIdConexao } from '../../../../../../../../../lib/Utils/Conexao'
 import { Spinner } from "flowbite-react";
 import { Button, Modal } from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';

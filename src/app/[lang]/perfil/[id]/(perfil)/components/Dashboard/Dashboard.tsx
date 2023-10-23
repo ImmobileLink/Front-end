@@ -8,7 +8,7 @@ import Radar from "./charts/Radar";
 import Doughnut from "./charts/Doughnut";
 import Pie from "./charts/Pie";
 import DashboardSkeleton from "../loading/DashboardSkeleton";
-import { getAvaliacao, getSatisfacao } from "../../../../../../../../lib/utils/Dashboard";
+import { getAvaliacao, getSatisfacao } from "../../../../../../../../lib/Utils/Dashboard";
 
 
 interface DashboardProps {

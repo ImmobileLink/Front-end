@@ -6,7 +6,7 @@ import PlanoTable from "./components/PlanoTable";
 import { getTipoUsuario } from "../../../../lib/Utils/userData";
 import { userData } from "../../../../lib/modelos";
 import { cache } from "react";
-import { setPremiumTrue, setPremiumFalse } from "./utils";
+import { setPremiumTrue, setPremiumFalse } from "./Utils";
 import Alert from "../(components)/Alert";
 
 interface pageProps {
