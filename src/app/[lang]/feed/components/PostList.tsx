@@ -5,7 +5,7 @@ import { Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Database } from '../../../../../lib/database.types';
 import { City, PublicacaoCompleta } from "../../../../../lib/modelos";
-import { _UFs } from "../../../../../lib/Utils/getRegiao";
+import { _UFs } from "../../../../../lib/utils/getRegiao";
 import PostItem from "./PostItem";
 
 interface PostListProps {

@@ -11,7 +11,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { v4 as uuidv4 } from "uuid";
 import InputMask from "react-input-mask";
 import { Spinner } from "flowbite-react";
-import { _UFs } from "../../../../../lib/Utils/getRegiao";
+import { _UFs } from "../../../../../lib/utils/getRegiao";
 {/* @ts-ignore */}
 import Select, { StylesConfig, ValueType } from "react-select";
 
