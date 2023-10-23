@@ -3,12 +3,12 @@
 import { AiFillPlusCircle, AiFillCloseCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import Loading from "@/app/[lang]/(components)/(auth)/Loading";
-import { _UFs } from "@/../../lib/Utils/getRegiao"
+import { _UFs } from "../../../../../../../../../lib/utils/getRegiao"
 import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../../lib/database.types";
 import { useProfileContext } from "../../../context/ProfileContext";
-import { adicionarRegiao, removerRegiao } from "../../../../../../../../../lib/Utils/EditProfile";
+import { adicionarRegiao, removerRegiao } from "../../../../../../../../../lib/utils/EditProfile";
 
 interface EditEspecialidades {
     props: any;

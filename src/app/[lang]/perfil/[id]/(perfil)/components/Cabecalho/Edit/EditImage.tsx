@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Database } from "../../../../../../../../../lib/database.types";
 import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
 import { useRouter } from "next/navigation";
-import { uploadCoverImage, uploadProfileImage } from "../../../../../../../../../lib/Utils/EditImage";
+import { uploadCoverImage, uploadProfileImage } from "../../../../../../../../../lib/utils/EditImage";
 
 
 interface EditFormProps {

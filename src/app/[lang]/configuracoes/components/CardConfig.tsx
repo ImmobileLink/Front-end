@@ -8,7 +8,7 @@ import SetEmail from "./SetEmail";
 import SetSenha from "./SetSenha";
 import SetTelefone from "./SetTelefone";
 import { Database } from "../../../../../lib/database.types";
-import { setTelefones } from "../../../../../lib/Utils/EditProfile";
+import { setTelefones } from "../../../../../lib/utils/EditProfile";
 
 interface CardConfigProps {
     title: string

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { formataData } from "../../../../../../lib/Utils/formataData";
+import { formataData } from "../../../../../../lib/utils/formataData";
 import { useEffect, useState } from "react";
 
 interface NotificationContentProps {

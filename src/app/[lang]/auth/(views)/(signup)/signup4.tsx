@@ -6,7 +6,7 @@ import { Signup4 } from "@/app/i18n/dictionaries/types";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import CitySelector from '../../../(components)/CitySelector';
 import Loading from "@/app/[lang]/(components)/(auth)/Loading";
-import { _UFs } from "../../../../../../lib/Utils/getRegiao";
+import { _UFs } from "../../../../../../lib/utils/getRegiao";
 import { stringify } from 'querystring';
 
 interface Signup4Props {

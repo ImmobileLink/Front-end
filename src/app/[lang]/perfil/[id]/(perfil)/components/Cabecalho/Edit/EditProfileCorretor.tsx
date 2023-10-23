@@ -6,7 +6,7 @@ import { Button, Modal } from 'flowbite-react';
 import { useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
 import { Corporacao, Corretor } from "../../../../../../../../../lib/modelos";
-import { updateCorretorProfile } from "../../../../../../../../../lib/Utils/EditProfile";
+import { updateCorretorProfile } from "../../../../../../../../../lib/utils/EditProfile";
 import EditEspecialidades from "./EditEspecialidades";
 import { useRouter } from "next/navigation";
 import EditRegiaoAtuacao from "./EditRegiaoAtuacao";

@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { Database } from "../../../../lib/database.types";
 import { getDictionary } from "../dictionaries";
 import PlanoTable from "./components/PlanoTable";
-import { getTipoUsuario } from "../../../../lib/Utils/userData";
+import { getTipoUsuario } from "../../../../lib/utils/userData";
 import { userData } from "../../../../lib/modelos";
 import { cache } from "react";
 import { setPremiumTrue, setPremiumFalse } from "./Utils";
