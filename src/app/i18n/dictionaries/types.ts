@@ -6,7 +6,6 @@
 
 export interface Dictionaries {
     navbarbuttons: Navbarbuttons;
-<<<<<<<<< Temporary merge branch 1
     auth:          Auth;
     pesquisa:      Pesquisa;
     feed:          Feed;
@@ -17,21 +16,30 @@ export interface Dictionaries {
     imovel:        Imovel;
     chat:          Chat;
     cityselector:  DictionariesCityselector;
+    home:          Home;
+    footer:        Footer;
+    agenda:        Agenda;
     survey:        Survey;
-=========
-    auth: Auth;
-    pesquisa: Pesquisa;
-    feed: Feed;
-    planos: Planos;
-    profile: Profile;
-    dashboard: Dashboard;
-    calendar: Calendar;
-    imovel: Imovel;
-    chat: Chat;
-    cityselector: DictionariesCityselector;
-    home: Home;
-    footer: FooterLang;
->>>>>>>>> Temporary merge branch 2
+}
+
+export interface Agenda {
+    visitdetails:   string;
+    companyname:    string;
+    clientname:     string;
+    telefone:       string;
+    date:           string;
+    placedetails:   string;
+    address:        string;
+    uf:             string;
+    cidade:         string;
+    cep:            string;
+    bairro:         string;
+    rua:            string;
+    numero:         string;
+    complemento:    string;
+    close:          string;
+    delete:         string;
+    cannotbeundone: string;
 }
 
 export interface Auth {
@@ -187,15 +195,9 @@ export interface Signup4Cityselector {
     city:               string;
     selectaestate:      string;
     selectaestatefirst: string;
-<<<<<<<<< Temporary merge branch 1
     nocityfound:        string;
     ufacronim?:         string;
     selectacity?:       string;
-=========
-    nocityfound: string;
-    ufacronim?: string;
-    selectacity?: string;
->>>>>>>>> Temporary merge branch 2
 }
 
 export interface Signup4Logs {
@@ -269,23 +271,14 @@ export interface Calendar {
 }
 
 export interface Chat {
-<<<<<<<<< Temporary merge branch 1
     conversations:   string;
     you:             string;
+    sent:            string;
     newconversation: string;
     newconvlabel1:   string;
     newconvlabel2:   string;
     uploadedfile:    string;
     chathome:        string;
-=========
-    conversations: string;
-    you: string;
-    newconversation: string;
-    newconvlabel1: string;
-    newconvlabel2: string;
-    uploadedfile: string;
-    chathome: string;
->>>>>>>>> Temporary merge branch 2
 }
 
 export interface DictionariesCityselector {
@@ -315,7 +308,6 @@ export interface Feed {
 }
 
 export interface Cards {
-<<<<<<<<< Temporary merge branch 1
     yourenotlogged:      string;
     enjoyall:            string;
     singin:              string;
@@ -333,30 +325,10 @@ export interface Cards {
     relatedbrokers:      string;
     norelatedbrokersyet: string;
     myrelatedcompany:    string;
-=========
-    yourenotlogged: string;
-    enjoyall: string;
-    singin: string;
-    findbrokers: string;
-    mybrokers: string;
-    myproperties: string;
-    schedules: string;
-    visitmyprofile: string;
-    notpremiumyet: string;
-    premium: string;
-    bepremium: string;
-    connections: string;
-    search: string;
-    nolinksyet: string;
-    relatedbrokers: string;
-    norelatedbrokersyet: string;
-    myrelatedcompany: string;
->>>>>>>>> Temporary merge branch 2
     norelatedcompanyyet: string;
 }
 
 export interface Form {
-<<<<<<<<< Temporary merge branch 1
     regionchange:    string;
     post:            string;
     placeholder:     string;
@@ -374,25 +346,49 @@ export interface Pub {
     noposts:                   string;
     error:                     string;
     selectaregion:             string;
-=========
-    regionchange: string;
-    post: string;
-    placeholder: string;
-    writeamessage: string;
-    imageinputlabel: string;
-    imageerror: string;
-    cityselector: Signup4Cityselector;
+    chat:                      string;
+    more:                      string;
+    less:                      string;
+    dateformat:                string;
 }
 
-export interface Pub {
-    regionfilter: string;
-    posted: string;
-    regioncomboboxplaceholder: string;
-    comboboxplaceholder: string;
-    noposts: string;
-    error: string;
-    selectaregion: string;
->>>>>>>>> Temporary merge branch 2
+export interface Footer {
+    usefulLinks: string;
+    access:      string;
+    premium:     string;
+    moreLinks:   string;
+    blog:        string;
+    ytChannel:   string;
+}
+
+export interface Home {
+    about:               string;
+    resources:           string;
+    premium:             string;
+    access:              string;
+    conecting:           string;
+    ties:                string;
+    whatIsImmobileLink:  string;
+    searchOpportunities: string;
+    searchParagraph:     string;
+    manageYourCalendar:  string;
+    manageParagraph:     string;
+    amazingResources:    string;
+    amazingParagraph:    string;
+    itemResources:       ItemResources;
+    tryPremium:          string;
+    start:               string;
+}
+
+export interface ItemResources {
+    item1: string;
+    item2: string;
+    item3: string;
+    item4: string;
+    item5: string;
+    item6: string;
+    item7: string;
+    item8: string;
 }
 
 export interface Imovel {
@@ -402,88 +398,106 @@ export interface Imovel {
 }
 
 export interface Formlabels {
-    selectbroker: string;
-    findbroker: string;
-    delegatevisit: string;
-    brokerdata: string;
-    clientdata: string;
-    scheduling: string;
-    name: string;
-    phone: string;
-    email: string;
-    date: string;
-    time: string;
-    formlogs: Formlogs;
+    infoproperty:   Infoproperty;
+    selectbroker:   string;
+    findbroker:     string;
+    delegatevisit:  string;
+    requiredfields: string;
+    warningmsg:     string;
+    clickhere:      string;
+    brokerdata:     string;
+    specialty:      string;
+    clientdata:     string;
+    scheduling:     string;
+    name:           string;
+    phone:          string;
+    email:          string;
+    date:           string;
+    time:           string;
+    loading:        string;
+    formlogs:       Formlogs;
+    editimg:        Editimg;
+}
+
+export interface Editimg {
+    title:       string;
+    imageupload: string;
+    imageformat: string;
+    loading:     string;
+    confirm:     string;
 }
 
 export interface Formlogs {
     invalidname:  string;
     invalidphone: string;
     invalidemail: string;
-    invaliddate: string;
-    invalidtime: string;
+    invaliddate:  string;
+    invalidtime:  string;
 }
 
-export interface Mainlabels {
-    title: string;
-    delegatevisit: string;
-    location: string;
+export interface Infoproperty {
+    location:        string;
     characteristics: string;
     price:           string;
 }
 
+export interface Mainlabels {
+    title:         string;
+    delegatevisit: string;
+}
+
 export interface Newproperty {
     registerproperty: string;
-<<<<<<<<< Temporary merge branch 1
+    requiredfields:   string;
     register:         string;
+    cep:              string;
     uf:               string;
     city:             string;
     neighborhood:     string;
     street:           string;
     number:           string;
+    complement:       string;
     price:            string;
+    type:             string;
+    furniture:        string;
+    condition:        string;
+    others:           string;
+    selectopt:        string;
+    selectopts:       string;
     description:      string;
+    imageupload:      string;
+    imageformat:      string;
+    loading:          string;
+    newpropertylogs:  Newpropertylogs;
+}
+
+export interface Newpropertylogs {
+    invalidcep:          string;
+    invalidcepnotfound:  string;
+    invaliduf:           string;
+    invalidcity:         string;
+    invalidneighborhood: string;
+    invalidstreet:       string;
+    invalidnumber:       string;
+    invalidprice:        string;
 }
 
 export interface Navbarbuttons {
-    feed:             string;
-    myprofile:        string;
-    settings:         string;
-    schedule:         string;
-    links:            string;
-    relatedbrokers:   string;
-    myrelatedcompany: string;
-    search:           string;
-    subscription:     string;
-    loginbutton:      string;
-    logoutbutton:     string;
-=========
-    register: string;
-    uf: string;
-    city: string;
-    neighborhood: string;
-    street: string;
-    number: string;
-    price: string;
-    description: string;
-}
-
-export interface Navbarbuttons {
-    feed: string;
-    myprofile: string;
-    settings: string;
-    schedule: string;
-    links: string;
-    relatedbrokers: string;
-    myrelatedcompany: string;
-    search: string;
-    subscription: string;
-    loginbutton: string;
-    logoutbutton: string;
-    language: string;
-    notifications: string;
-    messages: string;
-    account: string;
+    feed:               string;
+    myprofile:          string;
+    settings:           string;
+    schedule:           string;
+    links:              string;
+    relatedbrokers:     string;
+    myrelatedcompany:   string;
+    search:             string;
+    subscription:       string;
+    loginbutton:        string;
+    logoutbutton:       string;
+    language:           string;
+    notifications:      string;
+    messages:           string;
+    account:            string;
     notificationlabels: Notificationlabels;
 }
 
@@ -495,10 +509,9 @@ export interface Notificationlabels {
     accept:          string;
     refuse:          string;
     nonotifications: string;
-    acceptedvisit: string;
-    refusedvisit: string;
-    updatedvisit: string;
->>>>>>>>> Temporary merge branch 2
+    acceptedvisit:   string;
+    refusedvisit:    string;
+    updatedvisit:    string;
 }
 
 export interface Pesquisa {
@@ -507,7 +520,6 @@ export interface Pesquisa {
 }
 
 export interface Labels {
-<<<<<<<<< Temporary merge branch 1
     nearbyusers:        string;
     name:               string;
     title:              string;
@@ -533,33 +545,6 @@ export interface Labels {
     search:             string;
     selectafilter:      string;
     nouserfound:        string;
-=========
-    nearbyusers: string;
-    name: string;
-    title: string;
-    usertype: string;
-    region: string;
-    state: string;
-    city: string;
-    all: string;
-    nocityfound: string;
-    selectaestatefirst: string;
-    rating: string;
-    specialty: string;
-    error: string;
-    missingcombobox: string;
-    checkprofile: string;
-    specializations: string;
-    type: string;
-    furniture: string;
-    condition: string;
-    others: string;
-    advanced: string;
-    reset: string;
-    search: string;
-    selectafilter: string;
-    nouserfound: string;
->>>>>>>>> Temporary merge branch 2
 }
 
 export interface Usertypevalue {
@@ -603,7 +588,6 @@ export interface Profile {
     historic:       string;
 }
 
-<<<<<<<<< Temporary merge branch 1
 export interface Survey {
     dear:                   string;
     nosurveyfound:          string;
@@ -632,44 +616,6 @@ export interface Questions {
     question8:  string;
     question9:  string;
     question10: string;
-=========
-export interface Home{
-    about: string;
-    resources: string;
-    premium: string;
-    access: string;
-    conecting: string;
-    ties: string;
-    whatIsImmobileLink: string;
-    searchOpportunities: string;
-    searchParagraph: string;
-    manageYourCalendar: string;
-    manageParagraph: string;
-    amazingResources: string;
-    amazingParagraph: string;
-    itemResources: ItemResources;
-    tryPremium: string;
-    start: string;
-}
-export interface ItemResources{
-    item1: string;
-    item2: string;
-    item3: string;
-    item4: string;
-    item5: string;
-    item6: string;
-    item7: string;
-    item8: string;
-}
-
-export interface FooterLang {
-    usefulLinks: string;
-    access: string;
-    premium: string;
-    moreLinks: string;
-    blog: string;
-    ytChannel: string;
->>>>>>>>> Temporary merge branch 2
 }
 
 // Converts JSON strings to/from your types
