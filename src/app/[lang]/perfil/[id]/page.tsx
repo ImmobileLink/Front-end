@@ -5,7 +5,7 @@ import { getDictionary } from '../../dictionaries';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { useProfileStore } from '../../../../../lib/store/profileStore';
-import { getProfileFullData } from '../../../../../lib/Utils/userProfile';
+import { getProfileFullData } from '../../../../../lib/utils/userProfile';
 import CorretorProfile from './(perfil)/CorretorProfile';
 import EmpresaProfile from './(perfil)/EmpresaProfile';
 import Link from 'next/link';

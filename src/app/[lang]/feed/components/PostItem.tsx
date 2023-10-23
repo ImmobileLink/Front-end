@@ -2,7 +2,7 @@
 import Avatar from "../../(components)/Avatar";
 import Image from "next/image";
 import { PublicacaoCompleta } from "../../../../../lib/modelos";
-import { formataData } from "../../../../../lib/Utils/formataData";
+import { formataData } from "../../../../../lib/utils/formataData";
 import { Card } from "../../(components)/(compositions)/(card)";
 import Dropdown from "./Dropdown";
 import { useRouter } from "next/navigation";
@@ -35,6 +35,7 @@ export default function PostItem({
 }: PostItemProps) {
     const router = useRouter();
     const [readMore, isReadMore] = useState(false);
+    const [savedItem, isSavedItem] = useState(publicacao.issalvo);
 
     const supabase = createClientComponentClient<Database>();
 
@@ -46,6 +47,8 @@ export default function PostItem({
         const { data } = await supabase
             .from("publicacaosalva")
             .insert(savedItem);
+
+        isSavedItem(true);
     };
 
     const handleRemovePost = async () => {
@@ -54,6 +57,8 @@ export default function PostItem({
             .delete()
             .eq("idusuario", idusuario)
             .eq("idpublicacao", publicacao.id);
+
+        isSavedItem(false);
     };
 
     return (
@@ -81,33 +86,35 @@ export default function PostItem({
                                         {
                                             label: (
                                                 <div className="flex items-center">
-                                                    {publicacao.issalvo ? (
-                                                        <>
-                                                            <BsBookmarkCheckFill />
-                                                            <a className="pl-1">
-                                                                {
-                                                                    dict
-                                                                        .dropdown
-                                                                        .removedsaveditem
-                                                                }
-                                                            </a>
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <BsFillBookmarkPlusFill />
-                                                            <a className="pl-1">
-                                                                {
-                                                                    dict
-                                                                        .dropdown
-                                                                        .addsaveditem
-                                                                }
-                                                            </a>
-                                                        </>
-                                                    )}
+                                                    <>
+                                                        {savedItem ? (
+                                                            <>
+                                                                <BsBookmarkCheckFill />
+                                                                <a className="pl-1">
+                                                                    {
+                                                                        dict
+                                                                            .dropdown
+                                                                            .removedsaveditem
+                                                                    }
+                                                                </a>
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <BsFillBookmarkPlusFill />
+                                                                <a className="pl-1">
+                                                                    {
+                                                                        dict
+                                                                            .dropdown
+                                                                            .addsaveditem
+                                                                    }
+                                                                </a>
+                                                            </>
+                                                        )}
+                                                    </>
                                                 </div>
                                             ),
                                             onClick: () => {
-                                                if (publicacao.issalvo) {
+                                                if (savedItem) {
                                                     handleRemovePost();
                                                 } else {
                                                     handleSavePost();
