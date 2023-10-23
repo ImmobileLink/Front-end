@@ -38,7 +38,10 @@ export interface InsereImovel {
     complemento: string,
     valor: number,
     imagem: string,
-    caracteristicas: Json
+    caracteristicas: {
+      id: string;
+      descricao: string;
+  }[]
 }
 export interface AtualizaImovel {
     descricao: string,
@@ -52,7 +55,7 @@ export interface AtualizaImovel {
     valor: number,
     imagem: string,
     caracteristicas: Json
-  }
+}
 export interface ImovelSemCorporacao {
     id: string,
     rua: string,
@@ -72,13 +75,22 @@ export interface MensagemAInserir {
 }
 export interface CorretorAssociado {
     id: string,
-    nome: string,
+    nome: string | null,
+    estado: string | null,
+    cidade: string | null,
+    tipoImovel: {
+      id: string;
+      descricao: string;
+  } | {
+      id: string;
+      descricao: string;
+  }[] | null;
 }
 export type Sala = Database['public']['Tables']['sala']['Row']
 export type Visita = Database['public']['Tables']['visita']['Row']
 export interface InsereVisita {
     dadosmarcador: Json;
-    dataAgendamento: string;
+    dataagendamento: string;
     idcorporacao: string;
     idcorretor: string;
     idimovel: string;
@@ -150,6 +162,7 @@ export interface UltimaMensagemPorSalaPorUsuario {
 export type userData = {
     id?: string;
     avatar?: string;
+    capa?: string;
     nome?: string;
     isPremium?: boolean;
     type?: string;
@@ -194,16 +207,37 @@ export type CorporacaoPorRegiao = {
         cidade: string,
         estado: string
     }[] | null;
-} 
+}
 
 export type filterType = {
     tipoUsuario: string;
     estado: string;
     cidade: string;
     avaliacao: number;
-    especialidades: string[];
-  }
+    especialidades: string[];}
+
 
   export type salaUsuario = {
     idsala:string
   }
+
+
+export type Historico = {
+    data_fim: string | null;
+    data_inicio: string;
+    descricao: string | null;
+    id: string | null;
+    id_corporacao: string | null;
+    id_corretor: string;
+    nome_empresa: string | null;
+}[] | null;
+
+export type AreaAtuacao = {
+    cidade: string;
+    estado: string;
+}[] | null
+
+export type Especialidades = {
+    id: string;
+    descricao: string;
+}[] | null

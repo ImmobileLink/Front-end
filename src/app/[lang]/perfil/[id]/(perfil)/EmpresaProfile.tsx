@@ -1,31 +1,34 @@
 import { useProfileStore } from '../../../../../../lib/store/profileStore';
 import { Page } from './composition/page';
 import Cabecalho from './components/Cabecalho/Cabecalho';
-import Dashboard from './components/Dashboard/Dashboard';
 import Calendario from '@/app/[lang]/(components)/Calendario';
 import InfosEmpresa from './components/Infos/InfosEmpresa';
+import Dashboard from './components/Dashboard/Dashboard';
+import { isObject } from 'chart.js/dist/helpers/helpers.core';
 
 export default async function page() {
 
-    const state = useProfileStore.getState()
+    const isAssociado = useProfileStore.getState().isAssociado
+    const isOwn = useProfileStore.getState().isOwn
 
     return (
-        <Page.Root>
+        <>
             <Page.Main>
                 <Cabecalho />
-                <InfosEmpresa dict={state.dict} corretor={state.profileFullData} />
+                <InfosEmpresa />
             </Page.Main>
 
             <Page.Right>
                 <Page.Dashboard>
-                    <Dashboard />
+                    <Dashboard/>
                 </Page.Dashboard>
 
-                <Page.Calendar>
-                    <Calendario ownId={state.sessionData?.id} idProfile={state.profileData?.id} />
-                </Page.Calendar>
+                {isAssociado || isOwn  && (
+                    <Page.Calendar>
+                        <Calendario />
+                    </Page.Calendar>
+                )}
             </Page.Right>
-        </Page.Root >
-
+        </>
     );
 }
