@@ -168,12 +168,12 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
     }
 
     const visualizarVisita = (event: any, idvisita: string) => {
-        router.push(`/visita/${idvisita}`)
+        router.push(`/agenda`)
         atualizaNotificacoes(idvisita)
         getNotifications(userId)
     }
     const visualizarVisitaSemAtualizar = (event: any, idvisita: string) => {
-        router.push(`/visita/${idvisita}`)
+        router.push(`/agenda`)
     }
 
     const aceitaVisita = async (event: any, idvisita: string) => {
