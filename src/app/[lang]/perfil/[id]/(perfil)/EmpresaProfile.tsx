@@ -1,14 +1,15 @@
 import { useProfileStore } from '../../../../../../lib/store/profileStore';
 import { Page } from './composition/page';
 import Cabecalho from './components/Cabecalho/Cabecalho';
-import Dashboard from './components/Infos/Empresa/Dashboard/DashboardEmpresa';
 import Calendario from '@/app/[lang]/(components)/Calendario';
 import InfosEmpresa from './components/Infos/InfosEmpresa';
-import DashboardEmpresa from './components/Infos/Empresa/Dashboard/DashboardEmpresa';
+import Dashboard from './components/Dashboard/Dashboard';
+import { isObject } from 'chart.js/dist/helpers/helpers.core';
 
 export default async function page() {
 
     const isAssociado = useProfileStore.getState().isAssociado
+    const isOwn = useProfileStore.getState().isOwn
 
     return (
         <>
@@ -19,10 +20,10 @@ export default async function page() {
 
             <Page.Right>
                 <Page.Dashboard>
-                    <DashboardEmpresa />
+                    <Dashboard/>
                 </Page.Dashboard>
 
-                {isAssociado && (
+                {isAssociado || isOwn  && (
                     <Page.Calendar>
                         <Calendario />
                     </Page.Calendar>

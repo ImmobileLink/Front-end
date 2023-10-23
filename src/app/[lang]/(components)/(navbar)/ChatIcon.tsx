@@ -12,10 +12,9 @@ import { Navbarbuttons } from "@/app/i18n/dictionaries/types";
 interface ChatIconProps {
     textos: Navbarbuttons
     userId: string | undefined;
-    newMessages: any
 }
 
-export default function ChatIcon({ textos, userId, newMessages }: ChatIconProps) {
+export default function ChatIcon({ textos, userId }: ChatIconProps) {
     const { chatNewMessages, toggleChatNewMessages } = useContext(NotificationContext)
     const { chatNotification, toggleChatNotification } = useContext(NotificationContext)
     const supabase = createClientComponentClient<Database>()
@@ -37,7 +36,13 @@ export default function ChatIcon({ textos, userId, newMessages }: ChatIconProps)
     }
 
     useEffect(() => {
-        toggleChatNewMessages(newMessages)
+        getMessageNotifications(userId!)
+    },[])
+
+    useEffect(() => {
+        if (chatNewMessages.length > 0) {
+            toggleChatNotification(true)
+        }
         const subscription = supabase.channel("messagenotification_changes")
             .on(
                 "postgres_changes",
@@ -55,13 +60,14 @@ export default function ChatIcon({ textos, userId, newMessages }: ChatIconProps)
         return () => {
             subscription.unsubscribe();
         }
-    }, [])
-
-    useEffect(() => {
-        if (chatNewMessages.length > 0) {
-            toggleChatNotification(true)
-        }
     }, [chatNewMessages])
+
+    // useEffect(() => {
+    //     toggleChatNewMessages(newMessages)
+    //     if (chatNewMessages.length > 0) {
+    //         toggleChatNotification(true)
+    //     }
+    // }, [chatNewMessages])
 
     return (
         <>

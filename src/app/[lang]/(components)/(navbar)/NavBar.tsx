@@ -12,7 +12,7 @@ import { cache } from "react";
 import ChatIcon from "./ChatIcon";
 import { MdPersonSearch } from "react-icons/md";
 import { HiBell, HiHome } from "react-icons/hi2";
-import { getMessageNotifications } from "../../../../../lib/utils/userNotification";
+// import { getMessageNotifications } from "../../../../../lib/utils/userNotification";
 import NotificationDropdown from "./NotificationDropdown";
 
 interface NavBarProps {
@@ -45,10 +45,6 @@ export default async function NavBar({ params: { lang } }: NavBarProps) {
 
   const userData = await getUserData(user);
   const dict = await getDictionary(lang); // pt
-  let newmessages:any = []
-  if(userData.id) {
-    newmessages = await getMessageNotifications(userData.id)
-  }
  
   return (
     <>
@@ -92,7 +88,7 @@ export default async function NavBar({ params: { lang } }: NavBarProps) {
                       <NotificationDropdown textos={dict.navbarbuttons} userId={userData.id}/>
                     </li>
                     <li>
-                      <ChatIcon userId={userData.id} newMessages={newmessages} textos={dict.navbarbuttons}/>
+                      <ChatIcon userId={userData.id} textos={dict.navbarbuttons}/>
                     </li>
                     <li className="block md:hidden">
                       <NavBarHamburguerMenu textos={dict.navbarbuttons} userId={userData.id} />

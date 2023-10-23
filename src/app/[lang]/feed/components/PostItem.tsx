@@ -41,8 +41,8 @@ export default function PostItem({
 
     const handleSavePost = async () => {
         let savedItem = {
-            idusuario: idusuario,
-            idpublicacao: publicacao.id,
+            idusuario: idusuario!,
+            idpublicacao: publicacao.id!,
         };
         const { data } = await supabase
             .from("publicacaosalva")

@@ -144,7 +144,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
     return () => {
       subscription.unsubscribe();
     }
-  }, [])
+  }, [chatNewMessages])
 
   const style = 'bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
   //Exibe a lista de amigos
@@ -205,7 +205,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
                   selected = true;
                 }
                 return (
-                  <ChatHubCard key={mensagem.idmensagem} idsala={idsala} dict={dict.chat} mensagem={mensagem} userId={userId} userAvatar={mensagem.avatarparticipante} highlight={included} selected={selected} />
+                  <ChatHubCard key={mensagem.idmensagem} idsala={mensagem.idsala} dict={dict.chat} mensagem={mensagem} userId={userId} userAvatar={mensagem.avatarparticipante} highlight={included} selected={selected} />
                 )
               }
               )

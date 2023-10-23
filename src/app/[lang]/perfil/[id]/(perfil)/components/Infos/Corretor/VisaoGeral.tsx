@@ -6,9 +6,8 @@ import { useQuery } from 'react-query';
 import { Dictionaries } from "@/app/i18n/dictionaries/types";
 import { Corretor } from "../../../../../../../../../lib/modelos";
 import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
-import { useEffect } from "react";
 import { useProfileContext } from "../../../context/ProfileContext";
-
+import { v4 as uuidv4 } from 'uuid';
 
 interface VisaoGeralProps {
 
@@ -53,8 +52,8 @@ export default function VisaoGeral({ }: VisaoGeralProps) {
                 <tbody>
 
                   {especialidades?.map((item, index) => (
-                    <tr className={`bg-white border-b ${index % 2 === 0 ? 'dark:bg-gray-900' : 'dark:bg-gray-800'} dark:border-gray-700`}>
-                      <th key={index} scope="row" className={`px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white`}>
+                    <tr key={index} className={`bg-white border-b ${index % 2 === 0 ? 'dark:bg-gray-900' : 'dark:bg-gray-800'} dark:border-gray-700`}>
+                      <th scope="row" className={`px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white`}>
                         {item.descricao}
                       </th>
                     </tr>
@@ -67,6 +66,8 @@ export default function VisaoGeral({ }: VisaoGeralProps) {
             </div>
 
           )}
+
+         
 
 
 
@@ -85,8 +86,8 @@ export default function VisaoGeral({ }: VisaoGeralProps) {
                   <tbody>
 
                     {areasAtuacao?.map((item, index) => (
-                      <tr className={`bg-white border-b ${index % 2 === 0 ? 'dark:bg-gray-900' : 'dark:bg-gray-800'} dark:border-gray-700`}>
-                        <th key={index} scope="row" className={`px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white`}>
+                      <tr key={index} className={`bg-white border-b ${index % 2 === 0 ? 'dark:bg-gray-900' : 'dark:bg-gray-800'} dark:border-gray-700`}>
+                        <th scope="row" className={`px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white`}>
                           {`${item.cidade} - ${item.estado}`}
                         </th>
                       </tr>

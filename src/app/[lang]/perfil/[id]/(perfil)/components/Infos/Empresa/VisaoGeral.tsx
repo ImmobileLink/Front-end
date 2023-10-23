@@ -52,8 +52,8 @@ export default function VisaoGeral({ }: VisaoGeralProps) {
                   <tbody>
 
                     {areasAtuacao?.map((item, index) => (
-                      <tr className={`bg-white border-b ${index % 2 === 0 ? 'dark:bg-gray-900' : 'dark:bg-gray-800'} dark:border-gray-700`}>
-                        <th key={index} scope="row" className={`px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white`}>
+                      <tr  key={index} className={`bg-white border-b ${index % 2 === 0 ? 'dark:bg-gray-900' : 'dark:bg-gray-800'} dark:border-gray-700`}>
+                        <th  scope="row" className={`px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white`}>
                           {`${item.cidade} - ${item.estado}`}
                         </th>
                       </tr>

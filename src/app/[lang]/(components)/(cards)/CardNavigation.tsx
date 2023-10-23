@@ -17,19 +17,13 @@ export default function CardNavigation({
         {userData.type == "corporacao" ? (
           <>
             <Link
-              href={"/corretores"}
-              className="mt-3 self-center w-3/4 lg:w-2/3 text-white bg-secundaria-100 hover:bg-secundaria-200 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 "
-            >
-              {cards.mybrokers}
-            </Link>
-            <Link
               href={"/imovel"}
               className="mt-3 self-center w-3/4 lg:w-2/3 text-white bg-secundaria-100 hover:bg-secundaria-200 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 "
             >
               {cards.myproperties}
             </Link>
             <Link
-              href={"/visitas"}
+              href={"/agenda"}
               className="mt-3 self-center w-3/4 lg:w-2/3 text-white bg-secundaria-100 hover:bg-secundaria-200 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 "
             >
               {cards.schedules}
@@ -38,7 +32,7 @@ export default function CardNavigation({
         ) : (
           <>
             <Link
-              href={"/visitas"}
+              href={"/agenda"}
               className="mt-3 self-center w-3/4 lg:w-2/3 text-white bg-secundaria-100 hover:bg-secundaria-200 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 "
             >
               {cards.schedules}

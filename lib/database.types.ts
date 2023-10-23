@@ -15,21 +15,21 @@ export interface Database {
           idcorporacao: string
           idcorretor: string
           iniciativa: string
-          pendente: boolean | null
+          pendente: boolean
         }
         Insert: {
           id?: string
           idcorporacao: string
           idcorretor: string
           iniciativa: string
-          pendente?: boolean | null
+          pendente?: boolean
         }
         Update: {
           id?: string
           idcorporacao?: string
           idcorretor?: string
           iniciativa?: string
-          pendente?: boolean | null
+          pendente?: boolean
         }
         Relationships: [
           {
@@ -67,40 +67,6 @@ export interface Database {
             foreignKeyName: "avaliacao_id_fkey"
             columns: ["id"]
             referencedRelation: "corretor"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
-      comentario: {
-        Row: {
-          conteudo: string
-          id: string
-          idautor: string
-          idpublicacao: string
-        }
-        Insert: {
-          conteudo: string
-          id?: string
-          idautor: string
-          idpublicacao: string
-        }
-        Update: {
-          conteudo?: string
-          id?: string
-          idautor?: string
-          idpublicacao?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "comentario_idautor_fkey"
-            columns: ["idautor"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "comentario_idpublicacao_fkey"
-            columns: ["idpublicacao"]
-            referencedRelation: "publicacao"
             referencedColumns: ["id"]
           }
         ]
@@ -261,10 +227,52 @@ export interface Database {
           sobre?: string | null
           telefone?: string | null
         }
+        Relationships: []
+      }
+      denuncia: {
+        Row: {
+          aberta: boolean
+          descricao: string | null
+          id: string
+          idautor: string
+          idpublicacao: string
+          idusuario: string
+          motivo: string
+        }
+        Insert: {
+          aberta?: boolean
+          descricao?: string | null
+          id?: string
+          idautor: string
+          idpublicacao: string
+          idusuario: string
+          motivo: string
+        }
+        Update: {
+          aberta?: boolean
+          descricao?: string | null
+          id?: string
+          idautor?: string
+          idpublicacao?: string
+          idusuario?: string
+          motivo?: string
+        }
         Relationships: [
           {
-            foreignKeyName: "corretor_id_fkey"
-            columns: ["id"]
+            foreignKeyName: "denuncia_idautor_fkey"
+            columns: ["idautor"]
+            referencedRelation: "usuario"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "denuncia_idpublicacao_fkey"
+            columns: ["idpublicacao"]
+            referencedRelation: "publicacao"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "denuncia_idusuario_fkey"
+            columns: ["idusuario"]
             referencedRelation: "usuario"
             referencedColumns: ["id"]
           }
@@ -302,8 +310,8 @@ export interface Database {
         Row: {
           data_fim: string | null
           data_inicio: string
-          descricao: string | null
-          id: string | null
+          descricao: string
+          id: string
           id_corporacao: string | null
           id_corretor: string
           nome_empresa: string | null
@@ -311,8 +319,8 @@ export interface Database {
         Insert: {
           data_fim?: string | null
           data_inicio: string
-          descricao?: string | null
-          id?: string | null
+          descricao: string
+          id?: string
           id_corporacao?: string | null
           id_corretor: string
           nome_empresa?: string | null
@@ -320,8 +328,8 @@ export interface Database {
         Update: {
           data_fim?: string | null
           data_inicio?: string
-          descricao?: string | null
-          id?: string | null
+          descricao?: string
+          id?: string
           id_corporacao?: string | null
           id_corretor?: string
           nome_empresa?: string | null
@@ -420,34 +428,6 @@ export interface Database {
             foreignKeyName: "imoveltipado_idtipoimovel_fkey"
             columns: ["idtipoimovel"]
             referencedRelation: "tipoImovel"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
-      like: {
-        Row: {
-          idautor: string
-          idpublicacao: string
-        }
-        Insert: {
-          idautor: string
-          idpublicacao: string
-        }
-        Update: {
-          idautor?: string
-          idpublicacao?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "like_idautor_fkey"
-            columns: ["idautor"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "like_idpublicacao_fkey"
-            columns: ["idpublicacao"]
-            referencedRelation: "publicacao"
             referencedColumns: ["id"]
           }
         ]
@@ -582,6 +562,34 @@ export interface Database {
           {
             foreignKeyName: "publicacao_idautor_fkey"
             columns: ["idautor"]
+            referencedRelation: "usuario"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      publicacaosalva: {
+        Row: {
+          idpublicacao: string
+          idusuario: string
+        }
+        Insert: {
+          idpublicacao: string
+          idusuario: string
+        }
+        Update: {
+          idpublicacao?: string
+          idusuario?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "publicacaosalva_idpublicacao_fkey"
+            columns: ["idpublicacao"]
+            referencedRelation: "publicacao"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "publicacaosalva_idusuario_fkey"
+            columns: ["idusuario"]
             referencedRelation: "usuario"
             referencedColumns: ["id"]
           }
@@ -774,7 +782,6 @@ export interface Database {
           idcorporacao: string
           idcorretor: string
           idimovel: string
-          ultimaalteracao: string | null
         }
         Insert: {
           aceito?: boolean | null
@@ -784,7 +791,6 @@ export interface Database {
           idcorporacao: string
           idcorretor: string
           idimovel: string
-          ultimaalteracao?: string | null
         }
         Update: {
           aceito?: boolean | null
@@ -794,7 +800,6 @@ export interface Database {
           idcorporacao?: string
           idcorretor?: string
           idimovel?: string
-          ultimaalteracao?: string | null
         }
         Relationships: [
           {
@@ -1299,6 +1304,20 @@ export interface Database {
           imagem: string
         }[]
       }
+      obter_avaliacao_media: {
+        Args: {
+          idcorretor_param: string
+        }
+        Returns: {
+          id: string
+          profissionalismo: number
+          comunicacao: number
+          conhecimento: number
+          transparencia: number
+          detalhista: number
+          clareza: number
+        }[]
+      }
       obter_cidade_estado_por_usuario: {
         Args: {
           user_id: string
@@ -1380,6 +1399,19 @@ export interface Database {
           nome: string
         }[]
       }
+      obter_satisfacao_media: {
+        Args: {
+          idcorretor_param: string
+        }
+        Returns: {
+          id: string
+          muito_insatisfeito: number
+          insatisfeito: number
+          neutro: number
+          satisfeito: number
+          muito_satisfeito: number
+        }[]
+      }
       obter_ultimas_mensagens_por_usuario: {
         Args: {
           idusuario: string
@@ -1395,6 +1427,25 @@ export interface Database {
           idparticipante: string
           nomeparticipante: string
           avatarparticipante: string
+        }[]
+      }
+      obter_visitas_aceitas_pelo_corretor: {
+        Args: {
+          corretor_id: string
+        }
+        Returns: {
+          visita_id: string
+          nome_corporacao: string
+          data_agendamento: string
+          nome_marcador: string
+          telefone_marcador: string
+          estado_imovel: string
+          cidade_imovel: string
+          bairro_imovel: string
+          rua_imovel: string
+          numero_imovel: number
+          cep_imovel: string
+          complemento_imovel: string
         }[]
       }
       obterespecialidade: {
