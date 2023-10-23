@@ -281,7 +281,6 @@
       "regioncomboboxplaceholder": "Todos",
       "comboboxplaceholder": "Selecione",
       "noposts": "Nenhuma publicação encontrada na região especificada",
-      "noposts": "Nenhuma publicação encontrada na região especificada",
       "error": "Ops! Algo deu errado. Tente recarregar a página.",
       "selectaregion": "Selecione uma região para filtrar os posts"
     },
@@ -290,7 +289,6 @@
       "post": "Publicar",
       "placeholder": "Nova publicação",
       "writeamessage": "Insira a mensagem",
-      "imageinputlabel": "foto",
       "imageinputlabel": "foto",
       "imageerror": "Imagem inválida",
       "cityselector": {
@@ -329,7 +327,6 @@
   "profile": {
     "noAssociation": "Sem Associação no momento",
     "hasAssociation": "Possui empresa(s) associada(s)",
-    "hasAssociation": "Possui empresa(s) associada(s)",
     "btnAssociate": "Associate",
     "btnPending": "Pending",
     "btnConnect": "Connect",
@@ -348,12 +345,10 @@
     "january": "Janeiro",
     "february": "Fevereiro",
     "march": "Março",
-    "march": "Março",
     "april": "Abril",
     "may": "Maio",
     "june": "Junho"
   },
-  "calendar": {
   "calendar": {
     "scheduledVisits": "Visitas agendadas"
   },
@@ -400,6 +395,7 @@
   "chat": {
     "conversations": "Conversas",
     "you": "Você",
+    "sent": "enviar",
     "newconversation": "Novo espaço",
     "newconvlabel1": "Associações",
     "newconvlabel2": "Links",

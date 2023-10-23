@@ -15,20 +15,21 @@ export interface Database {
           idcorporacao: string
           idcorretor: string
           iniciativa: string
-          iniciativa: string
           pendente: boolean
         }
         Insert: {
           id?: string
           idcorporacao: string
           idcorretor: string
-          pendente?: boolean | null
+          iniciativa: string
+          pendente?: boolean
         }
         Update: {
           id?: string
           idcorporacao?: string
           idcorretor?: string
-          pendente?: boolean | null
+          iniciativa?: string
+          pendente?: boolean
         }
         Relationships: [
           {
@@ -66,40 +67,6 @@ export interface Database {
             foreignKeyName: "avaliacao_id_fkey"
             columns: ["id"]
             referencedRelation: "corretor"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
-      comentario: {
-        Row: {
-          conteudo: string
-          id: string
-          idautor: string
-          idpublicacao: string
-        }
-        Insert: {
-          conteudo: string
-          id?: string
-          idautor: string
-          idpublicacao: string
-        }
-        Update: {
-          conteudo?: string
-          id?: string
-          idautor?: string
-          idpublicacao?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "comentario_idautor_fkey"
-            columns: ["idautor"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "comentario_idpublicacao_fkey"
-            columns: ["idpublicacao"]
-            referencedRelation: "publicacao"
             referencedColumns: ["id"]
           }
         ]
@@ -260,14 +227,7 @@ export interface Database {
           sobre?: string | null
           telefone?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "corretor_id_fkey"
-            columns: ["id"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       denuncia: {
         Row: {
@@ -468,34 +428,6 @@ export interface Database {
             foreignKeyName: "imoveltipado_idtipoimovel_fkey"
             columns: ["idtipoimovel"]
             referencedRelation: "tipoImovel"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
-      like: {
-        Row: {
-          idautor: string
-          idpublicacao: string
-        }
-        Insert: {
-          idautor: string
-          idpublicacao: string
-        }
-        Update: {
-          idautor?: string
-          idpublicacao?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "like_idautor_fkey"
-            columns: ["idautor"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "like_idpublicacao_fkey"
-            columns: ["idpublicacao"]
-            referencedRelation: "publicacao"
             referencedColumns: ["id"]
           }
         ]
@@ -1340,31 +1272,6 @@ export interface Database {
           idusuario: string
         }[]
       }
-      getcorretorwithavatar: {
-        Args: {
-          corretor_id: string
-        }
-        Returns: {
-          id: string
-          nome: string
-          cpf: string
-          cnpj: string
-          creci: string
-          cep: string
-          estado: string
-          cidade: string
-          bairro: string
-          logradouro: string
-          numero: number
-          complemento: string
-          telefone: string
-          celular: string
-          comercial: string
-          premium: boolean
-          sobre: string
-          avatar: string
-        }[]
-      }
       mensagem_com_usuario: {
         Args: {
           sala: string
@@ -1378,6 +1285,16 @@ export interface Database {
           atualizadoem: string
           mensagem: string
           imagem: string
+        }[]
+      }
+      obter_avaliacao_formulario: {
+        Args: {
+          idcorretor_param: string
+        }
+        Returns: {
+          id: string
+          media_campo1: number
+          media_campo2: number
         }[]
       }
       obter_cidade_estado_por_usuario: {
