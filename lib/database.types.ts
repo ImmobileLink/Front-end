@@ -1287,29 +1287,6 @@ export interface Database {
           imagem: string
         }[]
       }
-      obter_avaliacao_media: {
-        Args: {
-          idcorretor_param: string
-        }
-        Returns: {
-          id: string
-          profissionalismo: number
-          comunicacao: number
-          conhecimento: number
-          transparencia: number
-          detalhista: number
-          clareza: number
-        }[]
-      }
-      obter_cidade_estado_por_usuario: {
-        Args: {
-          user_id: string
-        }
-        Returns: {
-          cidade: string
-          estado: string
-        }[]
-      }
       obter_cinco_corretores_id: {
         Args: Record<PropertyKey, never>
         Returns: {

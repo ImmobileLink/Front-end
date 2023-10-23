@@ -1,10 +1,22 @@
 //Arquivo de definição de tipos para o projeto.
 //Exporta os tipos do banco de dados ou tipos personalizados para não ser necessário declará-los toda hora nos códigos;
 import { Database, Json } from "./database.types";
-import Avatar from '../src/app/[lang]/(components)/Avatar';
 
 //Nativos do Banco de dados
 export type Publicacao = Database['public']['Tables']['publicacao']['Row']
+export type TipoImovel = Database['public']['Tables']['tipoImovel']['Row']
+export type ImovelTipado = Database['public']['Tables']['imoveltipado']['Row']
+export type Usuario = Database['public']['Tables']['usuario']['Row']
+export type Corretor = Database['public']['Tables']['corretor']['Row']
+export type Corporacao = Database['public']['Tables']['corporacao']['Row']
+export type ImovelDB = Database['public']['Tables']['imovel']['Row']
+export type ImovelRegistro = Database['public']['Tables']['imovel']['Row']
+export type UsuarioPorSala = Database['public']['Tables']['usuarioporsala']['Row']
+export type Notificacao = Database['public']['Tables']['notificacao']['Row']
+export type Mensagem = Database['public']['Tables']['mensagem']['Row']
+export type Sala = Database['public']['Tables']['sala']['Row']
+export type Visita = Database['public']['Tables']['visita']['Row']
+
 export interface PublicacaoCompleta {
     id: string;
     idautor: string;
@@ -17,15 +29,7 @@ export interface PublicacaoCompleta {
     atualizadoem: string;
 
 }
-export type TipoImovel = Database['public']['Tables']['tipoImovel']['Row']
-export type ImovelTipado = Database['public']['Tables']['imoveltipado']['Row']
-export type Usuario = Database['public']['Tables']['usuario']['Row']
-export type Corretor = Database['public']['Tables']['corretor']['Row']
-export type Corporacao = Database['public']['Tables']['corporacao']['Row']
-export type ImovelDB = Database['public']['Tables']['imovel']['Row']
-export type ImovelRegistro = Database['public']['Tables']['imovel']['Row']
-export type UsuarioPorSala = Database['public']['Tables']['usuarioporsala']['Row']
-export type Notificacao = Database['public']['Tables']['notificacao']['Row']
+
 export interface InsereImovel {
     idcorporacao: string,
     descricao: string,
@@ -66,7 +70,7 @@ export interface ImovelSemCorporacao {
     descricao: string,
     valor: number
 }
-export type Mensagem = Database['public']['Tables']['mensagem']['Row']
+
 export interface MensagemAInserir {
     idautor: string,
     idsala: string,
@@ -75,19 +79,9 @@ export interface MensagemAInserir {
 }
 export interface CorretorAssociado {
     id: string,
-    nome: string | null,
-    estado: string | null,
-    cidade: string | null,
-    tipoImovel: {
-      id: string;
-      descricao: string;
-  } | {
-      id: string;
-      descricao: string;
-  }[] | null;
+    nome: string,
 }
-export type Sala = Database['public']['Tables']['sala']['Row']
-export type Visita = Database['public']['Tables']['visita']['Row']
+
 export interface InsereVisita {
     dadosmarcador: Json;
     dataagendamento: string;
@@ -214,30 +208,24 @@ export type filterType = {
     estado: string;
     cidade: string;
     avaliacao: number;
-    especialidades: string[];}
+    especialidades: string[];
+}
 
+export type salaUsuario = {
+    idsala: string
+}
 
-  export type salaUsuario = {
-    idsala:string
-  }
-
-
-export type Historico = {
-    data_fim: string | null;
-    data_inicio: string;
-    descricao: string | null;
-    id: string | null;
-    id_corporacao: string | null;
-    id_corretor: string;
-    nome_empresa: string | null;
-}[] | null;
-
-export type AreaAtuacao = {
-    cidade: string;
-    estado: string;
-}[] | null
-
-export type Especialidades = {
-    id: string;
-    descricao: string;
-}[] | null
+export interface VisitaProps {
+    visita_id: string;
+    nome_corporacao: string;
+    data_agendamento: string;
+    nome_marcador: string;
+    telefone_marcador: string;
+    estado_imovel: string;
+    cidade_imovel: string;
+    bairro_imovel: string;
+    rua_imovel: string;
+    numero_imovel: number;
+    cep_imovel: string;
+    complemento_imovel: string;
+}
