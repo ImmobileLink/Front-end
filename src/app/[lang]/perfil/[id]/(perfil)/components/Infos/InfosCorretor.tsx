@@ -9,6 +9,8 @@ import { HiUserCircle, HiDocumentText, HiCalendar } from 'react-icons/hi';
 import { MdDashboard } from 'react-icons/md';
 import { useProfileContext } from '../../context/ProfileContext';
 import { useButtonContext } from '../../context/TabsContext';
+import Posts from './Posts';
+import { useProfileStore } from '../../../../../../../../lib/store/profileStore';
 
 
 
@@ -21,6 +23,7 @@ export default function InfosCorretor({ }: InfosProps) {
 
 
   const { activeTab, setTab, tabsRef } = useButtonContext()
+  const isOwn = useProfileStore.getState().isOwn
 
 
   return (
@@ -43,9 +46,19 @@ export default function InfosCorretor({ }: InfosProps) {
           icon={HiDocumentText}
           title="Posts"
         >
-          
+          <Posts />
         </Tabs.Item>
-          
+
+        {isOwn && (
+          <Tabs.Item
+            icon={HiDocumentText}
+            title="Saved Posts"
+          >
+            <p>PostsSalvbos</p>
+          </Tabs.Item>
+        )}
+
+
 
         <Tabs.Item
           icon={HiCalendar}
@@ -61,7 +74,7 @@ export default function InfosCorretor({ }: InfosProps) {
             control the content visibility and styling.
           </p>
         </Tabs.Item>
-      </Tabs.Group>      
+      </Tabs.Group>
     </div>
   );
 };
