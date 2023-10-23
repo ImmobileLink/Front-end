@@ -1222,7 +1222,7 @@ export interface Database {
           imagem: string
           criadoem: string
           atualizadoem: string
-          isSalvo: boolean
+          issalvo: boolean
         }[]
       }
       get_tipoimovel_by_idcorretor: {

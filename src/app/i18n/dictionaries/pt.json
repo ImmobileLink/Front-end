@@ -311,7 +311,7 @@
         },
         "dropdown": {
             "addsaveditem": "Salvar publicação",
-            "removedsaveditem": "Remover item dos salvos",
+            "removedsaveditem": "Remover item salvo",
             "seeprofile": "Ver perfil",
             "report": "Denunciar"
         }

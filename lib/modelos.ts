@@ -15,7 +15,7 @@ export interface PublicacaoCompleta {
     imagem: string;
     criadoem: string;
     atualizadoem: string;
-    isSalvo: boolean;
+    issalvo: boolean;
 
 }
 export type TipoImovel = Database['public']['Tables']['tipoImovel']['Row']

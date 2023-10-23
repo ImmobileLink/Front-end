@@ -48,6 +48,14 @@ export default function PostItem({
             .insert(savedItem);
     };
 
+    const handleRemovePost = async () => {
+        const { data } = await supabase
+            .from("publicacaosalva")
+            .delete()
+            .eq("idusuario", idusuario)
+            .eq("idpublicacao", publicacao.id);
+    };
+
     return (
         <div className="mb-4">
             <Card.Root>
@@ -73,9 +81,17 @@ export default function PostItem({
                                         {
                                             label: (
                                                 <div className="flex items-center">
-                                                    {publicacao.isSalvo ==
-                                                    true ? (
-                                                        <>REMOVER</>
+                                                    {publicacao.issalvo ? (
+                                                        <>
+                                                            <BsBookmarkCheckFill />
+                                                            <a className="pl-1">
+                                                                {
+                                                                    dict
+                                                                        .dropdown
+                                                                        .removedsaveditem
+                                                                }
+                                                            </a>
+                                                        </>
                                                     ) : (
                                                         <>
                                                             <BsFillBookmarkPlusFill />
@@ -91,7 +107,11 @@ export default function PostItem({
                                                 </div>
                                             ),
                                             onClick: () => {
-                                                handleSavePost();
+                                                if (publicacao.issalvo) {
+                                                    handleRemovePost();
+                                                } else {
+                                                    handleSavePost();
+                                                }
                                             },
                                         },
                                         {
