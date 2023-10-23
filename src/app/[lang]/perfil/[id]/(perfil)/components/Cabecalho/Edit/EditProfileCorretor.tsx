@@ -12,7 +12,6 @@ import { useRouter } from "next/navigation";
 import EditRegiaoAtuacao from "./EditRegiaoAtuacao";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../../../../../lib/database.types";
-import { useProfileContext } from "../../../Provider/ProviderContext";
 import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
 
 interface EditProfileProps {

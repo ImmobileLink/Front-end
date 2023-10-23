@@ -32,17 +32,6 @@ async function getProfileFullData(type: string, id: string) {
     
 }
 
-async function verifyIfIsAssociado(idProfile: string, idSession:string) {
-    const supabase = createServerSupabaseClient();
-
-    let { data: isAssociado } = await supabase
-        .rpc('verifica_associacao', {
-            valor1: idProfile,
-            valor2: idSession!
-        })
-
-    return isAssociado;
-}
 
 async function getUserData( id: string) {
     const supabase = createServerSupabaseClient();
@@ -69,5 +58,5 @@ async function getAvaliacao(id: string) {
 }
 
 
-export { getUserData, getProfileFullData, verifyIfIsAssociado }
+export { getUserData, getProfileFullData }
 
