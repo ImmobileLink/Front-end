@@ -18,13 +18,13 @@ import { VisitaProps } from '../../../../../lib/modelos';
 import { Agenda } from '@/app/i18n/dictionaries/types';
 
 interface CalendarioProps {
-    userId: string;
+    type: string;
     visitas: VisitaProps[] | null;
     locale: string;
     dict: Agenda;
 }
 
-export default function Calendario({ userId, visitas, locale, dict }: CalendarioProps) {
+export default function Calendario({ type, visitas, locale, dict }: CalendarioProps) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [eventoAtivo, setEventoAtivo] = useState<VisitaProps>()
 
@@ -76,7 +76,7 @@ export default function Calendario({ userId, visitas, locale, dict }: Calendario
                 dayHeaderClassNames={"bg-gray-300"}
                 height={"100%"}
             />
-            <ModalEvento isOpen={isModalOpen} onClose={closeModal} evento={eventoAtivo} dict={dict}/>
+            <ModalEvento isOpen={isModalOpen} onClose={closeModal} evento={eventoAtivo} type={type} dict={dict}/>
         </>
     );
 

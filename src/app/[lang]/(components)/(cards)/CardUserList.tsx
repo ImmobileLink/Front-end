@@ -29,10 +29,9 @@ export default async function CardUserList({ cards }: CardUserListProps) {
     <>
       <div className="flex flex-col  justify-center">
         <div className="flex mb-5 p-1 -space-x-4 justify-center">
-          {avatares?.map((item) => {
+          {avatares?.map((item, index) => {
             return (
-              // eslint-disable-next-line react/jsx-key
-              <Avatar route={item.avatar} />
+              <Avatar route={item.avatar} key={index} />
             );
           })}
         </div>

@@ -689,10 +689,12 @@
   },
   "agenda": {
     "visitdetails": "Detalhes da visita",
-    "companyname": "Corporação responsável",
-    "clientname": "Nome do cliente",
-    "telefone": "Tel",
-    "date": "Dia agendado",
+    "companyname": "Empresa responsável",
+    "brokername": "Corretor responsável",
+    "clientdetails": "Dados do cliente",
+    "clientname": "Nome",
+    "telefone": "Telefone",
+    "date": "Data da visita",
     "placedetails": "Detalhes do imóvel",
     "address": "Endereço",
     "uf": "Estado",
@@ -704,7 +706,13 @@
     "complemento": "Complemento",
     "close": "Fechar",
     "delete": "Deseja cancelar esta visita?",
-    "cannotbeundone": "Esta ação não pode ser desfeita."
+    "cannotbeundone": "Esta ação não pode ser desfeita.",
+    "sendsurvey": "Deseja enviar formulário de pesquisa de satisfação?",
+    "logs": {
+      "emailerror": "O envio do formulário só é possível para visitas já realizadas.",
+      "emailok": "Email enviado com sucesso.",
+      "visitok": "Visita cancelada com sucesso."
+    }
   },
   "survey": {
     "dear": "Prezado(a)",
@@ -719,6 +727,8 @@
     "explanationsurveysite2": "Para ajudar a melhorar nossos serviços e garantir que atendamos suas expectativas da melhor maneira possível pedimos que faça uma avaliação em uma escala de 1 a 5, onde 5 representa Muito satisfeito e 1 representa Muito insatisfeito, para indicar o quanto nosso corretor atendeu suas expectativas durante a visita.",
     "pleased": "Muito satisfeito",
     "notpleased": "Muito insatisfeito",
+    "insertavalue": "Verifique se todos os campos obrigatórios foram preenchidos",
+    "fieldlenght": "O texto no campo deve ter mais de 3 caracteres",
     "finish": "FINALIZAR PESQUISA",
     "questions": {
       "question1": "1 - Profissionalismo do Corretor",

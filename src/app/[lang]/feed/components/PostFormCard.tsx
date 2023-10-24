@@ -9,6 +9,7 @@ import { publishPost } from "../../../../../lib/utils/Posts";
 import { _UFs } from "../../../../../lib/utils/getRegiao";
 import Avatar from "../../(components)/Avatar";
 import ImageUpload from "./ImageUpload";
+import toast from "react-hot-toast";
 
 interface PostFormCardProps {
     textos: Feed;
@@ -27,18 +28,13 @@ export default function PostFormCard({
     const [texto, setTexto] = useState("");
     const [imagem, setImagem] = useState<File>();
 
-    const [erro, setErro] = useState<boolean>(false);
-    const [logErro, setLogErro] = useState<string>("");
-
     const [loading, setLoading] = useState<boolean>(false);
 
     const inserePub = async () => {
         if (!texto) {
-            setErro(true);
-            setLogErro(textos.form.writeamessage);
+            toast.error(textos.form.writeamessage);
         } else if (!selectedCity) {
-            setErro(true);
-            setLogErro(textos.form.cityselector.selectacity!);
+            toast.error(textos.form.cityselector.selectacity!);
         } else {
             setLoading(true);
             const response = await publishPost({
@@ -47,12 +43,9 @@ export default function PostFormCard({
                 texto,
                 imagem,
             });
-            setErro(false);
-            setLogErro("");
             setLoading(false);
             setTexto("");
             setImagem(undefined);
-
             window.location.reload();
         }
     };
@@ -83,11 +76,9 @@ export default function PostFormCard({
     const handleImageUpload = async (file: File | false) => {
         if (file) {
             setImagem(file);
-            setErro(false);
         } else {
             setImagem(undefined);
-            setErro(true);
-            setLogErro(textos.form.imageerror);
+            toast.error(textos.form.imageerror);
         }
     };
 
@@ -105,7 +96,7 @@ export default function PostFormCard({
                 </div>
             </div>
             <div className="flex flex-wrap w-auto h-auto mt-1 justify-end items-center align-middle px-4">
-                <div className="w-full md:w-1/2 lg:w-3/12 h-14 rounded-lg px-1">
+                <div className="w-full md:w-1/2 lg:w-1/3 h-14 rounded-lg px-1">
                     <div className="w-full h-full flex justify-center align-middle items-center gap-2">
                         <ImageUpload
                             onImageUpload={handleImageUpload}
@@ -113,7 +104,7 @@ export default function PostFormCard({
                         />
                     </div>
                 </div>
-                <div className="w-full md:w-1/2 lg:w-4/12 h-14 rounded-lg px-1">
+                <div className="w-full md:w-1/2 lg:w-1/3 h-14 rounded-lg px-1">
                     <div className="w-full h-full flex justify-center align-middle items-center gap-2">
                         <select
                             defaultValue={"UF"}
@@ -163,15 +154,7 @@ export default function PostFormCard({
                         </select>
                     </div>
                 </div>
-                <div className="w-full md:w-1/2 lg:w-2/12 h-14 rounded-lg px-1">
-                    {erro && (
-                        <div className="lg:hidden w-full h-full flex justify-center align-middle items-center text-sm text-yellow-500 gap-2">
-                            <BsFillExclamationCircleFill />
-                            <span>{logErro}</span>
-                        </div>
-                    )}
-                </div>
-                <div className="w-full md:w-1/2 lg:w-3/12 h-14 rounded-lg px-1">
+                <div className="w-full md:w-1/2 lg:w-1/3 h-14 rounded-lg px-1">
                     <div className="w-full h-full flex justify-center align-middle items-center">
                         <button
                             onClick={inserePub}
@@ -185,14 +168,6 @@ export default function PostFormCard({
                         </button>
                     </div>
                 </div>
-            </div>
-            <div className="flex w-full justify-left">
-                {erro && (
-                    <div className="lg:flex hidden w-full h-full justify-center align-middle items-center text-sm text-yellow-500 gap-2">
-                        <BsFillExclamationCircleFill />
-                        <span>{logErro}</span>
-                    </div>
-                )}
             </div>
         </div>
     );
