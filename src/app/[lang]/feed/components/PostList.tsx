@@ -254,9 +254,9 @@ export default function PostList({ idusuario, textos}: PostListProps) {
                 {
                   erro && <p className="flex justify-center">{logErro}</p>
                 }
-                {posts!.map((item: PublicacaoCompleta) => {
+                {posts!.map((item: PublicacaoCompleta, index) => {
                   return (
-                    <PostItem dict={textos} idusuario={idusuario} key={item.id} publicacao={item}/>
+                    <PostItem dict={textos} idusuario={idusuario} key={index} publicacao={item}/>
                   )
                 })}
               </>
