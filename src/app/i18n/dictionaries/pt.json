@@ -483,10 +483,10 @@
   },
   "agenda": {
     "visitdetails": "Detalhes da visita",
-    "companyname": "Corporação responsável",
-    "clientname": "Nome do cliente",
-    "telefone": "Tel",
-    "date": "Dia agendado",
+    "companyname": "Empresa responsável",
+    "clientname": "Cliente",
+    "telefone": "Telefone",
+    "date": "Data da visita",
     "placedetails": "Detalhes do imóvel",
     "address": "Endereço",
     "uf": "Estado",
@@ -498,7 +498,8 @@
     "complemento": "Complemento",
     "close": "Fechar",
     "delete": "Deseja cancelar esta visita?",
-    "cannotbeundone": "Esta ação não pode ser desfeita."
+    "cannotbeundone": "Esta ação não pode ser desfeita.",
+    "sendsurvey": "Deseja enviar formulário de pesquisa de satisfação?"
   },
   "survey": {
     "dear": "Prezado(a)",

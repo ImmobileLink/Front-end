@@ -498,7 +498,8 @@
     "complemento": "Complement",
     "close": "Close",
     "delete": "Do you want to cancel this visit?",
-    "cannotbeundone": "This action cannot be undone."
+    "cannotbeundone": "This action cannot be undone.",
+    "sendsurvey": "Do you want to send a satisfaction survey form??"
   },
   "survey": {
     "dear": "Dear",

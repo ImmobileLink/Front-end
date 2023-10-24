@@ -221,6 +221,7 @@ export interface VisitaProps {
     data_agendamento: string;
     nome_marcador: string;
     telefone_marcador: string;
+    email_marcador: string;
     estado_imovel: string;
     cidade_imovel: string;
     bairro_imovel: string;
@@ -228,4 +229,5 @@ export interface VisitaProps {
     numero_imovel: number;
     cep_imovel: string;
     complemento_imovel: string;
+    survey_id: string;
 }

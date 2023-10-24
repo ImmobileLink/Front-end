@@ -40,6 +40,7 @@ export interface Agenda {
     close:          string;
     delete:         string;
     cannotbeundone: string;
+    sendsurvey:     string;
 }
 
 export interface Auth {
