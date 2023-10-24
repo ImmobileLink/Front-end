@@ -25,6 +25,8 @@ export interface Dictionaries {
 export interface Agenda {
     visitdetails:   string;
     companyname:    string;
+    brokername:     string;
+    clientdetails:  string;
     clientname:     string;
     telefone:       string;
     date:           string;
@@ -41,6 +43,13 @@ export interface Agenda {
     delete:         string;
     cannotbeundone: string;
     sendsurvey:     string;
+    logs:           AgendaLogs;
+}
+
+export interface AgendaLogs {
+    emailerror: string;
+    emailok:    string;
+    visitok:    string;
 }
 
 export interface Auth {

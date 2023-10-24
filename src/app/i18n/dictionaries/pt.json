@@ -484,7 +484,9 @@
   "agenda": {
     "visitdetails": "Detalhes da visita",
     "companyname": "Empresa responsável",
-    "clientname": "Cliente",
+    "brokername": "Corretor responsável",
+    "clientdetails": "Dados do cliente",
+    "clientname": "Nome",
     "telefone": "Telefone",
     "date": "Data da visita",
     "placedetails": "Detalhes do imóvel",
@@ -499,7 +501,12 @@
     "close": "Fechar",
     "delete": "Deseja cancelar esta visita?",
     "cannotbeundone": "Esta ação não pode ser desfeita.",
-    "sendsurvey": "Deseja enviar formulário de pesquisa de satisfação?"
+    "sendsurvey": "Deseja enviar formulário de pesquisa de satisfação?",
+    "logs": {
+      "emailerror": "O envio do formulário só é possível para visitas já realizadas.",
+      "emailok": "Email enviado com sucesso.",
+      "visitok": "Visita cancelada com sucesso."
+    }
   },
   "survey": {
     "dear": "Prezado(a)",

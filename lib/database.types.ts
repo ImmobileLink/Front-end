@@ -1419,7 +1419,32 @@ export interface Database {
         }
         Returns: {
           visita_id: string
+          visita_status: boolean
           nome_corporacao: string
+          nome_corretor: string
+          data_agendamento: string
+          nome_marcador: string
+          telefone_marcador: string
+          email_marcador: string
+          estado_imovel: string
+          cidade_imovel: string
+          bairro_imovel: string
+          rua_imovel: string
+          numero_imovel: number
+          cep_imovel: string
+          complemento_imovel: string
+          survey_id: string
+        }[]
+      }
+      obter_visitas_da_corporacao: {
+        Args: {
+          corporacao_id: string
+        }
+        Returns: {
+          visita_id: string
+          visita_status: boolean
+          nome_corporacao: string
+          nome_corretor: string
           data_agendamento: string
           nome_marcador: string
           telefone_marcador: string

@@ -217,7 +217,9 @@ export type salaUsuario = {
 
 export interface VisitaProps {
     visita_id: string;
+    visita_status: boolean;
     nome_corporacao: string;
+    nome_corretor: string;
     data_agendamento: string;
     nome_marcador: string;
     telefone_marcador: string;
