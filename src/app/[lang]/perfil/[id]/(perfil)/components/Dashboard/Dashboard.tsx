@@ -95,7 +95,7 @@ export default function Dashboard({ }: DashboardProps) {
         <div className={`${!openCalendar && "max-h-[380px] md:max-h-[600px]"} min-h-[300px]`}>
           {avaliacao && avaliacao.length >= 1 ? (
             <div>
-              <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-5 mb-16">
                 <Pie satisfacao={satisfacao}/>
                 <Radar avaliacao={avaliacao}/>
                 <PolarArea dict={dict} />

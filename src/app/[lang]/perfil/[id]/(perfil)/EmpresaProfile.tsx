@@ -11,6 +11,8 @@ export default async function page() {
     const isAssociado = useProfileStore.getState().isAssociado
     const isOwn = useProfileStore.getState().isOwn
 
+    const dash = isAssociado ||  isOwn
+
     return (
         <>
             <Page.Main>
@@ -23,9 +25,9 @@ export default async function page() {
                     <Dashboard/>
                 </Page.Dashboard>
 
-                {isAssociado || isOwn  && (
+                {dash  && (
                     <Page.Calendar>
-                        <Calendario />
+                        {/* <Calendario /> */}
                     </Page.Calendar>
                 )}
             </Page.Right>
