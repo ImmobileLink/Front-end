@@ -601,6 +601,8 @@ export interface Survey {
     explanationsurveysite2: string;
     pleased:                string;
     notpleased:             string;
+    insertavalue:           string;
+    fieldlenght:            string;
     finish:                 string;
     questions:              Questions;
 }

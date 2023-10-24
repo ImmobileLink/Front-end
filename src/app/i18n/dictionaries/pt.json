@@ -513,6 +513,8 @@
     "explanationsurveysite2": "Para ajudar a melhorar nossos serviços e garantir que atendamos suas expectativas da melhor maneira possível pedimos que faça uma avaliação em uma escala de 1 a 5, onde 5 representa Muito satisfeito e 1 representa Muito insatisfeito, para indicar o quanto nosso corretor atendeu suas expectativas durante a visita.",
     "pleased": "Muito satisfeito",
     "notpleased": "Muito insatisfeito",
+    "insertavalue": "Verifique se todos os campos obrigatórios foram preenchidos",
+    "fieldlenght": "O texto no campo deve ter mais de 3 caracteres",
     "finish": "FINALIZAR PESQUISA",
     "questions": {
       "question1": "1 - Profissionalismo do Corretor",

@@ -1183,22 +1183,6 @@ export interface Database {
           atualizadoem: string
         }[]
       }
-      get_publicacao_por_id: {
-        Args: {
-          pubid: string
-        }
-        Returns: {
-          id: string
-          idautor: string
-          avatar: string
-          nomeautor: string
-          regiao: Json
-          conteudo: string
-          imagem: string
-          criadoem: string
-          atualizadoem: string
-        }[]
-      }
       get_publicacoes: {
         Args: Record<PropertyKey, never>
         Returns: {
@@ -1211,6 +1195,23 @@ export interface Database {
           imagem: string
           criadoem: string
           atualizadoem: string
+        }[]
+      }
+      get_publicacoes_salvas: {
+        Args: {
+          idusuario: string
+        }
+        Returns: {
+          id: string
+          idautor: string
+          avatar: string
+          nomeautor: string
+          regiao: Json
+          conteudo: string
+          imagem: string
+          criadoem: string
+          atualizadoem: string
+          issalvo: boolean
         }[]
       }
       get_tipoimovel_by_idcorretor: {
