@@ -74,10 +74,18 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
                 //faz consulta ao bd
                 {
                     let response = await supabase
-                        .rpc("get_publicacoes_salvas", { idusuario })
+                        .rpc("get_publicacoes_salvas", {
+                            idusuario: idusuario!,
+                        })
                         .order("atualizadoem", { ascending: false })
                         .limit(10);
-                    let data = response.data;
+                    let { data, error } = response;
+                    if (error) {
+                        setLoading(false);
+
+                        setLogErro(textos.pub.tryagainlater);
+                    }
+                    console.log({ error });
 
                     //atualiza o estado dos posts
                     //se retornar 1+ posts mapeia na tela
@@ -106,11 +114,18 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
                 if (selectedState != "") {
                     //faz consulta ao bd
                     let response = await supabase
-                        .rpc("get_publicacoes_salvas", { idusuario })
-                        .eq("regiao", selectedState)
+                        .rpc("get_publicacoes_salvas", {
+                            idusuario: idusuario!,
+                        })
+                        .eq("regiao", selectedState!)
                         .order("atualizadoem", { ascending: false })
                         .limit(10);
-                    let data = response.data;
+                    let { data, error } = response;
+                    if (error) {
+                        setLoading(false);
+                        setLogErro(textos.pub.tryagainlater);
+                    }
+                    console.log({ error });
 
                     //atualiza o estado dos posts
                     //se retornar 1+ posts mapeia na tela
@@ -142,14 +157,21 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
                 if (selectedState != "" && selectedCity != "") {
                     //faz consulta ao bd
                     let response = await supabase
-                        .rpc("get_publicacoes_salvas", { idusuario })
+                        .rpc("get_publicacoes_salvas", {
+                            idusuario: idusuario!,
+                        })
                         .eq("regiao", {
                             cidade: selectedCity!,
                             estado: selectedState!,
                         })
                         .order("atualizadoem", { ascending: false })
                         .limit(10);
-                    let data = response.data;
+                    let { data, error } = response;
+                    if (error) {
+                        setLoading(false);
+                        setLogErro(textos.pub.tryagainlater);
+                    }
+                    console.log({ error });
 
                     //atualiza o estado dos posts
                     //se retornar 1+ posts mapeia na tela

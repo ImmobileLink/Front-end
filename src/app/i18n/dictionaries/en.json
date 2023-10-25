@@ -291,7 +291,8 @@
             "areyousure": "Are you sure you want to delete the post?",
             "irreversibleaction": "This action cannot be undone.",
             "cancel": "CANCEL",
-            "delete": "DELETE"
+            "delete": "DELETE",
+            "tryagainlater": "An error has occured while trying to load the publications. Please try again later"
         },
         "form": {
             "regionchange": "Region",

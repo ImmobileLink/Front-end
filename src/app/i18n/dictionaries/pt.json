@@ -291,7 +291,8 @@
             "areyousure": "Tem certeza que deseja excluir a publicação?",
             "irreversibleaction": "Essa ação não poderá ser desfeita.",
             "cancel": "CANCELAR",
-            "delete": "EXCLUIR"
+            "delete": "EXCLUIR",
+            "tryagainlater": "Ocorreu um erro ao carregar as publicações. Por favor, tente novamente mais tarde"
         },
         "form": {
             "regionchange": "Região",
