@@ -55,7 +55,7 @@ export default function PostItem({
         const { data } = await supabase
             .from("publicacaosalva")
             .delete()
-            .eq("idusuario", idusuario)
+            .eq("idusuario", idusuario!)
             .eq("idpublicacao", publicacao.id);
 
         isSavedItem(false);

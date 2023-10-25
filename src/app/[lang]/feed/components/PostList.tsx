@@ -203,7 +203,7 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
 
     return (
         <>
-            <div className="flex justify-between h-12 align-middle place-self-center">
+            <div className="ml-4 md:ml-0 md:flex inline-table md:justify-between my-4 md:my-0 md:h-12 align-middle place-self-center">
                 <div className="flex items-center h-full">
                     <div className="w-20 text-sm font-medium">
                         {textos.pub.regionfilter}
@@ -227,7 +227,7 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
                     </select>
                 </div>
 
-                <hr className="w-full my-6 mx-4 border-1 border-gray-400"></hr>
+                <hr className="w-full my-2 md:my-6 mx-4 border-1 border-gray-400"></hr>
 
                 <div className="w-fit flex justify-center align-middle">
                     {filter != 0 && (
