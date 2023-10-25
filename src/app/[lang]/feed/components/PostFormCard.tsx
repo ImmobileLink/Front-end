@@ -96,7 +96,7 @@ export default function PostFormCard({
                 </div>
             </div>
             <div className="flex flex-wrap w-auto h-auto mt-1 justify-end items-center align-middle px-4">
-                <div className="w-full md:w-1/2 lg:w-1/3 h-14 rounded-lg px-1">
+                <div className="w-full md:w-1/2 lg:w-3/12 h-14 rounded-lg px-1">
                     <div className="w-full h-full flex justify-center align-middle items-center gap-2">
                         <ImageUpload
                             onImageUpload={handleImageUpload}
@@ -104,7 +104,7 @@ export default function PostFormCard({
                         />
                     </div>
                 </div>
-                <div className="w-full md:w-1/2 lg:w-1/3 h-14 rounded-lg px-1">
+                <div className="w-full md:w-1/2 lg:w-5/12 h-14 rounded-lg px-1">
                     <div className="w-full h-full flex justify-center align-middle items-center gap-2">
                         <select
                             defaultValue={"UF"}
@@ -154,7 +154,7 @@ export default function PostFormCard({
                         </select>
                     </div>
                 </div>
-                <div className="w-full md:w-1/2 lg:w-1/3 h-14 rounded-lg px-1">
+                <div className="w-full md:w-1/2 lg:w-4/12 h-14 rounded-lg px-1">
                     <div className="w-full h-full flex justify-center align-middle items-center">
                         <button
                             onClick={inserePub}

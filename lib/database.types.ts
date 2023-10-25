@@ -1214,23 +1214,6 @@ export interface Database {
           issalvo: boolean
         }[]
       }
-      get_publicacoes_salvas: {
-        Args: {
-          idusuario: string | undefined
-        }
-        Returns: {
-          id: string
-          idautor: string
-          avatar: string
-          nomeautor: string
-          regiao: Json
-          conteudo: string
-          imagem: string
-          criadoem: string
-          atualizadoem: string
-          issalvo: boolean
-        }[]
-      }
       get_tipoimovel_by_idcorretor: {
         Args: {
           idcorret: string
