@@ -50,11 +50,11 @@ export default function TypingBox({ dict, idsala, userId }: TypingBoxProps) {
     } else {
       setImagem(undefined);
     }
-    console.log(imagem)
+    // console.log(imagem)
   };
 
   const handleEmoji = (emojiObject: any) => {
-    console.log(emojiObject)
+    // console.log(emojiObject)
     setTexto((prevMsg) => prevMsg + emojiObject.emoji)
   }
 

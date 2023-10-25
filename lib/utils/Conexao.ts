@@ -15,7 +15,7 @@ async function getEstadoBtnConexao(uuid1: string, uuid2: string) {
 }
 
 async function desassociarPerfis(idConexao: string) {
-    console.log(idConexao)
+    // console.log(idConexao)
 
     const { data, error } = await supabase
         .from('conexoes')
