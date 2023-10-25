@@ -423,7 +423,7 @@
             "time": "Horário",
             "loading": "Carregando",
             "formlogs": {
-                "invalidname": "O nome precisa ter no mínimo 10 caracteres",
+                "invalidname": "O nome precisa ter no mínimo 4 caracteres, não incluindo números ou caracteres especiais",
                 "invalidphone": "O telefone precisa ter 10 ou 11 caracteres",
                 "invalidemail": "Insira um email válido",
                 "invaliddate": "Selecione uma data válida",
@@ -590,7 +590,7 @@
       "time": "Horário",
       "loading": "Carregando",
       "formlogs": {
-        "invalidname": "O nome precisa ter no mínimo 10 caracteres",
+        "invalidname": "O nome precisa ter no mínimo 4 caracteres, não incluindo números ou caracteres especiais",
         "invalidphone": "O telefone precisa ter 10 ou 11 caracteres",
         "invalidemail": "Insira um email válido",
         "invaliddate": "Selecione uma data válida",
