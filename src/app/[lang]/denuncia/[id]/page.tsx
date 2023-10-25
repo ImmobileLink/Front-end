@@ -26,9 +26,8 @@ export const createServerSupabaseClient = cache(() => {
 export default async function ReportForm({ params: { id, lang } }: pageProps) {
     const supabase = createServerSupabaseClient();
     const dict = await getDictionary(lang);
-    
-    let { data } = await supabase
-    .rpc('get_publicacao_por_id', {pubid: id})
+
+    let { data } = await supabase.rpc("get_publicacoes").eq("id", id);
 
     return (
         <div className="w-full h-fit min-h-screen bg-branco dark:bg-dark-200">
@@ -53,7 +52,7 @@ export default async function ReportForm({ params: { id, lang } }: pageProps) {
             <div className="space-y-6 sm:mx-auto w-full lg:w-11/12 lg:min-w-[900px]">
                 <div className="flex justify-center z-0 w-full group py-4">
                     <CardRoot className="h-full md:w-8/12 px-8 md:px-0">
-                        <CabecalhoForm publicacao={data} dict={dict.denuncia}/>
+                        <CabecalhoForm publicacao={data} dict={dict.denuncia} />
                     </CardRoot>
                 </div>
             </div>
