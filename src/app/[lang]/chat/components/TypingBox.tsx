@@ -8,8 +8,8 @@ import { insertMessage } from "../../../../../lib/utils/Messages";
 import ImageUpload from "./ImageUpload";
 import { MdInsertEmoticon } from "react-icons/md";
 import { BiSolidImage } from "react-icons/bi";
-import EmojiPicker, { EmojiClickData, Theme, EmojiStyle } from 'emoji-picker-react';
-import { AiOutlineClose, AiFillFileImage } from "react-icons/ai"
+import EmojiPicker, { Theme, EmojiStyle } from 'emoji-picker-react';
+import { AiOutlineClose } from "react-icons/ai"
 import { Chat } from "@/app/i18n/dictionaries/types";
 
 interface TypingBoxProps {
@@ -17,7 +17,6 @@ interface TypingBoxProps {
   idsala: string,
   userId: string | undefined;
 }
-const supabase = createClientComponentClient<Database>()
 
 export default function TypingBox({ dict, idsala, userId }: TypingBoxProps) {
   const [texto, setTexto] = useState<string>('')
@@ -58,6 +57,7 @@ export default function TypingBox({ dict, idsala, userId }: TypingBoxProps) {
     setTexto((prevMsg) => prevMsg + emojiObject.emoji)
   }
 
+
   return (
     <>
       <div className="flex flex-col px-2 py-1 lg:px-3 lg:py-2 lg:rounded-lg bg-gray-200 dark:bg-gray-600">
@@ -66,7 +66,7 @@ export default function TypingBox({ dict, idsala, userId }: TypingBoxProps) {
           <div className="flex flex-row items-center gap-x-3 text-sm lg:text-base">
             <AiOutlineFileImage size={18}/>
             {dict.uploadedfile}
-            <div onClick={e=>setImagem(undefined)}>
+            <div id="image-upload-button" onClick={e=>setImagem(undefined)}>
               <AiOutlineClose/>
             </div>
           </div>
