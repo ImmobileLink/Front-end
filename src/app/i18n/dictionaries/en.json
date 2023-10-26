@@ -423,7 +423,7 @@
             "time": "Time",
             "loading": "Loading",
             "formlogs": {
-                "invalidname": "Name must be at least 10 characters long",
+                "invalidname": "Name must be at least 4 characters long, excluding numbers or special characters",
                 "invalidphone": "Phone must be 10 or 11 characters long",
                 "invalidemail": "Enter a valid email",
                 "invaliddate": "Select a valid date",
