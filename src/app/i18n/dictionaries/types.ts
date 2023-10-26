@@ -6,17 +6,18 @@
 
 export interface Dictionaries {
     navbarbuttons: Navbarbuttons;
-    auth:          Auth;
-    pesquisa:      Pesquisa;
-    feed:          Feed;
-    planos:        Planos;
-    profile:       Profile;
-    dashboard:     Dashboard;
-    calendar:      Calendar;
-    imovel:        Imovel;
-    chat:          Chat;
-    cityselector:  DictionariesCityselector;
-    home:          Home;
+    auth: Auth;
+    pesquisa: Pesquisa;
+    feed: Feed;
+    planos: Planos;
+    profile: Profile;
+    dashboard: Dashboard;
+    denuncia: Denuncia;
+    calendar: Calendar;
+    imovel: Imovel;
+    chat: Chat;
+    cityselector: DictionariesCityselector;
+    home: Home;
     footer:        Footer;
     agenda:        Agenda;
     survey:        Survey;
@@ -25,6 +26,8 @@ export interface Dictionaries {
 export interface Agenda {
     visitdetails:   string;
     companyname:    string;
+    brokername:     string;
+    clientdetails:  string;
     clientname:     string;
     telefone:       string;
     date:           string;
@@ -40,6 +43,14 @@ export interface Agenda {
     close:          string;
     delete:         string;
     cannotbeundone: string;
+    sendsurvey:     string;
+    logs:           AgendaLogs;
+}
+
+export interface AgendaLogs {
+    emailerror: string;
+    emailok:    string;
+    visitok:    string;
 }
 
 export interface Auth {
@@ -301,10 +312,42 @@ export interface Dashboard {
     june:            string;
 }
 
+export interface Denuncia {
+    reportpostoruser: string;
+    reportmade: string;
+    whichproblem: string;
+    has: string;
+    reportparagraph: string;
+    returntofeed: string;
+    cancel: string;
+    finishreport: string;
+    dateformat: string;
+    more: string;
+    less: string;
+    issues: Issues;
+    issuesdescription: IssuesDescription;
+}
+
+export interface Issues {
+    offensive: string;
+    abuse: string;
+    harm: string;
+    spam: string;
+    other: string;
+}
+
+export interface IssuesDescription {
+    offensive: string;
+    abuse: string;
+    harm: string;
+    spam: string;
+    describe: string;
+}
 export interface Feed {
     cards: Cards;
-    pub:   Pub;
-    form:  Form;
+    pub: Pub;
+    form: Form;
+    dropdown: Dropdown;
 }
 
 export interface Cards {
@@ -342,14 +385,27 @@ export interface Pub {
     regionfilter:              string;
     posted:                    string;
     regioncomboboxplaceholder: string;
-    comboboxplaceholder:       string;
-    noposts:                   string;
-    error:                     string;
-    selectaregion:             string;
-    chat:                      string;
-    more:                      string;
-    less:                      string;
-    dateformat:                string;
+    comboboxplaceholder: string;
+    noposts: string;
+    error: string;
+    selectaregion: string;
+    chat: string;
+    more: string;
+    less: string;
+    dateformat: string;
+    deletepub: string;
+    areyousure: string;
+    irreversibleaction: string;
+    cancel: string;
+    delete: string;
+    tryagainlater: string;
+}
+
+export interface Dropdown {
+    addsaveditem: string;
+    removedsaveditem: string;
+    seeprofile: string;
+    report: string;
 }
 
 export interface Footer {
@@ -361,14 +417,205 @@ export interface Footer {
     ytChannel:   string;
 }
 
+export interface Formlabels {
+    infoproperty: Infoproperty;
+    selectbroker: string;
+    findbroker: string;
+    delegatevisit: string;
+    requiredfields: string;
+    warningmsg: string;
+    clickhere: string;
+    brokerdata: string;
+    specialty: string;
+    clientdata: string;
+    scheduling: string;
+    name: string;
+    phone: string;
+    email: string;
+    date: string;
+    time: string;
+    loading: string;
+    formlogs: Formlogs;
+    editimg: Editimg;
+}
+
+export interface Formlogs {
+    invalidname: string;
+    invalidphone: string;
+    invalidemail: string;
+    invaliddate: string;
+    invalidtime: string;
+}
+
+export interface Editimg {
+    title: string;
+    imageupload: string;
+    imageformat: string;
+    loading: string;
+    confirm: string;
+}
+
+export interface Mainlabels {
+    title: string;
+    delegatevisit: string;
+}
+
+export interface Infoproperty {
+    location: string;
+    characteristics: string;
+    price: string;
+}
+
+export interface Newproperty {
+    registerproperty: string;
+    requiredfields: string;
+    register: string;
+    cep: string;
+    uf: string;
+    city: string;
+    neighborhood: string;
+    street: string;
+    number: string;
+    complement: string;
+    price: string;
+    type: string;
+    furniture: string;
+    condition: string;
+    others: string;
+    selectopt: string;
+    selectopts: string;
+    description: string;
+    imageupload: string;
+    imageformat: string;
+    loading: string;
+    newpropertylogs: Newpropertylogs;
+}
+
+export interface Newpropertylogs {
+    invalidcep: string;
+    invalidcepnotfound: string;
+    invaliduf: string;
+    invalidcity: string;
+    invalidneighborhood: string;
+    invalidstreet: string;
+    invalidnumber: string;
+    invalidprice: string;
+}
+
+export interface Navbarbuttons {
+    feed: string;
+    myprofile: string;
+    settings: string;
+    schedule: string;
+    links: string;
+    relatedbrokers: string;
+    myrelatedcompany: string;
+    search: string;
+    subscription: string;
+    loginbutton: string;
+    logoutbutton: string;
+    language: string;
+    notifications: string;
+    messages: string;
+    account: string;
+    notificationlabels: Notificationlabels;
+}
+
+export interface Notificationlabels {
+    check: string;
+    association: string;
+    connection: string;
+    visit: string;
+    accept: string;
+    refuse: string;
+    nonotifications: string;
+    acceptedvisit: string;
+    refusedvisit: string;
+    updatedvisit: string;
+}
+
+export interface Pesquisa {
+    labels: Labels;
+    usertypevalue: Usertypevalue;
+}
+
+export interface Labels {
+    nearbyusers: string;
+    name: string;
+    title: string;
+    usertype: string;
+    region: string;
+    state: string;
+    city: string;
+    all: string;
+    nocityfound: string;
+    selectaestatefirst: string;
+    rating: string;
+    specialty: string;
+    error: string;
+    missingcombobox: string;
+    checkprofile: string;
+    specializations: string;
+    type: string;
+    furniture: string;
+    condition: string;
+    others: string;
+    advanced: string;
+    reset: string;
+    search: string;
+    selectafilter: string;
+    nouserfound: string;
+}
+
+export interface Usertypevalue {
+    broker: string;
+    corporation: string;
+}
+
+export interface Planos {
+    subscription: string;
+    broker: string;
+    company: string;
+    month: string;
+    tryforfree: string;
+    allsubscriptions: string;
+    usertype: string;
+    sublabel: string;
+    feedbackreview: string;
+    dashboard: string;
+    feed: string;
+    companyafiliation: string;
+    chat: string;
+    visibility: string;
+    exclusivefunctions: string;
+    searchfilters: string;
+    oportunitiesposting: string;
+    linktotenbrokers: string;
+    illimitedlinks: string;
+    buynow: string;
+    confirmchange: string;
+}
+
+export interface Profile {
+    noAssociation: string;
+    hasAssociation: string;
+    btnAssociate: string;
+    btnPending: string;
+    btnConnect: string;
+    overview: string;
+    posts: string;
+    infoBroker: string;
+    historic: string;
+}
+
 export interface Home {
-    about:               string;
-    resources:           string;
-    premium:             string;
-    access:              string;
-    conecting:           string;
-    ties:                string;
-    whatIsImmobileLink:  string;
+    about: string;
+    resources: string;
+    premium: string;
+    access: string;
+    conecting: string;
+    ties: string;
+    whatIsImmobileLink: string;
     searchOpportunities: string;
     searchParagraph:     string;
     manageYourCalendar:  string;
@@ -379,7 +626,6 @@ export interface Home {
     tryPremium:          string;
     start:               string;
 }
-
 export interface ItemResources {
     item1: string;
     item2: string;
@@ -601,6 +847,8 @@ export interface Survey {
     explanationsurveysite2: string;
     pleased:                string;
     notpleased:             string;
+    insertavalue:           string;
+    fieldlenght:            string;
     finish:                 string;
     questions:              Questions;
 }

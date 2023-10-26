@@ -26,7 +26,7 @@ export default function CardProfile({ userData, cards }: CardProfileProps) {
               {userData.nome}
             </span>
             <Link
-              className="text-gray-500 dark:text-gray-300 hover:font- text-center"
+              className="text-gray-500 dark:text-gray-300 hover:font- text-center hover:underline"
               href={`/perfil/${userData.id}`}
             >
               {cards.visitmyprofile}

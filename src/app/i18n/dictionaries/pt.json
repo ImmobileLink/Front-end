@@ -1,310 +1,517 @@
 {
-  "navbarbuttons": {
-    "feed": "Iniciar",
-    "myprofile": "Meu perfil",
-    "settings": "Configurações",
-    "schedule": "Visitas",
-    "links": "Meus Links",
-    "relatedbrokers": "Corretores afiliados",
-    "myrelatedcompany": "Empresa associada",
-    "search": "Pesquisar",
-    "subscription": "Planos",
-    "loginbutton": "Entrar",
-    "logoutbutton": "Sair",
-    "language": "Idioma",
-    "notifications": "Notificações",
-    "messages": "Mensagens",
-    "account": "Conta",
-    "notificationlabels": {
-      "check": "Visualizar",
-      "association": "propôs uma associação",
-      "connection": "gostaria de se conectar",
-      "visit": "agendou uma nova visita em seu nome",
-      "accept": "Aceitar",
-      "refuse": "Recusar",
-      "nonotifications": "Sem notificações",
-      "acceptedvisit": "aceitou uma visita",
-      "refusedvisit": "cancelou ou negou uma visita",
-      "updatedvisit": "atualizou os dados de uma visita"
-    }
-  },
-  "auth": {
-    "always": {
-      "donthaveanaccount": "Não tem uma conta?",
-      "signup": "Cadastre-se",
-      "forgetpassword": "Esqueceu a senha?",
-      "alreadyhaveanaccount": "Já tem uma conta?",
-      "singin": "Entre já",
-      "error": "Ops!",
-      "bylogginin": "Ao fazer login você concorda com os",
-      "bycreatinganaccount": "Ao criar uma conta você concorda com os",
-      "terms": "Termos de Uso",
-      "ofthisplataform": "da plataforma"
-    },
-    "signin": {
-      "emaillabel": "Endereço de E-mail",
-      "passwordlabel": "Senha",
-      "signinbutton": "Entrar",
-      "or": "OU",
-      "signinwithgoogle": "Entrar com o Google",
-      "error": "Algo deu errado!",
-      "logs": {
-        "invalidcredentials": "Email e/ou senha incorretos."
-      }
-    },
-    "signup": {
-      "signup1": {
-        "emaillabel": "Endereço de E-mail",
-        "passwordlabel": "Senha",
-        "confirmpassword": "Confirme a senha",
-        "logs": {
-          "invalidemail": "Insira um email válido.",
-          "invalidpassword": "A senha precisa ter no mínimo 6 caracteres, números, maiúsculas, minúsculas e caractere especial.",
-          "emailalreadyused": "Email já cadastrado.",
-          "invaliddifferentpasswords": "As senhas são diferentes.",
-          "invalidconfirmpassword": "Confirme a senha."
+    "navbarbuttons": {
+        "feed": "Iniciar",
+        "myprofile": "Meu perfil",
+        "settings": "Configurações",
+        "schedule": "Visitas",
+        "links": "Meus Links",
+        "relatedbrokers": "Corretores afiliados",
+        "myrelatedcompany": "Empresa associada",
+        "search": "Pesquisar",
+        "subscription": "Planos",
+        "loginbutton": "Entrar",
+        "logoutbutton": "Sair",
+        "language": "Idioma",
+        "notifications": "Notificações",
+        "messages": "Mensagens",
+        "account": "Conta",
+        "notificationlabels": {
+            "check": "Visualizar",
+            "association": "propôs uma associação",
+            "connection": "gostaria de se conectar",
+            "visit": "agendou uma nova visita em seu nome",
+            "accept": "Aceitar",
+            "refuse": "Recusar",
+            "nonotifications": "Sem notificações",
+            "acceptedvisit": "aceitou uma visita",
+            "refusedvisit": "cancelou ou negou uma visita",
+            "updatedvisit": "atualizou os dados de uma visita"
         }
-      },
-      "signup2": {
-        "corretorlabel": "Voltado para corretores imobiliários",
-        "corretorbutton": "Individual",
-        "companylabel": "Voltado para imobiliárias e corretoras",
-        "companybutton": "Empresarial",
-        "yourchoiceis": "Criar conta para:",
-        "corretor": "Corretor",
-        "company": "Empresa"
-      },
-      "signup3": {
-        "name": "Nome completo",
-        "fantasyname": "Nome Fantasia",
-        "cpf": "CPF",
-        "cnpj": "CNPJ",
-        "phone1": "Celular",
-        "phone2": "Telefone",
-        "phone3": "Comercial",
-        "cep": "CEP",
-        "uf": "Estado",
-        "ufacronim": "UF",
-        "city": "Cidade",
-        "neighborhood": "Bairro",
-        "street": "Logradouro",
-        "number": "Número",
-        "complement": "Complemento",
-        "optional": "Opcional",
-        "logs": {
-          "invalidname": "O nome precisa ter no mínimo 4 caracteres",
-          "invalidfantasyname": "O nome fantasia precisa ter no mínimo 12 caracteres",
-          "invalidcpf": "CPF inválido",
-          "invalidcnpj": "CNPJ inválido",
-          "invalidphone": "Telefone inválido",
-          "invalidcep": "CEP inválido",
-          "invalidcepnotfound": "CEP não encontrado",
-          "invaliduf": "Insira a sigla da unidade federativa",
-          "invalidcity": "A cidade precisa ter no mínimo 2 caracteres",
-          "invalidneighborhood": "O bairro precisa ter no mínimo 2 caracteres",
-          "invalidstreet": "A rua precisa ter no mínimo 2 caracteres",
-          "invalidnumber": "O número da residência precisar ser um número positivo",
-          "invalidcomplement": "O complemento da residência precisa ter no mínimo 2 caracteres"
+    },
+    "auth": {
+        "always": {
+            "donthaveanaccount": "Não tem uma conta?",
+            "signup": "Cadastre-se",
+            "forgetpassword": "Esqueceu a senha?",
+            "alreadyhaveanaccount": "Já tem uma conta?",
+            "singin": "Entre já",
+            "error": "Ops!",
+            "bylogginin": "Ao fazer login você concorda com os",
+            "bycreatinganaccount": "Ao criar uma conta você concorda com os",
+            "terms": "Termos de Uso",
+            "ofthisplataform": "da plataforma"
+        },
+        "signin": {
+            "emaillabel": "Endereço de E-mail",
+            "passwordlabel": "Senha",
+            "signinbutton": "Entrar",
+            "or": "OU",
+            "signinwithgoogle": "Entrar com o Google",
+            "error": "Algo deu errado!",
+            "logs": {
+                "invalidcredentials": "Email e/ou senha incorretos."
+            }
+        },
+        "signup": {
+            "signup1": {
+                "emaillabel": "Endereço de E-mail",
+                "passwordlabel": "Senha",
+                "confirmpassword": "Confirme a senha",
+                "logs": {
+                    "invalidemail": "Insira um email válido.",
+                    "invalidpassword": "A senha precisa ter no mínimo 6 caracteres, números, maiúsculas, minúsculas e caractere especial.",
+                    "emailalreadyused": "Email já cadastrado.",
+                    "invaliddifferentpasswords": "As senhas são diferentes.",
+                    "invalidconfirmpassword": "Confirme a senha."
+                }
+            },
+            "signup2": {
+                "corretorlabel": "Voltado para corretores imobiliários",
+                "corretorbutton": "Individual",
+                "companylabel": "Voltado para imobiliárias e corretoras",
+                "companybutton": "Empresarial",
+                "yourchoiceis": "Criar conta para:",
+                "corretor": "Corretor",
+                "company": "Empresa"
+            },
+            "signup3": {
+                "name": "Nome completo",
+                "fantasyname": "Nome Fantasia",
+                "cpf": "CPF",
+                "cnpj": "CNPJ",
+                "phone1": "Celular",
+                "phone2": "Telefone",
+                "phone3": "Comercial",
+                "cep": "CEP",
+                "uf": "Estado",
+                "ufacronim": "UF",
+                "city": "Cidade",
+                "neighborhood": "Bairro",
+                "street": "Logradouro",
+                "number": "Número",
+                "complement": "Complemento",
+                "optional": "Opcional",
+                "logs": {
+                    "invalidname": "O nome precisa ter no mínimo 4 caracteres",
+                    "invalidfantasyname": "O nome fantasia precisa ter no mínimo 12 caracteres",
+                    "invalidcpf": "CPF inválido",
+                    "invalidcnpj": "CNPJ inválido",
+                    "invalidphone": "Telefone inválido",
+                    "invalidcep": "CEP inválido",
+                    "invalidcepnotfound": "CEP não encontrado",
+                    "invaliduf": "Insira a sigla da unidade federativa",
+                    "invalidcity": "A cidade precisa ter no mínimo 2 caracteres",
+                    "invalidneighborhood": "O bairro precisa ter no mínimo 2 caracteres",
+                    "invalidstreet": "A rua precisa ter no mínimo 2 caracteres",
+                    "invalidnumber": "O número da residência precisar ser um número positivo",
+                    "invalidcomplement": "O complemento da residência precisa ter no mínimo 2 caracteres"
+                }
+            },
+            "signup4": {
+                "creci": "CRECI",
+                "speciality": "Especialidade",
+                "region": "Região de atuação",
+                "languages": "Idiomas",
+                "logs": {
+                    "invalidcreci": "CRECI inválido"
+                },
+                "cityselector": {
+                    "estate": "Estado",
+                    "city": "Município",
+                    "selectaestate": "Selecione um estado",
+                    "selectaestatefirst": "Selecione um estado primeiro",
+                    "nocityfound": "Nenhum município encontrado",
+                    "ufacronim": "UF"
+                }
+            },
+            "signup5": {
+                "corretor": {
+                    "freelabel": "Ideal para corretores recém inseridos no mercado e desejam impulsionar sua carreira.",
+                    "freedescription1": "Avaliação de perfil simples.",
+                    "freedescription2": "Feed de oportunidades.",
+                    "freedescription3": "Afiliação a uma empresa.",
+                    "freedescription4": "Chat individual e em grupos.",
+                    "premiumlabel": "Ideal para corretores que desejam investir fortemente em seu perfil e alcançar mais pessoas.",
+                    "premiumdescription1": "Benefícios do plano Free.",
+                    "premiumdescription2": "Dashboard completo.",
+                    "premiumdescription3": "Maior visibilidade.",
+                    "premiumdescription4": "Funcionalidades exclusivas."
+                },
+                "company": {
+                    "freelabel": "Ideal para pequenas e médias empresas que desejam impulsionar seus negócios.",
+                    "freedescription1": "Busca de corretores na região.",
+                    "freedescription2": "Publicação de oportunidades.",
+                    "freedescription3": "Afiliar até 10 corretores.",
+                    "freedescription4": "Chat individual e em grupos.",
+                    "premiumlabel": "Ideal para empresas já consolidadas ou que querem melhorar suas vendas.",
+                    "premiumdescription1": "Benefícios do plano Free.",
+                    "premiumdescription2": "Dashboard completo.",
+                    "premiumdescription3": "Maior visibilidade.",
+                    "premiumdescription4": "Funcionalidades exclusivas."
+                },
+                "subscriptionmessage0": "PREMIUM - OFERTA ESPECIAL",
+                "subscriptionmessage1": "Inscrever-se como PREMIUM",
+                "subscriptionmessage2": "PREMIUM",
+                "subscriptionmessage3": "Insira o método de pagamento",
+                "freetier": "R$0",
+                "brokertier": "R$50",
+                "companytier": "R$240",
+                "fullname": "Nome do titular",
+                "cardnumber": "Número do cartão",
+                "expirydate": "Validade",
+                "code": "CVV",
+                "signupbutton": "Finalizar Cadastro",
+                "select": "SELECIONAR",
+                "selected": "SELECIONADO",
+                "disclaimer": "A função de inserir dados de pagamento é apenas demonstrativa e não está ativa. Por favor, não insira informações reais de seu cartão de crédito."
+            },
+            "stepper": {
+                "label1": "Email & Senha",
+                "label2": "Seu Perfil",
+                "label3": "Dados pessoais",
+                "label4": "Informações adicionais",
+                "label5": "Seu Plano"
+            },
+            "nextbutton": "Avançar",
+            "previousbutton": "Voltar",
+            "success": "Pronto!",
+            "error": "Algo deu errado!",
+            "fixtheinputs": "Arrume os campos antes de avançar!",
+            "successsignup": "Verifique sua caixa de entrada para o link de autenticação (pode estar no spam)."
+        },
+        "forgetpassword": {
+            "emaillabel": "Endereço de E-mail",
+            "forgetpasswordbutton": "Enviar e-mail de redefinção de senha",
+            "success": "Pronto!",
+            "error": "Algo deu errado!",
+            "logs": {
+                "invalidemail": "Insira um email válido.",
+                "emailnotfound": "Email não encontrado.",
+                "emailsend": "Verifique sua caixa de entrada para o link de redefinição de senha (pode estar no spam)."
+            }
+        },
+        "recovery": {
+            "newpassword": "Nova senha",
+            "recoverybutton": "Atualizar",
+            "success": "Pronto!",
+            "error": "Algo deu errado!",
+            "logs": {
+                "passwordchanged": "Sua senha foi alterada.",
+                "passwordnotchanged": "Não foi possível alterar a senha, tente novamente mais tarde."
+            }
+        },
+        "terms": {
+            "title": "TERMOS DE USO DA PLATAFORMA",
+            "warning": "Aviso Importante: Projeto de Conclusão de Curso - Uso Simulado e Fictício",
+            "introduction": "Este site é parte de um projeto de conclusão de curso e foi desenvolvido com o propósito específico de apresentar o conceito de um canal de comunicação de corretores com imobiliárias. Por favor, tenha em mente as seguintes considerações ao utilizar esta plataforma:",
+            "simulationTitle": "Simulação e Ficção: ",
+            "simulation": "Esta plataforma não representa uma plataforma real para corretores de imóveis e não está conectada a quaisquer transações ou atividades reais do mercado imobiliário. Todas as interações, anúncios, imóveis e informações contidas neste site são simuladas e fictícias, destinadas apenas para fins acadêmicos e de demonstração.",
+            "fictiontitle": "Dados Fictícios: ",
+            "fiction": "Quaisquer informações fornecidas para cadastro, incluindo nome, endereço, números de telefone, e-mails e outros detalhes, devem ser inteiramente fictícios. Não é recomendado o uso de informações pessoais reais ou sensíveis. Não utilizamos de forma alguma as informações fornecidas neste site para fins que não sejam apenas para exibição e demonstração de suas funcionalidades.",
+            "responsibletitle": "Uso Responsável: ",
+            "responsible": "Ao interagir com esta plataforma, solicitamos que você a utilize de forma responsável e respeitosa. Não é permitido o compartilhamento de conteúdo ofensivo, discriminatório, ilegal ou prejudicial.",
+            "copyrighttitle": "Direitos Autorais: ",
+            "copyright": "Todas as imagens, logotipos e outros materiais visuais utilizados neste site são usados com fins ilustrativos e de demonstração, e os direitos autorais pertencem aos seus respectivos proprietários.",
+            "feedbacktitle": "Feedback e Contato: ",
+            "feedback": "Caso deseje fornecer feedback sobre esta plataforma, por favor, esteja ciente de que qualquer comentário ou sugestão serão considerados para fins acadêmicos e de melhoria do projeto.",
+            "disclaimer1": "Ao prosseguir e utilizar este site, você reconhece que está ciente da natureza simulada e fictícia desta plataforma e concorda em respeitar as condições e orientações aqui apresentadas.",
+            "disclaimer2": "Para obter informações ou esclarecimentos adicionais sobre este projeto de conclusão de curso, entre em contato através do canal indicado no site. Agradecemos por sua compreensão e interesse em nosso projeto de conclusão de curso.",
+            "sincerely": "Atenciosamente,",
+            "teamimmobile": "Equipe ImmobileLink",
+            "location": "Tecnologia em Análise e Desenvolvimento de SIstemas - IFSP, 2023"
         }
-      },
-      "signup4": {
-        "creci": "CRECI",
-        "speciality": "Especialidade",
-        "region": "Região de atuação",
-        "languages": "Idiomas",
-        "logs": {
-          "invalidcreci": "CRECI inválido"
+    },
+    "pesquisa": {
+        "labels": {
+            "nearbyusers": "Pessoas que talvez você conheça de",
+            "name": "Nome",
+            "title": "Encontrar Usuários",
+            "usertype": "Tipo de usuário",
+            "region": "Região",
+            "state": "Estado",
+            "city": "Município",
+            "all": "Todos",
+            "nocityfound": "Nenhum município encontrado",
+            "selectaestatefirst": "Selecione um estado primeiro",
+            "rating": "Avaliação",
+            "specialty": "Especialidade",
+            "error": "Ops! Algo deu errado. Por favor, tente novamente.",
+            "missingcombobox": "Selecione um filtro.",
+            "checkprofile": "Ver Perfil",
+            "specializations": "Especializações do corretor",
+            "type": "Tipo de imóvel",
+            "furniture": "Mobília",
+            "condition": "Condição do imóvel",
+            "others": "Outros",
+            "advanced": "Opções avançadas",
+            "reset": "Redefinir",
+            "search": "Pesquisar",
+            "selectafilter": "Selecione os campos que deseja usar como filtro e clique em Pesquisar",
+            "nouserfound": "Não foi encontrado nenhum usuário com os filtros escolhidos"
         },
-        "cityselector": {
-          "estate": "Estado",
-          "city": "Município",
-          "selectaestate": "Selecione um estado",
-          "selectaestatefirst": "Selecione um estado primeiro",
-          "nocityfound": "Nenhum município encontrado",
-          "ufacronim": "UF"
+        "usertypevalue": {
+            "broker": "Corretor",
+            "corporation": "Empresa"
         }
-      },
-      "signup5": {
-        "corretor": {
-          "freelabel": "Ideal para corretores recém inseridos no mercado e desejam impulsionar sua carreira.",
-          "freedescription1": "Avaliação de perfil simples.",
-          "freedescription2": "Feed de oportunidades.",
-          "freedescription3": "Afiliação a uma empresa.",
-          "freedescription4": "Chat individual e em grupos.",
-          "premiumlabel": "Ideal para corretores que desejam investir fortemente em seu perfil e alcançar mais pessoas.",
-          "premiumdescription1": "Benefícios do plano Free.",
-          "premiumdescription2": "Dashboard completo.",
-          "premiumdescription3": "Maior visibilidade.",
-          "premiumdescription4": "Funcionalidades exclusivas."
+    },
+    "feed": {
+        "cards": {
+            "yourenotlogged": "Você não está logado ainda!",
+            "enjoyall": "Aproveite todos os benefícios do site",
+            "singin": "Entre já",
+            "findbrokers": "Achar novos links",
+            "mybrokers": "Meus Corretores",
+            "myproperties": "Meus Imóveis",
+            "schedules": "Visitas",
+            "visitmyprofile": "Ver meu perfil",
+            "notpremiumyet": "Torne-se",
+            "premium": "PREMIUM",
+            "bepremium": "Aproveite já",
+            "connections": "Meus Links",
+            "search": "Procurar",
+            "nolinksyet": "Parece que você não tem nenhum Link ainda",
+            "relatedbrokers": "Corretores afiliados",
+            "norelatedbrokersyet": "Sem corretores afiliados por enquanto",
+            "myrelatedcompany": "Empresa associada",
+            "norelatedcompanyyet": "Sem corporações associadas por enquanto"
         },
-        "company": {
-          "freelabel": "Ideal para pequenas e médias empresas que desejam impulsionar seus negócios.",
-          "freedescription1": "Busca de corretores na região.",
-          "freedescription2": "Publicação de oportunidades.",
-          "freedescription3": "Afiliar até 10 corretores.",
-          "freedescription4": "Chat individual e em grupos.",
-          "premiumlabel": "Ideal para empresas já consolidadas ou que querem melhorar suas vendas.",
-          "premiumdescription1": "Benefícios do plano Free.",
-          "premiumdescription2": "Dashboard completo.",
-          "premiumdescription3": "Maior visibilidade.",
-          "premiumdescription4": "Funcionalidades exclusivas."
+        "pub": {
+            "regionfilter": "Filtrar por",
+            "posted": "fez uma publicação",
+            "regioncomboboxplaceholder": "Todos",
+            "comboboxplaceholder": "Selecione",
+            "noposts": "Nenhuma publicação encontrada na região especificada",
+            "error": "Ops! Algo deu errado. Tente recarregar a página.",
+            "selectaregion": "Selecione uma região para filtrar os posts",
+            "chat": "Conversar",
+            "more": "Ler mais",
+            "less": "Mostrar menos",
+            "dateformat": "pt-BR",
+            "deletepub": "Excluir publicação",
+            "areyousure": "Tem certeza que deseja excluir a publicação?",
+            "irreversibleaction": "Essa ação não poderá ser desfeita.",
+            "cancel": "CANCELAR",
+            "delete": "EXCLUIR",
+            "tryagainlater": "Ocorreu um erro ao carregar as publicações. Por favor, tente novamente mais tarde"
         },
-        "subscriptionmessage0": "PREMIUM - OFERTA ESPECIAL",
-        "subscriptionmessage1": "Inscrever-se como PREMIUM",
-        "subscriptionmessage2": "PREMIUM",
-        "subscriptionmessage3": "Insira o método de pagamento",
-        "freetier": "R$0",
-        "brokertier": "R$50",
-        "companytier": "R$240",
-        "fullname": "Nome do titular",
-        "cardnumber": "Número do cartão",
-        "expirydate": "Validade",
-        "code": "CVV",
-        "signupbutton": "Finalizar Cadastro",
-        "select": "SELECIONAR",
-        "selected": "SELECIONADO",
-        "disclaimer": "A função de inserir dados de pagamento é apenas demonstrativa e não está ativa. Por favor, não insira informações reais de seu cartão de crédito."
-      },
-      "stepper": {
-        "label1": "Email & Senha",
-        "label2": "Seu Perfil",
-        "label3": "Dados pessoais",
-        "label4": "Informações adicionais",
-        "label5": "Seu Plano"
-      },
-      "nextbutton": "Avançar",
-      "previousbutton": "Voltar",
-      "success": "Pronto!",
-      "error": "Algo deu errado!",
-      "fixtheinputs": "Arrume os campos antes de avançar!",
-      "successsignup": "Verifique sua caixa de entrada para o link de autenticação (pode estar no spam)."
+        "form": {
+            "regionchange": "Região",
+            "post": "Publicar",
+            "placeholder": "Nova publicação",
+            "writeamessage": "Insira a mensagem",
+            "imageinputlabel": "foto",
+            "imageerror": "Imagem inválida",
+            "cityselector": {
+                "estate": "Estado",
+                "city": "Município",
+                "selectaestate": "Selecione um estado",
+                "selectacity": "Selecione um município",
+                "selectaestatefirst": "Selecione um estado primeiro",
+                "nocityfound": "Nenhum município encontrado"
+            }
+        },
+        "dropdown": {
+            "addsaveditem": "Salvar publicação",
+            "removedsaveditem": "Remover item salvo",
+            "seeprofile": "Ver perfil",
+            "report": "Denunciar"
+        }
     },
-    "forgetpassword": {
-      "emaillabel": "Endereço de E-mail",
-      "forgetpasswordbutton": "Enviar e-mail de redefinção de senha",
-      "success": "Pronto!",
-      "error": "Algo deu errado!",
-      "logs": {
-        "invalidemail": "Insira um email válido.",
-        "emailnotfound": "Email não encontrado.",
-        "emailsend": "Verifique sua caixa de entrada para o link de redefinição de senha (pode estar no spam)."
-      }
+    "denuncia": {
+        "reportpostoruser": "DENUNCIAR PUBLICAÇÃO OU USUÁRIO",
+        "reportmade": "DENÚNCIA REALIZADA",
+        "whichproblem": "Que tipo de problema a publicação ou perfil de ",
+        "has": " apresenta?",
+        "reportparagraph": "Sua denúncia foi feita com sucesso e está em análise. Agradecemos por ajudar a tornar a ImmobileLink uma plataforma mais segura!",
+        "returntofeed": "VOLTAR PARA O FEED",
+        "cancel":"CANCELAR",
+        "finishreport": "FINALIZAR DENÚNCIA",
+        "dateformat": "pt-BR",
+        "more": "Ler mais",
+        "less": "Mostrar menos",
+            "issues":{
+                "offensive": "Comportamento ofensivo ou discriminatório",
+                "abuse": "Abuso e assédio",
+                "harm": "Comportamento nocivo ou perigoso",
+                "spam": "Spam ou fraude",
+                "other": "Outro problema"
+                
+            },
+            "issuesdescription":{
+                "offensive": "Inclui insultos e ações que prejudicam, menosprezam ou discriminam pessoas com base em características pessoais, como raça, etnia, gênero, orientação sexual, religião, deficiência, ou outras características protegidas por lei.",
+                "abuse": "Inclui assédio praticado dentro da plataforma, direcionado a usuários ou grupos específicos, assim como o compartilhamento de conteúdo de cunho sexual ou que incite atos de abuso e assédio.",
+                "harm": "Inclui organização criminosa, ameaças, chantagens, compartilhamento de conteúdo gráfico perturbador ou ilegal, incentivo ou menção a automutilação e suicídio, discurso violento ou que incentive atos violentos.",
+                "spam": "Compartilhamento de informações fraudulentas, publicação de links mal-intencionados, aplicação de golpes, identidade falsa, postagens e perfis não relacionados a proposta da plataforma.",
+                "describe": "Descreva melhor o problema:"
+            }
     },
-    "recovery": {
-      "newpassword": "Nova senha",
-      "recoverybutton": "Atualizar",
-      "success": "Pronto!",
-      "error": "Algo deu errado!",
-      "logs": {
-        "passwordchanged": "Sua senha foi alterada.",
-        "passwordnotchanged": "Não foi possível alterar a senha, tente novamente mais tarde."
-      }
+    "planos": {
+        "subscription": "Planos para o seu perfil",
+        "broker": "corretor",
+        "company": "empresa",
+        "month": "mês",
+        "tryforfree": "Experimente já",
+        "allsubscriptions": "Conheça todos nossos benefícios",
+        "usertype": "Tipo de perfil",
+        "sublabel": "Planos",
+        "feedbackreview": "Avaliação de perfil",
+        "dashboard": "Dashboard completo",
+        "feed": "Feed de notícias & oportunidades",
+        "companyafiliation": "Afiliação a uma empresa",
+        "chat": "Chat individual e em grupos",
+        "visibility": "Maior visibilidade",
+        "exclusivefunctions": "Funcionalidades exclusivas",
+        "searchfilters": "Filtros de busca especializados",
+        "oportunitiesposting": "publicação de oportunidades",
+        "linktotenbrokers": "Afiliar-se a até 10 corretores",
+        "illimitedlinks": "Afliliar-se a inúmeros corretores",
+        "buynow": "Experimente já",
+        "confirmchange": "Deseja realmente alterar seu plano para"
     },
-    "terms": {
-      "title": "TERMOS DE USO DA PLATAFORMA",
-      "warning": "Aviso Importante: Projeto de Conclusão de Curso - Uso Simulado e Fictício",
-      "introduction": "Este site é parte de um projeto de conclusão de curso e foi desenvolvido com o propósito específico de apresentar o conceito de um canal de comunicação de corretores com imobiliárias. Por favor, tenha em mente as seguintes considerações ao utilizar esta plataforma:",
-      "simulationTitle": "Simulação e Ficção: ",
-      "simulation": "Esta plataforma não representa uma plataforma real para corretores de imóveis e não está conectada a quaisquer transações ou atividades reais do mercado imobiliário. Todas as interações, anúncios, imóveis e informações contidas neste site são simuladas e fictícias, destinadas apenas para fins acadêmicos e de demonstração.",
-      "fictiontitle": "Dados Fictícios: ",
-      "fiction": "Quaisquer informações fornecidas para cadastro, incluindo nome, endereço, números de telefone, e-mails e outros detalhes, devem ser inteiramente fictícios. Não é recomendado o uso de informações pessoais reais ou sensíveis. Não utilizamos de forma alguma as informações fornecidas neste site para fins que não sejam apenas para exibição e demonstração de suas funcionalidades.",
-      "responsibletitle": "Uso Responsável: ",
-      "responsible": "Ao interagir com esta plataforma, solicitamos que você a utilize de forma responsável e respeitosa. Não é permitido o compartilhamento de conteúdo ofensivo, discriminatório, ilegal ou prejudicial.",
-      "copyrighttitle": "Direitos Autorais: ",
-      "copyright": "Todas as imagens, logotipos e outros materiais visuais utilizados neste site são usados com fins ilustrativos e de demonstração, e os direitos autorais pertencem aos seus respectivos proprietários.",
-      "feedbacktitle": "Feedback e Contato: ",
-      "feedback": "Caso deseje fornecer feedback sobre esta plataforma, por favor, esteja ciente de que qualquer comentário ou sugestão serão considerados para fins acadêmicos e de melhoria do projeto.",
-      "disclaimer1": "Ao prosseguir e utilizar este site, você reconhece que está ciente da natureza simulada e fictícia desta plataforma e concorda em respeitar as condições e orientações aqui apresentadas.",
-      "disclaimer2": "Para obter informações ou esclarecimentos adicionais sobre este projeto de conclusão de curso, entre em contato através do canal indicado no site. Agradecemos por sua compreensão e interesse em nosso projeto de conclusão de curso.",
-      "sincerely": "Atenciosamente,",
-      "teamimmobile": "Equipe ImmobileLink",
-      "location": "Tecnologia em Análise e Desenvolvimento de SIstemas - IFSP, 2023"
-    }
-  },
-  "pesquisa": {
-    "labels": {
-      "nearbyusers": "Pessoas que talvez você conheça de",
-      "name": "Nome",
-      "title": "Encontrar Usuários",
-      "usertype": "Tipo de usuário",
-      "region": "Região",
-      "state": "Estado",
-      "city": "Município",
-      "all": "Todos",
-      "nocityfound": "Nenhum município encontrado",
-      "selectaestatefirst": "Selecione um estado primeiro",
-      "rating": "Avaliação",
-      "specialty": "Especialidade",
-      "error": "Ops! Algo deu errado. Por favor, tente novamente.",
-      "missingcombobox": "Selecione um filtro.",
-      "checkprofile": "Ver Perfil",
-      "specializations": "Especializações do corretor",
-      "type": "Tipo de imóvel",
-      "furniture": "Mobília",
-      "condition": "Condição do imóvel",
-      "others": "Outros",
-      "advanced": "Opções avançadas",
-      "reset": "Redefinir",
-      "search": "Pesquisar",
-      "selectafilter": "Selecione os campos que deseja usar como filtro e clique em Pesquisar",
-      "nouserfound": "Não foi encontrado nenhum usuário com os filtros escolhidos"
+    "profile": {
+        "noAssociation": "Sem Associação no momento",
+        "hasAssociation": "Possui empresa(s) associada(s)",
+        "btnAssociate": "Associate",
+        "btnPending": "Pending",
+        "btnConnect": "Connect",
+        "overview": "Visão Geral",
+        "posts": "Publicações",
+        "infoBroker": "Informação sobre o corretor",
+        "historic": "Histórico"
     },
-    "usertypevalue": {
-      "broker": "Corretor",
-      "corporation": "Empresa"
-    }
-  },
-  "feed": {
-    "cards": {
-      "yourenotlogged": "Você não está logado ainda!",
-      "enjoyall": "Aproveite todos os benefícios do site",
-      "singin": "Entre já",
-      "findbrokers": "Achar novos links",
-      "mybrokers": "Meus Corretores",
-      "myproperties": "Meus Imóveis",
-      "schedules": "Visitas",
-      "visitmyprofile": "Ver meu perfil",
-      "notpremiumyet": "Torne-se",
-      "premium": "PREMIUM",
-      "bepremium": "Aproveite já",
-      "connections": "Meus Links",
-      "search": "Procurar",
-      "nolinksyet": "Parece que você não tem nenhum Link ainda",
-      "relatedbrokers": "Corretores afiliados",
-      "norelatedbrokersyet": "Sem corretores afiliados por enquanto",
-      "myrelatedcompany": "Empresa associada",
-      "norelatedcompanyyet": "Sem corporações associadas por enquanto"
+    "dashboard": {
+        "domain": "Domínio",
+        "professionalism": "Profissionalismo",
+        "goodService": "Bom serviço",
+        "educated": "Educado",
+        "visited": "Visitas em imóveis",
+        "sales": "Vendas",
+        "january": "Janeiro",
+        "february": "Fevereiro",
+        "march": "Março",
+        "april": "Abril",
+        "may": "Maio",
+        "june": "Junho"
     },
-    "pub": {
-      "regionfilter": "Filtrar por",
-      "posted": "fez uma publicação",
-      "regioncomboboxplaceholder": "Todos",
-      "comboboxplaceholder": "Selecione",
-      "noposts": "Nenhuma publicação encontrada na região especificada",
-      "error": "Ops! Algo deu errado. Tente recarregar a página.",
-      "selectaregion": "Selecione uma região para filtrar os posts",
-      "chat": "Conversar",
-      "more": "Ler mais",
-      "less": "Mostrar menos",
-      "dateformat": "pt-BR"
+    "calendar": {
+        "scheduledVisits": "Visitas agendadas"
     },
-    "form": {
-      "regionchange": "Região",
-      "post": "Publicar",
-      "placeholder": "Nova publicação",
-      "writeamessage": "Insira a mensagem",
-      "imageinputlabel": "foto",
-      "imageerror": "Imagem inválida",
-      "cityselector": {
+    "imovel": {
+        "mainlabels": {
+            "title": "Meus Imóveis",
+            "delegatevisit": "Delegar Visita"
+        },
+        "formlabels": {
+            "infoproperty": {
+                "location": "Localização",
+                "characteristics": "Características",
+                "price": "Valor"
+            },
+            "selectbroker": "Selecione um corretor",
+            "findbroker": "Encontrar Corretores",
+            "delegatevisit": "Delegar Visita",
+            "requiredfields": "Por favor, preencha todos os campos",
+            "warningmsg": "Sua corporação ainda não possui corretores associados.",
+            "clickhere": "Clique aqui para encontrar corretores",
+            "brokerdata": "Corretor",
+            "specialty": "Especialidade",
+            "clientdata": "Dados do Cliente",
+            "scheduling": "Agendamento",
+            "name": "Nome",
+            "phone": "Telefone",
+            "email": "Email",
+            "date": "Data",
+            "time": "Horário",
+            "loading": "Carregando",
+            "formlogs": {
+                "invalidname": "O nome precisa ter no mínimo 10 caracteres",
+                "invalidphone": "O telefone precisa ter 10 ou 11 caracteres",
+                "invalidemail": "Insira um email válido",
+                "invaliddate": "Selecione uma data válida",
+                "invalidtime": "Selecione um horário válido"
+            },
+            "editimg": {
+                "title": "Alterar Imagem do Imóvel",
+                "imageupload": "Clique para fazer upload ou arraste e solte",
+                "imageformat": "PNG, JPG ou JPEG (MAX. 800x400px).",
+                "loading": "Carregando",
+                "confirm": "Confirmar"
+            }
+        },
+        "newproperty": {
+            "registerproperty": "Cadastrar Imóvel",
+            "requiredfields": "Campos obrigatórios",
+            "register": "Cadastrar",
+            "cep": "CEP",
+            "uf": "Estado",
+            "city": "Cidade",
+            "neighborhood": "Bairro",
+            "street": "Rua",
+            "number": "Número",
+            "complement": "Complemento",
+            "price": "Valor",
+            "type": "Tipo de Imóvel",
+            "furniture": "Mobília",
+            "condition": "Condição",
+            "others": "Outras Características",
+            "selectopt": "Selecione uma opção",
+            "selectopts": "Selecione...",
+            "description": "Descrição",
+            "imageupload": "Carregar imagem",
+            "imageformat": "PNG, JPG ou JPEG (MAX. 800x400px).",
+            "loading": "Carregando",
+            "newpropertylogs": {
+                "invalidcep": "CEP inválido",
+                "invalidcepnotfound": "CEP não encontrado",
+                "invaliduf": "Insira a sigla da unidade federativa",
+                "invalidcity": "A cidade precisa ter no mínimo 2 caracteres",
+                "invalidneighborhood": "O bairro precisa ter no mínimo 2 caracteres",
+                "invalidstreet": "A rua precisa ter no mínimo 2 caracteres",
+                "invalidnumber": "O número da residência não pode ser negativo",
+                "invalidprice": "Coloque, no máximo, duas casas decimais"
+            }
+        }
+    },
+    "chat": {
+        "conversations": "Conversas",
+        "you": "Você",
+        "newconversation": "Novo espaço",
+        "newconvlabel1": "Associações",
+        "newconvlabel2": "Links",
+        "uploadedfile": "Arquivo selecionado",
+        "chathome": "Selecione uma conversa ou clique em \"Novo espaço\" para iniciar uma nova!"
+    },
+    "cityselector": {
         "estate": "Estado",
-        "city": "Município",
-        "selectaestate": "Selecione um estado",
-        "selectacity": "Selecione um município",
-        "selectaestatefirst": "Selecione um estado primeiro",
-        "nocityfound": "Nenhum município encontrado"
-      }
-    }
-  },
+        "city": "Município"
+    },
+    "home": {
+        "about": "Sobre a plataforma",
+        "resources": "Recursos",
+        "premium": "Premium",
+        "access": "ACESSAR PLATAFORMA",
+        "conecting": "Unindo imóveis,",
+        "ties": "laços e negócios",
+        "whatIsImmobileLink": "A ImmobileLink é uma plataforma que busca facilitar o contato entre corretores, construtoras e imobiliárias. Encontre o profissional certo para o imóvel certo.",
+        "searchOpportunities": "Encontre oportunidades",
+        "searchParagraph": "Busque por oportunidades de parceria com diversas imobiliárias e corretores do mercado. Aqui oferecemos um ambiente colaborativo que contribui para a construção e demonstração de credibilidade de profissionais e empresas do ramo imobiliário. Demonstre sua experiência, atuação, seu portfólio e forme laços com diversos profissionais e organizações se assim desejar.",
+        "manageYourCalendar": "Gerencie sua agenda, controle seus links e receba feedback de verdade!",
+        "manageParagraph": "Aproveite os melhores recursos para auxiliar a gestão do tempo, atividades, agendamentos, comunicação, visualização e avaliação de desempenho do seu trabalho e de seus parceiros com nosso dashboard completo e personalizado.",
+        "amazingResources": "Recursos incríveis para corretores e empresas",
+        "amazingParagraph": "A ImmobileLink conta com recursos exclusivos para atender as principais necessidades do mercado. Explore uma vasta gama de funcionalidades gratuitas e premium para suas necessidades e de seu negócio:",
+        "itemResources": {
+            "item1": "Avaliação de corretores",
+            "item2": "Dashboard de métricas do usuário",
+            "item3": "Feedback de desempenho profissional",
+            "item4": "Criação de comunidades",
+            "item5": "Afiliação à empresas",
+            "item6": "Oportunidades por setor e região",
+            "item7": "Agendamento e controle de visitas",
+            "item8": "E muito mais!"
+        },
+        "tryPremium": "EXPERIMENTE O PREMIUM",
+        "start": "Vamos começar?"
+    },
   "planos": {
     "subscription": "Planos para o seu perfil",
     "broker": "corretor",
@@ -483,10 +690,12 @@
   },
   "agenda": {
     "visitdetails": "Detalhes da visita",
-    "companyname": "Corporação responsável",
-    "clientname": "Nome do cliente",
-    "telefone": "Tel",
-    "date": "Dia agendado",
+    "companyname": "Empresa responsável",
+    "brokername": "Corretor responsável",
+    "clientdetails": "Dados do cliente",
+    "clientname": "Nome",
+    "telefone": "Telefone",
+    "date": "Data da visita",
     "placedetails": "Detalhes do imóvel",
     "address": "Endereço",
     "uf": "Estado",
@@ -498,7 +707,13 @@
     "complemento": "Complemento",
     "close": "Fechar",
     "delete": "Deseja cancelar esta visita?",
-    "cannotbeundone": "Esta ação não pode ser desfeita."
+    "cannotbeundone": "Esta ação não pode ser desfeita.",
+    "sendsurvey": "Deseja enviar formulário de pesquisa de satisfação?",
+    "logs": {
+      "emailerror": "O envio do formulário só é possível para visitas já realizadas.",
+      "emailok": "Email enviado com sucesso.",
+      "visitok": "Visita cancelada com sucesso."
+    }
   },
   "survey": {
     "dear": "Prezado(a)",
@@ -513,6 +728,8 @@
     "explanationsurveysite2": "Para ajudar a melhorar nossos serviços e garantir que atendamos suas expectativas da melhor maneira possível pedimos que faça uma avaliação em uma escala de 1 a 5, onde 5 representa Muito satisfeito e 1 representa Muito insatisfeito, para indicar o quanto nosso corretor atendeu suas expectativas durante a visita.",
     "pleased": "Muito satisfeito",
     "notpleased": "Muito insatisfeito",
+    "insertavalue": "Verifique se todos os campos obrigatórios foram preenchidos",
+    "fieldlenght": "O texto no campo deve ter mais de 3 caracteres",
     "finish": "FINALIZAR PESQUISA",
     "questions": {
       "question1": "1 - Profissionalismo do Corretor",

@@ -52,14 +52,27 @@ export default async function page({ params: { lang } }: pageProps) {
     redirect('/auth');
   }
 
-  let { data } = await supabase.rpc('obter_visitas_aceitas_pelo_corretor', {
-    corretor_id: userData.id!
-  })
 
+  if (userData.type == "corretor") {
+    let { data } = await supabase.rpc('obter_visitas_aceitas_pelo_corretor', {
+      corretor_id: userData.id!
+    })
 
-  return (
-    <div className="h-[calc(100vh-72px)] p-4">
-      <Calendario userId={userData.id} visitas={data} locale={lang} dict={dict.agenda} />
-    </div>
-  );
+    return (
+      <div className="h-[calc(100vh-72px)] p-4">
+        <Calendario type={userData.type!} visitas={data} locale={lang} dict={dict.agenda} />
+      </div>
+    );
+  } else {
+    let { data } = await supabase.rpc('obter_visitas_da_corporacao', {
+      corporacao_id: userData.id!
+    })
+
+    return (
+      <div className="h-[calc(100vh-72px)] p-4">
+        <Calendario type={userData.type!} visitas={data} locale={lang} dict={dict.agenda} />
+      </div>
+    );
+  }
+  
 }

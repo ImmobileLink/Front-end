@@ -17,6 +17,14 @@ export async function POST(req: Request) {
         })
     }
 
+    if (!isDateBeforeCurrent(visitDate)) {
+      return new NextResponse('Invalid Date: The visitDate date must be before the current date',
+        {
+          status: 500,
+          statusText: 'Invalid Date'
+        })
+    }
+
     const emailFunction = async () => {
       const data = await sendEmail({
         to: clientEmail,

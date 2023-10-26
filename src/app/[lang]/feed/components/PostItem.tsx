@@ -14,20 +14,52 @@ import {
 import Link from "next/link";
 import { Feed } from "@/app/i18n/dictionaries/types";
 import { useState } from "react";
+import ModalExcluir from "./ModalExcluir";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../../../../../lib/database.types";
 
 interface PostItemProps {
     publicacao: PublicacaoCompleta;
     idusuario?: string;
     dict: Feed;
+    setDeletePost: Function;
+    setPubid: Function;
 }
 
 export default function PostItem({
     idusuario,
     publicacao,
     dict,
+    setDeletePost,
+    setPubid,
 }: PostItemProps) {
     const router = useRouter();
     const [readMore, isReadMore] = useState(false);
+    const [savedItem, isSavedItem] = useState(publicacao.issalvo);
+
+    const supabase = createClientComponentClient<Database>();
+
+    const handleSavePost = async () => {
+        let savedItem = {
+            idusuario: idusuario!,
+            idpublicacao: publicacao.id!,
+        };
+        const { data } = await supabase
+            .from("publicacaosalva")
+            .insert(savedItem);
+
+        isSavedItem(true);
+    };
+
+    const handleRemovePost = async () => {
+        const { data } = await supabase
+            .from("publicacaosalva")
+            .delete()
+            .eq("idusuario", idusuario!)
+            .eq("idpublicacao", publicacao.id);
+
+        isSavedItem(false);
+    };
 
     return (
         <div className="mb-4">
@@ -35,7 +67,12 @@ export default function PostItem({
                 <Card.Content>
                     <div className="w-full h-fit min-h-[50px] px-4">
                         <div className="w-full h-fit flex justify-between mb-4">
-                            <div className="flex justify-center items-center gap-2 mt-1">
+                            <div
+                                className="flex cursor-pointer justify-center items-center gap-2 mt-1"
+                                onClick={() =>
+                                    router.push(`/perfil/${publicacao.idautor}`)
+                                }
+                            >
                                 <Avatar route={publicacao.avatar} />
                                 <div>
                                     <p>{publicacao.nomeautor}</p>
@@ -48,34 +85,86 @@ export default function PostItem({
                                 </div>
                             </div>
                             <div className="h-full">
-                                {/** TO DO: Incluir variação de botões para o próprio post -> Meu perfil, salvar, excluir */}
                                 <Dropdown
                                     label={<BsThreeDots />}
                                     items={[
-                                        // if not from the author && not saved -> Salvar
-                                        // else -> option "Remover dos items salvos"
                                         {
                                             label: (
                                                 <div className="flex items-center">
-                                                    <BsFillBookmarkPlusFill />
-                                                    <a className="pl-1">{"Salvar publicação"}</a>
+                                                    <>
+                                                        {savedItem ? (
+                                                            <>
+                                                                <BsBookmarkCheckFill />
+                                                                <a className="pl-1">
+                                                                    {
+                                                                        dict
+                                                                            .dropdown
+                                                                            .removedsaveditem
+                                                                    }
+                                                                </a>
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <BsFillBookmarkPlusFill />
+                                                                <a className="pl-1">
+                                                                    {
+                                                                        dict
+                                                                            .dropdown
+                                                                            .addsaveditem
+                                                                    }
+                                                                </a>
+                                                            </>
+                                                        )}
+                                                    </>
                                                 </div>
                                             ),
                                             onClick: () => {
-                                                console.log("ver mais!");
+                                                if (savedItem) {
+                                                    handleRemovePost();
+                                                } else {
+                                                    handleSavePost();
+                                                }
                                             },
                                         },
                                         {
-                                            label: "Ver perfil",
+                                            label: (
+                                                <>
+                                                    {publicacao.idautor ==
+                                                    idusuario
+                                                        ? dict.cards
+                                                              .visitmyprofile
+                                                        : dict.dropdown
+                                                              .seeprofile}
+                                                </>
+                                            ),
                                             onClick: () => {
-                                                router.push(`/perfil/${publicacao.idautor}`)
+                                                router.push(
+                                                    `/perfil/${publicacao.idautor}`
+                                                );
                                             },
                                         },
-                                        
+
                                         {
-                                            label: "Denunciar",
+                                            label: (
+                                                <>
+                                                    {publicacao.idautor ==
+                                                    idusuario
+                                                        ? dict.pub.deletepub
+                                                        : dict.dropdown.report}
+                                                </>
+                                            ),
                                             onClick: () => {
-                                                router.push(`/denuncia/${publicacao.id}`)
+                                                if (
+                                                    publicacao.idautor ==
+                                                    idusuario
+                                                ) {
+                                                    setPubid(publicacao.id);
+                                                    setDeletePost(true);
+                                                } else {
+                                                    router.push(
+                                                        `/denuncia/${publicacao.id}`
+                                                    );
+                                                }
                                             },
                                         },
                                     ]}
@@ -124,51 +213,12 @@ export default function PostItem({
                                 <Link
                                     href={`/redirect/chat/${publicacao.idautor}`}
                                 >
-                                    {/* {children} */}
                                     <button className="w-fit text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 font-medium rounded-lg text-sm px-10 py-2.5">
                                         {dict.pub.chat}
                                     </button>
                                 </Link>
                             ) : null}
                         </div>
-                        {/* <div className="flex gap-4 mb-4">
-                            <div className="flex text-xl items-center gap-3">
-                                <button
-                                    onClick={() => {
-                                        alert("curtiu");
-                                    }}
-                                >
-                                    <BsHeart className="hover:cursor-pointer hover:text-red-400 ease-in duration-100" />
-                                </button>
-                                <span>10</span>
-                            </div>
-                            <div className="flex text-xl items-center gap-3">
-                                <button
-                                    onClick={() => {
-                                        alert("comentou");
-                                    }}
-                                >
-                                    <BsChatSquareText className="hover:cursor-pointer" />
-                                </button>
-                                <span>10</span>
-                            </div>
-                            <div className="flex text-xl items-center gap-3">
-                                <button
-                                    onClick={() => {
-                                        alert("compartilhou");
-                                    }}
-                                >
-                                    <BsShare className="hover:cursor-pointer" />
-                                </button>
-                                <span>10</span>
-                            </div>
-                        </div>
-                        <div>
-                            <textarea
-                                className="w-full bg-gray-100 grow p-3 h-12 rounded-md text-slate-900"
-                                placeholder={"Leave a comment"}
-                            ></textarea>
-                                </div> */}
                     </div>
                 </Card.Content>
             </Card.Root>

@@ -27,6 +27,7 @@ export interface PublicacaoCompleta {
     imagem: string;
     criadoem: string;
     atualizadoem: string;
+    issalvo: boolean;
 
 }
 
@@ -217,10 +218,13 @@ export type salaUsuario = {
 
 export interface VisitaProps {
     visita_id: string;
+    visita_status: boolean;
     nome_corporacao: string;
+    nome_corretor: string;
     data_agendamento: string;
     nome_marcador: string;
     telefone_marcador: string;
+    email_marcador: string;
     estado_imovel: string;
     cidade_imovel: string;
     bairro_imovel: string;
@@ -228,4 +232,5 @@ export interface VisitaProps {
     numero_imovel: number;
     cep_imovel: string;
     complemento_imovel: string;
+    survey_id: string;
 }

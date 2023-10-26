@@ -5,6 +5,7 @@ import { Card } from "../../../(components)/(compositions)/(card)";
 import Avatar from "../../../(components)/Avatar";
 import Image from "next/image";
 import { useState } from "react";
+import { Denuncia, Feed } from "@/app/i18n/dictionaries/types";
 
 interface MiniaturePostItemProps {
     publicacao:
@@ -20,12 +21,15 @@ interface MiniaturePostItemProps {
               atualizadoem: string;
           }[]
         | null;
+    dict: Denuncia;
 }
 
 export default function MiniaturePostItem({
     publicacao,
+    dict,
 }: MiniaturePostItemProps) {
     const [readMore, isReadMore] = useState(false);
+    let lang = dict.dateformat;
     return (
         <div className="mb-8 bg-black/25 md:w-10/12 border rounded-lg">
             <Card.Content>
@@ -37,8 +41,8 @@ export default function MiniaturePostItem({
                                 <p>{publicacao![0]?.nomeautor}</p>
                                 <p className="text-xs">
                                     {formataData(
-                                        publicacao![0]?.criadoem
-                                        // dict.pub.dateformat
+                                        publicacao![0]?.criadoem,
+                                        lang
                                     )}
                                 </p>
                             </div>
@@ -67,7 +71,7 @@ export default function MiniaturePostItem({
                             } opacity-75 cursor-pointer hover:underline`}
                             onClick={() => isReadMore(!readMore)}
                         >
-                            {readMore ? "Mostrar menos" : "Ler mais"}
+                            {readMore ? dict.less : dict.more}
                         </a>
                         <div className="flex w-full justify-center">
                             {publicacao![0]?.imagem && (
