@@ -85,7 +85,6 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
 
                         setLogErro(textos.pub.tryagainlater);
                     }
-                    console.log({ error });
 
                     //atualiza o estado dos posts
                     //se retornar 1+ posts mapeia na tela
@@ -117,7 +116,7 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
                         .rpc("get_publicacoes_salvas", {
                             idusuario: idusuario!,
                         })
-                        .eq("regiao", selectedState!)
+                        .contains("regiao", { estado: selectedState! })
                         .order("atualizadoem", { ascending: false })
                         .limit(10);
                     let { data, error } = response;
@@ -125,15 +124,10 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
                         setLoading(false);
                         setLogErro(textos.pub.tryagainlater);
                     }
-                    console.log({ error });
 
-                    //atualiza o estado dos posts
-                    //se retornar 1+ posts mapeia na tela
                     if (data!.length > 0) {
                         setPosts(data!);
-                        //tira o log de erro
                         setErro(false);
-                        // se não mostra log
                     } else {
                         setErro(true);
                         setLogErro(textos.pub.noposts);
@@ -160,7 +154,7 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
                         .rpc("get_publicacoes_salvas", {
                             idusuario: idusuario!,
                         })
-                        .eq("regiao", {
+                        .contains("regiao", {
                             cidade: selectedCity!,
                             estado: selectedState!,
                         })
@@ -171,7 +165,6 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
                         setLoading(false);
                         setLogErro(textos.pub.tryagainlater);
                     }
-                    console.log({ error });
 
                     //atualiza o estado dos posts
                     //se retornar 1+ posts mapeia na tela
