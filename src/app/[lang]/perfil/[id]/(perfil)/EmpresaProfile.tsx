@@ -27,7 +27,7 @@ export default async function page() {
 
                 {dash  && (
                     <Page.Calendar>
-                        {/* <Calendario /> */}
+                        <Calendario />
                     </Page.Calendar>
                 )}
             </Page.Right>
