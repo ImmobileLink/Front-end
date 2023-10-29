@@ -10,6 +10,10 @@ import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database } from '../../../../lib/database.types';
 import { useProfileStore } from '../../../../lib/store/profileStore';
+import Link from 'next/link';
+import "dayjs/locale/en";
+import "dayjs/locale/pt";
+import { getDiasVisita } from '../../../../lib/utils/CalendarioProfile';
 
 
 
@@ -17,47 +21,16 @@ interface CalendarioProps {
 
 }
 
-function getRandomNumber(min: number, max: number) {
-  return Math.round(Math.random() * (max - min) + min);
-}
+async function fetchData(date: Dayjs, id1: string, id2: string | undefined, { signal }: { signal: AbortSignal }) {
 
-/**
- * Mimic fetch with abort controller https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
- * ⚠️ No IE11 support
- */
+  const { data, error } = await getDiasVisita(date, id1, id2)
 
-const state = useProfileStore.getState()
-async function fakeFetch(date: Dayjs, { signal }: { signal: AbortSignal }) {
-
-  const supabase = createClientComponentClient<Database>()
-
-
-  let { data, error } = await supabase
-    .rpc('getdiasvisita', {
-      anoparam: date.year(),
-      id_cor: state.profileData?.id!,
-      mesparam: 10
-    })
-    console.log(data)
-  if (error) console.error(error)
-  else return data
-
-
-
-
-  /*  return new Promise<{ daysToHighlight: number[] }>((resolve, reject) => {
-       const timeout = setTimeout(() => {
-           const daysInMonth = date.daysInMonth();
-           const daysToHighlight = [1, 2, 3].map(() => getRandomNumber(1, daysInMonth));
-
-           resolve({ daysToHighlight });
-       }, 500);
-
-       signal.onabort = () => {
-           clearTimeout(timeout);
-           reject(new DOMException('aborted', 'AbortError'));
-       };
-   }); */
+  if(error){
+    console.error(error)
+  }else{
+    return data
+  }
+  
 }
 
 function obterDataAtualFormatada() {
@@ -83,7 +56,7 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] 
       overlap="circular"
       badgeContent={isSelected ? '🏠' : undefined}
     >
-      <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
+      <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} className='dark:text-gray-400' />
     </Badge>
   );
 }
@@ -95,16 +68,19 @@ export default function Calendario({ }: CalendarioProps) {
   const [isLoading, setIsLoading] = React.useState(false);
   const [highlightedDays, setHighlightedDays] = React.useState<number[]>([]);
 
+  const state = useProfileStore.getState()
+  const id1 = state.profileData?.id!
+  const id2 = state.isOwn ? undefined : state.sessionData?.id!
+
   const fetchHighlightedDays = async (date: Dayjs) => {
-    console.log(date)
 
     const controller = new AbortController();
-    const daysToHighlight = await fakeFetch(date, { signal: controller.signal, })
+    const daysToHighlight = await fetchData(date, id1, id2, { signal: controller.signal, })
     if (daysToHighlight) {
       const newHighlightedDays = daysToHighlight.map(item => item.diavisita);
       setHighlightedDays(prev => [...prev, ...newHighlightedDays]);
     }
-    setIsLoading(false); 
+    setIsLoading(false);
 
 
     requestAbortController.current = controller;
@@ -129,21 +105,26 @@ export default function Calendario({ }: CalendarioProps) {
 
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DateCalendar
-        defaultValue={initialValue}
-        loading={isLoading}
-        onMonthChange={handleMonthChange}
-        renderLoading={() => <DayCalendarSkeleton />}
-        slots={{
-          day: ServerDay,
-        }}
-        slotProps={{
-          day: {
-            highlightedDays,
-          } as any,
-        }}
-      />
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt">
+      <div className='flex flex-col items-center justify-center'> 
+        <DateCalendar
+          defaultValue={initialValue}
+          loading={isLoading}
+          onMonthChange={handleMonthChange}
+          renderLoading={() => <DayCalendarSkeleton />}
+          slots={{
+            day: ServerDay,
+          }}
+
+          slotProps={{
+            day: {
+              highlightedDays,
+            } as any,
+          }}
+        />
+        <Link href={'/agenda'} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded max-w-[200px] text-center'>Acesse seu painel de visitas</Link>
+      </div>
+
     </LocalizationProvider>
   );
 }

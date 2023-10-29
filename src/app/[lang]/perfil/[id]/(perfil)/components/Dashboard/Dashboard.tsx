@@ -62,9 +62,9 @@ export default function Dashboard({ }: DashboardProps) {
 
   return (
     <>
-
-      {!premium && (
+      {!premium ? (
         <div>
+
           <div className="absolute flex justify-center items-center inset-0 backdrop-blur-md">
             <div className="w-3/4 flex justify-center flex-col items-center">
               {!isLogged ? (
@@ -81,37 +81,34 @@ export default function Dashboard({ }: DashboardProps) {
                 </>
 
               )}
-
             </div>
           </div>
         </div >
 
-      )
-      }
-
-      {isLoading ? (
-        <DashboardSkeleton />
       ) : (
         <div className={`${!openCalendar && "max-h-[380px] md:max-h-[600px]"} min-h-[300px]`}>
+          {isLoading && <DashboardSkeleton />}
           {avaliacao && avaliacao.length >= 1 ? (
             <div>
               <div className="flex flex-col gap-5 mb-16">
-                <Pie satisfacao={satisfacao}/>
-                <Radar avaliacao={avaliacao}/>
+                <Pie satisfacao={satisfacao} />
+                <Radar avaliacao={avaliacao} />
                 <PolarArea dict={dict} />
                 <Line dict={dict} />
                 <Doughnut />
               </div>
 
-              {premium && (
-                <div className={`flex items-center justify-center absolute bottom-0 w-full right-0 bg-gradient-to-b from-transparent to-opacity-100 via-yellow-400 to-yellow-700 h-14`}>
-                  <Link href="#dashboard" onClick={() => setOpenCalendar(!openCalendar)} className="cursor-pointer text-white font-bold mt-4">{openCalendar ? "Veja menos" : "Veja mais"}</Link>
-                </div>
-              )}
+              <div className={`flex items-center justify-center absolute bottom-0 w-full right-0 bg-gradient-to-b from-transparent to-opacity-100 via-yellow-400 to-yellow-700 h-14`}>
+                <Link href="#dashboard" onClick={() => setOpenCalendar(!openCalendar)} className="cursor-pointer text-white font-bold mt-4">{openCalendar ? "Veja menos" : "Veja mais"}</Link>
+              </div>
             </div>
           ) : (<p>Esse usuário ainda não foi avaliado</p>)}
         </div>
-      )}
+      )
+      }
+
+
+
 
     </>
 

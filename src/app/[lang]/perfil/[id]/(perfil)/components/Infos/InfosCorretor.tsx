@@ -11,6 +11,7 @@ import { useProfileContext } from '../../context/ProfileContext';
 import { useButtonContext } from '../../context/TabsContext';
 import Posts from './Posts';
 import { useProfileStore } from '../../../../../../../../lib/store/profileStore';
+import Calendario from '@/app/[lang]/(components)/Calendario';
 
 
 
@@ -24,7 +25,6 @@ export default function InfosCorretor({ }: InfosProps) {
 
   const { activeTab, setTab, tabsRef } = useButtonContext()
   const isOwn = useProfileStore.getState().isOwn
-
 
   return (
     <div className='ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-700 drop-shadow-md bg-white rounded-md mt-3 pb-10'>
@@ -63,17 +63,15 @@ export default function InfosCorretor({ }: InfosProps) {
         <Tabs.Item
           icon={HiCalendar}
           title="Schedule"
+          className='hidden'
         >
-          <p>
-            This is
-            <span className="font-medium text-gray-800 dark:text-white">
-              Contacts tab's associated content
-            </span>
-            .
-            Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
-            control the content visibility and styling.
-          </p>
+          <div>
+            <Calendario />
+          </div>
+
         </Tabs.Item>
+
+
       </Tabs.Group>
     </div>
   );
