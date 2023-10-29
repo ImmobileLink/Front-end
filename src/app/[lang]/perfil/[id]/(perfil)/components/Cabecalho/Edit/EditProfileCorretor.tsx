@@ -163,7 +163,7 @@ export default function EditProfile({ data }: EditProfileProps) {
             <Modal show={props.openModal === 'default'} onClose={() => props.setOpenModal(undefined)}>
                 <Modal.Header>Editar Perfil</Modal.Header>
                 <Modal.Body>
-                    <div className="space-y-6 sm:mx-auto sm:w-full sm:max-w-sm text-sm" >
+                    <div className="space-y-5 sm:mx-auto sm:w-full sm:max-w-sm text-sm" >
                         <div className="flex flex-col">
                             <label className="text-gray-500 dark:text-gray-300">Nome</label>
                             <input type="text"
@@ -190,8 +190,8 @@ export default function EditProfile({ data }: EditProfileProps) {
                         <h2 className="font-medium text-gray-500 dark:text-gray-400">Localidade</h2>
 
                         {/* comercial & { cep & UF } */}
-                        <div className="grid md:grid-cols-2 md:gap-6">
-                            <div className="grid md:grid-cols-2 md:gap-6">
+                        <div className="grid md:grid-cols-2">
+                            <div className="grid md:grid-cols-2 md:gap-6 gap-3">
                                 <div className="relative z-0 w-full ">
                                     <label className="text-sm text-gray-500 dark:text-gray-300">
                                         CEP
@@ -228,8 +228,8 @@ export default function EditProfile({ data }: EditProfileProps) {
                         </div> */}
 
                         {/* cidade & bairro */}
-                        <div className="grid md:grid-cols-2 md:gap-6 mt-0 space-y-4 md:space-y-0">
-                            <div className="relative z-0 w-full group">
+                        <div className="grid md:grid-cols-2 md:gap-6 gap-3">
+                            <div className="relative z-0 w-full group ">
                                 <label className="text-sm text-gray-500 dark:text-gray-300">
                                     cidade
                                 </label>
@@ -260,7 +260,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                         </div>
 
                         {/* rua */}
-                        <div className="relative z-0 w-full mb-6 group">
+                        <div className="relative z-0 w-full md:gap-6 gap-3">
                             <label className="text-sm text-gray-500 dark:text-gray-300">
                                 Rua
                             </label>
@@ -276,8 +276,8 @@ export default function EditProfile({ data }: EditProfileProps) {
                         </div>
 
                         {/* numero & complemento */}
-                        <div className="grid md:grid-cols-2 md:gap-6">
-                            <div className="relative z-0 w-full mb-6 group">
+                        <div className="grid md:grid-cols-2 md:gap-6 gap-3">
+                            <div className="relative z-0 w-full group">
                                 <label className="text-sm text-gray-500 dark:text-gray-300">
                                     numero
                                 </label>
@@ -290,7 +290,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                                     Insira um número
                                 </label>)}
                             </div>
-                            <div className="relative z-0 w-full mb-6 group">
+                            <div className="relative z-0 w-full">
                                 <label className="text-sm text-gray-500 dark:text-gray-300">
                                     complemento
                                 </label>

@@ -57,7 +57,7 @@ export default function VisaoGeralCorretor({ }: VisaoGeralProps) {
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
-                    <th scope="col" className="px-6 py-3 text-center text-sm bg-slate-800">
+                    <th scope="col" className="px-6 py-3 text-center text-sm dark:bg-slate-800 bg-slate-300">
                       Especialidades
                     </th>
                   </tr>
@@ -86,7 +86,7 @@ export default function VisaoGeralCorretor({ }: VisaoGeralProps) {
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                      <th scope="col" className="px-6 py-3 text-center text-sm bg-slate-800">
+                      <th scope="col" className="px-6 py-3 text-center text-sm dark:bg-slate-800 bg-slate-300">
                         Regiões de atuação
                       </th>
                     </tr>

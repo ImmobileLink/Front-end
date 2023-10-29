@@ -16,6 +16,8 @@ export default function VisaoGeralEmpresa({ }: VisaoGeralProps) {
   const state = useProfileStore.getState()
   const corporacao = state.profileFullData as Corporacao;
 
+  const qntd = state.profileData?.assoc?.length
+
   const { areasAtuacao } = useProfileContext();
 
 
@@ -54,6 +56,11 @@ export default function VisaoGeralEmpresa({ }: VisaoGeralProps) {
           )}
         </div>
 
+        <div className="flex gap-2">
+          <p className="font-semibold underline">Quantidade de corretores associados: </p>
+          <p className="font-semibold">{qntd}</p>
+        </div>
+
         <div className="flex flex-row gap-5 flex-wrap">
           {
             areasAtuacao && (
@@ -61,7 +68,7 @@ export default function VisaoGeralEmpresa({ }: VisaoGeralProps) {
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                      <th scope="col" className="px-6 py-3 text-center text-sm bg-slate-800">
+                      <th scope="col" className="px-6 py-3 text-center text-sm dark:bg-slate-800 bg-slate-300">
                         Regiões de atuação
                       </th>
 
@@ -70,8 +77,8 @@ export default function VisaoGeralEmpresa({ }: VisaoGeralProps) {
                   <tbody>
 
                     {areasAtuacao?.map((item, index) => (
-                      <tr  key={index} className={`bg-white border-b ${index % 2 === 0 ? 'dark:bg-gray-900' : 'dark:bg-gray-800'} dark:border-gray-700`}>
-                        <th  scope="row" className={`px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center`}>
+                      <tr key={index} className={`bg-white border-b ${index % 2 === 0 ? 'dark:bg-gray-900' : 'dark:bg-gray-800'} dark:border-gray-700`}>
+                        <th scope="row" className={`px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center`}>
                           {`${item.cidade} - ${item.estado}`}
                         </th>
                       </tr>
