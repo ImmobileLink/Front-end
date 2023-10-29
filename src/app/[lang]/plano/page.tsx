@@ -54,7 +54,7 @@ export default async function page({ params: { lang } }: pageProps) {
         {dict.planos.subscription}
       </p>
       <p className="w-full mt-2 mb-8 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 text-center self-center">
-        Escolha o plano que melhor atende suas necessidades e altere-o quando preferir
+        {dict.planos.chooseyourplan}
       </p>
       <div className="w-auto flex justify-center px-10 mt-10 ">
         <PlanoTable

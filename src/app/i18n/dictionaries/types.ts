@@ -574,6 +574,7 @@ export interface Usertypevalue {
 
 export interface Planos {
     subscription: string;
+    chooseyourplan: string;
     broker: string;
     company: string;
     month: string;
