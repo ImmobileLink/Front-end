@@ -51,7 +51,9 @@ export default function PlanoTable({
                     <Table.HeadCell className="flex justify-center">
                         FREE
                     </Table.HeadCell>
-                    <Table.HeadCell className="text-center">PREMIUM</Table.HeadCell>
+                    <Table.HeadCell className="text-center">
+                        PREMIUM
+                    </Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y">
                     {role == "corretor" ? (
@@ -64,7 +66,11 @@ export default function PlanoTable({
                                     <BsCheckCircle className="text-green-500" />
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <BsCheckCircle className={`${premium ? "ml-6" : "ml-20"} mb-2 text-green-500`} />
+                                    <BsCheckCircle
+                                        className={`${
+                                            premium ? "ml-6" : "ml-20"
+                                        } mb-2 text-green-500`}
+                                    />
                                 </Table.Cell>
                             </Table.Row>
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -75,7 +81,11 @@ export default function PlanoTable({
                                     <BsCheckCircle className="text-green-500" />
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <BsCheckCircle className={`${premium ? "ml-6" : "ml-20"} mb-2 text-green-500`} />
+                                    <BsCheckCircle
+                                        className={`${
+                                            premium ? "ml-6" : "ml-20"
+                                        } mb-2 text-green-500`}
+                                    />
                                 </Table.Cell>
                             </Table.Row>
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -86,7 +96,11 @@ export default function PlanoTable({
                                     <BsCheckCircle className="text-green-500" />
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <BsCheckCircle className={`${premium ? "ml-6" : "ml-20"} mb-2 text-green-500`} />
+                                    <BsCheckCircle
+                                        className={`${
+                                            premium ? "ml-6" : "ml-20"
+                                        } mb-2 text-green-500`}
+                                    />
                                 </Table.Cell>
                             </Table.Row>
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -97,7 +111,11 @@ export default function PlanoTable({
                                     <BsCheckCircle className="text-green-500" />
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <BsCheckCircle className={`${premium ? "ml-6" : "ml-20"} mb-2 text-green-500`} />
+                                    <BsCheckCircle
+                                        className={`${
+                                            premium ? "ml-6" : "ml-20"
+                                        } mb-2 text-green-500`}
+                                    />
                                 </Table.Cell>
                             </Table.Row>
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -108,7 +126,11 @@ export default function PlanoTable({
                                     <BsXCircle className="text-red-500" />
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <BsCheckCircle className={`${premium ? "ml-6" : "ml-20"} mb-2 text-green-500`} />
+                                    <BsCheckCircle
+                                        className={`${
+                                            premium ? "ml-6" : "ml-20"
+                                        } mb-2 text-green-500`}
+                                    />
                                 </Table.Cell>
                             </Table.Row>
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -119,7 +141,11 @@ export default function PlanoTable({
                                     <BsXCircle className="text-red-500" />
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <BsCheckCircle className={`${premium ? "ml-6" : "ml-20"} mb-2 text-green-500`} />
+                                    <BsCheckCircle
+                                        className={`${
+                                            premium ? "ml-6" : "ml-20"
+                                        } mb-2 text-green-500`}
+                                    />
                                 </Table.Cell>
                             </Table.Row>
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -130,7 +156,11 @@ export default function PlanoTable({
                                     <BsXCircle className="text-red-500" />
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <BsCheckCircle className={`${premium ? "ml-6" : "ml-20"} mb-2 text-green-500`} />
+                                    <BsCheckCircle
+                                        className={`${
+                                            premium ? "ml-6" : "ml-20"
+                                        } mb-2 text-green-500`}
+                                    />
                                 </Table.Cell>
                             </Table.Row>
                         </>
@@ -144,7 +174,11 @@ export default function PlanoTable({
                                     <BsCheckCircle className="text-green-500" />
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <BsCheckCircle className={`${premium ? "ml-6" : "ml-20"} mb-2 text-green-500`} />
+                                    <BsCheckCircle
+                                        className={`${
+                                            premium ? "ml-6" : "ml-20"
+                                        } mb-2 text-green-500`}
+                                    />
                                 </Table.Cell>
                             </Table.Row>
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -155,7 +189,11 @@ export default function PlanoTable({
                                     <BsXCircle className="text-red-500" />
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <BsCheckCircle className={`${premium ? "ml-6" : "ml-20"} mb-2 text-green-500`} />
+                                    <BsCheckCircle
+                                        className={`${
+                                            premium ? "ml-6" : "ml-20"
+                                        } mb-2 text-green-500`}
+                                    />
                                 </Table.Cell>
                             </Table.Row>
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -166,7 +204,11 @@ export default function PlanoTable({
                                     <BsCheckCircle className="text-green-500" />
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <BsCheckCircle className={`${premium ? "ml-6" : "ml-20"} mb-2 text-green-500`} />
+                                    <BsCheckCircle
+                                        className={`${
+                                            premium ? "ml-6" : "ml-20"
+                                        } mb-2 text-green-500`}
+                                    />
                                 </Table.Cell>
                             </Table.Row>
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -177,7 +219,11 @@ export default function PlanoTable({
                                     <BsCheckCircle className="text-green-500" />
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <BsCheckCircle className={`${premium ? "ml-6" : "ml-20"} mb-2 text-green-500`} />
+                                    <BsCheckCircle
+                                        className={`${
+                                            premium ? "ml-6" : "ml-20"
+                                        } mb-2 text-green-500`}
+                                    />
                                 </Table.Cell>
                             </Table.Row>
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -188,7 +234,11 @@ export default function PlanoTable({
                                     <BsCheckCircle className="text-green-500" />
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <BsCheckCircle className={`${premium ? "ml-6" : "ml-20"} mb-2 text-green-500`} />
+                                    <BsCheckCircle
+                                        className={`${
+                                            premium ? "ml-6" : "ml-20"
+                                        } mb-2 text-green-500`}
+                                    />
                                 </Table.Cell>
                             </Table.Row>
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -199,7 +249,11 @@ export default function PlanoTable({
                                     <BsCheckCircle className="text-green-500" />
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <BsCheckCircle className={`${premium ? "ml-6" : "ml-20"} mb-2 text-green-500`} />
+                                    <BsCheckCircle
+                                        className={`${
+                                            premium ? "ml-6" : "ml-20"
+                                        } mb-2 text-green-500`}
+                                    />
                                 </Table.Cell>
                             </Table.Row>
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -210,7 +264,11 @@ export default function PlanoTable({
                                     <BsXCircle className="text-red-500" />
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <BsCheckCircle className={`${premium ? "ml-6" : "ml-20"} mb-2 text-green-500`} />
+                                    <BsCheckCircle
+                                        className={`${
+                                            premium ? "ml-6" : "ml-20"
+                                        } mb-2 text-green-500`}
+                                    />
                                 </Table.Cell>
                             </Table.Row>
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -221,7 +279,11 @@ export default function PlanoTable({
                                     <BsCheckCircle className="text-green-500" />
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <BsCheckCircle className={`${premium ? "ml-6" : "ml-20"} mb-2 text-green-500`} />
+                                    <BsCheckCircle
+                                        className={`${
+                                            premium ? "ml-6" : "ml-20"
+                                        } mb-2 text-green-500`}
+                                    />
                                 </Table.Cell>
                             </Table.Row>
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -232,7 +294,11 @@ export default function PlanoTable({
                                     <BsXCircle className="text-red-500" />
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <BsCheckCircle className={`${premium ? "ml-6" : "ml-20"} mb-2 text-green-500`} />
+                                    <BsCheckCircle
+                                        className={`${
+                                            premium ? "ml-6" : "ml-20"
+                                        } mb-2 text-green-500`}
+                                    />
                                 </Table.Cell>
                             </Table.Row>
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -243,7 +309,11 @@ export default function PlanoTable({
                                     <BsXCircle className="text-red-500" />
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <BsCheckCircle className={`${premium ? "ml-6" : "ml-20"} mb-2 text-green-500`} />
+                                    <BsCheckCircle
+                                        className={`${
+                                            premium ? "ml-6" : "ml-20"
+                                        } mb-2 text-green-500`}
+                                    />
                                 </Table.Cell>
                             </Table.Row>
                         </>
@@ -255,24 +325,26 @@ export default function PlanoTable({
                                 <Table.Cell className="hover:cursor-pointer hover:font-bold">
                                     <button
                                         onClick={() => handleSetPremiumFalse()}
-                                        className="flex p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg"
+                                        className="flex p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-6 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg"
                                     >
-                                        {sub.buynow}
+                                        Selecionar Free
                                     </button>
                                 </Table.Cell>
+                                Selecionado
                                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white"></Table.Cell>
-                                
                             </>
                         ) : (
                             <>
                                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white"></Table.Cell>
-                                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white"></Table.Cell>
+                                <a className="py-2">
+                                Selecionado
+                                </a>
                                 <Table.Cell className="hover:cursor-pointer hover:font-bold">
                                     <button
                                         onClick={() => handleSetPremiumTrue()}
-                                        className="flex p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg"
+                                        className="flex p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-6 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg"
                                     >
-                                        {sub.buynow}
+                                        Selecionar Premium
                                     </button>
                                 </Table.Cell>
                             </>
