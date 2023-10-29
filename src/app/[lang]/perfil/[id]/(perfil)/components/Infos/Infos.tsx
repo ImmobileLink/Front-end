@@ -1,17 +1,16 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from 'react';
-import VisaoGeral from "./Corretor/VisaoGeral"
-import Publicacoes from "./Publicacoes"
 
 import { Button, Tabs, TabsRef } from 'flowbite-react';
 import { HiUserCircle, HiDocumentText, HiCalendar } from 'react-icons/hi';
-import { MdDashboard } from 'react-icons/md';
-import { useProfileContext } from '../../context/ProfileContext';
-import { useButtonContext } from '../../context/TabsContext';
-import Posts from './Posts';
+
 import { useProfileStore } from '../../../../../../../../lib/store/profileStore';
 import Calendario from '@/app/[lang]/(components)/Calendario';
+import VisaoGeralCorretor from './Corretor/VisaoGeralCorretor';
+import VisaoGeralEmpresa from './Empresa/VisaoGeralEmpresa';
+import Posts from './Posts';
+import { useButtonContext } from '../../context/TabsContext';
 
 
 
@@ -20,11 +19,14 @@ interface InfosProps {
 }
 
 
-export default function InfosCorretor({ }: InfosProps) {
+export default function Infos({ }: InfosProps) {
 
 
   const { activeTab, setTab, tabsRef } = useButtonContext()
-  const isOwn = useProfileStore.getState().isOwn
+  const state = useProfileStore.getState()
+  const isOwn = state.isOwn
+  const type = state.profileData?.type
+
 
   return (
     <div className='ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-700 drop-shadow-md bg-white rounded-md mt-3 pb-10'>
@@ -40,7 +42,7 @@ export default function InfosCorretor({ }: InfosProps) {
           icon={HiUserCircle}
           title="Profile"
         >
-          <VisaoGeral />
+          {type == "corretor" ? (<VisaoGeralCorretor/>): (<VisaoGeralEmpresa/>)}
         </Tabs.Item>
         <Tabs.Item
           icon={HiDocumentText}

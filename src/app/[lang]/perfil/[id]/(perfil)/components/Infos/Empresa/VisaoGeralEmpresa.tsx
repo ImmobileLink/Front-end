@@ -12,7 +12,7 @@ interface VisaoGeralProps {
 
 }
 
-export default function VisaoGeral({ }: VisaoGeralProps) {
+export default function VisaoGeralEmpresa({ }: VisaoGeralProps) {
   const state = useProfileStore.getState()
   const corporacao = state.profileFullData as Corporacao;
 

@@ -9,29 +9,13 @@ import Doughnut from "./charts/Doughnut";
 import Pie from "./charts/Pie";
 import DashboardSkeleton from "../loading/DashboardSkeleton";
 import { getAvaliacao, getSatisfacao } from "../../../../../../../../lib/utils/Dashboard";
+import { Avaliacao, Satisfacao } from "../../../../../../../../lib/modelos";
 
 
 interface DashboardProps {
 }
 
-type Avaliacao = {
-  id: string;
-  profissionalismo: number;
-  comunicacao: number;
-  conhecimento: number;
-  transparencia: number;
-  detalhista: number;
-  clareza: number;
-}[] | null
 
-type Satisfacao = {
-  id: string;
-  muito_insatisfeito: number;
-  insatisfeito: number;
-  neutro: number;
-  satisfeito: number;
-  muito_satisfeito: number;
-}[] | null
 
 export default function Dashboard({ }: DashboardProps) {
 

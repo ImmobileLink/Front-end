@@ -229,3 +229,42 @@ export interface VisitaProps {
     cep_imovel: string;
     complemento_imovel: string;
 }
+
+export type Historico = {
+    data_fim: string | null;
+    data_inicio: string;
+    descricao: string | null;
+    id: string | null;
+    id_corporacao: string | null;
+    id_corretor: string;
+    nome_empresa: string | null;
+}[] | null;
+
+export type AreaAtuacao = {
+    cidade: string;
+    estado: string;
+}[] | null
+
+export type Especialidades = {
+    id: string;
+    descricao: string;
+}[] | null
+
+export type Avaliacao = {
+    id: string;
+    profissionalismo: number;
+    comunicacao: number;
+    conhecimento: number;
+    transparencia: number;
+    detalhista: number;
+    clareza: number;
+  }[] | null
+  
+  export type Satisfacao = {
+    id: string;
+    muito_insatisfeito: number;
+    insatisfeito: number;
+    neutro: number;
+    satisfeito: number;
+    muito_satisfeito: number;
+  }[] | null
