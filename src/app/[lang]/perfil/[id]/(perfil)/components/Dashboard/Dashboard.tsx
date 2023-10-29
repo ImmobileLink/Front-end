@@ -8,8 +8,8 @@ import Radar from "./charts/Radar";
 import Doughnut from "./charts/Doughnut";
 import Pie from "./charts/Pie";
 import DashboardSkeleton from "../loading/DashboardSkeleton";
-import { getAvaliacao, getSatisfacao } from "../../../../../../../../lib/utils/Dashboard";
-import { Avaliacao, Satisfacao } from "../../../../../../../../lib/modelos";
+import {  getDataDashboard1, getDataDashboard2 } from "../../../../../../../../lib/utils/Dashboard";
+import {  Dashboard1, Dashboard2 } from "../../../../../../../../lib/modelos";
 
 
 interface DashboardProps {
@@ -27,16 +27,16 @@ export default function Dashboard({ }: DashboardProps) {
 
   const [openCalendar, setOpenCalendar] = useState(false)
 
-  const [avaliacao, setAvaliacao] = useState<Avaliacao>(null)
-  const [satisfacao, setSatisfacao] = useState<Satisfacao>(null)
+  const [data1, setData1] = useState<Dashboard1>(null)
+  const [data2, setData2] = useState<Dashboard2>(null)
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
     const fetchData = async () => {
-      let { avaliacao } = await getAvaliacao(id)
-      let { satisfacao } = await getSatisfacao(id)
-      setAvaliacao(avaliacao)
-      setSatisfacao(satisfacao)
+      let { data1 } = await getDataDashboard1(id)
+      let { data2 } = await getDataDashboard2(id)
+      setData1(data1)
+      setData2(data2)
       setIsLoading(false)
     }
 
@@ -72,11 +72,11 @@ export default function Dashboard({ }: DashboardProps) {
       ) : (
         <div className={`${!openCalendar && "max-h-[380px] md:max-h-[600px]"} min-h-[300px]`}>
           {isLoading && <DashboardSkeleton />}
-          {avaliacao && avaliacao.length >= 1 ? (
+          {data1 && data1.length >= 1 ? (
             <div>
               <div className="flex flex-col gap-5 mb-16">
-                <Pie satisfacao={satisfacao} />
-                <Radar avaliacao={avaliacao} />
+                <Pie satisfacao={data2} />
+                <Radar avaliacao={data1} />
                 <PolarArea dict={dict} />
                 <Line dict={dict} />
                 <Doughnut />

@@ -250,7 +250,7 @@ export type Especialidades = {
     descricao: string;
 }[] | null
 
-export type Avaliacao = {
+export type Dashboard1 = {
     id: string;
     profissionalismo: number;
     comunicacao: number;
@@ -260,7 +260,7 @@ export type Avaliacao = {
     clareza: number;
   }[] | null
   
-  export type Satisfacao = {
+  export type Dashboard2 = {
     id: string;
     muito_insatisfeito: number;
     insatisfeito: number;

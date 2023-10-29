@@ -4,22 +4,22 @@ import { Database } from "../database.types";
 
 const supabase = createClientComponentClient<Database>({});
 
-async function getAvaliacao(id: string) {
-    let { data: avaliacao , error } = await supabase
-    .rpc('obter_avaliacao_media', {
+async function getDataDashboard1(id: string) {
+    let { data: data1 , error } = await supabase
+    .rpc('obter_dados_dashboard_1', {
       idcorretor_param: id
     })
 
-    return{avaliacao, error}
+    return{data1, error}
 }
 
-async function getSatisfacao(id: string) {
-    let { data: satisfacao , error } = await supabase
-    .rpc('obter_satisfacao_media', {
+async function getDataDashboard2(id: string) {
+    let { data: data2 , error } = await supabase
+    .rpc('obter_dados_dashboard_2', {
       idcorretor_param: id
     })
 
-    return{satisfacao, error}
+    return{data2, error}
 }
 
-export {getAvaliacao, getSatisfacao}
+export {getDataDashboard1, getDataDashboard2}
