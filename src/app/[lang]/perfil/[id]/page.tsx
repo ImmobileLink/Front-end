@@ -64,9 +64,9 @@ export default async function page({ params: { id, lang } }: pageProps) {
 
   return (
     <ProviderContext areas={areasAtuacao} esp={especialidades} hist={historico}>
-      <StoreInitializer isOwn={isOwnProfile} profileData={profileData} sessionData={sessionData} profileFullData={profileFullData} dict={dict} isAssociado={isAssociado}/>
+      <StoreInitializer isOwn={isOwnProfile} profileData={profileData} sessionData={sessionData} profileFullData={profileFullData} dict={dict} isAssociado={isAssociado} />
       {profileData.id ?
-        (<Profile/>)
+        (<Profile />)
         :
         <div className='flex justify-center items-center flex-col'>
           <h1 className='text-3xl font-semibold text-gray-800 dark:text-white'>Ops, esse perfil não existe</h1>

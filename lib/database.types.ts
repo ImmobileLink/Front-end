@@ -121,6 +121,7 @@ export interface Database {
           nomefantasia: string | null
           numero: number | null
           premium: boolean | null
+          site: string | null
           sobre: string | null
           telefone1: string | null
           telefone2: string | null
@@ -138,6 +139,7 @@ export interface Database {
           nomefantasia?: string | null
           numero?: number | null
           premium?: boolean | null
+          site?: string | null
           sobre?: string | null
           telefone1?: string | null
           telefone2?: string | null
@@ -155,6 +157,7 @@ export interface Database {
           nomefantasia?: string | null
           numero?: number | null
           premium?: boolean | null
+          site?: string | null
           sobre?: string | null
           telefone1?: string | null
           telefone2?: string | null
