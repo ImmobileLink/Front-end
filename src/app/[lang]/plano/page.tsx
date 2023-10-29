@@ -6,7 +6,7 @@ import PlanoTable from "./components/PlanoTable";
 import { getTipoUsuario } from "../../../../lib/utils/userData";
 import { userData } from "../../../../lib/modelos";
 import { cache } from "react";
-import { setPremiumTrue, setPremiumFalse } from "./Utils";
+import { setPremiumTrue, setPremiumFalse } from "./utils";
 import Alert from "../(components)/Alert";
 
 interface pageProps {
@@ -54,8 +54,7 @@ export default async function page({ params: { lang } }: pageProps) {
         {dict.planos.subscription}
       </p>
       <p className="w-full mt-2 mb-8 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 text-center self-center">
-        Voluptate incididunt sunt amet veniam incididunt exercitation
-        incididunt in aute quis.
+        Escolha o plano que melhor atende suas necessidades e altere-o quando preferir
       </p>
       <div className="w-auto flex justify-center px-10 mt-10 ">
         <PlanoTable
