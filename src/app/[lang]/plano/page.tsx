@@ -59,6 +59,7 @@ export default async function page({ params: { lang } }: pageProps) {
       <div className="w-auto flex justify-center px-10 mt-10 ">
         <PlanoTable
           id={userData.id}
+          premium={userData.isPremium!}
           role={userData.type || "corretor"}
           sub={dict.planos}
         />
