@@ -367,7 +367,9 @@
         "linktotenbrokers": "Afiliar-se a até 10 corretores",
         "illimitedlinks": "Afliliar-se a inúmeros corretores",
         "buynow": "Experimente já",
-        "confirmchange": "Deseja realmente alterar seu plano para"
+        "confirmchange": "Deseja realmente alterar seu plano para",
+        "select": "Selecionar",
+        "selected": "Selecionado"
     },
     "profile": {
         "noAssociation": "Sem Associação no momento",
@@ -535,7 +537,9 @@
     "linktotenbrokers": "Afiliar-se a até 10 corretores",
     "illimitedlinks": "Afliliar-se a inúmeros corretores",
     "buynow": "Experimente já",
-    "confirmchange": "Deseja realmente alterar seu plano para"
+    "confirmchange": "Deseja realmente alterar seu plano para",
+    "select": "Selecionar",
+    "selected": "Selecionado"
   },
   "profile": {
     "noAssociation": "Sem Associação no momento",

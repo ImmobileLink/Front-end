@@ -366,7 +366,9 @@
         "linktotenbrokers": "Link up to 10 brokers",
         "illimitedlinks": "Link up to many brokers",
         "buynow": "Try now",
-        "confirmchange": "Do you really want to change your plan to"
+        "confirmchange": "Do you really want to change your plan to",
+        "select": "Select",
+        "selected": "Selected"
     },
     "profile": {
         "noAssociation": "No association at the moment",

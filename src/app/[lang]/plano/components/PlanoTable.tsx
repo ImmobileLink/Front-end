@@ -327,24 +327,21 @@ export default function PlanoTable({
                                         onClick={() => handleSetPremiumFalse()}
                                         className="flex p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-6 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg"
                                     >
-                                        Selecionar Free
+                                        {sub.select} Free
                                     </button>
                                 </Table.Cell>
-                                Selecionado
-                                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white"></Table.Cell>
+                                <div className="p-6 text-blue-700 font-semibold">{sub.selected}</div>
                             </>
                         ) : (
                             <>
                                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white"></Table.Cell>
-                                <a className="py-2">
-                                Selecionado
-                                </a>
+                                <div className="p-6 text-blue-700 font-semibold">{sub.selected}</div>
                                 <Table.Cell className="hover:cursor-pointer hover:font-bold">
                                     <button
                                         onClick={() => handleSetPremiumTrue()}
                                         className="flex p-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-6 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 rounded-lg"
                                     >
-                                        Selecionar Premium
+                                        {sub.select} Premium
                                     </button>
                                 </Table.Cell>
                             </>

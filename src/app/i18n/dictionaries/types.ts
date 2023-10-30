@@ -595,6 +595,8 @@ export interface Planos {
     illimitedlinks: string;
     buynow: string;
     confirmchange: string;
+    select: string;
+    selected: string;
 }
 
 export interface Profile {
