@@ -50,60 +50,16 @@ export default async function Page({ params: { lang, idsala } }: pageProps) {
     return user;
   }
 
-  const getLastMessages = async () => {
-    const userData = await getUserData()
-    let userId = ''
-    if (userData.id) {
-      userId = userData.id
-    }
-    const { data, error } = await supabase
-      .rpc('obter_ultimas_mensagens_por_usuario', {
-        idusuario: userId
-      })
-      .order('atualizadoem', { ascending: false })
-    if (error) {
-      console.log(error)
-    }
-    else {
-      return data
-    }
-  }
-
-  const getUserRooms = async (idusuario: string) => {
-    const { data, error } = await supabase
-      .from('usuarioporsala')
-      .select('idsala')
-      .eq('idusuario', idusuario)
-    if (error) {
-      console.log(error)
-    }
-    else {
-      const array = data.map(item => item.idsala)
-      const string = array.toString()
-      return string
-    }
-  }
-
   let user: userData = {
     links: [],
     assoc: []
   };
 
-  const resultado: UltimaMensagemPorSalaPorUsuario[] | null | undefined = await getLastMessages()
-  let messages: UltimaMensagemPorSalaPorUsuario[] = []
-
-  if (resultado) {
-    messages = resultado
-  }
   const userData = await getUserData();
-  let userRooms: string | undefined = ''
-  if(userData.id){
-    userRooms = await getUserRooms(userData.id)
-  }
   return (
     <ChatProvider>
       <div className="flex fixed top-0 bottom-0 right-0 left-0 pt-[72px] justify-center lg:items-center lg:w-auto gap-5">
-        <ChatHub dict={dict} idsala={salaid} userType={userData.type} userId={userData.id} userLinks={userData.links} userAssocs={userData.assoc} mensagens={messages} userRooms={userRooms}/>
+        <ChatHub dict={dict} idsala={salaid} userType={userData.type} userId={userData.id} userLinks={userData.links} userAssocs={userData.assoc} />
         <ChatSpaceClient dict={dict.chat} idsala={salaid} userId={userData.id}>
           <ChatSpace dict={dict.chat} idsala={salaid} userId={userData.id} />
         </ChatSpaceClient>

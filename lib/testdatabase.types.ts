@@ -7,7 +7,7 @@ export type Json =
   | Json[]
 
 export interface Database {
-  public: {
+  test: {
     Tables: {
       associacoes: {
         Row: {
@@ -31,20 +31,7 @@ export interface Database {
           iniciativa?: string
           pendente?: boolean
         }
-        Relationships: [
-          {
-            foreignKeyName: "associacoes_idcorporacao_fkey"
-            columns: ["idcorporacao"]
-            referencedRelation: "corporacao"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "associacoes_idcorretor_fkey"
-            columns: ["idcorretor"]
-            referencedRelation: "corretor"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       avaliacao: {
         Row: {
@@ -62,14 +49,7 @@ export interface Database {
           id?: string
           nota?: number
         }
-        Relationships: [
-          {
-            foreignKeyName: "avaliacao_id_fkey"
-            columns: ["id"]
-            referencedRelation: "corretor"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       conexoes: {
         Row: {
@@ -93,20 +73,7 @@ export interface Database {
           iniciativa?: string
           pendente?: boolean
         }
-        Relationships: [
-          {
-            foreignKeyName: "conexoes_idusuario1_fkey"
-            columns: ["idusuario1"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "conexoes_idusuario2_fkey"
-            columns: ["idusuario2"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       corporacao: {
         Row: {
@@ -163,14 +130,7 @@ export interface Database {
           telefone2?: string | null
           telefone3?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "corporacao_id_fkey"
-            columns: ["id"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       corretor: {
         Row: {
@@ -260,26 +220,7 @@ export interface Database {
           idusuario?: string
           motivo?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "denuncia_idautor_fkey"
-            columns: ["idautor"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "denuncia_idpublicacao_fkey"
-            columns: ["idpublicacao"]
-            referencedRelation: "publicacao"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "denuncia_idusuario_fkey"
-            columns: ["idusuario"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       especialidade: {
         Row: {
@@ -294,20 +235,7 @@ export interface Database {
           idcorretor?: string
           idtipoimovel?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "especialidade_idcorretor_fkey"
-            columns: ["idcorretor"]
-            referencedRelation: "corretor"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "especialidade_idtipoimovel_fkey"
-            columns: ["idtipoimovel"]
-            referencedRelation: "tipoImovel"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       historico: {
         Row: {
@@ -337,20 +265,7 @@ export interface Database {
           id_corretor?: string
           nome_empresa?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "historico_id_corporacao_fkey"
-            columns: ["id_corporacao"]
-            referencedRelation: "corporacao"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "historico_id_corretor_fkey"
-            columns: ["id_corretor"]
-            referencedRelation: "corretor"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       imovel: {
         Row: {
@@ -398,14 +313,7 @@ export interface Database {
           rua?: string
           valor?: number | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "imovel_idcorporacao_fkey"
-            columns: ["idcorporacao"]
-            referencedRelation: "corporacao"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       imoveltipado: {
         Row: {
@@ -420,20 +328,7 @@ export interface Database {
           idimovel?: string
           idtipoimovel?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "imoveltipado_idimovel_fkey"
-            columns: ["idimovel"]
-            referencedRelation: "imovel"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "imoveltipado_idtipoimovel_fkey"
-            columns: ["idtipoimovel"]
-            referencedRelation: "tipoImovel"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       mensagem: {
         Row: {
@@ -469,20 +364,7 @@ export interface Database {
           mensagem?: string | null
           nomeautor?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "mensagem_idautor_fkey"
-            columns: ["idautor"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "mensagem_idsala_fkey"
-            columns: ["idsala"]
-            referencedRelation: "sala"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       notificacao: {
         Row: {
@@ -518,20 +400,7 @@ export interface Database {
           tipo?: string
           visualizada?: boolean
         }
-        Relationships: [
-          {
-            foreignKeyName: "notificacao_iddestinatario_fkey"
-            columns: ["iddestinatario"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "notificacao_idremetente_fkey"
-            columns: ["idremetente"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       publicacao: {
         Row: {
@@ -561,14 +430,7 @@ export interface Database {
           imagem?: string | null
           regiao?: Json | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "publicacao_idautor_fkey"
-            columns: ["idautor"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       publicacaosalva: {
         Row: {
@@ -583,20 +445,7 @@ export interface Database {
           idpublicacao?: string
           idusuario?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "publicacaosalva_idpublicacao_fkey"
-            columns: ["idpublicacao"]
-            referencedRelation: "publicacao"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "publicacaosalva_idusuario_fkey"
-            columns: ["idusuario"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       resultadoformulario: {
         Row: {
@@ -647,14 +496,7 @@ export interface Database {
           idvisita?: string
           status?: boolean | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "resultadoformulario_idvisita_fkey"
-            columns: ["idvisita"]
-            referencedRelation: "visita"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       sala: {
         Row: {
@@ -717,14 +559,7 @@ export interface Database {
           email?: string
           id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "usuario_id_fkey"
-            columns: ["id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       usuarioporregiao: {
         Row: {
@@ -739,14 +574,7 @@ export interface Database {
           idusuario?: string
           regiao?: Json | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "usuarioporregiao_idusuario_fkey"
-            columns: ["idusuario"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       usuarioporsala: {
         Row: {
@@ -761,20 +589,7 @@ export interface Database {
           idsala?: string
           idusuario?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "usuarioporsala_idsala_fkey"
-            columns: ["idsala"]
-            referencedRelation: "sala"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "usuarioporsala_idusuario_fkey"
-            columns: ["idusuario"]
-            referencedRelation: "usuario"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       visita: {
         Row: {
@@ -804,26 +619,7 @@ export interface Database {
           idcorretor?: string
           idimovel?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "visita_idcorporacao_fkey"
-            columns: ["idcorporacao"]
-            referencedRelation: "corporacao"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "visita_idcorretor_fkey"
-            columns: ["idcorretor"]
-            referencedRelation: "corretor"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "visita_idimovel_fkey"
-            columns: ["idimovel"]
-            referencedRelation: "imovel"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
     }
     Views: {

@@ -1,16 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../lib/database.types";
 import { AiOutlineFileImage, AiOutlineSend } from "react-icons/ai";
-import { insertMessage } from "../../../../../lib/utils/Messages";
+import { insertMessage } from "../[[...idsala]]/utils";
 import ImageUpload from "./ImageUpload";
 import { MdInsertEmoticon } from "react-icons/md";
 import { BiSolidImage } from "react-icons/bi";
 import EmojiPicker, { Theme, EmojiStyle } from 'emoji-picker-react';
 import { AiOutlineClose } from "react-icons/ai"
 import { Chat } from "@/app/i18n/dictionaries/types";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../../../../../lib/database.types";
 
 interface TypingBoxProps {
   dict: Chat,
@@ -26,6 +26,9 @@ export default function TypingBox({ dict, idsala, userId }: TypingBoxProps) {
 
   const [emojiView, setEmojiView] = useState<boolean>(false)
 
+
+  const supabase = createClientComponentClient<Database>()
+
   const handleUserKeyPress = (e: any) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -35,8 +38,8 @@ export default function TypingBox({ dict, idsala, userId }: TypingBoxProps) {
 
   const handleSubmit = async () => {
     if ((texto != '' || imagem) && userId) {
-      const response = await insertMessage({ idautor: userId, idsala, mensagem: texto, imagem })
-      if (response === false) {
+      const response = await insertMessage({ idautor: userId, idsala, mensagem: texto, imagem }, supabase)
+      if (!response) {
         setTexto('')
         setImagem(undefined);
       }
@@ -49,7 +52,6 @@ export default function TypingBox({ dict, idsala, userId }: TypingBoxProps) {
     } else {
       setImagem(undefined);
     }
-    console.log(imagem)
   };
 
   const handleEmoji = (emojiObject: any) => {
@@ -57,22 +59,21 @@ export default function TypingBox({ dict, idsala, userId }: TypingBoxProps) {
     setTexto((prevMsg) => prevMsg + emojiObject.emoji)
   }
 
-
   return (
     <>
       <div className="flex flex-col px-2 py-1 lg:px-3 lg:py-2 lg:rounded-lg bg-gray-200 dark:bg-gray-600">
         {
           imagem != undefined &&
           <div className="flex flex-row items-center gap-x-3 text-sm lg:text-base">
-            <AiOutlineFileImage size={18}/>
+            <AiOutlineFileImage size={18} />
             {dict.uploadedfile}
-            <div id="image-upload-button" onClick={e=>setImagem(undefined)}>
-              <AiOutlineClose/>
+            <div onClick={e => setImagem(undefined)}>
+              <AiOutlineClose />
             </div>
           </div>
         }
         <div className="flex items-center w-full mt-1">
-          <button className="p-2 inline-flex justify-center text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
+          <button data-testid="image-upload-button" className="p-2 inline-flex justify-center text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
             <ImageUpload onImageUpload={handleImageUpload} label={<BiSolidImage size={24} />} noText={true} />
           </button>
 

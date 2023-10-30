@@ -25,15 +25,17 @@ export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar
 
 
     const updateNotification = async () => {
-        const supabase = createClientComponentClient<Database>()
-        const { data, error } = await supabase
-            .from('notificacao')
-            .update({ visualizada: true })
-            .eq('iddestinatario', userId)
-            .eq('artefato', idsala)
-            .select()
-        if (error) {
-            console.log(error)
+        if (userId) {
+            const supabase = createClientComponentClient<Database>()
+            const { data, error } = await supabase
+                .from('notificacao')
+                .update({ visualizada: true })
+                .eq('iddestinatario', userId)
+                .eq('artefato', idsala)
+                .select()
+            if (error) {
+                console.log(error)
+            }
         }
     }
 
@@ -41,7 +43,7 @@ export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar
         if (idsala == idsaladestino) {
             toggleChatView(true)
         }
-        highlight=false
+        highlight = false
         updateNotification()
         router.refresh();
     }
