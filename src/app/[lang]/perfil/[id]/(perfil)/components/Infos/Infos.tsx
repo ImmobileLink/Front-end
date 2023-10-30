@@ -1,8 +1,7 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from 'react';
-
-import { Button, Tabs, TabsRef } from 'flowbite-react';
+import React, { useEffect, useState } from 'react';
+import { Tabs } from 'flowbite-react';
 import { HiUserCircle, HiDocumentText, HiCalendar } from 'react-icons/hi';
 
 import { useProfileStore } from '../../../../../../../../lib/store/profileStore';
@@ -10,22 +9,22 @@ import Calendario from '@/app/[lang]/(components)/Calendario';
 import VisaoGeralCorretor from './Corretor/VisaoGeralCorretor';
 import VisaoGeralEmpresa from './Empresa/VisaoGeralEmpresa';
 import Posts from './Posts';
-import { useButtonContext } from '../../context/TabsContext';
-
 
 
 interface InfosProps {
-
+  isAssociado: boolean;
 }
 
 
-export default function Infos({ }: InfosProps) {
+
+export default function Infos({ isAssociado }: InfosProps) {
 
 
-  const { activeTab, setTab, tabsRef } = useButtonContext()
   const state = useProfileStore.getState()
   const isOwn = state.isOwn
   const type = state.profileData?.type
+  const showCalendar = isOwn || isAssociado
+  
 
 
   return (
@@ -33,16 +32,13 @@ export default function Infos({ }: InfosProps) {
       <Tabs.Group
         aria-label="Tabs with underline"
         style="underline"
-        ref={tabsRef}
-        onActiveTabChange={(tab) => setTab(tab)}
-
       >
         <Tabs.Item
           active
           icon={HiUserCircle}
           title="Profile"
         >
-          {type == "corretor" ? (<VisaoGeralCorretor/>): (<VisaoGeralEmpresa/>)}
+          {type == "corretor" ? (<VisaoGeralCorretor />) : (<VisaoGeralEmpresa />)}
         </Tabs.Item>
         <Tabs.Item
           icon={HiDocumentText}
@@ -61,17 +57,17 @@ export default function Infos({ }: InfosProps) {
         )}
 
 
-
-        <Tabs.Item
-          icon={HiCalendar}
-          title="Schedule"
-          className='hidden'
-        >
-          <div>
+        {showCalendar &&  (
+          <Tabs.Item
+            icon={HiCalendar}
+            title="Schedule"
+            className='hidden'
+          >
             <Calendario />
-          </div>
 
-        </Tabs.Item>
+          </Tabs.Item>
+        )}
+
 
 
       </Tabs.Group>

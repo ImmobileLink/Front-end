@@ -59,7 +59,6 @@ export default async function page({ params: { id, lang } }: pageProps) {
   const especialidades = profileData.type == "corretor" ? (await getEspecialidades(id)).especialidades : null
   const historico = profileData.type == "corretor" ? (await getHistorico(id)).historico : null
 
-
   useProfileStore.setState({ profileData: profileData, profileFullData: profileFullData, sessionData: sessionData, dict: dict, isOwn: isOwnProfile, isAssociado: isAssociado })
 
   return (

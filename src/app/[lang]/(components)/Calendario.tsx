@@ -7,8 +7,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '../../../../lib/database.types';
 import { useProfileStore } from '../../../../lib/store/profileStore';
 import Link from 'next/link';
 import "dayjs/locale/en";

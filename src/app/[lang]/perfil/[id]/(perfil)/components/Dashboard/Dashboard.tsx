@@ -8,8 +8,9 @@ import Radar from "./charts/Radar";
 import Doughnut from "./charts/Doughnut";
 import Pie from "./charts/Pie";
 import DashboardSkeleton from "../loading/DashboardSkeleton";
-import {  getDataDashboard1, getDataDashboard2 } from "../../../../../../../../lib/utils/Dashboard";
-import {  Dashboard1, Dashboard2 } from "../../../../../../../../lib/modelos";
+import { getDataDashboard1, getDataDashboard2 } from "../../../../../../../../lib/utils/Dashboard";
+import { Dashboard1, Dashboard2 } from "../../../../../../../../lib/modelos";
+import { FcAreaChart, FcDoughnutChart } from "react-icons/fc";
 
 
 interface DashboardProps {
@@ -86,7 +87,19 @@ export default function Dashboard({ }: DashboardProps) {
                 <Link href="#dashboard" onClick={() => setOpenCalendar(!openCalendar)} className="cursor-pointer text-white font-bold mt-4">{openCalendar ? "Veja menos" : "Veja mais"}</Link>
               </div>
             </div>
-          ) : (<p>Esse usuário ainda não foi avaliado</p>)}
+          ) : (
+            !isLoading && (
+              <div className="relative">
+                <p className="text-center text-black text-xl font-bold absolute w-full h-full z-10 flex justify-center items-center">
+                  Esse usuário ainda não foi avaliado :(
+                </p>
+                <div className="w-full blur-md max-h-[500px] overflow-hidden flex flex-col justify-center items-center">
+                  <FcDoughnutChart size={400} />
+                  <FcAreaChart size={400} />
+                </div>
+              </div>
+            )
+          )}
         </div>
       )
       }

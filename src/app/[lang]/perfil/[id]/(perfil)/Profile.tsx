@@ -16,7 +16,7 @@ export default async function page() {
         <>
             <Page.Main>
                 <Cabecalho />
-                <Infos />
+                <Infos isAssociado={isAssociado!}/>
             </Page.Main>
 
             <Page.Right>
