@@ -4,6 +4,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import { setPremiumFalse, setPremiumTrue } from "../utils";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface ModalTogglePlanoProps {
     id: string;
@@ -29,17 +30,21 @@ export default function ModalTogglePlano({
             const callback = await setPremiumFalse(id, role, supabase);
             if (!callback) {
                 console.log("Error while updating in DB");
+                toast.error(dict.changeerror);
             }
             setToggle(false);
             router.refresh();
+            toast.success(dict.changesuccess);
         } else {
             // set plano PREMIUM
             const callback = await setPremiumTrue(id, role, supabase);
             if (!callback) {
                 console.log("Error while updating in DB");
+                toast.error(dict.changeerror);
             }
             setToggle(false);
             router.refresh();
+            toast.success(dict.changesuccess);
         }
     };
 

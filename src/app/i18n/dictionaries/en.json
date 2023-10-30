@@ -378,7 +378,9 @@
         "changetopremiumforfree": "Try premium for free",
         "limitedtime": "Limited time offer",
         "cancel": "Cancel",
-        "change": "Change to"
+        "change": "Change to",
+        "changesuccess": "Plan changed successfully",
+        "changeerror": "An error has occurred while changing the plan"
     },
     "profile": {
         "noAssociation": "No association at the moment",

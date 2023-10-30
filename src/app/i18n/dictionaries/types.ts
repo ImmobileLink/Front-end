@@ -607,6 +607,8 @@ export interface Planos {
     limitedtime: string;
     cancel: string;
     change: string;
+    changesuccess: string;
+    changeerror: string;
 }
 
 export interface Profile {

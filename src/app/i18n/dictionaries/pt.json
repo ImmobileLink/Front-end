@@ -379,7 +379,9 @@
         "changetopremiumforfree": "Experimente o premium gratuitamente",
         "limitedtime": "Oferta por tempo limitado",
         "cancel": "Cancelar",
-        "change": "Alterar para"
+        "change": "Alterar para",
+        "changesuccess": "Plano alterado com sucesso",
+        "changeerror": "Ocorreu um erro ao alterar o plano"
     },
     "profile": {
         "noAssociation": "Sem Associação no momento",
@@ -559,7 +561,9 @@
     "changetopremiumforfree": "Experimente o premium gratuitamente",
     "limitedtime": "Oferta por tempo limitado",
     "cancel": "Cancelar",
-    "change": "Alterar para"
+    "change": "Alterar para",
+    "changesuccess": "Plano alterado com sucesso",
+    "changeerror": "Ocorreu um erro ao alterar o plano"
   },
   "profile": {
     "noAssociation": "Sem Associação no momento",
