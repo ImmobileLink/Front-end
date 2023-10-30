@@ -50,7 +50,11 @@ export default function PlanoTable({
                                     </a>
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <a className="pl-12 text-lg text-blue-700 font-semibold pr-2">
+                                    <a
+                                        className={`${
+                                            premium ? "" : "pl-12"
+                                        } text-lg text-blue-700 font-semibold pr-2`}
+                                    >
                                         {sub.freetier}
                                     </a>
                                     <a className="line-through">
@@ -176,7 +180,11 @@ export default function PlanoTable({
                                     </a>
                                 </Table.Cell>
                                 <Table.Cell className="">
-                                    <a className="pl-12 text-lg text-blue-700 font-semibold pr-2">
+                                    <a
+                                        className={`${
+                                            premium ? "" : "pl-12"
+                                        } text-lg text-blue-700 font-semibold pr-2`}
+                                    >
                                         {sub.freetier}
                                     </a>
                                     <a className="line-through">
