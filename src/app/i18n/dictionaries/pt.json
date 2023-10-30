@@ -355,6 +355,7 @@
         "allsubscriptions": "Conheça todos nossos benefícios",
         "usertype": "Tipo de perfil",
         "sublabel": "Detalhes",
+        "pricing": "Valor do plano",
         "feedbackreview": "Avaliação de perfil",
         "dashboard": "Dashboard completo",
         "feed": "Feed de notícias & oportunidades",
@@ -369,7 +370,16 @@
         "buynow": "Experimente já",
         "confirmchange": "Deseja realmente alterar seu plano para",
         "select": "Selecionar",
-        "selected": "Selecionado"
+        "selected": "Selecionado",
+        "freetier": "R$0",
+        "brokertier": "R$50",
+        "companytier": "R$240",
+        "changeto": "Alterar plano para",
+        "changeforfree": "Altere seu plano sem custo adicional",
+        "changetopremiumforfree": "Experimente o premium gratuitamente",
+        "limitedtime": "Oferta por tempo limitado",
+        "cancel": "Cancelar",
+        "change": "Alterar para"
     },
     "profile": {
         "noAssociation": "Sem Associação no momento",
@@ -525,6 +535,7 @@
     "allsubscriptions": "Conheça todos nossos benefícios",
     "usertype": "Tipo de perfil",
     "sublabel": "Detalhes",
+    "pricing": "Valor do plano",
     "feedbackreview": "Avaliação de perfil",
     "dashboard": "Dashboard completo",
     "feed": "Feed de notícias & oportunidades",
@@ -539,7 +550,16 @@
     "buynow": "Experimente já",
     "confirmchange": "Deseja realmente alterar seu plano para",
     "select": "Selecionar",
-    "selected": "Selecionado"
+    "selected": "Selecionado",
+    "freetier": "R$0",
+    "brokertier": "R$50",
+    "companytier": "R$240",
+    "changeto": "Alterar plano para",
+    "changeforfree": "Altere seu plano sem custo adicional",
+    "changetopremiumforfree": "Experimente o premium gratuitamente",
+    "limitedtime": "Oferta por tempo limitado",
+    "cancel": "Cancelar",
+    "change": "Alterar para"
   },
   "profile": {
     "noAssociation": "Sem Associação no momento",

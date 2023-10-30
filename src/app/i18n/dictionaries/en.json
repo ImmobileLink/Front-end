@@ -354,6 +354,7 @@
         "allsubscriptions": "Conheça todos nossos planos",
         "usertype": "Tipo de perfil",
         "sublabel": "Features",
+        "pricing": "Plan value",
         "feedbackreview": "Feedback review",
         "dashboard": "Complete Dashboard",
         "feed": "Oportunity's feed",
@@ -368,7 +369,16 @@
         "buynow": "Try now",
         "confirmchange": "Do you really want to change your plan to",
         "select": "Select",
-        "selected": "Selected"
+        "selected": "Selected",
+        "freetier": "US$0",
+        "brokertier": "US$10",
+        "companytier": "US$48",
+        "changeto": "Change current plan to",
+        "changeforfree": "Change your plan at no additional cost",
+        "changetopremiumforfree": "Try premium for free",
+        "limitedtime": "Limited time offer",
+        "cancel": "Cancel",
+        "change": "Change to"
     },
     "profile": {
         "noAssociation": "No association at the moment",
