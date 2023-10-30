@@ -8,6 +8,8 @@ import { userData } from "../../../../lib/modelos";
 import { cache } from "react";
 import { setPremiumTrue, setPremiumFalse } from "./utils";
 import Alert from "../(components)/Alert";
+import PlanoCard from "../(components)/(plano)/PlanoCard";
+import PlanoCardMobile from "./components/PlanoCardMobile";
 
 interface pageProps {
     params: {
@@ -59,12 +61,27 @@ export default async function page({ params: { lang } }: pageProps) {
                 {dict.planos.chooseyourplan}
             </p>
             <div className="w-auto flex justify-center px-10 mt-10 ">
-                <PlanoTable
-                    id={userData.id}
-                    premium={userData.isPremium!}
-                    role={userData.type || "corretor"}
-                    sub={dict.planos}
-                />
+                <div className="hidden md:flex">
+                    <PlanoTable
+                        id={userData.id}
+                        premium={userData.isPremium!}
+                        role={userData.type || "corretor"}
+                        sub={dict.planos}
+                    />
+                </div>
+                <div className="flex flex-col md:hidden">
+                    {
+                        // TO DO: AJUSTAR TABLE DESKTOP E MOBILE PARA PLANO DE EMPRESA
+                    }
+                    <PlanoCardMobile
+                        dict={dict.planos}
+                        id={userData.id}
+                        premium={userData.isPremium!}
+                        role={userData.type || "corretor"}
+                        sub={dict.planos}
+                    />
+                    <br />
+                </div>
             </div>
             <div className="py-6" />
         </>
