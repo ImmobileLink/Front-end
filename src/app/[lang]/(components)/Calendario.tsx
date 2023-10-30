@@ -7,6 +7,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
+import { useProfileStore } from '../../../../lib/store/profileStore';
+import Link from 'next/link';
+import "dayjs/locale/en";
+import "dayjs/locale/pt";
+import { getDiasVisita } from '../../../../lib/utils/CalendarioProfile';
 
 
 
@@ -14,97 +19,92 @@ interface CalendarioProps {
 
 }
 
-function getRandomNumber(min: number, max: number) {
-    return Math.round(Math.random() * (max - min) + min);
+async function fetchData(date: Dayjs, id1: string, id2: string | undefined, { signal }: { signal: AbortSignal }) {
+
+  const { data, error } = await getDiasVisita(date, id1, id2)
+
+  if(error){
+    console.error(error)
+  }else{
+    return data
+  }
+  
 }
 
-/**
- * Mimic fetch with abort controller https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
- * ⚠️ No IE11 support
- */
-function fakeFetch(date: Dayjs, { signal }: { signal: AbortSignal }) {
-    return new Promise<{ daysToHighlight: number[] }>((resolve, reject) => {
-        const timeout = setTimeout(() => {
-            const daysInMonth = date.daysInMonth();
-            const daysToHighlight = [1, 2, 3].map(() => getRandomNumber(1, daysInMonth));
-
-            resolve({ daysToHighlight });
-        }, 500);
-
-        signal.onabort = () => {
-            clearTimeout(timeout);
-            reject(new DOMException('aborted', 'AbortError'));
-        };
-    });
+function obterDataAtualFormatada() {
+  const hoje = new Date();
+  const ano = hoje.getFullYear();
+  const mes = (hoje.getMonth() + 1).toString().padStart(2, '0'); // Mês começa em 0 (janeiro = 0)
+  const dia = hoje.getDate().toString().padStart(2, '0');
+  const dataFormatada = `${ano}-${mes}-${dia}`;
+  return dataFormatada;
 }
 
-const initialValue = dayjs('2022-04-17');
+const initialValue = dayjs(obterDataAtualFormatada());
 
 function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] }) {
-    const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
+  const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
 
-    const isSelected =
-        !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0;
+  const isSelected =
+    !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0;
 
-    return (
-        <Badge
-            key={props.day.toString()}
-            overlap="circular"
-            badgeContent={isSelected ? '🏠' : undefined}
-        >
-            <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
-        </Badge>
-    );
+  return (
+    <Badge
+      key={props.day.toString()}
+      overlap="circular"
+      badgeContent={isSelected ? '🏠' : undefined}
+    >
+      <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} className='dark:text-gray-400' />
+    </Badge>
+  );
 }
 
-/* const supabase = createClientComponentClient<Database>()
- */
+
 
 export default function Calendario({ }: CalendarioProps) {
-    const requestAbortController = React.useRef<AbortController | null>(null);
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
-  
-    const fetchHighlightedDays = (date: Dayjs) => {
-      const controller = new AbortController();
-      fakeFetch(date, {
-        signal: controller.signal,
-      })
-        .then(({ daysToHighlight }) => {
-          setHighlightedDays(daysToHighlight);
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          // ignore the error if it's caused by `controller.abort`
-          if (error.name !== 'AbortError') {
-            throw error;
-          }
-        });
-  
-      requestAbortController.current = controller;
-    };
-  
-    React.useEffect(() => {
-      fetchHighlightedDays(initialValue);
-      // abort request on unmount
-      return () => requestAbortController.current?.abort();
-    }, []);
-  
-    const handleMonthChange = (date: Dayjs) => {
-      if (requestAbortController.current) {
-        // make sure that you are aborting useless requests
-        // because it is possible to switch between months pretty quickly
-        requestAbortController.current.abort();
-      }
-  
-      setIsLoading(true);
-      setHighlightedDays([]);
-      fetchHighlightedDays(date);
-    };
-  
+  const requestAbortController = React.useRef<AbortController | null>(null);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [highlightedDays, setHighlightedDays] = React.useState<number[]>([]);
 
-    return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+  const state = useProfileStore.getState()
+  const id1 = state.profileData?.id!
+  const id2 = state.isOwn ? undefined : state.sessionData?.id!
+
+  const fetchHighlightedDays = async (date: Dayjs) => {
+
+    const controller = new AbortController();
+    const daysToHighlight = await fetchData(date, id1, id2, { signal: controller.signal, })
+    if (daysToHighlight) {
+      const newHighlightedDays = daysToHighlight.map(item => item.diavisita);
+      setHighlightedDays(prev => [...prev, ...newHighlightedDays]);
+    }
+    setIsLoading(false);
+
+
+    requestAbortController.current = controller;
+  };
+
+  React.useEffect(() => {
+    fetchHighlightedDays(initialValue);
+    // abort request on unmount
+    return () => requestAbortController.current?.abort();
+  }, []);
+
+  const handleMonthChange = (date: Dayjs) => {
+    if (requestAbortController.current) {
+      // make sure that you are aborting useless requests
+      // because it is possible to switch between months pretty quickly
+      requestAbortController.current.abort();
+    }
+    setIsLoading(true);
+    setHighlightedDays([]);
+    fetchHighlightedDays(date);
+  };
+
+
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt">
+      <div className='flex flex-col items-center justify-center'> 
         <DateCalendar
           defaultValue={initialValue}
           loading={isLoading}
@@ -113,12 +113,16 @@ export default function Calendario({ }: CalendarioProps) {
           slots={{
             day: ServerDay,
           }}
+
           slotProps={{
             day: {
               highlightedDays,
             } as any,
           }}
         />
-      </LocalizationProvider>
-    );
+        <Link href={'/agenda'} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded max-w-[200px] text-center'>Acesse seu painel de visitas</Link>
+      </div>
+
+    </LocalizationProvider>
+  );
 }
