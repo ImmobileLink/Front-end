@@ -32,6 +32,7 @@ export default function EditProfile({ data }: EditProfileProps) {
         nomefantasia: data?.nomefantasia,
         sobre: data?.sobre,
         cep: data?.cep,
+        site: data?.site,
         cidade: data?.cidade,
         bairro: data?.bairro,
         logradouro: data?.logradouro,
@@ -77,6 +78,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                     logradouro: defaultValues.logradouro,
                     numero: defaultValues.numero,
                     complemento: defaultValues.complemento,
+                    site: defaultValues.site,
                 });
             }
         }
@@ -92,6 +94,7 @@ export default function EditProfile({ data }: EditProfileProps) {
             setValue('uf', data.uf);
             setValue('bairro', data.bairro);
             setValue('logradouro', data.logradouro);
+            setValue('site', data.site);
             setValue('numero', null);
             setValue('complemento', '');
         } else {
@@ -140,7 +143,7 @@ export default function EditProfile({ data }: EditProfileProps) {
             <Modal show={props.openModal === 'default'} onClose={() => props.setOpenModal(undefined)}>
                 <Modal.Header>Editar Perfil</Modal.Header>
                 <Modal.Body>
-                    <div className="space-y-6 sm:mx-auto sm:w-full sm:max-w-sm text-sm" >
+                    <div className="space-y-5 sm:mx-auto sm:w-full sm:max-w-sm text-sm" >
                         <div className="flex flex-col">
                             <label className="text-gray-500 dark:text-gray-300">Nome da empresa</label>
                             <input type="text"
@@ -160,15 +163,23 @@ export default function EditProfile({ data }: EditProfileProps) {
                                 className="py-2.5 px-0 w-full text-base text-gray-900   border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent"></textarea>
                         </div>
 
+                        <div className="flex flex-col">
+                            <label className="text-gray-500 dark:text-gray-300">Site</label>
+                            <input type="text"
+                                {...register("site")}
+                                className={`text-base py-2.5 px-0 w-full text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent `} />
+                            {/* {errors?.nomefantasia?.type == 'required' && <p className="text-red-500 text-xs mt-1">É preciso inserir um nome</p>} */}
+                        </div>
+
                         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                             <EditRegiaoAtuacao props={dropdown} />
                         </div>
 
-                        <h2 className="text-lg font-bold">Localidade</h2>
+                        <h2 className="font-medium text-gray-500 dark:text-gray-400">Localidade</h2>
 
                         {/* comercial & { cep & UF } */}
-                        <div className="grid md:grid-cols-2 md:gap-6">
-                            <div className="grid md:grid-cols-2 md:gap-6">
+                        <div className="grid md:grid-cols-2">
+                            <div className="grid md:grid-cols-2 md:gap-6 gap-3">
                                 <div className="relative z-0 w-full ">
                                     <label className="text-sm text-gray-500 dark:text-gray-300">
                                         CEP
@@ -205,7 +216,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                         </div> */}
 
                         {/* cidade & bairro */}
-                        <div className="grid md:grid-cols-2 md:gap-6 mt-0 space-y-4 md:space-y-0">
+                        <div className="grid md:grid-cols-2 md:gap-6 gap-3">
                             <div className="relative z-0 w-full group">
                                 <label className="text-sm text-gray-500 dark:text-gray-300">
                                     cidade
@@ -237,7 +248,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                         </div>
 
                         {/* rua */}
-                        <div className="relative z-0 w-full mb-6 group">
+                        <div className="relative z-0 w-full md:gap-6 gap-3 group">
                             <label className="text-sm text-gray-500 dark:text-gray-300">
                                 Rua
                             </label>
@@ -253,8 +264,8 @@ export default function EditProfile({ data }: EditProfileProps) {
                         </div>
 
                         {/* numero & complemento */}
-                        <div className="grid md:grid-cols-2 md:gap-6">
-                            <div className="relative z-0 w-full mb-6 group">
+                        <div className="grid md:grid-cols-2 md:gap-6 gap-3">
+                            <div className="relative z-0 w-full group">
                                 <label className="text-sm text-gray-500 dark:text-gray-300">
                                     numero
                                 </label>

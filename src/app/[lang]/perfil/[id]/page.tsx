@@ -6,11 +6,10 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { useProfileStore } from '../../../../../lib/store/profileStore';
 import { getProfileFullData } from '../../../../../lib/utils/userProfile';
-import CorretorProfile from './(perfil)/CorretorProfile';
-import EmpresaProfile from './(perfil)/EmpresaProfile';
 import Link from 'next/link';
 import StoreInitializer from './(perfil)/components/StoreInitializer';
 import { ProviderContext } from './(perfil)/Provider/ProviderContext';
+import Profile from './(perfil)/Profile';
 
 interface pageProps {
   params: {
@@ -60,16 +59,13 @@ export default async function page({ params: { id, lang } }: pageProps) {
   const especialidades = profileData.type == "corretor" ? (await getEspecialidades(id)).especialidades : null
   const historico = profileData.type == "corretor" ? (await getHistorico(id)).historico : null
 
-
   useProfileStore.setState({ profileData: profileData, profileFullData: profileFullData, sessionData: sessionData, dict: dict, isOwn: isOwnProfile, isAssociado: isAssociado })
 
   return (
     <ProviderContext areas={areasAtuacao} esp={especialidades} hist={historico}>
-      <StoreInitializer isOwn={isOwnProfile} profileData={profileData} sessionData={sessionData} profileFullData={profileFullData} dict={dict} isAssociado={isAssociado}/>
+      <StoreInitializer isOwn={isOwnProfile} profileData={profileData} sessionData={sessionData} profileFullData={profileFullData} dict={dict} isAssociado={isAssociado} />
       {profileData.id ?
-        profileData.type! == "corretor" ? (
-          <CorretorProfile />
-        ) : (<EmpresaProfile />)
+        (<Profile />)
         :
         <div className='flex justify-center items-center flex-col'>
           <h1 className='text-3xl font-semibold text-gray-800 dark:text-white'>Ops, esse perfil não existe</h1>

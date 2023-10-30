@@ -39,9 +39,12 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
 
     useEffect(() => {
         if (areasAtuacao) {
-            areasAtuacao?.forEach((item) => {
-                setRegioesIncluidas([{ estado: item.estado, cidade: item.cidade }]);
-            })
+            const novasRegioes = areasAtuacao.map((item) => ({
+                estado: item.estado,
+                cidade: item.cidade,
+            }));
+    
+            setRegioesIncluidas(novasRegioes);
         }
     }, [])
 

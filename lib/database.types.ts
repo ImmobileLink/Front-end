@@ -121,6 +121,7 @@ export interface Database {
           nomefantasia: string | null
           numero: number | null
           premium: boolean | null
+          site: string | null
           sobre: string | null
           telefone1: string | null
           telefone2: string | null
@@ -138,6 +139,7 @@ export interface Database {
           nomefantasia?: string | null
           numero?: number | null
           premium?: boolean | null
+          site?: string | null
           sobre?: string | null
           telefone1?: string | null
           telefone2?: string | null
@@ -155,6 +157,7 @@ export interface Database {
           nomefantasia?: string | null
           numero?: number | null
           premium?: boolean | null
+          site?: string | null
           sobre?: string | null
           telefone1?: string | null
           telefone2?: string | null
@@ -1273,6 +1276,17 @@ export interface Database {
           idusuario: string
         }[]
       }
+      getdiasvisita: {
+        Args: {
+          mesparam: number
+          anoparam: number
+          id_cor: string
+          id_cor2?: string
+        }
+        Returns: {
+          diavisita: number
+        }[]
+      }
       mensagem_com_usuario: {
         Args: {
           sala: string
@@ -1288,18 +1302,15 @@ export interface Database {
           imagem: string
         }[]
       }
-      obter_avaliacao_media: {
+      obter_avaliacoes: {
         Args: {
-          idcorretor_param: string
+          id_cor: string
         }
         Returns: {
           id: string
-          profissionalismo: number
-          comunicacao: number
-          conhecimento: number
-          transparencia: number
-          detalhista: number
-          clareza: number
+          nome_cliente: string
+          avaliacao: string
+          nota: number
         }[]
       }
       obter_cidade_estado_por_usuario: {
@@ -1363,6 +1374,33 @@ export interface Database {
           sobre: string
         }[]
       }
+      obter_dados_dashboard_1: {
+        Args: {
+          idcorretor_param: string
+        }
+        Returns: {
+          id: string
+          profissionalismo: number
+          comunicacao: number
+          conhecimento: number
+          transparencia: number
+          detalhista: number
+          clareza: number
+        }[]
+      }
+      obter_dados_dashboard_2: {
+        Args: {
+          idcorretor_param: string
+        }
+        Returns: {
+          id: string
+          muito_insatisfeito: number
+          insatisfeito: number
+          neutro: number
+          satisfeito: number
+          muito_satisfeito: number
+        }[]
+      }
       obter_dados_survey: {
         Args: {
           visita_id: string
@@ -1381,19 +1419,6 @@ export interface Database {
         Returns: {
           id: string
           nome: string
-        }[]
-      }
-      obter_satisfacao_media: {
-        Args: {
-          idcorretor_param: string
-        }
-        Returns: {
-          id: string
-          muito_insatisfeito: number
-          insatisfeito: number
-          neutro: number
-          satisfeito: number
-          muito_satisfeito: number
         }[]
       }
       obter_ultimas_mensagens_por_usuario: {

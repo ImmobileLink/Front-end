@@ -8,7 +8,7 @@ interface DoughnutProps { }
 
 export default function Doughnut({ }: DoughnutProps) {
     const data = {
-        labels: ['Maçãs', 'Bananas', 'Laranjas'],
+        labels: ['Casas', 'Casas', 'Casas'],
         datasets: [
             {
                 data: [30, 40, 20],
@@ -19,7 +19,6 @@ export default function Doughnut({ }: DoughnutProps) {
 
     return (
         <div>
-            <h2>Gráfico de Rosca</h2>
             <D data={data} />
         </div>
     );

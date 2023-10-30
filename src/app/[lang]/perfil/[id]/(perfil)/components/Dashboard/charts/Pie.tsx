@@ -3,6 +3,7 @@
 import Chart from 'chart.js/auto';
 import { Pie as P } from "react-chartjs-2";
 import {CategoryScale} from 'chart.js'; 
+import { Satisfacao } from '../../../../../../../../../lib/modelos';
 Chart.register(CategoryScale);
 
 
@@ -10,14 +11,6 @@ interface PieProps {
   satisfacao: Satisfacao
 }
 
-type Satisfacao = {
-  id: string;
-  muito_insatisfeito: number;
-  insatisfeito: number;
-  neutro: number;
-  satisfeito: number;
-  muito_satisfeito: number;
-}[] | null
 
 
 export default function Pie({satisfacao}: PieProps) {
