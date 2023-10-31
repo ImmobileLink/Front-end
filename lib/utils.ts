@@ -1,21 +1,47 @@
-export const formataData = (datahora:string, dateformat:string = 'pt-BR') => {
-    let data = new Date(datahora)
-    const formatter = new Intl.DateTimeFormat(dateformat, {
-      year: 'numeric',
-      'month': 'numeric',
-      'day': 'numeric',
-      'hour': 'numeric',
-      'minute': 'numeric'
-    });
-    let fdata = formatter.format(data)
-}
-
-export const formataDataSemHora = (datahora:string) => {
+export const formataData = (datahora: string) => {
   let data = new Date(datahora)
   const formatter = new Intl.DateTimeFormat('pt-BR', {
     year: 'numeric',
     'month': 'numeric',
-    'day': 'numeric'
+    'day': 'numeric',
+    'hour': 'numeric',
+    'minute': 'numeric'
+  });
+  let fdata = formatter.format(data)
+}
+
+export const formataDataSemHora = (datahora: string) => {
+  let data = new Date(datahora);
+
+  // Obtém dia, mês e ano individualmente
+  const dia = data.getDate().toString().padStart(2, '0'); // Adiciona zero à esquerda se necessário
+  const mes = (data.getMonth() + 1).toString().padStart(2, '0'); // Adiciona zero à esquerda se necessário
+  const ano = data.getFullYear();
+
+  // Formata a data no padrão "dd/mm/aaaa"
+  const fdata = `${ano}-${mes}-${dia}`;
+
+  return fdata;
+}
+
+export const formataDataSemDia = (datahora: string) => {
+  let data = new Date(datahora)
+  const formatter = new Intl.DateTimeFormat('pt-BR', {
+    'hour': 'numeric',
+    'minute': 'numeric'
+  });
+  let fdata = formatter.format(data)
+  return fdata
+}
+
+export const formataDataParaTimezone = (datahora: string) => {
+  let data = new Date(datahora)
+  const formatter = new Intl.DateTimeFormat('pt-BR', {
+    year: 'numeric',
+    'month': 'numeric',
+    'day': 'numeric',
+    'hour': 'numeric',
+    'minute': 'numeric',
   });
   let fdata = formatter.format(data)
   return fdata

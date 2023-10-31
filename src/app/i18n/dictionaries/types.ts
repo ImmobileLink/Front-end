@@ -24,24 +24,24 @@ export interface Dictionaries {
 }
 
 export interface Agenda {
-    visitdetails: string;
-    companyname: string;
-    brokername: string;
-    clientdetails: string;
-    clientname: string;
-    telefone: string;
-    date: string;
-    placedetails: string;
-    address: string;
-    uf: string;
-    cidade: string;
-    cep: string;
-    bairro: string;
-    rua: string;
-    numero: string;
-    complemento: string;
-    close: string;
-    delete: string;
+    visitdetails:   string;
+    companyname:    string;
+    brokername:     string;
+    clientdetails:  string;
+    clientname:     string;
+    telefone:       string;
+    date:           string;
+    placedetails:   string;
+    address:        string;
+    uf:             string;
+    cidade:         string;
+    cep:            string;
+    bairro:         string;
+    rua:            string;
+    numero:         string;
+    complemento:    string;
+    close:          string;
+    delete:         string;
     cannotbeundone: string;
     sendsurvey: string;
     logs: AgendaLogs;
@@ -49,8 +49,8 @@ export interface Agenda {
 
 export interface AgendaLogs {
     emailerror: string;
-    emailok: string;
-    visitok: string;
+    emailok:    string;
+    visitok:    string;
 }
 
 export interface Auth {

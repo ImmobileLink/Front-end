@@ -725,7 +725,9 @@
     "clientdetails": "Dados do cliente",
     "clientname": "Nome",
     "telefone": "Telefone",
-    "date": "Data da visita",
+    "scheduling": "Editar visita",
+    "date": "Data",
+    "time": "Horário",
     "placedetails": "Detalhes do imóvel",
     "address": "Endereço",
     "uf": "Estado",
@@ -735,6 +737,7 @@
     "rua": "Rua",
     "numero": "Número",
     "complemento": "Complemento",
+    "submit": "Confirmar",
     "close": "Fechar",
     "delete": "Deseja cancelar esta visita?",
     "cannotbeundone": "Esta ação não pode ser desfeita.",
@@ -742,7 +745,10 @@
     "logs": {
       "emailerror": "O envio do formulário só é possível para visitas já realizadas.",
       "emailok": "Email enviado com sucesso.",
-      "visitok": "Visita cancelada com sucesso."
+      "visitok": "Visita cancelada com sucesso.",
+      "visitchanged": "Visita atualizada com sucesso.",
+      "invaliddate": "Selecione uma data válida",
+      "invalidtime": "Selecione um horário válido"
     }
   },
   "survey": {

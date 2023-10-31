@@ -16,6 +16,7 @@ import ModalEvento from './ModalEvento';
 import { useState } from 'react';
 import { VisitaProps } from '../../../../../lib/modelos';
 import { Agenda } from '@/app/i18n/dictionaries/types';
+import EditModal from './EditModal';
 
 interface CalendarioProps {
     type: string;
@@ -26,6 +27,8 @@ interface CalendarioProps {
 
 export default function Calendario({ type, visitas, locale, dict }: CalendarioProps) {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    
     const [eventoAtivo, setEventoAtivo] = useState<VisitaProps>()
 
     let eventos: { title: string, date: string, data: VisitaProps }[] = [];
@@ -38,7 +41,7 @@ export default function Calendario({ type, visitas, locale, dict }: CalendarioPr
 
     const handleClick = (e: EventClickArg) => {
         // alert(JSON.stringify(e.event));
-        if(!isModalOpen) {
+        if (!isModalOpen) {
             setEventoAtivo(e.event.extendedProps.data)
             openModal()
         }
@@ -52,6 +55,15 @@ export default function Calendario({ type, visitas, locale, dict }: CalendarioPr
         setIsModalOpen(false);
     };
 
+    const openEditModal = () => {
+        setIsModalOpen(false);
+        setIsEditModalOpen(true);
+    };
+
+    const closeEditModal = () => {
+        setIsEditModalOpen(false);
+    };
+
     return (
         <>
             <FullCalendar
@@ -62,7 +74,7 @@ export default function Calendario({ type, visitas, locale, dict }: CalendarioPr
                     multiMonthPlugin,
                     interactionPlugin,
                 ]}
-                initialView='listWeek'
+                initialView='dayGridMonth'
                 headerToolbar={{
                     left: 'prev,next today',
                     center: 'title',
@@ -72,11 +84,31 @@ export default function Calendario({ type, visitas, locale, dict }: CalendarioPr
                 selectable={true}
                 events={eventos}
                 eventClick={e => handleClick(e)}
-                viewClassNames={isModalOpen ? "blur-sm bg-white text-black" : "bg-white text-black"}
+                viewClassNames={isModalOpen || isEditModalOpen ? "blur-sm bg-white text-black" : "bg-white text-black"}
                 dayHeaderClassNames={"bg-gray-300"}
                 height={"100%"}
             />
-            <ModalEvento isOpen={isModalOpen} onClose={closeModal} evento={eventoAtivo} type={type} dict={dict}/>
+            {isModalOpen && (
+                <ModalEvento
+                    isOpen={isModalOpen}
+                    onClose={closeModal}
+                    evento={eventoAtivo}
+                    type={type}
+                    dict={dict}
+                    openEditModal={openEditModal}
+                />
+            )}
+
+            {isEditModalOpen && (
+                <EditModal
+                    isOpen={isEditModalOpen}
+                    onClose={closeEditModal}
+                    evento={eventoAtivo}
+                    type={type}
+                    dict={dict}
+                />
+            )}
+
         </>
     );
 

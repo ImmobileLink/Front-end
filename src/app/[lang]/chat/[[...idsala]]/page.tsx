@@ -18,8 +18,8 @@ interface pageProps {
 }
 
 const createServerSupabaseClient = cache(() => {
-  const cookieStore = cookies()
-  return createServerComponentClient<Database>({ cookies: () => cookieStore })
+    const cookieStore = cookies()
+    return createServerComponentClient<Database>({ cookies: () => cookieStore })
 })
 
 export default async function Page({ params: { lang, idsala } }: pageProps) {
