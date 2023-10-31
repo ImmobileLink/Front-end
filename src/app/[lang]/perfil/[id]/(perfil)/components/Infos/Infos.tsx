@@ -9,6 +9,7 @@ import Calendario from '@/app/[lang]/(components)/Calendario';
 import VisaoGeralCorretor from './Corretor/VisaoGeralCorretor';
 import VisaoGeralEmpresa from './Empresa/VisaoGeralEmpresa';
 import Posts from './Posts';
+import PostsSalvos from './PostsSalvos';
 
 
 interface InfosProps {
@@ -52,7 +53,7 @@ export default function Infos({ isAssociado }: InfosProps) {
             icon={HiDocumentText}
             title="Saved Posts"
           >
-            <p>PostsSalvbos</p>
+            <PostsSalvos/>
           </Tabs.Item>
         )}
 

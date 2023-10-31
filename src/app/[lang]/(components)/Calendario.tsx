@@ -23,12 +23,12 @@ async function fetchData(date: Dayjs, id1: string, id2: string | undefined, { si
 
   const { data, error } = await getDiasVisita(date, id1, id2)
 
-  if(error){
+  if (error) {
     console.error(error)
-  }else{
+  } else {
     return data
   }
-  
+
 }
 
 function obterDataAtualFormatada() {
@@ -54,7 +54,7 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] 
       overlap="circular"
       badgeContent={isSelected ? '🏠' : undefined}
     >
-      <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} className='dark:text-gray-400' />
+      <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
     </Badge>
   );
 }
@@ -104,8 +104,9 @@ export default function Calendario({ }: CalendarioProps) {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt">
-      <div className='flex flex-col items-center justify-center'> 
+      <div className='flex flex-col items-center justify-center'>
         <DateCalendar
+          className='text-black font-bold'
           defaultValue={initialValue}
           loading={isLoading}
           onMonthChange={handleMonthChange}
@@ -113,7 +114,11 @@ export default function Calendario({ }: CalendarioProps) {
           slots={{
             day: ServerDay,
           }}
-
+          sx={{
+            '.MuiDateCalendar-root': {
+              className: 'text-white'
+            },
+          }}
           slotProps={{
             day: {
               highlightedDays,
