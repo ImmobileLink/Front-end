@@ -488,7 +488,9 @@
     "clientdetails": "Client data",
     "clientname": "Name",
     "telefone": "Prone",
-    "date": "Scheduled day",
+    "scheduling": "Edit visit",
+    "date": "Day",
+    "time": "Time",
     "placedetails": "Property details",
     "address": "Address",
     "uf": "Estate",
@@ -498,6 +500,7 @@
     "rua": "Street",
     "numero": "Number",
     "complemento": "Complement",
+    "submit": "Submit",
     "close": "Close",
     "delete": "Do you want to cancel this visit?",
     "cannotbeundone": "This action cannot be undone.",
@@ -505,7 +508,10 @@
     "logs": {
       "emailerror": "Submitting the form is only possible for visits that have already been made.",
       "emailok": "Email successfully sent.",
-      "visitok": "Visit canceled successfully."
+      "visitok": "Visit canceled successfully.",
+      "visitchanged": "Visit updated successfully.",
+      "invaliddate": "Select a valid date.",
+      "invalidtime": "Select a valid time."
     }
   },
   "survey": {
