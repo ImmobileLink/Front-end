@@ -8,7 +8,7 @@ import { Modal, Spinner } from 'flowbite-react';
 import { BiEditAlt } from 'react-icons/bi';
 import { LiaTrashAltSolid } from 'react-icons/lia';
 import { MdOutgoingMail } from 'react-icons/md';
-import { formataData, formataDataParaTimezone, formataDataSemDia, formataDataSemHora } from '../../../../../lib/utils';
+import { formataData, formataDataParaTimezone, formataDataSemDia, formataDataSemHora, isDateBeforeCurrent } from '../../../../../lib/utils';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database } from '../../../../../lib/database.types';
 import toast from 'react-hot-toast';
@@ -31,6 +31,8 @@ export default function EditModal({ isOpen, onClose, evento, dict, type }: EditM
   const [data, setData] = useState(formataDataSemHora(evento!.data_agendamento));
   const [time, setTime] = useState(formataDataSemDia(evento!.data_agendamento));
 
+  const [erro, setErro] = useState(false);
+
   //const currentDate = new Date().toISOString().slice(0, 10);
   const date = new Date().toLocaleDateString().split("/");
   const currentDate = `${date[2]}-${date[1]}-${date[0]}`;
@@ -39,25 +41,23 @@ export default function EditModal({ isOpen, onClose, evento, dict, type }: EditM
     return null;
   }
 
-  const validaForm = () => {
-    if (data === "" && time === "") {
-      return false;
-    }
-    return true;
-  }
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     setLoading(true);
-    const { error } = await supabase.from("visita").update({ dataagendamento: `${data} ${time}:00-03` }).eq('id', evento!.visita_id)
-    if (!error) {
-      toast.success(dict.logs.visitchanged);
-      router.refresh();
-      onClose();
+
+    if(!isDateBeforeCurrent(`${data} ${time}:00-03`)){
+      const { error } = await supabase.from("visita").update({ dataagendamento: `${data} ${time}:00-03` }).eq('id', evento!.visita_id)
+      if (!error) {
+        toast.success(dict.logs.visitchanged);
+        router.refresh();
+        onClose();
+      } else {
+        toast.error(dict.logs.invaliddate);
+      }
     } else {
-      toast.error(error.message);
+      toast.error(dict.logs.invaliddate);
     }
+
     setLoading(false);
   }
 
@@ -70,7 +70,6 @@ export default function EditModal({ isOpen, onClose, evento, dict, type }: EditM
     >
       <Modal.Body>
         <Modal.Header>
-          <p>{data} {time}</p>
           {dict.scheduling}
         </Modal.Header>
         <form onSubmit={e => handleSubmit(e)} className="group" noValidate>

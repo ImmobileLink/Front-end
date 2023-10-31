@@ -541,7 +541,7 @@
         "brokername": "Broker",
         "clientdetails": "Client data",
         "clientname": "Name",
-        "telefone": "Prone",
+        "telefone": "Phone",
         "scheduling": "Edit visit",
         "date": "Day",
         "time": "Time",
@@ -581,6 +581,8 @@
         "explanationsurveysite2": "To help us improve our services and ensure that we meet your expectations in the best way possible we ask that you leave a rating on a scale of 1 to 5, where 5 represents Very satisfied and 1 represents Very insatisfied, to indicate how well our broker has met your expectations during the visit.",
         "pleased": "Very satisfied",
         "notpleased": "Very insatisfied",
+        "insertavalue": "Check that all mandatory fields have been filled in",
+        "fieldlenght": "The text in the field must be longer than 3 characters",
         "finish": "FINISH SURVEY",
         "questions": {
             "question1": "1 - Broker Professionalism",

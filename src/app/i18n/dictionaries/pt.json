@@ -329,21 +329,20 @@
         "dateformat": "pt-BR",
         "more": "Ler mais",
         "less": "Mostrar menos",
-            "issues":{
-                "offensive": "Comportamento ofensivo ou discriminatório",
-                "abuse": "Abuso e assédio",
-                "harm": "Comportamento nocivo ou perigoso",
-                "spam": "Spam ou fraude",
-                "other": "Outro problema"
-                
-            },
-            "issuesdescription":{
-                "offensive": "Inclui insultos e ações que prejudicam, menosprezam ou discriminam pessoas com base em características pessoais, como raça, etnia, gênero, orientação sexual, religião, deficiência, ou outras características protegidas por lei.",
-                "abuse": "Inclui assédio praticado dentro da plataforma, direcionado a usuários ou grupos específicos, assim como o compartilhamento de conteúdo de cunho sexual ou que incite atos de abuso e assédio.",
-                "harm": "Inclui organização criminosa, ameaças, chantagens, compartilhamento de conteúdo gráfico perturbador ou ilegal, incentivo ou menção a automutilação e suicídio, discurso violento ou que incentive atos violentos.",
-                "spam": "Compartilhamento de informações fraudulentas, publicação de links mal-intencionados, aplicação de golpes, identidade falsa, postagens e perfis não relacionados a proposta da plataforma.",
-                "describe": "Descreva melhor o problema:"
-            }
+        "issues":{
+            "offensive": "Comportamento ofensivo ou discriminatório",
+            "abuse": "Abuso e assédio",
+            "harm": "Comportamento nocivo ou perigoso",
+            "spam": "Spam ou fraude",
+            "other": "Outro problema" 
+        },
+        "issuesdescription":{
+            "offensive": "Inclui insultos e ações que prejudicam, menosprezam ou discriminam pessoas com base em características pessoais, como raça, etnia, gênero, orientação sexual, religião, deficiência, ou outras características protegidas por lei.",
+            "abuse": "Inclui assédio praticado dentro da plataforma, direcionado a usuários ou grupos específicos, assim como o compartilhamento de conteúdo de cunho sexual ou que incite atos de abuso e assédio.",
+            "harm": "Inclui organização criminosa, ameaças, chantagens, compartilhamento de conteúdo gráfico perturbador ou ilegal, incentivo ou menção a automutilação e suicídio, discurso violento ou que incentive atos violentos.",
+            "spam": "Compartilhamento de informações fraudulentas, publicação de links mal-intencionados, aplicação de golpes, identidade falsa, postagens e perfis não relacionados a proposta da plataforma.",
+            "describe": "Descreva melhor o problema:"
+        }
     },
     "planos": {
         "subscription": "Planos para o seu perfil",
@@ -490,6 +489,7 @@
     "chat": {
         "conversations": "Conversas",
         "you": "Você",
+        "sent": "enviado",
         "newconversation": "Novo espaço",
         "newconvlabel1": "Associações",
         "newconvlabel2": "Links",
@@ -527,189 +527,6 @@
         "tryPremium": "EXPERIMENTE O PREMIUM",
         "start": "Vamos começar?"
     },
-  "planos": {
-    "subscription": "Planos para o seu perfil",
-    "chooseyourplan": "Escolha o plano que melhor atende suas necessidades e altere-o quando preferir",
-    "broker": "corretor",
-    "company": "empresa",
-    "month": "mês",
-    "tryforfree": "Experimente já",
-    "allsubscriptions": "Conheça todos nossos benefícios",
-    "usertype": "Tipo de perfil",
-    "sublabel": "Detalhes",
-    "pricing": "Valor do plano",
-    "feedbackreview": "Avaliação de perfil",
-    "dashboard": "Dashboard completo",
-    "feed": "Feed de notícias & oportunidades",
-    "companyafiliation": "Associação a uma empresa",
-    "chat": "Chat individual e em grupos",
-    "visibility": "Maior visibilidade",
-    "exclusivefunctions": "Funcionalidades exclusivas",
-    "searchfilters": "Filtros de busca especializados",
-    "oportunitiesposting": "Publicação de oportunidades",
-    "linktotenbrokers": "Associar-se a 10 corretores",
-    "illimitedlinks": "Associar-se a inúmeros corretores",
-    "buynow": "Experimente já",
-    "confirmchange": "Deseja realmente alterar seu plano para",
-    "select": "Selecionar",
-    "selected": "Selecionado",
-    "freetier": "R$0",
-    "brokertier": "R$50",
-    "companytier": "R$240",
-    "changeto": "Alterar plano para",
-    "changeforfree": "Altere seu plano sem custo adicional",
-    "changetopremiumforfree": "Experimente o premium gratuitamente",
-    "limitedtime": "Oferta por tempo limitado",
-    "cancel": "Cancelar",
-    "change": "Alterar para",
-    "changesuccess": "Plano alterado com sucesso",
-    "changeerror": "Ocorreu um erro ao alterar o plano"
-  },
-  "profile": {
-    "noAssociation": "Sem associação no momento",
-    "hasAssociation": "Possui empresa(s) associada(s)",
-    "btnAssociate": "Associate",
-    "btnPending": "Pending",
-    "btnConnect": "Connect",
-    "overview": "Visão Geral",
-    "posts": "Publicações",
-    "infoBroker": "Informação sobre o corretor",
-    "historic": "Histórico"
-  },
-  "dashboard": {
-    "domain": "Domínio",
-    "professionalism": "Profissionalismo",
-    "goodService": "Bom serviço",
-    "educated": "Educado",
-    "visited": "Visitas em imóveis",
-    "sales": "Vendas",
-    "january": "Janeiro",
-    "february": "Fevereiro",
-    "march": "Março",
-    "april": "Abril",
-    "may": "Maio",
-    "june": "Junho"
-  },
-  "calendar": {
-    "scheduledVisits": "Visitas agendadas"
-  },
-  "imovel": {
-    "mainlabels": {
-      "title": "Meus Imóveis",
-      "delegatevisit": "Delegar Visita"
-    },
-    "formlabels": {
-      "infoproperty": {
-        "location": "Localização",
-        "characteristics": "Características",
-        "price": "Valor"
-      },
-      "selectbroker": "Selecione um corretor",
-      "findbroker": "Encontrar Corretores",
-      "delegatevisit": "Delegar Visita",
-      "requiredfields": "Por favor, preencha todos os campos",
-      "warningmsg": "Sua corporação ainda não possui corretores associados.",
-      "clickhere": "Clique aqui para encontrar corretores",
-      "brokerdata": "Corretor",
-      "specialty": "Especialidade",
-      "clientdata": "Dados do Cliente",
-      "scheduling": "Agendamento",
-      "name": "Nome",
-      "phone": "Telefone",
-      "email": "Email",
-      "date": "Data",
-      "time": "Horário",
-      "loading": "Carregando",
-      "formlogs": {
-        "invalidname": "O nome precisa ter no mínimo 4 caracteres, não incluindo números ou caracteres especiais",
-        "invalidphone": "O telefone precisa ter 10 ou 11 caracteres",
-        "invalidemail": "Insira um email válido",
-        "invaliddate": "Selecione uma data válida",
-        "invalidtime": "Selecione um horário válido"
-      },
-      "editimg": {
-        "title": "Alterar Imagem do Imóvel",
-        "imageupload": "Clique para fazer upload ou arraste e solte",
-        "imageformat": "PNG, JPG ou JPEG (MAX. 800x400px).",
-        "loading": "Carregando",
-        "confirm": "Confirmar"
-      }
-    },
-    "newproperty": {
-      "registerproperty": "Cadastrar Imóvel",
-      "requiredfields": "Campos obrigatórios",
-      "register": "Cadastrar",
-      "cep": "CEP",
-      "uf": "Estado",
-      "city": "Cidade",
-      "neighborhood": "Bairro",
-      "street": "Rua",
-      "number": "Número",
-      "complement": "Complemento",
-      "price": "Valor",
-      "type": "Tipo de Imóvel",
-      "furniture": "Mobília",
-      "condition": "Condição",
-      "others": "Outras Características",
-      "selectopt": "Selecione uma opção",
-      "selectopts": "Selecione...",
-      "description": "Descrição",
-      "imageupload": "Carregar imagem",
-      "imageformat": "PNG, JPG ou JPEG (MAX. 800x400px).",
-      "loading": "Carregando",
-      "newpropertylogs": {
-        "invalidcep": "CEP inválido",
-        "invalidcepnotfound": "CEP não encontrado",
-        "invaliduf": "Insira a sigla da unidade federativa",
-        "invalidcity": "A cidade precisa ter no mínimo 2 caracteres",
-        "invalidneighborhood": "O bairro precisa ter no mínimo 2 caracteres",
-        "invalidstreet": "A rua precisa ter no mínimo 2 caracteres",
-        "invalidnumber": "O número da residência não pode ser negativo",
-        "invalidprice": "Coloque, no máximo, duas casas decimais"
-      }
-    }
-  },
-  "chat": {
-    "conversations": "Conversas",
-    "you": "Você",
-    "sent": "enviar",
-    "newconversation": "Novo espaço",
-    "newconvlabel1": "Associações",
-    "newconvlabel2": "Links",
-    "uploadedfile": "Arquivo selecionado",
-    "chathome": "Selecione uma conversa ou clique em \"Novo espaço\" para iniciar uma nova!"
-  },
-  "cityselector": {
-    "estate": "Estado",
-    "city": "Município"
-  },
-  "home": {
-    "about": "Sobre a plataforma",
-    "resources": "Recursos",
-    "premium": "Premium",
-    "access": "ACESSAR PLATAFORMA",
-    "conecting": "Criando",
-    "ties": "laços e negócios",
-    "whatIsImmobileLink": "A ImmobileLink é uma plataforma que busca facilitar o contato entre corretores, construtoras e imobiliárias. Encontre o profissional certo para o imóvel certo.",
-    "searchOpportunities": "Encontre oportunidades",
-    "searchParagraph": "Busque por oportunidades de parceria com diversas imobiliárias e corretores do mercado. Aqui oferecemos um ambiente colaborativo que contribui para a construção e demonstração de credibilidade de profissionais e empresas do ramo imobiliário. Demonstre sua experiência, atuação, seu portfólio e forme laços com diversos profissionais e organizações se assim desejar.",
-    "manageYourCalendar": "Gerencie sua agenda, controle seus links e receba feedback de verdade!",
-    "manageParagraph": "Aproveite os melhores recursos para auxiliar a gestão do tempo, atividades, agendamentos, comunicação, visualização e avaliação de desempenho do seu trabalho e de seus parceiros com nosso dashboard completo e personalizado.",
-    "amazingResources": "Recursos incríveis para corretores e empresas",
-    "amazingParagraph": "A ImmobileLink conta com recursos exclusivos para atender as principais necessidades do mercado. Explore uma vasta gama de funcionalidades gratuitas e premium para suas necessidades e de seu negócio:",
-    "itemResources": {
-      "item1": "Avaliação de corretores",
-      "item2": "Dashboard de métricas do usuário",
-      "item3": "Feedback de desempenho profissional",
-      "item4": "Criação de comunidades",
-      "item5": "Associação à empresas",
-      "item6": "Oportunidades por setor e região",
-      "item7": "Agendamento e controle de visitas",
-      "item8": "E muito mais!"
-    },
-    "tryPremium": "EXPERIMENTE O PREMIUM",
-    "start": "Vamos começar?"
-  },
   "footer": {
     "usefulLinks": "Links úteis",
     "access": "Acessar plataforma",

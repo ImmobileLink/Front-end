@@ -46,7 +46,7 @@ export default function PostFormCard({
             setLoading(false);
             setTexto("");
             setImagem(undefined);
-            window.location.reload();
+            window.location.reload(); // pq essew reload?
         }
     };
 
