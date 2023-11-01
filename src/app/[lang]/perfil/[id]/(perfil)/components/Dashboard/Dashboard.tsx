@@ -10,7 +10,8 @@ import Pie from "./charts/Pie";
 import DashboardSkeleton from "../loading/DashboardSkeleton";
 import { getDataDashboard1, getDataDashboard2 } from "../../../../../../../../lib/utils/Dashboard";
 import { Dashboard1, Dashboard2 } from "../../../../../../../../lib/modelos";
-import { FcAreaChart, FcDoughnutChart } from "react-icons/fc";
+import PieMock from "./charts/PieMock";
+import PolarAreaMock from "./charts/PolarAreaMock";
 
 
 interface DashboardProps {
@@ -49,8 +50,11 @@ export default function Dashboard({ }: DashboardProps) {
     <>
       {!premium ? (
         <div>
-
-          <div className="absolute flex justify-center items-center inset-0 backdrop-blur-md">
+          <div className="absolute blur-md inset-0 overflow-hidden">
+            <PieMock />
+            <PolarAreaMock />
+          </div>
+          <div className="absolute flex justify-center items-center inset-0">
             <div className="w-3/4 flex justify-center flex-col items-center">
               {!isLogged ? (
                 <>
@@ -68,6 +72,7 @@ export default function Dashboard({ }: DashboardProps) {
               )}
             </div>
           </div>
+
         </div >
 
       ) : (
@@ -89,13 +94,13 @@ export default function Dashboard({ }: DashboardProps) {
             </div>
           ) : (
             !isLoading && (
-              <div className="relative">
-                <p className="text-center text-black text-xl font-bold absolute w-full h-full z-10 flex justify-center items-center">
+              <div className="">
+                <p className="text-center text-black text-xl font-bold absolute inset-0 z-10 flex justify-center items-center ">
                   Esse usuário ainda não foi avaliado :(
                 </p>
-                <div className="w-full blur-md max-h-[500px] overflow-hidden flex flex-col justify-center items-center">
-                  <FcDoughnutChart size={400} />
-                  <FcAreaChart size={400} />
+                <div className="absolute blur-lg inset-0 overflow-hidden ">
+                  <PieMock />
+                  <PolarAreaMock />
                 </div>
               </div>
             )
