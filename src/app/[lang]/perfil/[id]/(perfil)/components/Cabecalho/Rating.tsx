@@ -35,6 +35,7 @@ export default function RatingCount() {
     }, [])
 
     const isPremium = useProfileStore.getState().profileData?.isPremium
+    const isLogged = useProfileStore.getState().sessionData?.id
 
 
     return (
@@ -71,13 +72,13 @@ export default function RatingCount() {
                                                 <BsPersonCircle size={30} />
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                {isPremium && (
+                                                {isLogged && isPremium && (
                                                     <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
                                                         {item.nome_cliente}
                                                     </p>
                                                 )}
 
-                                                {isPremium ? (
+                                                {isLogged && isPremium ? (
                                                     <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                                                         {item.avaliacao}
                                                     </p>
