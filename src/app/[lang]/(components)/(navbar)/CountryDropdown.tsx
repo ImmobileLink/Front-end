@@ -25,7 +25,10 @@ export default function CountryDropdown({ }: CountryDropdownProps) {
         else {
             setCurrentLanguage(<CircleFlag countryCode="us" className="max-h-5 justify-self-end" />)
         }
-        router.push(`/${route}/${pathname.slice(4)}`)
+        // router.push(`/${route}/${pathname.slice(4)}`)
+        setTimeout(() => {
+            window.location.replace(`/${route}/${pathname.slice(4)}`);
+        }, 100);
     }
     const [currentLanguage, setCurrentLanguage] = useState(checkRoute(pathname))
     return (

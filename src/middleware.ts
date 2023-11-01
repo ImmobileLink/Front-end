@@ -12,14 +12,24 @@ export async function middleware(req: NextRequest) {
   const pathnameIsMissingLocale = locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   )
-  
+
   const res = NextResponse.next()
   const supabase = createMiddlewareClient<Database>({ req, res })
   await supabase.auth.getSession()
 
   if (pathnameIsMissingLocale) {
-    const locale: string = req.headers.get('accept-language')?.slice(0,2) || 'pt'; // pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
-    
+    let lang = '';
+    let referer = req.headers.get('referer')
+    if (referer != null) {
+      let langUrl = new URL(referer);
+      lang = langUrl.pathname.split('/')?.[1];
+      console.log(referer);
+    }
+    if (!locales.includes(lang)) {
+      lang = 'pt'
+    }
+    const locale: string = lang; // pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
+
     // if(pathname.substring(3) == "/auth") {
     //   return NextResponse.redirect(
     //     new URL(`/${locale}/feed`, req.url)
