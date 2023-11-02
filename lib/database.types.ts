@@ -55,7 +55,7 @@ export interface Database {
         Insert: {
           criadoem?: string
           id: string
-          nota?: number
+          nota: number
         }
         Update: {
           criadoem?: string
@@ -1302,18 +1302,15 @@ export interface Database {
           imagem: string
         }[]
       }
-      obter_avaliacao_media: {
+      obter_avaliacoes: {
         Args: {
-          idcorretor_param: string
+          id_cor: string
         }
         Returns: {
           id: string
-          profissionalismo: number
-          comunicacao: number
-          conhecimento: number
-          transparencia: number
-          detalhista: number
-          clareza: number
+          nome_cliente: string
+          avaliacao: string
+          nota: number
         }[]
       }
       obter_cidade_estado_por_usuario: {
@@ -1377,6 +1374,33 @@ export interface Database {
           sobre: string
         }[]
       }
+      obter_dados_dashboard_1: {
+        Args: {
+          idcorretor_param: string
+        }
+        Returns: {
+          id: string
+          profissionalismo: number
+          comunicacao: number
+          conhecimento: number
+          transparencia: number
+          detalhista: number
+          clareza: number
+        }[]
+      }
+      obter_dados_dashboard_2: {
+        Args: {
+          idcorretor_param: string
+        }
+        Returns: {
+          id: string
+          muito_insatisfeito: number
+          insatisfeito: number
+          neutro: number
+          satisfeito: number
+          muito_satisfeito: number
+        }[]
+      }
       obter_dados_survey: {
         Args: {
           visita_id: string
@@ -1395,19 +1419,6 @@ export interface Database {
         Returns: {
           id: string
           nome: string
-        }[]
-      }
-      obter_satisfacao_media: {
-        Args: {
-          idcorretor_param: string
-        }
-        Returns: {
-          id: string
-          muito_insatisfeito: number
-          insatisfeito: number
-          neutro: number
-          satisfeito: number
-          muito_satisfeito: number
         }[]
       }
       obter_ultimas_mensagens_por_usuario: {

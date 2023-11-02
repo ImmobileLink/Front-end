@@ -104,4 +104,24 @@ export async function getHistorico(id: string) {
   return { historico, error }
 }
 
+export const getUserData = async (supabase: any) => {
+  let user: userData = {
+    links: [],
+    assoc: []
+  };
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (session?.user.id) {
+    user = await getTipoUsuario(user, session.user.id);
+
+    [user, user] = await Promise.all([
+      getLinks(user),
+      getAssoc(user)
+    ]);
+  }
+  return user;
+}
+
 

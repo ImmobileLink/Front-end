@@ -234,3 +234,10 @@ export interface VisitaProps {
     complemento_imovel: string;
     survey_id: string;
 }
+
+export interface RoomData {
+    iddestinatario: string | null;
+    nomedestinatario: string | null;
+    avatardestinatario: string | null;
+    mensagens: Mensagem[];
+}

@@ -5,7 +5,7 @@ import Avatar from "../../(components)/Avatar";
 import { AiOutlineSend } from "react-icons/ai";
 import { useContext } from "react";
 import { ChatContext } from "../[[...idsala]]/chatContext";
-import { createOrGetRoom } from "../[[...idsala]]/utils";
+import { createOrGetRoom } from "../[[...idsala]]/chatUtils";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 

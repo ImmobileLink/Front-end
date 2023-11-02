@@ -1,24 +1,23 @@
 "use client";
 import { Navbarbuttons } from "@/app/i18n/dictionaries/types";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Database } from "../../../../../lib/database.types";
 import Link from "next/link";
 import { Spinner } from "flowbite-react";
 import { HiMenu } from "react-icons/hi";
 import CountryDropdown from "./CountryDropdown";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface NavBarHamburguerMenuProps {
   textos: Navbarbuttons;
   userId?: string;
 }
 
-const supabase = createClientComponentClient<Database>()
-
 export default function NavBarHamburguerMenu({ textos, userId }: NavBarHamburguerMenuProps) {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
+
+  const supabase = clientSupabase()
 
   const [isHamburguerMenuOpen, setIsHamburguerMenuOpen] = useState<boolean>(false);
 

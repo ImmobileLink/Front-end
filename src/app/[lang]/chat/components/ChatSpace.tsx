@@ -1,14 +1,12 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+
 import MessageSpace from "./MessageSpace";
 import TypingBox from "./TypingBox";
-import { Mensagem } from "../../../../../lib/modelos";
-import { Database } from "../../../../../lib/database.types";
 import ChatHeader from "./ChatHeader";
 import { Chat } from "@/app/i18n/dictionaries/types";
-import { cache } from "react";
 import Image from "next/image";
-import { getRoomData } from "../[[...idsala]]/utils";
+import { getRoomData } from "../[[...idsala]]/chatUtils";
+import { RoomData } from "../../../../../lib/modelos";
+import { serverSupabase } from "lib/utils/serverSupabase";
 
 interface ChatSpaceProps {
   dict: Chat;
@@ -16,14 +14,14 @@ interface ChatSpaceProps {
   userId: string | undefined;
 }
 
-const createServerSupabaseClient = cache(() => {
-  const cookieStore = cookies()
-  return createServerComponentClient<Database>({ cookies: () => cookieStore })
-})
-
 export default async function ChatSpace({ dict, idsala, userId }: ChatSpaceProps) {
 
-  const roomData = await getRoomData(idsala, createServerSupabaseClient)
+  const supabase = await serverSupabase()
+  let roomData: RoomData;
+  const data = await getRoomData(idsala, supabase)
+  if(data) {
+    roomData = data
+  }
   return (
     <>
       {

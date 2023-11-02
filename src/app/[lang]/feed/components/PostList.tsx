@@ -79,6 +79,7 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
                         .limit(10);
                     let data = response.data;
 
+
                     //atualiza o estado dos posts
                     //se retornar 1+ posts mapeia na tela
                     if (data!.length > 0) {

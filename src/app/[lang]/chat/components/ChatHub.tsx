@@ -1,15 +1,14 @@
 "use client"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { UltimaMensagemPorSalaPorUsuario, salaUsuario, userGroup } from "../../../../../lib/modelos";
-import { Database } from "../../../../../lib/database.types";
-import { Suspense, useContext, useEffect, useState, useTransition } from "react";
+import { useContext, useEffect, useState, useTransition } from "react";
 import { useRouter } from 'next/navigation';
 import ChatHubCard from "./ChatHubCard";
 import { ChatContext } from "../[[...idsala]]/chatContext";
 import { BiArrowBack } from 'react-icons/bi'
 import FriendList from "./FriendList";
 import { NotificationContext } from "../../(components)/(navbar)/NotificationContext";
-import { getLastMessages, getUserRooms } from "../[[...idsala]]/utils";
+import { getLastMessages, getUserRooms } from "../[[...idsala]]/chatUtils";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 
 interface ChatHubProps {
@@ -21,7 +20,7 @@ interface ChatHubProps {
   userAssocs: userGroup | undefined;
 }
 
-const supabase = createClientComponentClient<Database>()
+const supabase = clientSupabase()
 
 export default function ChatHub({ dict, idsala, userType, userId, userLinks, userAssocs }: ChatHubProps) {
   const { chatView, toggleChatView } = useContext(ChatContext)

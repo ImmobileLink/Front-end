@@ -3,6 +3,7 @@ import { Database, Json } from "../database.types";
 
 const supabase = createClientComponentClient<Database>({});
 
+
 export async function updateCorporacaoProfile(formData: any, id: string) {
     const { data: updatedData, error } = await supabase
         .from('corporacao')

@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import { Mensagem, MensagemAInserir } from "../../../../../lib/modelos";
+import { MensagemAInserir, RoomData } from "../../../../../lib/modelos";
 
 export const errorArray: any[] = [];
 
@@ -124,17 +124,7 @@ export async function createOrGetRoom(idremetente: string | null, iddestinatario
     }
 }
 
-export async function getRoomData(idsala: string | undefined, createServerSupabaseClient: any) {
-
-    const supabase = createServerSupabaseClient()
-
-    interface RoomData {
-        iddestinatario: string | null;
-        nomedestinatario: string | null;
-        avatardestinatario: string | null;
-        mensagens: Mensagem[];
-    }
-
+export async function getRoomData(idsala: string | undefined, supabase: any) {
     let roomData: RoomData = {
         iddestinatario: null,
         nomedestinatario: null,

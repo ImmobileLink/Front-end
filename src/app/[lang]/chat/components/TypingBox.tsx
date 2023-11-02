@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AiOutlineFileImage, AiOutlineSend } from "react-icons/ai";
-import { insertMessage } from "../[[...idsala]]/utils";
+import { insertMessage } from "../[[...idsala]]/chatUtils";
 import ImageUpload from "./ImageUpload";
 import { MdInsertEmoticon } from "react-icons/md";
 import { BiSolidImage } from "react-icons/bi";
@@ -11,6 +11,7 @@ import { AiOutlineClose } from "react-icons/ai"
 import { Chat } from "@/app/i18n/dictionaries/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface TypingBoxProps {
   dict: Chat,
@@ -27,7 +28,7 @@ export default function TypingBox({ dict, idsala, userId }: TypingBoxProps) {
   const [emojiView, setEmojiView] = useState<boolean>(false)
 
 
-  const supabase = createClientComponentClient<Database>()
+  const supabase = clientSupabase()
 
   const handleUserKeyPress = (e: any) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -39,7 +40,7 @@ export default function TypingBox({ dict, idsala, userId }: TypingBoxProps) {
   const handleSubmit = async () => {
     if ((texto != '' || imagem) && userId) {
       const response = await insertMessage({ idautor: userId, idsala, mensagem: texto, imagem }, supabase)
-      if (!response) {
+      if (response) {
         setTexto('')
         setImagem(undefined);
       }

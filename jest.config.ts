@@ -16,10 +16,16 @@ const config: Config.InitialOptions = {
     '!**/vendor/**',
   ],
   transform: {
-     "^.+\\.js$": "babel-jest",
+     "^.+\\.js$": ['babel-jest', { configFile: './babel.config.testing.js' }],
      "^.+\\.ts$": "ts-jest",
      "^.+\\.tsx$": "ts-jest",
   },
   setupFiles: ["<rootDir>/.jest/env.js"],
+  moduleNameMapper: {
+    "react": 'next/dist/compiled/react/cjs/react.development.js',
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
+  testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.[jt]s$",
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"]
 }
 export default config

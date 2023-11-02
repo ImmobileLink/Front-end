@@ -10,7 +10,7 @@
     "update-types": "npx supabase gen types typescript --project-id \"rmnjgueyvmqmccnzvfro\" --schema public > lib/database.types.ts",
     "update-test-types": "npx supabase gen types typescript --project-id \"ospngptazhdbtvitjjil\" --schema test > lib/testdatabase.types.ts",
     "preview-email": "email dev",
-    "test": "jest --runInBand",
+    "test": "jest --runInBand --silent --verbose",
     "clear_jest": "jest --clearCache"
   },
   "dependencies": {
@@ -49,7 +49,6 @@
     "encoding": "^0.1.13",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
-    "file-type": "^18.5.0",
     "flowbite": "^1.8.1",
     "flowbite-react": "^0.6.4",
     "i18next": "22.4.15",
@@ -86,6 +85,7 @@
     "zustand": "^4.4.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.23.0",
     "@babel/core": "^7.23.2",
     "@babel/node": "^7.22.19",
     "@babel/preset-env": "^7.23.2",

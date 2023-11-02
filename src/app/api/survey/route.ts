@@ -1,9 +1,9 @@
 import { render } from "@react-email/render";
 import SurveyEmail from "../../../../emails/SurveyEmail";
-import { sendEmail } from "../../../../lib/emails";
+import { sendEmail } from "../../../../lib/utils/emails";
 import { NextResponse } from "next/server";
 import scheduleJob from "../../../../lib/utils/scheduleJob";
-import { isDateBeforeCurrent } from "../../../../lib/utils";
+import { isDateBeforeCurrent } from "../../../../lib/utils/formataData";
 
 export async function POST(req: Request) {
   try {
