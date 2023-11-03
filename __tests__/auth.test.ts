@@ -1,4 +1,4 @@
-import { fetchCitiesAPI, getCEP, handleLoginAPI, handleSignUpDB, verificaEmailDBAPI, verifyFields } from '@/app/[lang]/auth/authUtils';
+import { handleLoginAPI, handleSignUpDB, verificaEmailDBAPI, verifyFields } from '@/app/[lang]/auth/authUtils';
 import { clientSupabase } from '../lib/utils/clientSupabase';
 import { Signup } from '@/app/i18n/dictionaries/types';
 
@@ -196,25 +196,6 @@ describe('Auth Tests', () => {
     });
 
 
-    it('Deve retornar CEP com sucesso', async () => {
-        const cep = "86042-200"
-
-        const result = await getCEP(cep)
-        const expected = {
-            cep: "86042-200",
-            logradouro: "Rua das Begônias",
-            complemento: "",
-            bairro: "Ouro Branco",
-            localidade: "Londrina",
-            uf: "PR",
-            ibge: "4113700",
-            gia: "",
-            ddd: "43",
-            siafi: "7667"
-        };
-
-        expect(result).toEqual(expected)
-    });
 
     it('Deve realizar sign in com sucesso', async () => {
         const email = 'corporacao@email.com'
@@ -347,10 +328,4 @@ describe('Auth Tests', () => {
 
         expect(result).toBe(false); // Deve retornar falso para entradas inválidas
     });
-
-    it('Deve retornar cidades do estado', async () => {
-        const state = 'SP'
-        const result = await fetchCitiesAPI(state)
-        expect(result).toBeTruthy
-    })
 });

@@ -1,5 +1,4 @@
 "use client";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Button, Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -7,8 +6,9 @@ import { HiArrowNarrowRight } from "react-icons/hi";
 import SetEmail from "./SetEmail";
 import SetSenha from "./SetSenha";
 import SetTelefone from "./SetTelefone";
-import { Database } from "../../../../../lib/database.types";
-import { setTelefones } from "../../../../../lib/utils/editProfile";
+import { setTelefones } from "../configUtils";
+import { clientSupabase } from "lib/utils/clientSupabase";
+import { emailChangeAPI, passwordChangeAPI } from "../configUtils";
 
 interface CardConfigProps {
     title: string
@@ -19,7 +19,7 @@ interface CardConfigProps {
 }
 
 export default function CardConfig({ title, email, type, telefones, id }: CardConfigProps) {
-    const supabase = createClientComponentClient<Database>({});
+    const supabase = clientSupabase();
 
     const defaultValues = type == "corretor" ? {
         email: email,
@@ -54,54 +54,50 @@ export default function CardConfig({ title, email, type, telefones, id }: CardCo
     const onSubmit = async (formData: any) => {
         setIsProcessing(true)
         if (title == "Email") {
-            const { data, error } = await supabase.auth.updateUser({
-                email: formData.email,
-            });
-
-            if (error) {
-                setError("Erro ao atualizar email")
-            } else {
+            const result = await emailChangeAPI(formData.email, supabase)
+            if (result) {
                 setSucess("Email atualizado, confirme em sua caixa de entrada")
                 setTimeout(() => {
                     setSucess(undefined)
                     props.setOpenModal(undefined)
                 }, 3000)
             }
+            else {
+                setError("Erro ao atualizar email")
+            }
 
         } else if (title == "Senha") {
-            const { data, error } = await supabase.auth.updateUser({
-                password: formData.senha,
-            });
-
-            if (error) {
-                console.log(error)
-                setError("Erro ao atualizar senha")
-            } else {
+            const result = await passwordChangeAPI(formData.password, supabase)
+            if (result) {
                 setSucess("Senha atualizada")
                 setTimeout(() => {
                     setSucess(undefined)
                     props.setOpenModal(undefined)
                 }, 3000)
             }
+            else {
+                setError("Erro ao atualizar senha")
+            }
 
         } else {
-            const { error} = await setTelefones(type, formData, id)
+            const result = await setTelefones(type, formData, id, supabase)
 
-            if(error){
-                setError("Erro ao atualizar telefones")
-                setTimeout(() => {
-                    setError(undefined)
-                }, 3000);
-            }else{
+            if (result) {
                 setSucess("Telefones Atualizados com sucesso")
                 setTimeout(() => {
                     setSucess(undefined)
                     props.setOpenModal(undefined)
                 }, 3000);
+            } else {
+                setError("Erro ao atualizar telefones")
+                setTimeout(() => {
+                    setError(undefined)
+                }, 3000);
             }
         }
         setIsProcessing(false)
     }
+
     const handleCancel = async (formData: any) => {
         reset(defaultValues)
         props.setOpenModal(undefined)

@@ -1,3 +1,5 @@
+import { getCEP } from "../../../../lib/utils/externalApis";
+
 export async function getData(supabase: any) {
     
     let { data: tipoImovel } = await supabase
@@ -261,16 +263,6 @@ export const assignError = (
     }
 };
 
-export const getCEP = async (cep: string) => {
-    try {
-        const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-        const data = await res.json();
-        return data;
-    } catch (error) {
-        return false;
-    }
-};
-
 export const handleSignUpDB = async (
     tipoPerfil: number,
     senha: string,
@@ -415,18 +407,14 @@ export const handleLoginAPI = async (email: string, senha: string, supabase: any
     }
 };
 
-export async function fetchCitiesAPI(selectedState: string) {
-    if (selectedState) {
-        try {
-            const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState}/municipios`);
-            const citiesData = await response.json();
-            return citiesData
-        } catch (error) {
-            console.error('Erro ao buscar municípios:', error);
-            return false
-        }
-    } else {
-        return false
+export const restorePasswordAPI = async (senha: string, supabase: any) => {
+    const {error} = await supabase.auth.updateUser({senha})
+    if(error) {
+        console.log(error)
+        return false;
+    }
+    else {
+        return true;
     }
 }
 

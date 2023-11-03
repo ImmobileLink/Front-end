@@ -23,10 +23,7 @@ export default function TypingBox({ dict, idsala, userId }: TypingBoxProps) {
   const [texto, setTexto] = useState<string>('')
   const [imagem, setImagem] = useState<File>()
 
-  const [loading, setLoading] = useState<boolean>(false)
-
   const [emojiView, setEmojiView] = useState<boolean>(false)
-
 
   const supabase = clientSupabase()
 

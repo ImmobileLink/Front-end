@@ -1,8 +1,6 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../lib/database.types";
 import { Spinner } from 'flowbite-react';
 
 interface ImovelImgProps {
@@ -11,8 +9,6 @@ interface ImovelImgProps {
     smHeight: string;
     lgHeight: string;
 }
-
-const supabase = createClientComponentClient<Database>();
 
 export default function ImovelImg({ usuarioId, imagemId, smHeight, lgHeight }: ImovelImgProps) {
   const [src, setSrc] = useState(`imoveis/${usuarioId}/${imagemId}`);

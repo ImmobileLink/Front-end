@@ -1,17 +1,16 @@
 "use client"
 import { useEffect, useState } from "react";
 import { Mensagem } from "../../../../../lib/modelos";
-import { Session, createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../lib/database.types";
 import { Chat } from "@/app/i18n/dictionaries/types";
 import MessageCard from "./MessageCard";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface MessageSpaceProps {
   dict: Chat,
   idsala: string,
   mensagens: Mensagem[]
 }
-const supabase = createClientComponentClient<Database>()
+const supabase = clientSupabase()
 
 export default function MessageSpace({ dict, mensagens, idsala }: MessageSpaceProps) {
 

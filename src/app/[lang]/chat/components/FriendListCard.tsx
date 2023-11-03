@@ -6,8 +6,7 @@ import { AiOutlineSend } from "react-icons/ai";
 import { useContext } from "react";
 import { ChatContext } from "../[[...idsala]]/chatContext";
 import { createOrGetRoom } from "../[[...idsala]]/chatUtils";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../lib/database.types";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 
 interface FriendListCardProps {
@@ -24,7 +23,7 @@ export default function FriendListCard({ idsala, idremetente, iddestinatario, no
     const router = useRouter()
 
 
-    const supabase = createClientComponentClient<Database>()
+    const supabase = clientSupabase()
 
     const handleEnviarMensagem = async (idsala: string) => {
         const data = await createOrGetRoom(idremetente, iddestinatario, supabase)

@@ -4,11 +4,7 @@ import {
   CorretorAssociado,
   ImovelRegistro,
 } from "../../../../../lib/modelos";
-import { Database } from "../../../../../lib/database.types";
 import { Imovel } from "@/app/i18n/dictionaries/types";
-import {
-  createClientComponentClient,
-} from "@supabase/auth-helpers-nextjs";
 import ImovelImg from "./ImovelImg";
 import VisitaCard from "./VisitaCard";
 
@@ -18,8 +14,6 @@ interface ImovelCardProps {
   userid: string | undefined;
   corretor: CorretorAssociado[];
 }
-
-const supabase = createClientComponentClient<Database>();
 
 export default function ImovelCard({
   textos,

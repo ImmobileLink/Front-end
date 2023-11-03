@@ -5,9 +5,8 @@ import Avatar from "../../(components)/Avatar";
 import Link from "next/link";
 import { ChatContext } from "../[[...idsala]]/chatContext";
 import { useContext, useEffect, useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../lib/database.types";
 import { useRouter } from 'next/navigation';
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface ChatHubCardProps {
     dict: Chat,
@@ -26,7 +25,7 @@ export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar
 
     const updateNotification = async () => {
         if (userId) {
-            const supabase = createClientComponentClient<Database>()
+            const supabase = clientSupabase()
             const { data, error } = await supabase
                 .from('notificacao')
                 .update({ visualizada: true })

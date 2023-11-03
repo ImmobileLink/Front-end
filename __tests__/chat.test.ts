@@ -37,9 +37,6 @@ afterAll(() => {
     return resetDatabase()
 });
 
-
-
-
 describe('Chat Tests', () => {
     it('Deve inserir mensagem sem imagem', async () => {
         const message = {
@@ -56,7 +53,7 @@ describe('Chat Tests', () => {
 
     it('Deve inserir mensagem com imagem', async () => {
 
-        const imagePath = __dirname + '/sample.png'; // Substitua pelo caminho real para sua imagem
+        const imagePath = __dirname + '/sample.png';
 
         let image = undefined;
 

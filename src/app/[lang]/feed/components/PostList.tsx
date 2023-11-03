@@ -5,7 +5,7 @@ import { Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Database } from "../../../../../lib/database.types";
 import { City, PublicacaoCompleta } from "../../../../../lib/modelos";
-import { _UFs } from "../../../../../lib/utils/getRegiao";
+import { _UFs } from "../../../../../lib/utils/externalApis";
 import PostItem from "./PostItem";
 import ModalExcluir from "./ModalExcluir";
 
@@ -82,15 +82,17 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
 
                     //atualiza o estado dos posts
                     //se retornar 1+ posts mapeia na tela
-                    if (data!.length > 0) {
-                        setPosts(data!);
-                        //tira o log de erro
-                        setErro(false);
-                        // se não mostra log
-                    } else {
-                        setErro(true);
-                        setLogErro(textos.pub.noposts);
-                        setPosts([]);
+                    if (data) {
+                        if (data.length > 0) {
+                            setPosts(data!);
+                            //tira o log de erro
+                            setErro(false);
+                            // se não mostra log
+                        } else {
+                            setErro(true);
+                            setLogErro(textos.pub.noposts);
+                            setPosts([]);
+                        }
                     }
                 }
 

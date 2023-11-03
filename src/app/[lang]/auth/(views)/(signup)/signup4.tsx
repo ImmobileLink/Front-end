@@ -5,9 +5,9 @@ import InputMask from "react-input-mask";
 import { Signup4 } from "@/app/i18n/dictionaries/types";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Loading from "@/app/[lang]/(components)/(auth)/Loading";
-import { _UFs } from "../../../../../../lib/utils/getRegiao";
+import { _UFs } from "../../../../../../lib/utils/externalApis";
 import { stringify } from 'querystring';
-import { fetchCitiesAPI } from "../../authUtils";
+import { fetchCitiesAPI } from "../../../../../../lib/utils/externalApis";
 
 interface Signup4Props {
     props: {

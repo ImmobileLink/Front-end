@@ -11,9 +11,12 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { v4 as uuidv4 } from "uuid";
 import InputMask from "react-input-mask";
 import { Spinner } from "flowbite-react";
-import { _UFs } from "../../../../../lib/utils/getRegiao";
-{/* @ts-ignore */}
+import { _UFs } from "../../../../../lib/utils/externalApis";
+{/* @ts-ignore */ }
 import Select, { StylesConfig, ValueType } from "react-select";
+import { clientSupabase } from "lib/utils/clientSupabase";
+import { cadastrarImagemAPI, cadastrarImovelAPI } from "../imovelUtils";
+import { getCEP } from "../../../../../lib/utils/externalApis";
 
 interface FormProps {
   props: {
@@ -28,9 +31,8 @@ interface FormProps {
   };
 }
 
-const supabase = createClientComponentClient<Database>();
-
 export default function Form({ props }: FormProps) {
+  const supabase = clientSupabase();
   // Dados
   const [cep, setCep] = useState("");
   const [estado, setEstado] = useState("");
@@ -47,22 +49,18 @@ export default function Form({ props }: FormProps) {
   const [loading, setLoading] = useState(false);
 
   // Tipos de imóvel
-  const [mobilia, setMobilia] = useState<TipoImovel>({id:"", descricao:"", classificacao:""});
-  const [condicao, setCondicao] = useState<TipoImovel>({id:"", descricao:"", classificacao:""});
-  const [type, setType] = useState<TipoImovel>({id:"", descricao:"", classificacao:""});
-  const [selectedOptions, setSelectedOptions] = useState<ValueType<TipoImovel>>({id:"", descricao:"", classificacao:""});
+  const [mobilia, setMobilia] = useState<TipoImovel>({ id: "", descricao: "", classificacao: "" });
+  const [condicao, setCondicao] = useState<TipoImovel>({ id: "", descricao: "", classificacao: "" });
+  const [type, setType] = useState<TipoImovel>({ id: "", descricao: "", classificacao: "" });
+  const [selectedOptions, setSelectedOptions] = useState<ValueType<TipoImovel>>({ id: "", descricao: "", classificacao: "" });
 
   const [disableInput, isDisableInput] = useState(false);
   const [notFound, isNotFound] = useState(false);
 
   const handleCadastrarImagem = async () => {
     // Enviar o arquivo para o Supabase Storage
-    const { data, error } = await supabase.storage
-      .from("imoveis") // Nome do bucket no Supabase
-      .upload(props.userid + "/" + imagemId, img!); // Cria a pasta se ela ainda não existir
-
-    if (error) {
-      console.error("Erro ao fazer upload:", error.message);
+    if (props.userid && img) {
+      await cadastrarImagemAPI(props.userid, imagemId, img, supabase)
     }
   };
 
@@ -81,7 +79,7 @@ export default function Form({ props }: FormProps) {
     if (Array.isArray(selectedOptions) && selectedOptions.length > 0) {
       data = [...data, ...selectedOptions];
     }
-    
+
     let newdata = [...data.map((option) => ({
       id: option.id,
       descricao: option.descricao,
@@ -116,17 +114,14 @@ export default function Form({ props }: FormProps) {
       imagem: imagemId,
       caracteristicas: dados,
     };
-    const { data, error } = await supabase
-      .from("imovel")
-      .insert(imovel)
-      .select();
-    if (!error) {
+    const result = await cadastrarImovelAPI(imovel, supabase)
+    if (result) {
       props.setFormOpen(false);
       setLoading(false);
 
       for (let i = 0; i < dados.length; i++) {
         const imovelTipado: ImovelTipado = {
-          idimovel: data[0].id,
+          idimovel: result[0].id,
           idtipoimovel: dados[i].id,
         };
         const { error } = await supabase
@@ -136,18 +131,6 @@ export default function Form({ props }: FormProps) {
           console.error(error);
         }
       }
-    } else {
-      console.error(error);
-    }
-  };
-
-  const getCEP = async (cep: string) => {
-    try {
-      const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-      const data = await res.json();
-      return data;
-    } catch (error) {
-      return false;
     }
   };
 
@@ -316,7 +299,7 @@ export default function Form({ props }: FormProps) {
                       }
                       value={cep}
                       className={`text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 
-                      ${ (notFound || cep.length !== 8) && "[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"}`}
+                      ${(notFound || cep.length !== 8) && "[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"}`}
                       type="text"
                       placeholder=" "
                       required
@@ -335,7 +318,7 @@ export default function Form({ props }: FormProps) {
                       value={estado}
                       onChange={(e) => setEstado(e.target.value)}
                       className={`text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 uppercase 
-                      ${ !_UFs.includes(`${estado.toUpperCase()}`) && "[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"}`}
+                      ${!_UFs.includes(`${estado.toUpperCase()}`) && "[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"}`}
                       type="text"
                       placeholder=" "
                       required
@@ -590,9 +573,8 @@ export default function Form({ props }: FormProps) {
                 <div className="w-full flex justify-end">
                   <button
                     type="submit"
-                    className={`p-2 mt-2 grow text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs sm:text-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 transition ease-in duration-200 text-center focus:ring-offset-2 group-invalid:pointer-events-none group-invalid:opacity-30 ${
-                      type?.id.length === 0 && "pointer-events-none opacity-30"
-                    }`}
+                    className={`p-2 mt-2 grow text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs sm:text-sm px-10 py-2.5 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 transition ease-in duration-200 text-center focus:ring-offset-2 group-invalid:pointer-events-none group-invalid:opacity-30 ${type?.id.length === 0 && "pointer-events-none opacity-30"
+                      }`}
                   >
                     {loading ? (
                       <>
