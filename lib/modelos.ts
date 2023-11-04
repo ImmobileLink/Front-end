@@ -2,6 +2,11 @@
 //Exporta os tipos do banco de dados ou tipos personalizados para não ser necessário declará-los toda hora nos códigos;
 import { Database, Json } from "./database.types";
 
+export interface Erro {
+    referencia: string;
+    mensagem: string;
+}
+
 //Nativos do Banco de dados
 export type Publicacao = Database['public']['Tables']['publicacao']['Row']
 export type TipoImovel = Database['public']['Tables']['tipoImovel']['Row']

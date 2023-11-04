@@ -6,7 +6,7 @@ import ChatHubCard from "./ChatHubCard";
 import { ChatContext } from "../[[...idsala]]/chatContext";
 import { BiArrowBack } from 'react-icons/bi'
 import FriendList from "./FriendList";
-import { NotificationContext } from "../../(components)/(navbar)/NotificationContext";
+import { NotificationContext } from "../../(components)/(navbar)/notificationContext";
 import { getLastMessages, getUserRooms } from "../[[...idsala]]/chatUtils";
 import { clientSupabase } from "lib/utils/clientSupabase";
 

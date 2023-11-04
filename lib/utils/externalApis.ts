@@ -68,7 +68,7 @@ export async function fetchCitiesAPI(selectedState: string) {
             const citiesData = await response.json();
             return citiesData;
         } catch (error) {
-            console.error('Erro ao buscar municípios:', error);
+            console.error(error);
             return false;
         }
     } else {

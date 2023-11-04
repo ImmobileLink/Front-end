@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 import { Feed } from "@/app/i18n/dictionaries/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
