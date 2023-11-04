@@ -8,7 +8,7 @@ import { useProfileStore } from "../../../../../../../../../lib/store/profileSto
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../../lib/database.types";
 import { useProfileContext } from "../../../context/ProfileContext";
-import { adicionarRegiao, removerRegiao } from "../../../../../../../../../lib/utils/editProfile";
+import { adicionarRegiao, removerRegiao } from "../../../../perfilUtils/EditProfile";
 
 interface EditEspecialidades {
     props: any;

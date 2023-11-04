@@ -1,11 +1,8 @@
-"use client"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../database.types";
+
 import { Dayjs } from "dayjs";
 
-const supabase = createClientComponentClient<Database>({});
 
-async function getDiasVisita(date: Dayjs, id1: string, id2: string | undefined) {
+async function getDiasVisita(date: Dayjs, id1: string, id2: string | undefined, supabase: any) {
 
     if (id2) {
         let { data, error } = await supabase

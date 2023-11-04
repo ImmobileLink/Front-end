@@ -1,10 +1,6 @@
-"use client"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../database.types";
 
-const supabase = createClientComponentClient<Database>({});
 
-async function getAvaliacoes(id: string) {
+async function getAvaliacoes(id: string, supabase: any) {
     let { data, error } = await supabase
         .rpc('obter_avaliacoes', {
             id_cor: id
@@ -13,7 +9,7 @@ async function getAvaliacoes(id: string) {
     return { data, error }
 }
 
-async function getNotaMedia(id: string) {
+async function getNotaMedia(id: string, supabase: any) {
 
     let { data: notaMedia, error: errorNota } = await supabase
         .from('avaliacao')

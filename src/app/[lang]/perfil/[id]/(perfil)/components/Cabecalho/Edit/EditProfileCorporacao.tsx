@@ -8,15 +8,17 @@ import InputMask from "react-input-mask";
 import { Corporacao, Corretor } from "../../../../../../../../../lib/modelos";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../../lib/database.types";
-import { updateCorporacaoProfile } from "../../../../../../../../../lib/utils/editProfile";
+import { updateCorporacaoProfile } from "../../../../perfilUtils/EditProfile";
 import { useRouter } from "next/navigation";
 import EditRegiaoAtuacao from "./EditRegiaoAtuacao";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface EditProfileProps {
     data: Corporacao | null;
 }
 
 export default function EditProfile({ data }: EditProfileProps) {
+    const supabase = clientSupabase()
     const router = useRouter()
 
     const [openModal, setOpenModal] = useState<string | undefined>();
@@ -48,7 +50,7 @@ export default function EditProfile({ data }: EditProfileProps) {
 
     const onSubmit = async (formData: any) => {
         setIsProcessing(true)
-        const { updatedData, error } = await updateCorporacaoProfile(formData, data?.id!)
+        const { updatedData, error } = await updateCorporacaoProfile(formData, data?.id!, supabase)
         if (error) {
             console.error('Erro ao atualizar os dados:', error);
         } else {

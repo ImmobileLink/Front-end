@@ -7,7 +7,7 @@ import { _UFs } from "../../../../../../../../../lib/utils/externalApis";
 import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../../lib/database.types";
-import { adicionarEspecialidade, removerEspecialidade } from "../../../../../../../../../lib/utils/editProfile";
+import { adicionarEspecialidade, removerEspecialidade } from "../../../../perfilUtils/EditProfile";
 import { useProfileContext } from "../../../context/ProfileContext";
 
 interface EditEspecialidades {

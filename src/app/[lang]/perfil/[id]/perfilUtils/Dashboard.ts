@@ -1,10 +1,5 @@
-"use client"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../database.types";
 
-const supabase = createClientComponentClient<Database>({});
-
-async function getDataDashboard1(id: string) {
+async function getDataDashboard1(id: string, supabase: any) {
     let { data: data1 , error } = await supabase
     .rpc('obter_dados_dashboard_1', {
       idcorretor_param: id
@@ -13,7 +8,7 @@ async function getDataDashboard1(id: string) {
     return{data1, error}
 }
 
-async function getDataDashboard2(id: string) {
+async function getDataDashboard2(id: string, supabase: any) {
     let { data: data2 , error } = await supabase
     .rpc('obter_dados_dashboard_2', {
       idcorretor_param: id

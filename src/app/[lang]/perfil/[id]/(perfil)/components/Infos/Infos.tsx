@@ -1,8 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from 'react';
-import { Tabs } from 'flowbite-react';
-import { HiUserCircle, HiDocumentText, HiCalendar } from 'react-icons/hi';
+import React, { useState } from 'react';
 
 import { useProfileStore } from '../../../../../../../../lib/store/profileStore';
 import Calendario from '@/app/[lang]/(components)/Calendario';
@@ -28,8 +26,6 @@ export default function Infos({ isAssociado }: InfosProps) {
 
   const [tab, setTab] = useState<number>(1)
 
-
-
   return (
     <div className='ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-700 drop-shadow-md bg-white rounded-md mt-3 pb-5'>
 
@@ -46,9 +42,11 @@ export default function Infos({ isAssociado }: InfosProps) {
               <a className={`inline-block cursor-pointer p-3 md:p-4 rounded-t-lg border-b-2 ${tab !== 3 ? 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : 'text-blue-600 border-blue-600'}`} onClick={() => setTab(3)}>Saved Posts</a>
             </li>
           )}
-          <li className="mr-2 lg:hidden">
-            <a className={`inline-block cursor-pointer p-3 md:p-4 rounded-t-lg border-b-2 ${tab !== 4 ? 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : 'text-blue-600 border-blue-600'}`} onClick={() => setTab(4)}>Schedule</a>
-          </li>
+          {showCalendar && (
+            <li className="mr-2 lg:hidden">
+              <a className={`inline-block cursor-pointer p-3 md:p-4 rounded-t-lg border-b-2 ${tab !== 4 ? 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : 'text-blue-600 border-blue-600'}`} onClick={() => setTab(4)}>Schedule</a>
+            </li>
+          )}
         </ul>
       </div>
 
@@ -62,14 +60,14 @@ export default function Infos({ isAssociado }: InfosProps) {
         <div className=''>
           <Posts />
         </div>
-        
+
       )}
 
       {tab == 3 && isOwn && (
         <div className=''>
           <PostsSalvos />
         </div>
-        
+
       )}
 
       {tab == 4 && (

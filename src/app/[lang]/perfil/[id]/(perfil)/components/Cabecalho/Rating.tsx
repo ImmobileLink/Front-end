@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react";
 import { Modal, Rating } from 'flowbite-react';
 import RatingSkeleton from "../loading/RatingSkeleton";
-import { getAvaliacoes, getNotaMedia } from "../../../../../../../../lib/utils/RatingProfile";
+import { getAvaliacoes, getNotaMedia } from "../../../perfilUtils/RatingProfile";
 import { useProfileStore } from "../../../../../../../../lib/store/profileStore";
 import { BsPersonCircle } from "react-icons/bs";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 type Avaliacao = {
     id: string;
@@ -15,7 +16,7 @@ type Avaliacao = {
 }
 
 export default function RatingCount() {
-
+    const supabase = clientSupabase()
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const id = useProfileStore.getState().profileData?.id!
@@ -24,8 +25,8 @@ export default function RatingCount() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const { data, error } = await getAvaliacoes(id)
-            const { notaMedia, errorNota } = await getNotaMedia(id)
+            const { data, error } = await getAvaliacoes(id, supabase)
+            const { notaMedia, errorNota } = await getNotaMedia(id, supabase)
             if (!error && !errorNota) {
                 setAvaliacao(data)
                 setNota(notaMedia?.nota)

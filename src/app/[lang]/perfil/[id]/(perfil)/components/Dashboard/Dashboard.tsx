@@ -8,10 +8,11 @@ import Radar from "./charts/Radar";
 import Doughnut from "./charts/Doughnut";
 import Pie from "./charts/Pie";
 import DashboardSkeleton from "../loading/DashboardSkeleton";
-import { getDataDashboard1, getDataDashboard2 } from "../../../../../../../../lib/utils/Dashboard";
+import { getDataDashboard1, getDataDashboard2 } from "../../../perfilUtils/Dashboard";
 import { Dashboard1, Dashboard2 } from "../../../../../../../../lib/modelos";
 import PieMock from "./charts/PieMock";
 import PolarAreaMock from "./charts/PolarAreaMock";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 
 interface DashboardProps {
@@ -20,7 +21,7 @@ interface DashboardProps {
 
 
 export default function Dashboard({ }: DashboardProps) {
-
+  const supabase = clientSupabase()
   const state = useProfileStore.getState()
   const dict = state.dict
   const premium = state.sessionData?.isPremium
@@ -35,8 +36,8 @@ export default function Dashboard({ }: DashboardProps) {
 
   useEffect(() => {
     const fetchData = async () => {
-      let { data1 } = await getDataDashboard1(id)
-      let { data2 } = await getDataDashboard2(id)
+      let { data1 } = await getDataDashboard1(id, supabase)
+      let { data2 } = await getDataDashboard2(id, supabase)
       setData1(data1)
       setData2(data2)
       setIsLoading(false)
