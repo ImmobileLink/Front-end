@@ -79,9 +79,14 @@ export interface MensagemAInserir {
     imagem?: File
 }
 export interface CorretorAssociado {
-    id: string,
-    nome: string,
+    id: string;
+    nome: string | null;
+    estado: string | null;
+    cidade: string | null;
+    tipoImovel: TipoImovelSemClassificacao[];
 }
+
+export type TipoImovelSemClassificacao = Omit<TipoImovel, 'classificacao'>;
 
 export interface InsereVisita {
     dadosmarcador: Json;
@@ -273,3 +278,9 @@ export type Dashboard1 = {
     satisfeito: number;
     muito_satisfeito: number;
   }[] | null
+export interface RoomData {
+    iddestinatario: string | null;
+    nomedestinatario: string | null;
+    avatardestinatario: string | null;
+    mensagens: Mensagem[];
+}

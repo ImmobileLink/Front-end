@@ -14,6 +14,7 @@ import {
 import ImovelCard from "./ImovelCard";
 import Form from "./Form";
 import Skeleton from "./Skeleton";
+import { getPropertiesAPI } from "../imovelUtils";
 
 interface ImoveisProps {
   props: {
@@ -44,15 +45,13 @@ export default function Imoveis({ props }: ImoveisProps) {
   useEffect(() => {
     async function getProperties() {
       if (userid) {
-        const { data, error } = await supabase
-          .from("imovel")
-          .select("*")
-          .eq("idcorporacao", userid);
-        if (error) {
+        const result = await getPropertiesAPI(userid, supabase)
+        if(result) {
+          setProperties(result);
           setLoading(false);
-        } else {
-          setProperties(data);
-          setLoading(false);
+        }
+        else {
+          setLoading(false)
         }
       }
     }

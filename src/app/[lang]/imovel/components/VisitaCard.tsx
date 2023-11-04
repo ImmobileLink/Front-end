@@ -16,6 +16,9 @@ import {
 } from "flowbite-react";
 import ImovelImg from "./ImovelImg";
 import EditForm from "./EditForm";
+import { clientSupabase } from "lib/utils/clientSupabase";
+import { maskPhone } from "lib/utils/formataFone";
+import { insereVisitaAPI } from "../imovelUtils";
 
 interface VisitaCardProps {
   props: {
@@ -28,7 +31,7 @@ interface VisitaCardProps {
   }
 }
 
-const supabase = createClientComponentClient<Database>();
+const supabase = clientSupabase();
 
 export default function VisitaCard({ props }: VisitaCardProps) {
   const [selectedCorretor, setSelectedCorretor] = useState<CorretorAssociado>();
@@ -65,15 +68,6 @@ export default function VisitaCard({ props }: VisitaCardProps) {
     };
   }, [dropdownRef, bttnRef]);
 
-  const maskPhone = (valor: any) => {
-    return valor
-      .replace(/\D/g, "")
-      .replace(/(\d{2})(\d)/, "($1) $2")
-      .replace(/(\d{4})(\d)/, "$1-$2")
-      .replace(/(\d{4})-(\d)(\d{4})/, "$1$2-$3")
-      .replace(/(-\d{4})\d+?$/, "$1");
-  };
-
   const handleChange = (event: any) => {
     const valor = event.target.value;
     const formatPhone = maskPhone(valor);
@@ -81,10 +75,8 @@ export default function VisitaCard({ props }: VisitaCardProps) {
   };
 
   const insertVisita = async (visita: InsereVisita) => {
-    const { error } = await supabase.from("visita").insert(visita);
-    if (error) {
-      console.error(error);
-    } else {
+    const result = await insereVisitaAPI(visita, supabase)
+    if(result) {
       props.setFormOpen(false);
       setLoading(false);
     }

@@ -1,16 +1,6 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { Database } from "../database.types";
 import { userData } from "../modelos";
-import { cache } from "react";
 
-export const createServerSupabaseClient = cache(() => {
-  const cookieStore = cookies()
-  return createServerComponentClient<Database>({ cookies: () => cookieStore })
-})
-
-export async function getTipoUsuario(userData: userData, userId: string): Promise<userData> {
-  const supabase = createServerSupabaseClient();
+export async function getTipoUsuario(userData: userData, userId: string, supabase: any): Promise<userData> {
   let { data, error } = await supabase.rpc("consultar_tipo_usuario", {
     id_usuario: userId,
   });
@@ -27,8 +17,7 @@ export async function getTipoUsuario(userData: userData, userId: string): Promis
   return userData;
 }
 
-export async function getLinks(userData: userData): Promise<userData> {
-  const supabase = createServerSupabaseClient();
+export async function getLinks(userData: userData, supabase: any): Promise<userData> {
   let { data, error } = await supabase.rpc("get_connected_users", {
     id_usuario: userData.id!,
   });
@@ -40,8 +29,7 @@ export async function getLinks(userData: userData): Promise<userData> {
   return userData;
 }
 
-export async function getAssoc(userData: userData): Promise<userData> {
-  const supabase = createServerSupabaseClient();
+export async function getAssoc(userData: userData, supabase: any): Promise<userData> {
   if (userData.type == "corporacao") {
     let { data, error } = await supabase.rpc(
       "obter_corretores_por_corporacao",
@@ -71,8 +59,7 @@ export async function getAssoc(userData: userData): Promise<userData> {
   return userData;
 }
 
-export async function getAreasAtuacao(id: string) {
-  const supabase = createServerSupabaseClient();
+export async function getAreasAtuacao(id: string, supabase: any) {
 
   let { data: usuarioporregiao, error } = await supabase
     .rpc('obter_cidade_estado_por_usuario', {
@@ -82,8 +69,7 @@ export async function getAreasAtuacao(id: string) {
   return { usuarioporregiao }
 }
 
-export async function getEspecialidades(id: string) {
-  const supabase = createServerSupabaseClient();
+export async function getEspecialidades(id: string, supabase: any) {
 
   let { data: especialidades, error } = await supabase
     .rpc('get_tipoimovel_by_idcorretor', {
@@ -93,8 +79,7 @@ export async function getEspecialidades(id: string) {
   return { especialidades }
 }
 
-export async function getHistorico(id: string) {
-  const supabase = createServerSupabaseClient();
+export async function getHistorico(id: string, supabase: any) {;
 
   const { data: historico, error } = await supabase
     .from('historico')
@@ -102,6 +87,26 @@ export async function getHistorico(id: string) {
     .eq('id_corretor', id);
 
   return { historico, error }
+}
+
+export const getUserData = async (supabase: any) => {
+  let user: userData = {
+    links: [],
+    assoc: []
+  };
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (session?.user.id) {
+    user = await getTipoUsuario(user, session.user.id, supabase);
+
+    [user, user] = await Promise.all([
+      getLinks(user, supabase),
+      getAssoc(user, supabase)
+    ]);
+  }
+  return user;
 }
 
 

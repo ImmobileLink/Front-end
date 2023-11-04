@@ -26,7 +26,7 @@ async function getUserData(user: userData) {
   } = await supabase.auth.getSession();
 
   if (session?.user.id) {
-    user = await getTipoUsuario(user, session.user.id);
+    user = await getTipoUsuario(user, session.user.id, supabase);
   }
   return user;
 }

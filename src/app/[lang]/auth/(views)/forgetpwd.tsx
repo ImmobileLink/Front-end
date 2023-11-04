@@ -1,9 +1,9 @@
 "use client";
 
 import { Forgetpassword } from "@/app/i18n/dictionaries/types";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Dispatch, SetStateAction, useState } from "react";
-import { Database } from "../../../../../lib/database.types";
+import { clientSupabase } from "lib/utils/clientSupabase";
+import { verificaEmailDBAPI } from "../authUtils";
 
 interface ForgetPwd {
   setAlert: Dispatch<
@@ -11,7 +11,7 @@ interface ForgetPwd {
   >;
   forgetpassword: Forgetpassword;
 }
-const supabase = createClientComponentClient<Database>()
+const supabase = clientSupabase()
 
 export default function ForgetPwd({ setAlert, forgetpassword }: ForgetPwd) {
 
@@ -19,13 +19,8 @@ export default function ForgetPwd({ setAlert, forgetpassword }: ForgetPwd) {
   const [existeUsuario, setExisteUsuario] = useState(false);
 
   const verificaEmailDB = async () => {
-    let { data, error } = await supabase
-      .from("usuario")
-      .select("email")
-      .eq("email", email)
-      .limit(1);
-
-    setExisteUsuario(data?.length ? true : false);
+    const result = await verificaEmailDBAPI(email, supabase)
+    setExisteUsuario(result)
   };
 
   const validaForm = () => {

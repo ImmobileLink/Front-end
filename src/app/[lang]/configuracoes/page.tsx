@@ -5,6 +5,8 @@ import CardConfig from "./components/CardConfig";
 import { cookies } from "next/headers";
 import { getDictionary } from "../dictionaries";
 import { getProfileFullData } from "../../../../lib/utils/userProfile";
+import { getSessionAPI, getUserTypeAPI } from "./configUtils";
+import { serverSupabase } from "lib/utils/serverSupabase";
 
 
 interface pageProps {
@@ -13,24 +15,12 @@ interface pageProps {
   };
 }
 
-export const createServerSupabaseClient = cache(() => {
-  const cookieStore = cookies()
-  return createServerComponentClient<Database>({ cookies: () => cookieStore })
-})
-
 
 export default async function page({ params: { lang } }: pageProps) {
-  const dict = await getDictionary(lang); // pt
-  const supabase = createServerSupabaseClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-
-  const { data, error } = await supabase
-    .rpc('consultar_tipo_usuario', {
-      id_usuario: session?.user.id!
-    })
+  // const dict = await getDictionary(lang); // pt
+  const supabase = await serverSupabase()
+  const session = await getSessionAPI(supabase)
+  const data = await getUserTypeAPI(session, supabase)
 
   const email = session?.user.email
   const profileFullData = session?.user.id && await getProfileFullData(data![0].role, session?.user.id!)
@@ -38,7 +28,6 @@ export default async function page({ params: { lang } }: pageProps) {
 
   return (
     <>
-
       {session?.user.id ? (
         <div className=" flex items-center justify-center w-auto min-w-full h-[calc(100vh-72px)] bg-branco dark:bg-dark-200">
           <div className="w-full max-w-md p-4 m-5 bg-white dark:bg-gray-700 shadow-md rounded-md">
@@ -53,7 +42,6 @@ export default async function page({ params: { lang } }: pageProps) {
       ) : (
         <p>Faça login</p>
       )}
-
     </>
   );
 }

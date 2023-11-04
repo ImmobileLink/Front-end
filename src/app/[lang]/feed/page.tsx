@@ -11,7 +11,8 @@ import type { Database } from "../../../../lib/database.types";
 import { userData } from "../../../../lib/modelos";
 import { getDictionary } from "../dictionaries";
 import FeedPrincipal from "./components/FeedPrincipal";
-import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/utils/userData";
+import { getAssoc, getLinks, getTipoUsuario, getUserData } from "../../../../lib/utils/userData";
+import { serverSupabase } from "lib/utils/serverSupabase";
 
 interface pageProps {
   params: {
@@ -19,42 +20,12 @@ interface pageProps {
   };
 }
 
-const createServerSupabaseClient = cache(() => {
-  const cookieStore = cookies()
-  return createServerComponentClient<Database>({ cookies: () => cookieStore })
-})
-
-async function getUserData(user: userData) {
-  const supabase = createServerSupabaseClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (session?.user.id) {
-    user = await getTipoUsuario(user, session.user.id);
-
-    [user, user] = await Promise.all([
-      getLinks(user),
-      getAssoc(user)
-    ]);
-  }
-
-  return user;
-}
 
 export default async function page({ params: { lang } }: pageProps) {
-  let user: userData = {
-    id: undefined,
-    avatar: undefined,
-    isPremium: undefined,
-    nome: undefined,
-    type: undefined,
-    links: [],
-    assoc: []
-  }
+  const supabase = await serverSupabase()
   
   const dict = await getDictionary(lang); // pt
-  const userData = await getUserData(user);
+  const userData = await getUserData(supabase);
 
   return (
     <div className="flex justify-center gap-5 mt-4">

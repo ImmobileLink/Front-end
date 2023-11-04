@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { BsFillExclamationCircleFill, BsFillImageFill } from "react-icons/bs";
 import { City } from "../../../../../lib/modelos";
 import { publishPost } from "../../../../../lib/utils/Posts";
-import { _UFs } from "../../../../../lib/utils/getRegiao";
+import { _UFs } from "../../../../../lib/utils/externalApis";
 import Avatar from "../../(components)/Avatar";
 import ImageUpload from "./ImageUpload";
 import toast from "react-hot-toast";

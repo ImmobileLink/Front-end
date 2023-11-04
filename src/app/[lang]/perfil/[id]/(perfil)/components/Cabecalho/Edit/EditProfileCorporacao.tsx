@@ -8,7 +8,7 @@ import InputMask from "react-input-mask";
 import { Corporacao, Corretor } from "../../../../../../../../../lib/modelos";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../../lib/database.types";
-import { updateCorporacaoProfile } from "../../../../../../../../../lib/utils/EditProfile";
+import { updateCorporacaoProfile } from "../../../../../../../../../lib/utils/editProfile";
 import { useRouter } from "next/navigation";
 import EditRegiaoAtuacao from "./EditRegiaoAtuacao";
 

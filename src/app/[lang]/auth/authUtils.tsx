@@ -1,4 +1,13 @@
-function hasStrongPassword(object: string) {
+import { getCEP } from "../../../../lib/utils/externalApis";
+
+export async function getData(supabase: any) {
+    
+    let { data: tipoImovel } = await supabase
+        .from("tipoImovel")
+        .select("id,descricao");
+
+    return { tipoImovel };
+} function hasStrongPassword(object: string) {
     const password = object;
     const minLength = 6;
     const hasUppercase = /[A-Z]/.test(password);
@@ -6,13 +15,11 @@ function hasStrongPassword(object: string) {
     const hasNumber = /[0-9]/.test(password);
     const hasSpecialChar = /[!@#$%^&*()\-=_+[\]{}|\\;:'",.<>/?]/.test(password);
 
-    if (
-        password.length >= minLength &&
+    if (password.length >= minLength &&
         hasUppercase &&
         hasLowercase &&
         hasNumber &&
-        hasSpecialChar
-    ) {
+        hasSpecialChar) {
         return true;
     } else {
         return false;
@@ -41,17 +48,17 @@ export const verifyFields = async (
     logradouro: string,
     numero: number | null,
     bairro: string,
-    cep: string
+    cep: string,
 ) => {
-    const erros: { [k: string]: any } = {};
+    const erros: { [k: string]: any; } = {};
 
     switch (telaAtual) {
         case 1:
             // verifica senha
-            if(confirmSenha.trim() == ""){
+            if (confirmSenha.trim() == "") {
                 assignError(erros, "confirmSenha", signup.signup1.logs.invalidconfirmpassword);
             } else {
-                if(senha != confirmSenha){
+                if (senha != confirmSenha) {
                     assignError(erros, "confirmSenha", signup.signup1.logs.invaliddifferentpasswords);
                 }
             }
@@ -208,7 +215,7 @@ export const verifyFields = async (
             break;
         case 4:
             if (tipoPerfil == 1) {
-                if (creci.length != 7) {
+                if (creci.length >= 7 || creci.length < 5) {
                     assignError(
                         erros,
                         "creci",
@@ -245,24 +252,14 @@ export const verifyFields = async (
 };
 
 export const assignError = (
-    erros: { [k: string]: any },
+    erros: { [k: string]: any; },
     campo: string,
-    mensagem: string
+    mensagem: string,
 ) => {
     if (erros?.[campo]?.length > 0) {
-        erros[campo].push(mensagem)
+        erros[campo].push(mensagem);
     } else {
-        erros[campo] = [mensagem]
-    }
-};
-
-export const getCEP = async (cep: string) => {
-    try {
-        const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-        const data = await res.json();
-        return data;
-    } catch (error) {
-        return false;
+        erros[campo] = [mensagem];
     }
 };
 
@@ -287,20 +284,21 @@ export const handleSignUpDB = async (
     cidade: string,
     bairro: string,
     premium: boolean,
-    especialidade: { id: any; descricao: any }[],
-    regiaoAtuacao: { estado: string; cidade: string; }[]
+    especialidade: { id: any; descricao: any; }[],
+    regiaoAtuacao: { estado: string; cidade: string; }[],
+    locationOrigin: string
 ) => {
 
     let { data, error } = await supabase.auth.signUp({
         email: email,
         password: senha,
         options: {
-            emailRedirectTo: `${location.origin}/auth`,
+            emailRedirectTo: `${locationOrigin}/auth`,
         },
     });
 
     if (!error) {
-        const userId = data.user?.id!;
+        const userId = (data.user?.id)!;
 
         if (tipoPerfil == 1) {
             let { error } = await supabase.from("corretor").insert([
@@ -378,3 +376,45 @@ export const handleSignUpDB = async (
         return false;
     }
 };
+
+export const verificaEmailDBAPI = async (email: string, supabase: any) => {
+    let { data, error } = await supabase
+        .from("usuario")
+        .select("email")
+        .eq("email", email)
+        .limit(1);
+    if (error) {
+        return false
+    }
+    if (data?.length) {
+        return true
+    }
+    else {
+        return false
+    }
+};
+
+export const handleLoginAPI = async (email: string, senha: string, supabase: any) => {
+    let { error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: senha,
+    });
+
+    if (error) {
+        return false
+    } else {
+        return true
+    }
+};
+
+export const restorePasswordAPI = async (senha: string, supabase: any) => {
+    const {error} = await supabase.auth.updateUser({senha})
+    if(error) {
+        console.log(error)
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
