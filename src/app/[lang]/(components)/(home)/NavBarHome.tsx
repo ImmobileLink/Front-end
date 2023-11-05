@@ -47,7 +47,7 @@ export default function NavBarHome({ lang, isUserLoggedIn }: NavBarHomeProps) {
                             </a>
                             <Link
                                 className="font-semibold px-4 py-2 mx-2"
-                                href="/plano"
+                                href=""
                             >
                                 {lang.premium}
                             </Link>
@@ -56,7 +56,7 @@ export default function NavBarHome({ lang, isUserLoggedIn }: NavBarHomeProps) {
                     <div className="flex justify-end">
                         <Link
                             href={isUserLoggedIn ? "/feed" : "auth"}
-                            className="hidden md:flex justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
+                            className="hidden lg:flex justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
                         >
                             <Loading loading={loading} />
                             {lang.access}
