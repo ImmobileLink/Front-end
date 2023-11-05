@@ -7,7 +7,7 @@ import CardRoot from "../../(components)/(compositions)/(card)/CardRoot";
 import { Database } from "../../../../../lib/database.types";
 import { getDictionary } from "../../dictionaries";
 import SurveyForm from "./(survey)/components/SurveyForm";
-import { formataDataSemHora } from "../../../../../lib/utils/clientSupabase";
+import { formataDataSemHora } from "lib/utils/formataData";
 
 interface PageProps {
     params: {
