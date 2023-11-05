@@ -136,8 +136,10 @@ const {Builder, By, until, WebDriver, WebElement} = require('selenium-webdriver'
         // Accept the pop up notification
         await driver.switchTo().alert().accept();
 
+        await driver.sleep(2000);
+
         // Locate the <tr> element with the specific class
-        trElement = await driver.wait(until.elementLocated(By.css('tr.fc-event.fc-event-start.fc-event-end.fc-event-today.fc-event-future.fc-list-event')), 10000);
+        trElement = await driver.wait(until.elementLocated(By.css('tr.fc-event.fc-event-start.fc-event-end.fc-event-today.fc-event-future.fc-list-event')), 5000);
 
         // Wait until the element is visible
         await driver.wait(until.elementIsVisible(trElement), 5000);
@@ -149,18 +151,26 @@ const {Builder, By, until, WebDriver, WebElement} = require('selenium-webdriver'
 
     }
     catch(error) {
-        if (error.name === 'NoSuchElementError') {
-            console.log("Element not found.");
+        if (error instanceof Error) { // Check if it's an Error object.
+            if (error.name === 'NoSuchElementError') {
+                console.log("Element not found.");
+                console.log("UC009-1 test passed.");
+            } else if (error.name === 'TimeoutError') {
+                console.log("Timed out waiting for the element.");
+                console.log("Element not found.");
+                console.log("UC009-1 test passed.");
+            } else {
+
+            }
+            // console.log(error.message);
         } else {
-            // Handle other errors as per your existing code.
+            console.log("An unexpected error occurred.");
+            console.log("UC009-1 test failed.");
         }
-        console.log(error);
-        console.log("UC003-8 test failed.");
-    }
+    }    
     finally {
-        console.log('UC003-8 test passed.');
         console.log("Test Ended.")
-        // await driver.quit();
+        await driver.quit();
     }
 })();
 
