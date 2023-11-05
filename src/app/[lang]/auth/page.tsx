@@ -35,7 +35,7 @@ export default async function page({ params: { lang } }: PageProps) {
 
     return (
         <>
-            <div className="flex w-screen h-screen bg-branco dark:bg-dark-200 overflow-x-hidden">
+            <div className="flex w-screen h-screen select-none bg-branco dark:bg-dark-200 overflow-x-hidden">
                 <div className="flex md:w-2/3 h-fit flex-col m-auto justify-center px-6 py-12 lg:px-8">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                         <ImmobileLogo />
