@@ -290,3 +290,17 @@ export type Dashboard1 = {
     satisfeito: number;
     muito_satisfeito: number;
   }[] | null
+
+  export interface FormDataProps {
+    campo1: number | null,
+    campo2: number | null,
+    campo3: number | null,
+    campo4: number | null,
+    campo5: number | null,
+    campo6: number | null,
+    campo7: number | null,
+    campo8: number | null,
+    campo9: number | null,
+    campo10: string,
+  }
+  

@@ -9,7 +9,9 @@ interface RadioSelectorProps {
         lang: Survey;
         pergunta: string;
         optional: boolean;
-        inputName: string
+        inputName: string,
+        leftLabel?: string;
+        rightLabel?: string;
     };
     onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
@@ -26,12 +28,12 @@ export default function RadioSelector({
                     <input
                         className="w-8 h-8"
                         type="radio"
-                        id={`op` + i}
+                        id={inputName + `op` + i}
                         value={i}
                         name={inputName}
                         onChange={onChange}
                     />
-                    <label className="ml-[35%]" htmlFor={`op` + i}>
+                    <label className="ml-[35%]" htmlFor={inputName + `op` + i}>
                         {i}
                     </label>
                 </div>
