@@ -30,7 +30,7 @@ export default async function ReportForm({ params: { id, lang } }: pageProps) {
     let { data } = await supabase.rpc("get_publicacoes").eq("id", id);
 
     return (
-        <div className="w-full h-fit min-h-screen bg-branco dark:bg-dark-200">
+        <div className="w-full h-fit min-h-screen bg-branco dark:bg-dark-200 select-none">
             <nav className="w-full sticky top-0 z-50 bg-white dark:bg-gray-900 h-[72px] max-h-[72px]">
                 <div className="max-w-2xl md:max-w-3xl lg:max-w-6xl flex flex-wrap items-center justify-center mx-auto px-2 py-4 md:pt-3 md:pb-3 max-h-[72px]">
                     <div className="flex items-center">

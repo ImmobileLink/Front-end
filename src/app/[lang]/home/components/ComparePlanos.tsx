@@ -11,7 +11,7 @@ export default function ComparePlanos({ sub }: ComparePlanosProps) {
         <>
             <div
                 id="premium-resources"
-                className="flex flex-col px-12 md:text-left text-center py-8"
+                className="flex flex-col px-12 md:text-left text-center py-8 select-none"
             >
                 <div className="hidden lg:flex justify-around">
                     <div>

@@ -40,7 +40,7 @@ export default async function page({ params: { lang } }: pageProps) {
     <>
 
       {session?.user.id ? (
-        <div className=" flex items-center justify-center w-auto min-w-full h-[calc(100vh-72px)] bg-branco dark:bg-dark-200">
+        <div className=" flex select-none items-center justify-center w-auto min-w-full h-[calc(100vh-72px)] bg-branco dark:bg-dark-200">
           <div className="w-full max-w-md p-4 m-5 bg-white dark:bg-gray-700 shadow-md rounded-md">
             <h2 className="text-2xl text-center mb-4">Alterar Dados</h2>
             <div className="flex flex-col max-w gap-2">

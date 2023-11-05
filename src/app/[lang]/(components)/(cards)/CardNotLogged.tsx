@@ -8,7 +8,7 @@ interface CardNotLoggedProps {
 export default async function CardNotLogged({ cards }: CardNotLoggedProps ) {
   return (
     <>
-       <div className="flex flex-col align-middle my-4">
+       <div className="flex flex-col align-middle my-4 select-none">
           <span className="text-2xl text-black dark:text-white text-center tracking-tighter mb-4">
             {cards.yourenotlogged}
           </span>

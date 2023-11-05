@@ -3,7 +3,8 @@
 import { Home } from "@/app/i18n/dictionaries/types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Loading from "../../(components)/(auth)/Loading"
 
 interface BannerProps {
     lang: Home;
@@ -11,6 +12,7 @@ interface BannerProps {
 }
 
 export default function Banner({ lang, isUserLoggedIn }: BannerProps) {
+    const [loading, isLoading] = useState(false);
     const router = useRouter();
     useEffect(() => {
         if (isUserLoggedIn) {
@@ -18,7 +20,7 @@ export default function Banner({ lang, isUserLoggedIn }: BannerProps) {
         }
     }, []);
     return (
-        <div className="h-screen bg-gradient-to-b from-white to-transparent dark:from-gray-900 dark:to-black/25 flex flex-col items-center text-center justify-center">
+        <div className="h-screen select-none bg-gradient-to-b from-white to-transparent dark:from-gray-900 dark:to-black/25 flex flex-col items-center text-center justify-center">
             <a className="font-semibold text-5xl px-8 md:text-7xl md:font-normal">
                 {lang.conecting}
             </a>
@@ -30,8 +32,12 @@ export default function Banner({ lang, isUserLoggedIn }: BannerProps) {
             </p>
             <Link
                 href={isUserLoggedIn ? "/feed" : "auth"}
+                onClick={() =>{
+                    isLoading(true);
+                }}
                 className="flex w-fit justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
             >
+                <Loading loading={loading} />
                 {lang.access}
             </Link>
         </div>

@@ -13,7 +13,7 @@ interface CardProfileProps {
 export default function CardProfile({ userData, cards }: CardProfileProps) {
   return (
     <>
-      <div className="w-full h-full flex flex-col justify-between align-middle">
+      <div className="w-full h-full flex flex-col justify-between align-middle select-none">
         <div>
           <div className="flex justify-center">
             <Avatar
