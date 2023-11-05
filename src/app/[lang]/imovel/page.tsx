@@ -94,7 +94,7 @@ export default async function page({ params: { lang } }: pageProps) {
 
   return (
     <>
-      <div className="w-full h-fit min-h-screen bg-branco dark:bg-dark-200 flex justify-center">
+      <div className="w-full h-fit select-none min-h-screen bg-branco dark:bg-dark-200 flex justify-center">
         {userData.type == "corporacao" && (
         <div className="flex justify-center w-11/12 max-w-6xl pt-5">
           <Imoveis props={{ userData, textos, count, tipos, outros, mobilias, condicoes, corretor }} />
