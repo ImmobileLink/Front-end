@@ -4,11 +4,14 @@ import Alert from "@/app/[lang]/(components)/Alert";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import { useState } from "react";
+import { Auth } from "@/app/i18n/dictionaries/types";
 
-interface RecoveryFormProps {}
+interface RecoveryFormProps {
+  dict: Auth;
+}
 const supabase = createClientComponentClient<Database>()
 
-export default function RecoveryForm({}: RecoveryFormProps) {
+export default function RecoveryForm({dict}: RecoveryFormProps) {
   const [senha, setSenha] = useState("");
   const [alert, setAlert] = useState({ type: "", title: "", message: "" });
 
@@ -20,15 +23,15 @@ export default function RecoveryForm({}: RecoveryFormProps) {
     if (!error) {
       setAlert({
         type: "success",
-        title: "Pronto!",
-        message: "Sua senha foi alterada.",
+        title: dict.recovery.success,
+        message: dict.recovery.logs.passwordchanged,
       });
     } else {
       setAlert({
         type: "danger",
-        title: "Erro!",
+        title: dict.recovery.error,
         message:
-          "Não foi possível alterar a senha, tente novamente mais tarde.",
+          dict.recovery.logs.passwordnotchanged,
       });
     }
   };
