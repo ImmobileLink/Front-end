@@ -6,6 +6,7 @@ async function getAvaliacoes(id: string, supabase: any) {
             id_cor: id
         })
 
+
     return { data, error }
 }
 

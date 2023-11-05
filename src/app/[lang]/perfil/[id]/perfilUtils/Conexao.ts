@@ -41,9 +41,6 @@ async function getIdConexao(uuid1: string, uuid2: string, supabase: any) {
             uuid2
         })
 
-    if (error) console.error(error)
-    else console.log(data)
-
     return { data, error}
 }
 

@@ -19,6 +19,7 @@ async function getEstadoBtnAssoc(idCorretor:string, idCorporacao:string, supabas
     .select('*')
     .eq('idcorporacao', idCorporacao)
     .eq('idcorretor', idCorretor)
+    
 
     return {data, error}
 }

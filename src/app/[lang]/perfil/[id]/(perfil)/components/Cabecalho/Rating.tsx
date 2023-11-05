@@ -27,6 +27,7 @@ export default function RatingCount() {
         const fetchData = async () => {
             const { data, error } = await getAvaliacoes(id, supabase)
             const { notaMedia, errorNota } = await getNotaMedia(id, supabase)
+            console.log(notaMedia)
             if (!error && !errorNota) {
                 setAvaliacao(data)
                 setNota(notaMedia?.nota)
@@ -56,7 +57,7 @@ export default function RatingCount() {
                 <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white">{avaliacao ? (avaliacao.length > 0 ? nota : 'N/A') : 'N/A'}
                 </p>
                 <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
-                <a href="#" onClick={() => handleClick} className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">{avaliacao ? (`${avaliacao.length} avaliações`) : ('Sem avaliações')}</a>
+                <a href="#" onClick={handleClick} className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">{avaliacao ? (`${avaliacao.length} avaliações`) : ('Sem avaliações')}</a>
             </div>
 
             <Modal show={props.openModal === 'default'} onClose={() => props.setOpenModal(undefined)}>

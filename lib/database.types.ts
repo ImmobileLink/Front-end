@@ -52,17 +52,17 @@ export interface Database {
         Row: {
           criadoem: string
           id: string
-          nota: number
+          nota: number | null
         }
         Insert: {
           criadoem?: string
           id: string
-          nota: number
+          nota?: number | null
         }
         Update: {
           criadoem?: string
           id?: string
-          nota?: number
+          nota?: number | null
         }
         Relationships: [
           {
@@ -1430,6 +1430,25 @@ export interface Database {
           neutro: number
           satisfeito: number
           muito_satisfeito: number
+        }[]
+      }
+      obter_dados_dashboard_3: {
+        Args: {
+          idcorretor_param: string
+        }
+        Returns: {
+          id: string
+          indeciso: number
+          intencao: number
+          sem_interesse: number
+        }[]
+      }
+      obter_dados_dashboard_4: {
+        Args: {
+          idcorretor_param: string
+        }
+        Returns: {
+          descricao: Json[]
         }[]
       }
       obter_dados_survey: {

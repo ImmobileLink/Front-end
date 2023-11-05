@@ -1,13 +1,12 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from '@/../../lib/database.types';
 import { getEstadoBtnAssoc, desassociarPerfis, sendConvite, cancelaConvite, aceitarConvite } from '../../../../perfilUtils/Associacao'
 import { Spinner } from "flowbite-react";
 import { Button, Modal } from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { useProfileStore } from '../../../../../../../../../lib/store/profileStore';
+import { clientSupabase } from 'lib/utils/clientSupabase';
 
 interface botaoAddProps {
   
@@ -16,7 +15,7 @@ interface botaoAddProps {
 
 
 export default function BotaoAssocia({  }: botaoAddProps) {
-  const supabase = createClientComponentClient<Database>({});
+  const supabase = clientSupabase()
 
   const state = useProfileStore.getState()
 
@@ -83,7 +82,7 @@ export default function BotaoAssocia({  }: botaoAddProps) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await getEstadoBtnAssoc(id.corretor, id.corporacao)
+      const { data } = await getEstadoBtnAssoc(id.corretor, id.corporacao, supabase)
 
       if (data!.length > 0) {
         if (data![0].pendente) {
@@ -105,7 +104,7 @@ export default function BotaoAssocia({  }: botaoAddProps) {
   const desassocia = async () => {
     setEstado("Associar")
 
-    const { data, error } = await desassociarPerfis(id.corretor, id.corporacao)
+    const { data, error } = await desassociarPerfis(id.corretor, id.corporacao, supabase)
 
     if (error) {
       setEstado("Associado")
@@ -120,7 +119,7 @@ export default function BotaoAssocia({  }: botaoAddProps) {
     if (estado == "Associar") {
       setEstado("Pendente")
 
-      const { data, error } = await sendConvite(id.corretor, id.corporacao, idSession)
+      const { data, error } = await sendConvite(id.corretor, id.corporacao, idSession, supabase)
       if (error) {
         setEstado("Associar")
       }
@@ -128,7 +127,7 @@ export default function BotaoAssocia({  }: botaoAddProps) {
     } else if (estado === "Pendente") {
       setEstado("Associar")
 
-      const { data, error } = await cancelaConvite(id.corretor, id.corporacao)
+      const { data, error } = await cancelaConvite(id.corretor, id.corporacao, supabase)
 
       if (error) {
         setEstado("Pendente")
@@ -139,7 +138,7 @@ export default function BotaoAssocia({  }: botaoAddProps) {
 
     } else if (estado === "Aceitar") {
       setEstado("Associado")
-      const { data, error } = await aceitarConvite(id.corretor, id.corporacao)
+      const { data, error } = await aceitarConvite(id.corretor, id.corporacao, supabase)
 
       if (error) {
         setEstado("Aceitar")

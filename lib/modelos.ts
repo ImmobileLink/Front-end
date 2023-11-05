@@ -44,9 +44,9 @@ export interface InsereImovel {
     valor: number,
     imagem: string,
     caracteristicas: {
-      id: string;
-      descricao: string;
-  }[]
+        id: string;
+        descricao: string;
+    }[]
 }
 export interface AtualizaImovel {
     descricao: string,
@@ -268,16 +268,28 @@ export type Dashboard1 = {
     transparencia: number;
     detalhista: number;
     clareza: number;
-  }[] | null
-  
-  export type Dashboard2 = {
+}[] | null
+
+export type Dashboard2 = {
     id: string;
     muito_insatisfeito: number;
     insatisfeito: number;
     neutro: number;
     satisfeito: number;
     muito_satisfeito: number;
-  }[] | null
+}[] | null
+
+export type Dashboard3 = {
+    id: string;
+    indeciso: number;
+    intencao: number;
+    sem_interesse: number;
+}[] | null
+
+export type Dashboard4 = {
+    descricao: Json[];
+}[] | null
+
 export interface RoomData {
     iddestinatario: string | null;
     nomedestinatario: string | null;

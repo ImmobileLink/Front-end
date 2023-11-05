@@ -6,6 +6,7 @@ import { useProfileStore } from '../../../../../../../../../../lib/store/profile
 import { insertHistorico, updateHistorico } from '../../../../../perfilUtils/Historico';
 import { useProfileContext } from '../../../../context/ProfileContext';
 import { v4 as uuidv4 } from 'uuid';
+import { clientSupabase } from 'lib/utils/clientSupabase';
 
 interface HistoricoPopupProps {
     props: any;
@@ -14,6 +15,7 @@ interface HistoricoPopupProps {
 
 
 export default function HistoricoPopup({ props }: HistoricoPopupProps) {
+    const supabase = clientSupabase()
 
     const state = useProfileStore.getState()
 
@@ -78,7 +80,7 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
                 }
             ];
 
-            const { error } = props.idEditHistorico ? await updateHistorico(hist) : await insertHistorico(hist)
+            const { error } = props.idEditHistorico ? await updateHistorico(hist, supabase) : await insertHistorico(hist, supabase)
 
             if (error) {
                 console.error(error);
