@@ -214,7 +214,7 @@ const {Builder, By, until, WebDriver, WebElement} = require('selenium-webdriver'
 
     } finally {
         console.log("Test Ended.")
-        //await driver.quit();
+        await driver.quit();
     }
 })();
 
