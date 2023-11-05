@@ -4,21 +4,14 @@ import { Planos } from "@/app/i18n/dictionaries/types";
 import { BsCheckCircle, BsXCircle } from "react-icons/bs";
 
 interface PlanoCardMobileProps {
-    dict: Planos;
-    role: string;
     sub: Planos;
-    id?: string;
-    premium: boolean;
+    role: string;
 }
 
 export default function PlanoCardMobile({
-    dict,
-    role,
     sub,
-    id,
-    premium,
+    role,
 }: PlanoCardMobileProps) {
-
     return (
         <>
             <div>
@@ -33,7 +26,7 @@ export default function PlanoCardMobile({
                             </h5>
                             <div className="flex items-baseline text-gray-900 dark:text-white">
                                 <span className="text-5xl font-semibold text-blue-700">
-                                    {dict.freetier}
+                                    {sub.freetier}
                                 </span>
                                 {/* <span className="ml-1 text-xl font-normal text-gray-500 dark:text-gray-400">
                         /month
@@ -43,43 +36,43 @@ export default function PlanoCardMobile({
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.feedbackreview}
+                                        {sub.feedbackreview}
+                                    </span>
+                                </li>
+                                <li className="flex space-x-3 items-center">
+                                    <BsCheckCircle className="text-green-500" />
+                                    <span className="text-base text-left font-normal leading-tight text-gray-500 dark:text-gray-400">
+                                        {sub.feed}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.feed}
+                                        {sub.companyafiliation}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.companyafiliation}
-                                    </span>
-                                </li>
-                                <li className="flex space-x-3 items-center">
-                                    <BsCheckCircle className="text-green-500" />
-                                    <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.chat}
+                                        {sub.chat}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsXCircle className="text-red-500" />
                                     <span className="line-through text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.dashboard}
+                                        {sub.dashboard}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsXCircle className="text-red-500" />
                                     <span className="line-through text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.visibility}
+                                        {sub.visibility}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsXCircle className="text-red-500" />
                                     <span className="line-through text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.exclusivefunctions}
+                                        {sub.exclusivefunctions}
                                     </span>
                                 </li>
                             </ul>
@@ -107,7 +100,7 @@ export default function PlanoCardMobile({
                             </h5>
                             <div className="flex items-baseline text-gray-900 dark:text-white">
                                 <span className="text-5xl font-semibold text-blue-700">
-                                    {dict.freetier}
+                                    {sub.freetier}
                                 </span>
                                 <span className="ml-1 text-xl font-normal text-gray-500 dark:text-gray-400">
                                     <a className="line-through">
@@ -119,43 +112,43 @@ export default function PlanoCardMobile({
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.feedbackreview}
+                                        {sub.feedbackreview}
+                                    </span>
+                                </li>
+                                <li className="flex space-x-3 items-center">
+                                    <BsCheckCircle className="text-green-500" />
+                                    <span className="text-base text-left font-normal leading-tight text-gray-500 dark:text-gray-400">
+                                        {sub.feed}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.feed}
+                                        {sub.companyafiliation}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.companyafiliation}
+                                        {sub.chat}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.chat}
+                                        {sub.dashboard}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.dashboard}
+                                        {sub.visibility}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.visibility}
-                                    </span>
-                                </li>
-                                <li className="flex space-x-3 items-center">
-                                    <BsCheckCircle className="text-green-500" />
-                                    <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.exclusivefunctions}
+                                        {sub.exclusivefunctions}
                                     </span>
                                 </li>
                             </ul>
@@ -185,7 +178,7 @@ export default function PlanoCardMobile({
                             </h5>
                             <div className="flex items-baseline text-gray-900 dark:text-white">
                                 <span className="text-5xl font-semibold text-blue-700">
-                                    {dict.freetier}
+                                    {sub.freetier}
                                 </span>
                                 
                             </div>
@@ -193,55 +186,55 @@ export default function PlanoCardMobile({
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.feedbackreview}
+                                        {sub.feedbackreview}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.feed}
+                                        {sub.feed}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.chat}
+                                        {sub.chat}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.searchfilters}
+                                        {sub.searchfilters}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.oportunitiesposting}
+                                        {sub.oportunitiesposting}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.linktotenbrokers}
+                                        {sub.linktotenbrokers}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                 <BsXCircle className="text-red-500" />
                                     <span className="line-through text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.illimitedlinks}
+                                        {sub.illimitedlinks}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                 <BsXCircle className="text-red-500" />
                                     <span className="line-through text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.visibility}
+                                        {sub.visibility}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                 <BsXCircle className="text-red-500" />
                                     <span className="line-through text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.exclusivefunctions}
+                                        {sub.exclusivefunctions}
                                     </span>
                                 </li>
                             </ul>
@@ -270,7 +263,7 @@ export default function PlanoCardMobile({
                             </h5>
                             <div className="flex items-baseline text-gray-900 dark:text-white">
                                 <span className="text-5xl font-semibold text-blue-700">
-                                    {dict.freetier}
+                                    {sub.freetier}
                                 </span>
                                 <span className="ml-1 text-xl font-normal text-gray-500 dark:text-gray-400">
                                     <a className="line-through">
@@ -282,55 +275,55 @@ export default function PlanoCardMobile({
                             <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.feedbackreview}
+                                        {sub.feedbackreview}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.feed}
+                                        {sub.feed}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.chat}
+                                        {sub.chat}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.searchfilters}
+                                        {sub.searchfilters}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.oportunitiesposting}
+                                        {sub.oportunitiesposting}
                                     </span>
                                 </li>
                                 {/* <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.linktotenbrokers}
+                                        {sub.linktotenbrokers}
                                     </span>
                                 </li> */}
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.illimitedlinks}
+                                        {sub.illimitedlinks}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.visibility}
+                                        {sub.visibility}
                                     </span>
                                 </li>
                                 <li className="flex space-x-3 items-center">
                                     <BsCheckCircle className="text-green-500" />
                                     <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                                        {dict.exclusivefunctions}
+                                        {sub.exclusivefunctions}
                                     </span>
                                 </li>
                                 
