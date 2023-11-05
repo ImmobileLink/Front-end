@@ -9,7 +9,7 @@ interface Card3Props {
 
 export default function Card3({ lang }: Card3Props) {
     return (
-        <div className="bg-white dark:bg-gray-900 text-center items-center py-12 md:px-12">
+        <div className="bg-white dark:bg-gray-900 text-center items-center py-16 md:px-12">
             <div className="md:flex md:flex-col md:text-left">
                 <div>
                     <p
@@ -68,14 +68,7 @@ export default function Card3({ lang }: Card3Props) {
                         </div>
                     </div>
                 </div>
-                <div className="flex w-full justify-center py-8 md:py-0 md:justify-end md:px-16">
-                    <a
-                        href="/auth"
-                        className="md:mt-6 md:mb-12 flex w-fit justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200 md:text-xs"
-                    >
-                        {lang.tryPremium}
-                    </a>
-                </div>
+                
             </div>
         </div>
     );

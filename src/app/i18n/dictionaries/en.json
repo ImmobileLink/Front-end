@@ -351,8 +351,8 @@
         "company": "company",
         "month": "month",
         "tryforfree": "Try it free",
-        "allsubscriptions": "Conheça todos nossos planos",
-        "usertype": "Tipo de perfil",
+        "allsubscriptions": "Know all our plans",
+        "usertype": "Type of profile",
         "sublabel": "Features",
         "pricing": "Plan value",
         "feedbackreview": "Feedback review",
@@ -380,7 +380,9 @@
         "cancel": "Cancel",
         "change": "Change to",
         "changesuccess": "Plan changed successfully",
-        "changeerror": "An error has occurred while changing the plan"
+        "changeerror": "An error has occurred while changing the plan",
+        "forbrokers": "Plans for brokers",
+        "forbusiness": "Plans for companies"
     },
     "profile": {
         "noAssociation": "No association at the moment",

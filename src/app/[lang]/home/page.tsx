@@ -41,13 +41,25 @@ export default async function Home({ params: { lang } }: HomeProps) {
 
     return (
         <div className="w-full h-fit min-h-screen bg-branco dark:bg-dark-200">
-            <NavBarHome lang={dict.home} isUserLoggedIn={isUserLoggedIn}/>
-            <Banner lang={dict.home} isUserLoggedIn={isUserLoggedIn}/>
+            <NavBarHome lang={dict.home} isUserLoggedIn={isUserLoggedIn} />
+            <Banner lang={dict.home} isUserLoggedIn={isUserLoggedIn} />
             <Card1 lang={dict.home} />
             <Card2 lang={dict.home} />
             <Card3 lang={dict.home} />
-            <ComparePlanos/>
-            <CallToAction lang={dict.home} footer={dict.footer} isUserLoggedIn={isUserLoggedIn}/>
+            <ComparePlanos sub={dict.planos} />
+            {/* <div className="flex w-full justify-center py-8 md:py-0 md:justify-end md:px-16">
+                <a
+                    href="/auth"
+                    className="md:mt-6 md:mb-12 flex w-fit justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200 md:text-xs"
+                >
+                    {dict.home.tryPremium}
+                </a>
+            </div> */}
+            <CallToAction
+                lang={dict.home}
+                footer={dict.footer}
+                isUserLoggedIn={isUserLoggedIn}
+            />
         </div>
     );
 }

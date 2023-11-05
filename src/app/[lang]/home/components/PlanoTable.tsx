@@ -8,8 +8,6 @@ import { Table } from "flowbite-react";
 interface PlanoTableProps {
     role: string;
     sub: Planos;
-    id?: string;
-    premium: boolean;
 }
 
 const supabase = createClientComponentClient<Database>();
@@ -17,10 +15,8 @@ const supabase = createClientComponentClient<Database>();
 export default function PlanoTable({
     role,
     sub,
-    id,
-    premium,
 }: PlanoTableProps) {
-
+    const premium = false;
     return (
         <div className="overflow-x-auto">
             <Table>

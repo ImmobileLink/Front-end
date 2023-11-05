@@ -380,7 +380,9 @@
         "cancel": "Cancelar",
         "change": "Alterar para",
         "changesuccess": "Plano alterado com sucesso",
-        "changeerror": "Ocorreu um erro ao alterar o plano"
+        "changeerror": "Ocorreu um erro ao alterar o plano",
+        "forbrokers": "Planos para corretores",
+        "forbusiness": "Planos para empresas"
     },
     "profile": {
         "noAssociation": "Sem associação no momento",

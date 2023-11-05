@@ -1,20 +1,29 @@
-interface ComparePlanosProps {}
+import { Planos } from "@/app/i18n/dictionaries/types";
+import PlanoTable from "./PlanoTable";
 
-export default function ComparePlanos({}: ComparePlanosProps) {
+interface ComparePlanosProps {
+    sub: Planos;
+}
+
+export default function ComparePlanos({ sub }: ComparePlanosProps) {
     return (
         <>
             <div
                 id="premium-resources"
                 className="flex flex-col px-12 md:text-left text-center py-8"
             >
-                <div className="md:flex md:flex-row">
-                    <div className="md:pl-8">
+                <div className="flex justify-around">
+                    <div>
                         <p className="text-xl font-semibold pb-8 md:pt-12 md:text-2xl">
-                            Compare e se surpreenda
+                            {sub.forbrokers}
                         </p>
-                        <p className="pb-4 text-lg">
-                            Você pode definir seu plano conforme suas necessidades e alterá-lo sempre que quiser.
+                        <PlanoTable sub={sub} role={"corretor"} />
+                    </div>
+                    <div>
+                        <p className="text-xl font-semibold pb-8 md:pt-12 md:text-2xl">
+                            {sub.forbusiness}
                         </p>
+                        <PlanoTable sub={sub} role={"empresa"} />
                     </div>
                 </div>
             </div>
