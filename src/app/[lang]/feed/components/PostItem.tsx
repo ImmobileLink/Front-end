@@ -14,9 +14,8 @@ import {
 import Link from "next/link";
 import { Feed } from "@/app/i18n/dictionaries/types";
 import { useState } from "react";
-import ModalExcluir from "./ModalExcluir";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../lib/database.types";
+import { clientSupabase } from "lib/utils/clientSupabase";
+import { removerPublicacaoSalvaAPI, salvarPublicacaoAPI } from "../feedUtils";
 
 interface PostItemProps {
     publicacao: PublicacaoCompleta;
@@ -37,28 +36,26 @@ export default function PostItem({
     const [readMore, isReadMore] = useState(false);
     const [savedItem, isSavedItem] = useState(publicacao.issalvo);
 
-    const supabase = createClientComponentClient<Database>();
+    const supabase = clientSupabase();
 
     const handleSavePost = async () => {
         let savedItem = {
             idusuario: idusuario!,
             idpublicacao: publicacao.id!,
         };
-        const { data } = await supabase
-            .from("publicacaosalva")
-            .insert(savedItem);
-
-        isSavedItem(true);
+        const result = await salvarPublicacaoAPI(savedItem, supabase)
+        if (result) {
+            isSavedItem(true);
+        }
     };
 
     const handleRemovePost = async () => {
-        const { data } = await supabase
-            .from("publicacaosalva")
-            .delete()
-            .eq("idusuario", idusuario)
-            .eq("idpublicacao", publicacao.id);
-
-        isSavedItem(false);
+        if (idusuario) {
+            const result = await removerPublicacaoSalvaAPI(idusuario, publicacao.id, supabase)
+            if (result) {
+                isSavedItem(false);
+            }
+        }
     };
 
     return (
@@ -125,11 +122,11 @@ export default function PostItem({
                                             label: (
                                                 <>
                                                     {publicacao.idautor ==
-                                                    idusuario
+                                                        idusuario
                                                         ? dict.cards
-                                                              .visitmyprofile
+                                                            .visitmyprofile
                                                         : dict.dropdown
-                                                              .seeprofile}
+                                                            .seeprofile}
                                                 </>
                                             ),
                                             onClick: () => {
@@ -143,7 +140,7 @@ export default function PostItem({
                                             label: (
                                                 <>
                                                     {publicacao.idautor ==
-                                                    idusuario
+                                                        idusuario
                                                         ? dict.pub.deletepub
                                                         : dict.dropdown.report}
                                                 </>
@@ -169,24 +166,22 @@ export default function PostItem({
                         <div className="mb-4">
                             <p
                                 className={`text-sm 
-                                ${
-                                    readMore
+                                ${readMore
                                         ? "line-clamp-none"
                                         : publicacao.conteudo.length > 140
-                                        ? "line-clamp-3 md:line-clamp-4 "
-                                        : "line-clamp-none "
-                                }`}
+                                            ? "line-clamp-3 md:line-clamp-4 "
+                                            : "line-clamp-none "
+                                    }`}
                             >
                                 {publicacao.conteudo}
                             </p>
                             <a
-                                className={`${
-                                    publicacao.conteudo.length > 140
-                                        ? publicacao.conteudo.length > 325
-                                            ? "flex"
-                                            : "flex lg:hidden"
-                                        : "hidden"
-                                } opacity-75 cursor-pointer hover:underline`}
+                                className={`${publicacao.conteudo.length > 140
+                                    ? publicacao.conteudo.length > 325
+                                        ? "flex"
+                                        : "flex lg:hidden"
+                                    : "hidden"
+                                    } opacity-75 cursor-pointer hover:underline`}
                                 onClick={() => isReadMore(!readMore)}
                             >
                                 {readMore ? dict.pub.less : dict.pub.more}

@@ -1,14 +1,13 @@
-//@ts-nocheck
 "use client";
 import { Feed } from "@/app/i18n/dictionaries/types";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { Database } from "../../../../../lib/database.types";
 import { City, PublicacaoCompleta } from "../../../../../lib/modelos";
-import { _UFs } from "../../../../../lib/utils/externalApis";
+import { _UFs, fetchCitiesAPI } from "../../../../../lib/utils/externalApis";
 import PostItem from "./PostItem";
 import ModalExcluir from "./ModalExcluir";
+import { getPublicacoesSalvasAPI, getPublicacoesSalvasPorEstadoAPI, getPublicacoesSalvasPorEstadoCidadeAPI } from "../feedUtils";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface PostListProps {
     textos: Feed;
@@ -16,7 +15,7 @@ interface PostListProps {
 }
 
 // const supabase = createServerComponentClient<Database>({ cookies });
-const supabase = createClientComponentClient<Database>();
+const supabase = clientSupabase();
 
 export default async function PostList({ idusuario, textos }: PostListProps) {
     const [selectedState, setSelectedState] = useState<string>("");
@@ -37,15 +36,10 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
     useEffect(() => {
         async function fetchCities() {
             if (selectedState) {
-                try {
-                    const response = await fetch(
-                        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState}/municipios`
-                    );
-                    const citiesData = await response.json();
+                const citiesData = await fetchCitiesAPI(selectedState)
+                if (citiesData) {
                     setCities(citiesData);
                     setSelectedCity("");
-                } catch (error) {
-                    console.error(error);
                 }
             } else {
                 setCities([]);
@@ -74,13 +68,7 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
 
                 //faz consulta ao bd
                 {
-                    let response = await supabase
-                        .rpc("get_publicacoes_salvas", { idusuario })
-                        .order("atualizadoem", { ascending: false })
-                        .limit(10);
-                    let data = response.data;
-
-
+                    const data = await getPublicacoesSalvasAPI(idusuario, supabase)
                     //atualiza o estado dos posts
                     //se retornar 1+ posts mapeia na tela
                     if (data) {
@@ -96,7 +84,6 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
                         }
                     }
                 }
-
                 setLoading(false);
                 break;
             case 1:
@@ -108,25 +95,23 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
 
                 //verifica se tem algum estado selecionado
                 if (selectedState != "") {
-                    //faz consulta ao bd
-                    let response = await supabase
-                        .rpc("get_publicacoes_salvas", { idusuario })
-                        .eq("regiao", selectedState)
-                        .order("atualizadoem", { ascending: false })
-                        .limit(10);
-                    let data = response.data;
-
-                    //atualiza o estado dos posts
-                    //se retornar 1+ posts mapeia na tela
-                    if (data!.length > 0) {
-                        setPosts(data!);
-                        //tira o log de erro
-                        setErro(false);
-                        // se não mostra log
-                    } else {
-                        setErro(true);
-                        setLogErro(textos.pub.noposts);
-                        setPosts([]);
+                    if (selectedState) {
+                        //faz consulta ao bd
+                        let data = await getPublicacoesSalvasPorEstadoAPI(idusuario, selectedState, supabase)
+                        //atualiza o estado dos posts
+                        //se retornar 1+ posts mapeia na tela
+                        if (data) {
+                            if (data!.length > 0) {
+                                setPosts(data!);
+                                //tira o log de erro
+                                setErro(false);
+                                // se não mostra log
+                            } else {
+                                setErro(true);
+                                setLogErro(textos.pub.noposts);
+                                setPosts([]);
+                            }
+                        }
                     }
                 } else {
                     //mostra na tela que precisa selecionar um estado
@@ -144,29 +129,24 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
 
                 //verifica se tem algum estado/cidade selecionados
                 if (selectedState != "" && selectedCity != "") {
-                    //faz consulta ao bd
-                    let response = await supabase
-                        .rpc("get_publicacoes_salvas", { idusuario })
-                        .eq("regiao", {
-                            cidade: selectedCity!,
-                            estado: selectedState!,
-                        })
-                        .order("atualizadoem", { ascending: false })
-                        .limit(10);
-                    let data = response.data;
-
-                    //atualiza o estado dos posts
-                    //se retornar 1+ posts mapeia na tela
-                    if (data!.length > 0) {
-                        setPosts(data!);
-                        //tira o log de erro
-                        setErro(false);
-                        // se não mostra log
-                    } else {
-                        setErro(true);
-                        setLogErro(textos.pub.noposts);
-                        setPosts([]);
+                    if (selectedState && selectedCity) {
+                        let data = await getPublicacoesSalvasPorEstadoCidadeAPI(idusuario, selectedCity, selectedState, supabase);
+                        //atualiza o estado dos posts
+                        //se retornar 1+ posts mapeia na tela
+                        if (data) {
+                            if (data!.length > 0) {
+                                setPosts(data!);
+                                //tira o log de erro
+                                setErro(false);
+                                // se não mostra log
+                            } else {
+                                setErro(true);
+                                setLogErro(textos.pub.noposts);
+                                setPosts([]);
+                            }
+                        }
                     }
+                    //faz consulta ao bd
                 } else {
                     //mostra na tela que precisa selecionar um estado
                     setErro(true);
@@ -174,7 +154,6 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
                     //limpa o estado dos posts
                     setPosts([]);
                 }
-
                 setLoading(false);
                 break;
 
@@ -218,6 +197,8 @@ export default async function PostList({ idusuario, textos }: PostListProps) {
                                 defaultValue={textos.form.cityselector.estate}
                                 onChange={(e) => {
                                     setSelectedState(e.target.value);
+                                    console.log(e.target.value)
+                                    console.log(selectedState)
                                 }}
                                 className="block py-1 px-0 w-20 mr-4 text-sm text-gray-500 bg-transparent border-0 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer hover:cursor-pointer"
                             >

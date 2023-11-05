@@ -1,5 +1,6 @@
 import { v4 } from "uuid";
 import { MensagemAInserir, RoomData } from "../../../../../lib/modelos";
+import { uploadFile } from "../../../../../lib/utils/uploadFile";
 
 export const errorArray: any[] = [];
 
@@ -19,7 +20,7 @@ export async function insertMessage({ idautor, idsala, mensagem, imagem }: Mensa
             mensagem: mensagem,
             imagem: fileNewName
         }
-        uploadCheck = await uploadFile(imagem, fileNewName, supabase);
+        uploadCheck = await uploadFile(imagem, fileNewName, 'mensagens', supabase);
         if (uploadCheck) {
             const check = supabaseInsert(novamensagem, supabase)
             return check
@@ -47,28 +48,6 @@ export async function supabaseInsert(mensagem: any, supabase: any) {
     else {
         return true
     }
-}
-
-export async function uploadFile(file: File, fileName: string, supabase: any) {
-    const { error } = await supabase
-        .storage
-        .from('mensagens')
-        .upload(`imagens/${fileName}`, file)
-    if (error) {
-        addErrorToQueue("image_upload_error")
-        return false
-    }
-    else {
-        return true
-    }
-}
-
-export function getExtensionFromFilename(filename: string) {
-    const lastDotIndex = filename.lastIndexOf(".");
-    if (lastDotIndex === -1) {
-        return ""; // Retorna uma string vazia se não houver ponto no nome do arquivo
-    }
-    return filename.slice(lastDotIndex); // Retorna a extensão a partir do ponto até o final
 }
 
 //Busca as últimas mensagens enviadas em cada sala que o usuário participa

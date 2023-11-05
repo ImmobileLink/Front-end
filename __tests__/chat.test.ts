@@ -7,7 +7,7 @@ const supabaseUrl = process.env.SUPABASE_TEST_URL
 const supabaseKey = process.env.SUPABASE_ANON_TEST_KEY
 
 jest.mock('next/headers', () => {
-    return { 
+    return {
         cookies: () => {
             return {
                 get: jest.fn(),
@@ -20,13 +20,13 @@ jest.mock('next/headers', () => {
 const clientbase = clientSupabase(supabaseUrl, supabaseKey)
 let serverbase: any;
 serverSupabase(supabaseUrl, supabaseKey)
-.then(response => serverbase = response)
+    .then(response => serverbase = response)
 
 const resetDatabase = async () => {
     let result = []
     result.push(await serverbase.from('mensagem').delete().neq("id", '084f7f8e-6137-4faa-9c6e-5d46e2757e3a'))
     result.push(await serverbase.from('notificacao').delete().neq("id", '084f7f8e-6137-4faa-9c6e-5d46e2757e3a'))
-    return result  
+    return result
 }
 
 afterEach(() => {
@@ -104,6 +104,6 @@ describe('Chat Tests', () => {
         const result = await getRoomData(idsala, serverbase)
 
         expect(result).toBeTruthy;
-    })  
+    })
 })
 

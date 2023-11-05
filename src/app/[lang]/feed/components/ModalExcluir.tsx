@@ -1,7 +1,7 @@
 "use client";
 import { Feed } from "@/app/i18n/dictionaries/types";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../lib/database.types";
+import { clientSupabase } from "lib/utils/clientSupabase";
+import { deletePostAPI } from "../feedUtils";
 
 interface ModalExcluirProps {
     setDeletePost: Function;
@@ -15,10 +15,10 @@ export default function ModalExcluir({
     dict
 }: ModalExcluirProps) {
 
-    const supabase = createClientComponentClient<Database>();
+    const supabase = clientSupabase();
 
     const handleDeletePost = async () => {
-        const {data} = await supabase.from("publicacao").delete().eq("id", id);
+        await deletePostAPI(id, supabase)
         window.location.reload();
     }
 

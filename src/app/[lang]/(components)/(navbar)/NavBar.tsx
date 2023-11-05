@@ -8,8 +8,8 @@ import { MdPersonSearch } from "react-icons/md";
 import { HiHome } from "react-icons/hi2";
 // import { getMessageNotifications } from "../../../../../lib/utils/userNotification";
 import NotificationDropdown from "./NotificationDropdown";
-import { serverSupabase } from "lib/utils/serverSupabase";
-import { getUserData } from "lib/utils/userData";
+import { serverSupabase } from "../../../../../lib/utils/serverSupabase";
+import { getUserData } from "../../../../../lib/utils/userData";
 
 interface NavBarProps {
   params: {

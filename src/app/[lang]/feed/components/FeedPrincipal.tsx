@@ -10,7 +10,6 @@ interface FeedPrincipalProps {
 }
 
 export default async function FeedPrincipal({ textos, userData }: FeedPrincipalProps) {
-
   return (
     <>
       {

@@ -1,7 +1,7 @@
 import { cadastrarImagemAPI, cadastrarImovelAPI, filterAndMapTipos, getBrokers, getCountImovel, getPropertiesAPI, getTiposImovel, imageEditAPI, imovelEditAPI, insereVisitaAPI } from "@/app/[lang]/imovel/imovelUtils"
 import { clientSupabase } from "../lib/utils/clientSupabase"
 import { serverSupabase } from "../lib/utils/serverSupabase"
-import { InsereImovel, InsereVisita, TipoImovel } from "lib/modelos"
+import { InsereImovel, InsereVisita, TipoImovel } from "../lib/modelos"
 import * as fs from 'fs';
 
 const supabaseUrl = process.env.SUPABASE_TEST_URL

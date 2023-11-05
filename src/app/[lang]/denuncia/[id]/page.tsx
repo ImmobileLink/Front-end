@@ -1,13 +1,10 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { cache } from "react";
-import { Database } from "../../../../../lib/database.types";
-import NavBar from "../../(components)/(navbar)/NavBar";
 import { getDictionary } from "../../dictionaries";
 import Link from "next/link";
 import Image from "next/image";
 import CardRoot from "../../(components)/(compositions)/(card)/CardRoot";
 import CabecalhoForm from "./components/CabecalhoForm";
+import { serverSupabase } from "lib/utils/serverSupabase";
+import { getPublicacaoPorIdAPI } from "./denunciaUtils";
 
 interface pageProps {
     params: {
@@ -16,19 +13,12 @@ interface pageProps {
     };
 }
 
-export const createServerSupabaseClient = cache(() => {
-    const cookieStore = cookies();
-    return createServerComponentClient<Database>({
-        cookies: () => cookieStore,
-    });
-});
-
 export default async function ReportForm({ params: { id, lang } }: pageProps) {
-    const supabase = createServerSupabaseClient();
+    const supabase = serverSupabase();
     const dict = await getDictionary(lang);
     
-    let { data } = await supabase
-    .rpc('get_publicacao_por_id', {pubid: id})
+    const data = await getPublicacaoPorIdAPI(id, supabase)
+   
 
     return (
         <div className="w-full h-fit min-h-screen bg-branco dark:bg-dark-200">

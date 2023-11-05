@@ -68,7 +68,7 @@ export async function fetchCitiesAPI(selectedState: string) {
             const citiesData = await response.json();
             return citiesData;
         } catch (error) {
-            console.error(error);
+            console.log(error);
             return false;
         }
     } else {

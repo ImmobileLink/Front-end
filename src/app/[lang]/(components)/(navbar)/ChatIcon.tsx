@@ -6,7 +6,7 @@ import { NotificationContext } from "./notificationContext";
 import { HiChatBubbleLeft } from "react-icons/hi2";
 import { Navbarbuttons } from "@/app/i18n/dictionaries/types";
 import { getMessageNotificationsAPI } from "./navbarUtils";
-import { clientSupabase } from "lib/utils/clientSupabase";
+import { clientSupabase } from "../../../../../lib/utils/clientSupabase";
 
 interface ChatIconProps {
     textos: Navbarbuttons

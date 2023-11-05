@@ -1,17 +1,12 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { cache } from "react";
 import CardLink from "../(components)/(cards)/CardLink";
 import CardNotLogged from "../(components)/(cards)/CardNotLogged";
 import CardProfile from "../(components)/(cards)/CardProfile";
 import CardUserList from "../(components)/(cards)/CardUserList";
 import { Card } from "../(components)/(compositions)/(card)";
 import { Page } from "../(components)/(compositions)/(page)";
-import type { Database } from "../../../../lib/database.types";
-import { userData } from "../../../../lib/modelos";
 import { getDictionary } from "../dictionaries";
 import FeedPrincipal from "./components/FeedPrincipal";
-import { getAssoc, getLinks, getTipoUsuario, getUserData } from "../../../../lib/utils/userData";
+import { getUserData } from "../../../../lib/utils/userData";
 import { serverSupabase } from "lib/utils/serverSupabase";
 
 interface pageProps {
@@ -20,10 +15,8 @@ interface pageProps {
   };
 }
 
-
 export default async function page({ params: { lang } }: pageProps) {
   const supabase = await serverSupabase()
-  
   const dict = await getDictionary(lang); // pt
   const userData = await getUserData(supabase);
 
