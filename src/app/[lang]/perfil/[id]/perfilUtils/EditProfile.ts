@@ -1,3 +1,4 @@
+import { SupabaseClient } from "@supabase/supabase-js";
 import { Database, Json } from "../../../../../../lib/database.types";
 
 
@@ -21,7 +22,7 @@ export async function updateCorporacaoProfile(formData: any, id: string, supabas
     return { updatedData, error }
 }
 
-export async function updateCorretorProfile(formData: any, id: string, supabase: any) {
+export async function updateCorretorProfile(formData: any, id: string, supabase: SupabaseClient<Database>) {
     const { data: updatedData, error } = await supabase
         .from('corretor')
         .update({
@@ -37,10 +38,14 @@ export async function updateCorretorProfile(formData: any, id: string, supabase:
         })
         .eq('id', id);
 
-    return { updatedData, error }
+    if(error){
+        return false
+    }else{
+        return true
+    }
 }
 
-export async function adicionarEspecialidade(idcorretor: string, idtipoimovel: string, supabase: any) {
+export async function adicionarEspecialidade(idcorretor: string, idtipoimovel: string, supabase:  SupabaseClient<Database>) {
     const { data, error } = await supabase
         .from('especialidade')
         .insert([
@@ -51,7 +56,7 @@ export async function adicionarEspecialidade(idcorretor: string, idtipoimovel: s
     return { data, error }
 }
 
-export async function removerEspecialidade(idcorretor: string, idtipoimovel: string, supabase: any) {
+export async function removerEspecialidade(idcorretor: string, idtipoimovel: string, supabase:  SupabaseClient<Database>) {
     const { data, error } = await supabase
         .from('especialidade')
         .delete()

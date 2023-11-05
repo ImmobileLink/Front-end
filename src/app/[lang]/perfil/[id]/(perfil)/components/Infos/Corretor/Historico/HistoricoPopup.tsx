@@ -48,7 +48,6 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
             setValue('data_fim', data ? data.data_fim?.substring(0, 7) : "");
             setValue('descricao', data ? data.descricao : "");
 
-            console.log(data);
         } else {
             reset(defaultValues)
         }
@@ -80,10 +79,9 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
                 }
             ];
 
-            const { error } = props.idEditHistorico ? await updateHistorico(hist, supabase) : await insertHistorico(hist, supabase)
+            const result = props.idEditHistorico ? await updateHistorico(hist, supabase) : await insertHistorico(hist, supabase)
 
-            if (error) {
-                console.error(error);
+            if (!result) {
                 setErro("Erro ao cadastrar histórico");
             } else {
                 if (historico) {
@@ -97,7 +95,6 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
                 } else {
                     setHistorico([...hist]);
                 }
-                console.log(historico);
                 props.setIdEditHistorico(null)
                 props.setOpenModal(undefined);
             }

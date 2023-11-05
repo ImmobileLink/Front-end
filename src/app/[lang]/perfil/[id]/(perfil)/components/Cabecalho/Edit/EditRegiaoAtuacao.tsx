@@ -9,6 +9,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../../lib/database.types";
 import { useProfileContext } from "../../../context/ProfileContext";
 import { adicionarRegiao, removerRegiao } from "../../../../perfilUtils/EditProfile";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface EditEspecialidades {
     props: any;
@@ -21,7 +22,7 @@ interface City {
 }
 
 export default function EditEspecialidades({ props }: EditEspecialidades) {
-
+    const supabase = clientSupabase()
     const [selectedState, setSelectedState] = useState<string>('');
     const [cities, setCities] = useState<City[]>([]);
     const [loading, setLoading] = useState<boolean>(false)
@@ -75,7 +76,7 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
 
     const addRegiao = async ({ estado, cidade }: { estado: string, cidade: string }) => {
         if (!regioesIncluidas.some(item => item.estado === estado && item.cidade === cidade)) {
-            const { error } = await adicionarRegiao(state.profileData?.id!, { cidade, estado })
+            const { error } = await adicionarRegiao(state.profileData?.id!, { cidade, estado }, supabase)
             if (!error) {
                 props.setDropdownRegiao(!props.dropdownRegiao);
                 setSucess("Regiões atualizadas!")
@@ -99,7 +100,7 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
     };
 
     const removeRegiao = async ({ estado, cidade }: { estado: string, cidade: string }) => {
-        const { error } = await removerRegiao(state.profileData?.id!, { cidade, estado })
+        const { error } = await removerRegiao(state.profileData?.id!, { cidade, estado }, supabase)
         if (!error) {
             setSucess("Regiões atualizadas!")
             setTimeout(() => {

@@ -1,3 +1,5 @@
+import { SupabaseClient } from "@supabase/supabase-js"
+import { Database } from "lib/database.types"
 
 const getId = (idProfile:string, idSession:string, typeSession: string) => {
     let corporacao = null
@@ -12,7 +14,7 @@ const getId = (idProfile:string, idSession:string, typeSession: string) => {
     return {corporacao, corretor}
   }
 
-async function getEstadoBtnAssoc(idCorretor:string, idCorporacao:string, supabase: any) {
+async function getEstadoBtnAssoc(idCorretor:string, idCorporacao:string, supabase:  SupabaseClient<Database>) {
 
     const { data, error } = await supabase
     .from('associacoes')
@@ -24,7 +26,7 @@ async function getEstadoBtnAssoc(idCorretor:string, idCorporacao:string, supabas
     return {data, error}
 }
 
-async function desassociarPerfis(idCorretor:string, idCorporacao:string, supabase: any) {
+async function desassociarPerfis(idCorretor:string, idCorporacao:string, supabase:  SupabaseClient<Database>) {
 
 
     const { data, error } = await supabase
@@ -33,7 +35,11 @@ async function desassociarPerfis(idCorretor:string, idCorporacao:string, supabas
     .eq('idcorretor', idCorretor)
     .eq('idcorporacao', idCorporacao)
 
-    return {data, error}
+    if(error){
+      return false
+    } else{
+      return true
+    }
 }
 
 async function sendConvite(idCorretor:string, idCorporacao:string, idSession:string, supabase: any) {
@@ -45,10 +51,14 @@ async function sendConvite(idCorretor:string, idCorporacao:string, idSession:str
       { idcorretor: idCorretor, idcorporacao: idCorporacao, iniciativa: idSession },
     ])
 
-    return {data, error}
+    if(!error){
+      return true
+    }else{
+      return false
+    }
 }
 
-async function cancelaConvite(idCorretor:string, idCorporacao:string, supabase: any){
+async function cancelaConvite(idCorretor:string, idCorporacao:string, supabase:  SupabaseClient<Database>){
     const { data, error } = await supabase
       .from('associacoes')
       .delete()
@@ -58,7 +68,7 @@ async function cancelaConvite(idCorretor:string, idCorporacao:string, supabase: 
       return {data, error}
 }
 
-async function aceitarConvite(idCorretor:string, idCorporacao:string, supabase: any){
+async function aceitarConvite(idCorretor:string, idCorporacao:string, supabase:  SupabaseClient<Database>){
 
     const { data, error } = await supabase
       .from('associacoes')
@@ -66,7 +76,12 @@ async function aceitarConvite(idCorretor:string, idCorporacao:string, supabase: 
       .eq('idcorretor', idCorretor)
       .eq('idcorporacao', idCorporacao)
 
-      return {data, error}
+    if(error){
+      return false
+    }else{
+      return true
+    }
+
 }
 
 

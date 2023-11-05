@@ -31,16 +31,6 @@ async function getUserData( id: string, supabase: any) {
     return session_data;
 }
 
-async function getAvaliacao(id: string, supabase: any) {
-
-    let { data: avaliacao } = await supabase
-    .from('avaliacao')
-    .select('nota')
-    .eq('id', id)
-    .single()
-
-    return avaliacao;
-}
 
 
 export { getUserData, getProfileFullData }

@@ -21,13 +21,12 @@ export default function RatingCount() {
     const props = { openModal, setOpenModal };
     const id = useProfileStore.getState().profileData?.id!
     const [avaliacao, setAvaliacao] = useState<Avaliacao[] | null>([])
-    const [nota, setNota] = useState<number | undefined>()
+    const [nota, setNota] = useState<number | null>()
 
     useEffect(() => {
         const fetchData = async () => {
             const { data, error } = await getAvaliacoes(id, supabase)
             const { notaMedia, errorNota } = await getNotaMedia(id, supabase)
-            console.log(notaMedia)
             if (!error && !errorNota) {
                 setAvaliacao(data)
                 setNota(notaMedia?.nota)

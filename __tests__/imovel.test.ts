@@ -22,6 +22,20 @@ const clientbase = clientSupabase(supabaseUrl, supabaseKey)
 let serverbase: any;
 serverSupabase(supabaseUrl, supabaseKey)
     .then(response => serverbase = response)
+    const resetDatabase = async () => {
+      let result = []
+      result.push(await serverbase.from('associacoes').delete().neq("idcorporacao", 'f858715d-41af-4188-8aac-bc292f2f5123'))
+      return result  
+  }
+  
+  afterEach(() => {
+      jest.clearAllMocks();
+  });
+  
+  afterAll(() => {
+      return resetDatabase()
+  });
+
 
 describe('Imovel Tests', () => {
     it('Deve retornar array de corretores em caso de sucesso', async () => {

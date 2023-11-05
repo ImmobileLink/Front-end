@@ -104,9 +104,9 @@ export default function BotaoAssocia({  }: botaoAddProps) {
   const desassocia = async () => {
     setEstado("Associar")
 
-    const { data, error } = await desassociarPerfis(id.corretor, id.corporacao, supabase)
+    const result = await desassociarPerfis(id.corretor, id.corporacao, supabase)
 
-    if (error) {
+    if (!result) {
       setEstado("Associado")
     }
     props.setOpenModal(undefined)
@@ -119,8 +119,8 @@ export default function BotaoAssocia({  }: botaoAddProps) {
     if (estado == "Associar") {
       setEstado("Pendente")
 
-      const { data, error } = await sendConvite(id.corretor, id.corporacao, idSession, supabase)
-      if (error) {
+      const result = await sendConvite(id.corretor, id.corporacao, idSession, supabase)
+      if (!result) {
         setEstado("Associar")
       }
 
@@ -138,9 +138,9 @@ export default function BotaoAssocia({  }: botaoAddProps) {
 
     } else if (estado === "Aceitar") {
       setEstado("Associado")
-      const { data, error } = await aceitarConvite(id.corretor, id.corporacao, supabase)
+      const result = await aceitarConvite(id.corretor, id.corporacao, supabase)
 
-      if (error) {
+      if (!result) {
         setEstado("Aceitar")
       }
     }

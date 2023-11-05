@@ -5,6 +5,7 @@ import { HiTrash } from 'react-icons/hi'
 import { useProfileStore } from "@/../../lib/store/profileStore"
 import { deleteHistorico } from '../../../../../perfilUtils/Historico';
 import { useProfileContext } from '../../../../context/ProfileContext';
+import { clientSupabase } from 'lib/utils/clientSupabase';
 
 interface HistoricoCardProps {
     item: ItemHistorico;
@@ -22,17 +23,18 @@ type ItemHistorico = {
 }
 
 export default function HistoricoCard({ item, props }: HistoricoCardProps) {
+    const supabase = clientSupabase()
 
     const isOwn = useProfileStore.getState().isOwn
 
     const { historico, setHistorico } = useProfileContext()
 
     const apagarHistorico = async () => {
-        const { error } = await deleteHistorico(item.id!)
+        const result = await deleteHistorico(item.id!, supabase)
 
         const newHistorico = historico!.filter((hist) => hist.id != item.id)
 
-        if (!error) {
+        if (result) {
             setHistorico(newHistorico)
         }
     }

@@ -31,11 +31,11 @@ async function getUserData(user: userData) {
   } = await supabase.auth.getSession();
 
   if (session?.user.id) {
-    user = await getTipoUsuario(user, session.user.id);
+    user = await getTipoUsuario(user, session.user.id, supabase);
 
     [user, user] = await Promise.all([
-      getLinks(user),
-      getAssoc(user)
+      getLinks(user, supabase),
+      getAssoc(user, supabase)
     ]);
   }
 

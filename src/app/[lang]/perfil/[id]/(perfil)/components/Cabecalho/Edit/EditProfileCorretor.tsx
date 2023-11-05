@@ -53,11 +53,11 @@ export default function EditProfile({ data }: EditProfileProps) {
 
     const onSubmit = async (formData: any) => {
         setIsProcessing(true)
-        const { updatedData, error } = await updateCorretorProfile(formData, data?.id!, supabase)
-        if (error) {
-            console.error('Erro ao atualizar os dados:', error);
+        const result = await updateCorretorProfile(formData, data?.id!, supabase)
+        if (!result) {
+            console.error('Erro ao atualizar os dados');
         } else {
-            console.log('Dados atualizados com sucesso:', updatedData);
+            console.log('Dados atualizados com sucesso');
             reset(getValues())
             props.setOpenModal(undefined);
             router.refresh()

@@ -11,7 +11,12 @@ export async function insertHistorico(historico: Historico, supabase: any) {
         ])
         .select()
 
-    return { data, error }
+    if (error) {
+        return false
+    } else {
+        return true
+    }
+
 }
 
 export async function deleteHistorico(id: string, supabase: any) {
@@ -20,7 +25,11 @@ export async function deleteHistorico(id: string, supabase: any) {
         .delete()
         .eq('id', id)
 
-    return { error }
+        if (error) {
+            return false
+        } else {
+            return true
+        }
 
 }
 
@@ -29,10 +38,14 @@ export async function updateHistorico(historico: Historico, supabase: any) {
 
     const { error } = await supabase
         .from('historico')
-        .update({data_inicio: hist[0].data_inicio, data_fim: hist[0].data_fim, descricao: hist[0].descricao, nome_empresa: hist[0].nome_empresa})
+        .update({ data_inicio: hist[0].data_inicio, data_fim: hist[0].data_fim, descricao: hist[0].descricao, nome_empresa: hist[0].nome_empresa })
         .eq('id', hist[0].id)
 
-    return { error }
+        if (error) {
+            return false
+        } else {
+            return true
+        }
 
 }
 
