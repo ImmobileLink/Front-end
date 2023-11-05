@@ -35,7 +35,7 @@ export default async function CardUserList({
 
     return (
         <>
-            <div className="flex flex-col  justify-center">
+            <div className="flex flex-col  justify-center select-none">
                 <div className="flex mb-5 p-1 -space-x-4 justify-center">
                     {avatares?.map((item, index) => {
                         return <Avatar route={item.avatar} key={index} />;
