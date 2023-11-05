@@ -70,7 +70,7 @@ export default function Card3({ lang }: Card3Props) {
                 </div>
                 <div className="flex w-full justify-center py-8 md:py-0 md:justify-end md:px-16">
                     <a
-                        href="/plano"
+                        href="/auth"
                         className="md:mt-6 md:mb-12 flex w-fit justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200 md:text-xs"
                     >
                         {lang.tryPremium}

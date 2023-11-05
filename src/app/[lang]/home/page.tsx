@@ -10,6 +10,8 @@ import CallToAction from "./components/callToAction";
 import { cookies } from "next/headers";
 import { cache } from "react";
 import { Database } from "../../../../lib/database.types";
+import PlanoTable from "../(components)/(plano)/PlanoTable";
+import ComparePlanos from "./components/ComparePlanos";
 
 interface HomeProps {
     params: {
@@ -44,6 +46,7 @@ export default async function Home({ params: { lang } }: HomeProps) {
             <Card1 lang={dict.home} />
             <Card2 lang={dict.home} />
             <Card3 lang={dict.home} />
+            <ComparePlanos/>
             <CallToAction lang={dict.home} footer={dict.footer} isUserLoggedIn={isUserLoggedIn}/>
         </div>
     );
