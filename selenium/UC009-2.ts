@@ -93,23 +93,9 @@ const {Builder, By, until, WebDriver, WebElement} = require('selenium-webdriver'
         // Close the notifications
         await driver.wait(until.elementIsVisible(notificacoes), 1000).click();
 
-        // Find and click on the Conta button on the header
-        pElement = await driver.wait(until.elementLocated(By.xpath('//p[text()="Conta"]')), 2000);
-        await driver.wait(until.elementIsVisible(pElement), 1000).click();
-        
-        // Logout
-        sairLink = await driver.wait(until.elementLocated(By.xpath('//a[text()="Sair"]')), 2000);
-        await driver.wait(until.elementIsVisible(sairLink), 1000).click();
-
-        // Find the email input field when it has loaded, and type in an email
-        emailInput = await driver.wait(until.elementLocated(By.id('floating_email')), 5000);
-        await driver.wait(until.elementIsVisible(emailInput), 1000).sendKeys('lajitip375@apxby.com');
-
-        // Find the password input field, and type in a password
-        await driver.findElement(By.id('floating_password')).sendKeys('Senha123!');
-
-        // Find the login button and click it
-        await driver.findElement(By.xpath('//button[contains(text(), "Entrar")]')).click(); 
+        // Find and click on the Iniciar button on the header to go back to the feed
+        pElement = await driver.wait(until.elementLocated(By.xpath('//p[text()="Iniciar"]')), 2000);
+        await driver.wait(until.elementIsVisible(pElement), 1000).click(); 
 
         // Waits for Visitas links to be both on the DOM and visible on the screen before clicking
         let visitas = await driver.wait(until.elementLocated(By.xpath("//a[contains(text(), 'Visitas')]")), 10000);  // wait up to 10 seconds for the element to be located
@@ -158,14 +144,14 @@ const {Builder, By, until, WebDriver, WebElement} = require('selenium-webdriver'
             } else if (error.name === 'TimeoutError') {
                 console.log("Timed out waiting for the element.");
                 console.log("Element not found.");
-                console.log("UC009-1 test passed.");
+                console.log("UC009-2 test passed.");
             } else {
 
             }
             // console.log(error.message);
         } else {
             console.log("An unexpected error occurred.");
-            console.log("UC009-1 test failed.");
+            console.log("UC009-2 test failed.");
         }
     }    
     finally {

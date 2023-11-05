@@ -40,8 +40,8 @@ const {Builder, By, until, WebDriver, WebElement} = require('selenium-webdriver'
         // await driver.sleep(10000000);
         await driver.switchTo().alert().accept();
         console.log("Log: After accepting pop up");
-        await driver.sleep(10000000);
-
+        // await driver.sleep(10000000);
+        console.log('UC007-1 test passed.');
 
     }
     catch(error) {
@@ -49,7 +49,6 @@ const {Builder, By, until, WebDriver, WebElement} = require('selenium-webdriver'
         console.log("UC007-1 test failed.");
     }
     finally {
-        console.log('UC007-1 test passed.');
         console.log("Test Ended.")
         await driver.quit();
     }
