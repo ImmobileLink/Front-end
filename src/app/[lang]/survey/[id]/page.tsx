@@ -46,7 +46,7 @@ export default async function Survey({ params: { id, lang } }: PageProps) {
     const survey = dict.survey;
 
     return (
-        <div className="w-full h-fit min-h-screen bg-branco dark:bg-dark-200 flex flex-col justify-center items-center">
+        <div className="w-full h-fit select-none min-h-screen bg-branco dark:bg-dark-200 flex flex-col justify-center items-center">
             <nav className="w-full fixed top-0 z-50 bg-white dark:bg-gray-900 ">
                 <div className="w-full flex flex-wrap items-center justify-center mx-auto p-4">
                     <div className="flex items-center">
