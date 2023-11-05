@@ -1,16 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Database } from "../../../../../lib/database.types";
-
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Avatar from "../../(components)/Avatar";
 import { AiOutlineSend } from "react-icons/ai";
 import { useContext } from "react";
 import { ChatContext } from "../[[...idsala]]/chatContext";
+import { createOrGetRoom } from "../[[...idsala]]/chatUtils";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
-const supabase = createClientComponentClient<Database>()
 
 interface FriendListCardProps {
     idsala: string;
@@ -25,21 +22,15 @@ export default function FriendListCard({ idsala, idremetente, iddestinatario, no
     const { toggleChatView } = useContext(ChatContext)
     const router = useRouter()
 
+
+    const supabase = clientSupabase()
+
     const handleEnviarMensagem = async (idsala: string) => {
-        let { data, error } = await supabase
-            .rpc('criar_ou_retornar_sala', {
-                id_destinatario: iddestinatario,
-                id_usuario: idremetente!
-            })
-        if (error) {
-            console.log(error)
+        const data = await createOrGetRoom(idremetente, iddestinatario, supabase)
+        if(idsala == data) {
+            toggleChatView(true)
         }
-        else {
-            if(idsala == data) {
-                toggleChatView(true)
-            }
-            router.push(`/chat/${data}`)
-        }
+        router.push(`/chat/${data}`)
     }
 
     return (

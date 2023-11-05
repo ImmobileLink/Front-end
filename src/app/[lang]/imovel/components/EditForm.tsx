@@ -1,13 +1,14 @@
 "use client";
-import { ChangeEvent, Dispatch, SetStateAction, Suspense, useEffect, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { ImovelRegistro } from "../../../../../lib/modelos";
 import { v4 as uuidv4 } from "uuid";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../lib/database.types";
+
 import { Spinner } from "flowbite-react";
 import { Modal } from "flowbite-react";
 import { FlowbiteModalHeaderTheme } from "flowbite-react/lib/esm/components/Modal/ModalHeader";
 import { Editimg } from "@/app/i18n/dictionaries/types";
+import { clientSupabase } from "lib/utils/clientSupabase";
+import { imageEditAPI, imovelEditAPI } from "../imovelUtils";
 
 interface EditFormProps {
   props: {
@@ -19,31 +20,17 @@ interface EditFormProps {
   }
 }
 
-const supabase = createClientComponentClient<Database>();
-
 export default function EditForm({ props }: EditFormProps) {
+  const supabase = clientSupabase();
   const [img, setImg] = useState<File>();
   const [imagemId, setImagemId] = useState(props.imovel.imagem);
 
   const [loading, setLoading] = useState(false);
 
   const handleEditarImagem = async () => {
-    // Apagar o arquivo antigo
-    let { error } = await supabase.storage
-      .from("imoveis") // Nome do bucket no Supabase
-      .remove([`${props.userid}/${props.imovel.imagem}`]);
-
-    if (!error) {
-      // Enviar o arquivo para o Supabase Storage
-      let { data, error } = await supabase.storage
-        .from("imoveis") // Nome do bucket no Supabase
-        .upload(props.userid + "/" + imagemId, img!, {
-          upsert: true,
-        });
-
-      if (error) {
-        console.error("Erro ao fazer upload:", error.message);
-      }
+    if(props.userid && props.imovel.imagem && imagemId && img) {
+      const result = await imageEditAPI(props.userid, props.imovel.imagem, imagemId, img, supabase)
+      return result
     }
   };
 
@@ -58,14 +45,12 @@ export default function EditForm({ props }: EditFormProps) {
   const handleEditar = async () => {
     if (img) {
       setLoading(true);
-
-      await handleEditarImagem();
-
-      const { error } = await supabase
-        .from("imovel")
-        .update({ imagem: imagemId })
-        .eq("id", props.imovel.id);
-      if (!error) {
+      const imgEditResult = await handleEditarImagem();
+      let imovelEditResult = false
+      if(imagemId) {
+        imovelEditResult = await imovelEditAPI(imagemId, props.imovel.id, supabase)
+      }
+      if (imgEditResult && imovelEditResult) {
         props.setFormOpen(false);
         setLoading(false);
       }

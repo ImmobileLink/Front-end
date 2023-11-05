@@ -2,6 +2,11 @@
 //Exporta os tipos do banco de dados ou tipos personalizados para não ser necessário declará-los toda hora nos códigos;
 import { Database, Json } from "./database.types";
 
+export interface Erro {
+    referencia: string;
+    mensagem: string;
+}
+
 //Nativos do Banco de dados
 export type Publicacao = Database['public']['Tables']['publicacao']['Row']
 export type TipoImovel = Database['public']['Tables']['tipoImovel']['Row']
@@ -79,9 +84,14 @@ export interface MensagemAInserir {
     imagem?: File
 }
 export interface CorretorAssociado {
-    id: string,
-    nome: string,
+    id: string;
+    nome: string | null;
+    estado: string | null;
+    cidade: string | null;
+    tipoImovel: TipoImovelSemClassificacao[];
 }
+
+export type TipoImovelSemClassificacao = Omit<TipoImovel, 'classificacao'>;
 
 export interface InsereVisita {
     dadosmarcador: Json;
@@ -233,6 +243,13 @@ export interface VisitaProps {
     cep_imovel: string;
     complemento_imovel: string;
     survey_id: string;
+}
+
+export interface RoomData {
+    iddestinatario: string | null;
+    nomedestinatario: string | null;
+    avatardestinatario: string | null;
+    mensagens: Mensagem[];
 }
 
 export type Historico = {

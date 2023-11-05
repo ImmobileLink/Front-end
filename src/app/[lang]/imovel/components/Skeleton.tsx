@@ -1,12 +1,8 @@
 "use client";
-import { Database } from "../../../../../lib/database.types";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface SkeletonProps {
   num: number;
 }
-
-const supabase = createClientComponentClient<Database>();
 
 export default function Skeleton({ num }: SkeletonProps) {
 

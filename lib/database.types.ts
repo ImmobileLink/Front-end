@@ -55,7 +55,7 @@ export interface Database {
         Insert: {
           criadoem?: string
           id: string
-          nota?: number
+          nota: number
         }
         Update: {
           criadoem?: string

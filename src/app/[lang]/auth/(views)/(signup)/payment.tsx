@@ -1,7 +1,5 @@
 import { Signup5 } from "@/app/i18n/dictionaries/types";
 import { AiOutlineClose } from "react-icons/ai";
-import Loading from "@/app/[lang]/(components)/(auth)/Loading";
-import InputMask from "react-input-mask";
 import PaymentForm from "./components/paymentForm";
 
 interface PaymentMethodProps {

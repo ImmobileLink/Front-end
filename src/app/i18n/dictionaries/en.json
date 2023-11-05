@@ -494,7 +494,10 @@
         "newconvlabel1": "Partnerships",
         "newconvlabel2": "Links",
         "uploadedfile": "File selected",
-        "chathome": "Select an existing conversation or press \"New space\" to join a new one!"
+        "chathome": "Select an existing conversation or press \"New space\" to join a new one!",
+        "errormessages": {
+            "insertfail": "Oops! It wasn't possible to send your message. Please try again."
+        }
     },
     "cityselector": {
         "estate": "Estate",

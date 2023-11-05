@@ -3,12 +3,12 @@
 import { AiFillPlusCircle, AiFillCloseCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import Loading from "@/app/[lang]/(components)/(auth)/Loading";
-import { _UFs } from "../../../../../../../../../lib/utils/getRegiao"
+import { _UFs } from "../../../../../../../../../lib/utils/externalApis";
 import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../../lib/database.types";
 import { useProfileContext } from "../../../context/ProfileContext";
-import { adicionarRegiao, removerRegiao } from "../../../../../../../../../lib/utils/EditProfile";
+import { adicionarRegiao, removerRegiao } from "../../../../../../../../../lib/utils/editProfile";
 
 interface EditEspecialidades {
     props: any;
@@ -39,12 +39,9 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
 
     useEffect(() => {
         if (areasAtuacao) {
-            const novasRegioes = areasAtuacao.map((item) => ({
-                estado: item.estado,
-                cidade: item.cidade,
-            }));
-    
-            setRegioesIncluidas(novasRegioes);
+            areasAtuacao?.forEach((item: any) => {
+                setRegioesIncluidas([{ estado: item.estado, cidade: item.cidade }]);
+            })
         }
     }, [])
 

@@ -1,6 +1,6 @@
 export const setPremiumTrue = async (id: string | undefined, role: string | undefined, supabase: any) => {
   if(role == "corretor") {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('corretor')
       .update({ premium: true })
       .eq('id', id)
@@ -11,7 +11,7 @@ export const setPremiumTrue = async (id: string | undefined, role: string | unde
         return false
       }
     } else if (role == "corporacao") {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('corporacao')
       .update({ premium: true })
       .eq('id', id)
@@ -26,7 +26,7 @@ export const setPremiumTrue = async (id: string | undefined, role: string | unde
 
 export const setPremiumFalse = async (id: string | undefined, role: string | undefined, supabase: any) => {
   if(role == "corretor") {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('corretor')
       .update({ premium: false })
       .eq('id', id)
@@ -37,7 +37,7 @@ export const setPremiumFalse = async (id: string | undefined, role: string | und
         return false
       }
   } else if (role == "corporacao") {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('corporacao')
       .update({ premium: false })
       .eq('id', id)

@@ -1,9 +1,15 @@
+import { getDictionary } from "../../dictionaries";
 import RecoveryForm from "./RecoveryForm";
 import ImmobileLogo from "@/app/[lang]/(components)/ImmobileLogo";
 
-interface pageProps {}
+interface pageProps {
+  params: {
+    lang: string;
+  };
+}
 
-export default async function page({}: pageProps) {
+export default async function page({params: { lang }}: pageProps) {
+  const dict = await getDictionary(lang);
   return (
     <>
       <div className="flex w-screen h-screen bg-branco dark:bg-dark-200">
@@ -13,7 +19,7 @@ export default async function page({}: pageProps) {
           </div>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <RecoveryForm />
+            <RecoveryForm dict={dict.auth.recovery}/>
           </div>
         </div>
       </div>

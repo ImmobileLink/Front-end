@@ -3,11 +3,11 @@
 import { AiFillPlusCircle, AiFillCloseCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import Loading from "@/app/[lang]/(components)/(auth)/Loading";
-import { _UFs } from "../../../../../../../../../lib/utils/getRegiao"
+import { _UFs } from "../../../../../../../../../lib/utils/externalApis";
 import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../../lib/database.types";
-import { adicionarEspecialidade, removerEspecialidade } from "../../../../../../../../../lib/utils/EditProfile";
+import { adicionarEspecialidade, removerEspecialidade } from "../../../../../../../../../lib/utils/editProfile";
 import { useProfileContext } from "../../../context/ProfileContext";
 
 interface EditEspecialidades {
@@ -33,7 +33,7 @@ export default function EditEspecialidades({ props, imoveis }: EditEspecialidade
            
             if (especialidades) {
                 setEspecialidade(especialidades)
-                especialidades.forEach((item) => {
+                especialidades.forEach((item: any) => {
                     setEspecialidadesIncluidas((prev) => [...prev, item.id])
                 })
             }

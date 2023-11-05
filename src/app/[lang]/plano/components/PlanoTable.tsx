@@ -1,12 +1,10 @@
 "use client";
 import { Planos } from "@/app/i18n/dictionaries/types";
 import { BsCheckCircle, BsXCircle } from "react-icons/bs";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../lib/database.types";
+import { setPremiumFalse, setPremiumTrue } from "../planoUtils";
 import { useRouter } from "next/navigation";
 import { Table } from "flowbite-react";
-import { useState } from "react";
-import ModalTogglePlano from "./ModalTogglePlano";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface PlanoTableProps {
     role: string;
@@ -15,7 +13,7 @@ interface PlanoTableProps {
     premium: boolean;
 }
 
-const supabase = createClientComponentClient<Database>();
+const supabase = clientSupabase();
 
 export default function PlanoTable({
     role,

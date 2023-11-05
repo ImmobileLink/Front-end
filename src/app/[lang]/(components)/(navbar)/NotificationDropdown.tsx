@@ -6,8 +6,10 @@ import { HiBell } from "react-icons/hi2";
 import { Notification } from "../(compositions)/(notification)";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
-import { NotificationContext } from "./NotificationContext";
+import { NotificationContext } from "./notificationContext";
 import { useRouter } from "next/navigation";
+import { acceptAssociationAPI, acceptConnectionAPI, acceptVisitAPI, getNotificationsAPI, refuseAssociationAPI, refuseConnectionAPI, refuseVisitAPI, updateNotificationsAPI, } from "./navbarUtils";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface NotificationDropdownProps {
     textos: Navbarbuttons;
@@ -22,8 +24,23 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
     const [newNot, setNewNot] = useState<any[]>([])
     const [oldNot, setOldNot] = useState<any[]>([])
 
-    const supabase = createClientComponentClient<Database>()
+    const supabase = clientSupabase()
     const router = useRouter()
+
+    const getNotifications = async (userId: string) => {
+        const result = await getNotificationsAPI(userId, supabase)
+        if (result) {
+            toggleNotificationList(result)
+        }
+    }
+    
+    const atualizaNotificacoes = async (itemId: string, userId: string) => {
+        const result = await updateNotificationsAPI(itemId, userId, supabase)
+        if (result) {
+            await getNotifications(userId)
+            checkNotSymbol()
+        }
+    }
 
     const checkNotSymbol = () => {
         let checkNewNot: any[] = []
@@ -46,40 +63,9 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
         }
     }
 
-    const getNotifications = async (idusuario: string) => {
-        const { data, error } = await supabase
-            .from('notificacao')
-            .select('*')
-            .eq('iddestinatario', idusuario)
-            .neq('tipo', 'mensagem')
-            .order('data', { ascending: false })
-        if (error) {
-            console.log(error)
-        }
-        else {
-            toggleNotificationList(data)
-        }
-    }
-
-    const atualizaNotificacoes = async (itemId: string) => {
-        const { data, error } = await supabase
-            .from('notificacao')
-            .update({ visualizada: true })
-            .eq('iddestinatario', userId)
-            .eq('artefato', itemId)
-            .select()
-        if (error) {
-            console.log(error)
-        }
-        else {
-            getNotifications(userId)
-            checkNotSymbol()
-        }
-    }
-
     useEffect(() => {
         checkNotSymbol()
-    },[notificationList])
+    }, [notificationList])
 
     useEffect(() => {
         if (newNot.length > 0) {
@@ -88,7 +74,7 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
         else {
             setNotification(false)
         }
-    },[newNot])
+    }, [newNot])
 
     useEffect(() => {
         getNotifications(userId)
@@ -111,96 +97,73 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
         }
     }, [])
 
-    const aceitarAssociacao = async (event: any, itemId: string) => {
-        const { data, error } = await supabase
-            .from('associacoes')
-            .update({ pendente: false })
-            .eq('id', itemId)
-        if (error) {
-            console.log(error)
+    useEffect(() => {
+        const subscription = supabase.channel("Notification_updates")
+            .on(
+                "postgres_changes",
+                {
+                    event: "UPDATE",
+                    schema: "public",
+                    table: "notificacao",
+                    filter: `iddestinatario=eq.${userId}`
+                },
+                () => {
+                    getNotifications(userId)
+                }
+            )
+            .subscribe();
+        return () => {
+            subscription.unsubscribe();
         }
-        else {
-            atualizaNotificacoes(itemId)
-            getNotifications(userId)
+    }, [])
+
+    const aceitarAssociacao = async (itemId: string) => {
+        const result = await acceptAssociationAPI(itemId, supabase)
+        if(result) {
+            atualizaNotificacoes(itemId, userId)
         }
     }
 
-    const recusarAssociacao = async (event: any, itemId: string) => {
-        const { data, error } = await supabase
-            .from('associacoes')
-            .delete()
-            .eq('id', itemId)
-        if (error) {
-            console.log(error)
-        }
-        else {
-            atualizaNotificacoes(itemId)
-            getNotifications(userId)
+    const recusarAssociacao = async (itemId: string) => {
+        const result = await refuseAssociationAPI(itemId, supabase)
+        if(result) {
+            atualizaNotificacoes(itemId, userId)
         }
     }
 
-    const aceitarConexao = async (event: any, itemId: string) => {
-        const { data, error } = await supabase
-            .from('conexoes')
-            .update({ pendente: false })
-            .eq('id', itemId)
-        if (error) {
-            console.log(error)
-        }
-        else {
-            atualizaNotificacoes(itemId)
-            getNotifications(userId)
+    const aceitarConexao = async (itemId: string) => {
+        const result = await acceptConnectionAPI(itemId, supabase)
+        if(result) {
+            atualizaNotificacoes(itemId, userId)
         }
     }
 
-    const recusarConexao = async (event: any, itemId: string) => {
-        const { data, error } = await supabase
-            .from('conexoes')
-            .delete()
-            .eq('id', itemId)
-        if (error) {
-            console.log(error)
-        }
-        else {
-            atualizaNotificacoes(itemId)
-            getNotifications(userId)
+    const recusarConexao = async (itemId: string) => {
+        const result = await refuseConnectionAPI(itemId, supabase)
+        if(result) {
+            atualizaNotificacoes(itemId, userId)
         }
     }
 
-    const visualizarVisita = (event: any, idvisita: string) => {
+    const visualizarVisita = (idvisita: string) => {
         router.push(`/agenda`)
-        atualizaNotificacoes(idvisita)
-        getNotifications(userId)
+        atualizaNotificacoes(idvisita, userId)
     }
-    const visualizarVisitaSemAtualizar = (event: any, idvisita: string) => {
+    const visualizarVisitaSemAtualizar = () => {
         router.push(`/agenda`)
     }
 
-    const aceitaVisita = async (event: any, idvisita: string) => {
-        const { data, error } = await supabase
-            .from('visita')
-            .update({ aceito: true })
-            .eq('id', idvisita)
-        if (error) {
-            console.log(error)
-        }
-        else {
-            atualizaNotificacoes(idvisita)
-            getNotifications(userId)
+    const aceitaVisita = async (idvisita: string) => {
+        const result = await acceptVisitAPI(idvisita, supabase)
+        if(result) {
+            atualizaNotificacoes(idvisita, userId)
         }
     }
 
-    const recusaVisita = async (event: any, idvisita: string) => {
-        const { data, error } = await supabase
-            .from('visita')
-            .update({ aceito: false })
-            .eq('id', idvisita)
-        if (error) {
-            console.log(error)
-        }
-        else {
-            atualizaNotificacoes(idvisita)
-            getNotifications(userId)
+    const recusaVisita = async (idvisita: string) => {
+        const result = await refuseVisitAPI(idvisita, supabase)
+        if(result) {
+            atualizaNotificacoes(idvisita, userId)
         }
     }
 
@@ -229,42 +192,42 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
                                         return (
                                             <Notification.Root key={item.id} visualizada={item.visualizada}>
                                                 <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.association} date={item.data} />
-                                                <Notification.Actions visualizada={item.visualizada} action1={e => aceitarAssociacao(e, item.artefato)} action2={e => recusarAssociacao(e, item.artefato)} texto={textos.notificationlabels} type={'yesno'} />
+                                                <Notification.Actions visualizada={item.visualizada} action1={e => aceitarAssociacao(item.artefato)} action2={e => recusarAssociacao(item.artefato)} texto={textos.notificationlabels} type={'yesno'} />
                                             </Notification.Root>
                                         )
                                     case 'conexao':
                                         return (
                                             <Notification.Root key={item.id} visualizada={item.visualizada}>
                                                 <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.connection} date={item.data} />
-                                                <Notification.Actions visualizada={item.visualizada} action1={e => aceitarConexao(e, item.artefato)} action2={e => recusarConexao(e, item.artefato)} texto={textos.notificationlabels} type={'yesno'} />
+                                                <Notification.Actions visualizada={item.visualizada} action1={e => aceitarConexao(item.artefato)} action2={e => recusarConexao(item.artefato)} texto={textos.notificationlabels} type={'yesno'} />
                                             </Notification.Root>
                                         )
                                     case 'novavisita':
                                         return (
                                             <Notification.Root key={item.id} visualizada={item.visualizada}>
                                                 <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.visit} date={item.data} />
-                                                <Notification.Actions visualizada={item.visualizada} action1={e => aceitaVisita(e, item.artefato)} action2={e => recusaVisita(e, item.artefato)} action3={e => visualizarVisitaSemAtualizar(e, item.artefato)} texto={textos.notificationlabels} type={'both'} />
+                                                <Notification.Actions visualizada={item.visualizada} action1={e => aceitaVisita(item.artefato)} action2={e => recusaVisita(item.artefato)} action3={e => visualizarVisitaSemAtualizar()} texto={textos.notificationlabels} type={'both'} />
                                             </Notification.Root>
                                         )
                                     case 'visitacancelada':
                                         return (
                                             <Notification.Root key={item.id} visualizada={item.visualizada}>
                                                 <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.refusedvisit} date={item.data} />
-                                                <Notification.Actions visualizada={item.visualizada} action1={e => visualizarVisita(e, item.artefato)} texto={textos.notificationlabels} type={'check'} />
+                                                <Notification.Actions visualizada={item.visualizada} action1={e => visualizarVisita(item.artefato)} texto={textos.notificationlabels} type={'check'} />
                                             </Notification.Root>
                                         )
                                     case 'visitaaceita':
                                         return (
                                             <Notification.Root key={item.id} visualizada={item.visualizada}>
                                                 <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.acceptedvisit} date={item.data} />
-                                                <Notification.Actions visualizada={item.visualizada} action1={e => visualizarVisita(e, item.artefato)} texto={textos.notificationlabels} type={'check'} />
+                                                <Notification.Actions visualizada={item.visualizada} action1={e => visualizarVisita(item.artefato)} texto={textos.notificationlabels} type={'check'} />
                                             </Notification.Root>
                                         )
                                     case 'visitaatualizada':
                                         return (
                                             <Notification.Root key={item.id} visualizada={item.visualizada}>
                                                 <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.updatedvisit} date={item.data} />
-                                                <Notification.Actions visualizada={item.visualizada} action1={e => visualizarVisita(e, item.artefato)} texto={textos.notificationlabels} type={'check'} />
+                                                <Notification.Actions visualizada={item.visualizada} action1={e => visualizarVisita(item.artefato)} texto={textos.notificationlabels} type={'check'} />
                                             </Notification.Root>
                                         )
                                 }
@@ -278,42 +241,42 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
                                             return (
                                                 <Notification.Root key={item.id} visualizada={item.visualizada}>
                                                     <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.association} date={item.data} />
-                                                    <Notification.Actions visualizada={item.visualizada} action1={e => aceitarAssociacao(e, item.artefato)} action2={e => recusarAssociacao(e, item.artefato)} texto={textos.notificationlabels} type={'yesno'} />
+                                                    <Notification.Actions visualizada={item.visualizada} action1={e => aceitarAssociacao(item.artefato)} action2={e => recusarAssociacao(item.artefato)} texto={textos.notificationlabels} type={'yesno'} />
                                                 </Notification.Root>
                                             )
                                         case 'conexao':
                                             return (
                                                 <Notification.Root key={item.id} visualizada={item.visualizada}>
                                                     <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.connection} date={item.data} />
-                                                    <Notification.Actions visualizada={item.visualizada} action1={e => aceitarConexao(e, item.artefato)} action2={e => recusarConexao(e, item.artefato)} texto={textos.notificationlabels} type={'yesno'} />
+                                                    <Notification.Actions visualizada={item.visualizada} action1={e => aceitarConexao(item.artefato)} action2={e => recusarConexao(item.artefato)} texto={textos.notificationlabels} type={'yesno'} />
                                                 </Notification.Root>
                                             )
                                         case 'novavisita':
                                             return (
                                                 <Notification.Root key={item.id} visualizada={item.visualizada}>
                                                     <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.visit} date={item.data} />
-                                                    <Notification.Actions visualizada={item.visualizada} action1={e => aceitaVisita(e, item.artefato)} action2={e => recusaVisita(e, item.artefato)} action3={e => visualizarVisitaSemAtualizar(e, item.artefato)} texto={textos.notificationlabels} type={'both'} />
+                                                    <Notification.Actions visualizada={item.visualizada} action1={e => aceitaVisita(item.artefato)} action2={e => recusaVisita(item.artefato)} action3={e => visualizarVisitaSemAtualizar()} texto={textos.notificationlabels} type={'both'} />
                                                 </Notification.Root>
                                             )
                                         case 'visitacancelada':
                                             return (
                                                 <Notification.Root key={item.id} visualizada={item.visualizada}>
                                                     <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.refusedvisit} date={item.data} />
-                                                    <Notification.Actions visualizada={item.visualizada} action1={e => visualizarVisita(e, item.artefato)} texto={textos.notificationlabels} type={'check'} />
+                                                    <Notification.Actions visualizada={item.visualizada} action1={e => visualizarVisita(item.artefato)} texto={textos.notificationlabels} type={'check'} />
                                                 </Notification.Root>
                                             )
                                         case 'visitaaceita':
                                             return (
                                                 <Notification.Root key={item.id} visualizada={item.visualizada}>
                                                     <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.acceptedvisit} date={item.data} />
-                                                    <Notification.Actions visualizada={item.visualizada} action1={e => visualizarVisita(e, item.artefato)} texto={textos.notificationlabels} type={'check'} />
+                                                    <Notification.Actions visualizada={item.visualizada} action1={e => visualizarVisita(item.artefato)} texto={textos.notificationlabels} type={'check'} />
                                                 </Notification.Root>
                                             )
                                         case 'visitaatualizada':
                                             return (
                                                 <Notification.Root key={item.id} visualizada={item.visualizada}>
                                                     <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.updatedvisit} date={item.data} />
-                                                    <Notification.Actions visualizada={item.visualizada} action1={e => visualizarVisita(e, item.artefato)} texto={textos.notificationlabels} type={'check'} />
+                                                    <Notification.Actions visualizada={item.visualizada} action1={e => visualizarVisita(item.artefato)} texto={textos.notificationlabels} type={'check'} />
                                                 </Notification.Root>
                                             )
                                     }

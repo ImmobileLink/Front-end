@@ -1,0 +1,5 @@
+Para funcionar, crie um arquivo chamado "env.js" e atribua as URL, chave e ID reais do projeto de teste da seguinte forma:
+
+process.env.SUPABASE_URL = 'url'
+process.env.SUPABASE_ANON_TEST_KEY= 'key'
+process.env.SUPABASE_PROJECT_TEST_ID= 'id'

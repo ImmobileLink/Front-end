@@ -1,13 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
-import { NotificationContext } from "./NotificationContext";
-import { usePathname } from "next/navigation";
+import { useContext, useEffect } from "react";
+import { NotificationContext } from "./notificationContext";
 import { HiChatBubbleLeft } from "react-icons/hi2";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../lib/database.types";
 import { Navbarbuttons } from "@/app/i18n/dictionaries/types";
+import { getMessageNotificationsAPI } from "./navbarUtils";
+import { clientSupabase } from "../../../../../lib/utils/clientSupabase";
 
 interface ChatIconProps {
     textos: Navbarbuttons
@@ -17,21 +16,12 @@ interface ChatIconProps {
 export default function ChatIcon({ textos, userId }: ChatIconProps) {
     const { chatNewMessages, toggleChatNewMessages } = useContext(NotificationContext)
     const { chatNotification, toggleChatNotification } = useContext(NotificationContext)
-    const supabase = createClientComponentClient<Database>()
+    const supabase = clientSupabase()
 
     const getMessageNotifications = async (idusuario: string) => {
-        const { data, error } = await supabase
-            .from('notificacao')
-            .select('*')
-            .eq('iddestinatario', idusuario)
-            .eq('tipo', 'mensagem')
-            .eq('visualizada', 'false')
-        if (error) {
-            console.log(error)
-        }
-        else {
-            const array = data.map(item => item.artefato)
-            toggleChatNewMessages(array)
+        const result = await getMessageNotificationsAPI(idusuario, supabase)
+        if(result) {
+            toggleChatNewMessages(result)
         }
     }
 
@@ -61,13 +51,6 @@ export default function ChatIcon({ textos, userId }: ChatIconProps) {
             subscription.unsubscribe();
         }
     }, [chatNewMessages])
-
-    // useEffect(() => {
-    //     toggleChatNewMessages(newMessages)
-    //     if (chatNewMessages.length > 0) {
-    //         toggleChatNotification(true)
-    //     }
-    // }, [chatNewMessages])
 
     return (
         <>

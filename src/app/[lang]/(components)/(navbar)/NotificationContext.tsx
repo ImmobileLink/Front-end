@@ -1,7 +1,7 @@
 "use client"
 import { ReactNode, createContext, useState } from 'react';
 
-interface ChatContextType {
+interface NotificationContextType {
   chatNotification: boolean,
   toggleChatNotification: (val: boolean) => void
   chatNewMessages: any
@@ -10,7 +10,7 @@ interface ChatContextType {
   toggleNotificationList: (val: any) => void
 }
 
-export const NotificationContext = createContext({} as ChatContextType);
+export const NotificationContext = createContext({} as NotificationContextType);
 
 export function NotificationProvider({ children }: { children: ReactNode }) {
   const [chatNotification, setChatNotification] = useState<boolean>(false);

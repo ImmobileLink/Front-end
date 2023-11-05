@@ -13,12 +13,13 @@ export default async function UserCarousel({ data, dict, userId }: UserCarouselP
     <div className="w-full overflow-x-auto">
       <div className='w-fit flex mt-2 gap-2'>
         {
+          data &&
           data?.map((item, index) => {
-            if(item.id != userId) {
+            if (item.id != userId) {
               return (
-                <UserCarouselItem key={index} corretor={item} dict={dict}/>
+                <UserCarouselItem key={index} corretor={item} dict={dict} />
               )
-            }           
+            }
           })
         }
       </div>
