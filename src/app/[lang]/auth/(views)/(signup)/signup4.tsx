@@ -4,10 +4,8 @@ import { AiFillPlusCircle, AiFillCloseCircle } from "react-icons/ai";
 import InputMask from "react-input-mask";
 import { Signup4 } from "@/app/i18n/dictionaries/types";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import CitySelector from '../../../(components)/CitySelector';
 import Loading from "@/app/[lang]/(components)/(auth)/Loading";
 import { _UFs } from "../../../../../../lib/utils/getRegiao";
-import { stringify } from 'querystring';
 
 interface Signup4Props {
     props: {
@@ -96,7 +94,7 @@ export default function Signup4({
                     setCities(citiesData);
                     setLoading(false)
                 } catch (error) {
-                    console.error('Erro ao buscar municípios:', error);
+                    console.error(signup4.logs.uferror, error);
                 }
             } else {
                 setCities([]);

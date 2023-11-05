@@ -219,6 +219,7 @@ export interface Signup4Cityselector {
 
 export interface Signup4Logs {
     invalidcreci: string;
+    uferror: string;
 }
 
 export interface Signup5 {

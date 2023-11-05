@@ -113,7 +113,8 @@
                 "region": "Região de atuação",
                 "languages": "Idiomas",
                 "logs": {
-                    "invalidcreci": "CRECI inválido"
+                    "invalidcreci": "CRECI inválido",
+                    "uferror": "Erro ao buscar municípios:"
                 },
                 "cityselector": {
                     "estate": "Estado",

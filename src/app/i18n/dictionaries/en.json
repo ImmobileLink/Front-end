@@ -113,7 +113,8 @@
                 "region": "Working region",
                 "languages": "Languages",
                 "logs": {
-                    "invalidcreci": "Invalid CRECI"
+                    "invalidcreci": "Invalid CRECI",
+                    "uferror": "Error while looking for cities:"
                 },
                 "cityselector": {
                     "estate": "Estate",
