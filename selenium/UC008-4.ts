@@ -68,9 +68,9 @@ const {Builder, By, until, WebDriver, WebElement} = require('selenium-webdriver'
         await driver.wait(until.elementIsVisible(buttonElement), 5000);
 
         if (buttonElement) {
-            console.log("UC008-3 test passed.");
+            console.log("UC008-4 test passed.");
         } else {
-            console.log("UC008-3 test failed.");
+            console.log("UC008-4 test failed.");
         }
 
 
