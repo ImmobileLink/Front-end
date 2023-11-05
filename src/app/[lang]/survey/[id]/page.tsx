@@ -6,7 +6,7 @@ import { getDictionary } from "../../dictionaries";
 import SurveyForm from "./(survey)/components/SurveyForm";
 import { formataDataSemHora } from "lib/utils/formataData";
 import { serverSupabase } from "lib/utils/serverSupabase";
-import { getSurveyData } from "../surveyConfig";
+import { getSurveyData } from "./surveyConfig";
 
 interface PageProps {
     params: {

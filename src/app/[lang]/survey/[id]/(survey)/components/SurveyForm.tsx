@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { Spinner } from "flowbite-react";
 import { FormDataProps } from "lib/modelos";
 import { clientSupabase } from "lib/utils/clientSupabase";
-import { updateForm } from "../../../surveyConfig";
+import { updateForm } from "../../surveyConfig";
 
 interface SurveyFormProps {
   survey: Survey;
@@ -63,16 +63,12 @@ export default function SurveyForm({ survey, id }: SurveyFormProps) {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    if(!validaForm(formData)) {
 
+    if(!validaForm(formData)) {
       setLoading(true);
-      
       await updateForm(supabase, formData, id);
-      
       setLoading(false);
       route.refresh();
-
     } else {
       setError(true);
     }
@@ -140,7 +136,9 @@ export default function SurveyForm({ survey, id }: SurveyFormProps) {
             lang: survey,
             pergunta: survey.questions.question7,
             optional: false,
-            inputName: "campo7"
+            inputName: "campo7",
+            leftLabel: survey.labels.notinterested,
+            rightLabel: survey.labels.interested
           }}
           onChange={handleChange}
         />
@@ -158,7 +156,9 @@ export default function SurveyForm({ survey, id }: SurveyFormProps) {
             lang: survey,
             pergunta: survey.questions.question9,
             optional: true,
-            inputName: "campo9"
+            inputName: "campo9",
+            leftLabel: survey.labels.notinfluence,
+            rightLabel: survey.labels.influence
           }}
           onChange={handleChange}
         />

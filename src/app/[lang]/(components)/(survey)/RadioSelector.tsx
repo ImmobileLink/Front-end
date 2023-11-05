@@ -17,7 +17,7 @@ interface RadioSelectorProps {
 }
 
 export default function RadioSelector({
-    params: { lang, pergunta, optional, inputName }, onChange
+    params: { lang, pergunta, optional, inputName, leftLabel, rightLabel }, onChange
 }: RadioSelectorProps) {
     const renderRadioOptions = () => {
         let radios = [];
@@ -57,8 +57,8 @@ export default function RadioSelector({
                 
             </div>
             <div className="flex flex-row justify-between pb-8">
-                <p>{lang.notpleased}</p>
-                <p>{lang.pleased}</p>
+                <p>{leftLabel || lang.labels.notpleased}</p>
+                <p>{rightLabel || lang.labels.pleased}</p>
             </div>
         </>
     );
