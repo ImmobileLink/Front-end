@@ -83,7 +83,7 @@ export default async function page({ params: { lang } }: pageProps) {
 
   return (
     <SearchProvider>
-      <div className="flex justify-center gap-5 mt-4">
+      <div className="flex justify-center gap-5 mt-4 select-none">
         <div className="hidden lg:flex flex-col lg:w-3/12 lg:max-w-xs lg:min-w-[320px]">
           <div className="hidden md:block">
             <PesquisaCard textos={dict.pesquisa} tipoImovel={tipoImovel.data} />
