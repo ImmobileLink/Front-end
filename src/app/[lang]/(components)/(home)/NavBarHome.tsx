@@ -7,6 +7,7 @@ import NavBarHamburguerHome from "./NavBarHamburguerHome";
 import { useState } from "react";
 import Loading from "../(auth)/Loading";
 import CountryDropdown from "../(navbar)/CountryDropdown";
+import { sleep } from "react-query/types/core/utils";
 
 interface NavBarHomeProps {
     lang: Home;
@@ -17,7 +18,7 @@ export default function NavBarHome({ lang, isUserLoggedIn }: NavBarHomeProps) {
     const [loading, isLoading] = useState(false);
     return (
         <>
-            <nav className="w-full sticky top-0 z-50 bg-white dark:bg-gray-900 ">
+            <nav className="w-full sticky top-0 z-50 bg-white dark:bg-gray-900 select-none">
                 <div className="max-w-2xl md:max-w-3xl lg:max-w-6xl flex flex-wrap items-center justify-between mx-auto p-4">
                     <div className="flex items-center">
                         <Link href="/home" className="flex items-center">
@@ -56,6 +57,9 @@ export default function NavBarHome({ lang, isUserLoggedIn }: NavBarHomeProps) {
                     <div className="flex justify-end">
                         <Link
                             href={isUserLoggedIn ? "/feed" : "auth"}
+                            onClick={() =>{
+                                isLoading(true);
+                            }}
                             className="hidden lg:flex justify-center rounded-md bg-secundaria-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secundaria-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secundaria-200"
                         >
                             <Loading loading={loading} />

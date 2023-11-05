@@ -49,7 +49,7 @@ export default function ModalTogglePlano({
     };
 
     return (
-        <div className="fixed flex justify-center align-middle w-screen h-full top-0 left-0 bg-black/25">
+        <div className="fixed flex justify-center align-middle w-screen h-full top-0 left-0 bg-black/25 select-none">
             <div className="self-center w-10/12 md:w-8/12 lg:w-4/12 h-fit bg-white dark:bg-gray-900 rounded-2xl ring-1 ring-gray-800">
                 <div className=" px-8 py-2">
                     <p className="my-4 text-xl font-bold mb-2">
