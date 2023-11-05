@@ -1,6 +1,4 @@
-import Avatar from "@/app/[lang]/(components)/Avatar";
 import { useProfileStore } from "../../../../../../../../lib/store/profileStore";
-import { AiFillEdit } from "react-icons/ai";
 import EditAvatar from "./Edit/EditAvatar";
 import Image from "next/image";
 

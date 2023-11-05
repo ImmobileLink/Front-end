@@ -403,6 +403,7 @@ export interface Pub {
     irreversibleaction: string;
     cancel: string;
     delete: string;
+    tryagainlater: string;
 }
 
 export interface Dropdown {

@@ -291,7 +291,8 @@
             "areyousure": "Tem certeza que deseja excluir a publicação?",
             "irreversibleaction": "Essa ação não poderá ser desfeita.",
             "cancel": "CANCELAR",
-            "delete": "EXCLUIR"
+            "delete": "EXCLUIR",
+            "tryagainlater": "Ocorreu um erro ao carregar as publicações. Por favor, tente novamente mais tarde"
         },
         "form": {
             "regionchange": "Região",
@@ -422,7 +423,7 @@
             "time": "Horário",
             "loading": "Carregando",
             "formlogs": {
-                "invalidname": "O nome precisa ter no mínimo 10 caracteres",
+                "invalidname": "O nome precisa ter no mínimo 4 caracteres, não incluindo números ou caracteres especiais",
                 "invalidphone": "O telefone precisa ter 10 ou 11 caracteres",
                 "invalidemail": "Insira um email válido",
                 "invaliddate": "Selecione uma data válida",
@@ -522,6 +523,42 @@
         "blog": "Blog",
         "ytChannel": "Canal do YouTube"
     },
+    "formlabels": {
+      "infoproperty": {
+        "location": "Localização",
+        "characteristics": "Características",
+        "price": "Valor"
+      },
+      "selectbroker": "Selecione um corretor",
+      "findbroker": "Encontrar Corretores",
+      "delegatevisit": "Delegar Visita",
+      "requiredfields": "Por favor, preencha todos os campos",
+      "warningmsg": "Sua corporação ainda não possui corretores associados.",
+      "clickhere": "Clique aqui para encontrar corretores",
+      "brokerdata": "Corretor",
+      "specialty": "Especialidade",
+      "clientdata": "Dados do Cliente",
+      "scheduling": "Agendamento",
+      "name": "Nome",
+      "phone": "Telefone",
+      "email": "Email",
+      "date": "Data",
+      "time": "Horário",
+      "loading": "Carregando",
+      "formlogs": {
+        "invalidname": "O nome precisa ter no mínimo 4 caracteres, não incluindo números ou caracteres especiais",
+        "invalidphone": "O telefone precisa ter 10 ou 11 caracteres",
+        "invalidemail": "Insira um email válido",
+        "invaliddate": "Selecione uma data válida",
+        "invalidtime": "Selecione um horário válido"
+      },
+      "editimg": {
+        "title": "Alterar Imagem do Imóvel",
+        "imageupload": "Clique para fazer upload ou arraste e solte",
+        "imageformat": "PNG, JPG ou JPEG (MAX. 800x400px).",
+        "loading": "Carregando",
+        "confirm": "Confirmar"
+      },
     "agenda": {
         "visitdetails": "Detalhes da visita",
         "companyname": "Empresa responsável",
@@ -578,4 +615,4 @@
             "question10": "Compartilhe um pouco mais sobre sua experiência: (Opcional)"
         }
     }
-}
+  } }

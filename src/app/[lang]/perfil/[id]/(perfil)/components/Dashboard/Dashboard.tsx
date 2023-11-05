@@ -3,56 +3,51 @@ import Line from "./charts/Line"
 import PolarArea from "./charts/PolarArea"
 import Link from "next/link";
 import { useProfileStore } from "../../../../../../../../lib/store/profileStore";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Radar from "./charts/Radar";
 import Doughnut from "./charts/Doughnut";
 import Pie from "./charts/Pie";
 import DashboardSkeleton from "../loading/DashboardSkeleton";
-import { getAvaliacao, getSatisfacao } from "../../../../../../../../lib/utils/Dashboard";
+import { getDataDashboard1, getDataDashboard2, getDataDashboard3, getDataDashboard4 } from "../../../perfilUtils/Dashboard";
+import { Dashboard1, Dashboard2, Dashboard3, Dashboard4 } from "../../../../../../../../lib/modelos";
+import PieMock from "./charts/PieMock";
+import PolarAreaMock from "./charts/PolarAreaMock";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 
 interface DashboardProps {
 }
 
-type Avaliacao = {
-  id: string;
-  profissionalismo: number;
-  comunicacao: number;
-  conhecimento: number;
-  transparencia: number;
-  detalhista: number;
-  clareza: number;
-}[] | null
 
-type Satisfacao = {
-  id: string;
-  muito_insatisfeito: number;
-  insatisfeito: number;
-  neutro: number;
-  satisfeito: number;
-  muito_satisfeito: number;
-}[] | null
 
 export default function Dashboard({ }: DashboardProps) {
-
+  const supabase = clientSupabase()
   const state = useProfileStore.getState()
   const dict = state.dict
   const premium = state.sessionData?.isPremium
   const isLogged = state.sessionData?.id
   const id = state.profileData?.id!
 
+
   const [openCalendar, setOpenCalendar] = useState(false)
 
-  const [avaliacao, setAvaliacao] = useState<Avaliacao>(null)
-  const [satisfacao, setSatisfacao] = useState<Satisfacao>(null)
+  const [data1, setData1] = useState<Dashboard1>(null)
+  const [data2, setData2] = useState<Dashboard2>(null)
+  const [data3, setData3] = useState<Dashboard3>(null)
+  const [data4, setData4] = useState<Dashboard4>(null)
   const [isLoading, setIsLoading] = useState<boolean>(true)
+
 
   useEffect(() => {
     const fetchData = async () => {
-      let { avaliacao } = await getAvaliacao(id)
-      let { satisfacao } = await getSatisfacao(id)
-      setAvaliacao(avaliacao)
-      setSatisfacao(satisfacao)
+      let { data1 } = await getDataDashboard1(id, supabase)
+      let { data2 } = await getDataDashboard2(id, supabase)
+      let { data3 } = await getDataDashboard3(id, supabase)
+      let { data4 } = await getDataDashboard4(id, supabase)
+      setData1(data1)
+      setData2(data2)
+      setData3(data3)
+      setData4(data4)
       setIsLoading(false)
     }
 
@@ -62,10 +57,13 @@ export default function Dashboard({ }: DashboardProps) {
 
   return (
     <>
-
-      {!premium && (
+      {!premium ? (
         <div>
-          <div className="absolute flex justify-center items-center inset-0 backdrop-blur-md">
+          <div className="absolute blur-md inset-0 overflow-hidden">
+            <PieMock />
+            <PolarAreaMock />
+          </div>
+          <div className="absolute flex justify-center items-center inset-0">
             <div className="w-3/4 flex justify-center flex-col items-center">
               {!isLogged ? (
                 <>
@@ -81,37 +79,60 @@ export default function Dashboard({ }: DashboardProps) {
                 </>
 
               )}
-
             </div>
           </div>
+
         </div >
 
+      ) : (
+        <div className={`${!openCalendar && "max-h-[380px] md:max-h-[600px]"} min-h-[300px]`}>
+          {isLoading && <DashboardSkeleton />}
+          {data1 && data1.length >= 1 ? (
+            <div>
+              <div className="flex flex-col mb-16">
+                <div className="bg-slate-300 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
+                  <h2 >Características específicas</h2>
+                  <Radar avaliacao={data1} />
+                </div>
+                <div className="bg-slate-400 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
+                  <h2 className="text-center">Satisfação geral dos clientes com atendimento</h2>
+                  <Pie satisfacao={data2} />
+                </div>
+
+                <div className="bg-slate-300 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
+                  <h2 >Tipos de imóveis visitados</h2>
+                  <Doughnut data4={data4} />
+                </div>
+
+                <div className="bg-slate-400 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
+                  <h2 className="text-center">Taxa de interesse pelo imóvel visitado(%)</h2>
+                  <PolarArea data3={data3} />
+                </div>
+              </div>
+
+              <div className={`flex items-center justify-center absolute bottom-0 w-full right-0 bg-gradient-to-b from-transparent to-opacity-100 via-yellow-400 to-yellow-700 h-14`}>
+                <Link href="#dashboard" onClick={() => setOpenCalendar(!openCalendar)} className="cursor-pointer text-white font-bold mt-4">{openCalendar ? "Veja menos" : "Veja mais"}</Link>
+              </div>
+            </div>
+          ) : (
+            !isLoading && (
+              <div className="">
+                <p className="text-center text-black text-xl font-bold absolute inset-0 z-10 flex justify-center items-center ">
+                  Esse usuário ainda não foi avaliado :(
+                </p>
+                <div className="absolute blur-lg inset-0 overflow-hidden ">
+                  <PieMock />
+                  <PolarAreaMock />
+                </div>
+              </div>
+            )
+          )}
+        </div>
       )
       }
 
-      {isLoading ? (
-        <DashboardSkeleton />
-      ) : (
-        <div className={`${!openCalendar && "max-h-[380px] md:max-h-[600px]"} min-h-[300px]`}>
-          {avaliacao && avaliacao.length >= 1 ? (
-            <div>
-              <div className="flex flex-col gap-5">
-                <Pie satisfacao={satisfacao}/>
-                <Radar avaliacao={avaliacao}/>
-                <PolarArea dict={dict} />
-                <Line dict={dict} />
-                <Doughnut />
-              </div>
 
-              {premium && (
-                <div className={`flex items-center justify-center absolute bottom-0 w-full right-0 bg-gradient-to-b from-transparent to-opacity-100 via-yellow-400 to-yellow-700 h-14`}>
-                  <Link href="#dashboard" onClick={() => setOpenCalendar(!openCalendar)} className="cursor-pointer text-white font-bold mt-4">{openCalendar ? "Veja menos" : "Veja mais"}</Link>
-                </div>
-              )}
-            </div>
-          ) : (<p>Esse usuário ainda não foi avaliado</p>)}
-        </div>
-      )}
+
 
     </>
 

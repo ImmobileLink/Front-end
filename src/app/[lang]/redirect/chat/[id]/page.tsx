@@ -34,7 +34,4 @@ export default async function BotaoChat(params: any) {
     let sala = `/chat/${data}`;
     redirect(sala);
 
-    return (
-        <div></div>
-    );
 }
