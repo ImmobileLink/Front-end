@@ -1,3 +1,4 @@
+
 const {Builder, By, until, WebDriver, WebElement} = require('selenium-webdriver');
 
 (async function testFilterByCity() {
