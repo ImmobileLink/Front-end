@@ -47,7 +47,7 @@ export default function NavBarHome({ lang, isUserLoggedIn }: NavBarHomeProps) {
                             </a>
                             <Link
                                 className="font-semibold px-4 py-2 mx-2"
-                                href=""
+                                href="#premium-resources"
                             >
                                 {lang.premium}
                             </Link>
