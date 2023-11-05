@@ -48,7 +48,7 @@ export default async function NavBar({ params: { lang } }: NavBarProps) {
  
   return (
     <>
-      <nav className="w-full sticky top-0 z-50 bg-white dark:bg-gray-900 h-[72px] max-h-[72px]">
+      <nav className="w-full select-none sticky top-0 z-50 bg-white dark:bg-gray-900 h-[72px] max-h-[72px]">
         <div className="max-w-2xl md:max-w-3xl lg:max-w-6xl flex flex-wrap items-center justify-between mx-auto px-2 py-4 md:pt-3 md:pb-3 max-h-[72px]">
           <div className="flex items-center">
             <Link

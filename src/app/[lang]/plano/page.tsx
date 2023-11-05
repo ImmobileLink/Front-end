@@ -54,7 +54,7 @@ export default async function page({ params: { lang } }: pageProps) {
 
     return (
         <>
-            <p className="w-full pt-6 md:pt-8 lg:pt-10 text-black dark:text-white text-4xl md:text-5xl lg:text-6xl font-extrabold text-center">
+            <p className="w-full select-none pt-6 md:pt-8 lg:pt-10 text-black dark:text-white text-4xl md:text-5xl lg:text-6xl font-extrabold text-center">
                 {dict.planos.subscription}
             </p>
             <p className="w-full mt-2 mb-8 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 text-center self-center">
