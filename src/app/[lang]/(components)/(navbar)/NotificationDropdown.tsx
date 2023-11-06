@@ -6,7 +6,7 @@ import { HiBell } from "react-icons/hi2";
 import { Notification } from "../(compositions)/(notification)";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
-import { NotificationContext } from "./notificationContext";
+import { NotificationContext } from "./NotificationContext";
 import { useRouter } from "next/navigation";
 import { acceptAssociationAPI, acceptConnectionAPI, acceptVisitAPI, getNotificationsAPI, refuseAssociationAPI, refuseConnectionAPI, refuseVisitAPI, updateNotificationsAPI, } from "./navbarUtils";
 import { clientSupabase } from "lib/utils/clientSupabase";
