@@ -349,7 +349,7 @@ export default function VisitaCard({ props }: VisitaCardProps) {
                             className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-900 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                             id="client-name"
                             type="text"
-                            pattern="(?=^.{4,}$)[A-Za-z\s]+"
+                            pattern="(?=^.{4,}$)[\p{L}\s]+"
                             placeholder=" "
                             required
                           />

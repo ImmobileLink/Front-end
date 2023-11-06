@@ -291,7 +291,8 @@
             "areyousure": "Are you sure you want to delete the post?",
             "irreversibleaction": "This action cannot be undone.",
             "cancel": "CANCEL",
-            "delete": "DELETE"
+            "delete": "DELETE",
+            "tryagainlater": "An error has occured while trying to load the publications. Please try again later"
         },
         "form": {
             "regionchange": "Region",
@@ -422,7 +423,7 @@
             "time": "Time",
             "loading": "Loading",
             "formlogs": {
-                "invalidname": "Name must be at least 10 characters long",
+                "invalidname": "Name must be at least 4 characters long, excluding numbers or special characters",
                 "invalidphone": "Phone must be 10 or 11 characters long",
                 "invalidemail": "Enter a valid email",
                 "invaliddate": "Select a valid date",

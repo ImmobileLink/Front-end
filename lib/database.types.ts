@@ -35,12 +35,14 @@ export interface Database {
           {
             foreignKeyName: "associacoes_idcorporacao_fkey"
             columns: ["idcorporacao"]
+            isOneToOne: false
             referencedRelation: "corporacao"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "associacoes_idcorretor_fkey"
             columns: ["idcorretor"]
+            isOneToOne: false
             referencedRelation: "corretor"
             referencedColumns: ["id"]
           }
@@ -50,22 +52,23 @@ export interface Database {
         Row: {
           criadoem: string
           id: string
-          nota: number
+          nota: number | null
         }
         Insert: {
           criadoem?: string
           id: string
-          nota: number
+          nota?: number | null
         }
         Update: {
           criadoem?: string
           id?: string
-          nota?: number
+          nota?: number | null
         }
         Relationships: [
           {
             foreignKeyName: "avaliacao_id_fkey"
             columns: ["id"]
+            isOneToOne: true
             referencedRelation: "corretor"
             referencedColumns: ["id"]
           }
@@ -97,12 +100,14 @@ export interface Database {
           {
             foreignKeyName: "conexoes_idusuario1_fkey"
             columns: ["idusuario1"]
+            isOneToOne: false
             referencedRelation: "usuario"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "conexoes_idusuario2_fkey"
             columns: ["idusuario2"]
+            isOneToOne: false
             referencedRelation: "usuario"
             referencedColumns: ["id"]
           }
@@ -167,6 +172,7 @@ export interface Database {
           {
             foreignKeyName: "corporacao_id_fkey"
             columns: ["id"]
+            isOneToOne: true
             referencedRelation: "usuario"
             referencedColumns: ["id"]
           }
@@ -264,18 +270,21 @@ export interface Database {
           {
             foreignKeyName: "denuncia_idautor_fkey"
             columns: ["idautor"]
+            isOneToOne: false
             referencedRelation: "usuario"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "denuncia_idpublicacao_fkey"
             columns: ["idpublicacao"]
+            isOneToOne: false
             referencedRelation: "publicacao"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "denuncia_idusuario_fkey"
             columns: ["idusuario"]
+            isOneToOne: false
             referencedRelation: "usuario"
             referencedColumns: ["id"]
           }
@@ -298,12 +307,14 @@ export interface Database {
           {
             foreignKeyName: "especialidade_idcorretor_fkey"
             columns: ["idcorretor"]
+            isOneToOne: false
             referencedRelation: "corretor"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "especialidade_idtipoimovel_fkey"
             columns: ["idtipoimovel"]
+            isOneToOne: false
             referencedRelation: "tipoImovel"
             referencedColumns: ["id"]
           }
@@ -341,12 +352,14 @@ export interface Database {
           {
             foreignKeyName: "historico_id_corporacao_fkey"
             columns: ["id_corporacao"]
+            isOneToOne: false
             referencedRelation: "corporacao"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "historico_id_corretor_fkey"
             columns: ["id_corretor"]
+            isOneToOne: false
             referencedRelation: "corretor"
             referencedColumns: ["id"]
           }
@@ -402,6 +415,7 @@ export interface Database {
           {
             foreignKeyName: "imovel_idcorporacao_fkey"
             columns: ["idcorporacao"]
+            isOneToOne: false
             referencedRelation: "corporacao"
             referencedColumns: ["id"]
           }
@@ -424,12 +438,14 @@ export interface Database {
           {
             foreignKeyName: "imoveltipado_idimovel_fkey"
             columns: ["idimovel"]
+            isOneToOne: false
             referencedRelation: "imovel"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "imoveltipado_idtipoimovel_fkey"
             columns: ["idtipoimovel"]
+            isOneToOne: false
             referencedRelation: "tipoImovel"
             referencedColumns: ["id"]
           }
@@ -473,12 +489,14 @@ export interface Database {
           {
             foreignKeyName: "mensagem_idautor_fkey"
             columns: ["idautor"]
+            isOneToOne: false
             referencedRelation: "usuario"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "mensagem_idsala_fkey"
             columns: ["idsala"]
+            isOneToOne: false
             referencedRelation: "sala"
             referencedColumns: ["id"]
           }
@@ -522,12 +540,14 @@ export interface Database {
           {
             foreignKeyName: "notificacao_iddestinatario_fkey"
             columns: ["iddestinatario"]
+            isOneToOne: false
             referencedRelation: "usuario"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "notificacao_idremetente_fkey"
             columns: ["idremetente"]
+            isOneToOne: false
             referencedRelation: "usuario"
             referencedColumns: ["id"]
           }
@@ -565,6 +585,7 @@ export interface Database {
           {
             foreignKeyName: "publicacao_idautor_fkey"
             columns: ["idautor"]
+            isOneToOne: false
             referencedRelation: "usuario"
             referencedColumns: ["id"]
           }
@@ -587,12 +608,14 @@ export interface Database {
           {
             foreignKeyName: "publicacaosalva_idpublicacao_fkey"
             columns: ["idpublicacao"]
+            isOneToOne: false
             referencedRelation: "publicacao"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "publicacaosalva_idusuario_fkey"
             columns: ["idusuario"]
+            isOneToOne: false
             referencedRelation: "usuario"
             referencedColumns: ["id"]
           }
@@ -651,6 +674,7 @@ export interface Database {
           {
             foreignKeyName: "resultadoformulario_idvisita_fkey"
             columns: ["idvisita"]
+            isOneToOne: false
             referencedRelation: "visita"
             referencedColumns: ["id"]
           }
@@ -721,6 +745,7 @@ export interface Database {
           {
             foreignKeyName: "usuario_id_fkey"
             columns: ["id"]
+            isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -743,6 +768,7 @@ export interface Database {
           {
             foreignKeyName: "usuarioporregiao_idusuario_fkey"
             columns: ["idusuario"]
+            isOneToOne: false
             referencedRelation: "usuario"
             referencedColumns: ["id"]
           }
@@ -765,12 +791,14 @@ export interface Database {
           {
             foreignKeyName: "usuarioporsala_idsala_fkey"
             columns: ["idsala"]
+            isOneToOne: false
             referencedRelation: "sala"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "usuarioporsala_idusuario_fkey"
             columns: ["idusuario"]
+            isOneToOne: false
             referencedRelation: "usuario"
             referencedColumns: ["id"]
           }
@@ -808,18 +836,21 @@ export interface Database {
           {
             foreignKeyName: "visita_idcorporacao_fkey"
             columns: ["idcorporacao"]
+            isOneToOne: false
             referencedRelation: "corporacao"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "visita_idcorretor_fkey"
             columns: ["idcorretor"]
+            isOneToOne: false
             referencedRelation: "corretor"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "visita_idimovel_fkey"
             columns: ["idimovel"]
+            isOneToOne: false
             referencedRelation: "imovel"
             referencedColumns: ["id"]
           }
@@ -1399,6 +1430,25 @@ export interface Database {
           neutro: number
           satisfeito: number
           muito_satisfeito: number
+        }[]
+      }
+      obter_dados_dashboard_3: {
+        Args: {
+          idcorretor_param: string
+        }
+        Returns: {
+          id: string
+          indeciso: number
+          intencao: number
+          sem_interesse: number
+        }[]
+      }
+      obter_dados_dashboard_4: {
+        Args: {
+          idcorretor_param: string
+        }
+        Returns: {
+          descricao: Json[]
         }[]
       }
       obter_dados_survey: {

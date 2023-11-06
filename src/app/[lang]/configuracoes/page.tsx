@@ -4,7 +4,7 @@ import React, { cache } from 'react';
 import CardConfig from "./components/CardConfig";
 import { cookies } from "next/headers";
 import { getDictionary } from "../dictionaries";
-import { getProfileFullData } from "../../../../lib/utils/userProfile";
+import { getProfileFullData } from "../perfil/[id]/perfilUtils/userProfile";
 import { getSessionAPI, getUserTypeAPI } from "./configUtils";
 import { serverSupabase } from "lib/utils/serverSupabase";
 
@@ -23,7 +23,7 @@ export default async function page({ params: { lang } }: pageProps) {
   const data = await getUserTypeAPI(session, supabase)
 
   const email = session?.user.email
-  const profileFullData = session?.user.id && await getProfileFullData(data![0].role, session?.user.id!)
+  const profileFullData = session?.user.id && await getProfileFullData(data![0].role, session?.user.id!, supabase)
 
 
   return (

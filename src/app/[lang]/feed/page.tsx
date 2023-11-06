@@ -82,7 +82,7 @@ export default async function page({ params: { lang } }: pageProps) {
             <Card.Root>
               <Card.Title title={dict.feed.cards.findbrokers} />
               <Card.Content>
-                <CardUserList cards={dict.feed.cards} />
+                <CardUserList cards={dict.feed.cards} avatar={userData.avatar}/>
               </Card.Content>
             </Card.Root>
           </>

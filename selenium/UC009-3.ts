@@ -32,7 +32,7 @@ const {Builder, By, until, WebDriver, WebElement} = require('selenium-webdriver'
         await driver.wait(until.elementIsVisible(corretorElem), 1000).click();
 
         // Creating the data that will be input        
-        const inputData = ['Cliente Fulano Teste', '11986391919', 'fulano.teste.agendamento@gmail.com', '05112023', '2300'];
+        const inputData = ['Cliente Fulano Teste', '11986391919', 'fulano.teste.agendamento@gmail.com', '05112023', '1940'];
 
         // Locate all the relevant input fields based on the new selector
         const inputFields = await driver.findElements(By.css('input.dark\\:bg-gray-600'));
@@ -115,12 +115,15 @@ const {Builder, By, until, WebDriver, WebElement} = require('selenium-webdriver'
         let visitas = await driver.wait(until.elementLocated(By.xpath("//a[contains(text(), 'Visitas')]")), 10000);  // wait up to 10 seconds for the element to be located
         await driver.wait(until.elementIsVisible(visitas), 10000).click();  // wait up to 10 seconds for the element to become visible, then click it
 
+        await driver.sleep(120000);
+        
         // Locate the <tr> element with the specific class
         let trElement = await driver.wait(until.elementLocated(By.css('tr.fc-event.fc-event-start.fc-event-end.fc-event-today.fc-event-future.fc-list-event')), 10000);
 
         // Wait until the element is visible
         await driver.wait(until.elementIsVisible(trElement), 5000);
 
+        /*
         // Click the <a> inside the <tr> element
         let aElement = await trElement.findElement(By.css('a'));
         await aElement.click();
@@ -148,7 +151,7 @@ const {Builder, By, until, WebDriver, WebElement} = require('selenium-webdriver'
         await trElement.findElement(By.css('a'));
         console.log("Element found.");
 
-
+        */
     }
     catch(error) {
         if (error instanceof Error) { // Check if it's an Error object.
@@ -170,7 +173,7 @@ const {Builder, By, until, WebDriver, WebElement} = require('selenium-webdriver'
     }    
     finally {
         console.log("Test Ended.")
-        await driver.quit();
+        // await driver.quit();
     }
 })();
 

@@ -5,30 +5,23 @@ import { AiFillEdit } from "react-icons/ai";
 import { Button, Modal } from 'flowbite-react';
 import { useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
-import { Corporacao, Corretor } from "../../../../../../../../../lib/modelos";
-import { updateCorretorProfile } from "../../../../../../../../../lib/utils/editProfile";
+import {  Corretor } from "../../../../../../../../../lib/modelos";
+import { getImoveis, updateCorretorProfile } from "../../../../perfilUtils/EditProfile";
 import EditEspecialidades from "./EditEspecialidades";
 import { useRouter } from "next/navigation";
 import EditRegiaoAtuacao from "./EditRegiaoAtuacao";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../../../../../lib/database.types";
 import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface EditProfileProps {
     data: Corretor | null;
 }
 
-async function getImoveis() {
-    const supabase = createClientComponentClient<Database>({});
 
-    let { data: tipoImovel } = await supabase
-        .from("tipoImovel")
-        .select("id,descricao");
-
-    return { tipoImovel };
-}
 
 export default function EditProfile({ data }: EditProfileProps) {
+    const supabase = clientSupabase();
+
     const router = useRouter()
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
@@ -60,11 +53,11 @@ export default function EditProfile({ data }: EditProfileProps) {
 
     const onSubmit = async (formData: any) => {
         setIsProcessing(true)
-        const { updatedData, error } = await updateCorretorProfile(formData, data?.id!)
-        if (error) {
-            console.error('Erro ao atualizar os dados:', error);
+        const result = await updateCorretorProfile(formData, data?.id!, supabase)
+        if (!result) {
+            console.error('Erro ao atualizar os dados');
         } else {
-            console.log('Dados atualizados com sucesso:', updatedData);
+            console.log('Dados atualizados com sucesso');
             reset(getValues())
             props.setOpenModal(undefined);
             router.refresh()
@@ -75,7 +68,7 @@ export default function EditProfile({ data }: EditProfileProps) {
 
     useEffect(() => {
         const fetchData = async () => {
-            const imoveis = await (await getImoveis()).tipoImovel
+            const imoveis = await (await getImoveis(supabase)).tipoImovel
             setImoveis(imoveis)
         }
         fetchData()
@@ -163,7 +156,7 @@ export default function EditProfile({ data }: EditProfileProps) {
             <Modal show={props.openModal === 'default'} onClose={() => props.setOpenModal(undefined)}>
                 <Modal.Header>Editar Perfil</Modal.Header>
                 <Modal.Body>
-                    <div className="space-y-6 sm:mx-auto sm:w-full sm:max-w-sm text-sm" >
+                    <div className="space-y-5 sm:mx-auto sm:w-full sm:max-w-sm text-sm" >
                         <div className="flex flex-col">
                             <label className="text-gray-500 dark:text-gray-300">Nome</label>
                             <input type="text"
@@ -190,8 +183,8 @@ export default function EditProfile({ data }: EditProfileProps) {
                         <h2 className="font-medium text-gray-500 dark:text-gray-400">Localidade</h2>
 
                         {/* comercial & { cep & UF } */}
-                        <div className="grid md:grid-cols-2 md:gap-6">
-                            <div className="grid md:grid-cols-2 md:gap-6">
+                        <div className="grid md:grid-cols-2">
+                            <div className="grid md:grid-cols-2 md:gap-6 gap-3">
                                 <div className="relative z-0 w-full ">
                                     <label className="text-sm text-gray-500 dark:text-gray-300">
                                         CEP
@@ -228,8 +221,8 @@ export default function EditProfile({ data }: EditProfileProps) {
                         </div> */}
 
                         {/* cidade & bairro */}
-                        <div className="grid md:grid-cols-2 md:gap-6 mt-0 space-y-4 md:space-y-0">
-                            <div className="relative z-0 w-full group">
+                        <div className="grid md:grid-cols-2 md:gap-6 gap-3">
+                            <div className="relative z-0 w-full group ">
                                 <label className="text-sm text-gray-500 dark:text-gray-300">
                                     cidade
                                 </label>
@@ -260,7 +253,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                         </div>
 
                         {/* rua */}
-                        <div className="relative z-0 w-full mb-6 group">
+                        <div className="relative z-0 w-full md:gap-6 gap-3">
                             <label className="text-sm text-gray-500 dark:text-gray-300">
                                 Rua
                             </label>
@@ -276,8 +269,8 @@ export default function EditProfile({ data }: EditProfileProps) {
                         </div>
 
                         {/* numero & complemento */}
-                        <div className="grid md:grid-cols-2 md:gap-6">
-                            <div className="relative z-0 w-full mb-6 group">
+                        <div className="grid md:grid-cols-2 md:gap-6 gap-3">
+                            <div className="relative z-0 w-full group">
                                 <label className="text-sm text-gray-500 dark:text-gray-300">
                                     numero
                                 </label>
@@ -290,7 +283,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                                     Insira um número
                                 </label>)}
                             </div>
-                            <div className="relative z-0 w-full mb-6 group">
+                            <div className="relative z-0 w-full">
                                 <label className="text-sm text-gray-500 dark:text-gray-300">
                                     complemento
                                 </label>

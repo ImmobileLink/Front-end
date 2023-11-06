@@ -64,7 +64,12 @@ export default function PostItem({
                 <Card.Content>
                     <div className="w-full h-fit min-h-[50px] px-4">
                         <div className="w-full h-fit flex justify-between mb-4">
-                            <div className="flex justify-center items-center gap-2 mt-1">
+                            <div
+                                className="flex cursor-pointer justify-center items-center gap-2 mt-1"
+                                onClick={() =>
+                                    router.push(`/perfil/${publicacao.idautor}`)
+                                }
+                            >
                                 <Avatar route={publicacao.avatar} />
                                 <div>
                                     <p>{publicacao.nomeautor}</p>

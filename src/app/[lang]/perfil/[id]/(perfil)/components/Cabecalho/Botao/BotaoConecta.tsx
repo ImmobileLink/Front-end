@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from '@/../../lib/database.types';
-import { getEstadoBtnConexao, desassociarPerfis, sendConvite, cancelaConvite, aceitarConvite, getIdConexao } from '../../../../../../../../../lib/utils/Conexao'
+import { getEstadoBtnConexao, desassociarPerfis, sendConvite, cancelaConvite, aceitarConvite, getIdConexao } from '../../../../perfilUtils/Conexao'
 import { Spinner } from "flowbite-react";
 import { Button, Modal } from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { useProfileStore } from '../../../../../../../../../lib/store/profileStore';
+import { clientSupabase } from 'lib/utils/clientSupabase';
 
 interface botaoAddProps {
 
@@ -16,7 +17,7 @@ interface botaoAddProps {
 
 
 export default function BotaoAssocia({ }: botaoAddProps) {
-  const supabase = createClientComponentClient<Database>({});
+  const supabase = clientSupabase()
 
   const state = useProfileStore.getState()
 
@@ -56,7 +57,7 @@ export default function BotaoAssocia({ }: botaoAddProps) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await getEstadoBtnConexao(state.profileData?.id!, state.sessionData?.id!)
+      const { data } = await getEstadoBtnConexao(state.profileData?.id!, state.sessionData?.id!, supabase)
       if (data!.length > 0) {
         if (data![0].pendente) {
           if (data![0].iniciativa == state.sessionData?.id!) {
@@ -75,7 +76,7 @@ export default function BotaoAssocia({ }: botaoAddProps) {
 
   useEffect(() => {
     const fetchId = async () => {
-      const { data } = await getIdConexao(state.profileData?.id!, state.sessionData?.id!)
+      const { data } = await getIdConexao(state.profileData?.id!, state.sessionData?.id!, supabase)
       if (data!.length > 0) {
         setIdConexao(data![0].id)
       }else{
@@ -89,7 +90,7 @@ export default function BotaoAssocia({ }: botaoAddProps) {
   const desassocia = async () => {
     setEstado("Solicitar amizade")
 
-    const { data, error } = await desassociarPerfis(idConexao!)
+    const { data, error } = await desassociarPerfis(idConexao!, supabase)
 
     if (error) {
       setEstado("Amigo")
@@ -104,14 +105,14 @@ export default function BotaoAssocia({ }: botaoAddProps) {
     if (estado == "Solicitar amizade") {
       setEstado("Pendente")
 
-      const { data, error } = await sendConvite(state.profileData?.id!, state.sessionData?.id!)
+      const { data, error } = await sendConvite(state.profileData?.id!, state.sessionData?.id!, supabase)
       if (error) {
         setEstado("Solicitar amizade")
       }
 
     } else if (estado === "Pendente") {
       setEstado("Solicitar amizade")
-      const { data, error } = await cancelaConvite(idConexao!)
+      const { data, error } = await cancelaConvite(idConexao!, supabase)
 
       if (error) {
         setEstado("Pendente")
@@ -122,7 +123,7 @@ export default function BotaoAssocia({ }: botaoAddProps) {
 
     } else if (estado === "Aceitar amizade") {
       setEstado("Amigo")
-      const { data, error } = await aceitarConvite(idConexao!)
+      const { data, error } = await aceitarConvite(idConexao!, supabase)
 
       if (error) {
         setEstado("Aceitar amizade")

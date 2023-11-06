@@ -53,7 +53,7 @@ export default function TypingBox({ dict, idsala, userId }: TypingBoxProps) {
   };
 
   const handleEmoji = (emojiObject: any) => {
-    console.log(emojiObject)
+    // console.log(emojiObject)
     setTexto((prevMsg) => prevMsg + emojiObject.emoji)
   }
 
