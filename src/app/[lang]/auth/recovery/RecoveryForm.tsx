@@ -1,26 +1,24 @@
 "use client";
 
 import Alert from "@/app/[lang]/(components)/Alert";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../lib/database.types";
 import { useState } from "react";
+import { clientSupabase } from "lib/utils/clientSupabase";
+import { restorePasswordAPI } from "../authUtils";
+import { Recovery } from "@/app/i18n/dictionaries/types";
 import { Auth } from "@/app/i18n/dictionaries/types";
 
 interface RecoveryFormProps {
   dict: Auth;
 }
-const supabase = createClientComponentClient<Database>()
-
-export default function RecoveryForm({dict}: RecoveryFormProps) {
+const supabase = clientSupabase()
+export default function RecoveryForm({ dict }: RecoveryFormProps) {
   const [senha, setSenha] = useState("");
   const [alert, setAlert] = useState({ type: "", title: "", message: "" });
 
   const handleUpdatePassword = async () => {
-    const { data, error } = await supabase.auth.updateUser({
-      password: senha,
-    });
+    const result = await restorePasswordAPI(senha, supabase)
 
-    if (!error) {
+    if (result) {
       setAlert({
         type: "success",
         title: dict.recovery.success,
@@ -68,6 +66,7 @@ export default function RecoveryForm({dict}: RecoveryFormProps) {
         </div>
         {alert.title ? (
           <Alert
+            /* @ts-ignore */
             type={alert.type}
             title={alert.title}
             text={alert.message}

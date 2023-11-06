@@ -1,31 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../lib/database.types";
 import { AiOutlineFileImage, AiOutlineSend } from "react-icons/ai";
-import { insertMessage } from "../../../../../lib/utils/Messages";
+import { insertMessage } from "../[[...idsala]]/chatUtils";
 import ImageUpload from "./ImageUpload";
 import { MdInsertEmoticon } from "react-icons/md";
 import { BiSolidImage } from "react-icons/bi";
-import EmojiPicker, { EmojiClickData, Theme, EmojiStyle } from 'emoji-picker-react';
-import { AiOutlineClose, AiFillFileImage } from "react-icons/ai"
+import EmojiPicker, { Theme, EmojiStyle } from 'emoji-picker-react';
+import { AiOutlineClose } from "react-icons/ai"
 import { Chat } from "@/app/i18n/dictionaries/types";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../../../../../lib/database.types";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface TypingBoxProps {
   dict: Chat,
   idsala: string,
   userId: string | undefined;
 }
-const supabase = createClientComponentClient<Database>()
 
 export default function TypingBox({ dict, idsala, userId }: TypingBoxProps) {
   const [texto, setTexto] = useState<string>('')
   const [imagem, setImagem] = useState<File>()
 
-  const [loading, setLoading] = useState<boolean>(false)
-
   const [emojiView, setEmojiView] = useState<boolean>(false)
+
+  const supabase = clientSupabase()
 
   const handleUserKeyPress = (e: any) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -36,8 +36,8 @@ export default function TypingBox({ dict, idsala, userId }: TypingBoxProps) {
 
   const handleSubmit = async () => {
     if ((texto != '' || imagem) && userId) {
-      const response = await insertMessage({ idautor: userId, idsala, mensagem: texto, imagem })
-      if (response === false) {
+      const response = await insertMessage({ idautor: userId, idsala, mensagem: texto, imagem }, supabase)
+      if (response) {
         setTexto('')
         setImagem(undefined);
       }
@@ -50,7 +50,6 @@ export default function TypingBox({ dict, idsala, userId }: TypingBoxProps) {
     } else {
       setImagem(undefined);
     }
-    // console.log(imagem)
   };
 
   const handleEmoji = (emojiObject: any) => {
@@ -64,15 +63,15 @@ export default function TypingBox({ dict, idsala, userId }: TypingBoxProps) {
         {
           imagem != undefined &&
           <div className="flex flex-row items-center gap-x-3 text-sm lg:text-base">
-            <AiOutlineFileImage size={18}/>
+            <AiOutlineFileImage size={18} />
             {dict.uploadedfile}
-            <div onClick={e=>setImagem(undefined)}>
-              <AiOutlineClose/>
+            <div onClick={e => setImagem(undefined)}>
+              <AiOutlineClose />
             </div>
           </div>
         }
         <div className="flex items-center w-full mt-1">
-          <button className="p-2 inline-flex justify-center text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
+          <button data-testid="image-upload-button" className="p-2 inline-flex justify-center text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
             <ImageUpload onImageUpload={handleImageUpload} label={<BiSolidImage size={24} />} noText={true} />
           </button>
 

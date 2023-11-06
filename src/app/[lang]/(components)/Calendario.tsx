@@ -11,7 +11,8 @@ import { useProfileStore } from '../../../../lib/store/profileStore';
 import Link from 'next/link';
 import "dayjs/locale/en";
 import "dayjs/locale/pt";
-import { getDiasVisita } from '../../../../lib/utils/CalendarioProfile';
+import { getDiasVisita } from '../perfil/[id]/perfilUtils/CalendarioProfile';
+import { clientSupabase } from 'lib/utils/clientSupabase';
 
 
 
@@ -19,16 +20,16 @@ interface CalendarioProps {
 
 }
 
-async function fetchData(date: Dayjs, id1: string, id2: string | undefined, { signal }: { signal: AbortSignal }) {
+async function fetchData(date: Dayjs, id1: string, id2: string | undefined, { signal }: { signal: AbortSignal }, supabase:any) {
 
-  const { data, error } = await getDiasVisita(date, id1, id2)
+  const { data, error } = await getDiasVisita(date, id1, id2, supabase)
 
-  if(error){
+  if (error) {
     console.error(error)
-  }else{
+  } else {
     return data
   }
-  
+
 }
 
 function obterDataAtualFormatada() {
@@ -54,7 +55,7 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] 
       overlap="circular"
       badgeContent={isSelected ? '🏠' : undefined}
     >
-      <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} className='dark:text-gray-400' />
+      <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
     </Badge>
   );
 }
@@ -62,6 +63,7 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] 
 
 
 export default function Calendario({ }: CalendarioProps) {
+  const supabase = clientSupabase()
   const requestAbortController = React.useRef<AbortController | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
   const [highlightedDays, setHighlightedDays] = React.useState<number[]>([]);
@@ -73,7 +75,7 @@ export default function Calendario({ }: CalendarioProps) {
   const fetchHighlightedDays = async (date: Dayjs) => {
 
     const controller = new AbortController();
-    const daysToHighlight = await fetchData(date, id1, id2, { signal: controller.signal, })
+    const daysToHighlight = await fetchData(date, id1, id2, { signal: controller.signal, }, supabase)
     if (daysToHighlight) {
       const newHighlightedDays = daysToHighlight.map(item => item.diavisita);
       setHighlightedDays(prev => [...prev, ...newHighlightedDays]);
@@ -104,8 +106,9 @@ export default function Calendario({ }: CalendarioProps) {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt">
-      <div className='flex flex-col items-center justify-center'> 
+      <div className='flex flex-col items-center justify-center'>
         <DateCalendar
+          className='text-black font-bold'
           defaultValue={initialValue}
           loading={isLoading}
           onMonthChange={handleMonthChange}
@@ -113,7 +116,11 @@ export default function Calendario({ }: CalendarioProps) {
           slots={{
             day: ServerDay,
           }}
-
+          sx={{
+            '.MuiDateCalendar-root': {
+              className: 'text-white'
+            },
+          }}
           slotProps={{
             day: {
               highlightedDays,

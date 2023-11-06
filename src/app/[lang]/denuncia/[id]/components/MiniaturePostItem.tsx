@@ -1,6 +1,6 @@
 "use client";
 
-import { formataData } from "../../../../../../lib/utils";
+import { formataData } from "../../../../../../lib/utils/formataData";
 import { Card } from "../../../(components)/(compositions)/(card)";
 import Avatar from "../../../(components)/Avatar";
 import Image from "next/image";

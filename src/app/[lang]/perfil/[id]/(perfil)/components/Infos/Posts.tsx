@@ -24,7 +24,7 @@ export default function Posts({}: PostsProps) {
                 // O response é interessante de se manter caso queira ver o corpo completo da requisição
                 // e por conseguinte verificar que ela está de fato retornando tudo que é esperado.
              */}
-            {/* <PostList idusuario={id} textos={textos} /> */}
+            <PostList idusuario={id} textos={textos} profile={true}/>
         </div>
     );
 }

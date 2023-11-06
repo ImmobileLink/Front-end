@@ -78,7 +78,7 @@ export default function Calendario({ type, visitas, locale, dict }: CalendarioPr
                 headerToolbar={{
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'listWeek,dayGridMonth,multiMonthYear'
+                    right: 'listYear,dayGridMonth,multiMonthYear'
                 }}
                 nowIndicator={true}
                 selectable={true}
@@ -104,7 +104,6 @@ export default function Calendario({ type, visitas, locale, dict }: CalendarioPr
                     isOpen={isEditModalOpen}
                     onClose={closeEditModal}
                     evento={eventoAtivo}
-                    type={type}
                     dict={dict}
                 />
             )}

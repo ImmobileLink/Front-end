@@ -325,19 +325,19 @@
         "has": " apresenta?",
         "reportparagraph": "Sua denúncia foi feita com sucesso e está em análise. Agradecemos por ajudar a tornar a ImmobileLink uma plataforma mais segura!",
         "returntofeed": "VOLTAR PARA O FEED",
-        "cancel":"CANCELAR",
+        "cancel": "CANCELAR",
         "finishreport": "FINALIZAR DENÚNCIA",
         "dateformat": "pt-BR",
         "more": "Ler mais",
         "less": "Mostrar menos",
-        "issues":{
+        "issues": {
             "offensive": "Comportamento ofensivo ou discriminatório",
             "abuse": "Abuso e assédio",
             "harm": "Comportamento nocivo ou perigoso",
             "spam": "Spam ou fraude",
-            "other": "Outro problema" 
+            "other": "Outro problema"
         },
-        "issuesdescription":{
+        "issuesdescription": {
             "offensive": "Inclui insultos e ações que prejudicam, menosprezam ou discriminam pessoas com base em características pessoais, como raça, etnia, gênero, orientação sexual, religião, deficiência, ou outras características protegidas por lei.",
             "abuse": "Inclui assédio praticado dentro da plataforma, direcionado a usuários ou grupos específicos, assim como o compartilhamento de conteúdo de cunho sexual ou que incite atos de abuso e assédio.",
             "harm": "Inclui organização criminosa, ameaças, chantagens, compartilhamento de conteúdo gráfico perturbador ou ilegal, incentivo ou menção a automutilação e suicídio, discurso violento ou que incentive atos violentos.",
@@ -492,12 +492,15 @@
     "chat": {
         "conversations": "Conversas",
         "you": "Você",
-        "sent": "enviado",
+        "sent": "enviar",
         "newconversation": "Novo espaço",
         "newconvlabel1": "Associações",
         "newconvlabel2": "Links",
         "uploadedfile": "Arquivo selecionado",
-        "chathome": "Selecione uma conversa ou clique em \"Novo espaço\" para iniciar uma nova!"
+        "chathome": "Selecione uma conversa ou clique em \"Novo espaço\" para iniciar uma nova!",
+        "errormessages": {
+            "insertfail": "Ops! Não foi possível inserir sua mensagem. Por favor, tente novamente."
+        }
     },
     "cityselector": {
         "estate": "Estado",
@@ -508,7 +511,7 @@
         "resources": "Recursos",
         "premium": "Premium",
         "access": "ACESSAR PLATAFORMA",
-        "conecting": "Criando",
+        "conecting": "Unindo imóveis,",
         "ties": "laços e negócios",
         "whatIsImmobileLink": "A ImmobileLink é uma plataforma que busca facilitar o contato entre corretores, construtoras e imobiliárias. Encontre o profissional certo para o imóvel certo.",
         "searchOpportunities": "Encontre oportunidades",
@@ -522,7 +525,7 @@
             "item2": "Dashboard de métricas do usuário",
             "item3": "Feedback de desempenho profissional",
             "item4": "Criação de comunidades",
-            "item5": "Associação à empresas",
+            "item5": "Afiliação à empresas",
             "item6": "Oportunidades por setor e região",
             "item7": "Agendamento e controle de visitas",
             "item8": "E muito mais!"
@@ -530,74 +533,80 @@
         "tryPremium": "EXPERIMENTE O PREMIUM",
         "start": "Vamos começar?"
     },
-  "footer": {
-    "usefulLinks": "Links úteis",
-    "access": "Acessar plataforma",
-    "premium": "Premium",
-    "moreLinks": "Mais links",
-    "blog": "Blog",
-    "ytChannel": "Canal do YouTube"
-  },
-  "agenda": {
-    "visitdetails": "Detalhes da visita",
-    "companyname": "Empresa responsável",
-    "brokername": "Corretor responsável",
-    "clientdetails": "Dados do cliente",
-    "clientname": "Nome",
-    "telefone": "Telefone",
-    "scheduling": "Editar visita",
-    "date": "Data",
-    "time": "Horário",
-    "placedetails": "Detalhes do imóvel",
-    "address": "Endereço",
-    "uf": "Estado",
-    "cidade": "Cidade",
-    "cep": "CEP",
-    "bairro": "Bairro",
-    "rua": "Rua",
-    "numero": "Número",
-    "complemento": "Complemento",
-    "submit": "Confirmar",
-    "close": "Fechar",
-    "delete": "Deseja cancelar esta visita?",
-    "cannotbeundone": "Esta ação não pode ser desfeita.",
-    "sendsurvey": "Deseja enviar formulário de pesquisa de satisfação?",
-    "logs": {
-      "emailerror": "O envio do formulário só é possível para visitas já realizadas.",
-      "emailok": "Email enviado com sucesso.",
-      "visitok": "Visita cancelada com sucesso.",
-      "visitchanged": "Visita atualizada com sucesso.",
-      "invaliddate": "Selecione uma data válida",
-      "invalidtime": "Selecione um horário válido"
+    "footer": {
+        "usefulLinks": "Links úteis",
+        "access": "Acessar plataforma",
+        "premium": "Premium",
+        "moreLinks": "Mais links",
+        "blog": "Blog",
+        "ytChannel": "Canal do YouTube"
+    },
+    "agenda": {
+        "visitdetails": "Detalhes da visita",
+        "companyname": "Empresa responsável",
+        "brokername": "Corretor responsável",
+        "clientdetails": "Dados do cliente",
+        "clientname": "Nome",
+        "telefone": "Telefone",
+        "scheduling": "Editar visita",
+        "date": "Data",
+        "time": "Horário",
+        "placedetails": "Detalhes do imóvel",
+        "address": "Endereço",
+        "uf": "Estado",
+        "cidade": "Cidade",
+        "cep": "CEP",
+        "bairro": "Bairro",
+        "rua": "Rua",
+        "numero": "Número",
+        "complemento": "Complemento",
+        "submit": "Confirmar",
+        "close": "Fechar",
+        "delete": "Deseja cancelar esta visita?",
+        "cannotbeundone": "Esta ação não pode ser desfeita.",
+        "sendsurvey": "Deseja enviar formulário de pesquisa de satisfação?",
+        "logs": {
+            "emailerror": "O envio do formulário só é possível para visitas já realizadas.",
+            "emailok": "Email enviado com sucesso.",
+            "visitok": "Visita cancelada com sucesso.",
+            "visitchanged": "Visita atualizada com sucesso.",
+            "invaliddate": "Selecione uma data válida",
+            "invalidtime": "Selecione um horário válido"
+        }
+    },
+    "survey": {
+        "dear": "Prezado(a)",
+        "nosurveyfound": "Não foi encontrada nenhuma pesquisa de satisfação com a URL especificada.",
+        "thanksforanswering": "Agradecemos sinceramente por dedicar seu tempo para preencher nosso formulário. Suas respostas são valiosas e nos ajudarão a melhorar nossos serviços.",
+        "bestregards": "Atenciosamente",
+        "welcome": "BEM-VINDO(A) À PESQUISA DE SATISFAÇÃO DA IMMOBILELINK",
+        "referenceday": "A pesquisa em questão refere-se à visita do dia",
+        "referencebroker": "conduzida pelo corretor(a)",
+        "referencecompany": "representando a Empresa",
+        "explanationsurveysite1": "Valorizamos sua opinião e estamos ansiosos para entender sua experiência durante a visita ao imóvel.",
+        "explanationsurveysite2": "Para ajudar a melhorar nossos serviços e garantir que atendamos suas expectativas da melhor maneira possível pedimos que faça uma avaliação em uma escala de 1 a 5, onde 5 representa Muito satisfeito e 1 representa Muito insatisfeito, para indicar o quanto nosso corretor atendeu suas expectativas durante a visita.",
+        "insertavalue": "Verifique se todos os campos obrigatórios foram preenchidos",
+        "fieldlenght": "O texto no campo deve ter mais de 3 caracteres",
+        "finish": "FINALIZAR PESQUISA",
+        "questions": {
+            "question1": "1 - Profissionalismo do Corretor",
+            "question2": "2- Comunicação do Corretor",
+            "question3": "3- Conhecimento do Corretor sobre o Imóvel",
+            "question4": "4 - Transparência nas Informações Fornecidas pelo Corretor",
+            "question5": "5 - Atenção aos Detalhes Durante a Visita",
+            "question6": "6 - Clareza na Explicação dos Termos e Condições",
+            "question7": "7 - Qual sua atual disposição em adquirir o imóvel?",
+            "question8": "8 - Experiência Geral da Visita",
+            "question9": "9 - Caso tenha se interessado pelo imóvel, de 1 a 5, qual foi o peso que o corretor teve em sua decisão? (Opcional)",
+            "question10": "Compartilhe um pouco mais sobre sua experiência: (Opcional)"
+        },
+        "labels": {
+            "pleased": "Muito satisfeito",
+            "notpleased": "Muito insatisfeito",
+            "notinterested": "Não tenho interesse",
+            "interested": "Tenho a intenção de adquiri-lo",
+            "notinfluence": "Não influenciou",
+            "influence": "Influenciou positivamente"
+        }
     }
-  },
-  "survey": {
-    "dear": "Prezado(a)",
-    "nosurveyfound": "Não foi encontrada nenhuma pesquisa de satisfação com a URL especificada.",
-    "thanksforanswering": "Agradecemos sinceramente por dedicar seu tempo para preencher nosso formulário. Suas respostas são valiosas e nos ajudarão a melhorar nossos serviços.",
-    "bestregards": "Atenciosamente",
-    "welcome": "BEM-VINDO(A) À PESQUISA DE SATISFAÇÃO DA IMMOBILELINK",
-    "referenceday": "A pesquisa em questão refere-se à visita do dia",
-    "referencebroker": "conduzida pelo corretor(a)",
-    "referencecompany": "representando a Empresa",
-    "explanationsurveysite1": "Valorizamos sua opinião e estamos ansiosos para entender sua experiência durante a visita ao imóvel.",
-    "explanationsurveysite2": "Para ajudar a melhorar nossos serviços e garantir que atendamos suas expectativas da melhor maneira possível pedimos que faça uma avaliação em uma escala de 1 a 5, onde 5 representa Muito satisfeito e 1 representa Muito insatisfeito, para indicar o quanto nosso corretor atendeu suas expectativas durante a visita.",
-    "pleased": "Muito satisfeito",
-    "notpleased": "Muito insatisfeito",
-    "insertavalue": "Verifique se todos os campos obrigatórios foram preenchidos",
-    "fieldlenght": "O texto no campo deve ter mais de 3 caracteres",
-    "finish": "FINALIZAR PESQUISA",
-    "questions": {
-      "question1": "1 - Profissionalismo do Corretor",
-      "question2": "2- Comunicação do Corretor",
-      "question3": "3- Conhecimento do Corretor sobre o Imóvel",
-      "question4": "4 - Transparência nas Informações Fornecidas pelo Corretor",
-      "question5": "5 - Atenção aos Detalhes Durante a Visita",
-      "question6": "6 - Clareza na Explicação dos Termos e Condições",
-      "question7": "7 - Probabilidade de Recomendar o Corretor e o Imóvel a Outros",
-      "question8": "8 - Experiência Geral da Visita",
-      "question9": "9 - Caso tenha se interessado pelo imóvel, de 1 a 5, qual foi o peso que o corretor teve em sua decisão? (Opcional)",
-      "question10": "Compartilhe um pouco mais sobre sua experiência: (Opcional)"
-    }
-  }
 }

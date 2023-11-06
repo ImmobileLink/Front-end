@@ -4,25 +4,25 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import MiniaturePostItem from "./MiniaturePostItem";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../../lib/database.types";
 import Loading from "../../../(components)/(auth)/Loading";
 import { Denuncia } from "@/app/i18n/dictionaries/types";
+import { clientSupabase } from "../../../../../../lib/utils/clientSupabase";
+import { submitReportAPI } from "../denunciaUtils";
 
 interface CabecalhoFormProps {
     publicacao:
-        | {
-              id: string;
-              idautor: string;
-              avatar: string;
-              nomeautor: string;
-              regiao: any;
-              conteudo: string;
-              imagem: string;
-              criadoem: string;
-              atualizadoem: string;
-          }[]
-        | null;
+    | {
+        id: string;
+        idautor: string;
+        avatar: string;
+        nomeautor: string;
+        regiao: any;
+        conteudo: string;
+        imagem: string;
+        criadoem: string;
+        atualizadoem: string;
+    }[]
+    | null;
     dict: Denuncia;
 }
 
@@ -32,21 +32,16 @@ const submitReport = async (
     publicacao: any,
     isSubmitted: Function
 ) => {
-    const supabase = createClientComponentClient<Database>({});
+    const supabase = clientSupabase();
     if (problema != "") {
         const {
             data: { session },
         } = await supabase.auth.getSession();
 
-        let { data } = await supabase.from("denuncia").insert({
-            idusuario: session?.user.id!,
-            idpublicacao: publicacao![0]?.id,
-            idautor: publicacao![0]?.idautor,
-            motivo: problema,
-            descricao: motivo,
-        });
-
-        isSubmitted(true);
+        const result = await submitReportAPI(session?.user.id!, publicacao![0], problema, motivo, supabase)
+        if (result) {
+            isSubmitted(true);
+        }
     }
 };
 
@@ -55,7 +50,6 @@ export default function CabecalhoForm({
     dict,
 }: CabecalhoFormProps) {
     const router = useRouter();
-    const supabase = createClientComponentClient<Database>({});
 
     const [problema, setProblema] = useState("");
     const [motivo, setMotivo] = useState("");
@@ -98,9 +92,8 @@ export default function CabecalhoForm({
 
                     <div className="flex flex-col md:pl-8 md:mr-12">
                         <div
-                            className={`${
-                                problema == "Ofensivo" ? "bg-black/25 " : ""
-                            }rounded-lg p-2 flex mb-2 items-baseline md:mb-4 `}
+                            className={`${problema == "Ofensivo" ? "bg-black/25 " : ""
+                                }rounded-lg p-2 flex mb-2 items-baseline md:mb-4 `}
                         >
                             <input
                                 type="radio"

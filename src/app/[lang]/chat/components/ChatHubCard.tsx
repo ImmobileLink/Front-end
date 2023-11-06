@@ -5,9 +5,8 @@ import Avatar from "../../(components)/Avatar";
 import Link from "next/link";
 import { ChatContext } from "../[[...idsala]]/chatContext";
 import { useContext, useEffect, useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../lib/database.types";
 import { useRouter } from 'next/navigation';
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface ChatHubCardProps {
     dict: Chat,
@@ -25,15 +24,17 @@ export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar
 
 
     const updateNotification = async () => {
-        const supabase = createClientComponentClient<Database>()
-        const { data, error } = await supabase
-            .from('notificacao')
-            .update({ visualizada: true })
-            .eq('iddestinatario', userId)
-            .eq('artefato', idsala)
-            .select()
-        if (error) {
-            console.log(error)
+        if (userId) {
+            const supabase = clientSupabase()
+            const { data, error } = await supabase
+                .from('notificacao')
+                .update({ visualizada: true })
+                .eq('iddestinatario', userId)
+                .eq('artefato', idsala)
+                .select()
+            if (error) {
+                console.log(error)
+            }
         }
     }
 
@@ -41,7 +42,7 @@ export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar
         if (idsala == idsaladestino) {
             toggleChatView(true)
         }
-        highlight=false
+        highlight = false
         updateNotification()
         router.refresh();
     }

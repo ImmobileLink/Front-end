@@ -1,14 +1,14 @@
 "use client";
 
 import { Signin } from "@/app/i18n/dictionaries/types";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { useState, Dispatch, SetStateAction } from "react";
 
-import { FcGoogle } from "react-icons/fc";
-import { Database } from "../../../../../lib/database.types";
+
 import PasswordInput from "../../(components)/(auth)/PasswordInput";
 import Loading from "../../(components)/(auth)/Loading";
+import { clientSupabase } from "lib/utils/clientSupabase";
+import { handleLoginAPI } from "../authUtils";
 
 interface SignInProps {
     setAlert: Dispatch<
@@ -18,7 +18,7 @@ interface SignInProps {
     lang: string;
 }
 
-const supabase = createClientComponentClient<Database>();
+const supabase = clientSupabase();
 
 export default function SignIn({ setAlert, signin, lang }: SignInProps) {
     const [email, setEmail] = useState("");
@@ -28,12 +28,8 @@ export default function SignIn({ setAlert, signin, lang }: SignInProps) {
 
     const handleLogin = async () => {
         isLoading(true);
-        let { error } = await supabase.auth.signInWithPassword({
-            email: email,
-            password: senha,
-        });
-
-        if (error) {
+        const result = await handleLoginAPI(email, senha, supabase)
+        if (!result) {
             setAlert({
                 type: "warning",
                 title: "",

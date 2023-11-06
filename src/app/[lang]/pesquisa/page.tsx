@@ -1,16 +1,14 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { cache } from "react";
 import { Card } from "../(components)/(compositions)/(card)";
-import { Page } from "../(components)/(compositions)/(page)";
-import type { Database } from "../../../../lib/database.types";
-import { userData } from '../../../../lib/modelos';
-import { getAssoc, getLinks, getTipoUsuario } from "../../../../lib/utils/userData";
+import { CorretorCarouselItem, userData } from '../../../../lib/modelos';
+import { getUserData } from "../../../../lib/utils/userData";
 import { getDictionary } from "../dictionaries";
 import PesquisaCard from "./components/PesquisaCard";
-import { SearchProvider } from "./components/SearchContext";
+import { SearchProvider } from "./searchContext";
 import ResultContainer from "./components/ResultContainer";
 import NearbyUsers from "./components/NearbyUsers";
+import { serverSupabase } from "lib/utils/serverSupabase";
+import { getTiposImovel } from "../imovel/imovelUtils";
+import { getCorretores, getUserEstadoAPI } from "./pesquisaUtils";
 
 interface pageProps {
   params: {
@@ -18,68 +16,31 @@ interface pageProps {
   };
 }
 
-export const createServerSupabaseClient = cache(() => {
-  const cookieStore = cookies()
-  return createServerComponentClient<Database>({ cookies: () => cookieStore })
-})
 
-
-async function getUserData(user: userData) {
-  const supabase = createServerSupabaseClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (session?.user.id) {
-    user = await getTipoUsuario(user, session.user.id);
-
-    [user, user] = await Promise.all([
-      getLinks(user),
-      getAssoc(user)
-    ]);
-  }
-
-  return user;
-}
-
-async function getCorretores(estado: string) {
-  const supabase = createServerSupabaseClient();
-
-  let { data, error } = await supabase
-    .rpc('obter_corretores_por_estado', {
-      estadoinputado: estado
-    })
-
-  return data;
-}
 
 export default async function page({ params: { lang } }: pageProps) {
-  const supabase = createServerSupabaseClient();
-
-  let user: userData = {
-    id: undefined,
-    avatar: undefined,
-    isPremium: undefined,
-    nome: undefined,
-    type: undefined,
-    links: [],
-    assoc: []
-  }
-
+  const supabase = await serverSupabase();
   const dict = await getDictionary(lang); // pt
-  const userData = await getUserData(user);
-  const tipoImovel = await supabase.from('tipoImovel').select('*');
+  const userData = await getUserData(supabase);
+  const tipoImovel = await getTiposImovel(supabase);
 
-  let estadoUsuario: string | null;
-
+  let estadoUsuario;
   if (userData.id) {
-    let { data: estado, error } = await supabase.rpc('get_user_estado', { id_usuario: userData.id })
-    estadoUsuario = estado![0].estado;
+    const estado = await getUserEstadoAPI(userData.id, supabase)
+    if (estado) {
+      estadoUsuario = estado![0].estado;
+    }
+    else {
+      estadoUsuario = "SP";
+    }
   } else {
     estadoUsuario = "SP";
   }
 
-  const carouselUsers = await getCorretores(estadoUsuario);
+  let carouselUsers;
+  if (estadoUsuario) {
+    carouselUsers = await getCorretores(estadoUsuario, supabase);
+  }
 
   return (
     <SearchProvider>

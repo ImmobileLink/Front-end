@@ -1,19 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BsSearch } from "react-icons/bs";
 import { getDictionary } from "../../dictionaries";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { Database } from "../../../../../lib/database.types";
-import { userData } from "../../../../../lib/modelos";
 import NavBarHamburguerMenu from "./NavBarHamburguerMenu";
 import NavBarProfileMenu from "./NavBarProfileMenu";
-import { cache } from "react";
 import ChatIcon from "./ChatIcon";
 import { MdPersonSearch } from "react-icons/md";
-import { HiBell, HiHome } from "react-icons/hi2";
+import { HiHome } from "react-icons/hi2";
 // import { getMessageNotifications } from "../../../../../lib/utils/userNotification";
 import NotificationDropdown from "./NotificationDropdown";
+import { serverSupabase } from "../../../../../lib/utils/serverSupabase";
+import { getUserData } from "../../../../../lib/utils/userData";
 
 interface NavBarProps {
   params: {
@@ -21,29 +17,10 @@ interface NavBarProps {
   };
 }
 
-
-const createServerSupabaseClient = cache(() => {
-  const cookieStore = cookies()
-  return createServerComponentClient<Database>({ cookies: () => cookieStore })
-})
-
-async function getUserData(user: userData) {
-  const supabase = createServerSupabaseClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  user.id = session?.user.id;
-
-  return user;
-}
-
 export default async function NavBar({ params: { lang } }: NavBarProps) {
-  let user: userData = {
-    id: undefined
-  }
-
-  const userData = await getUserData(user);
+  const supabase = await serverSupabase()
+  
+  const userData = await getUserData(supabase);
   const dict = await getDictionary(lang); // pt
  
   return (

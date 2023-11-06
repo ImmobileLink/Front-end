@@ -3,12 +3,12 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Chart from 'chart.js/auto';
 import { Radar as R } from "react-chartjs-2";
 import { CategoryScale } from 'chart.js';
-import { Avaliacao } from "../../../../../../../../../lib/modelos";
+import { Dashboard1 } from "lib/modelos";
 
 Chart.register(CategoryScale);
 
 interface RadarProps {
-  avaliacao: Avaliacao
+  avaliacao: Dashboard1
 }
 
 Chart.defaults.color = '#000';

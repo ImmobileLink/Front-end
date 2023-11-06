@@ -1,7 +1,7 @@
 import "@/app/globals.css";
 
 import { dir } from "i18next";
-import { NotificationProvider } from "./(components)/(navbar)/NotificationContext";
+import { NotificationProvider } from "./(components)/(navbar)/notificationContext";
 import ToastProvider from "../../../providers/toast-provider";
 
 export const metadata = {

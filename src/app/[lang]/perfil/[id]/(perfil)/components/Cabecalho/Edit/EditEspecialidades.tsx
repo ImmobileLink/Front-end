@@ -3,12 +3,13 @@
 import { AiFillPlusCircle, AiFillCloseCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import Loading from "@/app/[lang]/(components)/(auth)/Loading";
-import { _UFs } from "../../../../../../../../../lib/utils/getRegiao"
+import { _UFs } from "../../../../../../../../../lib/utils/externalApis";
 import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/../../lib/database.types";
-import { adicionarEspecialidade, removerEspecialidade } from "../../../../../../../../../lib/utils/EditProfile";
+import { adicionarEspecialidade, removerEspecialidade } from "../../../../perfilUtils/EditProfile";
 import { useProfileContext } from "../../../context/ProfileContext";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface EditEspecialidades {
     props: any;
@@ -17,7 +18,7 @@ interface EditEspecialidades {
 
 
 export default function EditEspecialidades({ props, imoveis }: EditEspecialidades) {
-
+    const supabase = clientSupabase()
     const [especialidade, setEspecialidade] = useState<{ id: any, descricao: string }[] | null>([]);
     const [especialidadesIncluidas, setEspecialidadesIncluidas] = useState<string[]>([]);
     const [error, setError] = useState(false)
@@ -33,7 +34,7 @@ export default function EditEspecialidades({ props, imoveis }: EditEspecialidade
            
             if (especialidades) {
                 setEspecialidade(especialidades)
-                especialidades.forEach((item) => {
+                especialidades.forEach((item: any) => {
                     setEspecialidadesIncluidas((prev) => [...prev, item.id])
                 })
             }
@@ -55,7 +56,7 @@ export default function EditEspecialidades({ props, imoveis }: EditEspecialidade
                 { id: id, descricao: descricao },
             ]);
             setEspecialidadesIncluidas((prev) => [...prev, id]);
-            const { error } = await adicionarEspecialidade(state.profileData?.id!, id)
+            const { error } = await adicionarEspecialidade(state.profileData?.id!, id, supabase)
             if (!error) {
                 setSucess(true)
                 props.setDropdownTipos(!props.dropdownTipos);
@@ -80,14 +81,19 @@ export default function EditEspecialidades({ props, imoveis }: EditEspecialidade
         setEspecialidade((prev) => prev!.filter((item) => item.id !== id));
         setEspecialidadesIncluidas((prev) => prev.filter((item) => item !== id));
 
-        const { error } = await removerEspecialidade(state.profileData?.id!, id);
+        const updatedEspecialidades = especialidade!.filter((item) => item.id !== id);
+        const updatedEspecialidadesIncluidas = especialidadesIncluidas.filter((item) => item !== id);
+
+        const { error } = await removerEspecialidade(state.profileData?.id!, id, supabase);
 
         if (!error) {
             setSucess(true);
             setTimeout(() => {
                 setSucess(false);
             }, 3000);
-            setEspecialidades(especialidade);
+    
+            setEspecialidade(updatedEspecialidades);  // Atualize o estado com o valor filtrado
+            setEspecialidadesIncluidas(updatedEspecialidadesIncluidas);
         } else {
             setEspecialidade(prevEspecialidade);
             setEspecialidadesIncluidas(prevEspecialidadesIncluidas);

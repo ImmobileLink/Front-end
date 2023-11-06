@@ -1,37 +1,31 @@
 "use client";
 
-import { AiOutlineClose } from 'react-icons/ai';
 import { Agenda } from "@/app/i18n/dictionaries/types";
 import { VisitaProps } from "../../../../../lib/modelos";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Modal, Spinner } from 'flowbite-react';
-import { BiEditAlt } from 'react-icons/bi';
-import { LiaTrashAltSolid } from 'react-icons/lia';
-import { MdOutgoingMail } from 'react-icons/md';
-import { formataData, formataDataParaTimezone, formataDataSemDia, formataDataSemHora, isDateBeforeCurrent } from '../../../../../lib/utils';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '../../../../../lib/database.types';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { formataDataSemDia, formataDataSemHora, isDateBeforeCurrent } from 'lib/utils/formataData';
+import { clientSupabase } from "lib/utils/clientSupabase";
+import { updateVisita } from "../agendaUtils";
 
 interface EditModalProps {
   isOpen: boolean;
   onClose: () => void;
   evento: VisitaProps | undefined;
   dict: Agenda;
-  type: string;
 }
 
-const supabase = createClientComponentClient<Database>();
+export default function EditModal({ isOpen, onClose, evento, dict }: EditModalProps) {
+  const supabase = clientSupabase();
 
-export default function EditModal({ isOpen, onClose, evento, dict, type }: EditModalProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState(formataDataSemHora(evento!.data_agendamento));
   const [time, setTime] = useState(formataDataSemDia(evento!.data_agendamento));
 
-  const [erro, setErro] = useState(false);
 
   //const currentDate = new Date().toISOString().slice(0, 10);
   const date = new Date().toLocaleDateString().split("/");
@@ -46,8 +40,9 @@ export default function EditModal({ isOpen, onClose, evento, dict, type }: EditM
     setLoading(true);
 
     if(!isDateBeforeCurrent(`${data} ${time}:00-03`)){
-      const { error } = await supabase.from("visita").update({ dataagendamento: `${data} ${time}:00-03` }).eq('id', evento!.visita_id)
-      if (!error) {
+      const result = await updateVisita(supabase, data, time, evento!.visita_id);
+
+      if (result) {
         toast.success(dict.logs.visitchanged);
         router.refresh();
         onClose();

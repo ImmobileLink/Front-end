@@ -15,10 +15,9 @@ import Signup2 from "./signup2";
 import Signup3 from "./signup3";
 import Signup4 from "./signup4";
 import Signup5 from "./signup5";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../../lib/database.types";
 import Loading from "@/app/[lang]/(components)/(auth)/Loading";
-import { handleSignUpDB, verifyFields } from "./validations";
+import { handleSignUpDB, verifyFields } from "../../authUtils";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface SignUpProps {
     fieldErros: Object;
@@ -33,7 +32,7 @@ interface SignUpProps {
     lang: string;
 }
 
-const supabase = createClientComponentClient<Database>();
+const supabase = clientSupabase();
 
 export default function SignUp({
     fieldErros,
@@ -146,6 +145,7 @@ export default function SignUp({
     };
 
     const handleSignUp = async () => {
+        const locationOrigin = location.origin;
         const callback = handleSignUpDB(
             tipoPerfil,
             senha,
@@ -168,7 +168,8 @@ export default function SignUp({
             bairro,
             premium,
             especialidade,
-            regiaoAtuacao
+            regiaoAtuacao,
+            locationOrigin
         );
         if (await callback) {
             setIsOK(true);

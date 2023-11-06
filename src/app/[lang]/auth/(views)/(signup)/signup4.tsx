@@ -5,7 +5,9 @@ import InputMask from "react-input-mask";
 import { Signup4 } from "@/app/i18n/dictionaries/types";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Loading from "@/app/[lang]/(components)/(auth)/Loading";
-import { _UFs } from "../../../../../../lib/utils/getRegiao";
+import { _UFs } from "../../../../../../lib/utils/externalApis";
+import { stringify } from 'querystring';
+import { fetchCitiesAPI } from "../../../../../../lib/utils/externalApis";
 
 interface Signup4Props {
     props: {
@@ -87,15 +89,15 @@ export default function Signup4({
     useEffect(() => {
         async function fetchCities() {
             if (selectedState) {
-                try {
-                    setLoading(true)
-                    const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState}/municipios`);
-                    const citiesData = await response.json();
-                    setCities(citiesData);
-                    setLoading(false)
-                } catch (error) {
+                setLoading(true)
+                const result = await fetchCitiesAPI(selectedState)
+                if (result) {
+                    setCities(result);
+                }
+                else {
                     console.error(signup4.logs.uferror, error);
                 }
+                setLoading(false)
             } else {
                 setCities([]);
             }
@@ -114,7 +116,7 @@ export default function Signup4({
         }
     };
 
-    const removeRegiao = ({estado, cidade}: {estado: string, cidade: string}) => {
+    const removeRegiao = ({ estado, cidade }: { estado: string, cidade: string }) => {
         props.setRegiaoAtuacao((prev) => prev.filter((item) => (item.cidade !== cidade || item.estado !== estado)));
         props.setRegioesIncluidas((prev) => prev.filter((item) => (item.cidade !== cidade || item.estado !== estado)));
     };
@@ -129,7 +131,7 @@ export default function Signup4({
                                 mask="999999-a"
                                 className={`${fieldErros?.creci?.[0] != undefined ? "bg-red-500/50" : "bg-transparent"} block py-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                 required
-                                
+
                                 value={props.creci}
                                 onChange={(e) =>
                                     props.setCreci(
@@ -226,13 +228,13 @@ export default function Signup4({
                                 <select
                                     value={selectedState}
                                     className="bg-branco dark:bg-dark-200 mb-1 w-16 mx-1"
-                                    onChange={(e) => {setSelectedState(e.target.value);}}
+                                    onChange={(e) => { setSelectedState(e.target.value); }}
                                     onClick={e => {
                                         setDropdownRegiao(false);
                                         setDropdownTipos(false);
                                     }}
                                 >
-                                    <option value=""  disabled>{signup4.cityselector.ufacronim}</option>
+                                    <option value="" disabled>{signup4.cityselector.ufacronim}</option>
                                     {_UFs.map(uf => {
                                         return (
                                             <option
@@ -272,7 +274,7 @@ export default function Signup4({
                                         <AiFillCloseCircle
                                             className="text-lg ml-2 self-center hover:cursor-pointer hover:scale-110"
                                             onClick={(e) =>
-                                                removeRegiao({estado: item.estado, cidade: item.cidade})
+                                                removeRegiao({ estado: item.estado, cidade: item.cidade })
                                             }
                                         />
                                     </li>
@@ -289,13 +291,13 @@ export default function Signup4({
                                 {selectedState ? (
                                     cities.length > 0 ? (
                                         cities.map(city => (
-                                            <option 
-                                            className="px-2 cursor-pointer hover:bg-gray-200"
-                                            key={selectedState + city.nome} 
-                                            value={city.nome}
-                                            onClick={(e) =>
-                                                addRegiao({estado: selectedState, cidade: city.nome})
-                                            }
+                                            <option
+                                                className="px-2 cursor-pointer hover:bg-gray-200"
+                                                key={selectedState + city.nome}
+                                                value={city.nome}
+                                                onClick={(e) =>
+                                                    addRegiao({ estado: selectedState, cidade: city.nome })
+                                                }
                                             >{city.nome}</option>
                                         ))
                                     ) : (
