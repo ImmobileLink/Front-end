@@ -1,141 +1,15 @@
 import { handleLoginAPI, handleSignUpDB, verificaEmailDBAPI, verifyFields } from '@/app/[lang]/auth/authUtils';
 import { clientSupabase } from '../lib/utils/clientSupabase';
 import { Signup } from '@/app/i18n/dictionaries/types';
+import { getDictionary } from '@/app/[lang]/dictionaries';
 
 const supabaseUrl = process.env.SUPABASE_TEST_URL
 const supabaseKey = process.env.SUPABASE_ANON_TEST_KEY
 
 const clientbase = clientSupabase(supabaseUrl, supabaseKey);
+let signup: any;
+getDictionary('pt').then(response => signup = response.auth.signup)
 
-//Objeto mock para o dictionary do signup
-export const signup: Signup = {
-    signup1: {
-        emaillabel: 'Email Label',
-        passwordlabel: 'Password Label',
-        confirmpassword: 'Confirm Password Label',
-        logs: {
-            invalidemail: 'Invalid Email',
-            invalidpassword: 'Invalid Password',
-            emailalreadyused: 'Email Already Used',
-            invaliddifferentpasswords: 'Invalid Different Passwords',
-            invalidconfirmpassword: 'Invalid Confirm Password',
-        },
-    },
-    signup2: {
-        corretorlabel: 'Corretor Label',
-        corretorbutton: 'Corretor Button',
-        companylabel: 'Company Label',
-        companybutton: 'Company Button',
-        yourchoiceis: 'Your Choice Is',
-        corretor: 'Corretor',
-        company: 'Company',
-    },
-    signup3: {
-        name: 'Name',
-        fantasyname: 'Fantasy Name',
-        cpf: 'CPF',
-        cnpj: 'CNPJ',
-        phone1: 'Phone1',
-        phone2: 'Phone2',
-        phone3: 'Phone3',
-        cep: 'CEP',
-        uf: 'UF',
-        ufacronim: 'UFAcronim',
-        city: 'City',
-        neighborhood: 'Neighborhood',
-        street: 'Street',
-        number: 'Number',
-        complement: 'Complement',
-        optional: 'Optional',
-        logs: {
-            invalidname: 'Invalid Name',
-            invalidfantasyname: 'Invalid Fantasy Name',
-            invalidcpf: 'Invalid CPF',
-            invalidcnpj: 'Invalid CNPJ',
-            invalidphone: 'Invalid Phone',
-            invalidcep: 'Invalid CEP',
-            invalidcepnotfound: 'Invalid CEP Not Found',
-            invaliduf: 'Invalid UF',
-            invalidcity: 'Invalid City',
-            invalidneighborhood: 'Invalid Neighborhood',
-            invalidstreet: 'Invalid Street',
-            invalidnumber: 'Invalid Number',
-            invalidcomplement: 'Invalid Complement',
-        },
-    },
-    signup4: {
-        creci: 'CRECI',
-        speciality: 'Speciality',
-        region: 'Region',
-        languages: 'Languages',
-        logs: {
-            invalidcreci: 'Invalid CRECI',
-        },
-        cityselector: {
-            estate: 'Estate',
-            city: 'City',
-            selectaestate: 'Select a Estate',
-            selectaestatefirst: 'Select a Estate First',
-            nocityfound: 'No City Found',
-            ufacronim: 'UFAcronim',
-            selectacity: 'Select a City',
-        },
-    },
-    signup5: {
-        corretor: {
-            freelabel: 'Free Label',
-            freedescription1: 'Free Description 1',
-            freedescription2: 'Free Description 2',
-            freedescription3: 'Free Description 3',
-            freedescription4: 'Free Description 4',
-            premiumlabel: 'Premium Label',
-            premiumdescription1: 'Premium Description 1',
-            premiumdescription2: 'Premium Description 2',
-            premiumdescription3: 'Premium Description 3',
-            premiumdescription4: 'Premium Description 4',
-        },
-        company: {
-            freelabel: 'Free Label',
-            freedescription1: 'Free Description 1',
-            freedescription2: 'Free Description 2',
-            freedescription3: 'Free Description 3',
-            freedescription4: 'Free Description 4',
-            premiumlabel: 'Premium Label',
-            premiumdescription1: 'Premium Description 1',
-            premiumdescription2: 'Premium Description 2',
-            premiumdescription3: 'Premium Description 3',
-            premiumdescription4: 'Premium Description 4',
-        },
-        subscriptionmessage0: 'Subscription Message 0',
-        subscriptionmessage1: 'Subscription Message 1',
-        subscriptionmessage2: 'Subscription Message 2',
-        subscriptionmessage3: 'Subscription Message 3',
-        freetier: 'Free Tier',
-        brokertier: 'Broker Tier',
-        companytier: 'Company Tier',
-        fullname: 'Full Name',
-        cardnumber: 'Card Number',
-        expirydate: 'Expiry Date',
-        code: 'Code',
-        signupbutton: 'Signup Button',
-        select: 'Select',
-        selected: 'Selected',
-        disclaimer: 'Disclaimer',
-    },
-    stepper: {
-        label1: 'Step 1',
-        label2: 'Step 2',
-        label3: 'Step 3',
-        label4: 'Step 4',
-        label5: 'Step 5',
-    },
-    nextbutton: 'Next Button',
-    previousbutton: 'Previous Button',
-    success: 'Success',
-    error: 'Error',
-    fixtheinputs: 'Fix the Inputs',
-    successsignup: 'Success Signup',
-};
 
 describe('Auth Tests', () => {
     it('Deve cadastrar corretor com sucesso', () => {
