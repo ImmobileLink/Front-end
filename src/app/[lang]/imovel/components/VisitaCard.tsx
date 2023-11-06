@@ -95,7 +95,7 @@ export default function VisitaCard({ props }: VisitaCardProps) {
         email: email,
         phone: phone,
       },
-      dataagendamento: `${data} ${time}`,
+      dataagendamento: `${data} ${time}:00-03`,
     };
 
     insertVisita(visita);

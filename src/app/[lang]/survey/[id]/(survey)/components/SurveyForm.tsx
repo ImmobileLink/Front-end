@@ -2,39 +2,24 @@
 
 import RadioSelector from "@/app/[lang]/(components)/(survey)/RadioSelector";
 import { Survey } from "@/app/i18n/dictionaries/types";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Database } from "../../../../../../../lib/database.types";
 import { useRouter } from "next/navigation";
 import { Spinner } from "flowbite-react";
-import { verifyFields } from "./validations";
+import { FormDataProps } from "lib/modelos";
+import { clientSupabase } from "lib/utils/clientSupabase";
+import { updateForm } from "../../surveyConfig";
 
 interface SurveyFormProps {
   survey: Survey;
   id: string
 }
 
-interface FormDataProps {
-  campo1: number | null,
-  campo2: number | null,
-  campo3: number | null,
-  campo4: number | null,
-  campo5: number | null,
-  campo6: number | null,
-  campo7: number | null,
-  campo8: number | null,
-  campo9: number | null,
-  campo10: string,
-}
-
-
-const supabase = createClientComponentClient<Database>()
+// const supabase = createClientComponentClient<Database>()
+const supabase = clientSupabase();
 
 export default function SurveyForm({ survey, id }: SurveyFormProps) {
   const route = useRouter()
   const [loading, setLoading] = useState(false);
-
-  const [disabled, setDisabled] = useState(true);
 
   const [error, setError] = useState(false);
 
@@ -73,38 +58,17 @@ export default function SurveyForm({ survey, id }: SurveyFormProps) {
       ...formData,
       [e.target.name]: parseInt(e.target.value),
     });
-
-    setDisabled(validaForm(formData));
     setError(false);
-
-    console.log(formData)
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    if(!validaForm(formData)) {
 
+    if(!validaForm(formData)) {
       setLoading(true);
-      const { data } = await supabase.from("resultadoformulario").update(
-        {
-          campo1: formData.campo1,
-          campo2: formData.campo2,
-          campo3: formData.campo3,
-          campo4: formData.campo4,
-          campo5: formData.campo5,
-          campo6: formData.campo6,
-          campo7: formData.campo7,
-          campo8: formData.campo8,
-          campo9: formData.campo9,
-          campo10: formData.campo10,
-          status: true
-        }
-        ).eq("id", id)
-        
+      await updateForm(supabase, formData, id);
       setLoading(false);
       route.refresh();
-
     } else {
       setError(true);
     }
@@ -172,7 +136,9 @@ export default function SurveyForm({ survey, id }: SurveyFormProps) {
             lang: survey,
             pergunta: survey.questions.question7,
             optional: false,
-            inputName: "campo7"
+            inputName: "campo7",
+            leftLabel: survey.labels.notinterested,
+            rightLabel: survey.labels.interested
           }}
           onChange={handleChange}
         />
@@ -190,7 +156,9 @@ export default function SurveyForm({ survey, id }: SurveyFormProps) {
             lang: survey,
             pergunta: survey.questions.question9,
             optional: true,
-            inputName: "campo9"
+            inputName: "campo9",
+            leftLabel: survey.labels.notinfluence,
+            rightLabel: survey.labels.influence
           }}
           onChange={handleChange}
         />

@@ -22,6 +22,16 @@ export const formataDataSemHora = (datahora: string) => {
   return fdata
 }
 
+export const formataDataSemDia = (datahora: string) => {
+  let data = new Date(datahora)
+  const formatter = new Intl.DateTimeFormat('pt-BR', {
+    'hour': 'numeric',
+    'minute': 'numeric'
+  });
+  let fdata = formatter.format(data)
+  return fdata
+}
+
 export const getCurrentDateTimeWithTimezone = () => {
   const currentDate = new Date();
 
