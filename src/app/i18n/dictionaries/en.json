@@ -544,7 +544,7 @@
         "brokername": "Broker",
         "clientdetails": "Client data",
         "clientname": "Name",
-        "telefone": "Phone",
+        "telefone": "Prone",
         "scheduling": "Edit visit",
         "date": "Day",
         "time": "Time",
@@ -563,12 +563,12 @@
         "cannotbeundone": "This action cannot be undone.",
         "sendsurvey": "Do you want to send a satisfaction survey form?",
         "logs": {
-          "emailerror": "Submitting the form is only possible for visits that have already been made.",
-          "emailok": "Email successfully sent.",
-          "visitok": "Visit canceled successfully.",
-          "visitchanged": "Visit updated successfully.",
-          "invaliddate": "Select a valid date.",
-          "invalidtime": "Select a valid time."
+            "emailerror": "Submitting the form is only possible for visits that have already been made.",
+            "emailok": "Email successfully sent.",
+            "visitok": "Visit canceled successfully.",
+            "visitchanged": "Visit updated successfully.",
+            "invaliddate": "Select a valid date.",
+            "invalidtime": "Select a valid time."
         }
     },
     "survey": {

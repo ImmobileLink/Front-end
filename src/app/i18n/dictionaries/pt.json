@@ -538,42 +538,6 @@
         "blog": "Blog",
         "ytChannel": "Canal do YouTube"
     },
-    "formlabels": {
-      "infoproperty": {
-        "location": "Localização",
-        "characteristics": "Características",
-        "price": "Valor"
-      },
-      "selectbroker": "Selecione um corretor",
-      "findbroker": "Encontrar Corretores",
-      "delegatevisit": "Delegar Visita",
-      "requiredfields": "Por favor, preencha todos os campos",
-      "warningmsg": "Sua corporação ainda não possui corretores associados.",
-      "clickhere": "Clique aqui para encontrar corretores",
-      "brokerdata": "Corretor",
-      "specialty": "Especialidade",
-      "clientdata": "Dados do Cliente",
-      "scheduling": "Agendamento",
-      "name": "Nome",
-      "phone": "Telefone",
-      "email": "Email",
-      "date": "Data",
-      "time": "Horário",
-      "loading": "Carregando",
-      "formlogs": {
-        "invalidname": "O nome precisa ter no mínimo 4 caracteres, não incluindo números ou caracteres especiais",
-        "invalidphone": "O telefone precisa ter 10 ou 11 caracteres",
-        "invalidemail": "Insira um email válido",
-        "invaliddate": "Selecione uma data válida",
-        "invalidtime": "Selecione um horário válido"
-      },
-      "editimg": {
-        "title": "Alterar Imagem do Imóvel",
-        "imageupload": "Clique para fazer upload ou arraste e solte",
-        "imageformat": "PNG, JPG ou JPEG (MAX. 800x400px).",
-        "loading": "Carregando",
-        "confirm": "Confirmar"
-      },
     "agenda": {
         "visitdetails": "Detalhes da visita",
         "companyname": "Empresa responsável",
@@ -581,7 +545,9 @@
         "clientdetails": "Dados do cliente",
         "clientname": "Nome",
         "telefone": "Telefone",
-        "date": "Data da visita",
+        "scheduling": "Editar visita",
+        "date": "Data",
+        "time": "Horário",
         "placedetails": "Detalhes do imóvel",
         "address": "Endereço",
         "uf": "Estado",
@@ -591,6 +557,7 @@
         "rua": "Rua",
         "numero": "Número",
         "complemento": "Complemento",
+        "submit": "Confirmar",
         "close": "Fechar",
         "delete": "Deseja cancelar esta visita?",
         "cannotbeundone": "Esta ação não pode ser desfeita.",
@@ -598,7 +565,10 @@
         "logs": {
             "emailerror": "O envio do formulário só é possível para visitas já realizadas.",
             "emailok": "Email enviado com sucesso.",
-            "visitok": "Visita cancelada com sucesso."
+            "visitok": "Visita cancelada com sucesso.",
+            "visitchanged": "Visita atualizada com sucesso.",
+            "invaliddate": "Selecione uma data válida",
+            "invalidtime": "Selecione um horário válido"
         }
     },
     "survey": {
@@ -636,4 +606,4 @@
             "influence": "Influenciou positivamente"
         }
     }
-  } }
+}

@@ -62,6 +62,138 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
         }
     }, [filter, selectedState, selectedCity]);
 
+    const getPostsSalvoProfile = async (
+        filter: number,
+        selectedState?: string,
+        selectedCity?: string,
+    ) => {
+        switch (filter) {
+            case 0:
+                //resetar parametros de cidade e estado
+                setSelectedState("");
+                setSelectedCity("");
+
+                //atualiza spinner
+                setLoading(true);
+
+                //faz consulta ao bd
+                {
+                    let response = await supabase
+                        .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
+                        .eq("issalvo", true)
+                        .order("atualizadoem", { ascending: false })
+                        .limit(10);
+
+                    let { data, error } = response;
+                    if (error) {
+                        setLoading(false);
+
+                        setLogErro(textos.pub.tryagainlater);
+                    }
+
+                    //atualiza o estado dos posts
+                    //se retornar 1+ posts mapeia na tela
+                    if (data!.length > 0) {
+                        setPosts(data!);
+                        //tira o log de erro
+                        setErro(false);
+                        // se não mostra log
+                    } else {
+                        setErro(true);
+                        setLogErro(textos.pub.noposts);
+                        setPosts([]);
+                    }
+                }
+
+                setLoading(false);
+                break;
+            case 1:
+                //resetar parametros de cidade
+                setSelectedCity("");
+
+                //atualiza spinner
+                setLoading(true);
+
+                //verifica se tem algum estado selecionado
+                if (selectedState != "") {
+                    //faz consulta ao bd
+                    let response = await supabase
+                        .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
+                        .eq("issalvo", true)
+                        .order("atualizadoem", { ascending: false })
+                        .limit(10);
+
+                    let { data, error } = response;
+                    if (error) {
+                        setLoading(false);
+                        setLogErro(textos.pub.tryagainlater);
+                    }
+
+                    if (data!.length > 0) {
+                        setPosts(data!);
+                        setErro(false);
+                    } else {
+                        setErro(true);
+                        setLogErro(textos.pub.noposts);
+                        setPosts([]);
+                    }
+                } else {
+                    //mostra na tela que precisa selecionar um estado
+                    setErro(true);
+                    setLogErro(textos.pub.selectaregion);
+                    //limpa o estado dos posts
+                    setPosts([]);
+                }
+
+                setLoading(false);
+                break;
+            case 2:
+                //atualiza spinner
+                setLoading(true);
+
+                //verifica se tem algum estado/cidade selecionados
+                if (selectedState != "" && selectedCity != "") {
+                    //faz consulta ao bd
+                    let response = await supabase
+                        .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
+                        .eq("issalvo", true)
+                        .order("atualizadoem", { ascending: false })
+                        .limit(10);
+
+                    let { data, error } = response;
+                    if (error) {
+                        setLoading(false);
+                        setLogErro(textos.pub.tryagainlater);
+                    }
+
+                    //atualiza o estado dos posts
+                    //se retornar 1+ posts mapeia na tela
+                    if (data!.length > 0) {
+                        setPosts(data!);
+                        //tira o log de erro
+                        setErro(false);
+                        // se não mostra log
+                    } else {
+                        setErro(true);
+                        setLogErro(textos.pub.noposts);
+                        setPosts([]);
+                    }
+                } else {
+                    //mostra na tela que precisa selecionar um estado
+                    setErro(true);
+                    setLogErro(textos.pub.selectaregion);
+                    //limpa o estado dos posts
+                    setPosts([]);
+                }
+
+                setLoading(false);
+                break;
+
+            default:
+                break;
+        }
+    };
+
     const getPosts = async (
         filter: number,
         selectedState?: string,

@@ -111,9 +111,9 @@ describe('Agenda Testes', () => {
     const surveyId = "fdac7d91-3f78-420f-82a6-91011548f372";
 
     const result = await enviaEmail(clientEmail, clientName, visitDate, surveyId);
-
+    console.log("->>>>>" + result)
     const expected = {"message":"Email scheduled successfully"}
-
+    
     expect(result).toEqual(expected)
   });
 

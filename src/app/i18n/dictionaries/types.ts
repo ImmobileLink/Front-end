@@ -30,7 +30,9 @@ export interface Agenda {
     clientdetails:  string;
     clientname:     string;
     telefone:       string;
+    scheduling:     string;
     date:           string;
+    time:           string;
     placedetails:   string;
     address:        string;
     uf:             string;
@@ -40,6 +42,7 @@ export interface Agenda {
     rua:            string;
     numero:         string;
     complemento:    string;
+    submit:         string;
     close:          string;
     delete:         string;
     cannotbeundone: string;
@@ -48,9 +51,12 @@ export interface Agenda {
 }
 
 export interface AgendaLogs {
-    emailerror: string;
-    emailok:    string;
-    visitok:    string;
+    emailerror:   string;
+    emailok:      string;
+    visitok:      string;
+    visitchanged: string;
+    invaliddate:  string;
+    invalidtime:  string;
 }
 
 export interface Auth {

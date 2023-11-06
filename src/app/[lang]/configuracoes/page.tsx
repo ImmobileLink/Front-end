@@ -1,9 +1,5 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../lib/database.types";
 import React, { cache } from 'react';
 import CardConfig from "./components/CardConfig";
-import { cookies } from "next/headers";
-import { getDictionary } from "../dictionaries";
 import { getProfileFullData } from "../perfil/[id]/perfilUtils/userProfile";
 import { getSessionAPI, getUserTypeAPI } from "./configUtils";
 import { serverSupabase } from "lib/utils/serverSupabase";

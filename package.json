@@ -12,7 +12,8 @@
     "preview-email": "email dev",
     "test": "jest --runInBand --silent --verbose",
     "clear_jest": "jest --clearCache",
-    "coverage": "jest --coverage --runInBand"
+    "coverage": "jest --coverage --runInBand",
+    "test-loud": "jest --runInBand --verbose"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
