@@ -245,6 +245,7 @@ export interface VisitaProps {
     survey_id: string;
 }
 
+<<<<<<<<< Temporary merge branch 1
 export type Historico = {
     data_fim: string | null;
     data_inicio: string;
@@ -282,6 +283,21 @@ export type Dashboard2 = {
     neutro: number;
     satisfeito: number;
     muito_satisfeito: number;
+  }[] | null
+
+  export interface FormDataProps {
+    campo1: number | null,
+    campo2: number | null,
+    campo3: number | null,
+    campo4: number | null,
+    campo5: number | null,
+    campo6: number | null,
+    campo7: number | null,
+    campo8: number | null,
+    campo9: number | null,
+    campo10: string,
+  }
+  
 }[] | null
 
 export type Dashboard3 = {

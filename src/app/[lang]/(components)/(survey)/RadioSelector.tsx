@@ -9,13 +9,15 @@ interface RadioSelectorProps {
         lang: Survey;
         pergunta: string;
         optional: boolean;
-        inputName: string
+        inputName: string,
+        leftLabel?: string;
+        rightLabel?: string;
     };
     onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export default function RadioSelector({
-    params: { lang, pergunta, optional, inputName }, onChange
+    params: { lang, pergunta, optional, inputName, leftLabel, rightLabel }, onChange
 }: RadioSelectorProps) {
     const renderRadioOptions = () => {
         let radios = [];
@@ -26,12 +28,12 @@ export default function RadioSelector({
                     <input
                         className="w-8 h-8"
                         type="radio"
-                        id={`op` + i}
+                        id={inputName + `op` + i}
                         value={i}
                         name={inputName}
                         onChange={onChange}
                     />
-                    <label className="ml-[35%]" htmlFor={`op` + i}>
+                    <label className="ml-[35%]" htmlFor={inputName + `op` + i}>
                         {i}
                     </label>
                 </div>
@@ -55,8 +57,8 @@ export default function RadioSelector({
                 
             </div>
             <div className="flex flex-row justify-between pb-8">
-                <p>{lang.notpleased}</p>
-                <p>{lang.pleased}</p>
+                <p>{leftLabel || lang.labels.notpleased}</p>
+                <p>{rightLabel || lang.labels.pleased}</p>
             </div>
         </>
     );

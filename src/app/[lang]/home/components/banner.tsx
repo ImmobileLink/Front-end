@@ -19,13 +19,13 @@ export default function Banner({ lang, isUserLoggedIn }: BannerProps) {
     }, []);
     return (
         <div className="h-screen bg-gradient-to-b from-white to-transparent dark:from-gray-900 dark:to-black/25 flex flex-col items-center text-center justify-center">
-            <p className="font-semibold text-5xl px-8 md:text-7xl md:font-normal">
+            <a className="font-semibold text-5xl px-8 md:text-7xl md:font-normal">
                 {lang.conecting}
-            </p>
-            <p className="text-cyan-950 dark:text-cyan-100 font-semibold text-5xl px-8 md:text-7xl md:font-normal">
+            </a>
+            <a className="text-cyan-950 dark:text-cyan-100 font-semibold text-5xl px-8 md:text-7xl md:font-normal">
                 {lang.ties}
-            </p>
-            <p className="py-4 px-8 md:w-7/12 text-xl">
+            </a>
+            <p className="py-8 px-8 md:w-7/12 text-xl">
                 {lang.whatIsImmobileLink}
             </p>
             <Link
