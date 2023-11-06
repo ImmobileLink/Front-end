@@ -37,7 +37,6 @@ const userId = 'd19a3735-1eea-4bc2-9c79-dbc93cd7476e';
 describe('Denuncia Tests', () => {
   it('Deve obter publicação por ID', async () => {
     const result = await getPublicacaoPorIdAPI(pubId, clientbase);
-    console.log(result)
     expect(result).toBeTruthy();
   });
 
@@ -57,7 +56,6 @@ describe('Denuncia Tests', () => {
     const descricao = 'Descrição do relatório';
 
     const result = await submitReportAPI(userId, publicacao, motivo, descricao, clientbase);
-    console.log(result)
     expect(result).toBeTruthy();
   });
 });

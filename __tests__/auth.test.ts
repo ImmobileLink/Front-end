@@ -140,8 +140,6 @@ export const signup: Signup = {
 describe('Auth Tests', () => {
     it('Deve cadastrar corretor com sucesso', () => {
 
-        const spy = jest.spyOn(console, 'warn').mockImplementation(() => { });
-
         // Seu código de teste aqui
         const tipoPerfil = 1;
         const senha = 'Senha123!'
@@ -191,8 +189,7 @@ describe('Auth Tests', () => {
             regiaoAtuacao,
             locationOrigin
         )
-        expect(result).toBeTruthy
-        spy.mockRestore(); // Restaura a função console.warn para o comportamento original após o teste    
+        expect(result).toBeTruthy 
     });
 
 
