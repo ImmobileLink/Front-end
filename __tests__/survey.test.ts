@@ -12,51 +12,51 @@ const supabaseUrl = process.env.SUPABASE_TEST_URL
 const supabaseKey = process.env.SUPABASE_ANON_TEST_KEY
 
 jest.mock('next/headers', () => {
-    return { 
-        cookies: () => {
-            return {
-                get: jest.fn(),
-                set: jest.fn()
-            }
-        },
-    }
+  return {
+    cookies: () => {
+      return {
+        get: jest.fn(),
+        set: jest.fn()
+      }
+    },
+  }
 })
 
 const clientbase = clientSupabase(supabaseUrl, supabaseKey);
 let serverbase: any;
 serverSupabase(supabaseUrl, supabaseKey)
-    .then(response => serverbase = response)
+  .then(response => serverbase = response)
 
 const resetDatabase = async () => {
-    let result = []
-    result.push(await serverbase.from("resultadoformulario").update(
-      {
-        campo1: null,
-        campo2: null,
-        campo3: null,
-        campo4: null,
-        campo5: null,
-        campo6: null,
-        campo7: null,
-        campo8: null,
-        campo9: null,
-        campo10: null,
-        status: false
-      }).eq('id', 'fdac7d91-3f78-420f-82a6-91011548f372'));
+  let result = []
+  result.push(await serverbase.from("resultadoformulario").update(
+    {
+      campo1: null,
+      campo2: null,
+      campo3: null,
+      campo4: null,
+      campo5: null,
+      campo6: null,
+      campo7: null,
+      campo8: null,
+      campo9: null,
+      campo10: null,
+      status: false
+    }).eq('id', 'fdac7d91-3f78-420f-82a6-91011548f372'));
 
-    return result
+  return result
 }
 
 afterEach(() => {
-    jest.clearAllMocks();
+  jest.clearAllMocks();
 });
 
 afterAll(() => {
-    return resetDatabase()
+  return resetDatabase()
 });
 
-describe('Survey Testes' , () => {
-  
+describe('Survey Testes', () => {
+
   it('Deve obter dados do survey com o ID existente', async () => {
     const idExistente = 'fdac7d91-3f78-420f-82a6-91011548f372';
     const result = await getSurveyData(serverbase, idExistente);
@@ -80,7 +80,7 @@ describe('Survey Testes' , () => {
       fail('O resultado não é um objeto SurveyData válido.');
     }
   });
-  
+
   it('Deve atualizar o formulário para um ID existente e retornar true', async () => {
     const surveyId = 'fdac7d91-3f78-420f-82a6-91011548f372';
     const formData: FormDataProps = {
