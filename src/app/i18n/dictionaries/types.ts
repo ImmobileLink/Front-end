@@ -555,6 +555,8 @@ export interface Navbarbuttons {
     messages: string;
     account: string;
     notificationlabels: Notificationlabels;
+    mylinks: string;
+    associated: string;
 }
 
 export interface Notificationlabels {

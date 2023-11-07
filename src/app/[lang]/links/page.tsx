@@ -9,6 +9,11 @@ import {
     getLinks,
     getTipoUsuario,
 } from "../../../../lib/utils/userData";
+import { Card } from "../(components)/(compositions)/(card)";
+import CardUserList from "../(components)/(cards)/CardUserList";
+import NavBar from "../(components)/(navbar)/NavBar";
+import { BiSolidLeftArrow } from "react-icons/bi";
+import Link from "next/link";
 
 interface pageProps {
     params: {
@@ -50,6 +55,48 @@ export default async function page({ params: { lang } }: pageProps) {
     };
 
     const dict = await getDictionary(lang); // pt
-    // const userData = await getUserData(user);
-    return <>Hello World!</>;
+    const userData = await getUserData(user);
+    return (
+        <div>
+            <NavBar
+                params={{
+                    lang: lang,
+                }}
+            />
+            <div className="pt-4 w-full h-fit min-h-screen bg-branco dark:bg-dark-200 flex flex-row justify-center">
+                <div className="md:mx-2 md:w-7/12 w-11/12 flex">
+                    <Card.Root>
+                        <div className="flex items-center ml-6 text-xl">
+                            <Link href="/feed" className="mr-4">
+                                <BiSolidLeftArrow />
+                            </Link>
+                            <a>Meus links</a>
+                            <a className="px-2">Associados</a>
+                        </div>
+                        {
+                            // mensagem padrão caso user sem links
+                        }
+                        <div className="ml-16 mt-2">
+                        <p>
+                            Parece que você ainda não tem nenhuma conexão. Tente
+                            encontrar novos links.
+                        </p>
+                        </div>
+                        
+                    </Card.Root>
+                </div>
+                <div className="w-fit hidden md:flex mx-4">
+                    <Card.Root>
+                        <Card.Title title={dict.feed.cards.findbrokers} />
+                        <Card.Content>
+                            <CardUserList
+                                cards={dict.feed.cards}
+                                avatar={userData.avatar}
+                            />
+                        </Card.Content>
+                    </Card.Root>
+                </div>
+            </div>
+        </div>
+    );
 }

@@ -16,7 +16,6 @@ import {
     getLinks,
     getTipoUsuario,
 } from "../../../../lib/utils/userData";
-import Link from "next/link";
 import CardLink from "../(components)/(cards)/CardLink";
 
 interface pageProps {
