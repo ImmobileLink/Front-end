@@ -33,36 +33,17 @@ const supabase = createClientComponentClient<Database>();
 export default function LinksList({ assoc, links, type }: LinksListProps) {
     const [view, setView] = useState("links");
     const [error, isError] = useState(false);
-    const [meusLinks, setMeusLinks] = useState([]);
+    const [meusLinks, setMeusLinks] = useState<any[]>([]);
     const [minhasAssoc, setMinhasAssoc] = useState([]);
 
     const getLinks = async () => {
         if (type == "corretor") {
-            // get links = get corretores where id = id contido nos links
             const { data, error } = await supabase.from("corretor").select();
             if (error) {
                 console.log(error);
                 isError(true);
             } else {
-                let _meusLinks: {
-                    bairro: string | null;
-                    celular: string | null;
-                    cep: string | null;
-                    cidade: string | null;
-                    cnpj: string | null;
-                    comercial: string | null;
-                    complemento: string | null;
-                    cpf: string | null;
-                    creci: string | null;
-                    estado: string | null;
-                    id: string;
-                    logradouro: string | null;
-                    nome: string | null;
-                    numero: number | null;
-                    premium: boolean | null;
-                    sobre: string | null;
-                    telefone: string | null;
-                }[] = [];
+                let _meusLinks: any[] = [];
                 let _linksIds: string[] = [];
 
                 links!.forEach((item) => {
@@ -74,7 +55,6 @@ export default function LinksList({ assoc, links, type }: LinksListProps) {
                         _meusLinks.push(link);
                     }
                 });
-
                 setMeusLinks(_meusLinks);
             }
         } else {
@@ -130,8 +110,15 @@ export default function LinksList({ assoc, links, type }: LinksListProps) {
                                         <>
 
                                             {
-                                                meusLinks.forEach((item) => {
-                                                    return <Links usuario={item}/>
+                                                meusLinks.map((item) => {
+                                                    // let mAvatar = "";
+                                                    // links!.forEach((link) => {
+                                                    //     if(item.id == link.id){
+                                                    //         mAvatar = link.avatar;
+                                                    //         return;
+                                                    //     }
+                                                    // })
+                                                    return <Links key={item.id} avatar={'nopfp'} usuario={item}/>
                                                 })
                                             }
                                             
