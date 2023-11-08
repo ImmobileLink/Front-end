@@ -2,11 +2,14 @@
 
 import { Card } from "../../(components)/(compositions)/(card)";
 import Link from "next/link";
-import Links from "../components/Links"
-import { useState } from "react";
+import Links from "../components/Links";
+import { useEffect, useState } from "react";
 import { BiSolidLeftArrow } from "react-icons/bi";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../../../../../lib/database.types";
 
 interface LinksListProps {
+    type: string;
     links:
         | {
               id: string;
@@ -25,10 +28,75 @@ interface LinksListProps {
         | undefined;
 }
 
-export default function LinksList({ assoc, links }: LinksListProps) {
+const supabase = createClientComponentClient<Database>();
+
+export default function LinksList({ assoc, links, type }: LinksListProps) {
     const [view, setView] = useState("links");
-    // TO DO:
-    // BUSCAR INFOS DE TODOS OS LINKS E ASSOCIADOS NO BD PARA DISPOR DA MESMA FORMA QUE ESTÁ NA BUSCA
+    const [error, isError] = useState(false);
+    const [meusLinks, setMeusLinks] = useState([]);
+    const [minhasAssoc, setMinhasAssoc] = useState([]);
+
+    const getLinks = async () => {
+        if (type == "corretor") {
+            // get links = get corretores where id = id contido nos links
+            const { data, error } = await supabase.from("corretor").select();
+            if (error) {
+                console.log(error);
+                isError(true);
+            } else {
+                let _meusLinks: {
+                    bairro: string | null;
+                    celular: string | null;
+                    cep: string | null;
+                    cidade: string | null;
+                    cnpj: string | null;
+                    comercial: string | null;
+                    complemento: string | null;
+                    cpf: string | null;
+                    creci: string | null;
+                    estado: string | null;
+                    id: string;
+                    logradouro: string | null;
+                    nome: string | null;
+                    numero: number | null;
+                    premium: boolean | null;
+                    sobre: string | null;
+                    telefone: string | null;
+                }[] = [];
+                let _linksIds: string[] = [];
+
+                links!.forEach((item) => {
+                    _linksIds.push(item.id);
+                });
+
+                data.forEach((link) => {
+                    if (_linksIds.includes(link.id)) {
+                        _meusLinks.push(link);
+                    }
+                });
+
+                setMeusLinks(_meusLinks);
+            }
+        } else {
+            // get links = get empresas where id = id contido nos links
+            const { data, error } = await supabase.from("corporacao").select();
+        }
+    };
+
+
+    const getAssoc = async () => {
+        if (type == "corretor") {
+            // get assoc = get empresas blablabla
+        } else {
+            // get assoc = get corretores blabla...
+        }
+    };
+
+    useEffect(() =>{
+        getLinks();
+        getAssoc();
+    }, [])
+
     return (
         <div>
             <Card.Root className="md:pr-8 p-2 pt-4">
@@ -60,9 +128,13 @@ export default function LinksList({ assoc, links }: LinksListProps) {
                                 <>
                                     {links.length > 0 ? (
                                         <>
-                                        
-                                            <Links usuario={links[0]}/>
-                                        
+
+                                            {
+                                                meusLinks.forEach((item) => {
+                                                    return <Links usuario={item}/>
+                                                })
+                                            }
+                                            
                                         </>
                                     ) : (
                                         <p>

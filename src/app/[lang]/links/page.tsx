@@ -55,6 +55,7 @@ export default async function page({ params: { lang } }: pageProps) {
 
     const dict = await getDictionary(lang); // pt
     const userData = await getUserData(user);
+
     return (
         <div>
             <NavBar
@@ -64,7 +65,7 @@ export default async function page({ params: { lang } }: pageProps) {
             />
             <div className="pt-4 w-full h-fit min-h-screen bg-branco dark:bg-dark-200 flex flex-row justify-center">
                 <div className="md:mx-2 md:w-7/12 w-11/12 flex">
-                    <LinksList links={userData.links} assoc={userData.assoc}/>
+                    <LinksList links={userData.links} assoc={userData.assoc} type={userData.type!}/>
                 </div>
                 <div className="w-fit hidden md:flex mx-4">
                     <Card.Root>
