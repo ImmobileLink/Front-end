@@ -10,6 +10,7 @@ import { Database } from "../../../../../lib/database.types";
 
 interface LinksListProps {
     type: string;
+    id: string;
     links:
         | {
               id: string;
@@ -30,7 +31,7 @@ interface LinksListProps {
 
 const supabase = createClientComponentClient<Database>();
 
-export default function LinksList({ assoc, links, type }: LinksListProps) {
+export default function LinksList({ assoc, links, type, id }: LinksListProps) {
     const [view, setView] = useState("links");
     const [error, isError] = useState(false);
     const [meusLinks, setMeusLinks] = useState<any[]>([]);
@@ -39,7 +40,6 @@ export default function LinksList({ assoc, links, type }: LinksListProps) {
     const getLinks = async () => {
         if (type == "corretor") {
             const { data, error } = await supabase.from("corretor").select(`*, usuario(avatar), avaliacao(nota)`);
-            console.log(data, error)
             if (error) {
                 console.log(error);
                 isError(true);
@@ -120,6 +120,7 @@ export default function LinksList({ assoc, links, type }: LinksListProps) {
                                                     <Links
                                                         key={item.id}
                                                         usuario={item}
+                                                        id={id}
                                                     />
                                                 );
                                             })}

@@ -52,7 +52,7 @@ export default function Infos({ isAssociado }: InfosProps) {
             icon={HiDocumentText}
             title="Saved Posts"
           >
-            <p>PostsSalvbos</p>
+            <p>PostsSalvos</p>
           </Tabs.Item>
         )}
 

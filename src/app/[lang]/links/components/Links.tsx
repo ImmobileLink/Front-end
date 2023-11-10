@@ -8,6 +8,7 @@ import {
     CorporacaoBuscadaUnica,
     CorretorBuscadoUnico,
 } from "../../../../../lib/modelos";
+import Botoes from "./Botoes";
 
 interface LinksProps {
     usuario: {
@@ -32,9 +33,10 @@ interface LinksProps {
         nomefantasia: string | null;
         usuario: { avatar: string };
     } | null;
+    id: string;
 }
 
-export default function Links({ usuario }: LinksProps) {
+export default function Links({ usuario, id }: LinksProps) {
     const nota = [
         <AiOutlineStar key={0} />,
         <AiOutlineStar key={1} />,
@@ -53,17 +55,17 @@ export default function Links({ usuario }: LinksProps) {
 
     return (
         <div>
-            <div className="p-5 flex flex-col justify-between ring-gray-300 bg-white dark:bg-gray-600 dark:ring-gray-700 drop-shadow-md shadow-md rounded-md">
+            <div className="p-5 my-4 flex flex-col justify-between ring-gray-300 bg-white dark:bg-gray-600 dark:ring-gray-700 drop-shadow-md shadow-md rounded-md">
                 <div className="text-start">
-                    <div className="flex align-middle items-center">
+                    <Link href={`/perfil/${usuario?.id}`} className="flex align-middle items-center">
                         <Avatar route={usuario!.usuario.avatar || "nopfp"} />
-                        <div className="flex flex-col align-top items-start">
+                        <div className="flex flex-col align-top items-start cursor-pointer">
                             <p>{usuario!.nome || usuario!.nomefantasia}</p>
                             <p className="text-sm">
                                 {usuario!.estado + " - " + usuario!.cidade}
                             </p>
                         </div>
-                    </div>
+                    </Link>
                     {usuario!.creci && (
                         <p className="flex flex-row items-end align-bottom text-sm">
                             {nota}
@@ -79,6 +81,7 @@ export default function Links({ usuario }: LinksProps) {
                 {
                     // ADD BOTÕES ASSOCIADO E CONVERSAR
                 }
+                <Botoes link={usuario} user={id}/>
                 {/* <div className="w-full flex justify-end mt-3">
                     <Link
                         href={`/perfil/${usuario!.id}`}
