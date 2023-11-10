@@ -79,7 +79,7 @@ export default function LinksList({ assoc, links, type, id }: LinksListProps) {
 
     return (
         <div>
-            <Card.Root className="md:pr-8 p-2 pt-4">
+            <Card.Root className="md:pr-8 p-2 pt-4 md:w-[55vw] w-[91vw]">
                 <div className="flex items-center ml-6 text-xl">
                     <Link href="/feed" className="mr-4">
                         <BiSolidLeftArrow />
@@ -101,7 +101,7 @@ export default function LinksList({ assoc, links, type, id }: LinksListProps) {
                         Associados
                     </a>
                 </div>
-                <div className="ml-16 mt-2">
+                <div className="md:ml-16 mt-2">
                     {view == "links" ? (
                         <>
                             {links != null && links != undefined ? (
