@@ -38,7 +38,8 @@ export default function LinksList({ assoc, links, type }: LinksListProps) {
 
     const getLinks = async () => {
         if (type == "corretor") {
-            const { data, error } = await supabase.from("corretor").select();
+            const { data, error } = await supabase.from("corretor").select(`*, usuario(avatar), avaliacao(nota)`);
+            console.log(data, error)
             if (error) {
                 console.log(error);
                 isError(true);
@@ -63,7 +64,6 @@ export default function LinksList({ assoc, links, type }: LinksListProps) {
         }
     };
 
-
     const getAssoc = async () => {
         if (type == "corretor") {
             // get assoc = get empresas blablabla
@@ -72,10 +72,10 @@ export default function LinksList({ assoc, links, type }: LinksListProps) {
         }
     };
 
-    useEffect(() =>{
+    useEffect(() => {
         getLinks();
         getAssoc();
-    }, [])
+    }, []);
 
     return (
         <div>
@@ -108,20 +108,21 @@ export default function LinksList({ assoc, links, type }: LinksListProps) {
                                 <>
                                     {links.length > 0 ? (
                                         <>
-
-                                            {
-                                                meusLinks.map((item) => {
-                                                    // let mAvatar = "";
-                                                    // links!.forEach((link) => {
-                                                    //     if(item.id == link.id){
-                                                    //         mAvatar = link.avatar;
-                                                    //         return;
-                                                    //     }
-                                                    // })
-                                                    return <Links key={item.id} avatar={'nopfp'} usuario={item}/>
-                                                })
-                                            }
-                                            
+                                            {meusLinks.map((item) => {
+                                                // let mAvatar = "";
+                                                // links!.forEach((link) => {
+                                                //     if(item.id == link.id){
+                                                //         mAvatar = link.avatar;
+                                                //         return;
+                                                //     }
+                                                // })
+                                                return (
+                                                    <Links
+                                                        key={item.id}
+                                                        usuario={item}
+                                                    />
+                                                );
+                                            })}
                                         </>
                                     ) : (
                                         <p>

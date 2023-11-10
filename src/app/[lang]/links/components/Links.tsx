@@ -10,8 +10,8 @@ import {
 } from "../../../../../lib/modelos";
 
 interface LinksProps {
-    avatar: string;
     usuario: {
+        avaliacao: { nota: number };
         bairro: string | null;
         celular: string | null;
         cep: string | null;
@@ -30,16 +30,33 @@ interface LinksProps {
         sobre: string | null;
         telefone: string | null;
         nomefantasia: string | null;
+        usuario: { avatar: string };
     } | null;
 }
 
-export default function Links({ avatar, usuario }: LinksProps) {
+export default function Links({ usuario }: LinksProps) {
+    const nota = [
+        <AiOutlineStar key={0} />,
+        <AiOutlineStar key={1} />,
+        <AiOutlineStar key={2} />,
+        <AiOutlineStar key={3} />,
+        <AiOutlineStar key={4} />,
+    ];
+
+    if (usuario != null) {
+        if (usuario.avaliacao.nota != null) {
+            for (let i = 0; i < usuario.avaliacao.nota; i++) {
+                nota.splice(i, 1, <AiFillStar key={i} />);
+            }
+        }
+    }
+
     return (
         <div>
             <div className="p-5 flex flex-col justify-between ring-gray-300 bg-white dark:bg-gray-600 dark:ring-gray-700 drop-shadow-md shadow-md rounded-md">
                 <div className="text-start">
                     <div className="flex align-middle items-center">
-                        <Avatar route={avatar} />
+                        <Avatar route={usuario!.usuario.avatar || "nopfp"} />
                         <div className="flex flex-col align-top items-start">
                             <p>{usuario!.nome || usuario!.nomefantasia}</p>
                             <p className="text-sm">
@@ -47,14 +64,11 @@ export default function Links({ avatar, usuario }: LinksProps) {
                             </p>
                         </div>
                     </div>
-                    {
-                        // AJUSTAR
-                    }
-                    {/* {usuario!.creci && (
+                    {usuario!.creci && (
                         <p className="flex flex-row items-end align-bottom text-sm">
                             {nota}
                         </p>
-                    )} */}
+                    )}
                     {usuario!.creci && (
                         <p className="text-left">CRECI Nº: {usuario!.creci}</p>
                     )}
