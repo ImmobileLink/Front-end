@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { BiSolidLeftArrow } from "react-icons/bi";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
+import { Query } from "react-query/types/core/query";
 
 interface LinksListProps {
     type: string;
@@ -35,41 +36,72 @@ export default function LinksList({ assoc, links, type, id }: LinksListProps) {
     const [view, setView] = useState("links");
     const [error, isError] = useState(false);
     const [meusLinks, setMeusLinks] = useState<any[]>([]);
-    const [minhasAssoc, setMinhasAssoc] = useState([]);
+    const [minhasAssoc, setMinhasAssoc] = useState<any[]>([]);
 
     const getLinks = async () => {
+        let data: any;
+        let error: any;
         if (type == "corretor") {
-            const { data, error } = await supabase.from("corretor").select(`*, usuario(avatar), avaliacao(nota)`);
-            if (error) {
-                console.log(error);
-                isError(true);
-            } else {
-                let _meusLinks: any[] = [];
-                let _linksIds: string[] = [];
-
-                links!.forEach((item) => {
-                    _linksIds.push(item.id);
-                });
-
-                data.forEach((link) => {
-                    if (_linksIds.includes(link.id)) {
-                        _meusLinks.push(link);
-                    }
-                });
-                setMeusLinks(_meusLinks);
-            }
+            let response = await supabase
+                .from("corretor")
+                .select(`*, usuario(avatar), avaliacao(nota)`);
+            data = response.data;
+            error = response.error;
         } else {
-            // get links = get empresas where id = id contido nos links
-            const { data, error } = await supabase.from("corporacao").select();
+            let response = await supabase
+                .from("corporacao")
+                .select(`*, usuario(avatar)`);
+            data = response.data;
+            error = response.error;
+        }
+        if (error) {
+            console.log(error);
+            isError(true);
+        } else {
+            let _meusLinks: any[] = [];
+            let _linksIds: string[] = [];
+
+            links!.forEach((item) => {
+                _linksIds.push(item.id);
+            });
+
+            data.forEach((link:any) => {
+                if (_linksIds.includes(link.id)) {
+                    _meusLinks.push(link);
+                }
+            });
+            setMeusLinks(_meusLinks);
         }
     };
 
     const getAssoc = async () => {
-        if (type == "corretor") {
-            // get assoc = get empresas blablabla
-        } else {
-            // get assoc = get corretores blabla...
-        }
+        // let { data, error } = await supabase
+        //     .from(type == "corretor" ? "corretor" : "corporacao")
+        //     .select(
+        //         `*, usuario(avatar) ${
+        //             type == "corretor" ? ", avaliacao(nota)" : ""
+        //         }`
+        //     );
+        // if (error) {
+        //     console.log(error);
+        //     isError(true);
+        // } else if (data != null) {
+        //     let _meusLinks: any[] = [];
+        //     let _linksIds: string[] = [];
+        //     links!.forEach((item) => {
+        //         _linksIds.push(item.id);
+        //     });
+        //     data.forEach((link) => {
+        //         if (_linksIds.includes(link.id)) {
+        //             _meusLinks.push(link);
+        //         }
+        //     });
+        //     setMeusLinks(_meusLinks);
+        // } else {
+        //     isError(true);
+        // }
+        // setMinhasAssoc(data!);
+        // console.log(data)
     };
 
     useEffect(() => {
@@ -109,13 +141,6 @@ export default function LinksList({ assoc, links, type, id }: LinksListProps) {
                                     {links.length > 0 ? (
                                         <>
                                             {meusLinks.map((item) => {
-                                                // let mAvatar = "";
-                                                // links!.forEach((link) => {
-                                                //     if(item.id == link.id){
-                                                //         mAvatar = link.avatar;
-                                                //         return;
-                                                //     }
-                                                // })
                                                 return (
                                                     <Links
                                                         key={item.id}
@@ -145,7 +170,19 @@ export default function LinksList({ assoc, links, type, id }: LinksListProps) {
                             {assoc != null && assoc != undefined ? (
                                 <>
                                     {assoc.length > 0 ? (
-                                        <>EXIBE ARRAY ASSOCIAÇÕES</>
+                                        <>
+                                            TESTE
+                                            {/* {minhasAssoc.map((item) => {
+                                                return (
+                                                    <Links
+                                                        key={item.id}
+                                                        usuario={item}
+                                                        id={id}
+                                                    />
+                                                );
+                                            })
+                                            } */}
+                                        </>
                                     ) : (
                                         <p>
                                             Parece que você ainda não tem

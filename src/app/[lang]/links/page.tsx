@@ -5,6 +5,7 @@ import NavBar from "../(components)/(navbar)/NavBar";
 import LinksList from "./components/LinksList";
 import { getUserData } from "../../../../lib/utils/userData";
 import { serverSupabase } from "lib/utils/serverSupabase";
+import { redirect } from "next/navigation";
 interface pageProps {
     params: {
         lang: string;
@@ -15,6 +16,10 @@ export default async function page({ params: { lang } }: pageProps) {
     const supabase = await serverSupabase()
     const dict = await getDictionary(lang); // pt
     const userData = await getUserData(supabase);
+
+    if(userData.id == undefined || userData.id == null){
+        redirect('/');
+    }
 
     return (
         <div>

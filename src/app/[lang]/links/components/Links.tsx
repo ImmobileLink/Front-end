@@ -12,7 +12,7 @@ import Botoes from "./Botoes";
 
 interface LinksProps {
     usuario: {
-        avaliacao: { nota: number };
+        avaliacao: { nota: number } | null;
         bairro: string | null;
         celular: string | null;
         cep: string | null;
@@ -45,7 +45,7 @@ export default function Links({ usuario, id }: LinksProps) {
         <AiOutlineStar key={4} />,
     ];
 
-    if (usuario != null) {
+    if (usuario != null && usuario.avaliacao != null) {
         if (usuario.avaliacao.nota != null) {
             for (let i = 0; i < usuario.avaliacao.nota; i++) {
                 nota.splice(i, 1, <AiFillStar key={i} />);
