@@ -610,5 +610,16 @@
             "notinfluence": "Did not influence",
             "influence": "Influenced"
         }
+    },
+    "mylinks": {
+        "links":"My links",
+        "companies": "Associated companies",
+        "brokers": "Affiliated brokers",
+        "talk": "Chat",
+        "logs": {
+            "errorwhilesearchingdata": "An error has occured while searching for your connections. Please try again later.",
+            "noconnectionswerefound": "It seems you still doesn't have any connections. Try looking for new Links.",
+            "noassociationswerefound": "It looks like you don't have any associations yet. Try finding new partners."
+        }
     }
 }

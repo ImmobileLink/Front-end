@@ -21,6 +21,7 @@ export interface Dictionaries {
     footer: Footer;
     agenda: Agenda;
     survey: Survey;
+    mylinks: MyLinks;
 }
 
 export interface Agenda {
@@ -707,6 +708,20 @@ export interface Questions {
     question8: string;
     question9: string;
     question10: string;
+}
+
+export interface MyLinks {
+    links: string;
+    companies: string;
+    brokers: string;
+    talk: string;
+    logs: MyLinksLogs;
+}
+
+export interface MyLinksLogs {
+    errorwhilesearchingdata: string;
+    noconnectionswerefound: string;
+    noassociationswerefound: string;
 }
 
 // Converts JSON strings to/from your types

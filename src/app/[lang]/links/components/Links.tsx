@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
-import { Pesquisa } from "@/app/i18n/dictionaries/types";
+import { MyLinks, Pesquisa } from "@/app/i18n/dictionaries/types";
 import Avatar from "../../(components)/Avatar";
 import {
     CorporacaoBuscadaUnica,
@@ -11,6 +11,7 @@ import {
 import Botoes from "./Botoes";
 
 interface LinksProps {
+    dict: MyLinks;
     usuario: {
         avaliacao: { nota: number } | null;
         bairro: string | null;
@@ -36,7 +37,7 @@ interface LinksProps {
     id: string;
 }
 
-export default function Links({ usuario, id }: LinksProps) {
+export default function Links({ dict, usuario, id }: LinksProps) {
     const nota = [
         <AiOutlineStar key={0} />,
         <AiOutlineStar key={1} />,
@@ -78,10 +79,7 @@ export default function Links({ usuario, id }: LinksProps) {
                         {usuario!.sobre}
                     </p>
                 </div>
-                {
-                    // ADD BOTÕES ASSOCIADO E CONVERSAR
-                }
-                <Botoes link={usuario} user={id}/>
+                <Botoes dict={dict} link={usuario} user={id}/>
                 {/* <div className="w-full flex justify-end mt-3">
                     <Link
                         href={`/perfil/${usuario!.id}`}

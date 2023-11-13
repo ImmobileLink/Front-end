@@ -8,8 +8,10 @@ import { BiSolidLeftArrow } from "react-icons/bi";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
 import { Query } from "react-query/types/core/query";
+import { MyLinks } from "@/app/i18n/dictionaries/types";
 
 interface LinksListProps {
+    dict: MyLinks;
     type: string;
     id: string;
     links:
@@ -32,7 +34,13 @@ interface LinksListProps {
 
 const supabase = createClientComponentClient<Database>();
 
-export default function LinksList({ assoc, links, type, id }: LinksListProps) {
+export default function LinksList({
+    assoc,
+    links,
+    type,
+    id,
+    dict,
+}: LinksListProps) {
     const [view, setView] = useState("links");
     const [error, isError] = useState(false);
     const [meusLinks, setMeusLinks] = useState<any[]>([]);
@@ -128,7 +136,7 @@ export default function LinksList({ assoc, links, type, id }: LinksListProps) {
                             view == "links" ? "underline font-semibold" : ""
                         } pr-2 cursor-pointer`}
                     >
-                        Meus links
+                        {dict.links}
                     </a>
                     <a
                         onClick={() => setView("assoc")}
@@ -136,73 +144,82 @@ export default function LinksList({ assoc, links, type, id }: LinksListProps) {
                             view == "assoc" ? "underline font-semibold" : ""
                         } md:px-2 cursor-pointer`}
                     >
-                        {type == "corretor"
-                            ? "Empresas associadas"
-                            : "Corretores afiliados"}
+                        {type == "corretor" ? (
+                            <>{dict.companies}</>
+                        ) : (
+                            <>{dict.brokers}</>
+                        )}
                     </a>
                 </div>
                 <div className="md:ml-16 mt-2">
-                    {view == "links" ? (
-                        <>
-                            {links != null && links != undefined ? (
-                                <>
-                                    {links.length > 0 ? (
-                                        <>
-                                            {meusLinks.map((item) => {
-                                                return (
-                                                    <Links
-                                                        key={item.id}
-                                                        usuario={item}
-                                                        id={id}
-                                                    />
-                                                );
-                                            })}
-                                        </>
-                                    ) : (
-                                        <p>
-                                            Parece que você ainda não tem
-                                            nenhuma conexão. Tente encontrar
-                                            novos Links.
-                                        </p>
-                                    )}
-                                </>
-                            ) : (
-                                <p>
-                                    Ocorreu um erro ao carregar seus Links. Por
-                                    favor, tente novamente mais tarde
-                                </p>
-                            )}
-                        </>
+                    {error ? (
+                        <>{dict.logs.errorwhilesearchingdata}</>
                     ) : (
                         <>
-                            {assoc != null && assoc != undefined ? (
+                            {view == "links" ? (
                                 <>
-                                    {assoc.length > 0 ? (
+                                    {links != null && links != undefined ? (
                                         <>
-                                            {minhasAssoc.map((item) => {
-                                                return (
-                                                    <Links
-                                                        key={item.id}
-                                                        usuario={item}
-                                                        id={id}
-                                                    />
-                                                );
-                                            })}
+                                            {links.length > 0 ? (
+                                                <>
+                                                    {meusLinks.map((item) => {
+                                                        return (
+                                                            <Links
+                                                                dict={dict}
+                                                                key={item.id}
+                                                                usuario={item}
+                                                                id={id}
+                                                            />
+                                                        );
+                                                    })}
+                                                </>
+                                            ) : (
+                                                <p>
+                                                    {
+                                                        dict.logs
+                                                            .noconnectionswerefound
+                                                    }
+                                                </p>
+                                            )}
                                         </>
                                     ) : (
                                         <p>
-                                            Parece que você ainda não tem
-                                            nenhuma associação. Tente encontrar
-                                            novos parceiros.
+                                            {dict.logs.errorwhilesearchingdata}
                                         </p>
                                     )}
                                 </>
                             ) : (
-                                <p>
-                                    Ocorreu um erro ao carregar suas
-                                    associações. Por favor, tente novamente mais
-                                    tarde
-                                </p>
+                                <>
+                                    {assoc != null && assoc != undefined ? (
+                                        <>
+                                            {assoc.length > 0 ? (
+                                                <>
+                                                    {minhasAssoc.map((item) => {
+                                                        return (
+                                                            <Links
+                                                                dict={dict}
+                                                                key={item.id}
+                                                                usuario={item}
+                                                                id={id}
+                                                            />
+                                                        );
+                                                    })}
+                                                </>
+                                            ) : (
+                                                <p>
+                                                    {
+                                                        dict.logs
+                                                            .noassociationswerefound
+                                                    }
+                                                </p>
+                                            )}
+                                        </>
+                                    ) : (
+                                        <p>
+                                            {dict.logs.errorwhilesearchingdata}
+                                        </p>
+                                    )}
+                                </>
                             )}
                         </>
                     )}
