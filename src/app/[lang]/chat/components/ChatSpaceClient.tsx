@@ -2,9 +2,7 @@
 
 import { ReactNode, Suspense, useContext, useEffect } from "react";
 import { ChatContext } from "../[[...idsala]]/chatContext";
-import BottomNav from "./BottomNav";
 import { Chat } from "@/app/i18n/dictionaries/types";
-import { NotificationContext } from "../../(components)/(navbar)/NotificationContext";
 import { Spinner } from "flowbite-react";
 
 interface ChatSpaceClientProps {
@@ -15,8 +13,7 @@ interface ChatSpaceClientProps {
 }
 
 export default function ChatSpaceClient({ children, dict, idsala, userId }: ChatSpaceClientProps) {
-  const { chatView, toggleChatView } = useContext(ChatContext)
-  const { toggleChatNotification } = useContext(NotificationContext)
+  const { chatView } = useContext(ChatContext)
 
   let style = 'hidden lg:block'
 

@@ -5,30 +5,23 @@ import { AiFillEdit } from "react-icons/ai";
 import { Button, Modal } from 'flowbite-react';
 import { useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
-import { Corporacao, Corretor } from "../../../../../../../../../lib/modelos";
-import { updateCorretorProfile } from "../../../../../../../../../lib/utils/EditProfile";
+import {  Corretor } from "../../../../../../../../../lib/modelos";
+import { getImoveis, updateCorretorProfile } from "../../../../perfilUtils/EditProfile";
 import EditEspecialidades from "./EditEspecialidades";
 import { useRouter } from "next/navigation";
 import EditRegiaoAtuacao from "./EditRegiaoAtuacao";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../../../../../lib/database.types";
 import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface EditProfileProps {
     data: Corretor | null;
 }
 
-async function getImoveis() {
-    const supabase = createClientComponentClient<Database>({});
 
-    let { data: tipoImovel } = await supabase
-        .from("tipoImovel")
-        .select("id,descricao");
-
-    return { tipoImovel };
-}
 
 export default function EditProfile({ data }: EditProfileProps) {
+    const supabase = clientSupabase();
+
     const router = useRouter()
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
@@ -60,11 +53,11 @@ export default function EditProfile({ data }: EditProfileProps) {
 
     const onSubmit = async (formData: any) => {
         setIsProcessing(true)
-        const { updatedData, error } = await updateCorretorProfile(formData, data?.id!)
-        if (error) {
-            console.error('Erro ao atualizar os dados:', error);
+        const result = await updateCorretorProfile(formData, data?.id!, supabase)
+        if (!result) {
+            console.error('Erro ao atualizar os dados');
         } else {
-            console.log('Dados atualizados com sucesso:', updatedData);
+            console.log('Dados atualizados com sucesso');
             reset(getValues())
             props.setOpenModal(undefined);
             router.refresh()
@@ -75,7 +68,7 @@ export default function EditProfile({ data }: EditProfileProps) {
 
     useEffect(() => {
         const fetchData = async () => {
-            const imoveis = await (await getImoveis()).tipoImovel
+            const imoveis = await (await getImoveis(supabase)).tipoImovel
             setImoveis(imoveis)
         }
         fetchData()

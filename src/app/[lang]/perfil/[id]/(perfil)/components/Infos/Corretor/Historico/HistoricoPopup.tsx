@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Button, Modal } from "flowbite-react";
 import { useProfileStore } from '../../../../../../../../../../lib/store/profileStore';
-import { insertHistorico, updateHistorico } from '../../../../../../../../../../lib/utils/Historico';
+import { insertHistorico, updateHistorico } from '../../../../../perfilUtils/Historico';
 import { useProfileContext } from '../../../../context/ProfileContext';
 import { v4 as uuidv4 } from 'uuid';
+import { clientSupabase } from 'lib/utils/clientSupabase';
 
 interface HistoricoPopupProps {
     props: any;
@@ -14,6 +15,7 @@ interface HistoricoPopupProps {
 
 
 export default function HistoricoPopup({ props }: HistoricoPopupProps) {
+    const supabase = clientSupabase()
 
     const state = useProfileStore.getState()
 
@@ -46,7 +48,6 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
             setValue('data_fim', data ? data.data_fim?.substring(0, 7) : "");
             setValue('descricao', data ? data.descricao : "");
 
-            console.log(data);
         } else {
             reset(defaultValues)
         }
@@ -78,10 +79,9 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
                 }
             ];
 
-            const { error } = props.idEditHistorico ? await updateHistorico(hist) : await insertHistorico(hist)
+            const result = props.idEditHistorico ? await updateHistorico(hist, supabase) : await insertHistorico(hist, supabase)
 
-            if (error) {
-                console.error(error);
+            if (!result) {
                 setErro("Erro ao cadastrar histórico");
             } else {
                 if (historico) {
@@ -95,7 +95,6 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
                 } else {
                     setHistorico([...hist]);
                 }
-                console.log(historico);
                 props.setIdEditHistorico(null)
                 props.setOpenModal(undefined);
             }

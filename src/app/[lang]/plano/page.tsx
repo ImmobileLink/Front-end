@@ -1,15 +1,8 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { Database } from "../../../../lib/database.types";
 import { getDictionary } from "../dictionaries";
 import PlanoTable from "./components/PlanoTable";
-import { getTipoUsuario } from "../../../../lib/utils/userData";
-import { userData } from "../../../../lib/modelos";
-import { cache } from "react";
-import { setPremiumTrue, setPremiumFalse } from "./utils";
-import Alert from "../(components)/Alert";
-import PlanoCard from "../(components)/(plano)/PlanoCard";
-import PlanoCardMobile from "./components/PlanoCardMobile";
+import { serverSupabase } from "lib/utils/serverSupabase";
+import { getUserData } from "lib/utils/userData";
+
 
 interface pageProps {
     params: {
@@ -17,40 +10,11 @@ interface pageProps {
     };
 }
 
-export const createServerSupabaseClient = cache(() => {
-    const cookieStore = cookies();
-    return createServerComponentClient<Database>({
-        cookies: () => cookieStore,
-    });
-});
-
-async function getUserData(user: userData) {
-    const supabase = createServerSupabaseClient();
-    const {
-        data: { session },
-    } = await supabase.auth.getSession();
-
-    if (session?.user.id) {
-        user = await getTipoUsuario(user, session.user.id);
-    }
-    return user;
-}
-
 export default async function page({ params: { lang } }: pageProps) {
-    const supabase = createServerSupabaseClient();
+  const supabase = await serverSupabase();
 
-    let user: userData = {
-        id: undefined,
-        avatar: undefined,
-        isPremium: undefined,
-        nome: undefined,
-        type: undefined,
-        links: [],
-        assoc: [],
-    };
-
-    const dict = await getDictionary(lang); // pt
-    const userData = await getUserData(user);
+  const dict = await getDictionary(lang); // pt
+  const userData = await getUserData(supabase);
 
     return (
         <>

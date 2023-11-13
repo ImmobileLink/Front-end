@@ -1,13 +1,12 @@
 import { Dictionaries } from "@/app/i18n/dictionaries/types";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import CardRoot from "../../(components)/(compositions)/(card)/CardRoot";
-import { Database } from "../../../../../lib/database.types";
 import { getDictionary } from "../../dictionaries";
 import SurveyForm from "./(survey)/components/SurveyForm";
-import { formataDataSemHora } from "../../../../../lib/utils";
+import { formataDataSemHora } from "lib/utils/formataData";
+import { serverSupabase } from "lib/utils/serverSupabase";
+import { getSurveyData } from "./surveyConfig";
 
 interface PageProps {
     params: {
@@ -16,33 +15,11 @@ interface PageProps {
     };
 }
 
-export const createServerSupabaseClient = () => {
-    return createServerComponentClient<Database>({ cookies })
-}
-
-const getSurveyData = async (id: string) => {
-    const supabase = createServerSupabaseClient();
-
-    const { data } = await supabase.from("resultadoformulario").select("idvisita, status").eq("id", id).limit(1)
-
-    if (data && data?.length >= 1) {
-        const { data: obter_dados_survey } = await supabase.rpc("obter_dados_survey", { visita_id: data[0].idvisita })
-
-        return ({
-            formularioresposta: data,
-            visita: obter_dados_survey
-        })
-    }
-
-    return ({
-        formularioresposta: data
-    })
-}
-
 export default async function Survey({ params: { id, lang } }: PageProps) {
-    const surveyData = await getSurveyData(id);
-
+    const supabase = await serverSupabase();
+    const surveyData = await getSurveyData(supabase, id);
     const dict: Dictionaries = await getDictionary(lang);
+
     const survey = dict.survey;
 
     return (
@@ -67,8 +44,8 @@ export default async function Survey({ params: { id, lang } }: PageProps) {
             </nav>
             <div className="sm:mx-auto w-full lg:w-2/3 lg:min-w-[900px] px-4 md:px-12">
                 {
-                    // verifica se existe uma pesquisa com esse id
-                    surveyData.formularioresposta && surveyData.formularioresposta?.length >= 1 ?
+                    surveyData && // verifica se existe uma pesquisa com esse id
+                        surveyData.formularioresposta && surveyData.formularioresposta?.length >= 1 ?
                         // existe
                         // verifica se a pesquisa já foi respondida
                         surveyData.formularioresposta[0].status ?

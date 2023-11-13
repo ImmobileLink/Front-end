@@ -1,7 +1,7 @@
 "use client";
 
 import { NextResponse } from "next/server";
-import { formataData, getCurrentDateTimeWithTimezone, isDateBeforeCurrent } from "../../../../../lib/utils";
+import { formataData, getCurrentDateTimeWithTimezone, isDateBeforeCurrent } from "../../../../../lib/utils/clientSupabase";
 
 interface ButtonProps {}
 

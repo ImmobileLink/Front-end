@@ -1,18 +1,17 @@
 "use client";
 
-import { AiOutlineClose } from 'react-icons/ai';
 import { MdOutgoingMail } from 'react-icons/md';
 import { BiEditAlt } from 'react-icons/bi';
 import { Agenda } from "@/app/i18n/dictionaries/types";
 import { VisitaProps } from "../../../../../lib/modelos";
 import { formataData } from "../../../../../lib/utils/formataData";
 import { LiaTrashAltSolid } from 'react-icons/lia';
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../lib/database.types";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Modal, Spinner } from 'flowbite-react';
+import { clientSupabase } from 'lib/utils/clientSupabase';
+import { deleteVisita, enviaEmail } from '../agendaUtils';
 
 interface ModalEventoProps {
   isOpen: boolean;
@@ -23,10 +22,12 @@ interface ModalEventoProps {
   openEditModal: () => void;
 }
 
-const supabase = createClientComponentClient<Database>();
 
 export default function ModalEvento({ isOpen, onClose, evento, dict, type, openEditModal }: ModalEventoProps) {
+  const supabase = clientSupabase();
+  
   const router = useRouter();
+
   const [loadingEmail, setLoadingEmail] = useState(false)
   const [loadingDelete, setLoadingDelete] = useState(false)
 
@@ -39,7 +40,7 @@ export default function ModalEvento({ isOpen, onClose, evento, dict, type, openE
   const handleDeletaEvento = async () => {
     setLoadingDelete(true);
     if (window.confirm(dict.delete + "\n" + dict.cannotbeundone)) {
-      const { data } = await supabase.from("visita").delete().eq("id", evento!.visita_id)
+      await deleteVisita(supabase, evento!.visita_id);
       toast.success(dict.logs.visitok);
       router.refresh();
       onClose();
@@ -51,39 +52,13 @@ export default function ModalEvento({ isOpen, onClose, evento, dict, type, openE
 
     setLoadingEmail(true);
     if (window.confirm(dict.sendsurvey)) {
-      try {
-        const url = '/api/survey/';
+      const data = await enviaEmail(evento!.email_marcador, evento!.nome_marcador, evento!.data_agendamento, evento!.survey_id);
+      
+      alert(JSON.stringify(data));
 
-        let schedule = new Date();
-        schedule.setMinutes(schedule.getMinutes() + 3);
-
-        const requestBody = {
-          clientEmail: evento!.email_marcador,
-          clientName: evento!.nome_marcador,
-          visitDate: evento!.data_agendamento,
-          surveyId: evento!.survey_id,
-          scheduledDate: schedule
-        };
-
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(requestBody),
-        }).then(response => {
-          if (!response.ok) {
-            throw new Error(response.statusText);
-          }
-          return response.json();
-        })
-          .then(data => {
-            toast.success(dict.logs.emailok);
-          })
-          .catch(error => {
-            toast.error(dict.logs.emailerror);
-          });
-      } catch (error) {
+      if(data) {
+        toast.success(dict.logs.emailok);
+      } else {
         toast.error(dict.logs.emailerror);
       }
 

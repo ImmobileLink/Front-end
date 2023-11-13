@@ -112,6 +112,7 @@ export default function AuthForm({ auth, data, lang }: AuthFormProps) {
                 {alert.message.length > 1 ? (
                     <div className="pt-6 sm:mx-auto sm:w-full sm:max-w-sm">
                         <Alert
+                            /*// @ts-ignore */
                             type={alert.type}
                             title={alert.title || auth.always.error}
                             text={alert.message}

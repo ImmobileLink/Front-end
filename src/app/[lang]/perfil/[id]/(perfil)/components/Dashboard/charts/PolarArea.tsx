@@ -1,37 +1,44 @@
-"use client";
 import Chart from 'chart.js/auto';
-import { PolarArea as Po } from "react-chartjs-2";
-import {CategoryScale} from 'chart.js'; 
-Chart.register(CategoryScale);
+import { Dashboard3 } from 'lib/modelos';
+import { PolarArea } from 'react-chartjs-2';
+
+
 interface PolarAreaProps {
-  dict: any;
+  data3: Dashboard3;
 }
 
 
-export default function PolarArea({dict}: PolarAreaProps) {
+
+export default function PolarAreaChart({data3} : PolarAreaProps) {
+
+  const taxa = data3![0]
+
+  const sum = taxa.indeciso + taxa.intencao + taxa.sem_interesse
+  const indeciso = (100/sum) *  taxa.indeciso
+  const intencao = (100/sum) *  taxa.intencao
+  const sem_interesse = (100/sum) *  taxa.sem_interesse
 
   const data = {
-    labels: [
-      dict.dashboard.domain,
-      dict.dashboard.professionalism,
-      dict.dashboard.goodService,
-      dict.dashboard.educated,
+    labels: ['Interessado', 'Indeciso', 'Sem Interesse'],
+    datasets: [
+      {
+        data: [intencao, indeciso, sem_interesse], // Porcentagens para cada tipo
+        backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6'], // Cores com transparência
+      },
     ],
-    datasets: [{
-      label: 'dasda',
-      data: [41, 81, 66, 54],
-      backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(75, 192, 192)',
-        'rgb(255, 205, 86)',
-        'rgb(201, 203, 207)',
-      ]
-    }]
+  };
+  
+  const options = {
+    plugins: {
+      legend: {
+        display: false, // Ocultar a legenda
+      },
+    },
   };
 
   return (
-    <>
-        <Po data={data}></Po>
-    </>
+    <div>
+      <PolarArea data={data} options={options} />
+    </div>
   );
 }

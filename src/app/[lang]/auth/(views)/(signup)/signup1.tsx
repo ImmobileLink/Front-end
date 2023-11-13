@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction, useEffect, useState, useLayoutEffect } from "react";
 import { Signup1 } from "@/app/i18n/dictionaries/types";
 import PasswordInput from "@/app/[lang]/(components)/(auth)/PasswordInput";
-import { assignError } from "./validations";
+import { assignError } from "../../authUtils";
 
 interface SignUpProps {
     props: {
@@ -30,7 +30,7 @@ export default function SignUp1({
     useEffect(() => {
         const erros = fieldErros;
         if(props.senha != props.confirmSenha && props.confirmSenha != ""){
-            assignError(erros, "confirmSenha", "As senhas são diferentes");
+            assignError(erros, "confirmSenha", signup1.logs.invaliddifferentpasswords);
         } else {
             delete erros?.confirmSenha
         }

@@ -3,13 +3,13 @@
 import { Feed } from "@/app/i18n/dictionaries/types";
 import { Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { BsFillExclamationCircleFill, BsFillImageFill } from "react-icons/bs";
 import { City } from "../../../../../lib/modelos";
-import { publishPost } from "../../../../../lib/utils/Posts";
-import { _UFs } from "../../../../../lib/utils/getRegiao";
+import { publishPost } from "../feedUtils";
+import { _UFs, fetchCitiesAPI } from "../../../../../lib/utils/externalApis";
 import Avatar from "../../(components)/Avatar";
 import ImageUpload from "./ImageUpload";
 import toast from "react-hot-toast";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface PostFormCardProps {
     textos: Feed;
@@ -30,6 +30,8 @@ export default function PostFormCard({
 
     const [loading, setLoading] = useState<boolean>(false);
 
+    const supabase = clientSupabase()
+
     const inserePub = async () => {
         if (!texto) {
             toast.error(textos.form.writeamessage);
@@ -42,29 +44,26 @@ export default function PostFormCard({
                 regiao: { estado: selectedState, cidade: selectedCity },
                 texto,
                 imagem,
-            });
+            }, supabase);
+            if (response) {
+                setTexto("");
+                setImagem(undefined);
+            }
             setLoading(false);
-            setTexto("");
-            setImagem(undefined);
-            window.location.reload(); // pq essew reload?
+            window.location.reload();
         }
     };
 
     useEffect(() => {
         async function fetchCities() {
             if (selectedState) {
-                try {
-                    setLoading(true);
-                    const response = await fetch(
-                        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState}/municipios`
-                    );
-                    const citiesData = await response.json();
+                setLoading(true);
+                const citiesData = await fetchCitiesAPI(selectedState)
+                if (citiesData) {
                     setCities(citiesData);
                     setSelectedCity(citiesData[0].nome);
-                    setLoading(false);
-                } catch (error) {
-                    console.error(error);
                 }
+                setLoading(false);
             } else {
                 setCities([]);
             }

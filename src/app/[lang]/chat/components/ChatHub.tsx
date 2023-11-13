@@ -1,15 +1,14 @@
 "use client"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { UltimaMensagemPorSalaPorUsuario, salaUsuario, userGroup } from "../../../../../lib/modelos";
-import { Database } from "../../../../../lib/database.types";
-import { Suspense, useContext, useEffect, useState, useTransition } from "react";
+import { useContext, useEffect, useState, useTransition } from "react";
 import { useRouter } from 'next/navigation';
 import ChatHubCard from "./ChatHubCard";
-import BottomNav from "./BottomNav";
 import { ChatContext } from "../[[...idsala]]/chatContext";
 import { BiArrowBack } from 'react-icons/bi'
 import FriendList from "./FriendList";
-import { NotificationContext } from "../../(components)/(navbar)/NotificationContext";
+import { NotificationContext } from "../../(components)/(navbar)/notificationContext";
+import { getLastMessages, getUserRooms } from "../[[...idsala]]/chatUtils";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 
 interface ChatHubProps {
@@ -19,17 +18,15 @@ interface ChatHubProps {
   userType: string | undefined;
   userLinks: userGroup | undefined;
   userAssocs: userGroup | undefined;
-  mensagens: UltimaMensagemPorSalaPorUsuario[] | null | undefined;
-  userRooms: string | undefined
 }
 
-const supabase = createClientComponentClient<Database>()
+const supabase = clientSupabase()
 
-export default function ChatHub({ dict, idsala, userType, userId, userLinks, userAssocs, mensagens, userRooms }: ChatHubProps) {
+export default function ChatHub({ dict, idsala, userType, userId, userLinks, userAssocs }: ChatHubProps) {
   const { chatView, toggleChatView } = useContext(ChatContext)
   const { toggleChatNotification } = useContext(NotificationContext)
   const { chatNewMessages, toggleChatNewMessages } = useContext(NotificationContext)
-  const [rooms, setRooms] = useState<string | undefined>(userRooms)
+  const [rooms, setRooms] = useState<string | undefined>()
 
   let chatStyle = 'flex'
 
@@ -46,7 +43,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
   }
 
   //Recebe as últimas mensagens enviadas pelo usuário, bem como o id e nome do "outro participante" da conversa
-  const [messages, setMessages] = useState<UltimaMensagemPorSalaPorUsuario[]>(mensagens!)
+  const [messages, setMessages] = useState<UltimaMensagemPorSalaPorUsuario[]>()
 
   //Estados e useRouter para atualizar a lista de conversas quando uma nova msg é enviada (envia o item da conversa para o topo da lista).
   const router = useRouter()
@@ -56,7 +53,12 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
   //Função para atualizar a lista de conversas
   const atualizaHub = () => {
     setIsFetching(true);
-    getLastMessages()
+    if (userId) {
+      getLastMessages(userId, supabase)
+        .then((response) => {
+          setMessages(response)
+        })
+    }
     setIsFetching(false);
 
     startTransition(() => {
@@ -66,40 +68,18 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
     });
   }
 
-  //Função de fetch que é chamada pela função atualizaHub
-  const getLastMessages = async () => {
-    if (userId) {
-      const { data, error } = await supabase
-        .rpc('obter_ultimas_mensagens_por_usuario', {
-          idusuario: userId
-        })
-        .order('atualizadoem', { ascending: false })
-      if (error) {
-        console.log(error)
-      }
-      else {
-        setMessages(data)
-      }
-    }
-  }
-
-  const getUserRooms = async (idusuario: string) => {
-    const supabase = createClientComponentClient<Database>()
-    const { data, error } = await supabase
-      .from('usuarioporsala')
-      .select('idsala')
-      .eq('idusuario', idusuario)
-    if (error) {
-      console.log(error)
-    }
-    else {
-      const array = data.map(item => item.idsala)
-      const string = array.toString()
-      return string
-    }
-  }
-
   useEffect(() => {
+    if (userId) {
+      getUserRooms(userId, supabase)
+        .then((response) => {
+          setRooms(response)
+        })
+      getLastMessages(userId, supabase)
+        .then((response) => {
+          setMessages(response)
+        })
+    }
+
     const subscription = supabase.channel("userRoom_changes")
       .on(
         "postgres_changes",
@@ -111,7 +91,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
         },
         () => {
           if (userId) {
-            getUserRooms(userId)
+            getUserRooms(userId, supabase)
               .then((response) => {
                 setRooms(response)
               })
@@ -144,7 +124,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
     return () => {
       subscription.unsubscribe();
     }
-  }, [chatNewMessages])
+  }, [messages])
 
   const style = 'bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
   //Exibe a lista de amigos
@@ -169,50 +149,50 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
   }
 
   return (
-      <div className={`${chatStyle} select-none flex-col justify-start h-full lg:h-5/6 w-screen lg:w-3/12 rounded-md bg-white dark:bg-dark-100 drop-shadow-md`}>
-        <div className="grid row grid-cols-12 py-2 lg:rounded-lg bg-gray-100 dark:bg-gray-600 border border-gray-200 dark:border-gray-700">
-          {
-            friendListState ?
-              <div onClick={handleFriendList} className="col-start-1 col-span-4 self-center ml-2 w-fit flex cursor-pointer text-gray-900 dark:text-white focus:ring-4 font-medium text-sm px-2 py-1 hover:bg-gray-50 dark:hover:bg-gray-800">
-                <BiArrowBack size={20} />
-              </div>
-              :
-              <div className="col-start-1 col-span-4 self-center ml-2 px-2 rounded-md w-fit font-sans font-semibold">
-                {dict.chat.conversations}
-              </div>
-          }
+    <div className={`${chatStyle} flex-col justify-start h-full lg:h-5/6 w-screen lg:w-3/12 rounded-md bg-white dark:bg-dark-100 drop-shadow-md`}>
+      <div className="grid row grid-cols-12 py-2 lg:rounded-lg bg-gray-100 dark:bg-gray-600 border border-gray-200 dark:border-gray-700">
+        {
+          friendListState ?
+            <div onClick={handleFriendList} className="col-start-1 col-span-4 self-center ml-2 w-fit flex cursor-pointer text-gray-900 dark:text-white focus:ring-4 font-medium text-sm px-2 py-1 hover:bg-gray-50 dark:hover:bg-gray-800">
+              <BiArrowBack size={20} />
+            </div>
+            :
+            <div className="col-start-1 col-span-4 self-center ml-2 px-2 rounded-md w-fit font-sans font-semibold">
+              {dict.chat.conversations}
+            </div>
+        }
 
-          <div className="flex justify-end mr-2 col-span-8 col-end-13 items-center">
-            <button onClick={handleFriendList} className={`${friendListButtonStyle} flex cursor-pointer text-white focus:ring-4 font-medium text-sm px-5 py-1 focus:outline-none rounded-lg`}>
-              {dict.chat.newconversation}
-            </button>
-          </div>
+        <div className="flex justify-end mr-2 col-span-8 col-end-13 items-center">
+          <button onClick={handleFriendList} className={`${friendListButtonStyle} flex cursor-pointer text-white focus:ring-4 font-medium text-sm px-5 py-1 focus:outline-none rounded-lg`}>
+            {dict.chat.newconversation}
+          </button>
         </div>
-        <div className={`flex flex-col h-[calc(100vh-72px)] overflow-y-auto snap-start gap-2`}>
+      </div>
+      <div className={`flex flex-col h-[calc(100vh-72px)] overflow-y-auto snap-start gap-2`}>
+        {
+          friendListState ?
+            <FriendList dict={dict} idsala={idsala} userType={userType} userLinks={userLinks} userAssocs={userAssocs} userId={userId} />
+            :
+            ''
+        }
+        <div className={`${convListStyle} max-h-fit overflow-y-auto snap-start flex flex-col gap-2`}>
           {
-            friendListState ?
-              <FriendList dict={dict} idsala={idsala} userType={userType} userLinks={userLinks} userAssocs={userAssocs} userId={userId} />
-              :
-              ''
-          }
-          <div className={`${convListStyle} max-h-fit overflow-y-auto snap-start flex flex-col gap-2`}>
-            {
-              messages &&
-              messages.map((mensagem) => {
-                const included = chatNewMessages.includes(mensagem.idsala)
-                let selected = false
-                if (idsala == mensagem.idsala) {
-                  selected = true;
-                }
-                return (
-                  <ChatHubCard key={mensagem.idmensagem} idsala={mensagem.idsala} dict={dict.chat} mensagem={mensagem} userId={userId} userAvatar={mensagem.avatarparticipante} highlight={included} selected={selected} />
-                )
+            messages &&
+            messages.map((mensagem) => {
+              const included = chatNewMessages.includes(mensagem.idsala)
+              let selected = false
+              if (idsala == mensagem.idsala) {
+                selected = true;
               }
+              return (
+                <ChatHubCard key={mensagem.idmensagem} idsala={mensagem.idsala} dict={dict.chat} mensagem={mensagem} userId={userId} userAvatar={mensagem.avatarparticipante} highlight={included} selected={selected} />
               )
             }
-          </div>
+            )
+          }
         </div>
-        {/* <BottomNav /> */}
       </div>
+      {/* <BottomNav /> */}
+    </div>
   );
 }

@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 
 import Link from 'next/link';
@@ -12,6 +13,7 @@ interface UserCardProps {
   usuario: CorretorBuscadoUnico | CorporacaoBuscadaUnica
 }
 
+
 export default function UserCard({ textos, usuario }: UserCardProps) {
   const nota = [<AiOutlineStar key={0} />, <AiOutlineStar key={1} />, <AiOutlineStar key={2} />, <AiOutlineStar key={3} />, <AiOutlineStar key={4} />];
 
@@ -21,7 +23,6 @@ export default function UserCard({ textos, usuario }: UserCardProps) {
         nota.splice(i, 1, <AiFillStar key={i} />);
       }
     }
-
   }
 
   return (

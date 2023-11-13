@@ -2,6 +2,11 @@
 //Exporta os tipos do banco de dados ou tipos personalizados para não ser necessário declará-los toda hora nos códigos;
 import { Database, Json } from "./database.types";
 
+export interface Erro {
+    referencia: string;
+    mensagem: string;
+}
+
 //Nativos do Banco de dados
 export type Publicacao = Database['public']['Tables']['publicacao']['Row']
 export type TipoImovel = Database['public']['Tables']['tipoImovel']['Row']
@@ -44,9 +49,9 @@ export interface InsereImovel {
     valor: number,
     imagem: string,
     caracteristicas: {
-      id: string;
-      descricao: string;
-  }[]
+        id: string;
+        descricao: string;
+    }[]
 }
 export interface AtualizaImovel {
     descricao: string,
@@ -79,9 +84,14 @@ export interface MensagemAInserir {
     imagem?: File
 }
 export interface CorretorAssociado {
-    id: string,
-    nome: string,
+    id: string;
+    nome: string | null;
+    estado: string | null;
+    cidade: string | null;
+    tipoImovel: TipoImovelSemClassificacao[];
 }
+
+export type TipoImovelSemClassificacao = Omit<TipoImovel, 'classificacao'>;
 
 export interface InsereVisita {
     dadosmarcador: Json;
@@ -235,6 +245,7 @@ export interface VisitaProps {
     survey_id: string;
 }
 
+<<<<<<<<< Temporary merge branch 1
 export type Historico = {
     data_fim: string | null;
     data_inicio: string;
@@ -263,9 +274,9 @@ export type Dashboard1 = {
     transparencia: number;
     detalhista: number;
     clareza: number;
-  }[] | null
-  
-  export type Dashboard2 = {
+}[] | null
+
+export type Dashboard2 = {
     id: string;
     muito_insatisfeito: number;
     insatisfeito: number;
@@ -273,3 +284,36 @@ export type Dashboard1 = {
     satisfeito: number;
     muito_satisfeito: number;
   }[] | null
+
+  export interface FormDataProps {
+    campo1: number | null,
+    campo2: number | null,
+    campo3: number | null,
+    campo4: number | null,
+    campo5: number | null,
+    campo6: number | null,
+    campo7: number | null,
+    campo8: number | null,
+    campo9: number | null,
+    campo10: string,
+  }
+  
+}[] | null
+
+export type Dashboard3 = {
+    id: string;
+    indeciso: number;
+    intencao: number;
+    sem_interesse: number;
+}[] | null
+
+export type Dashboard4 = {
+    descricao: Json[];
+}[] | null
+
+export interface RoomData {
+    iddestinatario: string | null;
+    nomedestinatario: string | null;
+    avatardestinatario: string | null;
+    mensagens: Mensagem[];
+}

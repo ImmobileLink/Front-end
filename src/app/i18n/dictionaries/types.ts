@@ -219,6 +219,7 @@ export interface Signup4Cityselector {
 
 export interface Signup4Logs {
     invalidcreci: string;
+    uferror: string;
 }
 
 export interface Signup5 {
@@ -292,10 +293,15 @@ export interface Chat {
     you: string;
     sent: string;
     newconversation: string;
-    newconvlabel1: string;
-    newconvlabel2: string;
-    uploadedfile: string;
-    chathome: string;
+    newconvlabel1:   string;
+    newconvlabel2:   string;
+    uploadedfile:    string;
+    chathome:        string;
+    errormessages:   Errormessages;
+}
+
+export interface Errormessages {
+    insertfail: string;
 }
 
 export interface DictionariesCityselector {
@@ -573,20 +579,20 @@ export interface Notificationlabels {
 }
 
 export interface Pesquisa {
-    labels: Labels;
+    labels:        PesquisaLabels;
     usertypevalue: Usertypevalue;
 }
 
-export interface Labels {
-    nearbyusers: string;
-    name: string;
-    title: string;
-    usertype: string;
-    region: string;
-    state: string;
-    city: string;
-    all: string;
-    nocityfound: string;
+export interface PesquisaLabels {
+    nearbyusers:        string;
+    name:               string;
+    title:              string;
+    usertype:           string;
+    region:             string;
+    state:              string;
+    city:               string;
+    all:                string;
+    nocityfound:        string;
     selectaestatefirst: string;
     rating: string;
     specialty: string;
@@ -674,12 +680,20 @@ export interface Survey {
     referencecompany: string;
     explanationsurveysite1: string;
     explanationsurveysite2: string;
-    pleased: string;
-    notpleased: string;
-    insertavalue: string;
-    fieldlenght: string;
-    finish: string;
-    questions: Questions;
+    insertavalue:           string;
+    fieldlenght:            string;
+    finish:                 string;
+    questions:              Questions;
+    labels:                 SurveyLabels;
+}
+
+export interface SurveyLabels {
+    pleased:       string;
+    notpleased:    string;
+    notinterested: string;
+    interested:    string;
+    notinfluence:  string;
+    influence:     string;
 }
 
 export interface Questions {

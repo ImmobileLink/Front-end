@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext } from "react";
-import { SearchContext } from "./SearchContext";
+import { SearchContext } from "../searchContext";
 import UserCard from "./UserCard";
 import { Pesquisa } from "@/app/i18n/dictionaries/types";
 import { Spinner } from "flowbite-react";

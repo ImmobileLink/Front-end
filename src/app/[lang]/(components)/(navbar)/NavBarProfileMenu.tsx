@@ -2,25 +2,20 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import Image from "next/image";
 import { Navbarbuttons } from "@/app/i18n/dictionaries/types";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../../../../../lib/database.types";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Spinner } from "flowbite-react";
 import { HiUserCircle } from "react-icons/hi2";
-import { CircleFlag } from 'react-circle-flags'
-import { Dropdown } from "flowbite-react";
 import CountryDropdown from "./CountryDropdown";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface NavBarProfileMenuProps {
   textos: Navbarbuttons;
   userId?: string;
 }
 
-const supabase = createClientComponentClient<Database>()
-
 export default function NavBarProfileMenu({ textos, userId }: NavBarProfileMenuProps) {
+  const supabase = clientSupabase()
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
 
