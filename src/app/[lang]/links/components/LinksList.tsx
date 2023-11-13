@@ -65,7 +65,7 @@ export default function LinksList({ assoc, links, type, id }: LinksListProps) {
                 _linksIds.push(item.id);
             });
 
-            data.forEach((link:any) => {
+            data.forEach((link: any) => {
                 if (_linksIds.includes(link.id)) {
                     _meusLinks.push(link);
                 }
@@ -75,33 +75,39 @@ export default function LinksList({ assoc, links, type, id }: LinksListProps) {
     };
 
     const getAssoc = async () => {
-        // let { data, error } = await supabase
-        //     .from(type == "corretor" ? "corretor" : "corporacao")
-        //     .select(
-        //         `*, usuario(avatar) ${
-        //             type == "corretor" ? ", avaliacao(nota)" : ""
-        //         }`
-        //     );
-        // if (error) {
-        //     console.log(error);
-        //     isError(true);
-        // } else if (data != null) {
-        //     let _meusLinks: any[] = [];
-        //     let _linksIds: string[] = [];
-        //     links!.forEach((item) => {
-        //         _linksIds.push(item.id);
-        //     });
-        //     data.forEach((link) => {
-        //         if (_linksIds.includes(link.id)) {
-        //             _meusLinks.push(link);
-        //         }
-        //     });
-        //     setMeusLinks(_meusLinks);
-        // } else {
-        //     isError(true);
-        // }
-        // setMinhasAssoc(data!);
-        // console.log(data)
+        let data: any;
+        let error: any;
+        if (type == "corretor") {
+            let response = await supabase
+                .from("corporacao")
+                .select(`*, usuario(avatar)`);
+            data = response.data;
+            error = response.error;
+        } else {
+            let response = await supabase
+                .from("corretor")
+                .select(`*, usuario(avatar), avaliacao(nota)`);
+            data = response.data;
+            error = response.error;
+        }
+        if (error) {
+            console.log(error);
+            isError(true);
+        } else {
+            let _meusLinks: any[] = [];
+            let _linksIds: string[] = [];
+
+            assoc!.forEach((item) => {
+                _linksIds.push(item.id);
+            });
+
+            data.forEach((link: any) => {
+                if (_linksIds.includes(link.id)) {
+                    _meusLinks.push(link);
+                }
+            });
+            setMinhasAssoc(_meusLinks);
+        }
     };
 
     useEffect(() => {
@@ -130,7 +136,9 @@ export default function LinksList({ assoc, links, type, id }: LinksListProps) {
                             view == "assoc" ? "underline font-semibold" : ""
                         } px-2 cursor-pointer`}
                     >
-                        Associados
+                        {
+                            type == "corretor" ? "Empresas associadas" : "Corretores afiliados"
+                        }
                     </a>
                 </div>
                 <div className="md:ml-16 mt-2">
@@ -171,8 +179,7 @@ export default function LinksList({ assoc, links, type, id }: LinksListProps) {
                                 <>
                                     {assoc.length > 0 ? (
                                         <>
-                                            TESTE
-                                            {/* {minhasAssoc.map((item) => {
+                                            {minhasAssoc.map((item) => {
                                                 return (
                                                     <Links
                                                         key={item.id}
@@ -180,8 +187,7 @@ export default function LinksList({ assoc, links, type, id }: LinksListProps) {
                                                         id={id}
                                                     />
                                                 );
-                                            })
-                                            } */}
+                                            })}
                                         </>
                                     ) : (
                                         <p>
