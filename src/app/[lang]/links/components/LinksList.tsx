@@ -118,7 +118,7 @@ export default function LinksList({ assoc, links, type, id }: LinksListProps) {
     return (
         <div>
             <Card.Root className="md:pr-8 p-2 pt-4 md:w-[55vw] w-[91vw]">
-                <div className="flex items-center ml-6 text-xl">
+                <div className="flex md:items-center ml-6 text-xl flex flex-col md:flex-row">
                     <Link href="/feed" className="mr-4">
                         <BiSolidLeftArrow />
                     </Link>
@@ -134,11 +134,11 @@ export default function LinksList({ assoc, links, type, id }: LinksListProps) {
                         onClick={() => setView("assoc")}
                         className={`${
                             view == "assoc" ? "underline font-semibold" : ""
-                        } px-2 cursor-pointer`}
+                        } md:px-2 cursor-pointer`}
                     >
-                        {
-                            type == "corretor" ? "Empresas associadas" : "Corretores afiliados"
-                        }
+                        {type == "corretor"
+                            ? "Empresas associadas"
+                            : "Corretores afiliados"}
                     </a>
                 </div>
                 <div className="md:ml-16 mt-2">

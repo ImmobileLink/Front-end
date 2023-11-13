@@ -58,7 +58,7 @@ export default async function page({ params: { lang } }: pageProps) {
                 {userData.id && (
                     <>
                         <Card.Root>
-                            <CardL.Title link={"/links"} title={dict.feed.cards.connections} />
+                            <Card.Title title={dict.feed.cards.connections} />
                             <Card.Content>
                                 <CardLink
                                     userId={userData.id}
@@ -69,14 +69,14 @@ export default async function page({ params: { lang } }: pageProps) {
                         </Card.Root>
                         <Card.Root>
                             {userData.type == "corretor" ? (
-                                    <CardL.Title
+                                    <Card.Title
                                         title={dict.feed.cards.myrelatedcompany}
-                                        link={"/links"}
+                                        
                                     />
                             ) : (
-                                    <CardL.Title
+                                    <Card.Title
                                         title={dict.feed.cards.relatedbrokers}
-                                        link={"/links"}
+                                        
                                     />
                             )}
                             <Card.Content>
