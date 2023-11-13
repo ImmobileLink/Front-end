@@ -9,21 +9,23 @@ import { useProfileStore } from '../../../../../../../../../lib/store/profileSto
 import { clientSupabase } from 'lib/utils/clientSupabase';
 
 interface botaoAddProps {
-  
+
 }
 
 
 
-export default function BotaoAssocia({  }: botaoAddProps) {
+export default function BotaoAssocia({ }: botaoAddProps) {
   const supabase = clientSupabase()
 
   const state = useProfileStore.getState()
 
- const idProfile = state.profileData?.id!
- const idSession = state.sessionData?.id!
- const typeSession = state.sessionData?.type
+  const idProfile = state.profileData?.id!
+  const idSession = state.sessionData?.id!
+  const typeSession = state.sessionData?.type
 
-  const [estado, setEstado] = useState("Associar");
+  const dict = state.dict!.profile.buttonProfile.buttonAssociate
+
+  const [estado, setEstado] = useState("sendAssociate");
   const [loading, setLoading] = useState<boolean>(true)
 
   const [openModal, setOpenModal] = useState<string | undefined>();
@@ -55,25 +57,25 @@ export default function BotaoAssocia({  }: botaoAddProps) {
         filter: `idcorretor=eq.${id.corretor}`,
       },
       (payload) => {
-       if(payload.new.idcorporacao =! id.corporacao){
-        return;
-       }
+        if (payload.new.idcorporacao !== id.corporacao) {
+          return;
+        }
         switch (payload.eventType) {
           case "INSERT":
-            if (estado == "Associar") {
-              setEstado("Aceitar")
+            if (estado == "sendAssociate") {
+              setEstado("accept")
             }
 
           case "DELETE":
-            if (estado == "Associado") {
-              setEstado("Associar")
+            if (estado == "associate") {
+              setEstado("sendAssociate")
             }
 
           case "UPDATE":
-            if (estado == "Pendente") {
-              setEstado("Associado")
-            } else if (estado == "Aceitar") {
-              setEstado("Associar")
+            if (estado == "pending") {
+              setEstado("associate")
+            } else if (estado == "accept") {
+              setEstado("sendAssociate")
             }
         }
       }
@@ -87,12 +89,12 @@ export default function BotaoAssocia({  }: botaoAddProps) {
       if (data!.length > 0) {
         if (data![0].pendente) {
           if (data![0].iniciativa == idSession) {
-            setEstado("Pendente")
+            setEstado("pending")
           } else {
-            setEstado("Aceitar")
+            setEstado("accept")
           }
         } else {
-          setEstado("Associado")
+          setEstado("associate")
         }
       }
       setLoading(false);
@@ -102,12 +104,12 @@ export default function BotaoAssocia({  }: botaoAddProps) {
 
 
   const desassocia = async () => {
-    setEstado("Associar")
+    setEstado("sendAssociate")
 
     const result = await desassociarPerfis(id.corretor, id.corporacao, supabase)
 
     if (!result) {
-      setEstado("Associado")
+      setEstado("associate")
     }
     props.setOpenModal(undefined)
   }
@@ -116,32 +118,32 @@ export default function BotaoAssocia({  }: botaoAddProps) {
 
   const handleClick = async () => {
 
-    if (estado == "Associar") {
-      setEstado("Pendente")
+    if (estado == "sendAssociate") {
+      setEstado("pending")
 
       const result = await sendConvite(id.corretor, id.corporacao, idSession, supabase)
       if (!result) {
-        setEstado("Associar")
+        setEstado("sendAssociate")
       }
 
-    } else if (estado === "Pendente") {
-      setEstado("Associar")
+    } else if (estado === "pending") {
+      setEstado("sendAssociate")
 
       const { data, error } = await cancelaConvite(id.corretor, id.corporacao, supabase)
 
       if (error) {
-        setEstado("Pendente")
+        setEstado("pending")
       }
 
-    } else if (estado === "Associado") {
+    } else if (estado === "associate") {
       props.setOpenModal('pop-up')
 
-    } else if (estado === "Aceitar") {
-      setEstado("Associado")
+    } else if (estado === "accept") {
+      setEstado("associate")
       const result = await aceitarConvite(id.corretor, id.corporacao, supabase)
 
       if (!result) {
-        setEstado("Aceitar")
+        setEstado("accept")
       }
     }
   };
@@ -151,10 +153,10 @@ export default function BotaoAssocia({  }: botaoAddProps) {
   }
 
   const buttonClass = classNames('py-2 px-4 rounded', {
-    'bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 ': estado === 'Associar',
-    'bg-green-700 hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-700 ': estado === 'Associado',
-    'bg-yellow-700 hover:bg-yellow-800 dark:bg-yellow-600 dark:hover:bg-yellow-700 ': estado === 'Pendente',
-    'bg-blue-800 hover:bg-blue-900 dark:bg-blue-800  dark:hover:bg-blue-900 ': estado === 'Aceitar'
+    'bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 ': estado === 'sendAssociate',
+    'bg-green-700 hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-700 ': estado === 'associate',
+    'bg-yellow-700 hover:bg-yellow-800 dark:bg-yellow-600 dark:hover:bg-yellow-700 ': estado === 'pending',
+    'bg-blue-800 hover:bg-blue-900 dark:bg-blue-800  dark:hover:bg-blue-900 ': estado === 'accept'
   });
 
 
@@ -162,7 +164,12 @@ export default function BotaoAssocia({  }: botaoAddProps) {
     <>
       <button onClick={handleClick} className={`min-w-[100px] h-[40px] text-white font-medium rounded-lg text-sm mb-1 mr-3 ${buttonClass}`}>
         {
-          loading ? (<Spinner />) : (estado)
+          loading ? (<Spinner />) : (
+            (estado === 'sendAssociate' && dict.sendAssociate) ||
+            (estado === 'associate' && dict.associate) ||
+            (estado === 'pending' && dict.pending) ||
+            (estado === 'accept' && dict.accept)
+          )
         }
       </button>
 
@@ -172,14 +179,14 @@ export default function BotaoAssocia({  }: botaoAddProps) {
           <div className="text-center">
             <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              Você tem certeza que deseja de desassociar?
+              {dict.questionDisassociate}
             </h3>
             <div className="flex justify-center gap-4">
               <Button color="failure" onClick={desassocia}>
-                Sim, tenho certeza
+                {dict.confirmDisassociate}
               </Button>
               <Button color="gray" onClick={() => props.setOpenModal(undefined)}>
-                Não, cancelar
+                {dict.cancelDisassociate}
               </Button>
             </div>
           </div>

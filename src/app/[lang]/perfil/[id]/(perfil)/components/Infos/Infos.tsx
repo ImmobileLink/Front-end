@@ -23,28 +23,29 @@ export default function Infos({ isAssociado }: InfosProps) {
   const isOwn = state.isOwn
   const type = state.profileData?.type
   const showCalendar = isOwn || isAssociado
+  const dict = state.dict!.profile.infos
 
   const [tab, setTab] = useState<number>(1)
 
   return (
     <div className='ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-700 drop-shadow-md bg-white rounded-md mt-3 pb-5'>
 
-      <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+      <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-600">
         <ul className="flex flex-wrap">
           <li className="mr-2">
-            <a className={`inline-block cursor-pointer p-3 md:p-4 rounded-t-lg border-b-2 ${tab !== 1 ? 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : 'text-blue-600 border-blue-600'}`} onClick={() => setTab(1)}>Profile</a>
+            <a className={`inline-block cursor-pointer p-3 md:p-4 rounded-t-lg border-b-2 ${tab !== 1 ? 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : 'text-blue-600 border-blue-600'}`} onClick={() => setTab(1)}>{dict.profile.data}</a>
           </li>
           <li className="mr-2">
-            <a className={`inline-block cursor-pointer p-3 md:p-4 rounded-t-lg border-b-2 ${tab !== 2 ? 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : 'text-blue-600 border-blue-600'}`} onClick={() => setTab(2)}>Posts</a>
+            <a className={`inline-block cursor-pointer p-3 md:p-4 rounded-t-lg border-b-2 ${tab !== 2 ? 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : 'text-blue-600 border-blue-600'}`} onClick={() => setTab(2)}>{dict.posts}</a>
           </li>
           {isOwn && (
             <li className="mr-2">
-              <a className={`inline-block cursor-pointer p-3 md:p-4 rounded-t-lg border-b-2 ${tab !== 3 ? 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : 'text-blue-600 border-blue-600'}`} onClick={() => setTab(3)}>Saved Posts</a>
+              <a className={`inline-block cursor-pointer p-3 md:p-4 rounded-t-lg border-b-2 ${tab !== 3 ? 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : 'text-blue-600 border-blue-600'}`} onClick={() => setTab(3)}>{dict.savedPosts}</a>
             </li>
           )}
           {showCalendar && (
             <li className="mr-2 lg:hidden">
-              <a className={`inline-block cursor-pointer p-3 md:p-4 rounded-t-lg border-b-2 ${tab !== 4 ? 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : 'text-blue-600 border-blue-600'}`} onClick={() => setTab(4)}>Schedule</a>
+              <a className={`inline-block cursor-pointer p-3 md:p-4 rounded-t-lg border-b-2 ${tab !== 4 ? 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : 'text-blue-600 border-blue-600'}`} onClick={() => setTab(4)}>{dict.schedule}</a>
             </li>
           )}
         </ul>

@@ -22,6 +22,8 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
   const profile = state.profileData
   const profileFullData = state.profileFullData
 
+  const premium  = state.dict!.profile.premium
+
   //passar para o corretor suas especialidades e areas de atuacao
   //passar para corporarcao areas de atuacao
 
@@ -43,7 +45,7 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
                   <EditProfileCorporacao data={profileFullData as Corporacao} />
                 )
               )}
-              {profile?.isPremium && <MdWorkspacePremium size={30} title="Usuário Premium" />}
+              {profile?.isPremium && <MdWorkspacePremium size={30} title={premium} />}
             </div>
           </div>
 

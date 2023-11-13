@@ -69,6 +69,7 @@ export default function Calendario({ }: CalendarioProps) {
   const [highlightedDays, setHighlightedDays] = React.useState<number[]>([]);
 
   const state = useProfileStore.getState()
+  const dict = state.dict!.profile
   const id1 = state.profileData?.id!
   const id2 = state.isOwn ? undefined : state.sessionData?.id!
 
@@ -77,7 +78,7 @@ export default function Calendario({ }: CalendarioProps) {
     const controller = new AbortController();
     const daysToHighlight = await fetchData(date, id1, id2, { signal: controller.signal, }, supabase)
     if (daysToHighlight) {
-      const newHighlightedDays = daysToHighlight.map(item => item.diavisita);
+      const newHighlightedDays = daysToHighlight.map((item:any) => item.diavisita);
       setHighlightedDays(prev => [...prev, ...newHighlightedDays]);
     }
     setIsLoading(false);
@@ -105,7 +106,7 @@ export default function Calendario({ }: CalendarioProps) {
 
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt">
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={dict.calendarLang}>
       <div className='flex flex-col items-center justify-center'>
         <DateCalendar
           className='text-black font-bold'
@@ -127,7 +128,7 @@ export default function Calendario({ }: CalendarioProps) {
             } as any,
           }}
         />
-        <Link href={'/agenda'} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded max-w-[200px] text-center'>Acesse seu painel de visitas</Link>
+        <Link href={'/agenda'} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded max-w-[200px] text-center'>{dict.visitPanel}</Link>
       </div>
 
     </LocalizationProvider>
