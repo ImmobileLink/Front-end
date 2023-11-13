@@ -29,9 +29,6 @@ export default async function page({ params: { lang } }: pageProps) {
   const dict = await getDictionary(lang); // pt
   const userData = await getUserData(supabase);
 
-    // const dict = await getDictionary(lang); // pt
-    // const userData = await getUserData(user);
-
     return (
         <div className="flex justify-center gap-5 mt-4">
             <Page.Left>
