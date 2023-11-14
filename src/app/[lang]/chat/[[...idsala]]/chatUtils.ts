@@ -69,13 +69,14 @@ export async function getLastMessages(userId: string | undefined, supabase: any)
 }
 
 //Busca as salas que o usuário participa
-export async function getUserRooms(userId: string, supabase: any) {
+export async function getUserRooms(userId: string | undefined, supabase: any) {
     const { data, error } = await supabase
         .from('usuarioporsala')
         .select('idsala')
         .eq('idusuario', userId)
     if (error) {
         addErrorToQueue("user_room_error")
+        console.log(error)
         return false
     }
     else {

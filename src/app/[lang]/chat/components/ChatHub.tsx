@@ -18,15 +18,16 @@ interface ChatHubProps {
   userType: string | undefined;
   userLinks: userGroup | undefined;
   userAssocs: userGroup | undefined;
+  userRooms: string;
+  lastMessages: any;
 }
 
-const supabase = clientSupabase()
-
-export default function ChatHub({ dict, idsala, userType, userId, userLinks, userAssocs }: ChatHubProps) {
+export default function ChatHub({ dict, idsala, userType, userId, userLinks, userAssocs, userRooms, lastMessages }: ChatHubProps) {
+  const supabase = clientSupabase()
   const { chatView, toggleChatView } = useContext(ChatContext)
   const { toggleChatNotification } = useContext(NotificationContext)
   const { chatNewMessages, toggleChatNewMessages } = useContext(NotificationContext)
-  const [rooms, setRooms] = useState<string | undefined>()
+  const [rooms, setRooms] = useState<string | undefined>(userRooms)
 
   let chatStyle = 'flex'
 
@@ -43,7 +44,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
   }
 
   //Recebe as últimas mensagens enviadas pelo usuário, bem como o id e nome do "outro participante" da conversa
-  const [messages, setMessages] = useState<UltimaMensagemPorSalaPorUsuario[]>()
+  const [messages, setMessages] = useState<UltimaMensagemPorSalaPorUsuario[]>(lastMessages)
 
   //Estados e useRouter para atualizar a lista de conversas quando uma nova msg é enviada (envia o item da conversa para o topo da lista).
   const router = useRouter()
