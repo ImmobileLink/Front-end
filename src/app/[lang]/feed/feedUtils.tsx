@@ -31,7 +31,7 @@ export async function publishPost({ idusuario, regiao, texto, imagem }: PostForm
         const uuid = v4();
         const fileNewName = uuid;
         postContent = { id: uuid, idautor: idusuario, regiao: regiao, conteudo: texto, imagem: fileNewName };
-        uploadFile(imagem, fileNewName, 'publlicacoes', supabase);
+        uploadFile(imagem, fileNewName, 'publicacoes', supabase);
     } else {
         postContent = { idautor: idusuario, regiao: regiao, conteudo: texto };
     }
