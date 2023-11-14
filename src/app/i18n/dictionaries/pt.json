@@ -26,7 +26,9 @@
             "acceptedvisit": "aceitou uma visita",
             "refusedvisit": "cancelou ou negou uma visita",
             "updatedvisit": "atualizou os dados de uma visita"
-        }
+        },
+        "mylinks": "Meus links",
+        "associated": "Associados"
     },
     "auth": {
         "always": {
@@ -607,6 +609,17 @@
             "interested": "Tenho a intenção de adquiri-lo",
             "notinfluence": "Não influenciou",
             "influence": "Influenciou positivamente"
+        }
+    },
+    "mylinks": {
+        "links":"Meus links",
+        "companies": "Empresas associadas",
+        "brokers": "Corretores afiliados",
+        "talk": "Conversar",
+        "logs":{
+            "errorwhilesearchingdata": "Ocorreu um erro ao buscar suas conexões. Por favor, tente novamente mais tarde.",
+            "noconnectionswerefound": "Parece que você ainda não tem nenhuma conexão. Tente encontrar novos Links.",
+            "noassociationswerefound": "Parece que você ainda não tem nenhuma associação. Tente encontrar novos parceiros."
         }
     }
 }

@@ -14,7 +14,7 @@ interface pageProps {
 }
 
 export default async function ReportForm({ params: { id, lang } }: pageProps) {
-    const supabase = serverSupabase();
+    const supabase = await serverSupabase();
     const dict = await getDictionary(lang);
     
     const data = await getPublicacaoPorIdAPI(id, supabase)

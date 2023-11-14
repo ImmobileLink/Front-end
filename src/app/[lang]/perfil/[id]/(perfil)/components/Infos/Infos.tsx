@@ -8,6 +8,8 @@ import VisaoGeralCorretor from './Corretor/VisaoGeralCorretor';
 import VisaoGeralEmpresa from './Empresa/VisaoGeralEmpresa';
 import Posts from './Posts';
 import PostsSalvos from './PostsSalvos';
+import { HiDocumentText } from 'react-icons/hi';
+import { Tabs } from 'flowbite-react';
 
 
 interface InfosProps {
@@ -61,6 +63,14 @@ export default function Infos({ isAssociado }: InfosProps) {
           <Posts />
         </div>
 
+        // {isOwn && (
+        //   <Tabs.Item
+        //     icon={HiDocumentText}
+        //     title="Saved Posts"
+        //   >
+        //     <p>PostsSalvos</p>
+        //   </Tabs.Item>
+        // )}
       )}
 
       {tab == 3 && isOwn && (
