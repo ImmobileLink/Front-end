@@ -36,10 +36,9 @@ export default function CardItem({
 
     return (
         <>
-            <div className="flex justify-between gap-2 ring-1 ring-gray-800 dark:ring-gray-400 ring-inset rounded-full mr-1">
+            <div onClick={() => router.push(`/perfil/${iddestinatario}`)} className="flex justify-between gap-2 ring-1 ring-gray-800 dark:ring-gray-400 ring-inset rounded-full mr-1">
                 <div
                     className="flex w-3/4 rounded-full cursor-pointer"
-                    onClick={() => router.push(`/perfil/${iddestinatario}`)}
                 >
                     <Avatar route={avatardestinatario} />
                     <a className="w-2/3 self-center capitalize text-black dark:text-white truncate ml-2">
