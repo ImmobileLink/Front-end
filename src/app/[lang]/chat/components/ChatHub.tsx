@@ -70,17 +70,6 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
   }
 
   useEffect(() => {
-    if (userId) {
-      getUserRooms(userId, supabase)
-        .then((response) => {
-          setRooms(response)
-        })
-      getLastMessages(userId, supabase)
-        .then((response) => {
-          setMessages(response)
-        })
-    }
-
     const subscription = supabase.channel("userRoom_changes")
       .on(
         "postgres_changes",
@@ -91,12 +80,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
           filter: `idusuario=eq.${userId}`
         },
         () => {
-          if (userId) {
-            getUserRooms(userId, supabase)
-              .then((response) => {
-                setRooms(response)
-              })
-          }
+          atualizaHub()
         }
       )
       .subscribe();
@@ -125,7 +109,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
     return () => {
       subscription.unsubscribe();
     }
-  }, [messages])
+  }, [])
 
   const style = 'bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
   //Exibe a lista de amigos
