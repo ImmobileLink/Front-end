@@ -1,4 +1,5 @@
 import { getDictionary } from "../dictionaries";
+import PlanoCardMobile from "./components/PlanoCardMobile";
 import PlanoTable from "./components/PlanoTable";
 import { serverSupabase } from "lib/utils/serverSupabase";
 import { getUserData } from "lib/utils/userData";
@@ -34,9 +35,6 @@ export default async function page({ params: { lang } }: pageProps) {
                     />
                 </div>
                 <div className="flex flex-col md:hidden">
-                    {
-                        // TO DO: AJUSTAR TABLE DESKTOP E MOBILE PARA PLANO DE EMPRESA
-                    }
                     <PlanoCardMobile
                         dict={dict.planos}
                         id={userData.id}

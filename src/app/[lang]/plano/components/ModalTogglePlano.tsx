@@ -2,7 +2,7 @@
 import { Planos } from "@/app/i18n/dictionaries/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
-import { setPremiumFalse, setPremiumTrue } from "../utils";
+import { setPremiumFalse, setPremiumTrue } from "../planoUtils";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -31,6 +31,7 @@ export default function ModalTogglePlano({
             if (!callback) {
                 console.log("Error while updating in DB");
                 toast.error(dict.changeerror);
+                return;
             }
             setToggle(false);
             router.refresh();
@@ -41,6 +42,7 @@ export default function ModalTogglePlano({
             if (!callback) {
                 console.log("Error while updating in DB");
                 toast.error(dict.changeerror);
+                return;
             }
             setToggle(false);
             router.refresh();
