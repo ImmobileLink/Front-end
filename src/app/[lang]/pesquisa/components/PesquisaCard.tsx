@@ -16,6 +16,7 @@ interface PesquisaCardProps {
 export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) {
   const supabase = clientSupabase()
   const { setResultado, setLoading } = useContext(SearchContext)
+  console.log(tipoImovel)
 
   //Estados dos combo box, usados para fazer a pesquisa
   const [filters, setFilters] = useState<filterType>({
