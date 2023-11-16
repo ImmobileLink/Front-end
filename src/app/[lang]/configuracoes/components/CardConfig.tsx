@@ -9,6 +9,8 @@ import SetTelefone from "./SetTelefone";
 import { setTelefones } from "../configUtils";
 import { clientSupabase } from "lib/utils/clientSupabase";
 import { emailChangeAPI, passwordChangeAPI } from "../configUtils";
+import toast from 'react-hot-toast';
+import { Dictionaries } from "@/app/i18n/dictionaries/types";
 
 interface CardConfigProps {
     title: string
@@ -16,9 +18,10 @@ interface CardConfigProps {
     type: string;
     telefones: any;
     id: string;
+    dict: Dictionaries;
 }
 
-export default function CardConfig({ title, email, type, telefones, id }: CardConfigProps) {
+export default function CardConfig({ dict, title, email, type, telefones, id }: CardConfigProps) {
     const supabase = clientSupabase();
 
     const defaultValues = type == "corretor" ? {
@@ -54,47 +57,37 @@ export default function CardConfig({ title, email, type, telefones, id }: CardCo
     const onSubmit = async (formData: any) => {
         setIsProcessing(true)
         if (title == "Email") {
-            const result = await emailChangeAPI(formData.email, supabase)
+            const result = await emailChangeAPI(formData.email, id, supabase)
             if (result) {
-                setSucess("Email atualizado, confirme em sua caixa de entrada")
+                toast.success("Email atualizado, confirme em sua caixa de entrada")
                 setTimeout(() => {
                     setSucess(undefined)
                     props.setOpenModal(undefined)
                 }, 3000)
             }
             else {
-                setError("Erro ao atualizar email")
+                toast.error("Erro ao atualizar email. Tente novamente mais tarde.")
             }
 
         } else if (title == "Senha") {
             const result = await passwordChangeAPI(formData.password, supabase)
             if (result) {
-                setSucess("Senha atualizada")
-                setTimeout(() => {
-                    setSucess(undefined)
-                    props.setOpenModal(undefined)
-                }, 3000)
+                toast.success("Senha atualizada")
             }
             else {
-                setError("Erro ao atualizar senha")
+                toast.error("Erro ao atualizar senha")
             }
 
         } else {
             const result = await setTelefones(type, formData, id, supabase)
 
             if (result) {
-                setSucess("Telefones Atualizados com sucesso")
-                setTimeout(() => {
-                    setSucess(undefined)
-                    props.setOpenModal(undefined)
-                }, 3000);
+                toast.success("Telefones Atualizados com sucesso")
             } else {
-                setError("Erro ao atualizar telefones")
-                setTimeout(() => {
-                    setError(undefined)
-                }, 3000);
+                toast.error("Erro ao atualizar telefones")
             }
         }
+        props.setOpenModal(undefined)
         setIsProcessing(false)
     }
 
@@ -107,24 +100,29 @@ export default function CardConfig({ title, email, type, telefones, id }: CardCo
         <>
             <div onClick={() => props.setOpenModal('default')} className="h-12 bg-branco hover:bg-gray-400 dark:bg-dark-300 rounded-md flex items-center justify-between p-3 cursor-pointer dark:hover:bg-dark-100">
                 <p>
-                    {title}
+                    {title == "1" && dict.configurations.email}
+                    {title == "2" && dict.configurations.password}
+                    {title == "3" && dict.configurations.phone}
                 </p>
                 <HiArrowNarrowRight />
             </div>
 
             <Modal show={props.openModal === 'default'} onClose={() => props.setOpenModal(undefined)}>
-                <Modal.Header>{"Editar " + title}</Modal.Header>
+                <Modal.Header>
+                    {dict.configurations.edit} {" "}
+                    {title == "1" && dict.configurations.email}
+                    {title == "2" && dict.configurations.password}
+                    {title == "3" && dict.configurations.phone}
+                </Modal.Header>
                 <Modal.Body>
-                    {title == "Email" && <SetEmail register={register} errors={errors} />}
-                    {title == "Senha" && <SetSenha register={register} errors={errors} watch={watch} />}
-                    {title == "Telefones" && <SetTelefone register={register} errors={errors} type={type} />}
+                    {title == "1" && <SetEmail register={register} errors={errors} />}
+                    {title == "2" && <SetSenha register={register} errors={errors} watch={watch} pass={dict.configurations.password} confirm={dict.configurations.confirmPassword}/>}
+                    {title == "3" && <SetTelefone register={register} errors={errors} type={type} tel={dict.configurations.phone} cel={dict.configurations.cellphone} com={dict.configurations.comercial}/>}
                 </Modal.Body>
                 <Modal.Footer className="flex justify-end">
-                    {sucess && <p className="text-green-500 text-xs mt-1">{sucess}</p>}
-                    {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
-                    <Button disabled={!isDirty} isProcessing={isProcessing} onClick={() => handleSubmit(onSubmit)()}>Confirmar Alterações</Button>
+                    <Button disabled={!isDirty} isProcessing={isProcessing} onClick={() => handleSubmit(onSubmit)()}>{dict.configurations.confirmChange}</Button>
                     <Button color="gray" onClick={handleCancel} >
-                        Cancelar
+                        {dict.configurations.cancelChange}
                     </Button>
                 </Modal.Footer>
             </Modal>

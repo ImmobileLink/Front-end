@@ -122,7 +122,7 @@ export default function Dashboard({ }: DashboardProps) {
                 </p>
                 <div className="absolute blur-lg inset-0 overflow-hidden ">
                   <PieMock />
-                  <PolarAreaMock />
+                  {/* <PolarAreaMock /> */}
                 </div>
               </div>
             )

@@ -7,9 +7,11 @@ interface SetSenhaProps {
     register: any;
     errors: any;
     watch: any;
+    pass: string;
+    confirm: string;
 }
 
-export default function SetSenha({ register, errors, watch }: SetSenhaProps) {
+export default function SetSenha({ register, errors, watch, pass, confirm }: SetSenhaProps) {
 
     const [showPassword, setShowPassword] = useState<boolean>(false)
 
@@ -33,7 +35,7 @@ export default function SetSenha({ register, errors, watch }: SetSenhaProps) {
                 
                 </div>
                 <div>
-                    <label className="text-gray-500 dark:text-gray-300">Senha</label>
+                    <label className="text-gray-500 dark:text-gray-300">{pass}</label>
                     <input
                         {...register("senha", { required: 'Password is required', minLength: { value: 6, message: "A senha teve ter pelo menos 6 caracteres" } })}
                         type={showPassword ? "text" : "password"}
@@ -43,7 +45,7 @@ export default function SetSenha({ register, errors, watch }: SetSenhaProps) {
                 </div>
 
                 <div>
-                    <label className="text-gray-500 dark:text-gray-300">Confirmar senha</label>
+                    <label className="text-gray-500 dark:text-gray-300">{confirm}</label>
                     <input
                         {...register("confirma_senha", {
                             required: 'Password is required', validate: (val: string) => {

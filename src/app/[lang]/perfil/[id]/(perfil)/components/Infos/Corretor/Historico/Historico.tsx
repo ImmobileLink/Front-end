@@ -27,7 +27,7 @@ export default function Historico({ }: HistoricoProps) {
 
 
     const state = useProfileStore.getState()
-
+    const noHist = state.dict!.profile.infos.profile.historic.withoutHistoric
 
     const { historico } = useProfileContext()
 
@@ -39,7 +39,7 @@ export default function Historico({ }: HistoricoProps) {
                 {state.isOwn && <HiDocumentAdd className="cursor-pointer" size={20} onClick={() => props.setOpenModal('default')} />}
             </div>
 
-            {historico?.length == 0 && (<p className="text-gray-500 dark:text-gray-400">Sem histórico de trabalho até o momento</p>)}
+            {historico?.length == 0 && (<p className="text-gray-500 dark:text-gray-400">{noHist}</p>)}
 
             <HistoricoPopup props={props} />
 
