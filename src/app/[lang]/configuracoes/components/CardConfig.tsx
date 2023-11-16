@@ -9,6 +9,7 @@ import SetTelefone from "./SetTelefone";
 import { setTelefones } from "../configUtils";
 import { clientSupabase } from "lib/utils/clientSupabase";
 import { emailChangeAPI, passwordChangeAPI } from "../configUtils";
+import toast from 'react-hot-toast';
 
 interface CardConfigProps {
     title: string
@@ -56,45 +57,35 @@ export default function CardConfig({ title, email, type, telefones, id }: CardCo
         if (title == "Email") {
             const result = await emailChangeAPI(formData.email,id,  supabase)
             if (result) {
-                setSucess("Email atualizado, confirme em sua caixa de entrada")
+                toast.success("Email atualizado, confirme em sua caixa de entrada")
                 setTimeout(() => {
                     setSucess(undefined)
                     props.setOpenModal(undefined)
                 }, 3000)
             }
             else {
-                setError("Erro ao atualizar email")
+                toast.error("Erro ao atualizar email. Tente novamente mais tarde.")
             }
 
         } else if (title == "Senha") {
             const result = await passwordChangeAPI(formData.password, supabase)
             if (result) {
-                setSucess("Senha atualizada")
-                setTimeout(() => {
-                    setSucess(undefined)
-                    props.setOpenModal(undefined)
-                }, 3000)
+                toast.success("Senha atualizada")
             }
             else {
-                setError("Erro ao atualizar senha")
+                toast.error("Erro ao atualizar senha")
             }
 
         } else {
             const result = await setTelefones(type, formData, id, supabase)
 
             if (result) {
-                setSucess("Telefones Atualizados com sucesso")
-                setTimeout(() => {
-                    setSucess(undefined)
-                    props.setOpenModal(undefined)
-                }, 3000);
+                toast.success("Telefones Atualizados com sucesso")
             } else {
-                setError("Erro ao atualizar telefones")
-                setTimeout(() => {
-                    setError(undefined)
-                }, 3000);
+                toast.error("Erro ao atualizar telefones")
             }
         }
+        props.setOpenModal(undefined)
         setIsProcessing(false)
     }
 
@@ -120,8 +111,8 @@ export default function CardConfig({ title, email, type, telefones, id }: CardCo
                     {title == "Telefones" && <SetTelefone register={register} errors={errors} type={type} />}
                 </Modal.Body>
                 <Modal.Footer className="flex justify-end">
-                    {sucess && <p className="text-green-500 text-xs mt-1">{sucess}</p>}
-                    {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+                    {sucess && toast.success(sucess)}
+                    {error && toast.error(error)}
                     <Button disabled={!isDirty} isProcessing={isProcessing} onClick={() => handleSubmit(onSubmit)()}>Confirmar Alterações</Button>
                     <Button color="gray" onClick={handleCancel} >
                         Cancelar
