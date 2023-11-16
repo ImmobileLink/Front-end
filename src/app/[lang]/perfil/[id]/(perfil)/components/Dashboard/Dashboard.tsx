@@ -134,7 +134,7 @@ export default function Dashboard({ dict }: DashboardProps) {
                                     <h2 className="text-center">
                                         {dict.interest}
                                     </h2>
-                                    <PolarArea data3={data3} />
+                                    <PolarArea dict={dict.options} data3={data3} />
                                 </div>
                             </div>
 

@@ -494,7 +494,10 @@
                 "clarity": "Clarity",
                 "transparency": "Transparency",
                 "detail": "Detail",
-                "others": "Others"
+                "others": "Others",
+                "interested": "Interested",
+                "undecided": "Undecided",
+                "notinterested": "No Interest"
             }
         }
     },

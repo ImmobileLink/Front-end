@@ -792,6 +792,9 @@ export interface DashboardOptions {
     transparency: string;
     detail: string;
     others: string;
+    interested: string;
+    undecided: string;
+    notinterested: string;
 }
 
 export interface Survey {

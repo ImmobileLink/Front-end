@@ -494,7 +494,10 @@
                 "clarity": "Clareza", 
                 "transparency": "Transparência", 
                 "detail": "Detalhista",
-                "others": "Outros"
+                "others": "Outros",
+                "interested": "Interessado", 
+                "undecided": "Indeciso", 
+                "notinterested": "Sem Interesse"
             }
         }
     },
