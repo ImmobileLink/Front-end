@@ -469,7 +469,18 @@
             "selectStateFirst": "Selecione o estado primeiro"
         },
         "dashboard": {
-            "features": "Características específicas"
+            "logintoseemore": "Faça login ou Cadastro para ter acesso ao dashboard",
+            "signup": "Cadastro",
+            "login": "Login",
+            "features": "Características específicas",
+            "wantmoredetails": "Quer ter acesso a informações mais detalhadas?",
+            "seeplans": "Veja nossos planos",
+            "satisfaction": "Satisfação geral dos clientes com atendimento",
+            "type": "Tipos de imóveis visitados",
+            "interest": "Taxa de interesse pelo imóvel visitado(%)",
+            "seeless": "Veja menos",
+            "seemore": "Veja mais",
+            "noreviews": "Esse usuário ainda não foi avaliado :("
         }
     },
     "configurations": {

@@ -763,7 +763,18 @@ export interface ErrorProfile {
 }
 
 export interface Dashboard {
+    logintoseemore: string;
+    signup: string;
+    login: string;
     features: string;
+    wantmoredetails: string;
+    seeplans: string;
+    satisfaction: string;
+    type: string;
+    interest: string;
+    seeless: string;
+    seemore: string;
+    noreviews: string;
 }
 
 export interface Survey {
