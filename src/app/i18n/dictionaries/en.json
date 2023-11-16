@@ -486,7 +486,14 @@
                 "satisfied": "Satisfied",
                 "neutral": "Neutral",
                 "dissatisfied": "Dissatisfied",
-                "verydissatisfied": "Very Dissatisfied"
+                "verydissatisfied": "Very Dissatisfied",
+                "scores": "Scores",
+                "professionalism": "Professionalism",
+                "communication": "Communication",
+                "knowlodge": "Knowledge",
+                "clarity": "Clarity",
+                "transparency": "Transparency",
+                "detail": "Detail"
             }
         }
     },

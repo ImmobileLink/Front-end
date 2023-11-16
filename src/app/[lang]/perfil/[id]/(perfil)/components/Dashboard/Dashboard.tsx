@@ -116,7 +116,7 @@ export default function Dashboard({ dict }: DashboardProps) {
                             <div className="flex flex-col mb-16">
                                 <div className="bg-slate-300 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
                                     <h2>{dict.features}</h2>
-                                    <Radar avaliacao={data1} />
+                                    <Radar dict={dict.options} avaliacao={data1} />
                                 </div>
                                 <div className="bg-slate-400 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
                                     <h2 className="text-center">

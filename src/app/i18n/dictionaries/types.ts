@@ -784,6 +784,13 @@ export interface DashboardOptions {
     neutral: string;
     dissatisfied: string;
     verydissatisfied: string;
+    scores: string;
+    professionalism: string;
+    communication: string;
+    knowlodge: string;
+    clarity: string;
+    transparency: string;
+    detail: string;
 }
 
 export interface Survey {

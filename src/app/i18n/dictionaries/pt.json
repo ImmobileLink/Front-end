@@ -486,7 +486,14 @@
                 "satisfied": "Satisfeito", 
                 "neutral": "Neutro", 
                 "dissatisfied": "Insatisfeito", 
-                "verydissatisfied": "Muito Insatisfeito"
+                "verydissatisfied": "Muito Insatisfeito",
+                "scores": "Pontuações",
+                "profissionalism": "Profissionalismo", 
+                "communication": "Comunicação", 
+                "knowlodge": "Conhecimento", 
+                "clarity": "Clareza", 
+                "transparency": "Transparência", 
+                "detail": "Detalhista"
             }
         }
     },
