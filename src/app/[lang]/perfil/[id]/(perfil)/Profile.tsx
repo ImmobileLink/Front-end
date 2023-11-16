@@ -26,7 +26,7 @@ export default async function page({dict}: ProfileProps) {
 
             <Page.Right>
                 <Page.Dashboard>
-                    <Dashboard dict={dict}/>
+                    <Dashboard dict={dict.dashboard}/>
                 </Page.Dashboard>
 
                 {dash  && (

@@ -673,6 +673,7 @@ export interface Profile {
     editProfile: EditProfile;
     buttonProfile: ButtonProfile;
     infos: InfosProfile;
+    dashboard: Dashboard;
 }
 
 export interface InfosProfile {
@@ -759,6 +760,10 @@ export interface EditProfile {
 export interface ErrorProfile {
     cityNotFound: string;
     selectStateFirst: string;
+}
+
+export interface Dashboard {
+    features: string;
 }
 
 export interface Survey {

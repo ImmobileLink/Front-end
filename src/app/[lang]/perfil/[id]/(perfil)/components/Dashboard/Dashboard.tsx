@@ -13,11 +13,11 @@ import { Dashboard1, Dashboard2, Dashboard3, Dashboard4 } from "../../../../../.
 import PieMock from "./charts/PieMock";
 import PolarAreaMock from "./charts/PolarAreaMock";
 import { clientSupabase } from "lib/utils/clientSupabase";
-import { Profile } from "@/app/i18n/dictionaries/types";
+import { Dashboard, Profile } from "@/app/i18n/dictionaries/types";
 
 
 interface DashboardProps {
-  dict: Profile;
+  dict: Dashboard;
 }
 
 
@@ -93,7 +93,7 @@ export default function Dashboard({dict}: DashboardProps) {
             <div>
               <div className="flex flex-col mb-16">
                 <div className="bg-slate-300 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
-                  <h2 >Características específicas</h2>
+                  <h2 >{dict.features}</h2>
                   <Radar avaliacao={data1} />
                 </div>
                 <div className="bg-slate-400 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">

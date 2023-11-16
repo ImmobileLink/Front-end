@@ -467,6 +467,9 @@
         "error": {
             "cityNotFound": "City not found",
             "selectStateFirst": "Select the state first"
+        },
+        "dashboard": {
+            "features": "Specific features"
         }
     },
     "configurations": {

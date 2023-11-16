@@ -58,7 +58,7 @@ export default async function Cabecalho({dict}: InfosPadraoProps) {
         <div className=" pb-7 mx-5 lg:hidden flex justify-center">
          
             <Page.Dashboard>
-              <Dashboard dict={dict}/>
+              <Dashboard dict={dict.dashboard}/>
             </Page.Dashboard>
         </div>
       </div>
