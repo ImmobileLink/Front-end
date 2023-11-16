@@ -73,7 +73,7 @@ export default function Infos({ isAssociado }: InfosProps) {
 
       {tab == 4 && (
         <div className=" flex justify-center items-center lg:hidden flex-col">
-          <div className='w-fit bg-slate-300 rounded-md px-1 py-3 ring-2 ring-gray-300  drop-shadow-md dark:text-white mx-1 mb-3 md:m-5'>
+          <div className='mt-4 w-fit bg-slate-300 rounded-md px-1 py-3 ring-2 ring-gray-300  drop-shadow-md dark:text-white mx-1 mb-3 md:m-5'>
             <Calendario />
           </div>
         </div>

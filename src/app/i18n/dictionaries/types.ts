@@ -644,6 +644,15 @@ export interface Planos {
     forbusiness: string;
 }
 
+export interface changeData {
+    changeData: string;
+    password: string;
+    cellphone: string;
+    editEmail: string;
+    editPassword: string;
+    confirmPassword: string;
+}
+
 export interface Profile {
     infoBroker: string;
     historic: string;

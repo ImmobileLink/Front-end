@@ -54,7 +54,7 @@ export default function CardConfig({ title, email, type, telefones, id }: CardCo
     const onSubmit = async (formData: any) => {
         setIsProcessing(true)
         if (title == "Email") {
-            const result = await emailChangeAPI(formData.email, supabase)
+            const result = await emailChangeAPI(formData.email,id,  supabase)
             if (result) {
                 setSucess("Email atualizado, confirme em sua caixa de entrada")
                 setTimeout(() => {
