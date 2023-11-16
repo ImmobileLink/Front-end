@@ -122,7 +122,7 @@ export default function Dashboard({ dict }: DashboardProps) {
                                     <h2 className="text-center">
                                         {dict.satisfaction}
                                     </h2>
-                                    <Pie satisfacao={data2} />
+                                    <Pie dict={dict.options} satisfacao={data2} />
                                 </div>
 
                                 <div className="bg-slate-300 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">

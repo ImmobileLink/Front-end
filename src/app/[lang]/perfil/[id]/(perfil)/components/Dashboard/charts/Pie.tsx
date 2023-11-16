@@ -2,17 +2,19 @@ import Chart from 'chart.js/auto';
 import { Pie as P } from "react-chartjs-2";
 import { CategoryScale } from 'chart.js';
 import { Dashboard2 } from '../../../../../../../../../lib/modelos';
+import { DashboardOptions } from '@/app/i18n/dictionaries/types';
 Chart.register(CategoryScale);
 
 interface PieProps {
+  dict: DashboardOptions;
   satisfacao: Dashboard2
 }
 
-export default function Pie({ satisfacao }: PieProps) {
+export default function Pie({ dict, satisfacao }: PieProps) {
   const sat = satisfacao![0];
 
   const data = {
-    labels: ['Muito Satisfeito', 'Satisfeito', 'Neutro', 'Insatisfeito', 'Muito Insatisfeito'],
+    labels: [dict.verysatisfied, dict.satisfied, dict.neutral, dict.dissatisfied, dict.verydissatisfied],
     datasets: [
       {
         data: [sat.muito_satisfeito, sat.satisfeito, sat.neutro, sat.insatisfeito, sat.muito_insatisfeito],
