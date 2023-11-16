@@ -493,7 +493,8 @@
                 "knowlodge": "Knowledge",
                 "clarity": "Clarity",
                 "transparency": "Transparency",
-                "detail": "Detail"
+                "detail": "Detail",
+                "others": "Others"
             }
         }
     },

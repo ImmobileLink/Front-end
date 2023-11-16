@@ -493,7 +493,8 @@
                 "knowlodge": "Conhecimento", 
                 "clarity": "Clareza", 
                 "transparency": "Transparência", 
-                "detail": "Detalhista"
+                "detail": "Detalhista",
+                "others": "Outros"
             }
         }
     },

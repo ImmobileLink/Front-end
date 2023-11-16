@@ -3,6 +3,7 @@ import { Doughnut as D } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import { CategoryScale } from 'chart.js';
 import { Dashboard4 } from 'lib/modelos';
+import { DashboardOptions } from '@/app/i18n/dictionaries/types';
 Chart.register(CategoryScale);
 
 
@@ -17,11 +18,12 @@ type Descricao = {
 }
 
 type DoughnutProps = {
+    dict: DashboardOptions;
     data4: any; 
 };
 
 
-export default function Doughnut({ data4 }: DoughnutProps) {
+export default function Doughnut({ dict, data4 }: DoughnutProps) {
 
     const uniqueDescriptionsArray: Imovel[] = [];
     const idCounts: Record<string, Imovel> = {};
@@ -51,7 +53,7 @@ export default function Doughnut({ data4 }: DoughnutProps) {
     // Criar os rótulos e dados para o gráfico
     const labels = top4Items.map((item) => item.descricao);
     const data = top4Items.map((item) => item.quantidade);
-    labels.push('Outros');
+    labels.push(dict.others);
     data.push(outrosQuantidade);
 
 

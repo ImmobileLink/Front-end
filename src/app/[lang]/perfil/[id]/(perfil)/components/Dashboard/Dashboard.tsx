@@ -127,7 +127,7 @@ export default function Dashboard({ dict }: DashboardProps) {
 
                                 <div className="bg-slate-300 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
                                     <h2>{dict.type}</h2>
-                                    <Doughnut data4={data4} />
+                                    <Doughnut dict={dict.options} data4={data4} />
                                 </div>
 
                                 <div className="bg-slate-400 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
