@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useContext, useEffect } from "react";
-import { NotificationContext } from "./notificationContext";
+import { NotificationContext } from "./NotificationContext";
 import { HiChatBubbleLeft } from "react-icons/hi2";
 import { Navbarbuttons } from "@/app/i18n/dictionaries/types";
 import { getMessageNotificationsAPI } from "./navbarUtils";

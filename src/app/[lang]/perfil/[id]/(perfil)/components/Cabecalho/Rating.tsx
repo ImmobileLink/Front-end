@@ -23,6 +23,8 @@ export default function RatingCount() {
     const [avaliacao, setAvaliacao] = useState<Avaliacao[] | null>([])
     const [nota, setNota] = useState<number | null>()
 
+    const dict = useProfileStore.getState().dict!.profile
+
     useEffect(() => {
         const fetchData = async () => {
             const { data, error } = await getAvaliacoes(id, supabase)
@@ -56,11 +58,11 @@ export default function RatingCount() {
                 <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white">{avaliacao ? (avaliacao.length > 0 ? nota : 'N/A') : 'N/A'}
                 </p>
                 <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
-                <a href="#" onClick={handleClick} className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">{avaliacao ? (`${avaliacao.length} avaliações`) : ('Sem avaliações')}</a>
+                <a href="#" onClick={handleClick} className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">{avaliacao ? (`${avaliacao.length} ${dict.rating}`) : (<>{dict.withoutRating}</>)}</a>
             </div>
 
             <Modal show={props.openModal === 'default'} onClose={() => props.setOpenModal(undefined)}>
-                <Modal.Header>Avaliações</Modal.Header>
+                <Modal.Header>{dict.rating}</Modal.Header>
                 <Modal.Body>
                     {
                         avaliacao?.map((item: Avaliacao, index) => {
@@ -91,7 +93,7 @@ export default function RatingCount() {
                                                     </p>
                                                 ) : (
                                                     <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                                        Avaliação disponível apenas para premium.
+                                                        {dict.ratingPremium}
                                                     </p>
                                                 )}
                                             </div>

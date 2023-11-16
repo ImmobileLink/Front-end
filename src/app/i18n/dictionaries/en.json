@@ -388,15 +388,98 @@
         "forbusiness": "Plans for companies"
     },
     "profile": {
-        "noAssociation": "No association at the moment",
-        "hasAssociation": "Has associated company(ies)",
-        "btnAssociate": "Associate",
-        "btnPending": "Pending",
-        "btnConnect": "Connect",
-        "overview": "Overview",
-        "posts": "Posts",
-        "infoBroker": "Information about the broker",
-        "historic": "historic"
+        "infoBroker": "Broker Information",
+        "historic": "History",
+        "premium": "Premium User",
+        "ratingPremium": "Rating available only for premium.",
+        "rating": "Rating",
+        "withoutRating": "No ratings",
+        "visitPanel": "Access your visit panel",
+        "calendarLang": "en",
+        "editProfile": {
+            "edit": "Edit Profile",
+            "name": "Name",
+            "corporationName": "Company Name",
+            "site": "Website",
+            "about": "About",
+            "speciality": "Specialty",
+            "localization": "Location",
+            "city": "City",
+            "neighborhood": "Neighborhood",
+            "street": "Street",
+            "number": "Number",
+            "complement": "Complement",
+            "confirm": "Confirm Changes",
+            "cancel": "Cancel",
+            "changeImage": "Change Image",
+            "changeImageTitle": "Change Cover Image",
+            "changeProfileTitle": "Change Profile Image",
+            "confirmImage": "Confirm"
+        },
+        "buttonProfile": {
+            "buttonAssociate": {
+                "questionDisassociate": "Are you sure you want to disassociate?",
+                "confirmDisassociate": "Yes, I'm sure",
+                "cancelDisassociate": "No, cancel",
+                "sendAssociate": "Associate",
+                "accept": "Accept",
+                "associate": "Associated",
+                "pending": "Pending"
+            },
+            "buttonConnection": {
+                "questionDisconnection": "Are you sure you want to disconnect from this user?",
+                "confirmDisconnection": "Yes, I'm sure",
+                "cancelDisconnection": "No, cancel",
+                "connection": "Connect",
+                "accept": "Accept",
+                "connected": "Connected",
+                "pending": "Pending"
+            }
+        },
+        "infos": {
+            "posts": "Posts",
+            "savedPosts": "Saved Posts",
+            "schedule": "Schedules",
+            "profile": {
+                "data": "Profile",
+                "quantityBrokers": "Number of associated brokers: ",
+                "site": "Website",
+                "infoCompany": "Information about the company",
+                "specialties": "Specialties",
+                "workRegion": "Work Regions",
+                "withoutData": "No Data",
+                "phoneNumber": "Phone Number",
+                "cellphoneNumber": "Cell Phone Number",
+                "comercialContact": "Business Contact",
+                "historic": {
+                    "withoutHistoric": "No work history so far",
+                    "edit": "Edit History",
+                    "companyName": "Company Name*",
+                    "addHistoric": "Add History",
+                    "dateInit": "Start Date (Month and Year)",
+                    "dateEnd": "End Date (Month and Year)",
+                    "historicDescription": "Description",
+                    "confirmHistoric": "Confirm",
+                    "cancelHistoric": "Cancel"
+                }
+            }
+        },
+        "error": {
+            "cityNotFound": "City not found",
+            "selectStateFirst": "Select the state first"
+        }
+    },
+    "configurations": {
+        "changeData": "Change Data",
+        "email": "Email",
+        "password": "Password",
+        "phone": "Phone",
+        "cellphone": "Cellphone",
+        "comercial": "Commercial",
+        "confirmPassword": "Confirm Password",
+        "confirmChange": "Confirm Change",
+        "cancelChange": "Cancel Change",
+        "edit": "Edit"
     },
     "dashboard": {
         "domain": "Domain",

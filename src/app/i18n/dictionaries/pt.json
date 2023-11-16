@@ -388,29 +388,101 @@
         "forbusiness": "Planos para empresas"
     },
     "profile": {
-        "noAssociation": "Sem associação no momento",
-        "hasAssociation": "Possui empresa(s) associada(s)",
-        "btnAssociate": "Associate",
-        "btnPending": "Pending",
-        "btnConnect": "Connect",
-        "overview": "Visão Geral",
-        "posts": "Publicações",
-        "infoBroker": "Informação sobre o corretor",
-        "historic": "Histórico"
+        "infoBroker": "Informações sobre o corretor",
+        "historic": "Histórico",
+        "premium": "Usuário premium",
+        "ratingPremium": "Avaliação disponível apenas para premium.",
+        "rating": "Avaliação",
+        "withoutRating": "Sem avaliações",
+        "visitPanel": "Acesse seu painel de visitas",
+        "calendarLang": "pt",
+        "editProfile": {
+            "edit": "Editar perfil",
+            "name": "Nome",
+            "corporationName": "Nome da empresa",
+            "site": "WebSite",
+            "about": "Sobre",
+            "speciality": "Especialidade",
+            "localization": "Localização",
+            "city": "Cidade",
+            "neighborhood": "Bairro",
+            "street": "Rua",
+            "number": "Número",
+            "complement": "Complemento",
+            "confirm": "Confirmar alterações",
+            "cancel": "Cancelar",
+            "changeImage": "Alterar Imagem",
+            "changeImageTitle": "Alterar Imagem de capa",
+            "changeProfileTitle": "Alterar Imagem de perfil",
+            "confirmImage": "Confirmar"
+        },
+        "buttonProfile": {
+            "buttonAssociate": {
+                "questionDisassociate": "Você tem certeza que deseja se desassociar?",
+                "confirmDisassociate": "Sim, tenho certeza",
+                "cancelDisassociate": "Não, cancelar",
+                "sendAssociate": "Associar",
+                "accept": "Aceitar",
+                "associate": "Associado",
+                "pending": "Pendente"
+            },
+            "buttonConnection": {
+                "questionDisconnection": "Você tem certeza que deseja desfazer a conexão com esse usuário?",
+                "confirmDisconnection": "Sim, tenho certeza",
+                "cancelDisconnection": "Não, cancelar",
+                "connection": "Conectar",
+                "accept": "Aceitar",
+                "connected": "Conectados",
+                "pending": "Pendente"
+            }
+        },
+        "infos": {
+            "posts": "Posts",
+            "savedPosts": "Posts salvos",
+            "schedule": "Agendamentos",
+            "profile": {
+                "data": "Perfil",
+                "quantityBrokers": "Quantidade de corretores associados: ",
+                "site": "WebSite",
+                "infoCompany": "Informações sobre a empresa",
+                "specialties": "Especialidades",
+                "workRegion": "Regiões de atuação",
+                "withoutData": "Sem dados",
+                "phoneNumber": "Número de telefone",
+                "cellphoneNumber": "Número de celular",
+                "comercialContact": "Contato comercial",
+                "historic": {
+                    "withoutHistoric": "Sem histórico de trabalho até o momento",
+                    "edit": "Editar Histórico",
+                    "companyName": "Nome da empresa*",
+                    "addHistoric": "Adicionar Histórico",
+                    "dateInit": "Data de Início (Mês e Ano)",
+                    "dateEnd": "Data de Fim (Mês e Ano)",
+                    "historicDescription": "Descrição",
+                    "confirmHistoric": "Confirmar",
+                    "cancelHistoric": "Cancelar"
+                }
+            }
+        },
+        "error": {
+            "cityNotFound": "Cidade não encontrada",
+            "selectStateFirst": "Selecione o estado primeiro"
+        }
+    },
+    "configurations": {
+        "changeData": "Alterar Dados",
+        "email": "E-mail",
+        "password": "Senha",
+        "phone": "Telefone",
+        "cellphone": "Celular",
+        "comercial": "Comercial",
+        "confirmPassword": "Confirmar Senha",
+        "confirmChange": "Confirmar Alteração",
+        "cancelChange": "Cancelar Alteração",
+        "edit": "Editar"
     },
     "dashboard": {
-        "domain": "Domínio",
-        "professionalism": "Profissionalismo",
-        "goodService": "Bom serviço",
-        "educated": "Educado",
-        "visited": "Visitas em imóveis",
-        "sales": "Vendas",
-        "january": "Janeiro",
-        "february": "Fevereiro",
-        "march": "Março",
-        "april": "Abril",
-        "may": "Maio",
-        "june": "Junho"
+        "noRating": "Esse usuário ainda não foi avaliado :("
     },
     "calendar": {
         "scheduledVisits": "Visitas agendadas"
@@ -513,7 +585,7 @@
         "resources": "Recursos",
         "premium": "Premium",
         "access": "ACESSAR PLATAFORMA",
-        "conecting": "Unindo imóveis,",
+        "conecting": "Criando",
         "ties": "laços e negócios",
         "whatIsImmobileLink": "A ImmobileLink é uma plataforma que busca facilitar o contato entre corretores, construtoras e imobiliárias. Encontre o profissional certo para o imóvel certo.",
         "searchOpportunities": "Encontre oportunidades",
@@ -527,7 +599,7 @@
             "item2": "Dashboard de métricas do usuário",
             "item3": "Feedback de desempenho profissional",
             "item4": "Criação de comunidades",
-            "item5": "Afiliação à empresas",
+            "item5": "Associação à empresas",
             "item6": "Oportunidades por setor e região",
             "item7": "Agendamento e controle de visitas",
             "item8": "E muito mais!"

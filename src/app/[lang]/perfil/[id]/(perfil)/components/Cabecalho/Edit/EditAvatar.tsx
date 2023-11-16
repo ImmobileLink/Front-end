@@ -13,6 +13,7 @@ export default function EditAvatar({ }: EditAvatar) {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const isOwn = useProfileStore.getState().isOwn
+    const dict = useProfileStore.getState().dict!.profile
 
     return (
         <>
@@ -20,7 +21,7 @@ export default function EditAvatar({ }: EditAvatar) {
                 <AiFillEdit size={30} color={"black"} />
             </div>
 
-            <EditImage props={props} title={"Alterar foto de avatar"} type={"avatar"}/>
+            <EditImage props={props} title={dict.editProfile.changeProfileTitle} type={"avatar"}/>
 
         </>
     );

@@ -24,7 +24,7 @@ export default function EditImage({ props, title, type }: EditFormProps) {
   const [imagemId, setImagemId] = useState(state.sessionData?.capa)
   const [error, setError] = useState<string | undefined>()
   const router = useRouter()
-
+  const dict = state.dict?.profile.editProfile
 
   const handleEditarImagem = async () => {
     setLoading(true);
@@ -134,7 +134,7 @@ export default function EditImage({ props, title, type }: EditFormProps) {
                 </>
               )
                 : (
-                  <span>Confirmar</span>
+                  <span>{dict?.confirmImage}</span>
                 )}
             </button>
           </div>

@@ -12,6 +12,7 @@ import { updateCorporacaoProfile } from "../../../../perfilUtils/EditProfile";
 import { useRouter } from "next/navigation";
 import EditRegiaoAtuacao from "./EditRegiaoAtuacao";
 import { clientSupabase } from "lib/utils/clientSupabase";
+import { useProfileStore } from "lib/store/profileStore";
 
 interface EditProfileProps {
     data: Corporacao | null;
@@ -20,6 +21,7 @@ interface EditProfileProps {
 export default function EditProfile({ data }: EditProfileProps) {
     const supabase = clientSupabase()
     const router = useRouter()
+    const dict = useProfileStore.getState().dict!.profile.editProfile
 
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
@@ -143,11 +145,11 @@ export default function EditProfile({ data }: EditProfileProps) {
             </button>
 
             <Modal show={props.openModal === 'default'} onClose={() => props.setOpenModal(undefined)}>
-                <Modal.Header>Editar Perfil</Modal.Header>
+                <Modal.Header>{dict.edit}</Modal.Header>
                 <Modal.Body>
                     <div className="space-y-5 sm:mx-auto sm:w-full sm:max-w-sm text-sm" >
                         <div className="flex flex-col">
-                            <label className="text-gray-500 dark:text-gray-300">Nome da empresa</label>
+                            <label className="text-gray-500 dark:text-gray-300">{dict.corporationName}</label>
                             <input type="text"
                                 {...register("nomefantasia", { required: true })}
                                 className={`text-base py-2.5 px-0 w-full text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent `} />
@@ -157,7 +159,7 @@ export default function EditProfile({ data }: EditProfileProps) {
 
 
                         <div className="flex flex-col">
-                            <label className="text-gray-500 dark:text-gray-300">Sobre da empresa</label>
+                            <label className="text-gray-500 dark:text-gray-300">{dict.about}</label>
                             <textarea
                                 {...register("sobre")}
                                 cols={30}
@@ -166,7 +168,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="text-gray-500 dark:text-gray-300">Site</label>
+                            <label className="text-gray-500 dark:text-gray-300">{dict.site}</label>
                             <input type="text"
                                 {...register("site")}
                                 className={`text-base py-2.5 px-0 w-full text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent `} />
@@ -177,7 +179,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                             <EditRegiaoAtuacao props={dropdown} />
                         </div>
 
-                        <h2 className="font-medium text-gray-500 dark:text-gray-400">Localidade</h2>
+                        <h2 className="font-medium text-gray-500 dark:text-gray-400">{dict.localization}</h2>
 
                         {/* comercial & { cep & UF } */}
                         <div className="grid md:grid-cols-2">
@@ -221,7 +223,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                         <div className="grid md:grid-cols-2 md:gap-6 gap-3">
                             <div className="relative z-0 w-full group">
                                 <label className="text-sm text-gray-500 dark:text-gray-300">
-                                    cidade
+                                    {dict.city}
                                 </label>
                                 <input
                                     disabled
@@ -235,7 +237,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                             </div>
                             <div className="relative z-0 w-full">
                                 <label className="text-sm text-gray-500 dark:text-gray-300">
-                                    bairro
+                                    {dict.neighborhood}
                                 </label>
                                 <input
                                     type="text"
@@ -252,7 +254,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                         {/* rua */}
                         <div className="relative z-0 w-full md:gap-6 gap-3 group">
                             <label className="text-sm text-gray-500 dark:text-gray-300">
-                                Rua
+                                {dict.street}
                             </label>
                             <input
                                 type="text"
@@ -269,7 +271,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                         <div className="grid md:grid-cols-2 md:gap-6 gap-3">
                             <div className="relative z-0 w-full group">
                                 <label className="text-sm text-gray-500 dark:text-gray-300">
-                                    numero
+                                    {dict.number}
                                 </label>
                                 <input
                                     {...register("numero", { required: true })}
@@ -282,7 +284,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                             </div>
                             <div className="relative z-0 w-full mb-6 group">
                                 <label className="text-sm text-gray-500 dark:text-gray-300">
-                                    complemento
+                                    {dict.complement}
                                 </label>
                                 <input
                                     type="text"
@@ -294,9 +296,9 @@ export default function EditProfile({ data }: EditProfileProps) {
                     </div>
                 </Modal.Body>
                 <Modal.Footer className="flex justify-end">
-                    <Button disabled={!isDirty} isProcessing={isProcessing} onClick={() => handleSubmit(onSubmit)()}>Confirmar Alterações</Button>
+                    <Button disabled={!isDirty} isProcessing={isProcessing} onClick={() => handleSubmit(onSubmit)()}>{dict.confirm}</Button>
                     <Button color="gray" onClick={handleCancel} >
-                        Cancelar
+                        {dict.cancel}
                     </Button>
                 </Modal.Footer>
             </Modal>

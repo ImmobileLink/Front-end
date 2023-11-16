@@ -25,6 +25,7 @@ export default function EditEspecialidades({ props, imoveis }: EditEspecialidade
     const [sucess, setSucess] = useState(false)
 
     const state = useProfileStore.getState()
+    const dict = state.dict?.profile.editProfile
 
     const { especialidades, setEspecialidades } = useProfileContext();
 
@@ -108,7 +109,7 @@ export default function EditEspecialidades({ props, imoveis }: EditEspecialidade
 
                 <div className="relative w-full mb-6 group">
                     <label className="font-medium text-gray-500 dark:text-gray-400">
-                        Especialidade
+                        {dict?.speciality}
                     </label>
                     <div className="mt-3 ring-2 ring-gray-300 dark:ring-gray-500 rounded-s-lg p-2 h-fit max-h-36 overflow-y-scroll">
                         <AiFillPlusCircle
