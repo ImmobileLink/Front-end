@@ -438,12 +438,11 @@
             "posts": "Posts",
             "savedPosts": "Posts salvos",
             "schedule": "Agendamentos",
-            
             "profile": {
                 "data": "Perfil",
                 "quantityBrokers": "Quantidade de corretores associados: ",
                 "site": "WebSite",
-                "infoCompany":"Informações sobre a empresa",
+                "infoCompany": "Informações sobre a empresa",
                 "specialties": "Especialidades",
                 "workRegion": "Regiões de atuação",
                 "withoutData": "Sem dados",
@@ -468,9 +467,20 @@
             "selectStateFirst": "Selecione o estado primeiro"
         }
     },
-
+    "configurations": {
+        "changeData": "Alterar Dados",
+        "email": "E-mail",
+        "password": "Senha",
+        "phone": "Telefone",
+        "cellphone": "Celular",
+        "comercial": "Comercial",
+        "confirmPassword": "Confirmar Senha",
+        "confirmChange": "Confirmar Alteração",
+        "cancelChange": "Cancelar Alteração",
+        "edit": "Editar"
+    },
     "dashboard": {
-       "noRating": "Esse usuário ainda não foi avaliado :("
+        "noRating": "Esse usuário ainda não foi avaliado :("
     },
     "calendar": {
         "scheduledVisits": "Visitas agendadas"

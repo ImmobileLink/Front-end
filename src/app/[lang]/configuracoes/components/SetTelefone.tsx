@@ -5,9 +5,12 @@ interface SetTelefoneProps {
     register: any;
     errors: any;
     type: string;
+    tel: string;
+    cel: string;
+    com: string;
 }
 
-export default function SetTelefone({ register, errors, type }: SetTelefoneProps) {
+export default function SetTelefone({ register, errors, type, tel, cel, com }: SetTelefoneProps) {
     return (
         <>
             <div className="flex flex-col gap-3">
@@ -15,7 +18,7 @@ export default function SetTelefone({ register, errors, type }: SetTelefoneProps
                 {type == "corretor" ? (
                     <>
                         <div>
-                            <label className="text-gray-500 dark:text-gray-300">Telefone</label>
+                            <label className="text-gray-500 dark:text-gray-300">{tel}</label>
                             <InputMask
                                 mask="(99) 9999-9999"
                                 type="text"
@@ -26,7 +29,7 @@ export default function SetTelefone({ register, errors, type }: SetTelefoneProps
                         </div>
 
                         <div>
-                            <label className="text-gray-500 dark:text-gray-300">Celular</label>
+                            <label className="text-gray-500 dark:text-gray-300">{cel}</label>
                             <InputMask
                                 mask="(99) 99999-9999"
                                 type="text"
@@ -37,7 +40,7 @@ export default function SetTelefone({ register, errors, type }: SetTelefoneProps
                         </div>
 
                         <div>
-                            <label className="text-gray-500 dark:text-gray-300">Comercial</label>
+                            <label className="text-gray-500 dark:text-gray-300">{com}</label>
                             <InputMask
                                 mask="(99) 9999-9999"
                                 type="text"
@@ -50,7 +53,7 @@ export default function SetTelefone({ register, errors, type }: SetTelefoneProps
                 ) : (
                     <>
                         <div>
-                            <label className="text-gray-500 dark:text-gray-300">Telefone 1</label>
+                            <label className="text-gray-500 dark:text-gray-300">{`${tel} 1`}</label>
                             <InputMask
                                 mask="(99) 9999-9999"
                                 type="text"
@@ -61,7 +64,7 @@ export default function SetTelefone({ register, errors, type }: SetTelefoneProps
                         </div>
 
                         <div>
-                            <label className="text-gray-500 dark:text-gray-300">Telefone 2</label>
+                            <label className="text-gray-500 dark:text-gray-300">{`${tel} 2`}</label>
                             <InputMask
                                 mask="(99) 9999-9999"
                                 type="text"
@@ -72,7 +75,7 @@ export default function SetTelefone({ register, errors, type }: SetTelefoneProps
                         </div>
 
                         <div>
-                            <label className="text-gray-500 dark:text-gray-300">Telefone 3</label>
+                            <label className="text-gray-500 dark:text-gray-300">{`${tel} 3`}</label>
                             <InputMask
                                 mask="(99) 9999-9999"
                                 type="text"

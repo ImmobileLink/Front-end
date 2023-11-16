@@ -21,6 +21,7 @@ export interface Dictionaries {
     footer: Footer;
     agenda: Agenda;
     survey: Survey;
+    configurations: Configurations;
 }
 
 export interface Agenda {
@@ -644,13 +645,17 @@ export interface Planos {
     forbusiness: string;
 }
 
-export interface changeData {
+export interface Configurations {
     changeData: string;
+    email: string;
     password: string;
+    phone: string;
     cellphone: string;
-    editEmail: string;
-    editPassword: string;
+    comercial: string;
     confirmPassword: string;
+    confirmChange: string;
+    cancelChange: string;
+    edit: string;
 }
 
 export interface Profile {

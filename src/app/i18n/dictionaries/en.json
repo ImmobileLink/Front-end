@@ -467,6 +467,18 @@
             "selectStateFirst": "Select the state first"
         }
     },
+    "configurations": {
+        "changeData": "Change Data",
+        "email": "Email",
+        "password": "Password",
+        "phone": "Phone",
+        "cellphone": "Cellphone",
+        "comercial": "Commercial",
+        "confirmPassword": "Confirm Password",
+        "confirmChange": "Confirm Change",
+        "cancelChange": "Cancel Change",
+        "edit": "Edit"
+    },
     "dashboard": {
         "domain": "Domain",
         "professionalism": "Professionalism",
