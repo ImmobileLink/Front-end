@@ -65,7 +65,7 @@ export default function Dashboard({ dict }: DashboardProps) {
             {!premium ? (
                 <div>
                     <div className="absolute blur-md inset-0 overflow-hidden">
-                        <PieMock dict={dict.options}/>
+                        <PieMock dict={dict.options} />
                         <PolarAreaMock />
                     </div>
                     <div className="absolute flex justify-center items-center inset-0">
@@ -116,25 +116,37 @@ export default function Dashboard({ dict }: DashboardProps) {
                             <div className="flex flex-col mb-16">
                                 <div className="bg-slate-300 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
                                     <h2>{dict.features}</h2>
-                                    <Radar dict={dict.options} avaliacao={data1} />
+                                    <Radar
+                                        dict={dict.options}
+                                        avaliacao={data1}
+                                    />
                                 </div>
                                 <div className="bg-slate-400 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
                                     <h2 className="text-center">
                                         {dict.satisfaction}
                                     </h2>
-                                    <Pie dict={dict.options} satisfacao={data2} />
+                                    <Pie
+                                        dict={dict.options}
+                                        satisfacao={data2}
+                                    />
                                 </div>
 
                                 <div className="bg-slate-300 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
                                     <h2>{dict.type}</h2>
-                                    <Doughnut dict={dict.options} data4={data4} />
+                                    <Doughnut
+                                        dict={dict.options}
+                                        data4={data4}
+                                    />
                                 </div>
 
                                 <div className="bg-slate-400 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
                                     <h2 className="text-center">
                                         {dict.interest}
                                     </h2>
-                                    <PolarArea dict={dict.options} data3={data3} />
+                                    <PolarArea
+                                        dict={dict.options}
+                                        data3={data3}
+                                    />
                                 </div>
                             </div>
 
@@ -159,7 +171,7 @@ export default function Dashboard({ dict }: DashboardProps) {
                                     {dict.noreviews}
                                 </p>
                                 <div className="absolute blur-lg inset-0 overflow-hidden ">
-                                    <PieMock dict={dict.options}/>
+                                    <PieMock dict={dict.options} />
                                     {/* <PolarAreaMock /> */}
                                 </div>
                             </div>
