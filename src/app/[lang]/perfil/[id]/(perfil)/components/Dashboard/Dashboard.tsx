@@ -13,17 +13,19 @@ import { Dashboard1, Dashboard2, Dashboard3, Dashboard4 } from "../../../../../.
 import PieMock from "./charts/PieMock";
 import PolarAreaMock from "./charts/PolarAreaMock";
 import { clientSupabase } from "lib/utils/clientSupabase";
+import { Profile } from "@/app/i18n/dictionaries/types";
 
 
 interface DashboardProps {
+  dict: Profile;
 }
 
 
 
-export default function Dashboard({ }: DashboardProps) {
+export default function Dashboard({dict}: DashboardProps) {
   const supabase = clientSupabase()
   const state = useProfileStore.getState()
-  const dict = state.dict
+  //const dict = state.dict
   const premium = state.sessionData?.isPremium
   const isLogged = state.sessionData?.id
   const id = state.profileData?.id!

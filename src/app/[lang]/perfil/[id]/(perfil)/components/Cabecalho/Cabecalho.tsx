@@ -10,12 +10,13 @@ import Capa from "./Capa";
 import AvatarCabecalho from "./AvatarCabecalho";
 import { Page } from "../../composition/page";
 import Dashboard from "../Dashboard/Dashboard";
+import { Profile } from "@/app/i18n/dictionaries/types";
 
 interface InfosPadraoProps {
+  dict: Profile;
 }
 
-
-export default async function Cabecalho({ }: InfosPadraoProps) {
+export default async function Cabecalho({dict}: InfosPadraoProps) {
 
   const state = useProfileStore.getState()
   const session = state.sessionData
@@ -57,7 +58,7 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
         <div className=" pb-7 mx-5 lg:hidden flex justify-center">
          
             <Page.Dashboard>
-              <Dashboard/>
+              <Dashboard dict={dict}/>
             </Page.Dashboard>
         </div>
       </div>
