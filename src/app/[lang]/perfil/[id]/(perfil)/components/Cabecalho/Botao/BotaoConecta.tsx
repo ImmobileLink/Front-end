@@ -20,6 +20,7 @@ export default function BotaoAssocia({ }: botaoAddProps) {
   const supabase = clientSupabase()
 
   const state = useProfileStore.getState()
+  const dict = state.dict!.profile.buttonProfile.buttonConnection
 
 
   const [estado, setEstado] = useState("Solicitar amizade");
@@ -147,7 +148,12 @@ export default function BotaoAssocia({ }: botaoAddProps) {
     <>
       <button onClick={handleClick} className={`min-w-[100px] h-[40px] text-white font-medium rounded-lg text-sm mb-1 mr-3 ${buttonClass}`}>
         {
-          loading ? (<Spinner />) : (estado)
+          loading ? (<Spinner />) : (
+            (estado === 'Aceitar amizade' && dict.accept) ||
+            (estado === 'Amigo' && dict.connected) ||
+            (estado === 'Pendente' && dict.pending) ||
+            (estado === 'Solicitar amizade' && dict.connection)
+          )
         }
       </button>
 
@@ -157,14 +163,14 @@ export default function BotaoAssocia({ }: botaoAddProps) {
           <div className="text-center">
             <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              Você tem certeza que deseja remover a amizade?
+              {dict.questionDisconnection}
             </h3>
             <div className="flex justify-center gap-4">
               <Button color="failure" onClick={desassocia}>
-                Sim, tenho certeza
+                {dict.confirmDisconnection}
               </Button>
               <Button color="gray" onClick={() => props.setOpenModal(undefined)}>
-                Não, cancelar
+                {dict.cancelDisconnection}
               </Button>
             </div>
           </div>

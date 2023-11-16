@@ -16,6 +16,8 @@ export default function VisaoGeralEmpresa({ }: VisaoGeralProps) {
   const state = useProfileStore.getState()
   const corporacao = state.profileFullData as Corporacao;
 
+  const dict = state.dict!.profile.infos.profile
+
   const qntd = state.profileData?.assoc?.length
 
   const { areasAtuacao } = useProfileContext();
@@ -23,7 +25,7 @@ export default function VisaoGeralEmpresa({ }: VisaoGeralProps) {
 
   return (
     <div className="mx-6">
-      <h2 className="font-semibold text-xl mb-5">Informações sobre a empresa</h2>
+      <h2 className="font-semibold text-xl mb-5">{dict.infoCompany}</h2>
       <div className="flex flex-col gap-5">
         <div className="flex flex-row gap-x-8 gap-y-3 flex-wrap">
           <div>
@@ -32,32 +34,32 @@ export default function VisaoGeralEmpresa({ }: VisaoGeralProps) {
           </div>
           {corporacao.telefone1 && (
             <div className="">
-              <p className="font-semibold ">Telefone 1</p>
+              <p className="font-semibold ">{`${dict.comercialContact} 1`}</p>
               <p>{corporacao.telefone1}</p>
             </div>
           )}
           {corporacao.telefone2 && (
             <div className="">
-              <p className="font-semibold ">Telefone 2</p>
+              <p className="font-semibold ">{`${dict.comercialContact} 2`}</p>
               <p>{corporacao.telefone2}</p>
             </div>
           )}
           {corporacao.telefone3 && (
             <div className="">
-              <p className="font-semibold ">Telefone 3</p>
+              <p className="font-semibold ">{`${dict.comercialContact} 3`}</p>
               <p>{corporacao.telefone3}</p>
             </div>
           )}
           {corporacao.site && (
             <div className="">
-              <p className="font-semibold ">Site</p>
+              <p className="font-semibold ">{dict.site}</p>
               <a className="underline">{corporacao.site}</a>
             </div>
           )}
         </div>
 
         <div className="flex gap-2">
-          <p className="font-semibold underline">Quantidade de corretores associados: </p>
+          <p className="font-semibold underline">{dict.quantityBrokers}</p>
           <p className="font-semibold">{qntd}</p>
         </div>
 
@@ -69,7 +71,7 @@ export default function VisaoGeralEmpresa({ }: VisaoGeralProps) {
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                       <th scope="col" className="px-6 py-3 text-center text-sm dark:bg-slate-800 bg-slate-300">
-                        Regiões de atuação
+                        {dict.workRegion}
                       </th>
 
                     </tr>
@@ -88,7 +90,7 @@ export default function VisaoGeralEmpresa({ }: VisaoGeralProps) {
                   </tbody>
 
                 </table>
-                {areasAtuacao.length == 0 && (<p className="text-center  py-2">Sem dados</p>)}
+                {areasAtuacao.length == 0 && (<p className="text-center  py-2">{dict.withoutData}</p>)}
               </div>
 
             )

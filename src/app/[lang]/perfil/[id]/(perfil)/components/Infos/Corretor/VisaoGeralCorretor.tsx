@@ -11,6 +11,7 @@ interface VisaoGeralProps {
 export default function VisaoGeralCorretor({ }: VisaoGeralProps) {
   const state = useProfileStore.getState()
   const corretor = state.profileFullData as Corretor;
+  const dict = state.dict!.profile.infos.profile
 
   const { especialidades, areasAtuacao } = useProfileContext();
 
@@ -26,20 +27,20 @@ export default function VisaoGeralCorretor({ }: VisaoGeralProps) {
           </div>
           {corretor.telefone && (
             <div className="">
-              <p className="font-semibold ">Telefone</p>
+              <p className="font-semibold ">{dict.phoneNumber}</p>
               <p>{corretor.telefone}</p>
             </div>
           )}
           {corretor.celular && (
             <div className="">
-              <p className="font-semibold ">Celular</p>
+              <p className="font-semibold ">{dict.cellphoneNumber}</p>
               <p>{corretor.celular}</p>
             </div>
           )}
 
           {corretor.comercial && (
             <div className="">
-              <p className="font-semibold ">Contato comercial</p>
+              <p className="font-semibold ">{dict.comercialContact}</p>
               <p>{corretor.comercial}</p>
             </div>
           )}
@@ -53,7 +54,7 @@ export default function VisaoGeralCorretor({ }: VisaoGeralProps) {
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
                     <th scope="col" className="px-6 py-3 text-center text-sm dark:bg-slate-800 bg-slate-300">
-                      Especialidades
+                    {dict.specialties}
                     </th>
                   </tr>
                 </thead>
@@ -69,7 +70,7 @@ export default function VisaoGeralCorretor({ }: VisaoGeralProps) {
                   </tbody>
                
               </table>
-              {especialidades.length == 0 && (<p className="text-center py-2">Sem dados</p>)}
+              {especialidades.length == 0 && (<p className="text-center py-2">{dict.withoutData}</p>)}
             </div>
 
           )}
@@ -82,7 +83,7 @@ export default function VisaoGeralCorretor({ }: VisaoGeralProps) {
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                       <th scope="col" className="px-6 py-3 text-center text-sm dark:bg-slate-800 bg-slate-300">
-                        Regiões de atuação
+                      {dict.workRegion}
                       </th>
                     </tr>
                   </thead>
@@ -96,7 +97,7 @@ export default function VisaoGeralCorretor({ }: VisaoGeralProps) {
                     ))}
                   </tbody>
                 </table>
-                {areasAtuacao.length == 0 && (<p className="text-center  py-2">Sem dados</p>)}
+                {areasAtuacao.length == 0 && (<p className="text-center  py-2">{dict.withoutData}</p>)}
               </div>
             )
           }

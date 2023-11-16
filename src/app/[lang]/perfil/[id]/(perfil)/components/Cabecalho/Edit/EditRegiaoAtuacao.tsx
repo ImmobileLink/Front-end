@@ -34,6 +34,7 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
 
     const state = useProfileStore.getState()
     const signup4 = state.dict?.auth.signup.signup4!
+    const dict = state.dict?.profile.editProfile
 
     const { areasAtuacao, setAreasAtuacao } = useProfileContext();
 
@@ -122,7 +123,7 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
                 <div>
                     <div className="relative w-full mb-2 group">
                         <div className="flex justify-between">
-                            <label className="text-gray-500 dark:text-gray-300">
+                            <label className="font-medium text-gray-500 dark:text-gray-400">
                                 {signup4.region}
                             </label>
                             <div className="">
@@ -205,10 +206,10 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
                                             >{city.nome}</option>
                                         ))
                                     ) : (
-                                        <option value="" disabled>Cidade não encontrada</option>
+                                        <option value="" disabled>{dict?.error.cityNotFound}</option>
                                     )
                                 ) : (
-                                    <option value="" disabled>Selecione o estado primeiro</option>
+                                    <option value="" disabled>{dict?.error.selectStateFirst}</option>
                                 )}
                             </ul>
                         )}

@@ -22,6 +22,7 @@ export interface Dictionaries {
     agenda: Agenda;
     survey: Survey;
     mylinks: MyLinks;
+    configurations: Configurations;
 }
 
 export interface Agenda {
@@ -294,11 +295,11 @@ export interface Chat {
     you: string;
     sent: string;
     newconversation: string;
-    newconvlabel1:   string;
-    newconvlabel2:   string;
-    uploadedfile:    string;
-    chathome:        string;
-    errormessages:   Errormessages;
+    newconvlabel1: string;
+    newconvlabel2: string;
+    uploadedfile: string;
+    chathome: string;
+    errormessages: Errormessages;
 }
 
 export interface Errormessages {
@@ -311,18 +312,7 @@ export interface DictionariesCityselector {
 }
 
 export interface Dashboard {
-    domain: string;
-    professionalism: string;
-    goodService: string;
-    educated: string;
-    visited: string;
-    sales: string;
-    january: string;
-    february: string;
-    march: string;
-    april: string;
-    may: string;
-    june: string;
+    noRating: string;
 }
 
 export interface Denuncia {
@@ -580,20 +570,20 @@ export interface Notificationlabels {
 }
 
 export interface Pesquisa {
-    labels:        PesquisaLabels;
+    labels: PesquisaLabels;
     usertypevalue: Usertypevalue;
 }
 
 export interface PesquisaLabels {
-    nearbyusers:        string;
-    name:               string;
-    title:              string;
-    usertype:           string;
-    region:             string;
-    state:              string;
-    city:               string;
-    all:                string;
-    nocityfound:        string;
+    nearbyusers: string;
+    name: string;
+    title: string;
+    usertype: string;
+    region: string;
+    state: string;
+    city: string;
+    all: string;
+    nocityfound: string;
     selectaestatefirst: string;
     rating: string;
     specialty: string;
@@ -658,16 +648,153 @@ export interface Planos {
     forbusiness: string;
 }
 
+export interface Configurations {
+    changeData: string;
+    email: string;
+    password: string;
+    phone: string;
+    cellphone: string;
+    comercial: string;
+    confirmPassword: string;
+    confirmChange: string;
+    cancelChange: string;
+    edit: string;
+}
+
 export interface Profile {
-    noAssociation: string;
-    hasAssociation: string;
-    btnAssociate: string;
-    btnPending: string;
-    btnConnect: string;
-    overview: string;
-    posts: string;
     infoBroker: string;
     historic: string;
+    premium: string;
+    rating: string;
+    withoutRating: string;
+    ratingPremium: string;
+    visitPanel: string;
+    calendarLang: string;
+    editProfile: EditProfile;
+    buttonProfile: ButtonProfile;
+    infos: InfosProfile;
+    dashboard: Dashboard;
+}
+
+export interface InfosProfile {
+    profile: ProfileInfos;
+    posts: string;
+    savedPosts: string;
+    schedule: string;
+}
+
+export interface ProfileInfos {
+    data: string;
+    withoutData: string;
+    historic: HistoricProfile;
+    specialties: string;
+    workRegion: string;
+    phoneNumber: string;
+    cellphoneNumber: string;
+    comercialContact: string;
+    site: string;
+    quantityBrokers: string;
+    infoCompany: string;
+}
+
+export interface HistoricProfile {
+    withoutHistoric: string;
+    edit: string;
+    addHistoric: string;
+    companyName: string;
+    dateInit: string;
+    dateEnd: string;
+    historicDescription: string;
+    confirmHistoric: string;
+    cancelHistoric: string;
+}
+
+
+export interface ButtonProfile {
+    buttonAssociate: ButtonAssociate;
+    buttonConnection: ButtonConnection;
+}
+
+export interface ButtonAssociate {
+    questionDisassociate: string;
+    confirmDisassociate: String;
+    cancelDisassociate: String;
+    sendAssociate: String;
+    accept: String;
+    associate: String;
+    pending: String;
+}
+
+export interface ButtonConnection {
+    questionDisconnection: string;
+    confirmDisconnection: String;
+    cancelDisconnection: String;
+    connection: String;
+    accept: String;
+    connected: String;
+    pending: String;
+}
+
+export interface EditProfile {
+    edit: string;
+    name: string;
+    corporationName: string;
+    site: string;
+    about: string;
+    speciality: string;
+    localization: string;
+    city: string;
+    neighborhood: string;
+    street: string;
+    number: string;
+    complement: string;
+    confirm: string;
+    cancel: string;
+    changeImage: string;
+    changeImageTitle: string;
+    changeProfileTitle: string;
+    confirmImage: string;
+    error: ErrorProfile;
+}
+
+export interface ErrorProfile {
+    cityNotFound: string;
+    selectStateFirst: string;
+}
+
+export interface Dashboard {
+    logintoseemore: string;
+    signup: string;
+    login: string;
+    features: string;
+    wantmoredetails: string;
+    seeplans: string;
+    satisfaction: string;
+    type: string;
+    interest: string;
+    seeless: string;
+    seemore: string;
+    noreviews: string;
+    options: DashboardOptions;
+}
+
+export interface DashboardOptions {
+    verysatisfied: string;
+    satisfied: string;
+    neutral: string;
+    dissatisfied: string;
+    verydissatisfied: string;
+    scores: string;
+    professionalism: string;
+    communication: string;
+    knowlodge: string;
+    clarity: string;
+    transparency: string;
+    detail: string;
+    others: string;
+    interested: string;
+    undecided: string;
+    notinterested: string;
 }
 
 export interface Survey {
@@ -681,20 +808,20 @@ export interface Survey {
     referencecompany: string;
     explanationsurveysite1: string;
     explanationsurveysite2: string;
-    insertavalue:           string;
-    fieldlenght:            string;
-    finish:                 string;
-    questions:              Questions;
-    labels:                 SurveyLabels;
+    insertavalue: string;
+    fieldlenght: string;
+    finish: string;
+    questions: Questions;
+    labels: SurveyLabels;
 }
 
 export interface SurveyLabels {
-    pleased:       string;
-    notpleased:    string;
+    pleased: string;
+    notpleased: string;
     notinterested: string;
-    interested:    string;
-    notinfluence:  string;
-    influence:     string;
+    interested: string;
+    notinfluence: string;
+    influence: string;
 }
 
 export interface Questions {

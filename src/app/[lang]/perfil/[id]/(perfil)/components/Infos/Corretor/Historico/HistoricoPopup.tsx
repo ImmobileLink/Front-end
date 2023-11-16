@@ -18,6 +18,7 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
     const supabase = clientSupabase()
 
     const state = useProfileStore.getState()
+    const dict = state.dict!.profile.infos.profile.historic
 
     const { historico, setHistorico } = useProfileContext()
 
@@ -111,18 +112,18 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
     return (
         <>
             <Modal show={props.openModal === 'default'} onClose={cancelar}>
-                <Modal.Header>{props.idEditHistorico ? <p>Editar</p> : <p>Adicionar Histórico</p>}</Modal.Header>
+                <Modal.Header>{props.idEditHistorico ? <p>{dict.edit}</p> : <p>{dict.addHistoric}</p>}</Modal.Header>
                 <Modal.Body>
                     <form className='gap-3'>
                         <div className='flex flex-col'>
-                            <label className="text-gray-500 dark:text-gray-300">Nome da Empresa*</label>
+                            <label className="text-gray-500 dark:text-gray-300">{dict.companyName}</label>
                             <input {...register('nome_empresa', { required: true })}
                                 className='text-base py-2.5 px-0 w-full text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent ' />
                             {errors.nome_empresa && <span className="text-red-500 text-xs mt-1">Nome da empresa é obrigatório.</span>}
                         </div>
 
                         <div className='flex flex-col'>
-                            <label className="text-gray-500 dark:text-gray-300">Data de Início (Mês e Ano)</label>
+                            <label className="text-gray-500 dark:text-gray-300">{dict.dateInit}</label>
                             <Controller
                                 name="data_inicio"
                                 control={control}
@@ -153,7 +154,7 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
                         </div>
 
                         <div className='flex flex-col'>
-                            <label className="text-gray-500 dark:text-gray-300">Data de Fim (Mês e Ano)</label>
+                            <label className="text-gray-500 dark:text-gray-300">{dict.dateEnd}</label>
                             <Controller
                                 name="data_fim"
                                 rules={{
@@ -182,7 +183,7 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
                         </div>
 
                         <div className='flex flex-col'>
-                            <label className="text-gray-500 dark:text-gray-300">Descrição</label>
+                            <label className="text-gray-500 dark:text-gray-300">{dict.historicDescription}</label>
                             <textarea
                                 className='text-base py-2.5 px-0 w-full text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent'
                                 {...register('descricao')} />
@@ -192,19 +193,12 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
 
                 </Modal.Body>
                 <Modal.Footer className="flex justify-end">
-                    <Button onClick={() => handleSubmit(onSubmit)()}>Confirmar Alterações</Button>
+                    <Button onClick={() => handleSubmit(onSubmit)()}>{dict.confirmHistoric}</Button>
                     <Button color="gray" onClick={cancelar}>
-                        Cancelar
+                        {dict.cancelHistoric}
                     </Button>
                 </Modal.Footer>
             </Modal>
         </>
     );
 }
-function atualizaHistorico(hist: {
-    id: any; data_fim: string | null; data_inicio: string; descricao: any; id_corporacao: null; //nao estou usando
-    id_corretor: string; nome_empresa: any;
-}[]): { error: any; } | PromiseLike<{ error: any; }> {
-    throw new Error('Function not implemented.');
-}
-

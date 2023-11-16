@@ -1,4 +1,5 @@
-import { Session } from "@supabase/supabase-js";
+import { Session, SupabaseClient } from "@supabase/supabase-js";
+import { Database } from "lib/database.types";
 
 export const getSessionAPI = async (supabase: any) => {
     const {
@@ -28,15 +29,31 @@ export const getUserTypeAPI = async (session: Session | null, supabase: any) => 
     }
 }
 
-export const emailChangeAPI = async (email: string, supabase: any) => {
-    const { error } = await supabase.auth.updateUser({ email });
+export const emailChangeAPI = async (email: string, id: string, supabase: any) => {
+    try {
+        const updateUserPromise = supabase.auth.updateUser({ email });
+        const updateUsuarioPromise = supabase
+            .from('usuario')
+            .update({ email: email })
+            .eq('id', id)
+            .select();
 
-    if (error) {
-        console.log(error)
-        return false
-    }
-    else {
-        return true
+        const [updateUserResult, updateUsuarioResult] = await Promise.all([updateUserPromise, updateUsuarioPromise]);
+
+        if (updateUserResult.error) {
+            console.log(updateUserResult.error);
+            return false;
+        }
+
+        if (updateUsuarioResult.error) {
+            console.log(updateUsuarioResult.error);
+            return false;
+        }
+
+        return true;
+    } catch (error) {
+        console.log(error);
+        return false;
     }
 }
 
@@ -51,7 +68,7 @@ export const passwordChangeAPI = async (password: string, supabase: any) => {
         return true
     }
 }
-export async function setTelefones(type: string, formData: any, id: string, supabase: any) {
+export async function setTelefones(type: string, formData: any, id: string, supabase: SupabaseClient<Database>) {
     if (type == "corretor") {
         const { data: updatedData, error } = await supabase
             .from('corretor')
@@ -67,7 +84,7 @@ export async function setTelefones(type: string, formData: any, id: string, supa
             return false
         }
         else {
-            return updatedData
+            return true
         }
     } else {
         const { data: updatedData, error } = await supabase

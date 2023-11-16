@@ -5,6 +5,8 @@ import { setPremiumFalse, setPremiumTrue } from "../planoUtils";
 import { useRouter } from "next/navigation";
 import { Table } from "flowbite-react";
 import { clientSupabase } from "lib/utils/clientSupabase";
+import { useState } from "react";
+import ModalTogglePlano from "./ModalTogglePlano";
 
 interface PlanoTableProps {
     role: string;

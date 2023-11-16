@@ -10,17 +10,20 @@ import Capa from "./Capa";
 import AvatarCabecalho from "./AvatarCabecalho";
 import { Page } from "../../composition/page";
 import Dashboard from "../Dashboard/Dashboard";
+import { Profile } from "@/app/i18n/dictionaries/types";
 
 interface InfosPadraoProps {
+  dict: Profile;
 }
 
-
-export default async function Cabecalho({ }: InfosPadraoProps) {
+export default async function Cabecalho({dict}: InfosPadraoProps) {
 
   const state = useProfileStore.getState()
   const session = state.sessionData
   const profile = state.profileData
   const profileFullData = state.profileFullData
+
+  const premium  = state.dict!.profile.premium
 
   //passar para o corretor suas especialidades e areas de atuacao
   //passar para corporarcao areas de atuacao
@@ -43,7 +46,7 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
                   <EditProfileCorporacao data={profileFullData as Corporacao} />
                 )
               )}
-              {profile?.isPremium && <MdWorkspacePremium size={30} title="Usuário Premium" />}
+              {profile?.isPremium && <MdWorkspacePremium size={30} title={premium} />}
             </div>
           </div>
 
@@ -55,7 +58,7 @@ export default async function Cabecalho({ }: InfosPadraoProps) {
         <div className=" pb-7 mx-5 lg:hidden flex justify-center">
          
             <Page.Dashboard>
-              <Dashboard/>
+              <Dashboard dict={dict.dashboard}/>
             </Page.Dashboard>
         </div>
       </div>
