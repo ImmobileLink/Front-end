@@ -65,7 +65,7 @@ export default function Dashboard({ dict }: DashboardProps) {
             {!premium ? (
                 <div>
                     <div className="absolute blur-md inset-0 overflow-hidden">
-                        <PieMock />
+                        <PieMock dict={dict.options}/>
                         <PolarAreaMock />
                     </div>
                     <div className="absolute flex justify-center items-center inset-0">
@@ -159,7 +159,7 @@ export default function Dashboard({ dict }: DashboardProps) {
                                     {dict.noreviews}
                                 </p>
                                 <div className="absolute blur-lg inset-0 overflow-hidden ">
-                                    <PieMock />
+                                    <PieMock dict={dict.options}/>
                                     {/* <PolarAreaMock /> */}
                                 </div>
                             </div>

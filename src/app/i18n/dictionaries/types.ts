@@ -775,6 +775,15 @@ export interface Dashboard {
     seeless: string;
     seemore: string;
     noreviews: string;
+    options: DashboardOptions;
+}
+
+export interface DashboardOptions {
+    verysatisfied: string;
+    satisfied: string;
+    neutral: string;
+    dissatisfied: string;
+    verydissatisfied: string;
 }
 
 export interface Survey {

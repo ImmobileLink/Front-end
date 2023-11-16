@@ -480,7 +480,14 @@
             "interest": "Taxa de interesse pelo imóvel visitado(%)",
             "seeless": "Veja menos",
             "seemore": "Veja mais",
-            "noreviews": "Esse usuário ainda não foi avaliado :("
+            "noreviews": "Esse usuário ainda não foi avaliado :(",
+            "options":{
+                "verysatisfied": "Muito Satisfeito", 
+                "satisfied": "Satisfeito", 
+                "neutral": "Neutro", 
+                "dissatisfied": "Insatisfeito", 
+                "verydissatisfied": "Muito Insatisfeito"
+            }
         }
     },
     "configurations": {

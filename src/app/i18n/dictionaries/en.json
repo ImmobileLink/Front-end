@@ -480,7 +480,14 @@
             "interest": "Interest rate for the property visited (%)",
             "seeless": "See less",
             "seemore": "See more",
-            "noreviews": "This user has not been reviewed yet :("
+            "noreviews": "This user has not been reviewed yet :(",
+            "options":{
+                "verysatisfied": "Very Satisfied",
+                "satisfied": "Satisfied",
+                "neutral": "Neutral",
+                "dissatisfied": "Dissatisfied",
+                "verydissatisfied": "Very Dissatisfied"
+            }
         }
     },
     "configurations": {
