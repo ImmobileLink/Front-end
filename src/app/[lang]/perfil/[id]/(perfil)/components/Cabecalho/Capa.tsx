@@ -7,15 +7,16 @@ interface CapaProps { }
 export default function Capa({ }: CapaProps) {
 
     const state = useProfileStore.getState()
-    const route = state.profileData?.capa
     const isOwn = state.isOwn
+    const capa = state.profileData?.capa
+    const route =  capa == 'nopfp' ? 'users/cover/nopfp' : `users/${state.profileData?.id}/cover/${capa}`
 
     return (
         <>
             <div className="h-44 overflow-hidden rounded-t-md relative">
                 <Image
                     className="w-screen my-auto"
-                    src={`users/cover/${route}?random=${Math.random()}`}
+                    src={route}
                     alt="capa"
                     width={1}
                     height={1}

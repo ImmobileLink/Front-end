@@ -16,6 +16,7 @@
     "test-loud": "jest --runInBand --verbose"
   },
   "dependencies": {
+    "@babel/preset-react": "^7.23.3",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fullcalendar/core": "^6.1.8",

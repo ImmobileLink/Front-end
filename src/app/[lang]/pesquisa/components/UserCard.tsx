@@ -29,7 +29,7 @@ export default function UserCard({ textos, usuario }: UserCardProps) {
     <div className="p-5 flex flex-col justify-between ring-gray-300 bg-white dark:bg-gray-600 dark:ring-gray-700 drop-shadow-md shadow-md rounded-md">
       <div className='text-start'>
         <div className='flex align-middle items-center'>
-          <Avatar route={usuario.avatar} />
+          <Avatar route={usuario.avatar} id={usuario.id}/>
           <div className='flex flex-col align-top items-start'>
             <p>{usuario.nome || usuario.nomefantasia}</p>
             <p className="text-sm">{usuario.estado + " - " + usuario.cidade}</p>

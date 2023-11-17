@@ -36,7 +36,7 @@ export default function MiniaturePostItem({
                 <div className="w-full h-fit min-h-[50px] px-4">
                     <div className="w-full h-fit flex justify-between mb-4">
                         <div className="flex justify-center items-center gap-2 mt-1">
-                            <Avatar route={publicacao![0]?.avatar} />
+                            <Avatar route={publicacao![0]?.avatar} id={publicacao![0]?.idautor}/>
                             <div>
                                 <p>{publicacao![0]?.nomeautor}</p>
                                 <p className="text-xs">

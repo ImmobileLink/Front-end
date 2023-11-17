@@ -70,7 +70,7 @@ export default function PostItem({
                                     router.push(`/perfil/${publicacao.idautor}`)
                                 }
                             >
-                                <Avatar route={publicacao.avatar} />
+                                <Avatar route={publicacao.avatar} id={publicacao.idautor}/>
                                 <div>
                                     <p>{publicacao.nomeautor}</p>
                                     <p className="text-xs">

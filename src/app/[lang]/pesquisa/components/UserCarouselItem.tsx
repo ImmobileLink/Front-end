@@ -20,7 +20,7 @@ export default function UserCarouselItem({ corretor, dict }: UserCarouselItemPro
           <div className="w-72 lg:w-80 h-52 lg:h-56 p-4 flex flex-col justify-between bg-gray-200 border border-gray-300 m-1 dark:bg-gray-700 dark:border-gray-600 dark: rounded-xl text-black dark:text-white mb-2 shadow-md">
             <div>
               <div className="flex align-middle justify-start items-center">
-                <Avatar route={corretor.avatar} size={"m"} />
+                <Avatar route={corretor.avatar} size={"m"} id={corretor.id}/>
                 <div className="flex flex-col align-top justify-start items-start">
                   <Link href={`/perfil/${corretor.id}`}>{corretor.nome}</Link>
                   <p className="text-sm">{corretor.estado + " - " + corretor.cidade}</p>

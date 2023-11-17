@@ -25,9 +25,6 @@ export default async function Cabecalho({dict}: InfosPadraoProps) {
 
   const premium  = state.dict!.profile.premium
 
-  //passar para o corretor suas especialidades e areas de atuacao
-  //passar para corporarcao areas de atuacao
-
   return (
     <>
       <div className="ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-700 drop-shadow-md bg-white rounded-md">
@@ -37,7 +34,7 @@ export default async function Cabecalho({dict}: InfosPadraoProps) {
 
         <div className="p-8 -mt-28 relative">
           <div className="flex justify-between w-full mb-3 items-end">
-            <AvatarCabecalho route={profile?.avatar!} />
+            <AvatarCabecalho />
             <div className="flex gap-5">
               {state.isOwn && (
                 session?.type == "corretor" ? (

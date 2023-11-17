@@ -22,7 +22,7 @@ export async function updateCorporacaoProfile(formData: any, id: string, supabas
     return { updatedData, error }
 }
 
-export async function updateCorretorProfile(formData: any, id: string, supabase: SupabaseClient<Database>) {
+export async function   updateCorretorProfile(formData: any, id: string, supabase: SupabaseClient<Database>) {
     const { data: updatedData, error } = await supabase
         .from('corretor')
         .update({
