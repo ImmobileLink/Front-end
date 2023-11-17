@@ -6,11 +6,11 @@ import { Database } from "../database.types";
 
 const supabase = createClientComponentClient<Database>({});
 
-export async function uploadCoverImage(imagemId: string, img: File) {
+export async function uploadCoverImage(imagemId: string, img: File, id: string) {
     const { data, error } = await supabase
         .storage
         .from('users')
-        .upload(`cover/${imagemId}`, img!, {
+        .upload(`${id}/cover/${imagemId}`, img!, {
             cacheControl: '3600',
             upsert: true
         });
@@ -18,18 +18,14 @@ export async function uploadCoverImage(imagemId: string, img: File) {
     return { data, error }
 }
 
-export async function uploadProfileImage(imagemId: string, img: File) {
+export async function uploadProfileImage(imagemId: string, img: File, id: string) {
     const { data, error } = await supabase
         .storage
         .from('users')
-        .upload(`profile_picture/${imagemId}`, img!, {
+        .upload(`${id}/profile_picture/${imagemId}`, img!, {
             cacheControl: '3600',
             upsert: true
         });
 
     return { data, error }
-}
-
-export async function updateTableCover(){
-    
 }

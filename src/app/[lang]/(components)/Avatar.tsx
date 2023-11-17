@@ -1,14 +1,16 @@
-
 import Image from "next/image";
 
 interface AvatarProps {
   route: string;
   size?: number | "s" | "m" | "l";
+  id: string;
 }
 
-export default function Avatar({ route, size }: AvatarProps) {
+export default function Avatar({id, route, size }: AvatarProps) {
 
   let styleImage = "";
+
+  const path = route == "nopfp" ? "users/profile_picture/nopfp" : `users/${id}/profile_picture/${route}`
 
   if (size == "l") {
     styleImage = "w-32 h-32 m-2 rounded-full ring-1 ring-gray-400";
@@ -28,7 +30,7 @@ export default function Avatar({ route, size }: AvatarProps) {
     <>
       <Image
         className={styleImage}
-        src={`users/profile_picture/${route}`}
+        src={path}
         width={1}
         height={1}
         quality={10}

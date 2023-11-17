@@ -84,7 +84,7 @@ export default function PostFormCard({
     return (
         <div className="flex flex-col">
             <div className="flex mx-4 gap-4">
-                <Avatar route={avatarusuario} />
+                <Avatar route={avatarusuario} id={idusuario}/>
                 <div className="flex grow">
                     <textarea
                         className="block p-2.5 w-full text-sm text-gray-900 bg-gray-100 border-gray-300 rounded-lg border focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"

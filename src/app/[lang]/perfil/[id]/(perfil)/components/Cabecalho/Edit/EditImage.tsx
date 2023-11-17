@@ -6,7 +6,8 @@ import { Database } from "../../../../../../../../../lib/database.types";
 import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
 import { useRouter } from "next/navigation";
 import { uploadCoverImage, uploadProfileImage } from "../../../../../../../../../lib/utils/EditImage";
-
+import { v4 as uuidv4 } from "uuid";
+import toast from "react-hot-toast";
 
 interface EditFormProps {
   props: any;
@@ -21,15 +22,17 @@ export default function EditImage({ props, title, type }: EditFormProps) {
   const initialImage = type == "capa" ? state.sessionData?.capa : state.sessionData?.avatar
   const [img, setImg] = useState<File>();
   const [loading, setLoading] = useState(false);
-  const [imagemId, setImagemId] = useState(state.sessionData?.capa)
+  //const [imagemId, setImagemId] = useState(state.sessionData?.capa)
   const [error, setError] = useState<string | undefined>()
   const router = useRouter()
   const dict = state.dict?.profile.editProfile
+  const id = state.profileData?.id!
+  const imagemId = uuidv4()
 
   const handleEditarImagem = async () => {
     setLoading(true);
     try {
-      const { data, error } = type == "capa" ? await uploadCoverImage(imagemId!, img!) : await uploadProfileImage(imagemId!, img!)
+      const { data, error } = type == "capa" ? await uploadCoverImage(imagemId, img!, id) : await uploadProfileImage(imagemId, img!, id)
 
       if (error) {
         console.error('Erro ao fazer upload:', error.message);
@@ -41,9 +44,7 @@ export default function EditImage({ props, title, type }: EditFormProps) {
 
         router.refresh()
 
-        if (initialImage === 'nopfp') {
-          await updateTable();
-        }
+        await updateTable();
 
       }
     } catch (error) {
@@ -62,7 +63,6 @@ export default function EditImage({ props, title, type }: EditFormProps) {
       } else if (type === 'avatar') {
         updateData.avatar = imagemId;
       } else {
-        // Handle caso em que o valor de "type" não é válido
         console.error('Tipo inválido:', type);
         return;
       }
@@ -72,9 +72,9 @@ export default function EditImage({ props, title, type }: EditFormProps) {
         .update(updateData)
         .eq('id', state.sessionData?.id!);
       if (error) {
-        console.error('Erro ao atualizar a tabela:', error.message);
+        toast.error("Erro ao atualizar imagem")
       } else {
-        console.log('Tabela atualizada com sucesso:', data);
+        toast.success("Imagem atualizada com sucesso")
       }
     } catch (err) {
       console.error('Erro inesperado ao atualizar a tabela:', err);
@@ -85,7 +85,7 @@ export default function EditImage({ props, title, type }: EditFormProps) {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImagemId(state.sessionData?.id);
+      //setImagemId(state.sessionData?.id);
       setImg(file);
     }
   };

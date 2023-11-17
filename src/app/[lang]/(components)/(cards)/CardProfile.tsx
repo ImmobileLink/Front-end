@@ -18,6 +18,7 @@ export default function CardProfile({ userData, cards }: CardProfileProps) {
           <div className="flex justify-center">
             <Avatar
               route={userData.avatar!}
+              id={userData.id!}
               size={"l"}
             />
           </div>

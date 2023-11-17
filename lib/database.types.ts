@@ -236,7 +236,15 @@ export interface Database {
           sobre?: string | null
           telefone?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "corretor_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "usuario"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       denuncia: {
         Row: {
@@ -1486,6 +1494,13 @@ export interface Database {
           idparticipante: string
           nomeparticipante: string
           avatarparticipante: string
+        }[]
+      }
+      obter_usuarios_aleatorios: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          avatar: string
+          id: string
         }[]
       }
       obter_visitas_aceitas_pelo_corretor: {
