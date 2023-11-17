@@ -18,7 +18,7 @@ export default function Dropdown({ label, items }: DropdownProps) {
       <button onClick={() => { setisActive(!isActive) }} className="relative float-right h-fit text-2xl text-gray-900 rounded-lg dark:text-white " type="button">
         {label}
       </button>
-      <div className={"absolute top-12 right-0 z-50 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 " + (!isActive && "hidden")}>
+      <div className={"absolute top-12 right-0 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 " + (!isActive && "hidden")}>
         <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
           {
             items.map((item, index) => {

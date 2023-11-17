@@ -457,7 +457,7 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
     };
 
     return (
-        <>
+       <div>
             <div className="w-full md:flex inline-table md:justify-between my-4 md:my-0 md:h-12 align-middle place-self-center">
                 <div className="flex items-center h-full">
                     <div className="w-20 text-sm font-medium">
@@ -570,15 +570,7 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                     </>
                 )}
             </div>
-            {deletePost ? (
-                <ModalExcluir
-                    setDeletePost={setDeletePost}
-                    id={pubid}
-                    dict={textos}
-                />
-            ) : (
-                <></>
-            )}
-        </>
+          
+       </div>
     );
 }

@@ -16,6 +16,7 @@ import { Feed } from "@/app/i18n/dictionaries/types";
 import { useState } from "react";
 import { clientSupabase } from "lib/utils/clientSupabase";
 import { removerPublicacaoSalvaAPI, salvarPublicacaoAPI } from "../feedUtils";
+import ModalExcluir from "./ModalExcluir";
 
 interface PostItemProps {
     publicacao: PublicacaoCompleta;
@@ -29,12 +30,12 @@ export default function PostItem({
     idusuario,
     publicacao,
     dict,
-    setDeletePost,
     setPubid,
 }: PostItemProps) {
     const router = useRouter();
     const [readMore, isReadMore] = useState(false);
     const [savedItem, isSavedItem] = useState(publicacao.issalvo);
+    const [deletePost, setDeletePost] = useState(false);
 
     const supabase = clientSupabase();
 
@@ -70,7 +71,7 @@ export default function PostItem({
                                     router.push(`/perfil/${publicacao.idautor}`)
                                 }
                             >
-                                <Avatar route={publicacao.avatar} id={publicacao.idautor}/>
+                                <Avatar route={publicacao.avatar} id={publicacao.idautor} />
                                 <div>
                                     <p>{publicacao.nomeautor}</p>
                                     <p className="text-xs">
@@ -215,6 +216,14 @@ export default function PostItem({
                             ) : null}
                         </div>
                     </div>
+
+                    {deletePost && (
+                        <ModalExcluir
+                            setDeletePost={setDeletePost}
+                            id={publicacao.id}
+                            dict={dict}
+                        />
+                    )}
                 </Card.Content>
             </Card.Root>
         </div>
