@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import EditRegiaoAtuacao from "./EditRegiaoAtuacao";
 import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
 import { clientSupabase } from "lib/utils/clientSupabase";
+import toast from "react-hot-toast";
 
 interface EditProfileProps {
     data: Corretor | null;
@@ -56,9 +57,9 @@ export default function EditProfile({ data }: EditProfileProps) {
         setIsProcessing(true)
         const result = await updateCorretorProfile(formData, data?.id!, supabase)
         if (!result) {
-            console.error('Erro ao atualizar os dados');
+            toast.error("Erro ao atualizar os dados")
         } else {
-            console.log('Dados atualizados com sucesso');
+            toast.success("Dados atualizados com sucesso")
             reset(getValues())
             props.setOpenModal(undefined);
             router.refresh()
