@@ -14,7 +14,7 @@ export default function MessageCard({ message }: MessageCardProps) {
         <div className="flex flex-col items-bottom mb-5">
             <div className="flex flex-row items-start space-x-3">
                 <div className="min-w-fit">
-                    <Avatar key={message.idautor} route={message.avatarautor!} size={10} />
+                    <Avatar key={message.idautor} route={message.avatarautor!} id={message.idautor} size={10} />
                 </div>
                 <div className="flex flex-col">
                     <div className="flex flex-row space-x-2">

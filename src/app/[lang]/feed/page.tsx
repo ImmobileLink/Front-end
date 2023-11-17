@@ -1,7 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { cache } from "react";
-import {CardLink as CardL} from "../../[lang]/(components)/(compositions)/(card)/index";
+import { CardLink as CardL } from "../../[lang]/(components)/(compositions)/(card)/index";
 import CardNotLogged from "../(components)/(cards)/CardNotLogged";
 import CardProfile from "../(components)/(cards)/CardProfile";
 import CardUserList from "../(components)/(cards)/CardUserList";
@@ -25,9 +25,9 @@ interface pageProps {
 }
 
 export default async function page({ params: { lang } }: pageProps) {
-  const supabase = await serverSupabase()
-  const dict = await getDictionary(lang); // pt
-  const userData = await getUserData(supabase);
+    const supabase = await serverSupabase()
+    const dict = await getDictionary(lang); // pt
+    const userData = await getUserData(supabase);
 
     return (
         <div className="flex justify-center gap-5 mt-4">
@@ -69,15 +69,15 @@ export default async function page({ params: { lang } }: pageProps) {
                         </Card.Root>
                         <Card.Root>
                             {userData.type == "corretor" ? (
-                                    <Card.Title
-                                        title={dict.feed.cards.myrelatedcompany}
-                                        
-                                    />
+                                <Card.Title
+                                    title={dict.feed.cards.myrelatedcompany}
+
+                                />
                             ) : (
-                                    <Card.Title
-                                        title={dict.feed.cards.relatedbrokers}
-                                        
-                                    />
+                                <Card.Title
+                                    title={dict.feed.cards.relatedbrokers}
+
+                                />
                             )}
                             <Card.Content>
                                 <CardLink

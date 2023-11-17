@@ -21,7 +21,7 @@ export const createServerSupabaseClient = cache(() => {
 async function getData(avatar: string | undefined) {
     const supabase = createServerSupabaseClient();
     let { data, error } = await supabase
-        .rpc("obter_cinco_corretores_id")
+        .rpc("obter_usuarios_aleatorios")
         .neq("avatar", avatar);
 
     return data;
@@ -38,7 +38,7 @@ export default async function CardUserList({
             <div className="flex flex-col  justify-center select-none">
                 <div className="flex mb-5 p-1 -space-x-4 justify-center">
                     {avatares?.map((item, index) => {
-                        return <Avatar route={item.avatar} key={index} />;
+                        return <Avatar route={item.avatar} id={item.id} key={item.id} />;
                     })}
                 </div>
                 <Link

@@ -40,7 +40,7 @@ export default function CardItem({
                 <div
                     className="flex w-3/4 rounded-full cursor-pointer"
                 >
-                    <Avatar route={avatardestinatario} />
+                    <Avatar route={avatardestinatario} id={iddestinatario}/>
                     <a className="w-2/3 self-center capitalize text-black dark:text-white truncate ml-2">
                         {nome}
                     </a>
