@@ -673,6 +673,7 @@ export interface Profile {
     editProfile: EditProfile;
     buttonProfile: ButtonProfile;
     infos: InfosProfile;
+    dashboard: Dashboard;
 }
 
 export interface InfosProfile {
@@ -759,6 +760,41 @@ export interface EditProfile {
 export interface ErrorProfile {
     cityNotFound: string;
     selectStateFirst: string;
+}
+
+export interface Dashboard {
+    logintoseemore: string;
+    signup: string;
+    login: string;
+    features: string;
+    wantmoredetails: string;
+    seeplans: string;
+    satisfaction: string;
+    type: string;
+    interest: string;
+    seeless: string;
+    seemore: string;
+    noreviews: string;
+    options: DashboardOptions;
+}
+
+export interface DashboardOptions {
+    verysatisfied: string;
+    satisfied: string;
+    neutral: string;
+    dissatisfied: string;
+    verydissatisfied: string;
+    scores: string;
+    professionalism: string;
+    communication: string;
+    knowlodge: string;
+    clarity: string;
+    transparency: string;
+    detail: string;
+    others: string;
+    interested: string;
+    undecided: string;
+    notinterested: string;
 }
 
 export interface Survey {

@@ -4,8 +4,13 @@ import Cabecalho from './components/Cabecalho/Cabecalho';
 import Calendario from '@/app/[lang]/(components)/Calendario';
 import Dashboard from './components/Dashboard/Dashboard';
 import Infos from './components/Infos/Infos';
+import { Profile } from '@/app/i18n/dictionaries/types';
 
-export default async function page() {
+interface ProfileProps{
+    dict: Profile;
+}
+
+export default async function page({dict}: ProfileProps) {
 
     const isAssociado = useProfileStore.getState().isAssociado
     const isOwn = useProfileStore.getState().isOwn
@@ -15,13 +20,13 @@ export default async function page() {
     return (
         <>
             <Page.Main>
-                <Cabecalho />
+                <Cabecalho dict={dict}/>
                 <Infos isAssociado={isAssociado!}/>
             </Page.Main>
 
             <Page.Right>
                 <Page.Dashboard>
-                    <Dashboard/>
+                    <Dashboard dict={dict.dashboard}/>
                 </Page.Dashboard>
 
                 {dash  && (

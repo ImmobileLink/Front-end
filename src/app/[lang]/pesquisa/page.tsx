@@ -23,7 +23,6 @@ export default async function page({ params: { lang } }: pageProps) {
   const dict = await getDictionary(lang); // pt
   const userData = await getUserData(supabase);
   const tipoImovel = await getTiposImovel(supabase);
-
   let estadoUsuario;
   if (userData.id) {
     const estado = await getUserEstadoAPI(userData.id, supabase)
@@ -47,12 +46,12 @@ export default async function page({ params: { lang } }: pageProps) {
       <div className="flex justify-center gap-5 mt-4 select-none">
         <div className="hidden lg:flex flex-col lg:w-3/12 lg:max-w-xs lg:min-w-[320px]">
           <div className="hidden md:block">
-            <PesquisaCard textos={dict.pesquisa} tipoImovel={tipoImovel.data} />
+            <PesquisaCard textos={dict.pesquisa} tipoImovel={tipoImovel} />
           </div>
         </div>
         <div className="w-11/12 lg:w-7/12 lg:min-w-[650px]">
           <div className="block lg:hidden mb-4">
-            <PesquisaCard textos={dict.pesquisa} tipoImovel={tipoImovel.data} />
+            <PesquisaCard textos={dict.pesquisa} tipoImovel={tipoImovel} />
           </div>
           <div className="hidden lg:block">
             <Card.Root>

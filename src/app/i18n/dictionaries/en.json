@@ -467,6 +467,38 @@
         "error": {
             "cityNotFound": "City not found",
             "selectStateFirst": "Select the state first"
+        },
+        "dashboard": {
+            "logintoseemore": "Login or Register to access the dashboard",
+            "signup": "Sign up",
+            "login": "Login",
+            "features": "Specific features",
+            "wantmoredetails": "Want access to more detailed information?",
+            "seeplans": "See our plans",
+            "satisfaction": "Overall customer satisfaction with service",
+            "type": "Types of properties visited",
+            "interest": "Interest rate for the property visited (%)",
+            "seeless": "See less",
+            "seemore": "See more",
+            "noreviews": "This user has not been reviewed yet :(",
+            "options":{
+                "verysatisfied": "Very Satisfied",
+                "satisfied": "Satisfied",
+                "neutral": "Neutral",
+                "dissatisfied": "Dissatisfied",
+                "verydissatisfied": "Very Dissatisfied",
+                "scores": "Scores",
+                "professionalism": "Professionalism",
+                "communication": "Communication",
+                "knowlodge": "Knowledge",
+                "clarity": "Clarity",
+                "transparency": "Transparency",
+                "detail": "Detail",
+                "others": "Others",
+                "interested": "Interested",
+                "undecided": "Undecided",
+                "notinterested": "No Interest"
+            }
         }
     },
     "configurations": {

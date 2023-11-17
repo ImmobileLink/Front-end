@@ -18,15 +18,16 @@ interface ChatHubProps {
   userType: string | undefined;
   userLinks: userGroup | undefined;
   userAssocs: userGroup | undefined;
+  userRooms: string;
+  lastMessages: any;
 }
 
-const supabase = clientSupabase()
-
-export default function ChatHub({ dict, idsala, userType, userId, userLinks, userAssocs }: ChatHubProps) {
+export default function ChatHub({ dict, idsala, userType, userId, userLinks, userAssocs, userRooms, lastMessages }: ChatHubProps) {
+  const supabase = clientSupabase()
   const { chatView, toggleChatView } = useContext(ChatContext)
   const { toggleChatNotification } = useContext(NotificationContext)
   const { chatNewMessages, toggleChatNewMessages } = useContext(NotificationContext)
-  const [rooms, setRooms] = useState<string | undefined>()
+  const [rooms, setRooms] = useState<string | undefined>(userRooms)
 
   let chatStyle = 'flex'
 
@@ -43,7 +44,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
   }
 
   //Recebe as últimas mensagens enviadas pelo usuário, bem como o id e nome do "outro participante" da conversa
-  const [messages, setMessages] = useState<UltimaMensagemPorSalaPorUsuario[]>()
+  const [messages, setMessages] = useState<UltimaMensagemPorSalaPorUsuario[]>(lastMessages)
 
   //Estados e useRouter para atualizar a lista de conversas quando uma nova msg é enviada (envia o item da conversa para o topo da lista).
   const router = useRouter()
@@ -69,17 +70,6 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
   }
 
   useEffect(() => {
-    if (userId) {
-      getUserRooms(userId, supabase)
-        .then((response) => {
-          setRooms(response)
-        })
-      getLastMessages(userId, supabase)
-        .then((response) => {
-          setMessages(response)
-        })
-    }
-
     const subscription = supabase.channel("userRoom_changes")
       .on(
         "postgres_changes",
@@ -90,12 +80,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
           filter: `idusuario=eq.${userId}`
         },
         () => {
-          if (userId) {
-            getUserRooms(userId, supabase)
-              .then((response) => {
-                setRooms(response)
-              })
-          }
+          atualizaHub()
         }
       )
       .subscribe();
@@ -124,7 +109,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
     return () => {
       subscription.unsubscribe();
     }
-  }, [messages])
+  }, [])
 
   const style = 'bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
   //Exibe a lista de amigos

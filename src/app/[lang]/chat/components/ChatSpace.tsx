@@ -17,9 +17,14 @@ interface ChatSpaceProps {
 export default async function ChatSpace({ dict, idsala, userId }: ChatSpaceProps) {
 
   const supabase = await serverSupabase()
-  let roomData: RoomData;
+  let roomData: RoomData = {
+    iddestinatario: '',
+    nomedestinatario: '',
+    avatardestinatario: '',
+    mensagens: [],
+  };
   const data = await getRoomData(idsala, supabase)
-  if(data) {
+  if (data) {
     roomData = data
   }
   return (
@@ -29,7 +34,7 @@ export default async function ChatSpace({ dict, idsala, userId }: ChatSpaceProps
           <div className="flex flex-col h-full lg:w-full w-screen rounded-md bg-white dark:bg-dark-100 drop-shadow-md">
             {
               idsala != null &&
-              <ChatHeader key={roomData!.iddestinatario} idparticipante={roomData!.iddestinatario} nomeparticipante={roomData!.nomedestinatario} avatarparticipante={roomData!.avatardestinatario} />
+              <ChatHeader key={roomData.iddestinatario} idparticipante={roomData.iddestinatario} nomeparticipante={roomData.nomedestinatario} avatarparticipante={roomData.avatardestinatario} />
             }
             <MessageSpace dict={dict} mensagens={roomData!.mensagens} idsala={idsala} />
             {

@@ -3,18 +3,20 @@
 import Chart from 'chart.js/auto';
 import { Pie as P } from "react-chartjs-2";
 import {CategoryScale} from 'chart.js'; 
+import { DashboardOptions } from '@/app/i18n/dictionaries/types';
 Chart.register(CategoryScale);
 
 
 interface PieProps {
+  dict: DashboardOptions;
 }
 
 
 
-export default function PieMock({}: PieProps) {
+export default function PieMock({dict}: PieProps) {
 
     const data = {
-        labels: ['Muito Satisfeito', 'Satisfeito', 'Neutro', 'Insatisfeito', 'Muito Insatisfeito'],
+        labels: [dict.verysatisfied, dict.satisfied, dict.neutral, dict.dissatisfied, dict.verydissatisfied],
         datasets: [
           {
             data: [32, 21, 13, 2, 2],
