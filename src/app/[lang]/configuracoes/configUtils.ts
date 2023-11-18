@@ -75,7 +75,7 @@ export async function setTelefones(type: string, formData: any, id: string, supa
             .update({
                 telefone: formData.telefone,
                 celular: formData.celular,
-                comercial: formData.comercial
+                comercial: formData.telefone_comercial
             })
             .eq('id', id);
 

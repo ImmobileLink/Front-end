@@ -90,6 +90,8 @@ export default function NavBarHamburguerMenu({
                                             {textos.search}
                                         </Link>
                                     </li>
+
+
                                 </>
                             )}
                             <li>
@@ -109,17 +111,25 @@ export default function NavBarHamburguerMenu({
                         </ul>
                         <div className="py-1">
                             {userId ? (
-                                <a
-                                    href="#"
-                                    onClick={handleLogOut}
+                                <> <Link
+                                    href="/configuracoes"
                                     className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white"
                                 >
-                                    {loading ? (
-                                        <Spinner />
-                                    ) : (
-                                        textos.logoutbutton
-                                    )}
-                                </a>
+                                    {textos.settings}
+                                </Link>
+                                    <a
+                                        href="#"
+                                        onClick={handleLogOut}
+                                        className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white"
+                                    >
+                                        {loading ? (
+                                            <Spinner />
+                                        ) : (
+                                            textos.logoutbutton
+                                        )}
+                                    </a>
+                                </>
+
                             ) : (
                                 <Link
                                     href="/auth"

@@ -54,8 +54,6 @@ export default function CardConfig({ dict, title, email, type, telefones, id }: 
 
     const { register, handleSubmit, watch, reset, setValue, getValues, formState: { errors, isDirty } } = useForm({ defaultValues });
 
-    
-
     const onSubmit = async (formData: any) => {
         setIsProcessing(true)
         if (title == "Email") {

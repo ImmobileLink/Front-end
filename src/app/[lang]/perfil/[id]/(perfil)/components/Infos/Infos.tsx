@@ -33,7 +33,7 @@ export default function Infos({ isAssociado }: InfosProps) {
     <div className='ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-700 drop-shadow-md bg-white rounded-md mt-3 pb-5'>
 
       <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-600">
-        <ul className="flex flex-wrap">
+        <ul className="flex overflow-x-auto">
           <li className="mr-2">
             <a className={`inline-block cursor-pointer p-3 md:p-4 rounded-t-lg border-b-2 ${tab !== 1 ? 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : 'text-blue-600 border-blue-600'}`} onClick={() => setTab(1)}>{dict.profile.data}</a>
           </li>
@@ -63,15 +63,6 @@ export default function Infos({ isAssociado }: InfosProps) {
         <div className=''>
           <Posts />
         </div>
-
-        // {isOwn && (
-        //   <Tabs.Item
-        //     icon={HiDocumentText}
-        //     title="Saved Posts"
-        //   >
-        //     <p>PostsSalvos</p>
-        //   </Tabs.Item>
-        // )}
       )}
 
       {tab == 3 && isOwn && (
