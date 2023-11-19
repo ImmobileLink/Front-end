@@ -659,6 +659,17 @@ export interface Configurations {
     confirmChange: string;
     cancelChange: string;
     edit: string;
+    emailUpdated: string;
+    errorEmailUpdate: string;
+    passwordUpdated: string;
+    errorPasswordUpdate: string;
+    phonesUpdatedSuccess: string;
+    errorPhoneUpdate: string;
+    emailNotNull: string;
+    invalidEmail: string;
+    passwordMinLength: string;
+    passwordRequired: string;
+    passwordsDoNotMatch: string;
 }
 
 export interface Profile {

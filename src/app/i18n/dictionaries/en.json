@@ -511,7 +511,19 @@
         "confirmPassword": "Confirm Password",
         "confirmChange": "Confirm Change",
         "cancelChange": "Cancel Change",
-        "edit": "Edit"
+        "edit": "Edit",
+        "emailUpdated": "Email updated, please confirm in your inbox",
+        "errorEmailUpdate": "Error updating email. Please try again later.",
+        "passwordUpdated": "Password updated",
+        "errorPasswordUpdate": "Error updating password",
+        "phonesUpdatedSuccess": "Phones updated successfully",
+        "errorPhoneUpdate": "Error updating phones",
+        "emailNotNull": "Email cannot be null",
+        "invalidEmail": "This email address is not valid",
+        "passwordMinLength": "Password must be at least 6 characters long",
+        "passwordRequired": "Password is required",
+        "passwordsDoNotMatch": "Passwords do not match"
+        
     },
     "dashboard": {
         "domain": "Domain",

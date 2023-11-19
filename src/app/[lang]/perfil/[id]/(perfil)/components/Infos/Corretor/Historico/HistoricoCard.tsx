@@ -6,6 +6,7 @@ import { useProfileStore } from "@/../../lib/store/profileStore"
 import { deleteHistorico } from '../../../../../perfilUtils/Historico';
 import { useProfileContext } from '../../../../context/ProfileContext';
 import { clientSupabase } from 'lib/utils/clientSupabase';
+import toast from 'react-hot-toast';
 
 interface HistoricoCardProps {
     item: ItemHistorico;
@@ -35,7 +36,10 @@ export default function HistoricoCard({ item, props }: HistoricoCardProps) {
         const newHistorico = historico!.filter((hist) => hist.id != item.id)
 
         if (result) {
+            toast.success('Histórico apagado')
             setHistorico(newHistorico)
+        }else{
+            toast.error('Erro ao deletar histórico')
         }
     }
 

@@ -7,6 +7,7 @@ import { insertHistorico, updateHistorico } from '../../../../../perfilUtils/His
 import { useProfileContext } from '../../../../context/ProfileContext';
 import { v4 as uuidv4 } from 'uuid';
 import { clientSupabase } from 'lib/utils/clientSupabase';
+import toast from 'react-hot-toast';
 
 interface HistoricoPopupProps {
     props: any;
@@ -84,14 +85,17 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
 
             if (!result) {
                 setErro("Erro ao cadastrar histórico");
+                toast.error("Erro ao atualizar histórico")
             } else {
                 if (historico) {
                     if (props.idEditHistorico) {
                         const indice = historico.findIndex(objeto => objeto.id === id);
                         historico[indice] = hist[0]
                         setHistorico(historico)
+                        toast.success("Histórico atualizado com sucesso")
                     } else {
                         setHistorico([...historico, ...hist]);
+                        toast.success("Histórico inserido com sucesso")
                     }
                 } else {
                     setHistorico([...hist]);

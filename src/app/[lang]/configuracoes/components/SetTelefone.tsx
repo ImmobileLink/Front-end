@@ -1,3 +1,4 @@
+import { Dictionaries } from '@/app/i18n/dictionaries/types';
 import React from 'react';
 import InputMask from 'react-input-mask';
 
@@ -5,12 +6,10 @@ interface SetTelefoneProps {
     register: any;
     errors: any;
     type: string;
-    tel: string;
-    cel: string;
-    com: string;
+    dict: Dictionaries;
 }
 
-export default function SetTelefone({ register, errors, type, tel, cel, com }: SetTelefoneProps) {
+export default function SetTelefone({ register, errors, type, dict }: SetTelefoneProps) {
     return (
         <>
             <div className="flex flex-col gap-3">
@@ -18,7 +17,7 @@ export default function SetTelefone({ register, errors, type, tel, cel, com }: S
                 {type == "corretor" ? (
                     <>
                         <div>
-                            <label className="text-gray-500 dark:text-gray-300">{tel}</label>
+                            <label className="text-gray-500 dark:text-gray-300">{dict.configurations.phone}</label>
                             <InputMask
                                 mask="(99) 9999-9999"
                                 type="text"
@@ -29,7 +28,7 @@ export default function SetTelefone({ register, errors, type, tel, cel, com }: S
                         </div>
 
                         <div>
-                            <label className="text-gray-500 dark:text-gray-300">{cel}</label>
+                            <label className="text-gray-500 dark:text-gray-300">{dict.configurations.cellphone}</label>
                             <InputMask
                                 mask="(99) 99999-9999"
                                 type="text"
@@ -40,7 +39,7 @@ export default function SetTelefone({ register, errors, type, tel, cel, com }: S
                         </div>
 
                         <div>
-                            <label className="text-gray-500 dark:text-gray-300">{com}</label>
+                            <label className="text-gray-500 dark:text-gray-300">{dict.configurations.comercial}</label>
                             <InputMask
                                 mask="(99) 9999-9999"
                                 type="text"
@@ -53,7 +52,7 @@ export default function SetTelefone({ register, errors, type, tel, cel, com }: S
                 ) : (
                     <>
                         <div>
-                            <label className="text-gray-500 dark:text-gray-300">{`${tel} 1`}</label>
+                            <label className="text-gray-500 dark:text-gray-300">{`${dict.configurations.phone} 1`}</label>
                             <InputMask
                                 mask="(99) 9999-9999"
                                 type="text"
@@ -64,7 +63,7 @@ export default function SetTelefone({ register, errors, type, tel, cel, com }: S
                         </div>
 
                         <div>
-                            <label className="text-gray-500 dark:text-gray-300">{`${tel} 2`}</label>
+                            <label className="text-gray-500 dark:text-gray-300">{`${dict.configurations.phone} 2`}</label>
                             <InputMask
                                 mask="(99) 9999-9999"
                                 type="text"
@@ -75,7 +74,7 @@ export default function SetTelefone({ register, errors, type, tel, cel, com }: S
                         </div>
 
                         <div>
-                            <label className="text-gray-500 dark:text-gray-300">{`${tel} 3`}</label>
+                            <label className="text-gray-500 dark:text-gray-300">{`${dict.configurations.phone} 3`}</label>
                             <InputMask
                                 mask="(99) 9999-9999"
                                 type="text"

@@ -1,5 +1,6 @@
 "use client";
 
+import { Dictionaries } from "@/app/i18n/dictionaries/types";
 import { useState } from "react";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 
@@ -7,11 +8,11 @@ interface SetSenhaProps {
     register: any;
     errors: any;
     watch: any;
-    pass: string;
-    confirm: string;
+
+    dict: Dictionaries;
 }
 
-export default function SetSenha({ register, errors, watch, pass, confirm }: SetSenhaProps) {
+export default function SetSenha({ register, errors, watch,dict }: SetSenhaProps) {
 
     const [showPassword, setShowPassword] = useState<boolean>(false)
 
@@ -35,7 +36,7 @@ export default function SetSenha({ register, errors, watch, pass, confirm }: Set
                 
                 </div>
                 <div>
-                    <label className="text-gray-500 dark:text-gray-300">{pass}</label>
+                    <label className="text-gray-500 dark:text-gray-300">{dict.configurations.password}</label>
                     <input
                         {...register("senha", { required: 'Password is required', minLength: { value: 6, message: "A senha teve ter pelo menos 6 caracteres" } })}
                         type={showPassword ? "text" : "password"}
@@ -45,12 +46,12 @@ export default function SetSenha({ register, errors, watch, pass, confirm }: Set
                 </div>
 
                 <div>
-                    <label className="text-gray-500 dark:text-gray-300">{confirm}</label>
+                    <label className="text-gray-500 dark:text-gray-300">{dict.configurations.confirmPassword}</label>
                     <input
                         {...register("confirma_senha", {
-                            required: 'Password is required', validate: (val: string) => {
+                            required: dict.configurations.passwordRequired, validate: (val: string) => {
                                 if (watch('senha') != val) {
-                                    return "Your passwords do no match";
+                                    return dict.configurations.passwordsDoNotMatch;
                                 }
                             },
                         })}

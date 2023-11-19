@@ -481,22 +481,22 @@
             "seeless": "Veja menos",
             "seemore": "Veja mais",
             "noreviews": "Esse usuário ainda não foi avaliado :(",
-            "options":{
-                "verysatisfied": "Muito Satisfeito", 
-                "satisfied": "Satisfeito", 
-                "neutral": "Neutro", 
-                "dissatisfied": "Insatisfeito", 
+            "options": {
+                "verysatisfied": "Muito Satisfeito",
+                "satisfied": "Satisfeito",
+                "neutral": "Neutro",
+                "dissatisfied": "Insatisfeito",
                 "verydissatisfied": "Muito Insatisfeito",
                 "scores": "Pontuações",
-                "profissionalism": "Profissionalismo", 
-                "communication": "Comunicação", 
-                "knowlodge": "Conhecimento", 
-                "clarity": "Clareza", 
-                "transparency": "Transparência", 
+                "profissionalism": "Profissionalismo",
+                "communication": "Comunicação",
+                "knowlodge": "Conhecimento",
+                "clarity": "Clareza",
+                "transparency": "Transparência",
                 "detail": "Detalhista",
                 "others": "Outros",
-                "interested": "Interessado", 
-                "undecided": "Indeciso", 
+                "interested": "Interessado",
+                "undecided": "Indeciso",
                 "notinterested": "Sem Interesse"
             }
         }
@@ -511,7 +511,18 @@
         "confirmPassword": "Confirmar Senha",
         "confirmChange": "Confirmar Alteração",
         "cancelChange": "Cancelar Alteração",
-        "edit": "Editar"
+        "edit": "Editar",
+        "emailUpdated": "Email atualizado, confirme em sua caixa de entrada",
+        "errorEmailUpdate": "Erro ao atualizar email. Tente novamente mais tarde.",
+        "passwordUpdated": "Senha atualizada",
+        "errorPasswordUpdate": "Erro ao atualizar senha",
+        "phonesUpdatedSuccess": "Telefones Atualizados com sucesso",
+        "errorPhoneUpdate": "Erro ao atualizar telefones",
+        "emailNotNull": "Email não pode ser nulo",
+        "invalidEmail": "Esse endereço de Email não é válido",
+        "passwordMinLength": "A senha deve ter pelo menos 6 caracteres",
+        "passwordRequired": "Senha é requerida",
+        "passwordsDoNotMatch": "As senhas não coincidem"
     },
     "dashboard": {
         "noRating": "Esse usuário ainda não foi avaliado :("
@@ -716,11 +727,11 @@
         }
     },
     "mylinks": {
-        "links":"Meus links",
+        "links": "Meus links",
         "companies": "Empresas associadas",
         "brokers": "Corretores afiliados",
         "talk": "Conversar",
-        "logs":{
+        "logs": {
             "errorwhilesearchingdata": "Ocorreu um erro ao buscar suas conexões. Por favor, tente novamente mais tarde.",
             "noconnectionswerefound": "Parece que você ainda não tem nenhuma conexão. Tente encontrar novos Links.",
             "noassociationswerefound": "Parece que você ainda não tem nenhuma associação. Tente encontrar novos parceiros."

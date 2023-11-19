@@ -56,37 +56,38 @@ export default function CardConfig({ dict, title, email, type, telefones, id }: 
 
     const onSubmit = async (formData: any) => {
         setIsProcessing(true)
-        if (title == "Email") {
+        if (title == "1") {
             const result = await emailChangeAPI(formData.email, id, supabase)
             if (result) {
-                toast.success("Email atualizado, confirme em sua caixa de entrada")
+                toast.success(dict.configurations.emailUpdated)
                 setTimeout(() => {
                     setSucess(undefined)
                     props.setOpenModal(undefined)
                 }, 3000)
             }
             else {
-                toast.error("Erro ao atualizar email. Tente novamente mais tarde.")
+                toast.error(dict.configurations.errorEmailUpdate)
             }
 
-        } else if (title == "Senha") {
+        } else if (title == "2") {
             const result = await passwordChangeAPI(formData.password, supabase)
             if (result) {
-                toast.success("Senha atualizada")
+                toast.success(dict.configurations.passwordUpdated)
             }
             else {
-                toast.error("Erro ao atualizar senha")
+                toast.error(dict.configurations.errorPasswordUpdate)
             }
 
         } else {
             const result = await setTelefones(type, formData, id, supabase)
 
             if (result) {
-                toast.success("Telefones Atualizados com sucesso")
+                toast.success(dict.configurations.phonesUpdatedSuccess)
             } else {
-                toast.error("Erro ao atualizar telefones")
+                toast.error(dict.configurations.errorPhoneUpdate)
             }
         }
+        reset(getValues())
         props.setOpenModal(undefined)
         setIsProcessing(false)
     }
@@ -115,9 +116,9 @@ export default function CardConfig({ dict, title, email, type, telefones, id }: 
                     {title == "3" && dict.configurations.phone}
                 </Modal.Header>
                 <Modal.Body>
-                    {title == "1" && <SetEmail register={register} errors={errors} />}
-                    {title == "2" && <SetSenha register={register} errors={errors} watch={watch} pass={dict.configurations.password} confirm={dict.configurations.confirmPassword}/>}
-                    {title == "3" && <SetTelefone register={register} errors={errors} type={type} tel={dict.configurations.phone} cel={dict.configurations.cellphone} com={dict.configurations.comercial}/>}
+                    {title == "1" && <SetEmail dict={dict} register={register} errors={errors} />}
+                    {title == "2" && <SetSenha dict={dict} register={register} errors={errors} watch={watch}/>}
+                    {title == "3" && <SetTelefone dict={dict} register={register} errors={errors} type={type}/>}
                 </Modal.Body>
                 <Modal.Footer className="flex justify-end">
                     <Button disabled={!isDirty} isProcessing={isProcessing} onClick={() => handleSubmit(onSubmit)()}>{dict.configurations.confirmChange}</Button>
