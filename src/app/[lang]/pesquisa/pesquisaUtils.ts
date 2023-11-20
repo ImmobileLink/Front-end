@@ -24,6 +24,7 @@ export async function getCorretores(estado: string, supabase: any) {
 }
 
 export async function getCorretoresPorAvaliacaoAPI(avaliacao: number, supabase: any) {
+  console.log(avaliacao)
   let { data, error } = await supabase
     .rpc('get_corretores_por_avaliacao', {
       avaliacao: avaliacao

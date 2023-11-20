@@ -236,7 +236,7 @@
             "all": "All",
             "nocityfound": "No city found",
             "selectaestatefirst": "Select a estate first",
-            "rating": "Rating",
+            "rating": "Rating(s)",
             "specialty": "Specialty",
             "error": "Oops! Something went wrong. Please try again.",
             "missingcombobox": "Select a filter.",
@@ -389,10 +389,10 @@
     },
     "profile": {
         "infoBroker": "Broker Information",
-        "historic": "History",
+        "historic": "Historic",
         "premium": "Premium User",
         "ratingPremium": "Rating available only for premium.",
-        "rating": "Rating",
+        "rating": "Rating(s)",
         "withoutRating": "No ratings",
         "visitPanel": "Access your visit panel",
         "calendarLang": "en",
@@ -414,7 +414,17 @@
             "changeImage": "Change Image",
             "changeImageTitle": "Change Cover Image",
             "changeProfileTitle": "Change Profile Image",
-            "confirmImage": "Confirm"
+            "confirmImage": "Confirm",
+            "warn": {
+                "insertName": "Name is required",
+                "insertValidAddress": "Insert a valid address",
+                "insertNumber": "Insert a number",
+                "errorUpdatingData": "Error updating data",
+                "dataUpdatedSuccessfully": "Data updated successfully",
+                "incompleteCEP": "Incomplete ZIP code",
+                "nonexistentCEP": "This ZIP code does not exist",
+                "minLengthName": "The name must have at least 5 characters"
+            }
         },
         "buttonProfile": {
             "buttonAssociate": {
@@ -452,15 +462,20 @@
                 "cellphoneNumber": "Cell Phone Number",
                 "comercialContact": "Business Contact",
                 "historic": {
-                    "withoutHistoric": "No work history so far",
-                    "edit": "Edit History",
+                    "withoutHistoric": "No work historic so far",
+                    "edit": "Edit Historic",
                     "companyName": "Company Name*",
-                    "addHistoric": "Add History",
+                    "addHistoric": "Add Historic",
                     "dateInit": "Start Date (Month and Year)",
                     "dateEnd": "End Date (Month and Year)",
                     "historicDescription": "Description",
                     "confirmHistoric": "Confirm",
-                    "cancelHistoric": "Cancel"
+                    "cancelHistoric": "Cancel",
+                    "untilMoment": "Up to the moment",
+                    "companyNameRequired": "Company name is required.",
+                    "minimumAllowedYear": "The minimum allowed year is 1900.",
+                    "dateNotGreaterThanToday": "The date cannot be greater than today.",
+                    "insertStartDate": "Insert a start date."
                 }
             }
         },
@@ -481,7 +496,7 @@
             "seeless": "See less",
             "seemore": "See more",
             "noreviews": "This user has not been reviewed yet :(",
-            "options":{
+            "options": {
                 "verysatisfied": "Very Satisfied",
                 "satisfied": "Satisfied",
                 "neutral": "Neutral",
@@ -523,7 +538,6 @@
         "passwordMinLength": "Password must be at least 6 characters long",
         "passwordRequired": "Password is required",
         "passwordsDoNotMatch": "Passwords do not match"
-        
     },
     "dashboard": {
         "domain": "Domain",
@@ -739,7 +753,7 @@
         }
     },
     "mylinks": {
-        "links":"My links",
+        "links": "My links",
         "companies": "Associated companies",
         "brokers": "Affiliated brokers",
         "talk": "Chat",

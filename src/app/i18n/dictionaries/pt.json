@@ -414,7 +414,17 @@
             "changeImage": "Alterar Imagem",
             "changeImageTitle": "Alterar Imagem de capa",
             "changeProfileTitle": "Alterar Imagem de perfil",
-            "confirmImage": "Confirmar"
+            "confirmImage": "Confirmar",
+            "warn": {
+                "insertName": "É preciso inserir um nome",
+                "insertValidAddress": "Insira um endereço válido",
+                "insertNumber": "Insira um número",
+                "errorUpdatingData": "Erro ao atualizar os dados",
+                "dataUpdatedSuccessfully": "Dados atualizados com sucesso",
+                "incompleteCEP": "CEP incompleto",
+                "nonexistentCEP": "Esse CEP não existe",
+                "minLengthName": "O nome deve ter ao menos 5 caracteres"
+            }
         },
         "buttonProfile": {
             "buttonAssociate": {
@@ -460,7 +470,12 @@
                     "dateEnd": "Data de Fim (Mês e Ano)",
                     "historicDescription": "Descrição",
                     "confirmHistoric": "Confirmar",
-                    "cancelHistoric": "Cancelar"
+                    "cancelHistoric": "Cancelar",
+                    "untilMoment": "Até o momento",
+                    "companyNameRequired": "Nome da empresa é obrigatório.",
+                    "minimumAllowedYear": "O ano mínimo permitido é 1900.",
+                    "dateNotGreaterThanToday": "A data não pode ser maior do que hoje.",
+                    "insertStartDate": "Insira uma data de início."
                 }
             }
         },

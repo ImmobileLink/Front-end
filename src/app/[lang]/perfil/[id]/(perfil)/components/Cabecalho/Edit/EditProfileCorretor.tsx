@@ -57,9 +57,9 @@ export default function EditProfile({ data }: EditProfileProps) {
         setIsProcessing(true)
         const result = await updateCorretorProfile(formData, data?.id!, supabase)
         if (!result) {
-            toast.error("Erro ao atualizar os dados")
+            toast.error(dict.editProfile.warn.errorUpdatingData)
         } else {
-            toast.success("Dados atualizados com sucesso")
+            toast.success(dict.editProfile.warn.dataUpdatedSuccessfully)
             reset(getValues())
             props.setOpenModal(undefined);
             router.refresh()
@@ -117,7 +117,7 @@ export default function EditProfile({ data }: EditProfileProps) {
             setValue('bairro', '');
             setValue('uf', '');
             setValue('logradouro', '');
-            setErrorCep("Esse cep não existe")
+            setErrorCep(dict.editProfile.warn.nonexistentCEP)
         }
     };
 
@@ -139,10 +139,10 @@ export default function EditProfile({ data }: EditProfileProps) {
     const validateCep = (value: any) => {
         const cleanedCep = value?.replace(/\D/g, '');
         if (cleanedCep.length != 8) {
-            return "CEP incompleto";
+            return dict.editProfile.warn.incompleteCEP;
         }
         if (errorCep) {
-            return "Esse CEP não existe"
+            return dict.editProfile.warn.nonexistentCEP;
         }
         return true;
     };
@@ -162,9 +162,9 @@ export default function EditProfile({ data }: EditProfileProps) {
                         <div className="flex flex-col">
                             <label className="text-gray-500 dark:text-gray-300">{dict.editProfile.name}</label>
                             <input type="text"
-                                {...register("nome", { required: true })}
+                                {...register("nome", { required: {value: true, message:dict.editProfile.warn.insertName }, minLength: {value: 5, message: dict.editProfile.warn.minLengthName}})}
                                 className={`text-base py-2.5 px-0 w-full text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent `} />
-                            {errors?.nome?.type == 'required' && <p className="text-red-500 text-xs mt-1">É preciso inserir um nome</p>}
+                            {errors?.nome?.message && <p className="text-red-500 text-xs mt-1">{errors?.nome?.message}</p>}
                         </div>
 
                         <div className="flex flex-col">
@@ -282,7 +282,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                                     className={`bg-transparent  block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                 />
                                 {errors?.numero?.type == 'required' && (<label className="text-red-500 text-xs">
-                                    Insira um número
+                                    {dict.editProfile.warn.insertNumber}
                                 </label>)}
                             </div>
                             <div className="relative z-0 w-full">

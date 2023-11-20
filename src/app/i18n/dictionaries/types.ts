@@ -685,6 +685,18 @@ export interface Profile {
     buttonProfile: ButtonProfile;
     infos: InfosProfile;
     dashboard: Dashboard;
+
+}
+
+export interface ProfileWarn {
+    insertName: string;
+    insertValidAddress: string;
+    insertNumber: string;
+    errorUpdatingData: string;
+    dataUpdatedSuccessfully: string;
+    incompleteCEP: string;
+    nonexistentCEP: string;
+    minLengthName: string;
 }
 
 export interface InfosProfile {
@@ -718,6 +730,11 @@ export interface HistoricProfile {
     historicDescription: string;
     confirmHistoric: string;
     cancelHistoric: string;
+    untilMoment: string;
+    companyNameRequired: string;
+    minimumAllowedYear: string;
+    dateNotGreaterThanToday: string;
+    insertStartDate: string;
 }
 
 
@@ -766,6 +783,7 @@ export interface EditProfile {
     changeProfileTitle: string;
     confirmImage: string;
     error: ErrorProfile;
+    warn: ProfileWarn;
 }
 
 export interface ErrorProfile {

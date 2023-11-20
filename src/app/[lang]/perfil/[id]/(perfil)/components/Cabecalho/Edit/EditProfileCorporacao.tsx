@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import EditRegiaoAtuacao from "./EditRegiaoAtuacao";
 import { clientSupabase } from "lib/utils/clientSupabase";
 import { useProfileStore } from "lib/store/profileStore";
+import toast from "react-hot-toast";
 
 interface EditProfileProps {
     data: Corporacao | null;
@@ -54,9 +55,9 @@ export default function EditProfile({ data }: EditProfileProps) {
         setIsProcessing(true)
         const { updatedData, error } = await updateCorporacaoProfile(formData, data?.id!, supabase)
         if (error) {
-            console.error('Erro ao atualizar os dados:', error);
+            toast.error(dict.warn.dataUpdatedSuccessfully)
         } else {
-            console.log('Dados atualizados com sucesso:', updatedData);
+            toast.success(dict.warn.errorUpdatingData)
             props.setOpenModal(undefined);
             router.refresh()
         }
@@ -106,7 +107,7 @@ export default function EditProfile({ data }: EditProfileProps) {
             setValue('uf', '');
             setValue('bairro', '');
             setValue('logradouro', '');
-            setErrorCep("Esse cep não existe")
+            setErrorCep(dict.warn.nonexistentCEP)
         }
     };
 
@@ -128,10 +129,10 @@ export default function EditProfile({ data }: EditProfileProps) {
     const validateCep = (value: any) => {
         const cleanedCep = value?.replace(/\D/g, '');
         if (cleanedCep.length != 8) {
-            return "CEP incompleto";
+            return dict.warn.incompleteCEP;
         }
         if (errorCep) {
-            return "Esse CEP não existe"
+            return dict.warn.nonexistentCEP;
         }
         return true;
     };
@@ -151,9 +152,9 @@ export default function EditProfile({ data }: EditProfileProps) {
                         <div className="flex flex-col">
                             <label className="text-gray-500 dark:text-gray-300">{dict.corporationName}</label>
                             <input type="text"
-                                {...register("nomefantasia", { required: true })}
+                                {...register("nomefantasia", { required: {value: true, message:dict.warn.insertName }, minLength: {value: 5, message: dict.warn.minLengthName}})}
                                 className={`text-base py-2.5 px-0 w-full text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent `} />
-                            {errors?.nomefantasia?.type == 'required' && <p className="text-red-500 text-xs mt-1">É preciso inserir um nome</p>}
+                            {errors?.nomefantasia?.message && <p className="text-red-500 text-xs mt-1">{errors?.nomefantasia?.message}</p>}
                         </div>
 
 
@@ -172,7 +173,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                             <input type="text"
                                 {...register("site")}
                                 className={`text-base py-2.5 px-0 w-full text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent `} />
-                            {/* {errors?.nomefantasia?.type == 'required' && <p className="text-red-500 text-xs mt-1">É preciso inserir um nome</p>} */}
+                            {/* {errors?.site?.type == 'required' && <p className="text-red-500 text-xs mt-1">Insira um endereço válido</p>} */}
                         </div>
 
                         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -213,11 +214,6 @@ export default function EditProfile({ data }: EditProfileProps) {
                                 </div>
                             </div>
                         </div>
-                        {/* <div className="md:justify-end w-full flex">
-                            <label className="text-red-500 text-xs mb-8">
-                                err
-                            </label>
-                        </div> */}
 
                         {/* cidade & bairro */}
                         <div className="grid md:grid-cols-2 md:gap-6 gap-3">
@@ -279,7 +275,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                                     className={`bg-transparent  block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                 />
                                 {errors?.numero?.type == 'required' && (<label className="text-red-500 text-xs">
-                                    Insira um número
+                                    {dict.warn.insertNumber}
                                 </label>)}
                             </div>
                             <div className="relative z-0 w-full mb-6 group">

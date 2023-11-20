@@ -112,6 +112,20 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
         props.setOpenModal(undefined);
     }
 
+    const validateData = (value: string) => {
+        const selectedDate = new Date(value);
+        const minimumDate = new Date('1900-01-01');
+        const today = new Date();
+      
+        if (selectedDate < minimumDate) {
+          return dict.minimumAllowedYear;
+        }
+        if (selectedDate > today) {
+          return dict.dateNotGreaterThanToday;
+        }
+        return undefined; 
+      };
+
 
     return (
         <>
@@ -123,7 +137,7 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
                             <label className="text-gray-500 dark:text-gray-300">{dict.companyName}</label>
                             <input {...register('nome_empresa', { required: true })}
                                 className='text-base py-2.5 px-0 w-full text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent ' />
-                            {errors.nome_empresa && <span className="text-red-500 text-xs mt-1">Nome da empresa é obrigatório.</span>}
+                            {errors.nome_empresa && <span className="text-red-500 text-xs mt-1">{dict.companyNameRequired}</span>}
                         </div>
 
                         <div className='flex flex-col'>
@@ -131,29 +145,18 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
                             <Controller
                                 name="data_inicio"
                                 control={control}
-                                rules={{
-                                    required: true,
-                                    validate: (value) => {
-                                        const selectedDate = new Date(value);
-                                        const minimumDate = new Date('1900-01-01');
-                                        const today = new Date();
-
-                                        if (selectedDate < minimumDate) {
-                                            return 'O ano mínimo permitido é 1900.';
-                                        }
-                                        if (selectedDate > today) {
-                                            return 'A data não pode ser maior do que hoje.';
-                                        }
-                                        return true;
-                                    }
-                                }}
                                 render={({ field }) =>
                                     <input
                                         type="month"
                                         className='text-base py-2.5 px-0 w-full text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent'
-                                        {...field} />}
+                                        {...field} />
+                                }
+                                rules={{
+                                    required: { value: true, message: dict.insertStartDate },
+                                    validate: validateData
+                                }}
                             />
-                            {errors.data_inicio && (<span className="text-red-500 text-xs mt-1">{errors.data_inicio.message}</span>)}
+                            {errors.data_inicio && <p className="text-red-500 text-xs mt-1">{errors.data_inicio.message?.toString()}</p>}
 
                         </div>
 
@@ -168,10 +171,10 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
                                         const today = new Date();
 
                                         if (selectedDate < minimumDate) {
-                                            return 'O ano mínimo permitido é 1900.';
+                                            return dict.minimumAllowedYear;
                                         }
                                         if (selectedDate > today) {
-                                            return 'A data não pode ser maior do que hoje.';
+                                            return dict.dateNotGreaterThanToday;
                                         }
                                         return true;
                                     }
@@ -182,7 +185,7 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
                                         type="month"
                                         className='text-base py-2.5 px-0 w-full text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent'
                                         {...field} />} />
-                            {errors.data_fim && <p className="text-red-500 text-xs mt-1">{errors.data_fim.message}</p>}
+                            {errors.data_fim && <p className="text-red-500 text-xs mt-1">{errors.data_fim.message?.toString()}</p>}
 
                         </div>
 

@@ -27,6 +27,7 @@ export default function HistoricoCard({ item, props }: HistoricoCardProps) {
     const supabase = clientSupabase()
 
     const isOwn = useProfileStore.getState().isOwn
+    const dict = useProfileStore.getState().dict?.profile.infos.profile.historic
 
     const { historico, setHistorico } = useProfileContext()
 
@@ -60,7 +61,7 @@ export default function HistoricoCard({ item, props }: HistoricoCardProps) {
                             <div className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">-</div>
                             {item.data_fim ? (
                                 <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{item.data_fim}</time>
-                            ) : (<time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Até o momento</time>)}
+                            ) : (<time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{dict?.untilMoment}</time>)}
                         </div>
                         {isOwn &&
                             <div className='flex flex-row gap-3 '>
