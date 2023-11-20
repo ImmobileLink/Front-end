@@ -211,7 +211,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                                         disabled
                                         type="text"
                                         {...register("uf", { required: true })}
-                                        className={`bg-transparent disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                                        className={`cursor-not-allowed bg-transparent disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                     />
                                 </div>
                             </div>
@@ -232,7 +232,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                                     disabled
                                     type="text"
                                     {...register("cidade", { required: true })}
-                                    className={`bg-transparent disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                                    className={`cursor-not-allowed bg-transparent disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                 />
                                 {/*  {errors?.cidade?.type == 'required' && (<label className="text-red-500 text-xs">
                                     erro
@@ -246,7 +246,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                                     type="text"
                                     disabled
                                     {...register("bairro", { required: true })}
-                                    className={`bg-transparent disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                                    className={`cursor-not-allowed bg-transparent disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                                 />
                                 {/* {errors?.bairro?.type == 'required' && (<label className="text-red-500 text-xs">
                                     erro
@@ -263,7 +263,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                                 type="text"
                                 disabled
                                 {...register("logradouro", { required: true })}
-                                className={`bg-transparent  disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
+                                className={`cursor-not-allowed bg-transparent  disabled:opacity-75 block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                             />
                             {/* {errors?.logradouro?.type == 'required' && (<label className="text-red-500 text-xs">
                                 erro

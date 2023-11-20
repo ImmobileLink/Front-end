@@ -20,6 +20,7 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
 
     const state = useProfileStore.getState()
     const dict = state.dict!.profile.infos.profile.historic
+    const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
     const { historico, setHistorico } = useProfileContext()
 
@@ -116,15 +117,20 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
         const selectedDate = new Date(value);
         const minimumDate = new Date('1900-01-01');
         const today = new Date();
-      
+
         if (selectedDate < minimumDate) {
-          return dict.minimumAllowedYear;
+            return dict.minimumAllowedYear;
         }
         if (selectedDate > today) {
-          return dict.dateNotGreaterThanToday;
+            return dict.dateNotGreaterThanToday;
         }
-        return undefined; 
-      };
+        return undefined;
+    };
+
+    const handleCheckboxChange = () => {
+        setIsCheckboxChecked(!isCheckboxChecked)
+        setValue('data_fim', '');
+    }
 
 
     return (
@@ -132,7 +138,7 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
             <Modal show={props.openModal === 'default'} onClose={cancelar}>
                 <Modal.Header>{props.idEditHistorico ? <p>{dict.edit}</p> : <p>{dict.addHistoric}</p>}</Modal.Header>
                 <Modal.Body>
-                    <form className='gap-3'>
+                    <form className='flex flex-col gap-3'>
                         <div className='flex flex-col'>
                             <label className="text-gray-500 dark:text-gray-300">{dict.companyName}</label>
                             <input {...register('nome_empresa', { required: true })}
@@ -162,29 +168,46 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
 
                         <div className='flex flex-col'>
                             <label className="text-gray-500 dark:text-gray-300">{dict.dateEnd}</label>
-                            <Controller
-                                name="data_fim"
-                                rules={{
-                                    validate: (value) => {
-                                        const selectedDate = new Date(value);
-                                        const minimumDate = new Date('1900-01-01');
-                                        const today = new Date();
-
-                                        if (selectedDate < minimumDate) {
-                                            return dict.minimumAllowedYear;
-                                        }
-                                        if (selectedDate > today) {
-                                            return dict.dateNotGreaterThanToday;
-                                        }
-                                        return true;
-                                    }
-                                }}
-                                control={control}
-                                render={({ field }) =>
+                            <div className="flex flex-row-reverse md:gap-5 flex-wrap-reverse md:flex-nowrap">
+                                <div className='flex flex-row items-center gap-1'>
                                     <input
-                                        type="month"
-                                        className='text-base py-2.5 px-0 w-full text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent'
-                                        {...field} />} />
+                                        id='moment'
+                                        type="checkbox"
+                                        className=''
+                                        checked={isCheckboxChecked}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    <label htmlFor="moment" className='text-gray-500 dark:text-gray-300 whitespace-nowrap'>{dict.untilMoment}</label>
+                                </div>
+
+                                <Controller
+                                    name="data_fim"
+                                    rules={{
+                                        validate: (value) => {
+                                            const selectedDate = new Date(value);
+                                            const minimumDate = new Date('1900-01-01');
+                                            const today = new Date();
+
+                                            if (selectedDate < minimumDate) {
+                                                return dict.minimumAllowedYear;
+                                            }
+                                            if (selectedDate > today) {
+                                                return dict.dateNotGreaterThanToday;
+                                            }
+                                            return true;
+                                        }
+                                    }}
+                                    control={control}
+                                    render={({ field }) => (
+                                        <input
+                                            type="month"
+                                            className={`text-base py-2.5 px-0 w-full text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent ${isCheckboxChecked ? 'cursor-not-allowed' : ''}`}
+                                            {...field}
+                                            disabled={isCheckboxChecked}
+                                        />
+                                    )}
+                                />
+                            </div>
                             {errors.data_fim && <p className="text-red-500 text-xs mt-1">{errors.data_fim.message?.toString()}</p>}
 
                         </div>
