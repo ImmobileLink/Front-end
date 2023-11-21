@@ -80,7 +80,7 @@ export default function CardConfig({ dict, title, email, type, telefones, id }: 
 
         } else {
             const result = await setTelefones(type, formData, id, supabase)
-
+            
             if (result) {
                 toast.success(dict.configurations.phonesUpdatedSuccess)
             } else {

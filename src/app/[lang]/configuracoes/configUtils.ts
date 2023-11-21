@@ -87,7 +87,8 @@ export async function setTelefones(type: string, formData: any, id: string, supa
             return true
         }
     } else {
-        const { data: updatedData, error } = await supabase
+        console.log("oi")
+        const {  error } = await supabase
             .from('corporacao')
             .update({
                 telefone1: formData.telefone_1,
@@ -101,7 +102,7 @@ export async function setTelefones(type: string, formData: any, id: string, supa
             return false
         }
         else {
-            return updatedData
+            return true
         }
     }
 }

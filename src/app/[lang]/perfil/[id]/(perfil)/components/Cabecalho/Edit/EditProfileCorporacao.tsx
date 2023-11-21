@@ -55,9 +55,9 @@ export default function EditProfile({ data }: EditProfileProps) {
         setIsProcessing(true)
         const { updatedData, error } = await updateCorporacaoProfile(formData, data?.id!, supabase)
         if (error) {
-            toast.error(dict.warn.dataUpdatedSuccessfully)
+            toast.error(dict.warn.errorUpdatingData)
         } else {
-            toast.success(dict.warn.errorUpdatingData)
+            toast.success(dict.warn.dataUpdatedSuccessfully)
             props.setOpenModal(undefined);
             router.refresh()
         }
