@@ -1016,7 +1016,7 @@ export interface Database {
           estado: string
           cidade: string
           sobre: string
-          nota: number
+          nota: string
         }[]
       }
       get_corretores_por_avaliacao_estado: {
@@ -1032,7 +1032,7 @@ export interface Database {
           estado: string
           cidade: string
           sobre: string
-          nota: number
+          nota: string
         }[]
       }
       get_corretores_por_avaliacao_estado_cidade: {
@@ -1049,7 +1049,7 @@ export interface Database {
           estado: string
           cidade: string
           sobre: string
-          nota: number
+          nota: string
         }[]
       }
       get_corretores_por_avaliacao_estado_cidade_tipoimovel: {
@@ -1067,7 +1067,7 @@ export interface Database {
           estado: string
           cidade: string
           sobre: string
-          nota: number
+          nota: string
         }[]
       }
       get_corretores_por_avaliacao_estado_tipoimovel: {
@@ -1084,7 +1084,7 @@ export interface Database {
           estado: string
           cidade: string
           sobre: string
-          nota: number
+          nota: string
         }[]
       }
       get_corretores_por_avaliacao_tipoimovel: {
@@ -1100,7 +1100,7 @@ export interface Database {
           estado: string
           cidade: string
           sobre: string
-          nota: number
+          nota: string
         }[]
       }
       get_dados_sala: {
@@ -1449,6 +1449,7 @@ export interface Database {
           indeciso: number
           intencao: number
           sem_interesse: number
+          total: number
         }[]
       }
       obter_dados_dashboard_4: {
@@ -1457,6 +1458,26 @@ export interface Database {
         }
         Returns: {
           descricao: Json[]
+        }[]
+      }
+      obter_dados_dashboard_empresa_1: {
+        Args: {
+          idempresa_param: string
+        }
+        Returns: {
+          descricao: Json[]
+        }[]
+      }
+      obter_dados_dashboard_empresa_2: {
+        Args: {
+          idempresa_param: string
+        }
+        Returns: {
+          id: string
+          indeciso: number
+          intencao: number
+          sem_interesse: number
+          total: number
         }[]
       }
       obter_dados_survey: {

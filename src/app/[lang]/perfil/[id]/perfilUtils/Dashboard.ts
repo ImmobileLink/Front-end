@@ -33,8 +33,29 @@ async function getDataDashboard4(id: string, supabase: SupabaseClient<Database>)
   .rpc('obter_dados_dashboard_4', {
     idcorretor_param: id
   })
+  
 
   return{data4, error}
 }
 
-export {getDataDashboard1, getDataDashboard2, getDataDashboard3, getDataDashboard4}
+async function getDataDashboardCorporacao1(id: string, supabase: SupabaseClient<Database>) {
+  let { data: data4 , error } = await supabase
+  .rpc('obter_dados_dashboard_empresa_1', {
+    idempresa_param: id
+  })
+  
+
+  return{data4, error}
+}
+
+async function getDataDashboardCorporacao2(id: string, supabase: SupabaseClient<Database>) {
+  let { data: data3 , error } = await supabase
+  .rpc('obter_dados_dashboard_empresa_2', {
+    idempresa_param: id
+  })
+  
+
+  return{data3, error}
+}
+
+export {getDataDashboard1, getDataDashboard2, getDataDashboard3, getDataDashboard4, getDataDashboardCorporacao1, getDataDashboardCorporacao2}

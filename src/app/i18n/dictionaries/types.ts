@@ -804,6 +804,8 @@ export interface Dashboard {
     seeless: string;
     seemore: string;
     noreviews: string;
+    quantityDelegate: string;
+    visit: string;
     options: DashboardOptions;
 }
 

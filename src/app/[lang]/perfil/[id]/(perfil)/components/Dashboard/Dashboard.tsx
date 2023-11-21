@@ -13,6 +13,8 @@ import {
     getDataDashboard2,
     getDataDashboard3,
     getDataDashboard4,
+    getDataDashboardCorporacao1,
+    getDataDashboardCorporacao2,
 } from "../../../perfilUtils/Dashboard";
 import {
     Dashboard1,
@@ -35,6 +37,7 @@ export default function Dashboard({ dict }: DashboardProps) {
     const premium = state.sessionData?.isPremium;
     const isLogged = state.sessionData?.id;
     const id = state.profileData?.id!;
+    const type = state.profileData?.type
 
     const [openCalendar, setOpenCalendar] = useState(false);
 
@@ -45,19 +48,32 @@ export default function Dashboard({ dict }: DashboardProps) {
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        const fetchData = async () => {
-            let { data1 } = await getDataDashboard1(id, supabase);
-            let { data2 } = await getDataDashboard2(id, supabase);
-            let { data3 } = await getDataDashboard3(id, supabase);
-            let { data4 } = await getDataDashboard4(id, supabase);
-            setData1(data1);
-            setData2(data2);
-            setData3(data3);
-            setData4(data4);
-            setIsLoading(false);
-        };
+        if (type == 'corretor') {
+            const fetchDataCorretor = async () => {
+                let { data1 } = await getDataDashboard1(id, supabase);
+                let { data2 } = await getDataDashboard2(id, supabase);
+                let { data3 } = await getDataDashboard3(id, supabase);
+                let { data4 } = await getDataDashboard4(id, supabase);
+                setData1(data1);
+                setData2(data2);
+                setData3(data3);
+                setData4(data4);
+                setIsLoading(false);
+            };
+            fetchDataCorretor();
+        }else{
+            const fetchDataCorporacao = async () => {
+                let { data4 } = await getDataDashboardCorporacao1(id, supabase);
+                let { data3 } = await getDataDashboardCorporacao2(id, supabase);  
+                setData3(data3);
+                setData4(data4);
+                setIsLoading(false);
+            };
+            fetchDataCorporacao();
+        }
 
-        fetchData();
+
+
     }, []);
 
     return (
@@ -105,50 +121,74 @@ export default function Dashboard({ dict }: DashboardProps) {
                     </div>
                 </div>
             ) : (
-                <div
-                    className={`${
-                        !openCalendar && "max-h-[380px] md:max-h-[600px]"
-                    } min-h-[300px]`}
-                >
+                <div className={`${!openCalendar && "max-h-[380px] md:max-h-[600px]"} min-h-[300px]`}>
                     {isLoading && <DashboardSkeleton />}
-                    {data1 && data1.length >= 1 ? (
+                    {data3 && data3.length >= 1 ? (
                         <div>
-                            <div className="flex flex-col mb-16">
-                                <div className="bg-slate-300 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
-                                    <h2>{dict.features}</h2>
-                                    <Radar
-                                        dict={dict.options}
-                                        avaliacao={data1}
-                                    />
-                                </div>
-                                <div className="bg-slate-400 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
-                                    <h2 className="text-center">
-                                        {dict.satisfaction}
-                                    </h2>
-                                    <Pie
-                                        dict={dict.options}
-                                        satisfacao={data2}
-                                    />
+                            {type == 'corretor' ? (
+                                <div className="flex flex-col mb-16">
+                                    <div className="bg-slate-300 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
+                                        <h2>{dict.features}</h2>
+                                        <Radar
+                                            dict={dict.options}
+                                            avaliacao={data1}
+                                        />
+                                    </div>
+                                    <div className="bg-slate-400 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
+                                        <h2 className="text-center">
+                                            {dict.satisfaction}
+                                        </h2>
+                                        <Pie
+                                            dict={dict.options}
+                                            satisfacao={data2}
+                                        />
+                                    </div>
+
+                                    <div className="bg-slate-300 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
+                                        <h2>{dict.type}</h2>
+                                        <Doughnut
+                                            dict={dict.options}
+                                            data4={data4}
+                                        />
+                                    </div>
+
+                                    <div className="bg-slate-400 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
+                                        <h2 className="text-center">
+                                            {dict.interest}
+                                        </h2>
+                                        <PolarArea
+                                            dict={dict.options}
+                                            data3={data3}
+                                        />
+                                    </div>
                                 </div>
 
-                                <div className="bg-slate-300 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
-                                    <h2>{dict.type}</h2>
-                                    <Doughnut
-                                        dict={dict.options}
-                                        data4={data4}
-                                    />
-                                </div>
+                            ) : (
+                                <div className="flex flex-col mb-16">
+                                    <div>
+                                        <p className="text-center p-3 ">{dict.quantityDelegate}<strong className="underline">{data3[0].total}</strong> {dict.visit}</p>
+                                    </div>
+                                    <div className="bg-slate-300 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
+                                        <h2>{dict.type}</h2>
+                                        <Doughnut
+                                            dict={dict.options}
+                                            data4={data4}
+                                        />
+                                    </div>
 
-                                <div className="bg-slate-400 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
-                                    <h2 className="text-center">
-                                        {dict.interest}
-                                    </h2>
-                                    <PolarArea
-                                        dict={dict.options}
-                                        data3={data3}
-                                    />
+                                    <div className="bg-slate-400 py-5 px-3 flex items-center flex-col text-black font-bold text-xl gap-3">
+                                        <h2 className="text-center">
+                                            {dict.interest}
+                                        </h2>
+                                        <PolarArea
+                                            dict={dict.options}
+                                            data3={data3}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
+                            )
+                            }
+
 
                             <div
                                 className={`flex items-center justify-center absolute bottom-0 w-full right-0 bg-gradient-to-b from-transparent to-opacity-100 via-yellow-400 to-yellow-700 h-14`}

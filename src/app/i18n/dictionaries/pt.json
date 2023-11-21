@@ -496,6 +496,8 @@
             "seeless": "Veja menos",
             "seemore": "Veja mais",
             "noreviews": "Esse usuário ainda não foi avaliado :(",
+            "quantityDelegate": "Essa empresa já delegou ",
+            "visit": "Visita(s)",
             "options": {
                 "verysatisfied": "Muito Satisfeito",
                 "satisfied": "Satisfeito",
