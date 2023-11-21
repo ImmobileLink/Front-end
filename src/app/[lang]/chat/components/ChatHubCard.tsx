@@ -55,7 +55,7 @@ export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar
                     }`}
             >
                 <div className="mr-2 min-w-fit">
-                    <Avatar key={idsala} size={14} route={userAvatar} id={userId!}/>
+                    <Avatar key={idsala} size={14} route={userAvatar} id={mensagem!.avatarparticipante}/>
                 </div>
                 <div
                     className={`flex flex-col truncate`}
