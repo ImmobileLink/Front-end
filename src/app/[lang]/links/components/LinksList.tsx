@@ -166,6 +166,7 @@ export default function LinksList({
                                                     {meusLinks.map((item) => {
                                                         return (
                                                             <Links
+                                                                type={type}
                                                                 dict={dict}
                                                                 key={item.id}
                                                                 usuario={item}
@@ -198,6 +199,7 @@ export default function LinksList({
                                                     {minhasAssoc.map((item) => {
                                                         return (
                                                             <Links
+                                                                type={type}
                                                                 dict={dict}
                                                                 key={item.id}
                                                                 usuario={item}

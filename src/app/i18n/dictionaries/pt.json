@@ -748,6 +748,7 @@
         "companies": "Empresas associadas",
         "brokers": "Corretores afiliados",
         "talk": "Conversar",
+        "visit": "Delegar Visita",
         "logs": {
             "errorwhilesearchingdata": "Ocorreu um erro ao buscar suas conexões. Por favor, tente novamente mais tarde.",
             "noconnectionswerefound": "Parece que você ainda não tem nenhuma conexão. Tente encontrar novos Links.",
