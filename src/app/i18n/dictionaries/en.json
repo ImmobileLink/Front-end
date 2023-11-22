@@ -759,6 +759,7 @@
         "companies": "Associated companies",
         "brokers": "Affiliated brokers",
         "talk": "Chat",
+        "visit": "Delegate Visit",
         "logs": {
             "errorwhilesearchingdata": "An error has occured while searching for your connections. Please try again later.",
             "noconnectionswerefound": "It seems you still doesn't have any connections. Try looking for new Links.",

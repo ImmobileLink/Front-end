@@ -873,6 +873,7 @@ export interface MyLinks {
     companies: string;
     brokers: string;
     talk: string;
+    visit: string;
     logs: MyLinksLogs;
 }
 

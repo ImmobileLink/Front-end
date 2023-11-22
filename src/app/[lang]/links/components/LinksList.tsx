@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { BiSolidLeftArrow } from "react-icons/bi";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../../../lib/database.types";
-import { Query } from "react-query/types/core/query";
 import { MyLinks } from "@/app/i18n/dictionaries/types";
 
 interface LinksListProps {
@@ -134,7 +133,7 @@ export default function LinksList({
                         onClick={() => setView("links")}
                         className={`${
                             view == "links" ? "underline font-semibold" : ""
-                        } pr-2 cursor-pointer`}
+                        } pr-2 cursor-pointer select-none py-2 md:py-0`}
                     >
                         {dict.links}
                     </a>
@@ -145,15 +144,17 @@ export default function LinksList({
                         } md:px-2 cursor-pointer`}
                     >
                         {type == "corretor" ? (
-                            <>{dict.companies}</>
+                            <p className="select-none">{dict.companies}</p>
                         ) : (
-                            <>{dict.brokers}</>
+                            <p className="select-none">{dict.brokers}</p>
                         )}
                     </a>
                 </div>
                 <div className="md:ml-16 mt-2">
                     {error ? (
-                        <>{dict.logs.errorwhilesearchingdata}</>
+                        <p className="pl-4 md:pl-0 select-none">
+                            {dict.logs.errorwhilesearchingdata}
+                        </p>
                     ) : (
                         <>
                             {view == "links" ? (
@@ -165,6 +166,7 @@ export default function LinksList({
                                                     {meusLinks.map((item) => {
                                                         return (
                                                             <Links
+                                                                type={type}
                                                                 dict={dict}
                                                                 key={item.id}
                                                                 usuario={item}
@@ -174,7 +176,7 @@ export default function LinksList({
                                                     })}
                                                 </>
                                             ) : (
-                                                <p>
+                                                <p className="pl-4 md:pl-0 select-none">
                                                     {
                                                         dict.logs
                                                             .noconnectionswerefound
@@ -183,7 +185,7 @@ export default function LinksList({
                                             )}
                                         </>
                                     ) : (
-                                        <p>
+                                        <p className="pl-4 md:pl-0 select-none">
                                             {dict.logs.errorwhilesearchingdata}
                                         </p>
                                     )}
@@ -197,6 +199,7 @@ export default function LinksList({
                                                     {minhasAssoc.map((item) => {
                                                         return (
                                                             <Links
+                                                                type={type}
                                                                 dict={dict}
                                                                 key={item.id}
                                                                 usuario={item}
@@ -206,7 +209,7 @@ export default function LinksList({
                                                     })}
                                                 </>
                                             ) : (
-                                                <p>
+                                                <p className="pl-4 md:pl-0 select-none">
                                                     {
                                                         dict.logs
                                                             .noassociationswerefound
@@ -215,7 +218,7 @@ export default function LinksList({
                                             )}
                                         </>
                                     ) : (
-                                        <p>
+                                        <p className="pl-4 md:pl-0 select-none">
                                             {dict.logs.errorwhilesearchingdata}
                                         </p>
                                     )}
