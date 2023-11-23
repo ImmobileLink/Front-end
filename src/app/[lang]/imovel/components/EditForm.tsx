@@ -28,10 +28,15 @@ export default function EditForm({ props }: EditFormProps) {
   const [loading, setLoading] = useState(false);
 
   const handleEditarImagem = async () => {
-    if(props.userid && props.imovel.imagem && imagemId && img) {
-      const result = await imageEditAPI(props.userid, props.imovel.imagem, imagemId, img, supabase)
-      return result
+    console.log("userid" + props.userid)
+    console.log("imovelimagem" + props.imovel.imagem)
+    console.log("imagemId" + imagemId)
+    console.log("img" + img)
+    let result;
+    if (props.userid && props.imovel.imagem && imagemId && img) {
+      result = await imageEditAPI(props.userid, props.imovel.imagem, imagemId, img, supabase)
     }
+    return result
   };
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -46,8 +51,9 @@ export default function EditForm({ props }: EditFormProps) {
     if (img) {
       setLoading(true);
       const imgEditResult = await handleEditarImagem();
+      console.log(imgEditResult)
       let imovelEditResult = false
-      if(imagemId) {
+      if (imagemId) {
         imovelEditResult = await imovelEditAPI(imagemId, props.imovel.id, supabase)
       }
       if (imgEditResult && imovelEditResult) {

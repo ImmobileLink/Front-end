@@ -13,7 +13,7 @@ export default function ListGroupWithLinks({ items } : ListGroupWithLinks) {
   return (
     <ListGroup>
       {
-        items.map(item => <ListGroup.Item href={"/" + item.href}>{item.label}</ListGroup.Item>)
+        items.map(item => <ListGroup.Item key={item.href} href={"/" + item.href}>{item.label}</ListGroup.Item>)
       }
     </ListGroup>
   )

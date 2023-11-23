@@ -51,170 +51,38 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
     }, [selectedState]);
 
     useEffect(() => {
-        if (!profile) {
-            getPosts(filter, selectedState, selectedCity);
-        } else {
-            if (salvo) {
-                getPostsSalvoProfile(filter, selectedState, selectedCity,)
-            } else {
-                getPostsProfile(filter, selectedState, selectedCity,)
-            }
-        }
-    }, [filter, selectedState, selectedCity]);
+        const getPostsSalvoProfile = async (
+            filter: number,
+            selectedState?: string,
+            selectedCity?: string,
+        ) => {
+            switch (filter) {
+                case 0:
+                    //resetar parametros de cidade e estado
+                    setSelectedState("");
+                    setSelectedCity("");
 
-    const getPostsSalvoProfile = async (
-        filter: number,
-        selectedState?: string,
-        selectedCity?: string,
-    ) => {
-        switch (filter) {
-            case 0:
-                //resetar parametros de cidade e estado
-                setSelectedState("");
-                setSelectedCity("");
+                    //atualiza spinner
+                    setLoading(true);
 
-                //atualiza spinner
-                setLoading(true);
-
-                //faz consulta ao bd
-                {
-                    let response = await supabase
-                        .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
-                        .eq("issalvo", true)
-                        .order("atualizadoem", { ascending: false })
-                        .limit(10);
-
-                    let { data, error } = response;
-                    if (error) {
-                        setLoading(false);
-
-                        setLogErro(textos.pub.tryagainlater);
-                    }
-
-                    //atualiza o estado dos posts
-                    //se retornar 1+ posts mapeia na tela
-                    if (data!.length > 0) {
-                        setPosts(data!);
-                        //tira o log de erro
-                        setErro(false);
-                        // se não mostra log
-                    } else {
-                        setErro(true);
-                        setLogErro(textos.pub.noposts);
-                        setPosts([]);
-                    }
-                }
-
-                setLoading(false);
-                break;
-            case 1:
-                //resetar parametros de cidade
-                setSelectedCity("");
-
-                //atualiza spinner
-                setLoading(true);
-
-                //verifica se tem algum estado selecionado
-                if (selectedState != "") {
                     //faz consulta ao bd
-                    let response = await supabase
-                        .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
-                        .eq("issalvo", true)
-                        .order("atualizadoem", { ascending: false })
-                        .limit(10);
+                    {
+                        let response = await supabase
+                            .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
+                            .eq("issalvo", true)
+                            .order("atualizadoem", { ascending: false })
+                            .limit(10);
 
-                    let { data, error } = response;
-                    if (error) {
-                        setLoading(false);
-                        setLogErro(textos.pub.tryagainlater);
-                    }
+                        let { data, error } = response;
+                        if (error) {
+                            setLoading(false);
 
-                    if (data!.length > 0) {
-                        setPosts(data!);
-                        setErro(false);
-                    } else {
-                        setErro(true);
-                        setLogErro(textos.pub.noposts);
-                        setPosts([]);
-                    }
-                } else {
-                    //mostra na tela que precisa selecionar um estado
-                    setErro(true);
-                    setLogErro(textos.pub.selectaregion);
-                    //limpa o estado dos posts
-                    setPosts([]);
-                }
+                            setLogErro(textos.pub.tryagainlater);
+                        }
 
-                setLoading(false);
-                break;
-            case 2:
-                //atualiza spinner
-                setLoading(true);
-
-                //verifica se tem algum estado/cidade selecionados
-                if (selectedState != "" && selectedCity != "") {
-                    //faz consulta ao bd
-                    let response = await supabase
-                        .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
-                        .eq("issalvo", true)
-                        .order("atualizadoem", { ascending: false })
-                        .limit(10);
-
-                    let { data, error } = response;
-                    if (error) {
-                        setLoading(false);
-                        setLogErro(textos.pub.tryagainlater);
-                    }
-
-                    //atualiza o estado dos posts
-                    //se retornar 1+ posts mapeia na tela
-                    if (data!.length > 0) {
-                        setPosts(data!);
-                        //tira o log de erro
-                        setErro(false);
-                        // se não mostra log
-                    } else {
-                        setErro(true);
-                        setLogErro(textos.pub.noposts);
-                        setPosts([]);
-                    }
-                } else {
-                    //mostra na tela que precisa selecionar um estado
-                    setErro(true);
-                    setLogErro(textos.pub.selectaregion);
-                    //limpa o estado dos posts
-                    setPosts([]);
-                }
-
-                setLoading(false);
-                break;
-
-            default:
-                break;
-        }
-    };
-
-    const getPosts = async (
-        filter: number,
-        selectedState?: string,
-        selectedCity?: string
-    ) => {
-        switch (filter) {
-            case 0:
-                //resetar parametros de cidade e estado
-                setSelectedState("");
-                setSelectedCity("");
-
-                //atualiza spinner
-                setLoading(true);
-
-                //faz consulta ao bd
-                {
-                    const data = await getPublicacoesSalvasAPI(idusuario, supabase)
-                    //atualiza o estado dos posts
-                    //se retornar 1+ posts mapeia na tela
-                    if (data) {
-                        if (data.length > 0) {
+                        //atualiza o estado dos posts
+                        //se retornar 1+ posts mapeia na tela
+                        if (data!.length > 0) {
                             setPosts(data!);
                             //tira o log de erro
                             setErro(false);
@@ -225,236 +93,369 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                             setPosts([]);
                         }
                     }
-                }
-                setLoading(false);
-                break;
-            case 1:
-                //resetar parametros de cidade
-                setSelectedCity("");
 
-                //atualiza spinner
-                setLoading(true);
+                    setLoading(false);
+                    break;
+                case 1:
+                    //resetar parametros de cidade
+                    setSelectedCity("");
 
-                //verifica se tem algum estado selecionado
-                if (selectedState != "") {
-                    if (selectedState) {
+                    //atualiza spinner
+                    setLoading(true);
+
+                    //verifica se tem algum estado selecionado
+                    if (selectedState != "") {
                         //faz consulta ao bd
-                        let data = await getPublicacoesSalvasPorEstadoAPI(idusuario, selectedState, supabase)
+                        let response = await supabase
+                            .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
+                            .eq("issalvo", true)
+                            .order("atualizadoem", { ascending: false })
+                            .limit(10);
+
+                        let { data, error } = response;
+                        if (error) {
+                            setLoading(false);
+                            setLogErro(textos.pub.tryagainlater);
+                        }
+
+                        if (data!.length > 0) {
+                            setPosts(data!);
+                            setErro(false);
+                        } else {
+                            setErro(true);
+                            setLogErro(textos.pub.noposts);
+                            setPosts([]);
+                        }
+                    } else {
+                        //mostra na tela que precisa selecionar um estado
+                        setErro(true);
+                        setLogErro(textos.pub.selectaregion);
+                        //limpa o estado dos posts
+                        setPosts([]);
+                    }
+
+                    setLoading(false);
+                    break;
+                case 2:
+                    //atualiza spinner
+                    setLoading(true);
+
+                    //verifica se tem algum estado/cidade selecionados
+                    if (selectedState != "" && selectedCity != "") {
+                        //faz consulta ao bd
+                        let response = await supabase
+                            .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
+                            .eq("issalvo", true)
+                            .order("atualizadoem", { ascending: false })
+                            .limit(10);
+
+                        let { data, error } = response;
+                        if (error) {
+                            setLoading(false);
+                            setLogErro(textos.pub.tryagainlater);
+                        }
+
                         //atualiza o estado dos posts
                         //se retornar 1+ posts mapeia na tela
-                        if (data) {
-                            if (data!.length > 0) {
-                                setPosts(data!);
-                                //tira o log de erro
-                                setErro(false);
-                                // se não mostra log
-                            } else {
-                                setErro(true);
-                                setLogErro(textos.pub.noposts);
-                                setPosts([]);
-                            }
+                        if (data!.length > 0) {
+                            setPosts(data!);
+                            //tira o log de erro
+                            setErro(false);
+                            // se não mostra log
+                        } else {
+                            setErro(true);
+                            setLogErro(textos.pub.noposts);
+                            setPosts([]);
                         }
+                    } else {
+                        //mostra na tela que precisa selecionar um estado
+                        setErro(true);
+                        setLogErro(textos.pub.selectaregion);
+                        //limpa o estado dos posts
+                        setPosts([]);
                     }
-                } else {
-                    //mostra na tela que precisa selecionar um estado
-                    setErro(true);
-                    setLogErro(textos.pub.selectaregion);
-                    //limpa o estado dos posts
-                    setPosts([]);
-                }
 
-                setLoading(false);
-                break;
-            case 2:
-                //atualiza spinner
-                setLoading(true);
+                    setLoading(false);
+                    break;
 
-                //verifica se tem algum estado/cidade selecionados
-                if (selectedState != "" && selectedCity != "") {
-                    if (selectedState && selectedCity) {
-                        let data = await getPublicacoesSalvasPorEstadoCidadeAPI(idusuario, selectedCity, selectedState, supabase);
-                        //atualiza o estado dos posts
-                        //se retornar 1+ posts mapeia na tela
-                        if (data) {
-                            if (data!.length > 0) {
-                                setPosts(data!);
-                                //tira o log de erro
-                                setErro(false);
-                                // se não mostra log
-                            } else {
-                                setErro(true);
-                                setLogErro(textos.pub.noposts);
-                                setPosts([]);
-                            }
-                        }
-                    }
+                default:
+                    break;
+            }
+        };
+
+        const getPosts = async (
+            filter: number,
+            selectedState?: string,
+            selectedCity?: string
+        ) => {
+            switch (filter) {
+                case 0:
+                    //resetar parametros de cidade e estado
+                    setSelectedState("");
+                    setSelectedCity("");
+
+                    //atualiza spinner
+                    setLoading(true);
+
                     //faz consulta ao bd
-                } else {
-                    //mostra na tela que precisa selecionar um estado
-                    setErro(true);
-                    setLogErro(textos.pub.selectaregion);
-                    //limpa o estado dos posts
-                    setPosts([]);
-                }
-                setLoading(false);
-                break;
+                    {
+                        const data = await getPublicacoesSalvasAPI(idusuario, supabase)
+                        //atualiza o estado dos posts
+                        //se retornar 1+ posts mapeia na tela
+                        if (data) {
+                            if (data.length > 0) {
+                                setPosts(data!);
+                                //tira o log de erro
+                                setErro(false);
+                                // se não mostra log
+                            } else {
+                                setErro(true);
+                                setLogErro(textos.pub.noposts);
+                                setPosts([]);
+                            }
+                        }
+                    }
+                    setLoading(false);
+                    break;
+                case 1:
+                    //resetar parametros de cidade
+                    setSelectedCity("");
 
-            default:
-                break;
+                    //atualiza spinner
+                    setLoading(true);
+
+                    //verifica se tem algum estado selecionado
+                    if (selectedState != "") {
+                        if (selectedState) {
+                            //faz consulta ao bd
+                            let data = await getPublicacoesSalvasPorEstadoAPI(idusuario, selectedState, supabase)
+                            //atualiza o estado dos posts
+                            //se retornar 1+ posts mapeia na tela
+                            if (data) {
+                                if (data!.length > 0) {
+                                    setPosts(data!);
+                                    //tira o log de erro
+                                    setErro(false);
+                                    // se não mostra log
+                                } else {
+                                    setErro(true);
+                                    setLogErro(textos.pub.noposts);
+                                    setPosts([]);
+                                }
+                            }
+                        }
+                    } else {
+                        //mostra na tela que precisa selecionar um estado
+                        setErro(true);
+                        setLogErro(textos.pub.selectaregion);
+                        //limpa o estado dos posts
+                        setPosts([]);
+                    }
+
+                    setLoading(false);
+                    break;
+                case 2:
+                    //atualiza spinner
+                    setLoading(true);
+
+                    //verifica se tem algum estado/cidade selecionados
+                    if (selectedState != "" && selectedCity != "") {
+                        if (selectedState && selectedCity) {
+                            let data = await getPublicacoesSalvasPorEstadoCidadeAPI(idusuario, selectedCity, selectedState, supabase);
+                            //atualiza o estado dos posts
+                            //se retornar 1+ posts mapeia na tela
+                            if (data) {
+                                if (data!.length > 0) {
+                                    setPosts(data!);
+                                    //tira o log de erro
+                                    setErro(false);
+                                    // se não mostra log
+                                } else {
+                                    setErro(true);
+                                    setLogErro(textos.pub.noposts);
+                                    setPosts([]);
+                                }
+                            }
+                        }
+                        //faz consulta ao bd
+                    } else {
+                        //mostra na tela que precisa selecionar um estado
+                        setErro(true);
+                        setLogErro(textos.pub.selectaregion);
+                        //limpa o estado dos posts
+                        setPosts([]);
+                    }
+                    setLoading(false);
+                    break;
+
+                default:
+                    break;
+            }
+        };
+
+        const getPostsProfile = async (
+            filter: number,
+            selectedState?: string,
+            selectedCity?: string,
+        ) => {
+            switch (filter) {
+                case 0:
+                    //resetar parametros de cidade e estado
+                    setSelectedState("");
+                    setSelectedCity("");
+
+                    //atualiza spinner
+                    setLoading(true);
+
+                    //faz consulta ao bd
+                    {
+                        let response = await supabase
+                            .rpc("get_publicacoes_salvas", {
+                                idusuario: idusuario!,
+                            })
+                            .order("atualizadoem", { ascending: false })
+                            .eq('idautor', idusuario!)
+                            .limit(10);
+                        let { data, error } = response;
+                        if (error) {
+                            setLoading(false);
+
+                            setLogErro(textos.pub.tryagainlater);
+                        }
+
+                        //atualiza o estado dos posts
+                        //se retornar 1+ posts mapeia na tela
+                        if (data!.length > 0) {
+                            setPosts(data!);
+                            //tira o log de erro
+                            setErro(false);
+                            // se não mostra log
+                        } else {
+                            setErro(true);
+                            setLogErro(textos.pub.noposts);
+                            setPosts([]);
+                        }
+                    }
+
+                    setLoading(false);
+                    break;
+                case 1:
+                    //resetar parametros de cidade
+                    setSelectedCity("");
+
+                    //atualiza spinner
+                    setLoading(true);
+
+                    //verifica se tem algum estado selecionado
+                    if (selectedState != "") {
+                        //faz consulta ao bd
+                        let response = await supabase
+                            .rpc("get_publicacoes_salvas", {
+                                idusuario: idusuario!,
+                            })
+                            .contains("regiao", { estado: selectedState! })
+                            .order("atualizadoem", { ascending: false })
+                            .eq('idautor', idusuario!)
+                            .limit(10);
+                        let { data, error } = response;
+                        if (error) {
+                            setLoading(false);
+                            setLogErro(textos.pub.tryagainlater);
+                        }
+
+                        if (data!.length > 0) {
+                            setPosts(data!);
+                            setErro(false);
+                        } else {
+                            setErro(true);
+                            setLogErro(textos.pub.noposts);
+                            setPosts([]);
+                        }
+                    } else {
+                        //mostra na tela que precisa selecionar um estado
+                        setErro(true);
+                        setLogErro(textos.pub.selectaregion);
+                        //limpa o estado dos posts
+                        setPosts([]);
+                    }
+
+                    setLoading(false);
+                    break;
+                case 2:
+                    //atualiza spinner
+                    setLoading(true);
+
+                    //verifica se tem algum estado/cidade selecionados
+                    if (selectedState != "" && selectedCity != "") {
+                        if (selectedState && selectedCity) {
+                            let data = await getPublicacoesSalvasPorEstadoCidadeAPI(idusuario, selectedCity, selectedState, supabase);
+                            //atualiza o estado dos posts
+                            //se retornar 1+ posts mapeia na tela
+                            if (data) {
+                                if (data!.length > 0) {
+                                    setPosts(data!);
+                                    //tira o log de erro
+                                    setErro(false);
+                                    // se não mostra log
+                                } else {
+                                    setErro(true);
+                                    setLogErro(textos.pub.noposts);
+                                    setPosts([]);
+                                }
+                            }
+                        }
+                        //faz consulta ao bd
+                        let response = await supabase
+                            .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
+                            .eq("issalvo", true)
+                            .order("atualizadoem", { ascending: false })
+                            .limit(10);
+
+                        let { data, error } = response;
+                        if (error) {
+                            setLoading(false);
+                            setLogErro(textos.pub.tryagainlater);
+                        }
+
+                        //atualiza o estado dos posts
+                        //se retornar 1+ posts mapeia na tela
+                        if (data!.length > 0) {
+                            setPosts(data!);
+                            //tira o log de erro
+                            setErro(false);
+                            // se não mostra log
+                        } else {
+                            setErro(true);
+                            setLogErro(textos.pub.noposts);
+                            setPosts([]);
+                        }
+                    } else {
+                        //mostra na tela que precisa selecionar um estado
+                        setErro(true);
+                        setLogErro(textos.pub.selectaregion);
+                        //limpa o estado dos posts
+                        setPosts([]);
+                    }
+
+                    setLoading(false);
+                    break;
+
+                default:
+                    break;
+            }
+        };
+
+        if (!profile) {
+            getPosts(filter, selectedState, selectedCity);
+        } else {
+            if (salvo) {
+                getPostsSalvoProfile(filter, selectedState, selectedCity,)
+            } else {
+                getPostsProfile(filter, selectedState, selectedCity,)
+            }
         }
-    };
+    }, [filter, selectedState, selectedCity, profile, salvo, idusuario, textos.pub.tryagainlater, textos.pub.noposts, textos.pub.selectaregion]);
 
-    const getPostsProfile = async (
-        filter: number,
-        selectedState?: string,
-        selectedCity?: string,
-    ) => {
-        switch (filter) {
-            case 0:
-                //resetar parametros de cidade e estado
-                setSelectedState("");
-                setSelectedCity("");
-
-                //atualiza spinner
-                setLoading(true);
-
-                //faz consulta ao bd
-                {
-                    let response = await supabase
-                        .rpc("get_publicacoes_salvas", {
-                            idusuario: idusuario!,
-                        })
-                        .order("atualizadoem", { ascending: false })
-                        .eq('idautor', idusuario!)
-                        .limit(10);
-                    let { data, error } = response;
-                    if (error) {
-                        setLoading(false);
-
-                        setLogErro(textos.pub.tryagainlater);
-                    }
-
-                    //atualiza o estado dos posts
-                    //se retornar 1+ posts mapeia na tela
-                    if (data!.length > 0) {
-                        setPosts(data!);
-                        //tira o log de erro
-                        setErro(false);
-                        // se não mostra log
-                    } else {
-                        setErro(true);
-                        setLogErro(textos.pub.noposts);
-                        setPosts([]);
-                    }
-                }
-
-                setLoading(false);
-                break;
-            case 1:
-                //resetar parametros de cidade
-                setSelectedCity("");
-
-                //atualiza spinner
-                setLoading(true);
-
-                //verifica se tem algum estado selecionado
-                if (selectedState != "") {
-                    //faz consulta ao bd
-                    let response = await supabase
-                        .rpc("get_publicacoes_salvas", {
-                            idusuario: idusuario!,
-                        })
-                        .contains("regiao", { estado: selectedState! })
-                        .order("atualizadoem", { ascending: false })
-                        .eq('idautor', idusuario!)
-                        .limit(10);
-                    let { data, error } = response;
-                    if (error) {
-                        setLoading(false);
-                        setLogErro(textos.pub.tryagainlater);
-                    }
-
-                    if (data!.length > 0) {
-                        setPosts(data!);
-                        setErro(false);
-                    } else {
-                        setErro(true);
-                        setLogErro(textos.pub.noposts);
-                        setPosts([]);
-                    }
-                } else {
-                    //mostra na tela que precisa selecionar um estado
-                    setErro(true);
-                    setLogErro(textos.pub.selectaregion);
-                    //limpa o estado dos posts
-                    setPosts([]);
-                }
-
-                setLoading(false);
-                break;
-            case 2:
-                //atualiza spinner
-                setLoading(true);
-
-                //verifica se tem algum estado/cidade selecionados
-                if (selectedState != "" && selectedCity != "") {
-                    if (selectedState && selectedCity) {
-                        let data = await getPublicacoesSalvasPorEstadoCidadeAPI(idusuario, selectedCity, selectedState, supabase);
-                        //atualiza o estado dos posts
-                        //se retornar 1+ posts mapeia na tela
-                        if (data) {
-                            if (data!.length > 0) {
-                                setPosts(data!);
-                                //tira o log de erro
-                                setErro(false);
-                                // se não mostra log
-                            } else {
-                                setErro(true);
-                                setLogErro(textos.pub.noposts);
-                                setPosts([]);
-                            }
-                        }
-                    }
-                    //faz consulta ao bd
-                    let response = await supabase
-                        .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
-                        .eq("issalvo", true)
-                        .order("atualizadoem", { ascending: false })
-                        .limit(10);
-
-                    let { data, error } = response;
-                    if (error) {
-                        setLoading(false);
-                        setLogErro(textos.pub.tryagainlater);
-                    }
-
-                    //atualiza o estado dos posts
-                    //se retornar 1+ posts mapeia na tela
-                    if (data!.length > 0) {
-                        setPosts(data!);
-                        //tira o log de erro
-                        setErro(false);
-                        // se não mostra log
-                    } else {
-                        setErro(true);
-                        setLogErro(textos.pub.noposts);
-                        setPosts([]);
-                    }
-                } else {
-                    //mostra na tela que precisa selecionar um estado
-                    setErro(true);
-                    setLogErro(textos.pub.selectaregion);
-                    //limpa o estado dos posts
-                    setPosts([]);
-                }
-
-                setLoading(false);
-                break;
-
-            default:
-                break;
-        }
-    };
 
     return (
        <div>

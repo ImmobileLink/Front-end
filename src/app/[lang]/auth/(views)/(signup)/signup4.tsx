@@ -95,7 +95,7 @@ export default function Signup4({
                     setCities(result);
                 }
                 else {
-                    console.error(signup4.logs.uferror, error);
+                    console.error(signup4.logs.uferror);
                 }
                 setLoading(false)
             } else {
@@ -104,7 +104,7 @@ export default function Signup4({
         }
 
         fetchCities();
-    }, [selectedState]);
+    }, [selectedState, signup4.logs.uferror]);
 
     const addRegiao = ({ estado, cidade }: { estado: string, cidade: string }) => {
         if (!props.regioesIncluidas.some(item => item.estado === estado && item.cidade === cidade)) {

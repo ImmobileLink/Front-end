@@ -34,6 +34,7 @@ export default function MessageSpace({ dict, mensagens, idsala }: MessageSpacePr
     return () => {
       subscription.unsubscribe();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   return (

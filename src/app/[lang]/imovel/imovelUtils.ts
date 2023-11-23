@@ -88,7 +88,7 @@ export async function imageEditAPI(userId: string, imagem: string, imagemId: str
             return false
         }
         else {
-            return true
+            return imagemId
         }
     }
 }

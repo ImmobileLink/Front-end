@@ -21,7 +21,7 @@ export default function ImovelImg({ usuarioId, imagemId, smHeight, lgHeight }: I
       setLoading(true);
     }
     setImageURL();
-  }, [imagemId]);
+  }, [imagemId, usuarioId]);
 
     return (
         <>

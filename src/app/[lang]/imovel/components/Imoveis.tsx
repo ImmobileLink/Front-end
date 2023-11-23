@@ -48,6 +48,7 @@ export default function Imoveis({ props }: ImoveisProps) {
         const result = await getPropertiesAPI(userid, supabase)
         if(result) {
           setProperties(result);
+          console.log("properties:" + result)
           setLoading(false);
         }
         else {
@@ -56,7 +57,7 @@ export default function Imoveis({ props }: ImoveisProps) {
       }
     }
     getProperties();
-  }, []);
+  });
 
   useEffect(() => {
     const subscription = supabase
@@ -96,6 +97,7 @@ export default function Imoveis({ props }: ImoveisProps) {
     return () => {
       subscription.unsubscribe();
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

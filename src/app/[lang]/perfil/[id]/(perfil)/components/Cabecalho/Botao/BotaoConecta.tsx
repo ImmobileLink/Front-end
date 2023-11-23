@@ -73,7 +73,7 @@ export default function BotaoAssocia({ }: botaoAddProps) {
       setLoading(false);
     }
     fetchData()
-  }, [])
+  }, [state.profileData?.id, state.sessionData?.id, supabase])
 
   useEffect(() => {
     const fetchId = async () => {
@@ -85,7 +85,7 @@ export default function BotaoAssocia({ }: botaoAddProps) {
       }
     }
     fetchId()
-  }, [estado])
+  }, [estado, state.profileData?.id, state.sessionData?.id, supabase])
 
 
   const desassocia = async () => {

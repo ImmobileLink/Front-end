@@ -87,6 +87,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
     return () => {
       subscription.unsubscribe();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   //useEffect com o realtime do supabase para atualizar a lista de conversas quando uma nova mensagem é inserida na mesma sala da URL atual
@@ -109,6 +110,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
     return () => {
       subscription.unsubscribe();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const style = 'bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
