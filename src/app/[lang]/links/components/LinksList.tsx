@@ -46,87 +46,86 @@ export default function LinksList({
     const [meusLinks, setMeusLinks] = useState<any[]>([]);
     const [minhasAssoc, setMinhasAssoc] = useState<any[]>([]);
 
-    const getLinks = async () => {
-        let data: any;
-        let error: any;
-        if (type == "corretor") {
-            let response = await supabase
-                .from("corretor")
-                .select(`*, usuario(avatar), avaliacao(nota)`);
-            data = response.data;
-            error = response.error;
-        } else {
-            let response = await supabase
-                .from("corporacao")
-                .select(`*, usuario(avatar)`);
-            data = response.data;
-            error = response.error;
-        }
-        if (error) {
-            console.log(error);
-            isError(true);
-        } else {
-            let _meusLinks: any[] = [];
-            let _linksIds: string[] = [];
-
-            links!.forEach((item) => {
-                _linksIds.push(item.id);
-            });
-
-            data.forEach((link: any) => {
-                if (_linksIds.includes(link.id)) {
-                    _meusLinks.push(link);
-                }
-            });
-            setMeusLinks(_meusLinks);
-        }
-    };
-
-    const getAssoc = async () => {
-        let data: any;
-        let error: any;
-        if (type == "corretor") {
-            let response = await supabase
-                .from("corporacao")
-                .select(`*, usuario(avatar)`);
-            data = response.data;
-            error = response.error;
-        } else {
-            let response = await supabase
-                .from("corretor")
-                .select(`*, usuario(avatar), avaliacao(nota)`);
-            data = response.data;
-            error = response.error;
-        }
-        if (error) {
-            console.log(error);
-            isError(true);
-        } else {
-            let _meusLinks: any[] = [];
-            let _linksIds: string[] = [];
-
-            assoc!.forEach((item) => {
-                _linksIds.push(item.id);
-            });
-
-            data.forEach((link: any) => {
-                if (_linksIds.includes(link.id)) {
-                    _meusLinks.push(link);
-                }
-            });
-            setMinhasAssoc(_meusLinks);
-        }
-    };
-
     useEffect(() => {
+        const getLinks = async () => {
+            let data: any;
+            let error: any;
+            if (type == "corretor") {
+                let response = await supabase
+                    .from("corretor")
+                    .select(`*, usuario(avatar), avaliacao(nota)`);
+                data = response.data;
+                error = response.error;
+            } else {
+                let response = await supabase
+                    .from("corporacao")
+                    .select(`*, usuario(avatar)`);
+                data = response.data;
+                error = response.error;
+            }
+            if (error) {
+                console.log(error);
+                isError(true);
+            } else {
+                let _meusLinks: any[] = [];
+                let _linksIds: string[] = [];
+    
+                links!.forEach((item) => {
+                    _linksIds.push(item.id);
+                });
+    
+                data.forEach((link: any) => {
+                    if (_linksIds.includes(link.id)) {
+                        _meusLinks.push(link);
+                    }
+                });
+                setMeusLinks(_meusLinks);
+            }
+        };
+    
+        const getAssoc = async () => {
+            let data: any;
+            let error: any;
+            if (type == "corretor") {
+                let response = await supabase
+                    .from("corporacao")
+                    .select(`*, usuario(avatar)`);
+                data = response.data;
+                error = response.error;
+            } else {
+                let response = await supabase
+                    .from("corretor")
+                    .select(`*, usuario(avatar), avaliacao(nota)`);
+                data = response.data;
+                error = response.error;
+            }
+            if (error) {
+                console.log(error);
+                isError(true);
+            } else {
+                let _meusLinks: any[] = [];
+                let _linksIds: string[] = [];
+    
+                assoc!.forEach((item) => {
+                    _linksIds.push(item.id);
+                });
+    
+                data.forEach((link: any) => {
+                    if (_linksIds.includes(link.id)) {
+                        _meusLinks.push(link);
+                    }
+                });
+                setMinhasAssoc(_meusLinks);
+            }
+        };
         getLinks();
         getAssoc();
-    }, []);
+    }, [assoc, links, type]);
 
     return (
         <div>
             <Card.Root className="md:pr-8 p-2 pt-4 md:w-[55vw] w-[91vw]">
-                <div className="flex md:items-center ml-6 text-xl flex flex-col md:flex-row">
+                <div className="flex md:items-center ml-6 text-xl flex-col md:flex-row">
                     <Link href="/feed" className="mr-4">
                         <BiSolidLeftArrow />
                     </Link>

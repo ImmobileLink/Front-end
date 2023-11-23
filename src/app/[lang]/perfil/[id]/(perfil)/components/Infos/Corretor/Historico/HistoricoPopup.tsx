@@ -149,6 +149,7 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
                                         className='text-base py-2.5 px-0 w-full text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent'
                                         {...field} />}
                             />
+                            {/*@ts-ignore*/}
                             {errors.data_inicio && (<span className="text-red-500 text-xs mt-1">{errors.data_inicio.message}</span>)}
 
                         </div>
@@ -178,6 +179,7 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
                                         type="month"
                                         className='text-base py-2.5 px-0 w-full text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent'
                                         {...field} />} />
+                            {/*@ts-ignore*/}
                             {errors.data_fim && <p className="text-red-500 text-xs mt-1">{errors.data_fim.message}</p>}
 
                         </div>

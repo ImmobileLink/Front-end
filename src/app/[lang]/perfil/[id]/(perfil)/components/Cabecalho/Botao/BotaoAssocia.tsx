@@ -57,6 +57,7 @@ export default function BotaoAssocia({ }: botaoAddProps) {
         filter: `idcorretor=eq.${id.corretor}`,
       },
       (payload) => {
+        //@ts-ignore
         if (payload.new.idcorporacao !== id.corporacao) {
           return;
         }

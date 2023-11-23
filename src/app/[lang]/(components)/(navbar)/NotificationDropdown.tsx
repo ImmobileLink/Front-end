@@ -1,7 +1,7 @@
 
 "use client";
 import { Navbarbuttons } from "@/app/i18n/dictionaries/types";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { HiBell } from "react-icons/hi2";
 import { Notification } from "../(compositions)/(notification)";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -27,12 +27,12 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
     const supabase = clientSupabase()
     const router = useRouter()
 
-    const getNotifications = async (userId: string) => {
+    const getNotifications = useCallback(async (userId: string) => {
         const result = await getNotificationsAPI(userId, supabase)
         if (result) {
             toggleNotificationList(result)
         }
-    }
+    },[supabase, toggleNotificationList])
     
     const atualizaNotificacoes = async (itemId: string, userId: string) => {
         const result = await updateNotificationsAPI(itemId, userId, supabase)
@@ -42,7 +42,7 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
         }
     }
 
-    const checkNotSymbol = () => {
+    const checkNotSymbol = useCallback(() => {
         let checkNewNot: any[] = []
         let checkOldNot: any[] = []
         notificationList.map((item: any) => {
@@ -61,11 +61,11 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
         else {
             setNotification(false)
         }
-    }
+    },[newNot.length, notificationList])
 
     useEffect(() => {
         checkNotSymbol()
-    }, [notificationList])
+    }, [checkNotSymbol, notificationList])
 
     useEffect(() => {
         if (newNot.length > 0) {
@@ -95,7 +95,7 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
         return () => {
             subscription.unsubscribe();
         }
-    }, [])
+    }, [getNotifications, supabase, userId])
 
     useEffect(() => {
         const subscription = supabase.channel("Notification_updates")
@@ -115,7 +115,7 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
         return () => {
             subscription.unsubscribe();
         }
-    }, [])
+    }, [getNotifications, supabase, userId])
 
     const aceitarAssociacao = async (itemId: string) => {
         const result = await acceptAssociationAPI(itemId, supabase)
