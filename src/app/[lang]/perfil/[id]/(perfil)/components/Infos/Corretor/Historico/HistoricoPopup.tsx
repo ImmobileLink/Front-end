@@ -32,15 +32,16 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
         formState: { errors },
     } = useForm();
 
-    const defaultValues = {
-        nome_empresa: "",
-        data_inicio: "",
-        data_fim: "",
-        descricao: ""
-    }
+
     const [erro, setErro] = useState<string | undefined>(undefined)
 
     useEffect(() => {
+        const defaultValues = {
+            nome_empresa: "",
+            data_inicio: "",
+            data_fim: "",
+            descricao: ""
+        }
         if (props.idEditHistorico) {
             const data = historico?.find((item) => item.id === props.idEditHistorico);
 
@@ -52,11 +53,7 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
         } else {
             reset(defaultValues)
         }
-    }, [props.openModal])
-
-
-
-
+    }, [historico, props.idEditHistorico, props.openModal, reset, setValue])
 
     const onSubmit = async (data: any) => {
         setErro(undefined);

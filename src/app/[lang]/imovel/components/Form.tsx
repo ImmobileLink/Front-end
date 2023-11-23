@@ -142,29 +142,30 @@ export default function Form({ props }: FormProps) {
     setComplemento("");
   };
 
-  const autoCompletaEndereco = async () => {
-    isDisableInput(false);
-    const data = await getCEP(cep);
 
-    if (!data.erro) {
-      isNotFound(false);
-      setEstado(data.uf);
-      setCidade(data.localidade);
-      setBairro(data.bairro);
-      setRua(data.logradouro);
-      if (data.complemento != "") {
-        setComplemento(data.complemento);
-      }
-      isDisableInput(true);
-    } else {
-      isNotFound(true);
-      apagaCampos();
-      isDisableInput(false);
-    }
-    console.error(data.erro);
-  };
 
   useEffect(() => {
+    const autoCompletaEndereco = async () => {
+      isDisableInput(false);
+      const data = await getCEP(cep);
+
+      if (!data.erro) {
+        isNotFound(false);
+        setEstado(data.uf);
+        setCidade(data.localidade);
+        setBairro(data.bairro);
+        setRua(data.logradouro);
+        if (data.complemento != "") {
+          setComplemento(data.complemento);
+        }
+        isDisableInput(true);
+      } else {
+        isNotFound(true);
+        apagaCampos();
+        isDisableInput(false);
+      }
+      console.error(data.erro);
+    };
     isDisableInput(false);
     const regexCep = /^\d{8}$/;
     if (cep.length == 8) {

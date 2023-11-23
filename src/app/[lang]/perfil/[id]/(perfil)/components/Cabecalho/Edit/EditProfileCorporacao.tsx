@@ -67,6 +67,26 @@ export default function EditProfile({ data }: EditProfileProps) {
     const watchCep = watch("cep")
 
     useEffect(() => {
+        const autoCompletaEndereco = async (cleanedCep: string) => {
+            const data = await getCEP(cleanedCep);
+
+            if (!data.erro) {
+                setErrorCep(undefined)
+                setValue('cidade', data.localidade);
+                setValue('uf', data.uf);
+                setValue('bairro', data.bairro);
+                setValue('logradouro', data.logradouro);
+                setValue('site', data.site);
+                setValue('numero', null);
+                setValue('complemento', '');
+            } else {
+                setValue('cidade', '');
+                setValue('uf', '');
+                setValue('bairro', '');
+                setValue('logradouro', '');
+                setErrorCep("Esse cep não existe")
+            }
+        };
         const cleanedCep = watchCep?.replace(/\D/g, '');
         if (cleanedCep?.length == 8) {
             if (watchCep != defaultValues.cep) {
@@ -86,29 +106,10 @@ export default function EditProfile({ data }: EditProfileProps) {
                 });
             }
         }
-    }, [watchCep]);
+    }, [defaultValues.bairro, defaultValues.cep, defaultValues.cidade, defaultValues.complemento, defaultValues.logradouro, defaultValues.numero, defaultValues.site, defaultValues.uf, getValues, reset, setValue, watchCep]);
 
 
-    const autoCompletaEndereco = async (cleanedCep: string) => {
-        const data = await getCEP(cleanedCep);
 
-        if (!data.erro) {
-            setErrorCep(undefined)
-            setValue('cidade', data.localidade);
-            setValue('uf', data.uf);
-            setValue('bairro', data.bairro);
-            setValue('logradouro', data.logradouro);
-            setValue('site', data.site);
-            setValue('numero', null);
-            setValue('complemento', '');
-        } else {
-            setValue('cidade', '');
-            setValue('uf', '');
-            setValue('bairro', '');
-            setValue('logradouro', '');
-            setErrorCep("Esse cep não existe")
-        }
-    };
 
     const getCEP = async (cep: string) => {
         try {

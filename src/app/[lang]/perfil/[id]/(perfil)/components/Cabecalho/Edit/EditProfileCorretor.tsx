@@ -73,11 +73,32 @@ export default function EditProfile({ data }: EditProfileProps) {
             setImoveis(imoveis)
         }
         fetchData()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const watchCep = watch("cep")
 
     useEffect(() => {
+        const autoCompletaEndereco = async (cleanedCep: string) => {
+            const data = await getCEP(cleanedCep);
+            console.log(data)
+            if (!data.erro) {
+                setErrorCep(undefined)
+                setValue('cidade', data.localidade);
+                setValue('uf', data.uf);
+                setValue('bairro', data.bairro);
+                setValue('logradouro', data.logradouro);
+                setValue('numero', null);
+                setValue('complemento', '');
+
+            } else {
+                setValue('cidade', '');
+                setValue('bairro', '');
+                setValue('uf', '');
+                setValue('logradouro', '');
+                setErrorCep("Esse cep não existe")
+            }
+        };
         const cleanedCep = watchCep?.replace(/\D/g, '');
         if (cleanedCep?.length == 8) {
             if (watchCep != defaultValues.cep) {
@@ -96,29 +117,7 @@ export default function EditProfile({ data }: EditProfileProps) {
                 });
             }
         }
-    }, [watchCep]);
-
-
-    const autoCompletaEndereco = async (cleanedCep: string) => {
-        const data = await getCEP(cleanedCep);
-        console.log(data)
-        if (!data.erro) {
-            setErrorCep(undefined)
-            setValue('cidade', data.localidade);
-            setValue('uf', data.uf);
-            setValue('bairro', data.bairro);
-            setValue('logradouro', data.logradouro);
-            setValue('numero', null);
-            setValue('complemento', '');
-
-        } else {
-            setValue('cidade', '');
-            setValue('bairro', '');
-            setValue('uf', '');
-            setValue('logradouro', '');
-            setErrorCep("Esse cep não existe")
-        }
-    };
+    }, [defaultValues.bairro, defaultValues.cep, defaultValues.cidade, defaultValues.complemento, defaultValues.logradouro, defaultValues.numero, defaultValues.uf, getValues, reset, setValue, watchCep]);
 
     const getCEP = async (cep: string) => {
         try {
@@ -145,8 +144,6 @@ export default function EditProfile({ data }: EditProfileProps) {
         }
         return true;
     };
-
-
 
     return (
         <>

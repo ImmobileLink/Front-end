@@ -12,8 +12,6 @@ interface botaoAddProps {
 
 }
 
-
-
 export default function BotaoAssocia({ }: botaoAddProps) {
   const supabase = clientSupabase()
 
@@ -101,7 +99,7 @@ export default function BotaoAssocia({ }: botaoAddProps) {
       setLoading(false);
     }
     fetchData()
-  }, [])
+  }, [id.corporacao, id.corretor, idSession, supabase])
 
 
   const desassocia = async () => {

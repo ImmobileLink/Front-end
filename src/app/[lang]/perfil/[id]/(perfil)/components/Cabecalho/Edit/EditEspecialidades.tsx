@@ -41,11 +41,12 @@ export default function EditEspecialidades({ props, imoveis }: EditEspecialidade
             }
         }
         fetchData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
         setEspecialidades(especialidade);
-    }, [especialidade])
+    }, [especialidade, setEspecialidades])
 
     const addEspecialidade = async (id: any, descricao: any) => {
 
