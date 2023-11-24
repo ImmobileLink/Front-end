@@ -355,6 +355,7 @@ export interface Cards {
     mybrokers: string;
     myproperties: string;
     schedules: string;
+    links:string;
     visitmyprofile: string;
     notpremiumyet: string;
     premium: string;
