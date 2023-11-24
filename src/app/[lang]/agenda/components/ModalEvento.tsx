@@ -99,7 +99,7 @@ export default function ModalEvento({ isOpen, onClose, evento, dict, type, openE
             <hr className="h-px border-0 bg-gray-900 dark:bg-gray-200" />
           </div>
           <p><span className="font-bold">{dict.address}:</span>  {endereco}</p>
-          <div className="w-full max-h-64">
+          <div className="w-full max-h-64 mt-3">
             <Mapa endereco={endereco}/>
           </div>
         </Modal.Body>

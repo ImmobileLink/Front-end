@@ -6,7 +6,7 @@ interface MapaProps {
 
 export default function Mapa({ endereco }: MapaProps) {
 
-    const apiKey = '';
+    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_KEY;
 
     const url = `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${encodeURIComponent(endereco)}`;
 

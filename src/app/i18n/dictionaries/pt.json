@@ -5,7 +5,7 @@
         "settings": "Configurações",
         "schedule": "Visitas",
         "links": "Meus Links",
-        "relatedbrokers": "Corretores afiliados",
+        "relatedbrokers": "Corretores assiciados",
         "myrelatedcompany": "Empresa associada",
         "search": "Pesquisar",
         "subscription": "Planos",
@@ -273,8 +273,8 @@
             "connections": "Meus Links",
             "search": "Procurar",
             "nolinksyet": "Parece que você não tem nenhum Link ainda",
-            "relatedbrokers": "Corretores afiliados",
-            "norelatedbrokersyet": "Sem corretores afiliados por enquanto",
+            "relatedbrokers": "Corretores associados",
+            "norelatedbrokersyet": "Sem corretores associados por enquanto",
             "myrelatedcompany": "Empresa associada",
             "norelatedcompanyyet": "Sem corporações associadas por enquanto"
         },
@@ -746,7 +746,7 @@
     "mylinks": {
         "links": "Meus links",
         "companies": "Empresas associadas",
-        "brokers": "Corretores afiliados",
+        "brokers": "Corretores associados",
         "talk": "Conversar",
         "logs": {
             "errorwhilesearchingdata": "Ocorreu um erro ao buscar suas conexões. Por favor, tente novamente mais tarde.",
