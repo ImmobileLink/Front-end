@@ -1254,6 +1254,7 @@ export interface Database {
           criadoem: string
           atualizadoem: string
           issalvo: boolean
+          userpremium: boolean
         }[]
       }
       get_tipoimovel_by_idcorretor: {
@@ -1545,6 +1546,7 @@ export interface Database {
           cep_imovel: string
           complemento_imovel: string
           survey_id: string
+          survey_status: boolean
         }[]
       }
       obter_visitas_da_corporacao: {
@@ -1568,6 +1570,7 @@ export interface Database {
           cep_imovel: string
           complemento_imovel: string
           survey_id: string
+          survey_status: boolean
         }[]
       }
       obterespecialidade: {

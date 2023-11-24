@@ -33,7 +33,7 @@ export interface PublicacaoCompleta {
     criadoem: string;
     atualizadoem: string;
     issalvo: boolean;
-
+    userpremium: boolean;
 }
 
 export interface InsereImovel {
@@ -243,6 +243,7 @@ export interface VisitaProps {
     cep_imovel: string;
     complemento_imovel: string;
     survey_id: string;
+    survey_status: boolean;
 }
 
 export type Historico = {

@@ -1,4 +1,6 @@
 "use client";
+
+import { useInView } from 'react-intersection-observer'
 import { Feed } from "@/app/i18n/dictionaries/types";
 import { Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
@@ -20,6 +22,8 @@ interface PostListProps {
 const supabase = clientSupabase();
 
 export default function PostList({ idusuario, textos, profile, salvo }: PostListProps) {
+    const { ref, inView } = useInView()
+
     const [selectedState, setSelectedState] = useState<string>("");
     const [cities, setCities] = useState<City[]>([]);
     const [selectedCity, setSelectedCity] = useState<string>("");
@@ -27,12 +31,26 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
     const [filter, setFilter] = useState<number>(0);
 
     const [posts, setPosts] = useState<PublicacaoCompleta[]>([]);
+    const [lastPost, setLastPost] = useState(10);
+
+    const visiblePosts = posts.slice(0,lastPost);
+
     const [erro, setErro] = useState(false);
     const [logErro, setLogErro] = useState<string>();
     const [loading, setLoading] = useState<boolean>(false);
     const [newPost, setNewPost] = useState<PublicacaoCompleta>();
     const [deletePost, setDeletePost] = useState(false);
     const [pubid, setPubid] = useState("");
+
+    const printa = () => {
+        setLastPost(lastPost + 5);
+    }
+
+    useEffect(() => {
+    if (inView) {
+        printa()
+    }
+    }, [inView])
 
     //atualiza o select das cidades quando muda o estado
     useEffect(() => {
@@ -555,7 +573,7 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                         {erro && (
                             <p className="flex justify-center">{logErro}</p>
                         )}
-                        {posts!.map((item: PublicacaoCompleta) => {
+                        {visiblePosts!!.map((item: PublicacaoCompleta) => {
                             return (
                                 <PostItem
                                     dict={textos}
@@ -567,6 +585,7 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                                 />
                             );
                         })}
+                        <div className='h-10' ref={ref}></div>
                     </>
                 )}
             </div>

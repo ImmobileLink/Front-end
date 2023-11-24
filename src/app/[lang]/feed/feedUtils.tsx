@@ -77,8 +77,7 @@ export async function removerPublicacaoSalvaAPI(userId: string, idpublicacao: st
 export async function getPublicacoesSalvasAPI(userId: string | undefined, supabase: any) {
     const { data, error } = await supabase
         .rpc("get_publicacoes_salvas", { idusuario: userId })
-        .order("atualizadoem", { ascending: false })
-        .limit(10);
+        .limit(100);
     if (error) {
         console.log(error)
         return false
@@ -92,8 +91,7 @@ export async function getPublicacoesSalvasPorEstadoAPI(userId: string | undefine
     let { data, error } = await supabase
         .rpc("get_publicacoes_salvas", { idusuario: userId })
         .eq("regiao", JSON.stringify(estado))
-        .order("atualizadoem", { ascending: false })
-        .limit(10);
+        .limit(100);
     if (error) {
         console.log(error)
         return false
@@ -110,8 +108,7 @@ export async function getPublicacoesSalvasPorEstadoCidadeAPI(userId: string | un
             cidade: cidade,
             estado: estado,
         }))
-        .order("atualizadoem", { ascending: false })
-        .limit(10);
+        .limit(100);
     if (error) {
         console.log(error)
         return false

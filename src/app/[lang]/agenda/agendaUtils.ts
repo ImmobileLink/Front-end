@@ -42,7 +42,8 @@ export const deleteVisita = async (supabase: any, id: string) => {
 
 export const enviaEmail = async (clientEmail: string, clientName: string, visitDate: string, surveyId: string) => {
   try {
-    const url = 'http://localhost:3000/api/survey';
+    // const url = 'http://localhost:3000/api/survey'; para testes
+    const url = '/api/survey';
 
     let schedule = new Date();
     schedule.setMinutes(schedule.getMinutes() + 3);

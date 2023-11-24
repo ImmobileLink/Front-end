@@ -17,6 +17,7 @@ import { useState } from "react";
 import { clientSupabase } from "lib/utils/clientSupabase";
 import { removerPublicacaoSalvaAPI, salvarPublicacaoAPI } from "../feedUtils";
 import ModalExcluir from "./ModalExcluir";
+import { MdWorkspacePremium } from "react-icons/md";
 
 interface PostItemProps {
     publicacao: PublicacaoCompleta;
@@ -73,7 +74,10 @@ export default function PostItem({
                             >
                                 <Avatar route={publicacao.avatar} id={publicacao.idautor} />
                                 <div>
+                                    <div className="flex items-end justify-center">
                                     <p>{publicacao.nomeautor}</p>
+                                    <p>{publicacao.userpremium && <MdWorkspacePremium className="w-4 h-4 text-yellow-400" title="Premium"/>}</p>
+                                    </div>
                                     <p className="text-xs">
                                         {formataData(
                                             publicacao.criadoem,
