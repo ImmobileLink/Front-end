@@ -16,9 +16,10 @@ interface ChatHubCardProps {
     userAvatar: string;
     highlight: boolean;
     selected: boolean;
+    userType: string;
 }
 
-export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar, highlight, selected }: ChatHubCardProps) {
+export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar, highlight, selected,userType }: ChatHubCardProps) {
     const { toggleChatView } = useContext(ChatContext)
     const router = useRouter()
 
@@ -55,7 +56,7 @@ export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar
                     }`}
             >
                 <div className="mr-2 min-w-fit">
-                    <Avatar key={idsala} size={14} route={userAvatar} id={mensagem!.idautor}/>
+                    <Avatar key={idsala} size={14} route={userAvatar} id={userType=="corretor" ? mensagem!.idparticipante : mensagem!.idautor}/>
                 </div>
                 <div
                     className={`flex flex-col truncate`}
