@@ -567,6 +567,10 @@ export interface Notificationlabels {
     acceptedvisit: string;
     refusedvisit: string;
     updatedvisit: string;
+    acceptedconnection: string
+    refusedconnection: string
+    acceptedassociation: string
+    refusedassociation: string
 }
 
 export interface Pesquisa {

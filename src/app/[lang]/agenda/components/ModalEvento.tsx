@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { Modal, Spinner } from 'flowbite-react';
 import { clientSupabase } from 'lib/utils/clientSupabase';
 import { deleteVisita, enviaEmail } from '../agendaUtils';
+import { refuseVisitAPI } from '../../(components)/(navbar)/navbarUtils';
 
 interface ModalEventoProps {
   isOpen: boolean;
@@ -40,7 +41,7 @@ export default function ModalEvento({ isOpen, onClose, evento, dict, type, openE
   const handleDeletaEvento = async () => {
     setLoadingDelete(true);
     if (window.confirm(dict.delete + "\n" + dict.cannotbeundone)) {
-      await deleteVisita(supabase, evento!.visita_id);
+      await refuseVisitAPI(evento!.visita_id, supabase)
       toast.success(dict.logs.visitok);
       router.refresh();
       onClose();
