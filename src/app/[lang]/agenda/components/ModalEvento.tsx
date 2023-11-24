@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { Modal, Spinner } from 'flowbite-react';
 import { clientSupabase } from 'lib/utils/clientSupabase';
 import { deleteVisita, enviaEmail } from '../agendaUtils';
+import Mapa from './Mapa';
 
 interface ModalEventoProps {
   isOpen: boolean;
@@ -25,7 +26,7 @@ interface ModalEventoProps {
 
 export default function ModalEvento({ isOpen, onClose, evento, dict, type, openEditModal }: ModalEventoProps) {
   const supabase = clientSupabase();
-  
+
   const router = useRouter();
 
   const [loadingEmail, setLoadingEmail] = useState(false)
@@ -53,10 +54,10 @@ export default function ModalEvento({ isOpen, onClose, evento, dict, type, openE
     setLoadingEmail(true);
     if (window.confirm(dict.sendsurvey)) {
       const data = await enviaEmail(evento!.email_marcador, evento!.nome_marcador, evento!.data_agendamento, evento!.survey_id);
-      
+
       alert(JSON.stringify(data));
 
-      if(data) {
+      if (data) {
         toast.success(dict.logs.emailok);
       } else {
         toast.error(dict.logs.emailerror);
@@ -98,6 +99,9 @@ export default function ModalEvento({ isOpen, onClose, evento, dict, type, openE
             <hr className="h-px border-0 bg-gray-900 dark:bg-gray-200" />
           </div>
           <p><span className="font-bold">{dict.address}:</span>  {endereco}</p>
+          <div className="w-full max-h-64 mt-3">
+            <Mapa endereco={endereco}/>
+          </div>
         </Modal.Body>
         <Modal.Footer className='flex justify-center items-center'>
           <button
@@ -119,7 +123,7 @@ export default function ModalEvento({ isOpen, onClose, evento, dict, type, openE
             className="px-8 py-2.5 bg-red-400 hover:bg-red-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 disabled:cursor-not-allowed"
             onClick={handleDeletaEvento}
           >
-            {loadingDelete ? <Spinner /> :<LiaTrashAltSolid className="h-5 w-5" />}
+            {loadingDelete ? <Spinner /> : <LiaTrashAltSolid className="h-5 w-5" />}
           </button>
         </Modal.Footer>
       </Modal.Body>
