@@ -12,14 +12,14 @@ import { clientSupabase } from "lib/utils/clientSupabase";
 interface PostListProps {
     textos: Feed;
     idusuario?: string;
-    profile?: boolean;
+    idprofile?: string;
     salvo?: boolean;
 }
 
 // const supabase = createServerComponentClient<Database>({ cookies });
 const supabase = clientSupabase();
 
-export default function PostList({ idusuario, textos, profile, salvo }: PostListProps) {
+export default function PostList({ idusuario, textos, idprofile, salvo }: PostListProps) {
     const [selectedState, setSelectedState] = useState<string>("");
     const [cities, setCities] = useState<City[]>([]);
     const [selectedCity, setSelectedCity] = useState<string>("");
@@ -51,7 +51,7 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
     }, [selectedState]);
 
     useEffect(() => {
-        if (!profile) {
+        if (!idprofile) {
             getPosts(filter, selectedState, selectedCity);
         } else {
             if (salvo) {
@@ -79,7 +79,7 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                 //faz consulta ao bd
                 {
                     let response = await supabase
-                        .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
+                        .rpc("get_publicacoes_salvas", { idusuario: idprofile! })
                         .eq("issalvo", true)
                         .order("atualizadoem", { ascending: false })
                         .limit(10);
@@ -118,7 +118,7 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                 if (selectedState != "") {
                     //faz consulta ao bd
                     let response = await supabase
-                        .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
+                        .rpc("get_publicacoes_salvas", { idusuario: idprofile! })
                         .eq("issalvo", true)
                         .order("atualizadoem", { ascending: false })
                         .limit(10);
@@ -155,7 +155,7 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                 if (selectedState != "" && selectedCity != "") {
                     //faz consulta ao bd
                     let response = await supabase
-                        .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
+                        .rpc("get_publicacoes_salvas", { idusuario: idprofile! })
                         .eq("issalvo", true)
                         .order("atualizadoem", { ascending: false })
                         .limit(10);
@@ -325,7 +325,7 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                             idusuario: idusuario!,
                         })
                         .order("atualizadoem", { ascending: false })
-                        .eq('idautor', idusuario!)
+                        .eq('idautor', idprofile!)
                         .limit(10);
                     let { data, error } = response;
                     if (error) {
@@ -362,11 +362,11 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                     //faz consulta ao bd
                     let response = await supabase
                         .rpc("get_publicacoes_salvas", {
-                            idusuario: idusuario!,
+                            idusuario: idprofile!,
                         })
                         .contains("regiao", { estado: selectedState! })
                         .order("atualizadoem", { ascending: false })
-                        .eq('idautor', idusuario!)
+                        .eq('idautor', idprofile!)
                         .limit(10);
                     let { data, error } = response;
                     if (error) {
@@ -417,7 +417,7 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                     }
                     //faz consulta ao bd
                     let response = await supabase
-                        .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
+                        .rpc("get_publicacoes_salvas", { idusuario: idprofile! })
                         .eq("issalvo", true)
                         .order("atualizadoem", { ascending: false })
                         .limit(10);

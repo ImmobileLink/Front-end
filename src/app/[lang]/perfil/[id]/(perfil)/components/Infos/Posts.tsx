@@ -7,7 +7,8 @@ interface PostsProps {}
 
 export default function Posts({}: PostsProps) {
     const textos = useProfileStore.getState().dict?.feed!;
-    const id = useProfileStore.getState().profileData?.id;
+    const id = useProfileStore.getState().sessionData?.id;
+    const idProfile = useProfileStore.getState().profileData?.id;
     return (
         <div className="m-3">
             {/**
@@ -24,7 +25,7 @@ export default function Posts({}: PostsProps) {
                 // O response é interessante de se manter caso queira ver o corpo completo da requisição
                 // e por conseguinte verificar que ela está de fato retornando tudo que é esperado.
              */}
-            <PostList idusuario={id} textos={textos} profile={true}/>
+            <PostList idusuario={id} textos={textos} idprofile={idProfile}/>
         </div>
     );
 }
