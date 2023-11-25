@@ -56,28 +56,23 @@ export async function getCountImovel(userId: string, supabase: any) {
     }
 }
 
-export async function getPropertiesAPI(userId: string, supabase: any) {
-    const { data, error } = await supabase
-        .from("imovel")
-        .select("*")
-        .eq("idcorporacao", userId);
-    if (error) {
-        console.log(error)
-        return false
-    } else {
-        return data
+export async function getPropertiesAPI(userId: string | undefined, supabase: any) {
+    if (userId) {
+        const { data, error } = await supabase
+            .from("imovel")
+            .select("*")
+            .eq("idcorporacao", userId);
+        if (error) {
+            console.log(error)
+            return false
+        } else {
+            return data
+        }
     }
 }
 
-export async function imageEditAPI(userId: string, imagem: string, imagemId: string, img: File, supabase: any) {
-    let { error } = await supabase.storage
-        .from("imoveis") // Nome do bucket no Supabase
-        .remove([`${userId}/${imagem}`]);
-    if (error) {
-        console.log(error)
-        return false
-    }
-    else {
+export async function imageEditAPI(userId: string, imagem: string | null, imagemId: string, img: File, supabase: any) {
+    const storageInsert = async () => {
         let { error } = await supabase.storage
             .from("imoveis") // Nome do bucket no Supabase
             .upload(userId + "/" + imagemId, img!, {
@@ -91,19 +86,39 @@ export async function imageEditAPI(userId: string, imagem: string, imagemId: str
             return imagemId
         }
     }
-}
-
-export async function imovelEditAPI(imagemId: string, imovelId: string, supabase: any) {
-    const { error } = await supabase
-        .from("imovel")
-        .update({ imagem: imagemId })
-        .eq("id", imovelId);
-    if (error) {
-        console.log(error)
-        return false
+    if (imagem) {
+        let { error } = await supabase.storage
+            .from("imoveis") // Nome do bucket no Supabase
+            .remove([`${userId}/${imagem}`]);
+        if (error) {
+            console.log(error)
+            return false
+        }
+        else {
+            return await storageInsert()
+        }
     }
     else {
-        return true
+        return await storageInsert()
+    }
+}
+
+export async function imovelEditAPI(imagemId: string | boolean | undefined, imovelId: string, supabase: any) {
+    if (typeof imagemId === 'string') {
+        const { error } = await supabase
+            .from("imovel")
+            .update({ imagem: imagemId })
+            .eq("id", imovelId);
+        if (error) {
+            console.log(error)
+            return false
+        }
+        else {
+            return true
+        }
+    }
+    else {
+        return false
     }
 }
 
@@ -125,7 +140,7 @@ export async function cadastrarImovelAPI(imovel: InsereImovel, supabase: any) {
         .from("imovel")
         .insert(imovel)
         .select();
-    if(error) {
+    if (error) {
         console.log(error)
         return false
     }
@@ -137,9 +152,9 @@ export async function cadastrarImovelAPI(imovel: InsereImovel, supabase: any) {
 export async function insereVisitaAPI(visita: InsereVisita, supabase: any) {
     const { error } = await supabase.from("visita").insert(visita);
     if (error) {
-      console.error(error);
-      return false
+        console.error(error);
+        return false
     } else {
-      return true
+        return true
     }
 }

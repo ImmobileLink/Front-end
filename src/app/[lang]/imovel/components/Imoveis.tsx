@@ -26,13 +26,14 @@ interface ImoveisProps {
     mobilias: TipoImovel[];
     condicoes: TipoImovel[];
     corretor: CorretorAssociado[];
+    imovelproperties: any;
   }
 }
 
 const supabase = createClientComponentClient<Database>();
 
 export default function Imoveis({ props }: ImoveisProps) {
-  const [properties, setProperties] = useState<ImovelRegistro[]>([]); //imoveis
+  const [properties, setProperties] = useState<ImovelRegistro[]>(props.imovelproperties); //imoveis
   const [loading, setLoading] = useState(true);
   const [formOpen, setFormOpen] = useState(false);
 
@@ -46,9 +47,8 @@ export default function Imoveis({ props }: ImoveisProps) {
     async function getProperties() {
       if (userid) {
         const result = await getPropertiesAPI(userid, supabase)
-        if(result) {
+        if (result) {
           setProperties(result);
-          console.log("properties:" + result)
           setLoading(false);
         }
         else {
@@ -57,7 +57,7 @@ export default function Imoveis({ props }: ImoveisProps) {
       }
     }
     getProperties();
-  });
+  }, [userid]);
 
   useEffect(() => {
     const subscription = supabase
@@ -97,7 +97,7 @@ export default function Imoveis({ props }: ImoveisProps) {
     return () => {
       subscription.unsubscribe();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

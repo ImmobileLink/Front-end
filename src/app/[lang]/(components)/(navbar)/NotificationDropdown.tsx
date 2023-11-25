@@ -95,7 +95,8 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
         return () => {
             subscription.unsubscribe();
         }
-    }, [getNotifications, supabase, userId])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
         const subscription = supabase.channel("Notification_updates")
