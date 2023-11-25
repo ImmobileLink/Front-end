@@ -261,7 +261,7 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                     //verifica se tem algum estado/cidade selecionados
                     if (selectedState != "" && selectedCity != "") {
                         if (selectedState && selectedCity) {
-                            let data = await getPublicacoesSalvasPorEstadoCidadeAPI(idusuario, selectedCity, selectedState, supabase);
+                            let data = await getPublicacoesSalvasPorEstadoCidadeAPI(idusuario, selectedState, selectedCity, supabase);
                             //atualiza o estado dos posts
                             //se retornar 1+ posts mapeia na tela
                             if (data) {
@@ -458,7 +458,7 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
 
 
     return (
-       <div>
+        <div>
             <div className="w-full md:flex inline-table md:justify-between my-4 md:my-0 md:h-12 align-middle place-self-center">
                 <div className="flex items-center h-full">
                     <div className="w-20 text-sm font-medium">
@@ -492,8 +492,8 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                                 defaultValue={textos.form.cityselector.estate}
                                 onChange={(e) => {
                                     setSelectedState(e.target.value);
-                                    console.log(e.target.value)
-                                    console.log(selectedState)
+                                    //console.log(e.target.value)
+                                    //console.log(selectedState)
                                 }}
                                 className="block py-1 px-0 w-20 mr-4 text-sm text-gray-500 bg-transparent border-0 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer hover:cursor-pointer"
                             >
@@ -571,7 +571,7 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                     </>
                 )}
             </div>
-          
-       </div>
+
+        </div>
     );
 }
