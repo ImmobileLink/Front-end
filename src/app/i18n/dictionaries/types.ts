@@ -449,6 +449,8 @@ export interface Imovel {
     mainlabels: Mainlabels;
     formlabels: Formlabels;
     newproperty: Newproperty;
+    oldproperty: Oldproperty;
+    deleteproperty: Deleteproperty;
 }
 
 export interface Formlabels {
@@ -469,16 +471,9 @@ export interface Formlabels {
     date: string;
     time: string;
     loading: string;
+    success: string;
+    checkcalendar: string;
     formlogs: Formlogs;
-    editimg: Editimg;
-}
-
-export interface Editimg {
-    title: string;
-    imageupload: string;
-    imageformat: string;
-    loading: string;
-    confirm: string;
 }
 
 export interface Formlogs {
@@ -498,6 +493,8 @@ export interface Infoproperty {
 export interface Mainlabels {
     title: string;
     delegatevisit: string;
+    edit: string;
+    delete: string;
 }
 
 export interface Newproperty {
@@ -534,6 +531,26 @@ export interface Newpropertylogs {
     invalidstreet: string;
     invalidnumber: string;
     invalidprice: string;
+}
+
+export interface Oldproperty {
+  editproperty: string;
+  confirm: string;
+}
+
+export interface Deleteproperty {
+    title: string;
+    msg: string;
+    delete: string;
+    cancel: string;
+    loading: string;
+    deletepropertylogs: Deletepropertylogs;
+}
+
+export interface Deletepropertylogs {
+    success: string;
+    error1: string;
+    error2: string;
 }
 
 export interface Navbarbuttons {

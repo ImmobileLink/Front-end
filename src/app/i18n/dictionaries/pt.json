@@ -555,7 +555,9 @@
     "imovel": {
         "mainlabels": {
             "title": "Meus Imóveis",
-            "delegatevisit": "Delegar Visita"
+            "delegatevisit": "Delegar Visita",
+            "edit": "Editar",
+            "delete": "Excluir"
         },
         "formlabels": {
             "infoproperty": {
@@ -579,19 +581,14 @@
             "date": "Data",
             "time": "Horário",
             "loading": "Carregando",
+            "success": "Visita agendada com sucesso!",
+            "checkcalendar": "Ver Calendário",
             "formlogs": {
                 "invalidname": "O nome precisa ter no mínimo 4 caracteres, não incluindo números ou caracteres especiais",
                 "invalidphone": "O telefone precisa ter 10 ou 11 caracteres",
                 "invalidemail": "Insira um email válido",
                 "invaliddate": "Selecione uma data válida",
                 "invalidtime": "Selecione um horário válido"
-            },
-            "editimg": {
-                "title": "Alterar Imagem do Imóvel",
-                "imageupload": "Clique para fazer upload ou arraste e solte",
-                "imageformat": "PNG, JPG ou JPEG (MAX. 800x400px).",
-                "loading": "Carregando",
-                "confirm": "Confirmar"
             }
         },
         "newproperty": {
@@ -626,6 +623,22 @@
                 "invalidnumber": "O número da residência não pode ser negativo",
                 "invalidprice": "Coloque, no máximo, duas casas decimais"
             }
+        },
+        "oldproperty": {
+          "editproperty": "Editar Imóvel",
+          "confirm": "Confirmar"
+        },
+        "deleteproperty": {
+          "title": "Excluir este imóvel?",
+          "msg": "Essa ação não pode ser desfeita.",
+          "delete": "Excluir",
+          "cancel": "Cancelar",
+          "loading": "Carregando",
+          "deletepropertylogs": {
+            "success": "Imóvel excluído com sucesso!",
+            "error1": "Ops! Algo deu errado.",
+            "error2": "Não foi possível excluir o imóvel devido à existência de visitas agendadas."
+          }
         }
     },
     "chat": {

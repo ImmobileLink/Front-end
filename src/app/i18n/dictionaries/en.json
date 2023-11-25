@@ -566,7 +566,9 @@
     "imovel": {
         "mainlabels": {
             "title": "My Properties",
-            "delegatevisit": "Delegate Visit"
+            "delegatevisit": "Delegate Visit",
+            "edit": "Edit",
+            "delete": "Delete"
         },
         "formlabels": {
             "infoproperty": {
@@ -596,13 +598,6 @@
                 "invalidemail": "Enter a valid email",
                 "invaliddate": "Select a valid date",
                 "invalidtime": "Select a valid time"
-            },
-            "editimg": {
-                "title": "Change Property Image",
-                "imageupload": "Click to upload or drag and drop",
-                "imageformat": "PNG, JPG ou JPEG (MAX. 800x400px).",
-                "loading": "Loading",
-                "confirm": "Confirm"
             }
         },
         "newproperty": {
@@ -627,6 +622,8 @@
             "imageupload": "Upload Image",
             "imageformat": "PNG, JPG or JPEG (MAX. 800x400px).",
             "loading": "Loading",
+            "success": "Visit scheduled successfully!",
+            "checkcalendar": "Check Calendar",
             "newpropertylogs": {
                 "invalidcep": "Invalid zip code",
                 "invalidcepnotfound": "Zip code not found",
@@ -637,6 +634,22 @@
                 "invalidnumber": "The property number cannot be negative",
                 "invalidprice": "Enter a maximum of two decimal places"
             }
+        },
+        "oldproperty": {
+          "editproperty": "Edit Property",
+          "confirm": "Confirm"
+        },
+        "deleteproperty": {
+          "title": "Delete this property?",
+          "msg": "This action cannot be undone.",
+          "delete": "Delete",
+          "cancel": "Cancel",
+          "loading": "Loading",
+          "deletepropertylogs": {
+            "success": "Property successfully deleted!",
+            "error1": "Oops! Something went wrong.",
+            "error2": "It was not possible to delete the property due to scheduled visits."
+          }
         }
     },
     "chat": {

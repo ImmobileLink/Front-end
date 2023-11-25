@@ -36,6 +36,8 @@ export default function Imoveis({ props }: ImoveisProps) {
   const [properties, setProperties] = useState<ImovelRegistro[]>(props.imovelproperties); //imoveis
   const [loading, setLoading] = useState(true);
   const [formOpen, setFormOpen] = useState(false);
+  const [editFormOpen, setEditFormOpen] = useState(false);
+  const [editImovel, setEditImovel] = useState<ImovelRegistro>();
 
   let userid: string | undefined = "";
   if (props.userData) {
@@ -101,19 +103,44 @@ export default function Imoveis({ props }: ImoveisProps) {
   }, []);
 
   useEffect(() => {
-    if (formOpen === true) {
+    const subscription = supabase
+      .channel("property_delete")
+      .on(
+        "postgres_changes",
+        {
+          event: "DELETE",
+          schema: "public",
+          table: "imovel",
+          filter: `idcorporacao=eq.${userid}`,
+        },
+        async (payload) => {
+          setProperties((properties: ImovelRegistro[]) => {
+            return properties.filter(
+              (property) => property.id !== payload.old.id
+            );
+          });
+        }
+      )
+      .subscribe();
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (formOpen || editFormOpen) {
       document.body.classList.add("overflow-y-hidden");
     } else {
       document.body.classList.remove("overflow-y-hidden");
     }
-  }, [formOpen]);
+  }, [formOpen, editFormOpen]);
 
   return (
     <>
       <div className="w-screen">
         <div className="rounded-md bg-white dark:bg-gray-700 dark:ring-gray-600 drop-shadow-md px-3 py-4 mb-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl sm:text-3xl text-black dark:text-white">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-black dark:text-white">
               {props.textos.mainlabels.title}
             </h2>
             <div>
@@ -149,10 +176,14 @@ export default function Imoveis({ props }: ImoveisProps) {
             properties!.map((imovel: ImovelRegistro) => {
               return (
                 <ImovelCard
+                  props={{
+                    userid,
+                    textos: props.textos,
+                    setFormOpen: setEditFormOpen,
+                    setEditImovel
+                  }}
                   key={imovel.id}
-                  textos={props.textos}
                   imovel={imovel}
-                  userid={userid}
                   corretor={props.corretor}
                 />
               );
@@ -175,6 +206,22 @@ export default function Imoveis({ props }: ImoveisProps) {
             }}
           />
         </div>
+      ) : editFormOpen ? (
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 z-50 overflow-auto flex overflow-y-auto overflow-x-hidden">
+            <Form
+              props={{
+                userid,
+                textos: props.textos,
+                tipos: props.tipos,
+                outros: props.outros,
+                mobilias: props.mobilias,
+                condicoes: props.condicoes,
+                formOpen: editFormOpen,
+                setFormOpen: setEditFormOpen,
+              }}
+              imovel={editImovel}
+            />
+          </div>
       ) : (
         false
       )}

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import {
   CorretorAssociado,
   ImovelRegistro,
@@ -7,46 +7,69 @@ import {
 import { Imovel } from "@/app/i18n/dictionaries/types";
 import ImovelImg from "./ImovelImg";
 import VisitaCard from "./VisitaCard";
+import { Dropdown, FlowbiteDropdownFloatingTheme, FlowbiteDropdownTheme } from 'flowbite-react';
+import { HiDotsHorizontal, HiTrash } from "react-icons/hi";
+import DeleteModal from "./DeleteModal";
+import { AiFillEdit } from "react-icons/ai";
 
 interface ImovelCardProps {
-  textos: Imovel;
+  props: {
+    userid: string | undefined;
+    textos: Imovel;
+    setFormOpen: Dispatch<SetStateAction<boolean>>;
+    setEditImovel: Function;
+  };
   imovel: ImovelRegistro;
-  userid: string | undefined;
   corretor: CorretorAssociado[];
 }
 
 export default function ImovelCard({
-  textos,
+  props,
   imovel,
-  userid,
   corretor
 }: ImovelCardProps) {
-  const [formOpen, setFormOpen] = useState(false);
+  const [visitForm, setVisitForm] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
 
-/*
-  const handleDeletarImovel = async () => {
-    // Apagar o arquivo
-    if (imovel.imagem?.length !== 0) {
-      let { data, error } = await supabase.storage.from("imoveis").remove(userid + "/" + imovel.imagem);
-      if (error) {
-        console.error(error);
-      }
-    }
-
-    const { error } = await supabase.from("imovel").delete().eq("id", imovel.id);
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Imóvel removido com sucesso");
-    }
-  };
-*/
+  const customTheme: FlowbiteDropdownTheme = {
+    "arrowIcon": "ml-2 h-4 w-4",
+    "content": "py-1 focus:outline-none",
+    "floating": {
+      "animation": "transition-opacity",
+      "arrow": {
+        "base": "absolute z-10 h-2 w-2 rotate-45",
+        "style": {
+          "dark": "bg-gray-900 dark:bg-gray-700",
+          "light": "bg-white",
+          "auto": "bg-white dark:bg-gray-700"
+        },
+        "placement": "-4px"
+      },
+      "base": "z-10 w-fit rounded divide-y divide-gray-100 shadow focus:outline-none",
+      "content": "py-1 text-sm text-gray-700 dark:text-gray-200",
+      "divider": "my-1 h-px bg-gray-100 dark:bg-gray-600",
+      "header": "block py-2 px-4 text-sm text-gray-700 dark:text-gray-200",
+      "hidden": "invisible opacity-0",
+      "item": {
+        "container": "",
+        "base": "flex items-center justify-start py-2 px-4 text-sm text-gray-700 cursor-pointer w-full hover:bg-gray-100 focus:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 focus:outline-none dark:hover:text-white dark:focus:bg-gray-600 dark:focus:text-white",
+        "icon": "mr-2 h-4 w-4"
+      },
+      "style": {
+        "dark": "bg-gray-900 text-white dark:bg-gray-700",
+        "light": "border border-gray-200 bg-white text-gray-900",
+        "auto": "border border-gray-200 bg-white text-gray-900 dark:border-dark-100 dark:bg-gray-700 dark:text-white"
+      },
+      "target": "w-fit"
+    },
+    "inlineWrapper": "flex items-center" 
+  }
 
   return (
       <div className="shadow p-4 rounded-lg bg-white dark:bg-gray-700 drop-shadow-md">
         <div className="relative overflow-hidden bg-cover bg-no-repeat">
             <ImovelImg
-              usuarioId={userid!}
+              usuarioId={props.userid!}
               imagemId={imovel!.imagem!}
               smHeight="sm:h-56"
               lgHeight="lg:h-48"
@@ -54,13 +77,51 @@ export default function ImovelCard({
         </div>
 
         <div className="mt-2 sm:mt-4 text-gray-800 dark:text-white">
-          <h2 className="font-medium text-base line-clamp-1">
-            {`${imovel!.rua}, ${imovel!.numero}`}
-          </h2>
+          <div className="flex justify-between">
+            <h2 className="font-medium text-base line-clamp-1">
+              {`${imovel!.rua}, ${imovel!.numero}`}
+            </h2>
+            <div className="flex items-center">
+              <Dropdown inline placement="bottom-end" label="" theme={customTheme} dismissOnClick={false} renderTrigger={() => <button type="button"><HiDotsHorizontal size={20} /></button>}>
+                <Dropdown.Item onClick={() => {
+                    props.setEditImovel(imovel)
+                    props.setFormOpen(true)
+                  }}>
+                  <span
+                    className="block text-sm font-medium w-20 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600"
+                  >
+                    <div className="flex">
+                      <AiFillEdit size={20} className="mr-2" />
+                      {props.textos.mainlabels.edit}
+                    </div>
+                  </span>
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => setDeleteModal(true)}>
+                  <span
+                    className="block text-sm font-medium w-20 text-red-600 hover:bg-gray-100 dark:font-bold dark:text-red-500 dark:hover:bg-gray-600"
+                  >
+                    <div className="flex">
+                      <HiTrash size={20} className="mr-2" />
+                      {props.textos.mainlabels.delete}
+                    </div>
+                  </span>
+                </Dropdown.Item>
+              </Dropdown>
+            </div>
+          </div>
           <p className="mt-2 text-sm line-clamp-1">
             {`${imovel!.bairro} - ${imovel!.cidade}/${imovel!.estado}`}
           </p>
         </div>
+        {
+          deleteModal && <DeleteModal props={{
+            userid: props.userid,
+            textos: props.textos.deleteproperty,
+            imovel,
+            deleteModal,
+            setDeleteModal
+          }} />
+        }
 
         <div className="grid grid-cols-2 gap-4 mt-4">
           <p className="inline-flex flex-col text-gray-800 dark:text-white">
@@ -132,23 +193,23 @@ export default function ImovelCard({
           <div className="flex">
             <button
               onClick={() => {
-                setFormOpen(true);
+                setVisitForm(true);
               }}
               className="p-2 w-full self-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg  text-sm py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 transition ease-in duration-200 text-center focus:ring-offset-2"
             >
-              {textos.mainlabels.delegatevisit}
+              {props.textos.mainlabels.delegatevisit}
             </button>
           </div>
         </div>
-        {formOpen ? (
+        {visitForm ? (
           <VisitaCard
             props={{
-              formlabels: textos.formlabels,
+              formlabels: props.textos.formlabels,
               imovel,
               corretor,
-              userid,
-              formOpen,
-              setFormOpen,
+              userid: props.userid,
+              visitForm,
+              setVisitForm,
             }}
           />
         ) : (
