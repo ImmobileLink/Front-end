@@ -13,16 +13,16 @@ export default function Avatar({id, route, size }: AvatarProps) {
   const path = route == "nopfp" ? "users/profile_picture/nopfp" : `users/${id}/profile_picture/${route}`
 
   if (size == "l") {
-    styleImage = "w-32 h-32 m-2 rounded-full ring-1 ring-gray-400";
+    styleImage = "w-32 h-32 m-2 rounded-full ring-1 ring-gray-400 object-cover";
   } else if (size == "m") {
-    styleImage = "w-16 h-16 m-2 rounded-full ring-1 ring-gray-400";
+    styleImage = "w-16 h-16 m-2 rounded-full ring-1 ring-gray-400 object-cover";
   } else if (size == "s") {
-    styleImage = "w-14 h-14 m-2 rounded-full ring-1 ring-gray-400";
+    styleImage = "w-14 h-14 m-2 rounded-full ring-1 ring-gray-400 object-cover";
   } else {
     if (typeof size === "number") {
-      styleImage = `h-${size} w-${size} m-2 rounded-full ring-1 ring-gray-400`;
+      styleImage = `h-${size} w-${size} m-2 rounded-full ring-1 ring-gray-400 object-cover`;
     } else {
-      styleImage = "h-14 w-14 m-2 rounded-full ring-1 ring-gray-400";
+      styleImage = "h-14 w-14 m-2 rounded-full ring-1 ring-gray-400 object-cover";
     }
   }
 

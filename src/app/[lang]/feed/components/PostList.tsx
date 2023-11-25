@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { City, PublicacaoCompleta } from "../../../../../lib/modelos";
 import { _UFs, fetchCitiesAPI } from "../../../../../lib/utils/externalApis";
 import PostItem from "./PostItem";
-import ModalExcluir from "./ModalExcluir";
 import {
     getPublicacoesSalvasAPI,
     getPublicacoesSalvasPorEstadoAPI,
@@ -16,19 +15,14 @@ import { clientSupabase } from "lib/utils/clientSupabase";
 interface PostListProps {
     textos: Feed;
     idusuario?: string;
-    profile?: boolean;
+    idprofile?: string;
     salvo?: boolean;
 }
 
 // const supabase = createServerComponentClient<Database>({ cookies });
 const supabase = clientSupabase();
 
-export default function PostList({
-    idusuario,
-    textos,
-    profile,
-    salvo,
-}: PostListProps) {
+export default function PostList({ idusuario, textos, idprofile, salvo }: PostListProps) {
     const [selectedState, setSelectedState] = useState<string>("");
     const [cities, setCities] = useState<City[]>([]);
     const [selectedCity, setSelectedCity] = useState<string>("");
@@ -47,34 +41,32 @@ export default function PostList({
         const getPostsSalvoProfile = async (
             filter: number,
             selectedState?: string,
-            selectedCity?: string
+            selectedCity?: string,
         ) => {
             switch (filter) {
                 case 0:
                     //resetar parametros de cidade e estado
                     setSelectedState("");
                     setSelectedCity("");
-
+    
                     //atualiza spinner
                     setLoading(true);
-
+    
                     //faz consulta ao bd
                     {
                         let response = await supabase
-                            .rpc("get_publicacoes_salvas", {
-                                idusuario: idusuario!,
-                            })
+                            .rpc("get_publicacoes_salvas", { idusuario: idprofile! })
                             .eq("issalvo", true)
                             .order("atualizadoem", { ascending: false })
                             .limit(10);
-
+    
                         let { data, error } = response;
                         if (error) {
                             setLoading(false);
-
+    
                             setLogErro(textos.pub.tryagainlater);
                         }
-
+    
                         //atualiza o estado dos posts
                         //se retornar 1+ posts mapeia na tela
                         if (data!.length > 0) {
@@ -88,33 +80,31 @@ export default function PostList({
                             setPosts([]);
                         }
                     }
-
+    
                     setLoading(false);
                     break;
                 case 1:
                     //resetar parametros de cidade
                     setSelectedCity("");
-
+    
                     //atualiza spinner
                     setLoading(true);
-
+    
                     //verifica se tem algum estado selecionado
                     if (selectedState != "") {
                         //faz consulta ao bd
                         let response = await supabase
-                            .rpc("get_publicacoes_salvas", {
-                                idusuario: idusuario!,
-                            })
+                            .rpc("get_publicacoes_salvas", { idusuario: idprofile! })
                             .eq("issalvo", true)
                             .order("atualizadoem", { ascending: false })
                             .limit(10);
-
+    
                         let { data, error } = response;
                         if (error) {
                             setLoading(false);
                             setLogErro(textos.pub.tryagainlater);
                         }
-
+    
                         if (data!.length > 0) {
                             setPosts(data!);
                             setErro(false);
@@ -130,30 +120,28 @@ export default function PostList({
                         //limpa o estado dos posts
                         setPosts([]);
                     }
-
+    
                     setLoading(false);
                     break;
                 case 2:
                     //atualiza spinner
                     setLoading(true);
-
+    
                     //verifica se tem algum estado/cidade selecionados
                     if (selectedState != "" && selectedCity != "") {
                         //faz consulta ao bd
                         let response = await supabase
-                            .rpc("get_publicacoes_salvas", {
-                                idusuario: idusuario!,
-                            })
+                            .rpc("get_publicacoes_salvas", { idusuario: idprofile! })
                             .eq("issalvo", true)
                             .order("atualizadoem", { ascending: false })
                             .limit(10);
-
+    
                         let { data, error } = response;
                         if (error) {
                             setLoading(false);
                             setLogErro(textos.pub.tryagainlater);
                         }
-
+    
                         //atualiza o estado dos posts
                         //se retornar 1+ posts mapeia na tela
                         if (data!.length > 0) {
@@ -173,15 +161,15 @@ export default function PostList({
                         //limpa o estado dos posts
                         setPosts([]);
                     }
-
+    
                     setLoading(false);
                     break;
-
+    
                 default:
                     break;
             }
         };
-
+    
         const getPosts = async (
             filter: number,
             selectedState?: string,
@@ -192,16 +180,13 @@ export default function PostList({
                     //resetar parametros de cidade e estado
                     setSelectedState("");
                     setSelectedCity("");
-
+    
                     //atualiza spinner
                     setLoading(true);
-
+    
                     //faz consulta ao bd
                     {
-                        const data = await getPublicacoesSalvasAPI(
-                            idusuario,
-                            supabase
-                        );
+                        const data = await getPublicacoesSalvasAPI(idusuario, supabase)
                         //atualiza o estado dos posts
                         //se retornar 1+ posts mapeia na tela
                         if (data) {
@@ -222,19 +207,15 @@ export default function PostList({
                 case 1:
                     //resetar parametros de cidade
                     setSelectedCity("");
-
+    
                     //atualiza spinner
                     setLoading(true);
-
+    
                     //verifica se tem algum estado selecionado
                     if (selectedState != "") {
                         if (selectedState) {
                             //faz consulta ao bd
-                            let data = await getPublicacoesSalvasPorEstadoAPI(
-                                idusuario,
-                                selectedState,
-                                supabase
-                            );
+                            let data = await getPublicacoesSalvasPorEstadoAPI(idusuario, selectedState, supabase)
                             //atualiza o estado dos posts
                             //se retornar 1+ posts mapeia na tela
                             if (data) {
@@ -257,23 +238,17 @@ export default function PostList({
                         //limpa o estado dos posts
                         setPosts([]);
                     }
-
+    
                     setLoading(false);
                     break;
                 case 2:
                     //atualiza spinner
                     setLoading(true);
-
+    
                     //verifica se tem algum estado/cidade selecionados
                     if (selectedState != "" && selectedCity != "") {
                         if (selectedState && selectedCity) {
-                            let data =
-                                await getPublicacoesSalvasPorEstadoCidadeAPI(
-                                    idusuario,
-                                    selectedState,
-                                    selectedCity,
-                                    supabase
-                                );
+                            let data = await getPublicacoesSalvasPorEstadoCidadeAPI(idusuario, selectedState, selectedCity, supabase);
                             //atualiza o estado dos posts
                             //se retornar 1+ posts mapeia na tela
                             if (data) {
@@ -290,17 +265,6 @@ export default function PostList({
                             }
                         }
                         //faz consulta ao bd
-                    } else if (selectedState) {
-                        setLoading(true);
-                        const citiesData = await fetchCitiesAPI(selectedState);
-                        if (citiesData.statuscode != "200") {
-                            console.log(citiesData.message);
-                            setErro(true);
-                            setLogErro(textos.pub.errorcities);
-                        } else {
-                            setCities(citiesData);
-                            setSelectedCity("");
-                        }
                     } else {
                         //mostra na tela que precisa selecionar um estado
                         setErro(true);
@@ -310,26 +274,26 @@ export default function PostList({
                     }
                     setLoading(false);
                     break;
-
+    
                 default:
                     break;
             }
         };
-
+    
         const getPostsProfile = async (
             filter: number,
             selectedState?: string,
-            selectedCity?: string
+            selectedCity?: string,
         ) => {
             switch (filter) {
                 case 0:
                     //resetar parametros de cidade e estado
                     setSelectedState("");
                     setSelectedCity("");
-
+    
                     //atualiza spinner
                     setLoading(true);
-
+    
                     //faz consulta ao bd
                     {
                         let response = await supabase
@@ -337,15 +301,15 @@ export default function PostList({
                                 idusuario: idusuario!,
                             })
                             .order("atualizadoem", { ascending: false })
-                            .eq("idautor", idusuario!)
+                            .eq('idautor', idprofile!)
                             .limit(10);
                         let { data, error } = response;
                         if (error) {
                             setLoading(false);
-
+    
                             setLogErro(textos.pub.tryagainlater);
                         }
-
+    
                         //atualiza o estado dos posts
                         //se retornar 1+ posts mapeia na tela
                         if (data!.length > 0) {
@@ -359,33 +323,33 @@ export default function PostList({
                             setPosts([]);
                         }
                     }
-
+    
                     setLoading(false);
                     break;
                 case 1:
                     //resetar parametros de cidade
                     setSelectedCity("");
-
+    
                     //atualiza spinner
                     setLoading(true);
-
+    
                     //verifica se tem algum estado selecionado
                     if (selectedState != "") {
                         //faz consulta ao bd
                         let response = await supabase
                             .rpc("get_publicacoes_salvas", {
-                                idusuario: idusuario!,
+                                idusuario: idprofile!,
                             })
                             .contains("regiao", { estado: selectedState! })
                             .order("atualizadoem", { ascending: false })
-                            .eq("idautor", idusuario!)
+                            .eq('idautor', idprofile!)
                             .limit(10);
                         let { data, error } = response;
                         if (error) {
                             setLoading(false);
                             setLogErro(textos.pub.tryagainlater);
                         }
-
+    
                         if (data!.length > 0) {
                             setPosts(data!);
                             setErro(false);
@@ -401,23 +365,17 @@ export default function PostList({
                         //limpa o estado dos posts
                         setPosts([]);
                     }
-
+    
                     setLoading(false);
                     break;
                 case 2:
                     //atualiza spinner
                     setLoading(true);
-
+    
                     //verifica se tem algum estado/cidade selecionados
                     if (selectedState != "" && selectedCity != "") {
                         if (selectedState && selectedCity) {
-                            let data =
-                                await getPublicacoesSalvasPorEstadoCidadeAPI(
-                                    idusuario,
-                                    selectedCity,
-                                    selectedState,
-                                    supabase
-                                );
+                            let data = await getPublicacoesSalvasPorEstadoCidadeAPI(idusuario, selectedState, selectedCity, supabase);
                             //atualiza o estado dos posts
                             //se retornar 1+ posts mapeia na tela
                             if (data) {
@@ -435,19 +393,17 @@ export default function PostList({
                         }
                         //faz consulta ao bd
                         let response = await supabase
-                            .rpc("get_publicacoes_salvas", {
-                                idusuario: idusuario!,
-                            })
+                            .rpc("get_publicacoes_salvas", { idusuario: idprofile! })
                             .eq("issalvo", true)
                             .order("atualizadoem", { ascending: false })
                             .limit(10);
-
+    
                         let { data, error } = response;
                         if (error) {
                             setLoading(false);
                             setLogErro(textos.pub.tryagainlater);
                         }
-
+    
                         //atualiza o estado dos posts
                         //se retornar 1+ posts mapeia na tela
                         if (data!.length > 0) {
@@ -467,16 +423,16 @@ export default function PostList({
                         //limpa o estado dos posts
                         setPosts([]);
                     }
-
+    
                     setLoading(false);
                     break;
-
+    
                 default:
                     break;
             }
         };
 
-        if (!profile) {
+        if (!idprofile) {
             getPosts(filter, selectedState, selectedCity);
         } else {
             if (salvo) {
@@ -489,7 +445,7 @@ export default function PostList({
         filter,
         selectedState,
         selectedCity,
-        profile,
+        idprofile,
         salvo,
         idusuario,
         textos.pub.tryagainlater,

@@ -18,7 +18,7 @@ export default async function AvatarCabecalho({  }: AvatarProps) {
             {isOwn && <EditAvatar />}
             <>
                 <Image
-                    className="w-32 h-32 m-[5px] rounded-full ring-1 ring-gray-400"
+                    className="w-32 h-32 m-[5px] rounded-full ring-1 ring-gray-400 object-cover"
                     src={route}
                     width={1}
                     height={1}

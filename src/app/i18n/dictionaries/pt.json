@@ -402,6 +402,8 @@
         "withoutRating": "Sem avaliações",
         "visitPanel": "Acesse seu painel de visitas",
         "calendarLang": "pt",
+        "doesntExist": "Ops, esse perfil não existe",
+        "backToFeed": "Voltar ao feed",
         "editProfile": {
             "edit": "Editar perfil",
             "name": "Nome",
@@ -429,7 +431,15 @@
                 "dataUpdatedSuccessfully": "Dados atualizados com sucesso",
                 "incompleteCEP": "CEP incompleto",
                 "nonexistentCEP": "Esse CEP não existe",
-                "minLengthName": "O nome deve ter ao menos 5 caracteres"
+                "minLengthName": "O nome deve ter ao menos 5 caracteres",
+                "specialtyUpdated": "Especialidade atualizada!",
+                "specialtyUpdatedFail": "Erro ao atualizar especialidades",
+                "regionUpdated": "Região atualizada!",
+                "regionUpdatedFail": "Erro ao atualizar região"
+            },
+            "error": {
+                "cityNotFound": "Cidade não encontrada. Tente novamente mais tarde.",
+                "selectStateFirst": "Selecione o estado primeiro"
             }
         },
         "buttonProfile": {
@@ -484,10 +494,6 @@
                     "insertStartDate": "Insira uma data de início."
                 }
             }
-        },
-        "error": {
-            "cityNotFound": "Cidade não encontrada",
-            "selectStateFirst": "Selecione o estado primeiro"
         },
         "dashboard": {
             "logintoseemore": "Faça login ou Cadastro para ter acesso ao dashboard",
