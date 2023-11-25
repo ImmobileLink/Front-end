@@ -71,17 +71,17 @@ export default function DeleteModal({ props }: DeleteModalProps) {
                     </div>
                     <div className="flex-grow">
                       <h1 className="font-bold text-lg mb-2">{props.textos.title}</h1>
-                      <p className="text-gray-700">{props.textos.msg}</p>
+                      <p className="text-gray-700 dark:text-gray-200">{props.textos.msg}</p>
                     </div>
                   </div>
-                  <div className="bg-gray-100 py-3 px-5 justify-end flex gap-4">
+                  <div className="bg-gray-100 dark:bg-dark-200 py-3 px-5 justify-end flex gap-4">
                     <button className="text-white bg-gray-500 hover:bg-gray-700 font-medium rounded-lg text-sm px-4 py-2" onClick={() => props.setDeleteModal(false)}>{props.textos.cancel}</button>
                     <button className=" text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg text-sm px-4 py-2"
                     onClick={() => deleteImovel(props.userid!, props.imovel)}>
                       {loading ? (
                         <>
-                          <Spinner />
-                          <span className="pl-3">{props.textos.loading}</span>
+                          <Spinner size="md" />
+                          <span className="pl-3 py-1 lg:hidden">{props.textos.loading}</span>
                         </>
                       ) : (
                         <span>{props.textos.delete}</span>
