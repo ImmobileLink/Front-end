@@ -300,7 +300,8 @@
             "irreversibleaction": "This action cannot be undone.",
             "cancel": "CANCEL",
             "delete": "DELETE",
-            "tryagainlater": "An error has occured while trying to load the publications. Please try again later"
+            "tryagainlater": "An error has occured while trying to load the publications. Please try again later",
+            "errorcities": "An error has occured while searching for the cities. Please try again later"
         },
         "form": {
             "regionchange": "Region",
