@@ -14,6 +14,8 @@ import ImovelImg from "./ImovelImg";
 import { clientSupabase } from "lib/utils/clientSupabase";
 import { maskPhone } from "lib/utils/formataFone";
 import { insereVisitaAPI } from "../imovelUtils";
+import toast from "react-hot-toast";
+import { HiX } from "react-icons/hi";
 
 interface VisitaCardProps {
   props: {
@@ -71,6 +73,16 @@ export default function VisitaCard({ props }: VisitaCardProps) {
   const insertVisita = async (visita: InsereVisita) => {
     const result = await insereVisitaAPI(visita, supabase)
     if(result) {
+      toast.success((t) =>
+        <span>
+          <b className="mb-5">{props.formlabels.success}</b>
+          <Link href={"/agenda"}>
+            <div className="absolute bottom-3 right-4 self-center border border-green-500 text-green-500 hover:text-white bg-green-50 hover:bg-green-500 rounded-lg text-sm font-medium px-2 py-1 text-center">
+              {props.formlabels.checkcalendar}
+            </div>
+          </Link>
+        </span>,
+      {duration: 5000, style: {minHeight: '75px', paddingBottom: '45px'}})
       props.setVisitForm(false);
       setLoading(false);
     }

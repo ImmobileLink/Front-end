@@ -470,6 +470,8 @@ export interface Formlabels {
     date: string;
     time: string;
     loading: string;
+    success: string;
+    checkcalendar: string;
     formlogs: Formlogs;
 }
 

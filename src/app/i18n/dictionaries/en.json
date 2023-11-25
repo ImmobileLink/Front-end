@@ -617,6 +617,8 @@
             "imageupload": "Upload Image",
             "imageformat": "PNG, JPG or JPEG (MAX. 800x400px).",
             "loading": "Loading",
+            "success": "Visit scheduled successfully!",
+            "checkcalendar": "Check Calendar",
             "newpropertylogs": {
                 "invalidcep": "Invalid zip code",
                 "invalidcepnotfound": "Zip code not found",
