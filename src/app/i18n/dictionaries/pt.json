@@ -300,7 +300,8 @@
             "irreversibleaction": "Essa ação não poderá ser desfeita.",
             "cancel": "CANCELAR",
             "delete": "EXCLUIR",
-            "tryagainlater": "Ocorreu um erro ao carregar as publicações. Por favor, tente novamente mais tarde"
+            "tryagainlater": "Ocorreu um erro ao carregar as publicações. Por favor, tente novamente mais tarde",
+            "errorcities": "Ocorreu um erro ao buscar os municípios. Por favor, tente novamente mais tarde"
         },
         "form": {
             "regionchange": "Região",
