@@ -41,7 +41,6 @@ export default function TypingBox({ dict, idsala, userId }: TypingBoxProps) {
         setTexto('')
         setImagem(undefined);
       }
-      console.log('a')
     }
   }
 
