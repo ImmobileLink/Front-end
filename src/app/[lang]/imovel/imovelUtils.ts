@@ -1,4 +1,4 @@
-import { CorretorAssociado, InsereImovel, InsereVisita, TipoImovel, userData } from "lib/modelos";
+import { AtualizaImovel, CorretorAssociado, ImovelRegistro, InsereImovel, InsereVisita, TipoImovel, userData } from "lib/modelos";
 
 export async function getBrokers(user: userData, supabase: any) {
 
@@ -132,6 +132,64 @@ export async function cadastrarImovelAPI(imovel: InsereImovel, supabase: any) {
     else {
         return data
     }
+}
+
+export async function editarImovelAPI(imovel: AtualizaImovel, imovelId: string, supabase: any) {
+  const { data, error } = await supabase
+      .from("imovel")
+      .update(imovel)
+      .eq('id', imovelId)
+      .select();
+  if(error) {
+      console.log(error)
+      return false
+  }
+  else {
+      return data
+  }
+}
+
+export async function deletaImovelTipadoAPI(imovelId: string, supabase: any) {
+  const { error } = await supabase
+    .from('imoveltipado')
+    .delete()
+    .eq('idimovel', imovelId)
+  if(error) {
+      console.log(error)
+      return false
+  }
+  else {
+      return true
+  }
+}
+
+export async function getCountVisita(imovelId: string, supabase: any) {
+  const { count } = (await supabase.from('visita').select('*', { count: 'estimated', head: true }).eq("idimovel", imovelId).or('aceito.eq.true,aceito.is.null'))
+  if (count > 0) {
+    return false
+  }
+  else {
+    return true
+  }
+}
+
+export async function deletaImovelAPI(userId: string, imovel: ImovelRegistro, supabase: any) {
+  if (imovel.imagem?.length !== 0) {
+    let { error } = await supabase
+      .storage
+      .from('imoveis')
+      .remove(userId + "/" + imovel.imagem);    
+    if (error) {
+      console.error(error);
+    }
+  }
+  const { error } = await supabase.from("imovel").delete().eq('id', imovel.id)
+  if (error) {
+    console.log(error)
+    return false
+  } else {
+    return true
+  }
 }
 
 export async function insereVisitaAPI(visita: InsereVisita, supabase: any) {

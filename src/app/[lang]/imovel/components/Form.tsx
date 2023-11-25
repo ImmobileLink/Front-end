@@ -1,21 +1,21 @@
+//@ts-nocheck
 "use client";
 import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Database } from "../../../../../lib/database.types";
 import { Imovel } from "@/app/i18n/dictionaries/types";
 import {
+  AtualizaImovel,
+  ImovelRegistro,
   ImovelTipado,
   InsereImovel,
   TipoImovel,
 } from "../../../../../lib/modelos";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { v4 as uuidv4 } from "uuid";
 import InputMask from "react-input-mask";
 import { Spinner } from "flowbite-react";
 import { _UFs } from "../../../../../lib/utils/externalApis";
-{/* @ts-ignore */ }
 import Select, { StylesConfig, ValueType } from "react-select";
 import { clientSupabase } from "lib/utils/clientSupabase";
-import { cadastrarImagemAPI, cadastrarImovelAPI } from "../imovelUtils";
+import { cadastrarImagemAPI, cadastrarImovelAPI, deletaImovelTipadoAPI, editarImovelAPI, imageEditAPI } from "../imovelUtils";
 import { getCEP } from "../../../../../lib/utils/externalApis";
 
 interface FormProps {
@@ -29,30 +29,47 @@ interface FormProps {
     formOpen: boolean;
     setFormOpen: Dispatch<SetStateAction<boolean>>;
   };
+  imovel?: ImovelRegistro;
 }
 
-export default function Form({ props }: FormProps) {
+export default function Form({ props, imovel }: FormProps) {
   const supabase = clientSupabase();
   // Dados
-  const [cep, setCep] = useState("");
+  const [cep, setCep] = useState(imovel === undefined ? "" : imovel.cep);
   const [estado, setEstado] = useState("");
   const [cidade, setCidade] = useState("");
   const [bairro, setBairro] = useState("");
   const [rua, setRua] = useState("");
-  const [num, setNum] = useState("");
+  const [num, setNum] = useState(imovel === undefined ? "" : imovel.numero.toString());
   const [complemento, setComplemento] = useState("");
-  const [valor, setValor] = useState("");
-  const [descricao, setDescricao] = useState("");
+  const [valor, setValor] = useState(imovel === undefined ? "" : imovel.valor?.toString());
+  const [descricao, setDescricao] = useState(imovel === undefined ? "" : imovel.descricao);
   const [img, setImg] = useState<File>();
-  const [imagemId, setImagemId] = useState("");
+  const [imagemId, setImagemId] = useState(imovel === undefined ? "" : imovel.imagem);
 
   const [loading, setLoading] = useState(false);
 
   // Tipos de imóvel
-  const [mobilia, setMobilia] = useState<TipoImovel>({ id: "", descricao: "", classificacao: "" });
-  const [condicao, setCondicao] = useState<TipoImovel>({ id: "", descricao: "", classificacao: "" });
-  const [type, setType] = useState<TipoImovel>({ id: "", descricao: "", classificacao: "" });
-  const [selectedOptions, setSelectedOptions] = useState<ValueType<TipoImovel>>({ id: "", descricao: "", classificacao: "" });
+  const [type, setType] = useState<TipoImovel>(
+    imovel === undefined ? 
+    { id: "", descricao: "", classificacao: "" } : 
+    props.tipos.find((i) => i.id === imovel.caracteristicas[0]?.id)
+  );
+  const [mobilia, setMobilia] = useState<TipoImovel>(
+    imovel === undefined ? 
+    { id: "", descricao: "", classificacao: "" } : 
+    props.mobilias.find((i) => i.id === imovel.caracteristicas[1]?.id)
+  );
+  const [condicao, setCondicao] = useState<TipoImovel>(
+    imovel === undefined ? 
+    { id: "", descricao: "", classificacao: "" } : 
+    props.condicoes.find((i) => i.id === imovel.caracteristicas[2]?.id)
+  );
+  const [selectedOptions, setSelectedOptions] = useState<ValueType<TipoImovel>>(
+    imovel === undefined ? 
+    { id: "", descricao: "", classificacao: "" } : 
+    imovel.caracteristicas?.slice(3)
+  );
 
   const [disableInput, isDisableInput] = useState(false);
   const [notFound, isNotFound] = useState(false);
@@ -60,7 +77,7 @@ export default function Form({ props }: FormProps) {
   const handleCadastrarImagem = async () => {
     // Enviar o arquivo para o Supabase Storage
     if (props.userid && img) {
-      await cadastrarImagemAPI(props.userid, imagemId, img, supabase)
+      await cadastrarImagemAPI(props.userid, imagemId!, img, supabase)
     }
   };
 
@@ -88,13 +105,12 @@ export default function Form({ props }: FormProps) {
     return newdata;
   };
 
-  // Falta a validação dos dados
-  const handleCadastrarImovel = async (event: any) => {
-    event.preventDefault();
+  const handleCadastrarImovel = async () => {
+    //event.preventDefault();
     setLoading(true);
 
     const dados = await handleOptions();
-    const preco = valor.replace(",", ".");
+    const preco = valor!.replace(",", ".");
 
     if (img) {
       await handleCadastrarImagem();
@@ -102,8 +118,8 @@ export default function Form({ props }: FormProps) {
 
     const imovel: InsereImovel = {
       idcorporacao: props.userid!,
-      descricao: descricao,
-      cep: cep,
+      descricao: descricao!,
+      cep: cep!,
       estado: estado,
       cidade: cidade,
       bairro: bairro,
@@ -111,7 +127,7 @@ export default function Form({ props }: FormProps) {
       numero: parseInt(num),
       complemento: complemento,
       valor: parseFloat(preco),
-      imagem: imagemId,
+      imagem: imagemId!,
       caracteristicas: dados,
     };
     const result = await cadastrarImovelAPI(imovel, supabase)
@@ -134,6 +150,70 @@ export default function Form({ props }: FormProps) {
     }
   };
 
+  const handleEditarImagem = async () => {
+    const result = await imageEditAPI(props.userid!, imovel.imagem!, imagemId!, img!, supabase)
+    return result
+  };
+
+  const handleEditarImovel = async () => {
+    //event.preventDefault();
+    setLoading(true);
+  
+    const dados = await handleOptions();  
+    const preco = valor!.replace(",", ".");
+
+    if (img) {
+      await handleEditarImagem();
+    }
+  
+    const updateImovel: AtualizaImovel = {
+      descricao: descricao,
+      cep: cep,
+      estado: estado,
+      cidade: cidade,
+      bairro: bairro,
+      rua: rua,
+      numero: parseInt(num),
+      complemento: complemento,
+      valor: parseFloat(preco),
+      imagem: imagemId,
+      caracteristicas: dados
+    };
+    const result = await editarImovelAPI(updateImovel, imovel?.id, supabase)
+    if (result) {
+      props.setFormOpen(false);
+      setLoading(false);
+
+      const res = await deletaImovelTipadoAPI(imovel?.id, supabase)
+      if (res) {
+        for (let i = 0; i < dados.length; i++) {
+          const imovelTipado: ImovelTipado = {
+            idimovel: result[0].id,
+            idtipoimovel: dados[i].id,
+          };
+          const { error } = await supabase
+            .from("imoveltipado")
+            .insert(imovelTipado);
+          if (error) {
+            console.error(error);
+          }
+        }
+      }
+    }
+  };
+
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+
+    if (imovel === undefined) {
+      // Register Property
+      await handleCadastrarImovel();
+    } else {
+      // Edit Property
+      await handleEditarImovel();
+    }
+  };
+
   const apagaCampos = async () => {
     setEstado("");
     setCidade("");
@@ -144,7 +224,7 @@ export default function Form({ props }: FormProps) {
 
   const autoCompletaEndereco = async () => {
     isDisableInput(false);
-    const data = await getCEP(cep);
+    const data = await getCEP(cep!);
 
     if (!data.erro) {
       isNotFound(false);
@@ -161,14 +241,14 @@ export default function Form({ props }: FormProps) {
       apagaCampos();
       isDisableInput(false);
     }
-    console.error(data.erro);
+    //console.error(data.erro);
   };
 
   useEffect(() => {
     isDisableInput(false);
     const regexCep = /^\d{8}$/;
-    if (cep.length == 8) {
-      if (!regexCep.test(cep)) {
+    if (cep!.length == 8) {
+      if (!regexCep.test(cep!)) {
         //console.log(cep);
       } else {
         autoCompletaEndereco();
@@ -244,19 +324,22 @@ export default function Form({ props }: FormProps) {
 
   return (
     <>
-      <form onSubmit={handleCadastrarImovel} className="z-50 group" noValidate>
+      <form onSubmit={handleSubmit} className="z-50 group" noValidate>
         <div className="pointer-events-auto fixed top-0 right-0 flex pl-10">
           <div className="relative w-screen">
             <div className="fixed h-full w-screen sm:max-w-lg top-0 sm:right-0 flex-col bg-white dark:bg-dark-200 py-6 shadow-xl overflow-y-auto overflow-x-hidden">
               <div className="flex px-4 sm:px-6 items-center justify-between">
                 <h2 className="text-xl font-semibold leading-6 text-gray-900 dark:text-white">
-                  {props.textos.newproperty.registerproperty}
+                  {
+                    imovel === undefined ? <span>{props.textos.newproperty.registerproperty}</span> : <span>{props.textos.oldproperty.editproperty}</span>
+                  }
                 </h2>
                 <button
                   type="button"
                   className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-xs w-8 h-8 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
                   onClick={() => {
                     props.setFormOpen(false);
+                    console.log(selectedOptions);
                   }}
                 >
                   <svg
@@ -297,9 +380,9 @@ export default function Form({ props }: FormProps) {
                       onChange={(e) =>
                         setCep(e.target.value.replace(/\D/g, ""))
                       }
-                      value={cep}
+                      value={cep!}
                       className={`text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500 
-                      ${(notFound || cep.length !== 8) && "[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"}`}
+                      ${(notFound || cep!.length !== 8) && "[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"}`}
                       type="text"
                       placeholder=" "
                       required
@@ -454,6 +537,7 @@ export default function Form({ props }: FormProps) {
                     <Select
                       placeholder={props.textos.newproperty.selectopt}
                       options={props.tipos}
+                      defaultValue={imovel !== undefined && type}
                       getOptionValue={(option: ValueType<TipoImovel>) => option.id}
                       getOptionLabel={(option: ValueType<TipoImovel>) => option.descricao}
                       onChange={(option: ValueType<TipoImovel>) => setType(option)}
@@ -477,7 +561,7 @@ export default function Form({ props }: FormProps) {
                               className="h-3 w-3 align-middle"
                               name="mobilia"
                               value={option.id}
-                              checked={mobilia === option}
+                              checked={mobilia.id === option.id}
                               onChange={() => setMobilia(option)}
                               required
                             />
@@ -503,7 +587,7 @@ export default function Form({ props }: FormProps) {
                               className="h-3 w-3 align-middle"
                               name="condicao"
                               value={option.id}
-                              checked={condicao === option}
+                              checked={condicao.id === option.id}
                               onChange={() => setCondicao(option)}
                               required
                             />
@@ -524,6 +608,7 @@ export default function Form({ props }: FormProps) {
                     <Select
                       placeholder={props.textos.newproperty.selectopts}
                       options={props.outros}
+                      defaultValue={imovel !== undefined && selectedOptions}
                       getOptionValue={(option: ValueType<TipoImovel>) => option.id}
                       getOptionLabel={(option: ValueType<TipoImovel>) => option.descricao}
                       onChange={(option: ValueType<TipoImovel>) => setSelectedOptions(option)}
@@ -542,7 +627,7 @@ export default function Form({ props }: FormProps) {
                     <textarea
                       cols={30}
                       rows={3}
-                      value={descricao}
+                      value={descricao!}
                       onChange={(e) => setDescricao(e.target.value)}
                       className="text-xs py-1.5 px-2 relative block appearance-none border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none bg-gray-100 sm:text-sm focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:border-gray-500"
                     ></textarea>
@@ -554,12 +639,8 @@ export default function Form({ props }: FormProps) {
                       {props.textos.newproperty.imageupload}
                     </label>
                     <input
-                      className="block w-full text-xs sm:text-sm relative m-0 min-w-0 flex-auto border-solid px-3 py-1.5
-                                text-gray-700 border border-gray-300 rounded bg-gray-100 focus:outline-none dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                                
-                                file:-mx-3 file:-my-1.5 file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit 
-                                
-                                file:bg-gray-700 file:px-3 file:py-1.5 file:text-white file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] dark:file:bg-white dark:file:text-gray-700 file:cursor-pointer"
+                      className="block w-full text-xs sm:text-sm relative m-0 min-w-0 flex-auto border-solid px-3 py-1.5 text-gray-700 border border-gray-300 rounded bg-gray-100 focus:outline-none dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                      file:-mx-3 file:-my-1.5 file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-gray-700 file:px-3 file:py-1.5 file:text-white file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] dark:file:bg-white dark:file:text-gray-700 file:cursor-pointer"
                       type="file"
                       accept=".jpg, .jpeg, .png"
                       onChange={handleFileChange}
@@ -582,7 +663,11 @@ export default function Form({ props }: FormProps) {
                         <span className="pl-3">{props.textos.newproperty.loading}</span>
                       </>
                     ) : (
-                      <span>{props.textos.newproperty.register}</span>
+                      <>
+                      {
+                        imovel === undefined ? <span>{props.textos.newproperty.register}</span> : <span>{props.textos.oldproperty.confirm}</span>
+                      }
+                      </>
                     )}
                   </button>
                 </div>

@@ -6,16 +6,11 @@ import {
   ImovelRegistro,
   InsereVisita,
 } from "../../../../../lib/modelos";
-import { Database } from "../../../../../lib/database.types";
 import { Formlabels } from "@/app/i18n/dictionaries/types";
-import {
-  createClientComponentClient,
-} from "@supabase/auth-helpers-nextjs";
 import {
   Modal, Spinner,
 } from "flowbite-react";
 import ImovelImg from "./ImovelImg";
-import EditForm from "./EditForm";
 import { clientSupabase } from "lib/utils/clientSupabase";
 import { maskPhone } from "lib/utils/formataFone";
 import { insereVisitaAPI } from "../imovelUtils";
@@ -26,8 +21,8 @@ interface VisitaCardProps {
     imovel: ImovelRegistro;
     corretor: CorretorAssociado[];
     userid: string | undefined;
-    formOpen: boolean;
-    setFormOpen: Dispatch<SetStateAction<boolean>>;
+    visitForm: boolean;
+    setVisitForm: Dispatch<SetStateAction<boolean>>;
   }
 }
 
@@ -43,7 +38,6 @@ export default function VisitaCard({ props }: VisitaCardProps) {
   const [time, setTime] = useState("");
 
   const [isOpen, setIsOpen] = useState(false);
-  const [editImage, setEditImage] = useState(false);
   const [loading, setLoading] = useState(false);
 
   //const currentDate = new Date().toISOString().slice(0, 10);
@@ -77,7 +71,7 @@ export default function VisitaCard({ props }: VisitaCardProps) {
   const insertVisita = async (visita: InsereVisita) => {
     const result = await insereVisitaAPI(visita, supabase)
     if(result) {
-      props.setFormOpen(false);
+      props.setVisitForm(false);
       setLoading(false);
     }
   };
@@ -105,8 +99,8 @@ export default function VisitaCard({ props }: VisitaCardProps) {
     <>
       <Modal
         dismissible
-        show={props.formOpen}
-        onClose={() => props.setFormOpen(false)}
+        show={props.visitForm}
+        onClose={() => props.setVisitForm(false)}
         size="3xl"
       >
         <Modal.Body className="p-0 rounded-lg">
@@ -115,7 +109,7 @@ export default function VisitaCard({ props }: VisitaCardProps) {
               <button
                 type="button"
                 className="absolute right-3 top-2 text-gray-700 dark:text-gray-200 bg-transparent hover:bg-gray-100 hover:text-gray-900 rounded-lg text-xs w-8 h-8 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
-                onClick={() => props.setFormOpen(false)}
+                onClick={() => props.setVisitForm(false)}
               >
                 <svg
                   className="w-3 h-3"
@@ -145,41 +139,6 @@ export default function VisitaCard({ props }: VisitaCardProps) {
                         smHeight=""
                         lgHeight=""
                       />
-                      </div>
-                      <div className="absolute inset-0 flex items-end justify-end">
-                          <button
-                            type="button"
-                            className="px-3 py-1 rounded-tl-lg rounded-br-lg bg-blue-700 text-white text-xs sm:text-sm hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 outline-none hover:ring-1 hover:ring-white"
-                            onClick={() => {
-                              setEditImage(true);
-                            }}
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth="1.5"
-                              stroke="currentColor"
-                              className="w-6 h-6"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                              />
-                            </svg>
-                          </button>
-                        {editImage && (
-                          <EditForm
-                            props={{
-                              imovel: props.imovel,
-                              userid: props.userid,
-                              formOpen: editImage,
-                              setFormOpen: setEditImage,
-                              editimg: props.formlabels.editimg
-                            }}
-                          />
-                        )}
                       </div>
                     </div>
                     <div className="break-before-column sm:break-before-avoid flex-auto sm:text-sm text-xs">

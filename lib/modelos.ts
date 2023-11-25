@@ -14,7 +14,6 @@ export type ImovelTipado = Database['public']['Tables']['imoveltipado']['Row']
 export type Usuario = Database['public']['Tables']['usuario']['Row']
 export type Corretor = Database['public']['Tables']['corretor']['Row']
 export type Corporacao = Database['public']['Tables']['corporacao']['Row']
-export type ImovelDB = Database['public']['Tables']['imovel']['Row']
 export type ImovelRegistro = Database['public']['Tables']['imovel']['Row']
 export type UsuarioPorSala = Database['public']['Tables']['usuarioporsala']['Row']
 export type Notificacao = Database['public']['Tables']['notificacao']['Row']
@@ -64,17 +63,10 @@ export interface AtualizaImovel {
     complemento: string,
     valor: number,
     imagem: string,
-    caracteristicas: Json
-}
-export interface ImovelSemCorporacao {
-    id: string,
-    rua: string,
-    numero: number,
-    bairro: string,
-    cidade: string,
-    estado: string,
-    descricao: string,
-    valor: number
+    caracteristicas: {
+      id: string;
+      descricao: string;
+    }[]
 }
 
 export interface MensagemAInserir {
