@@ -404,6 +404,7 @@ export interface Pub {
     cancel: string;
     delete: string;
     tryagainlater: string;
+    errorcities: string;
 }
 
 export interface Footer {

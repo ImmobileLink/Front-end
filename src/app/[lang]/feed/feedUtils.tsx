@@ -92,8 +92,7 @@ export async function getPublicacoesSalvasAPI(
 ) {
     const { data, error } = await supabase
         .rpc("get_publicacoes_salvas", { idusuario: userId })
-        .order("atualizadoem", { ascending: false })
-        .limit(10);
+        .limit(100);
     if (error) {
         console.log(error);
         return false;

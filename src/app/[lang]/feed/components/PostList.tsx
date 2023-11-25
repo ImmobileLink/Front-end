@@ -6,7 +6,11 @@ import { City, PublicacaoCompleta } from "../../../../../lib/modelos";
 import { _UFs, fetchCitiesAPI } from "../../../../../lib/utils/externalApis";
 import PostItem from "./PostItem";
 import ModalExcluir from "./ModalExcluir";
-import { getPublicacoesSalvasAPI, getPublicacoesSalvasPorEstadoAPI, getPublicacoesSalvasPorEstadoCidadeAPI } from "../feedUtils";
+import {
+    getPublicacoesSalvasAPI,
+    getPublicacoesSalvasPorEstadoAPI,
+    getPublicacoesSalvasPorEstadoCidadeAPI,
+} from "../feedUtils";
 import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface PostListProps {
@@ -19,7 +23,12 @@ interface PostListProps {
 // const supabase = createServerComponentClient<Database>({ cookies });
 const supabase = clientSupabase();
 
-export default function PostList({ idusuario, textos, profile, salvo }: PostListProps) {
+export default function PostList({
+    idusuario,
+    textos,
+    profile,
+    salvo,
+}: PostListProps) {
     const [selectedState, setSelectedState] = useState<string>("");
     const [cities, setCities] = useState<City[]>([]);
     const [selectedCity, setSelectedCity] = useState<string>("");
@@ -34,27 +43,11 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
     const [deletePost, setDeletePost] = useState(false);
     const [pubid, setPubid] = useState("");
 
-    //atualiza o select das cidades quando muda o estado
-    useEffect(() => {
-        async function fetchCities() {
-            if (selectedState) {
-                const citiesData = await fetchCitiesAPI(selectedState)
-                if (citiesData) {
-                    setCities(citiesData);
-                    setSelectedCity("");
-                }
-            } else {
-                setCities([]);
-            }
-        }
-        fetchCities();
-    }, [selectedState]);
-
     useEffect(() => {
         const getPostsSalvoProfile = async (
             filter: number,
             selectedState?: string,
-            selectedCity?: string,
+            selectedCity?: string
         ) => {
             switch (filter) {
                 case 0:
@@ -68,7 +61,9 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                     //faz consulta ao bd
                     {
                         let response = await supabase
-                            .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
+                            .rpc("get_publicacoes_salvas", {
+                                idusuario: idusuario!,
+                            })
                             .eq("issalvo", true)
                             .order("atualizadoem", { ascending: false })
                             .limit(10);
@@ -107,7 +102,9 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                     if (selectedState != "") {
                         //faz consulta ao bd
                         let response = await supabase
-                            .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
+                            .rpc("get_publicacoes_salvas", {
+                                idusuario: idusuario!,
+                            })
                             .eq("issalvo", true)
                             .order("atualizadoem", { ascending: false })
                             .limit(10);
@@ -144,7 +141,9 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                     if (selectedState != "" && selectedCity != "") {
                         //faz consulta ao bd
                         let response = await supabase
-                            .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
+                            .rpc("get_publicacoes_salvas", {
+                                idusuario: idusuario!,
+                            })
                             .eq("issalvo", true)
                             .order("atualizadoem", { ascending: false })
                             .limit(10);
@@ -199,7 +198,10 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
 
                     //faz consulta ao bd
                     {
-                        const data = await getPublicacoesSalvasAPI(idusuario, supabase)
+                        const data = await getPublicacoesSalvasAPI(
+                            idusuario,
+                            supabase
+                        );
                         //atualiza o estado dos posts
                         //se retornar 1+ posts mapeia na tela
                         if (data) {
@@ -228,7 +230,11 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                     if (selectedState != "") {
                         if (selectedState) {
                             //faz consulta ao bd
-                            let data = await getPublicacoesSalvasPorEstadoAPI(idusuario, selectedState, supabase)
+                            let data = await getPublicacoesSalvasPorEstadoAPI(
+                                idusuario,
+                                selectedState,
+                                supabase
+                            );
                             //atualiza o estado dos posts
                             //se retornar 1+ posts mapeia na tela
                             if (data) {
@@ -261,7 +267,13 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                     //verifica se tem algum estado/cidade selecionados
                     if (selectedState != "" && selectedCity != "") {
                         if (selectedState && selectedCity) {
-                            let data = await getPublicacoesSalvasPorEstadoCidadeAPI(idusuario, selectedState, selectedCity, supabase);
+                            let data =
+                                await getPublicacoesSalvasPorEstadoCidadeAPI(
+                                    idusuario,
+                                    selectedState,
+                                    selectedCity,
+                                    supabase
+                                );
                             //atualiza o estado dos posts
                             //se retornar 1+ posts mapeia na tela
                             if (data) {
@@ -278,6 +290,17 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                             }
                         }
                         //faz consulta ao bd
+                    } else if (selectedState) {
+                        setLoading(true);
+                        const citiesData = await fetchCitiesAPI(selectedState);
+                        if (citiesData.statuscode != "200") {
+                            console.log(citiesData.message);
+                            setErro(true);
+                            setLogErro(textos.pub.errorcities);
+                        } else {
+                            setCities(citiesData);
+                            setSelectedCity("");
+                        }
                     } else {
                         //mostra na tela que precisa selecionar um estado
                         setErro(true);
@@ -296,7 +319,7 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
         const getPostsProfile = async (
             filter: number,
             selectedState?: string,
-            selectedCity?: string,
+            selectedCity?: string
         ) => {
             switch (filter) {
                 case 0:
@@ -314,7 +337,7 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                                 idusuario: idusuario!,
                             })
                             .order("atualizadoem", { ascending: false })
-                            .eq('idautor', idusuario!)
+                            .eq("idautor", idusuario!)
                             .limit(10);
                         let { data, error } = response;
                         if (error) {
@@ -355,7 +378,7 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                             })
                             .contains("regiao", { estado: selectedState! })
                             .order("atualizadoem", { ascending: false })
-                            .eq('idautor', idusuario!)
+                            .eq("idautor", idusuario!)
                             .limit(10);
                         let { data, error } = response;
                         if (error) {
@@ -388,7 +411,13 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                     //verifica se tem algum estado/cidade selecionados
                     if (selectedState != "" && selectedCity != "") {
                         if (selectedState && selectedCity) {
-                            let data = await getPublicacoesSalvasPorEstadoCidadeAPI(idusuario, selectedCity, selectedState, supabase);
+                            let data =
+                                await getPublicacoesSalvasPorEstadoCidadeAPI(
+                                    idusuario,
+                                    selectedCity,
+                                    selectedState,
+                                    supabase
+                                );
                             //atualiza o estado dos posts
                             //se retornar 1+ posts mapeia na tela
                             if (data) {
@@ -406,7 +435,9 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                         }
                         //faz consulta ao bd
                         let response = await supabase
-                            .rpc("get_publicacoes_salvas", { idusuario: idusuario! })
+                            .rpc("get_publicacoes_salvas", {
+                                idusuario: idusuario!,
+                            })
                             .eq("issalvo", true)
                             .order("atualizadoem", { ascending: false })
                             .limit(10);
@@ -449,13 +480,22 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
             getPosts(filter, selectedState, selectedCity);
         } else {
             if (salvo) {
-                getPostsSalvoProfile(filter, selectedState, selectedCity,)
+                getPostsSalvoProfile(filter, selectedState, selectedCity);
             } else {
-                getPostsProfile(filter, selectedState, selectedCity,)
+                getPostsProfile(filter, selectedState, selectedCity);
             }
         }
-    }, [filter, selectedState, selectedCity, profile, salvo, idusuario, textos.pub.tryagainlater, textos.pub.noposts, textos.pub.selectaregion]);
-
+    }, [
+        filter,
+        selectedState,
+        selectedCity,
+        profile,
+        salvo,
+        idusuario,
+        textos.pub.tryagainlater,
+        textos.pub.noposts,
+        textos.pub.selectaregion,
+    ]);
 
     return (
         <div>
@@ -571,7 +611,6 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
                     </>
                 )}
             </div>
-
         </div>
     );
 }

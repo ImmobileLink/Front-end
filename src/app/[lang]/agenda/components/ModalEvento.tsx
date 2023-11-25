@@ -4,7 +4,7 @@ import { MdOutgoingMail } from 'react-icons/md';
 import { BiEditAlt } from 'react-icons/bi';
 import { Agenda } from "@/app/i18n/dictionaries/types";
 import { VisitaProps } from "../../../../../lib/modelos";
-import { formataData } from "../../../../../lib/utils/formataData";
+import { formataData, isDateBeforeCurrent } from "../../../../../lib/utils/formataData";
 import { LiaTrashAltSolid } from 'react-icons/lia';
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -26,6 +26,12 @@ interface ModalEventoProps {
 
 export default function ModalEvento({ isOpen, onClose, evento, dict, type, openEditModal }: ModalEventoProps) {
   const supabase = clientSupabase();
+
+  const respondido = async () => {
+    let { data: status, error } = await supabase.from('resultadoformulario').select('status').eq('id', evento!.survey_id)
+
+    return status ? true : false
+  }
 
   const router = useRouter();
 
@@ -54,8 +60,6 @@ export default function ModalEvento({ isOpen, onClose, evento, dict, type, openE
     setLoadingEmail(true);
     if (window.confirm(dict.sendsurvey)) {
       const data = await enviaEmail(evento!.email_marcador, evento!.nome_marcador, evento!.data_agendamento, evento!.survey_id);
-
-      alert(JSON.stringify(data));
 
       if (data) {
         toast.success(dict.logs.emailok);
@@ -100,31 +104,44 @@ export default function ModalEvento({ isOpen, onClose, evento, dict, type, openE
           </div>
           <p><span className="font-bold">{dict.address}:</span>  {endereco}</p>
           <div className="w-full max-h-64 mt-3">
-            <Mapa endereco={endereco}/>
+            <Mapa endereco={endereco} />
           </div>
         </Modal.Body>
         <Modal.Footer className='flex justify-center items-center'>
-          <button
-            disabled={loadingEmail}
-            className="px-8 py-2.5 bg-green-400 hover:bg-green-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 disabled:cursor-not-allowed"
-            onClick={handleEnviaSurvey}
-          >
-            {loadingEmail ? <Spinner /> : <MdOutgoingMail className="h-5 w-5" />}
-          </button>
-          <hr className='w-[1px] h-6 bg-gray-900 dark:bg-gray-200' />
-          <button
-            className="px-8 py-2.5 bg-sky-400 hover:bg-sky-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-sky-300 dark:focus:ring-sky-800 disabled:cursor-not-allowed"
-            onClick={openEditModal}
-          >
-            <BiEditAlt className="h-5 w-5" />
-          </button>
-          <button
-            disabled={loadingDelete}
-            className="px-8 py-2.5 bg-red-400 hover:bg-red-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 disabled:cursor-not-allowed"
-            onClick={handleDeletaEvento}
-          >
-            {loadingDelete ? <Spinner /> : <LiaTrashAltSolid className="h-5 w-5" />}
-          </button>
+          {
+            isDateBeforeCurrent(evento!.data_agendamento) ?
+              (
+                <>
+                  <button
+                    disabled={loadingEmail || evento!.survey_status}
+                    className="px-16 py-2.5 bg-green-400 hover:bg-green-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 disabled:cursor-not-allowed"
+                    onClick={handleEnviaSurvey}
+                  >
+                    {loadingEmail ? <Spinner /> : <MdOutgoingMail className="h-5 w-5" />}
+                  </button>
+                </>
+              )
+              :
+              (
+                <>
+                  <button
+                    className="px-10 py-2.5 bg-sky-400 hover:bg-sky-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-sky-300 dark:focus:ring-sky-800 disabled:cursor-not-allowed"
+                    onClick={openEditModal}
+                  >
+                    <BiEditAlt className="h-5 w-5" />
+                  </button>
+
+                  <hr className='w-[1px] h-6 bg-gray-900 dark:bg-gray-200' />
+                  <button
+                    disabled={loadingDelete}
+                    className="px-10 py-2.5 bg-red-400 hover:bg-red-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 disabled:cursor-not-allowed"
+                    onClick={handleDeletaEvento}
+                  >
+                    {loadingDelete ? <Spinner /> : <LiaTrashAltSolid className="h-5 w-5" />}
+                  </button>
+                </>
+              )
+          }
         </Modal.Footer>
       </Modal.Body>
     </Modal>

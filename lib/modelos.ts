@@ -32,7 +32,7 @@ export interface PublicacaoCompleta {
     criadoem: string;
     atualizadoem: string;
     issalvo: boolean;
-
+    userpremium: boolean;
 }
 
 export interface InsereImovel {
@@ -235,6 +235,7 @@ export interface VisitaProps {
     cep_imovel: string;
     complemento_imovel: string;
     survey_id: string;
+    survey_status: boolean;
 }
 
 export type Historico = {
@@ -274,7 +275,7 @@ export type Dashboard2 = {
     neutro: number;
     satisfeito: number;
     muito_satisfeito: number;
-  }[] | null
+}[] | null
 
 export interface FormDataProps {
     campo1: number | null,
@@ -287,9 +288,7 @@ export interface FormDataProps {
     campo8: number | null,
     campo9: number | null,
     campo10: string,
-  }
-  
-}[] | null
+}
 
 export type Dashboard3 = {
     id: string;
