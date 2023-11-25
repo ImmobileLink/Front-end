@@ -170,7 +170,7 @@ export default function ChatHub({ dict, idsala, userType, userId, userLinks, use
                 selected = true;
               }
               return (
-                <ChatHubCard key={mensagem.idmensagem} userType={userType} idsala={mensagem.idsala} dict={dict.chat} mensagem={mensagem} userId={userId} userAvatar={mensagem.avatarparticipante} highlight={included} selected={selected} />
+                <ChatHubCard key={mensagem.idmensagem} userType={userType!} idsala={mensagem.idsala} dict={dict.chat} mensagem={mensagem} userId={userId} userAvatar={mensagem.avatarparticipante} highlight={included} selected={selected} />
               )
             }
             )

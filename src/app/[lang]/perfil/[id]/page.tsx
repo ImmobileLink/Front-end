@@ -12,6 +12,7 @@ import { ProviderContext } from './(perfil)/Provider/ProviderContext';
 import Profile from './(perfil)/Profile';
 import { getSessionAPI } from '../../configuracoes/configUtils';
 import { serverSupabase } from 'lib/utils/serverSupabase';
+import { Dictionaries } from '@/app/i18n/dictionaries/types';
 
 interface pageProps {
   params: {
@@ -52,7 +53,7 @@ export default async function page({ params: { id, lang } }: pageProps) {
   const profileData = await getUserData({ ...user }, supabase, id);
   const sessionData = await getUserData({ ...user }, supabase, session?.user.id);
   const profileFullData = await getProfileFullData(profileData.type!, profileData.id!, supabase)
-  const dict = await getDictionary(lang)
+  const dict = await getDictionary(lang) as Dictionaries
 
   const isOwnProfile = sessionData?.id == profileData?.id
   const isAssociado = !!(sessionData.id && sessionData.assoc?.some((item) => item.id === profileData.id));
@@ -70,8 +71,8 @@ export default async function page({ params: { id, lang } }: pageProps) {
         (<Profile dict={dict.profile}/>)
         :
         <div className='flex justify-center items-center flex-col'>
-          <h1 className='text-3xl font-semibold text-gray-800 dark:text-white'>Ops, esse perfil não existe</h1>
-          <Link href={'/feed'} className='mt-4 text-blue-600 hover:underline'>Voltar ao feed</Link>
+          <h1 className='text-3xl font-semibold text-gray-800 dark:text-white'>{dict.profile.doesntExist}</h1>
+          <Link href={'/feed'} className='mt-4 text-blue-600 hover:underline'>{dict.profile.backToFeed}</Link>
         </div>
       }
     </ProviderContext>

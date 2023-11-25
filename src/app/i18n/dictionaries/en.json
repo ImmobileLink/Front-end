@@ -397,6 +397,8 @@
         "withoutRating": "No ratings",
         "visitPanel": "Access your visit panel",
         "calendarLang": "en",
+        "doesntExist": "Oops, this profile doesn't exist",
+        "backToFeed": "Back to feed",
         "editProfile": {
             "edit": "Edit Profile",
             "name": "Name",

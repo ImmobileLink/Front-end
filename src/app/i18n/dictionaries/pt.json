@@ -397,6 +397,8 @@
         "withoutRating": "Sem avaliações",
         "visitPanel": "Acesse seu painel de visitas",
         "calendarLang": "pt",
+        "doesntExist": "Ops, esse perfil não existe",
+        "backToFeed": "Voltar ao feed",
         "editProfile": {
             "edit": "Editar perfil",
             "name": "Nome",

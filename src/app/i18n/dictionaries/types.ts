@@ -686,6 +686,8 @@ export interface Profile {
     buttonProfile: ButtonProfile;
     infos: InfosProfile;
     dashboard: Dashboard;
+    doesntExist: string;
+    backToFeed: string;
 
 }
 
