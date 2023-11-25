@@ -715,13 +715,18 @@
         "delete": "Do you want to cancel this visit?",
         "cannotbeundone": "This action cannot be undone.",
         "sendsurvey": "Do you want to send a satisfaction survey form?",
+        "waiting": "Waiting Confirmation",
         "logs": {
             "emailerror": "Submitting the form is only possible for visits that have already been made.",
             "emailok": "Email successfully sent.",
             "visitok": "Visit canceled successfully.",
             "visitchanged": "Visit updated successfully.",
             "invaliddate": "Select a valid date.",
-            "invalidtime": "Select a valid time."
+            "invalidtime": "Select a valid time.",
+            "confirmVisit": "Visit scheduled successfully",
+            "refuseVisit": "Visit declined",
+            "confirmVisitError": "Unable to confirm the visit",
+            "refuseVisitError": "Unable to decline the visit"
         }
     },
     "survey": {

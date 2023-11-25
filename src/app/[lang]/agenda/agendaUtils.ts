@@ -1,4 +1,3 @@
-import { Agenda } from "@/app/i18n/dictionaries/types"
 
 export const getVisitasAceitasCorretor = async (supabase: any, id: string) => {
   let { data, error } = await supabase.rpc('obter_visitas_aceitas_pelo_corretor', {
@@ -40,6 +39,22 @@ export const deleteVisita = async (supabase: any, id: string) => {
   }
 }
 
+export const confirmaVisita = async (supabase: any, id: string) => {
+  const { data, error } = await supabase
+    .from('visita')
+    .update({ aceito: true })
+    .eq('id', id)
+    .select()
+
+  if (error) {
+    console.log(error)
+    return false
+  }
+  else {
+    return true
+  }
+}
+
 export const enviaEmail = async (clientEmail: string, clientName: string, visitDate: string, surveyId: string) => {
   try {
     // const url = 'http://localhost:3000/api/survey'; para testes
@@ -67,7 +82,7 @@ export const enviaEmail = async (clientEmail: string, clientName: string, visitD
     if (!response.ok) {
       throw new Error(response.statusText);
     }
-    
+
     const data = await response.json();
 
     return data;

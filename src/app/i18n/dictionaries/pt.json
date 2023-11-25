@@ -703,6 +703,7 @@
         "close": "Fechar",
         "delete": "Deseja cancelar esta visita?",
         "cannotbeundone": "Esta ação não pode ser desfeita.",
+        "waiting": "Aguardando Confirmação",
         "sendsurvey": "Deseja enviar formulário de pesquisa de satisfação?",
         "logs": {
             "emailerror": "O envio do formulário só é possível para visitas já realizadas.",
@@ -710,7 +711,11 @@
             "visitok": "Visita cancelada com sucesso.",
             "visitchanged": "Visita atualizada com sucesso.",
             "invaliddate": "Selecione uma data válida",
-            "invalidtime": "Selecione um horário válido"
+            "invalidtime": "Selecione um horário válido",
+            "confirmVisit": "Visita agendada com sucesso",
+            "refuseVisit": "Visita recusada",
+            "confirmVisitError": "Não foi possível confirmar a visita",
+            "refuseVisitError": "Não foi possível recusar a visita"
         }
     },
     "survey": {
