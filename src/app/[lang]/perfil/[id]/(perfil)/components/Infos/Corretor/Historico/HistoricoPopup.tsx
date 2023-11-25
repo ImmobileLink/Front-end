@@ -34,15 +34,16 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
         formState: { errors },
     } = useForm();
 
-    const defaultValues = {
-        nome_empresa: "",
-        data_inicio: "",
-        data_fim: "",
-        descricao: ""
-    }
+
     const [erro, setErro] = useState<string | undefined>(undefined)
 
     useEffect(() => {
+        const defaultValues = {
+            nome_empresa: "",
+            data_inicio: "",
+            data_fim: "",
+            descricao: ""
+        }
         if (props.idEditHistorico) {
             const data = historico?.find((item) => item.id === props.idEditHistorico);
 
@@ -54,11 +55,7 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
         } else {
             reset(defaultValues)
         }
-    }, [props.openModal])
-
-
-
-
+    }, [historico, props.idEditHistorico, props.openModal, reset, setValue])
 
     const onSubmit = async (data: any) => {
         setErro(undefined);
@@ -162,6 +159,7 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
                                     validate: validateData
                                 }}
                             />
+                            {/*@ts-ignore*/}
                             {errors.data_inicio && <p className="text-red-500 text-xs mt-1">{errors.data_inicio.message?.toString()}</p>}
 
                         </div>
@@ -208,6 +206,7 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
                                     )}
                                 />
                             </div>
+                            {/*@ts-ignore*/}
                             {errors.data_fim && <p className="text-red-500 text-xs mt-1">{errors.data_fim.message?.toString()}</p>}
 
                         </div>

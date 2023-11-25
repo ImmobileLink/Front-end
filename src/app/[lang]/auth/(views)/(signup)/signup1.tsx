@@ -35,7 +35,7 @@ export default function SignUp1({
             delete erros?.confirmSenha
         }
         setFieldErros({...erros});
-    }, [props.senha, props.confirmSenha])
+    }, [props.senha, props.confirmSenha, fieldErros, setFieldErros, signup1.logs.invaliddifferentpasswords])
 
     return (
         <>

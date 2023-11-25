@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { NotificationContext } from "./NotificationContext";
 import { HiChatBubbleLeft } from "react-icons/hi2";
 import { Navbarbuttons } from "@/app/i18n/dictionaries/types";
 import { getMessageNotificationsAPI } from "./navbarUtils";
 import { clientSupabase } from "../../../../../lib/utils/clientSupabase";
+import { usePathname } from "next/navigation";
 
 interface ChatIconProps {
     textos: Navbarbuttons
@@ -18,16 +19,24 @@ export default function ChatIcon({ textos, userId }: ChatIconProps) {
     const { chatNotification, toggleChatNotification } = useContext(NotificationContext)
     const supabase = clientSupabase()
 
-    const getMessageNotifications = async (idusuario: string) => {
+    const [isCurrentRoom, setIsCurrentRoom] = useState(false);
+
+    // Obtém o parâmetro da rota
+    const path = usePathname();
+
+    const getMessageNotifications = useCallback(async (idusuario: string) => {
         const result = await getMessageNotificationsAPI(idusuario, supabase)
-        if(result) {
+        if (result) {
             toggleChatNewMessages(result)
         }
-    }
+    },[supabase, toggleChatNewMessages])
 
     useEffect(() => {
         getMessageNotifications(userId!)
-    },[])
+        const currentRoomExist = chatNewMessages.some((message:any) => path.includes(message) );
+        // Atualiza o estado com base na condição
+        setIsCurrentRoom(currentRoomExist);
+    }, [chatNewMessages, getMessageNotifications, path, userId])
 
     useEffect(() => {
         if (chatNewMessages.length > 0) {
@@ -50,7 +59,7 @@ export default function ChatIcon({ textos, userId }: ChatIconProps) {
         return () => {
             subscription.unsubscribe();
         }
-    }, [chatNewMessages])
+    }, [chatNewMessages, getMessageNotifications, supabase, toggleChatNotification, userId])
 
     return (
         <>
@@ -60,8 +69,8 @@ export default function ChatIcon({ textos, userId }: ChatIconProps) {
                     <p className="hidden md:block md:text-sm">{textos.messages}</p>
                 </div>
                 {
-                    chatNotification && ( // Verifica se há notificações antes de exibir a bolinha
-                    <span className="absolute top-0 right-0 md:top-0 md:right-5 h-3 w-3 bg-orange-600 rounded-full"></span>
+                    chatNotification && chatNewMessages.length > 0 && !isCurrentRoom && ( // Verifica se há notificações antes de exibir a bolinha
+                        <span className="absolute top-0 right-0 md:top-0 md:right-5 h-3 w-3 bg-orange-600 rounded-full"></span>
                     )
                 }
             </Link>

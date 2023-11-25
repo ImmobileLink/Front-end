@@ -1,7 +1,7 @@
 
 "use client";
 import { Navbarbuttons } from "@/app/i18n/dictionaries/types";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { HiBell } from "react-icons/hi2";
 import { Notification } from "../(compositions)/(notification)";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -27,13 +27,13 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
     const supabase = clientSupabase()
     const router = useRouter()
 
-    const getNotifications = async (userId: string) => {
+    const getNotifications = useCallback(async (userId: string) => {
         const result = await getNotificationsAPI(userId, supabase)
         if (result) {
             toggleNotificationList(result)
         }
-    }
-    
+    }, [supabase, toggleNotificationList])
+
     const atualizaNotificacoes = async (itemId: string, userId: string) => {
         const result = await updateNotificationsAPI(itemId, userId, supabase)
         if (result) {
@@ -42,7 +42,7 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
         }
     }
 
-    const checkNotSymbol = () => {
+    const checkNotSymbol = useCallback(() => {
         let checkNewNot: any[] = []
         let checkOldNot: any[] = []
         notificationList.map((item: any) => {
@@ -61,11 +61,11 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
         else {
             setNotification(false)
         }
-    }
+    }, [newNot.length, notificationList])
 
     useEffect(() => {
         checkNotSymbol()
-    }, [notificationList])
+    }, [checkNotSymbol, notificationList])
 
     useEffect(() => {
         if (newNot.length > 0) {
@@ -95,7 +95,7 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
         return () => {
             subscription.unsubscribe();
         }
-    }, [])
+    }, [getNotifications, supabase, userId])
 
     useEffect(() => {
         const subscription = supabase.channel("Notification_updates")
@@ -115,32 +115,32 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
         return () => {
             subscription.unsubscribe();
         }
-    }, [])
+    }, [getNotifications, supabase, userId])
 
     const aceitarAssociacao = async (itemId: string) => {
         const result = await acceptAssociationAPI(itemId, supabase)
-        if(result) {
+        if (result) {
             atualizaNotificacoes(itemId, userId)
         }
     }
 
     const recusarAssociacao = async (itemId: string) => {
         const result = await refuseAssociationAPI(itemId, supabase)
-        if(result) {
+        if (result) {
             atualizaNotificacoes(itemId, userId)
         }
     }
 
     const aceitarConexao = async (itemId: string) => {
         const result = await acceptConnectionAPI(itemId, supabase)
-        if(result) {
+        if (result) {
             atualizaNotificacoes(itemId, userId)
         }
     }
 
     const recusarConexao = async (itemId: string) => {
         const result = await refuseConnectionAPI(itemId, supabase)
-        if(result) {
+        if (result) {
             atualizaNotificacoes(itemId, userId)
         }
     }
@@ -155,16 +155,20 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
 
     const aceitaVisita = async (idvisita: string) => {
         const result = await acceptVisitAPI(idvisita, supabase)
-        if(result) {
+        if (result) {
             atualizaNotificacoes(idvisita, userId)
         }
     }
 
     const recusaVisita = async (idvisita: string) => {
         const result = await refuseVisitAPI(idvisita, supabase)
-        if(result) {
+        if (result) {
             atualizaNotificacoes(idvisita, userId)
         }
+    }
+
+    const notificationConsume = async (itemId: string) => {
+        atualizaNotificacoes(itemId, userId)
     }
 
     return (
@@ -228,6 +232,34 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
                                             <Notification.Root key={item.id} visualizada={item.visualizada}>
                                                 <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.updatedvisit} date={item.data} />
                                                 <Notification.Actions visualizada={item.visualizada} action1={e => visualizarVisita(item.artefato)} texto={textos.notificationlabels} type={'check'} />
+                                            </Notification.Root>
+                                        )
+                                    case 'associacaoaceita':
+                                        return (
+                                            <Notification.Root key={item.id} visualizada={item.visualizada}>
+                                                <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.acceptedassociation} date={item.data} />
+                                                <Notification.Actions visualizada={item.visualizada} action1={e => notificationConsume(item.artefato)} texto={textos.notificationlabels} type={'check'} />
+                                            </Notification.Root>
+                                        )
+                                    case 'associacaonegada':
+                                        return (
+                                            <Notification.Root key={item.id} visualizada={item.visualizada}>
+                                                <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.refusedassociation} date={item.data} />
+                                                <Notification.Actions visualizada={item.visualizada} action1={e => notificationConsume(item.artefato)} texto={textos.notificationlabels} type={'check'} />
+                                            </Notification.Root>
+                                        )
+                                    case 'conexaoaceita':
+                                        return (
+                                            <Notification.Root key={item.id} visualizada={item.visualizada}>
+                                                <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.acceptedconnection} date={item.data} />
+                                                <Notification.Actions visualizada={item.visualizada} action1={e => notificationConsume(item.artefato)} texto={textos.notificationlabels} type={'check'} />
+                                            </Notification.Root>
+                                        )
+                                    case 'conexaonegada':
+                                        return (
+                                            <Notification.Root key={item.id} visualizada={item.visualizada}>
+                                                <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.refusedconnection} date={item.data} />
+                                                <Notification.Actions visualizada={item.visualizada} action1={e => notificationConsume(item.artefato)} texto={textos.notificationlabels} type={'check'} />
                                             </Notification.Root>
                                         )
                                 }

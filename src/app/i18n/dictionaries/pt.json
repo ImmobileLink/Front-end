@@ -25,7 +25,11 @@
             "nonotifications": "Sem notificações",
             "acceptedvisit": "aceitou uma visita",
             "refusedvisit": "cancelou ou negou uma visita",
-            "updatedvisit": "atualizou os dados de uma visita"
+            "updatedvisit": "atualizou os dados de uma visita",
+            "acceptedconnection": "e você agora estão conectados(as)!",
+            "refusedconnection": "recusou o convite de conexão",
+            "acceptedassociation": "aceitou o convite de associação!",
+            "refusedassociation": "recusou o convite de associação"
         },
         "mylinks": "Meus links",
         "associated": "Associados"

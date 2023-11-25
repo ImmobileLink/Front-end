@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 import Loading from "@/app/[lang]/(components)/(auth)/Loading";
 import { _UFs } from "../../../../../../../../../lib/utils/externalApis";
 import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "@/../../lib/database.types";
 import { useProfileContext } from "../../../context/ProfileContext";
 import { adicionarRegiao, removerRegiao } from "../../../../perfilUtils/EditProfile";
 import { clientSupabase } from "lib/utils/clientSupabase";
@@ -48,11 +46,12 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
     
             setRegioesIncluidas(novasRegioes);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
         setAreasAtuacao(regioesIncluidas)
-    }, [regioesIncluidas])
+    }, [regioesIncluidas, setAreasAtuacao])
 
 
     useEffect(() => {

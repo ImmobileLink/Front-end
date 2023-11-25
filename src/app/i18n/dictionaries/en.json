@@ -25,7 +25,11 @@
             "nonotifications": "No notifications",
             "acceptedvisit": "has accepted a visit",
             "refusedvisit": "has canceled or refused a visit",
-            "updatedvisit": "has updated a visit's data"
+            "updatedvisit": "has updated a visit's data",
+            "acceptedconnection": "and you are now connected!",
+            "refusedconnection": "refused your connection invitation",
+            "acceptedassociation": "accepted your association invitation!",
+            "refusedassociation": "refused your association invitation"
         },
         "mylinks": "My links",
         "associated": "Associated"

@@ -74,6 +74,7 @@ export default function Dashboard({ dict }: DashboardProps) {
 
 
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

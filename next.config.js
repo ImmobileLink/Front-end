@@ -4,9 +4,9 @@ const nextConfig = {
     loader: 'custom',
     loaderFile: './lib/supabase-image-loader.ts',
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  // eslint: {
+  //   ignoreDuringBuilds: true,
+  // },
   typescript: {
     ignoreBuildErrors: true,
   },

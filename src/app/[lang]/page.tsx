@@ -13,7 +13,7 @@ export default function Page({ params: { lang } }: PageProps) {
   const router = useRouter();
   useEffect(()=>{
     router.push(`${lang}/home`);
-  }, [])
+  }, [lang, router])
 
   return <></>;
 }

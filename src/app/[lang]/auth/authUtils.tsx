@@ -215,7 +215,7 @@ export const verifyFields = async (
             break;
         case 4:
             if (tipoPerfil == 1) {
-                if (creci.length >= 7 || creci.length < 5) {
+                if (creci.length >= 8 || creci.length < 5) {                  
                     assignError(
                         erros,
                         "creci",

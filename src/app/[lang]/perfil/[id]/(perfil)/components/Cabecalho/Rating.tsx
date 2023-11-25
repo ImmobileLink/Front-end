@@ -35,6 +35,7 @@ export default function RatingCount() {
             }
         }
         fetchData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const isPremium = useProfileStore.getState().profileData?.isPremium
