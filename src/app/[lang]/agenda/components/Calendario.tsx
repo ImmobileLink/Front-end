@@ -138,6 +138,7 @@ export default function Calendario({ type, visitas, locale, dict }: CalendarioPr
                     evento={eventoAtivo}
                     type={type}
                     dict={dict}
+                    openEditModal={openEditModal}
                 />
             )}
 

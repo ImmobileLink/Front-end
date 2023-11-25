@@ -1,7 +1,7 @@
 "use client";
 
 import { TiDelete } from "react-icons/ti";
-import { BiCalendarCheck } from 'react-icons/bi';
+import { BiCalendarCheck, BiEditAlt } from 'react-icons/bi';
 import { Agenda } from "@/app/i18n/dictionaries/types";
 import { VisitaProps } from "../../../../../lib/modelos";
 import { formataData } from "../../../../../lib/utils/formataData";
@@ -19,10 +19,11 @@ interface ModalEventoProps {
     evento: VisitaProps | undefined;
     dict: Agenda;
     type: string;
+    openEditModal: () => void;
 }
 
 
-export default function ModalConfirmaEvento({ isOpen, onClose, evento, dict, type }: ModalEventoProps) {
+export default function ModalConfirmaEvento({ isOpen, onClose, evento, dict, type, openEditModal }: ModalEventoProps) {
     const supabase = clientSupabase();
 
     const respondido = async () => {
@@ -54,15 +55,15 @@ export default function ModalConfirmaEvento({ isOpen, onClose, evento, dict, typ
     }
 
 
-    const handleConfirmaEvento = async() => {
-      setLoadingConfirm(true)
+    const handleConfirmaEvento = async () => {
+        setLoadingConfirm(true)
         const response = await confirmaVisita(supabase, evento?.visita_id!)
 
-        if(response){
+        if (response) {
             toast.success(dict.logs.confirmVisit);
             router.refresh();
             onClose();
-        }else{
+        } else {
             toast.error(dict.logs.confirmVisitError)
         }
         setLoadingConfirm(false)
@@ -103,7 +104,8 @@ export default function ModalConfirmaEvento({ isOpen, onClose, evento, dict, typ
                     </div>
                 </Modal.Body>
                 <Modal.Footer className='flex justify-center items-center'>
-                    {
+
+                    {type == "corretor" ? (
                         <>
                             <button
                                 className="px-10 py-2.5 bg-green-500 hover:bg-green-800 rounded-lg focus:ring-4 focus:outline-none focus:ring-sky-300 dark:focus:ring-sky-800 disabled:cursor-not-allowed"
@@ -112,18 +114,29 @@ export default function ModalConfirmaEvento({ isOpen, onClose, evento, dict, typ
                             >
                                 {loadingConfirm ? <Spinner /> : <BiCalendarCheck className="h-5 w-5" />}
                             </button>
-                            
-                            <hr className='w-[1px] h-6 bg-gray-900 dark:bg-gray-200' />
-                            <button
-                                disabled={loadingDelete}
-                                className="px-10 py-2.5 bg-red-400 hover:bg-red-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 disabled:cursor-not-allowed"
-                                onClick={handleDeletaEvento}
-                            >
-                                {loadingDelete ? <Spinner /> : <TiDelete className="h-5 w-5" />}
-                            </button>
-                        </>
 
-                    }
+                            <hr className='w-[1px] h-6 bg-gray-900 dark:bg-gray-200' />
+                        </>
+                    ) : (
+                        <>
+                            <button
+                                className="px-10 py-2.5 bg-sky-400 hover:bg-sky-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-sky-300 dark:focus:ring-sky-800 disabled:cursor-not-allowed"
+                                onClick={openEditModal}
+                            >
+                                <BiEditAlt className="h-5 w-5" />
+                            </button>
+                        </>)}
+
+
+                    <button
+                        disabled={loadingDelete}
+                        className="px-10 py-2.5 bg-red-400 hover:bg-red-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 disabled:cursor-not-allowed"
+                        onClick={handleDeletaEvento}
+                    >
+                        {loadingDelete ? <Spinner /> : <TiDelete className="h-5 w-5" />}
+                    </button>
+
+
                 </Modal.Footer>
             </Modal.Body>
         </Modal>
