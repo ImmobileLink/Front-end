@@ -426,7 +426,15 @@
                 "dataUpdatedSuccessfully": "Data updated successfully",
                 "incompleteCEP": "Incomplete ZIP code",
                 "nonexistentCEP": "This ZIP code does not exist",
-                "minLengthName": "The name must have at least 5 characters"
+                "minLengthName": "The name must have at least 5 characters",
+                "specialtyUpdated": "Specialty updated!",
+                "specialtyUpdatedFail": "Error updating specialties",
+                "regionUpdated": "Region updated!",
+                "regionUpdatedFail": "Error updating region"
+            },
+            "error": {
+                "cityNotFound": "City not found. Try again later.",
+                "selectStateFirst": "Select the state first"
             }
         },
         "buttonProfile": {
@@ -481,10 +489,6 @@
                     "insertStartDate": "Insert a start date."
                 }
             }
-        },
-        "error": {
-            "cityNotFound": "City not found",
-            "selectStateFirst": "Select the state first"
         },
         "dashboard": {
             "logintoseemore": "Login or Register to access the dashboard",

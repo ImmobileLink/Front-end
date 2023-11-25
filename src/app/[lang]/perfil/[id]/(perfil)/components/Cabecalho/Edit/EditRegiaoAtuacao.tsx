@@ -80,13 +80,13 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
             const { error } = await adicionarRegiao(state.profileData?.id!, { cidade, estado }, supabase)
             if (!error) {
                 props.setDropdownRegiao(!props.dropdownRegiao);
-                setSucess("Regiões atualizadas!")
+                setSucess(dict?.warn.regionUpdated)
                 setTimeout(() => {
                     setSucess(undefined)
                 }, 3000);
                 setRegioesIncluidas((prev) => [...prev, { estado: estado, cidade: cidade }]);
             } else {
-                setError("Falha ao atualizar regiões")
+                setError(dict?.warn.regionUpdatedFail)
                 setTimeout(() => {
                     setError(undefined)
                 }, 3000);

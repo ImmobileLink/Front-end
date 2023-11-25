@@ -700,6 +700,10 @@ export interface ProfileWarn {
     incompleteCEP: string;
     nonexistentCEP: string;
     minLengthName: string;
+    specialtyUpdated: string;
+    specialtyUpdatedFail: string;
+    regionUpdated: string;
+    regionUpdatedFail: string;
 }
 
 export interface InfosProfile {

@@ -162,8 +162,8 @@ export default function EditEspecialidades({ props, imoveis }: EditEspecialidade
                             ))}
                         </ul>
                     )}
-                    {sucess && <p className="text-green-500 text-xs mt-1">Especialidade atualizada!</p>}
-                    {error && <p className="text-red-500 text-xs mt-1">Falha ao atualizar especialidades</p>}
+                    {sucess && <p className="text-green-500 text-xs mt-1">{dict?.warn.specialtyUpdated}</p>}
+                    {error && <p className="text-red-500 text-xs mt-1">{dict?.warn.specialtyUpdatedFail}</p>}
                 </div>
 
             </div>
