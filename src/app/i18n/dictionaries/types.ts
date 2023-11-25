@@ -50,6 +50,7 @@ export interface Agenda {
     cannotbeundone: string;
     sendsurvey: string;
     logs: AgendaLogs;
+    waiting: string;
 }
 
 export interface AgendaLogs {
@@ -59,6 +60,10 @@ export interface AgendaLogs {
     visitchanged: string;
     invaliddate: string;
     invalidtime: string;
+    confirmVisit: string;
+    refuseVisit: string;
+    confirmVisitError: string;
+    refuseVisitError: string;
 }
 
 export interface Auth {
