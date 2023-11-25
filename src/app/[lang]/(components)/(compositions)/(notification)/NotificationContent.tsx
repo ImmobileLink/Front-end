@@ -17,7 +17,8 @@ export default function NotificationContent({ author, authorId, content, date }:
 
     useEffect(() => {
         setData(formataData(date!))
-    }, [date])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <div className="w-full block text-start pl-3">

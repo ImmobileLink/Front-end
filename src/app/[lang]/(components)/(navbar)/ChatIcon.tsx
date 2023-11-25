@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import Link from "next/link";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NotificationContext } from "./NotificationContext";
 import { HiChatBubbleLeft } from "react-icons/hi2";
 import { Navbarbuttons } from "@/app/i18n/dictionaries/types";
@@ -24,19 +25,19 @@ export default function ChatIcon({ textos, userId }: ChatIconProps) {
     // Obtém o parâmetro da rota
     const path = usePathname();
 
-    const getMessageNotifications = useCallback(async (idusuario: string) => {
+    const getMessageNotifications = async (idusuario: string) => {
         const result = await getMessageNotificationsAPI(idusuario, supabase)
         if (result) {
             toggleChatNewMessages(result)
         }
-    },[supabase, toggleChatNewMessages])
+    }
 
     useEffect(() => {
         getMessageNotifications(userId!)
         const currentRoomExist = chatNewMessages.some((message:any) => path.includes(message) );
         // Atualiza o estado com base na condição
         setIsCurrentRoom(currentRoomExist);
-    }, [chatNewMessages, getMessageNotifications, path, userId])
+    }, [])
 
     useEffect(() => {
         if (chatNewMessages.length > 0) {
@@ -59,7 +60,7 @@ export default function ChatIcon({ textos, userId }: ChatIconProps) {
         return () => {
             subscription.unsubscribe();
         }
-    }, [chatNewMessages, getMessageNotifications, supabase, toggleChatNotification, userId])
+    }, [chatNewMessages])
 
     return (
         <>

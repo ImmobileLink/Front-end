@@ -13,7 +13,6 @@ import "dayjs/locale/en";
 import "dayjs/locale/pt";
 import { getDiasVisita } from '../perfil/[id]/perfilUtils/CalendarioProfile';
 import { clientSupabase } from 'lib/utils/clientSupabase';
-import { useCallback } from 'react';
 
 
 
@@ -74,7 +73,7 @@ export default function Calendario({ }: CalendarioProps) {
   const id1 = state.profileData?.id!
   const id2 = state.isOwn ? undefined : state.sessionData?.id!
 
-  const fetchHighlightedDays = useCallback(async (date: Dayjs) => {
+  const fetchHighlightedDays = async (date: Dayjs) => {
 
     const controller = new AbortController();
     const daysToHighlight = await fetchData(date, id1, id2, { signal: controller.signal, }, supabase)
@@ -84,15 +83,15 @@ export default function Calendario({ }: CalendarioProps) {
     }
     setIsLoading(false);
 
-
     requestAbortController.current = controller;
-  },[id1, id2, supabase]);
+  }
 
   React.useEffect(() => {
     fetchHighlightedDays(initialValue);
     // abort request on unmount
     return () => requestAbortController.current?.abort();
-  }, [fetchHighlightedDays]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleMonthChange = (date: Dayjs) => {
     if (requestAbortController.current) {
