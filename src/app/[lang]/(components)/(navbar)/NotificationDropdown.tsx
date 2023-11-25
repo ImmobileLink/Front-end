@@ -311,6 +311,34 @@ export default function NotificationDropdown({ textos, userId }: NotificationDro
                                                     <Notification.Actions visualizada={item.visualizada} action1={e => visualizarVisita(item.artefato)} texto={textos.notificationlabels} type={'check'} />
                                                 </Notification.Root>
                                             )
+                                        case 'associacaoaceita':
+                                            return (
+                                                <Notification.Root key={item.id} visualizada={item.visualizada}>
+                                                    <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.acceptedassociation} date={item.data} />
+                                                    <Notification.Actions visualizada={item.visualizada} action1={e => notificationConsume(item.artefato)} texto={textos.notificationlabels} type={'check'} />
+                                                </Notification.Root>
+                                            )
+                                        case 'associacaonegada':
+                                            return (
+                                                <Notification.Root key={item.id} visualizada={item.visualizada}>
+                                                    <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.refusedassociation} date={item.data} />
+                                                    <Notification.Actions visualizada={item.visualizada} action1={e => notificationConsume(item.artefato)} texto={textos.notificationlabels} type={'check'} />
+                                                </Notification.Root>
+                                            )
+                                        case 'conexaoaceita':
+                                            return (
+                                                <Notification.Root key={item.id} visualizada={item.visualizada}>
+                                                    <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.acceptedconnection} date={item.data} />
+                                                    <Notification.Actions visualizada={item.visualizada} action1={e => notificationConsume(item.artefato)} texto={textos.notificationlabels} type={'check'} />
+                                                </Notification.Root>
+                                            )
+                                        case 'conexaonegada':
+                                            return (
+                                                <Notification.Root key={item.id} visualizada={item.visualizada}>
+                                                    <Notification.Content author={item.nomeremetente} authorId={item.idremetente} content={textos.notificationlabels.refusedconnection} date={item.data} />
+                                                    <Notification.Actions visualizada={item.visualizada} action1={e => notificationConsume(item.artefato)} texto={textos.notificationlabels} type={'check'} />
+                                                </Notification.Root>
+                                            )
                                     }
                                 })
                                 :
