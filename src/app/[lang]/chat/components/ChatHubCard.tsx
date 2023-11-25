@@ -16,7 +16,7 @@ interface ChatHubCardProps {
     userAvatar: string;
     highlight: boolean;
     selected: boolean;
-    userType: string;
+    userType: string | undefined;
 }
 
 export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar, highlight, selected,userType }: ChatHubCardProps) {
