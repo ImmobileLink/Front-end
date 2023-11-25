@@ -104,7 +104,8 @@ export default function Signup4({
         }
 
         fetchCities();
-    }, [selectedState, signup4.logs.uferror]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedState]);
 
     const addRegiao = ({ estado, cidade }: { estado: string, cidade: string }) => {
         if (!props.regioesIncluidas.some(item => item.estado === estado && item.cidade === cidade)) {

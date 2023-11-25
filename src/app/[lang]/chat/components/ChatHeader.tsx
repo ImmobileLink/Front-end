@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import Avatar from "../../(components)/Avatar";
 import { BiArrowBack } from "react-icons/bi";
 import { ChatContext } from "../[[...idsala]]/chatContext";

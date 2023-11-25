@@ -119,7 +119,8 @@ export default function LinksList({
         };
         getLinks();
         getAssoc();
-    }, [assoc, links, type]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div>

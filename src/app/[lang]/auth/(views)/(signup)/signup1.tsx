@@ -35,7 +35,8 @@ export default function SignUp1({
             delete erros?.confirmSenha
         }
         setFieldErros({...erros});
-    }, [props.senha, props.confirmSenha, fieldErros, setFieldErros, signup1.logs.invaliddifferentpasswords])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.senha, props.confirmSenha])
 
     return (
         <>

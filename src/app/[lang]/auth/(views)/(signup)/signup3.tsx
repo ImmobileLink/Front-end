@@ -96,7 +96,8 @@ export default function Signup3({
                 delete erros?.cep;
             }
         }
-    }, [fieldErros, props, props.cep, setFieldErros, signup3.logs.invalidcep, signup3.logs.invalidcepnotfound]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.cep]);
 
     const handleUFChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;

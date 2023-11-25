@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, Suspense, useContext, useEffect } from "react";
+import { ReactNode, Suspense, useContext  } from "react";
 import { ChatContext } from "../[[...idsala]]/chatContext";
 import { Chat } from "@/app/i18n/dictionaries/types";
 import { Spinner } from "flowbite-react";

@@ -18,7 +18,8 @@ export default function Banner({ lang, isUserLoggedIn }: BannerProps) {
         if (isUserLoggedIn) {
             router.push("feed");
         }
-    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
     return (
         <div className="h-screen select-none bg-gradient-to-b from-white to-transparent dark:from-gray-900 dark:to-black/25 flex flex-col items-center text-center justify-center">
             <a className="font-semibold text-5xl px-8 md:text-7xl md:font-normal">

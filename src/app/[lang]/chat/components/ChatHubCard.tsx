@@ -4,7 +4,7 @@ import { UltimaMensagemPorSalaPorUsuario } from "../../../../../lib/modelos"
 import Avatar from "../../(components)/Avatar";
 import Link from "next/link";
 import { ChatContext } from "../[[...idsala]]/chatContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { useRouter } from 'next/navigation';
 import { clientSupabase } from "lib/utils/clientSupabase";
 

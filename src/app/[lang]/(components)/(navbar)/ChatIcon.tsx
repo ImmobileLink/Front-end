@@ -33,16 +33,19 @@ export default function ChatIcon({ textos, userId }: ChatIconProps) {
     }
 
     useEffect(() => {
+        const checkCurrentRoom = () => {
+            const currentRoomExist = chatNewMessages.some((message: any) => path.includes(message));
+            // Atualiza o estado com base na condição
+            setIsCurrentRoom(currentRoomExist);
+        }
         getMessageNotifications(userId!)
-        const currentRoomExist = chatNewMessages.some((message:any) => path.includes(message) );
-        // Atualiza o estado com base na condição
-        setIsCurrentRoom(currentRoomExist);
-    }, [])
-
-    useEffect(() => {
         if (chatNewMessages.length > 0) {
             toggleChatNotification(true)
         }
+        checkCurrentRoom()
+    }, [])
+
+    useEffect(() => {
         const subscription = supabase.channel("messagenotification_changes")
             .on(
                 "postgres_changes",
@@ -60,7 +63,7 @@ export default function ChatIcon({ textos, userId }: ChatIconProps) {
         return () => {
             subscription.unsubscribe();
         }
-    }, [chatNewMessages])
+    }, [])
 
     return (
         <>
