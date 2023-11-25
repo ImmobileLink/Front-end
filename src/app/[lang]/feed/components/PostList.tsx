@@ -33,7 +33,7 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
     const [posts, setPosts] = useState<PublicacaoCompleta[]>([]);
     const [lastPost, setLastPost] = useState(10);
 
-    const visiblePosts = posts.slice(0,lastPost);
+    const visiblePosts = posts.slice(0, lastPost);
 
     const [erro, setErro] = useState(false);
     const [logErro, setLogErro] = useState<string>();
@@ -42,15 +42,16 @@ export default function PostList({ idusuario, textos, profile, salvo }: PostList
     const [deletePost, setDeletePost] = useState(false);
     const [pubid, setPubid] = useState("");
 
-    const printa = () => {
-        setLastPost(lastPost + 5);
-    }
+
 
     useEffect(() => {
-    if (inView) {
-        printa()
-    }
-    }, [inView])
+        const printa = () => {
+            setLastPost(lastPost + 5);
+        }
+        if (inView) {
+            printa()
+        }
+    }, [inView, lastPost])
 
     //atualiza o select das cidades quando muda o estado
     useEffect(() => {

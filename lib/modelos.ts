@@ -283,7 +283,7 @@ export type Dashboard2 = {
     neutro: number;
     satisfeito: number;
     muito_satisfeito: number;
-  }[] | null
+}[] | null
 
 export interface FormDataProps {
     campo1: number | null,
@@ -296,9 +296,7 @@ export interface FormDataProps {
     campo8: number | null,
     campo9: number | null,
     campo10: string,
-  }
-  
-}[] | null
+}
 
 export type Dashboard3 = {
     id: string;
