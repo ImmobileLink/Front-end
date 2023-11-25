@@ -10,7 +10,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { Modal, Spinner } from 'flowbite-react';
 import { clientSupabase } from 'lib/utils/clientSupabase';
-import { confirmaVisita, deleteVisita, enviaEmail } from '../agendaUtils';
+import { confirmaVisita, deleteVisita, enviaEmail, enviaEmailCliente } from '../agendaUtils';
 import Mapa from './Mapa';
 
 interface ModalEventoProps {
@@ -59,6 +59,7 @@ export default function ModalConfirmaEvento({ isOpen, onClose, evento, dict, typ
         setLoadingConfirm(true)
         const response = await confirmaVisita(supabase, evento?.visita_id!)
 
+        const data = await enviaEmailCliente(evento!.email_marcador, evento!.nome_corretor, evento!.nome_corporacao,evento!.nome_marcador, evento!.data_agendamento, evento!.rua_imovel, evento!.numero_imovel);
         if (response) {
             toast.success(dict.logs.confirmVisit);
             router.refresh();
@@ -68,6 +69,8 @@ export default function ModalConfirmaEvento({ isOpen, onClose, evento, dict, typ
         }
         setLoadingConfirm(false)
     }
+
+
 
     return (
         <Modal

@@ -104,3 +104,44 @@ export const updateVisita = async (supabase: any, data: string, time: string, id
     return true
   }
 }
+
+export const enviaEmailCliente = async (clientEmail: string, corretorName: string, empresaName: string, clientName: string, visitDate: string, rua:string, numero:number) => {
+  try {
+    // const url = 'http://localhost:3000/api/survey'; para testes
+    const url = '/api/confirmaVisita';
+
+    let schedule = new Date();
+    schedule.setMinutes(schedule.getMinutes() + 1);
+
+    const requestBody = {
+      clientEmail: clientEmail,
+      corretorName: corretorName,
+      empresaName:empresaName,
+      clientName: clientName,
+      visitDate: visitDate,
+      scheduledDate: schedule,
+      rua:rua,
+      numero:numero
+    };
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    })
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    const data = await response.json();
+
+    return data;
+
+  } catch (error) {
+    return false;
+  }
+
+}
