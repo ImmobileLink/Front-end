@@ -164,7 +164,6 @@ export default function Form({ props }: FormProps) {
         apagaCampos();
         isDisableInput(false);
       }
-      console.error(data.erro);
     };
     isDisableInput(false);
     const regexCep = /^\d{8}$/;

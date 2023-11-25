@@ -2,7 +2,7 @@ import { getDictionary } from "../dictionaries";
 import Imoveis from "./components/Imoveis";
 import { getUserData } from "../../../../lib/utils/userData";
 import { serverSupabase } from "lib/utils/serverSupabase";
-import { filterAndMapTipos, getBrokers, getCountImovel, getTiposImovel } from "./imovelUtils";
+import { filterAndMapTipos, getBrokers, getCountImovel, getPropertiesAPI, getTiposImovel } from "./imovelUtils";
 
 interface pageProps {
   params: {
@@ -28,13 +28,14 @@ export default async function page({ params: { lang } }: pageProps) {
   }
   
   const corretor = await getBrokers(userData, supabase);
+  const imovelproperties = await getPropertiesAPI(userData.id, supabase)
 
   return (
     <>
       <div className="w-full h-fit select-none min-h-screen bg-branco dark:bg-dark-200 flex justify-center">
         {userData.type == "corporacao" && (
         <div className="flex justify-center w-11/12 max-w-6xl pt-5">
-          <Imoveis props={{ userData, textos, count, tipos, outros, mobilias, condicoes, corretor }} />
+          <Imoveis props={{ userData, textos, count, tipos, outros, mobilias, condicoes, corretor, imovelproperties }} />
         </div>
         )}
       </div>
