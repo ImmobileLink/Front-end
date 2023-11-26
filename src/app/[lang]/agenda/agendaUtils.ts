@@ -61,7 +61,7 @@ export const enviaEmail = async (clientEmail: string, clientName: string, visitD
     const url = '/api/survey';
 
     let schedule = new Date();
-    schedule.setMinutes(schedule.getMinutes() + 3);
+    schedule.setMinutes(schedule.getMinutes()+1);
 
     const requestBody = {
       clientEmail: clientEmail,
