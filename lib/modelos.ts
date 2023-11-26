@@ -102,6 +102,7 @@ export type CorretorBuscado = {
     cidade: string;
     sobre: string;
     nota: number;
+    premium: boolean;
 }[] | null;
 
 export type CorretorBuscadoUnico = {
@@ -113,6 +114,7 @@ export type CorretorBuscadoUnico = {
     cidade: string;
     sobre: string;
     nota: number;
+    premium: boolean;
 };
 
 export type CorporacaoBuscada = {
@@ -122,6 +124,7 @@ export type CorporacaoBuscada = {
     estado: string;
     cidade: string;
     sobre: string;
+    premium: boolean;
 }[] | null;
 
 export type CorporacaoBuscadaUnica = {
@@ -131,6 +134,7 @@ export type CorporacaoBuscadaUnica = {
     estado: string;
     cidade: string;
     sobre: string;
+    premium: boolean;
 };
 
 export type CorretorCarouselItem = {

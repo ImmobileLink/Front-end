@@ -11,11 +11,13 @@ import { clientSupabase } from "lib/utils/clientSupabase";
 interface NavBarHamburguerMenuProps {
     textos: Navbarbuttons;
     userId?: string;
+    userType?: string;
 }
 
 export default function NavBarHamburguerMenu({
     textos,
     userId,
+    userType
 }: NavBarHamburguerMenuProps) {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(false);
@@ -66,6 +68,18 @@ export default function NavBarHamburguerMenu({
                                             {textos.myprofile}
                                         </Link>
                                     </li>
+                                    {
+                                        userType == "corporacao" && (
+                                            <li>
+                                                <Link
+                                                    href={`/imovel`}
+                                                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                >
+                                                    {textos.immobile}
+                                                </Link>
+                                            </li>
+                                        )
+                                    }
                                     <li>
                                         <Link
                                             href={`/links`}
