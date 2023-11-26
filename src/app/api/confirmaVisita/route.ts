@@ -1,22 +1,27 @@
 import { render } from "@react-email/render";
-import { sendEmail } from "../../../../lib/utils/emails";
 import { NextResponse } from "next/server";
-import scheduleJob from "../../../../lib/utils/scheduleJob";
 import ConfirmaVisita from "emails/ConfirmaVisita";
+import sendEmail from "lib/utils/emails";
 
 export async function POST(req: Request) {
   try {
     const { clientEmail,corretorName,empresaName, clientName, visitDate, scheduledDate, rua, numero } = await req.json();
 
-    const emailFunction = async () => {
-      const data = await sendEmail({
-        to: clientEmail,
-        subject: "ImmobileLink Brasil - Pesquisa de Satisfação",
-        html: render(ConfirmaVisita({ name: clientName, date: visitDate, corretorName: corretorName, empresaName: empresaName, rua: rua, numero: numero })),
-      });
-    }
+    const response = await sendEmail({
+      subject: "ImmobileLink Brasil - Pesquisa de Satisfação",
+      html: render(ConfirmaVisita({ name: clientName, date: visitDate, corretorName: corretorName, empresaName: empresaName, rua: rua, numero: numero })),
+      to: clientEmail,
+    });
 
-    scheduleJob(scheduledDate, emailFunction);
+    // const emailFunction = async () => {
+    //   const data = await sendEmail({
+    //     to: clientEmail,
+    //     subject: "ImmobileLink Brasil - Pesquisa de Satisfação",
+    //     html: render(ConfirmaVisita({ name: clientName, date: visitDate, corretorName: corretorName, empresaName: empresaName, rua: rua, numero: numero })),
+    //   });
+    // }
+
+    // scheduleJob(scheduledDate, emailFunction);
 
     return new NextResponse(JSON.stringify({message: 'Email scheduled successfully'}),
       {

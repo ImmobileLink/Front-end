@@ -1,9 +1,10 @@
 import { render } from "@react-email/render";
 import SurveyEmail from "../../../../emails/SurveyEmail";
-import { sendEmail } from "../../../../lib/utils/emails";
 import { NextResponse } from "next/server";
 import scheduleJob from "../../../../lib/utils/scheduleJob";
 import { isDateBeforeCurrent } from "../../../../lib/utils/formataData";
+import nodemailer from "nodemailer"
+import sendEmail from "lib/utils/emails";
 
 export async function POST(req: Request) {
   try {
@@ -25,22 +26,30 @@ export async function POST(req: Request) {
         })
     }
 
-    const emailFunction = async () => {
-      const data = await sendEmail({
-        to: clientEmail,
-        subject: "ImmobileLink Brasil - Pesquisa de Satisfação",
-        html: render(SurveyEmail({ name: clientName, date: visitDate, surveyId: surveyId })),
-      });
-    }
+    // const emailFunction = async () => {
+    //   const data = await sendEmail({
+    //     to: clientEmail,
+    //     subject: "ImmobileLink Brasil - Pesquisa de Satisfação",
+    //     html: render(SurveyEmail({ name: clientName, date: visitDate, surveyId: surveyId })),
+    //   });
+    // }
 
-    scheduleJob(scheduledDate, emailFunction);
+    const response = await sendEmail({
+      subject: "ImmobileLink Brasil - Pesquisa de Satisfação",
+      html: render(SurveyEmail({ name: clientName, date: visitDate, surveyId: surveyId })),
+      to: clientEmail,
+    });
 
-    return new NextResponse(JSON.stringify({message: 'Email scheduled successfully'}),
+  
+    // return Response.json({ message: 'Email sent!' });
+
+    // scheduleJob(scheduledDate, emailFunction);
+
+    return new NextResponse(JSON.stringify({ message: 'Email scheduled successfully' }),
       {
         status: 200,
         statusText: 'OK'
       })
-
 
   } catch (error) {
 
