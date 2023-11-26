@@ -5,6 +5,7 @@ import { getSessionAPI, getUserTypeAPI } from "./configUtils";
 import { serverSupabase } from "lib/utils/serverSupabase";
 import { getDictionary } from '../dictionaries';
 import { Dictionaries } from '@/app/i18n/dictionaries/types';
+import { redirect } from 'next/navigation';
 
 
 interface pageProps {
@@ -24,10 +25,13 @@ export default async function page({ params: { lang } }: pageProps) {
   const email = session?.user.email
   const profileFullData = session?.user.id && await getProfileFullData(data![0].role, session?.user.id!, supabase)
 
+  if (!session?.user.id) {
+    redirect('/auth');
+  }
 
   return (
     <>
-      {session?.user.id ? (
+      {session?.user.id && (
         <div className=" flex select-none items-center justify-center w-auto min-w-full h-[calc(100vh-72px)] bg-branco dark:bg-dark-200">
           <div className="w-full max-w-md p-4 m-5 bg-white dark:bg-gray-700 shadow-md rounded-md">
             <h2 className="text-2xl text-center mb-4">{dict.configurations.changeData}</h2>
@@ -38,9 +42,7 @@ export default async function page({ params: { lang } }: pageProps) {
             </div>
           </div>
         </div>
-      ) : (
-        <p>Faça login</p>
-      )}
+      ) }
     </>
   );
 }

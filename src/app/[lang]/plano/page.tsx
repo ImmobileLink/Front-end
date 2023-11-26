@@ -17,6 +17,7 @@ export default async function page({ params: { lang } }: pageProps) {
   const dict = await getDictionary(lang); // pt
   const userData = await getUserData(supabase);
 
+
     return (
         <>
             <p className="w-full select-none pt-6 md:pt-8 lg:pt-10 text-black dark:text-white text-4xl md:text-5xl lg:text-6xl font-extrabold text-center">
