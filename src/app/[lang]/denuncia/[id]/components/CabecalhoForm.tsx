@@ -11,18 +11,18 @@ import { submitReportAPI } from "../denunciaUtils";
 
 interface CabecalhoFormProps {
     publicacao:
-    | {
-        id: string;
-        idautor: string;
-        avatar: string;
-        nomeautor: string;
-        regiao: any;
-        conteudo: string;
-        imagem: string;
-        criadoem: string;
-        atualizadoem: string;
-    }[]
-    | null;
+        | {
+              id: string;
+              idautor: string;
+              avatar: string;
+              nomeautor: string;
+              regiao: any;
+              conteudo: string;
+              imagem: string;
+              criadoem: string;
+              atualizadoem: string;
+          }[]
+        | null;
     dict: Denuncia;
 }
 
@@ -38,7 +38,13 @@ const submitReport = async (
             data: { session },
         } = await supabase.auth.getSession();
 
-        const result = await submitReportAPI(session?.user.id!, publicacao![0], problema, motivo, supabase)
+        const result = await submitReportAPI(
+            session?.user.id!,
+            publicacao![0],
+            problema,
+            motivo,
+            supabase
+        );
         if (result) {
             isSubmitted(true);
         }
@@ -87,15 +93,20 @@ export default function CabecalhoForm({
                         <b>{publicacao![0]?.nomeautor}</b> {dict.has}
                     </p>
                     <div className="w-full flex justify-center ">
-                        <MiniaturePostItem dict={dict} publicacao={publicacao} />
+                        <MiniaturePostItem
+                            dict={dict}
+                            publicacao={publicacao}
+                        />
                     </div>
 
                     <div className="flex flex-col md:pl-8 md:mr-12">
                         <div
-                            className={`${problema == "Ofensivo" ? "bg-black/25 " : ""
-                                }rounded-lg p-2 flex mb-2 items-baseline md:mb-4 `}
+                            className={`${
+                                problema == "Ofensivo" ? "bg-black/25 " : ""
+                            }rounded-lg p-2 flex mb-2 items-baseline md:mb-4 `}
                         >
                             <input
+                                className="cursor-pointer"
                                 type="radio"
                                 value={"Ofensivo"}
                                 name={"op"}
@@ -116,6 +127,7 @@ export default function CabecalhoForm({
                 rounded-lg p-2 flex mb-2 items-baseline md:mb-4 `}
                         >
                             <input
+                                className="cursor-pointer"
                                 type="radio"
                                 value={"Abusivo"}
                                 name={"op"}
@@ -136,6 +148,7 @@ export default function CabecalhoForm({
                 rounded-lg p-2 flex mb-2 items-baseline md:mb-4 `}
                         >
                             <input
+                                className="cursor-pointer"
                                 type="radio"
                                 value={"Perigoso"}
                                 name={"op"}
@@ -156,6 +169,7 @@ export default function CabecalhoForm({
                 rounded-lg p-2 flex mb-2 items-baseline md:mb-4 `}
                         >
                             <input
+                                className="cursor-pointer"
                                 type="radio"
                                 value={"Spam"}
                                 name={"op"}
@@ -176,6 +190,7 @@ export default function CabecalhoForm({
                 rounded-lg p-2 flex mb-2 items-baseline md:mb-4 `}
                         >
                             <input
+                                className="cursor-pointer"
                                 type="radio"
                                 value={"Outro"}
                                 name={"op"}
