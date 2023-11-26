@@ -68,12 +68,12 @@ export default async function NavBar({ params: { lang } }: NavBarProps) {
                       <ChatIcon userId={userData.id} textos={dict.navbarbuttons}/>
                     </li>
                     <li className="block md:hidden">
-                      <NavBarHamburguerMenu textos={dict.navbarbuttons} userId={userData.id} />
+                      <NavBarHamburguerMenu textos={dict.navbarbuttons} userId={userData.id} userType={userData.type} />
                     </li>
                   </>
                 )
               }
-              <NavBarProfileMenu textos={dict.navbarbuttons} userId={userData.id} />
+              <NavBarProfileMenu textos={dict.navbarbuttons} userId={userData.id} userType={userData.type} />
             </ul>
           </div>
         </div>

@@ -6,6 +6,7 @@ import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { Pesquisa } from "@/app/i18n/dictionaries/types";
 import Avatar from "../../(components)/Avatar";
 import { CorporacaoBuscadaUnica, CorretorBuscadoUnico } from '../../../../../lib/modelos';
+import { MdWorkspacePremium } from "react-icons/md";
 
 interface UserCardProps {
   key: any,
@@ -33,6 +34,7 @@ export default function UserCard({ textos, usuario }: UserCardProps) {
           <div className='flex flex-col align-top items-start'>
             <p>{usuario.nome || usuario.nomefantasia}</p>
             <p className="text-sm">{usuario.estado + " - " + usuario.cidade}</p>
+            <p>{usuario.premium && <MdWorkspacePremium className="w-4 h-4 text-yellow-400" title="Premium"/>}</p>
           </div>
         </div>
         {usuario.creci && (<p className="flex flex-row items-end align-bottom text-sm">{nota}</p>)}

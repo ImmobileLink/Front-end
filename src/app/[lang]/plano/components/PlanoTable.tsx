@@ -267,36 +267,6 @@ export default function PlanoTable({
                                     />
                                 </Table.Cell>
                             </Table.Row>
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    {sub.linktotenbrokers}
-                                </Table.Cell>
-                                <Table.Cell className="flex justify-center">
-                                    <BsCheckCircle className="text-green-500" />
-                                </Table.Cell>
-                                <Table.Cell className="">
-                                    <BsCheckCircle
-                                        className={`${
-                                            premium ? "ml-6" : "ml-20"
-                                        } mb-2 text-green-500`}
-                                    />
-                                </Table.Cell>
-                            </Table.Row>
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    {sub.illimitedlinks}
-                                </Table.Cell>
-                                <Table.Cell className="flex justify-center">
-                                    <BsXCircle className="text-red-500" />
-                                </Table.Cell>
-                                <Table.Cell className="">
-                                    <BsCheckCircle
-                                        className={`${
-                                            premium ? "ml-6" : "ml-20"
-                                        } mb-2 text-green-500`}
-                                    />
-                                </Table.Cell>
-                            </Table.Row>
 
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">

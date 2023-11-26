@@ -1035,6 +1035,7 @@ export interface Database {
           cidade: string
           sobre: string
           nota: string
+          premium: boolean
         }[]
       }
       get_corretores_por_avaliacao_estado: {
@@ -1465,9 +1466,9 @@ export interface Database {
         }
         Returns: {
           id: string
+          sem_interesse: number
           indeciso: number
           intencao: number
-          sem_interesse: number
           total: number
         }[]
       }
