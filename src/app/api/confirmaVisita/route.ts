@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     const { clientEmail,corretorName,empresaName, clientName, visitDate, scheduledDate, rua, numero } = await req.json();
 
     const response = await sendEmail({
-      subject: "ImmobileLink Brasil - Pesquisa de Satisfação",
+      subject: "ImmobileLink Brasil - Visita agendada",
       html: render(ConfirmaVisita({ name: clientName, date: visitDate, corretorName: corretorName, empresaName: empresaName, rua: rua, numero: numero })),
       to: clientEmail,
     });
