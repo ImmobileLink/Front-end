@@ -22,7 +22,12 @@ interface PostListProps {
 // const supabase = createServerComponentClient<Database>({ cookies });
 const supabase = clientSupabase();
 
-export default function PostList({ idusuario, textos, idprofile, salvo }: PostListProps) {
+export default function PostList({
+    idusuario,
+    textos,
+    idprofile,
+    salvo,
+}: PostListProps) {
     const [selectedState, setSelectedState] = useState<string>("");
     const [cities, setCities] = useState<City[]>([]);
     const [selectedCity, setSelectedCity] = useState<string>("");
@@ -180,13 +185,16 @@ export default function PostList({ idusuario, textos, idprofile, salvo }: PostLi
                     //resetar parametros de cidade e estado
                     setSelectedState("");
                     setSelectedCity("");
-    
+
                     //atualiza spinner
                     setLoading(true);
-    
+
                     //faz consulta ao bd
                     {
-                        const data = await getPublicacoesSalvasAPI(idusuario, supabase)
+                        const data = await getPublicacoesSalvasAPI(
+                            idusuario,
+                            supabase
+                        );
                         //atualiza o estado dos posts
                         //se retornar 1+ posts mapeia na tela
                         if (data) {
@@ -207,15 +215,19 @@ export default function PostList({ idusuario, textos, idprofile, salvo }: PostLi
                 case 1:
                     //resetar parametros de cidade
                     setSelectedCity("");
-    
+
                     //atualiza spinner
                     setLoading(true);
-    
+
                     //verifica se tem algum estado selecionado
                     if (selectedState != "") {
                         if (selectedState) {
                             //faz consulta ao bd
-                            let data = await getPublicacoesSalvasPorEstadoAPI(idusuario, selectedState, supabase)
+                            let data = await getPublicacoesSalvasPorEstadoAPI(
+                                idusuario,
+                                selectedState,
+                                supabase
+                            );
                             //atualiza o estado dos posts
                             //se retornar 1+ posts mapeia na tela
                             if (data) {
@@ -238,17 +250,23 @@ export default function PostList({ idusuario, textos, idprofile, salvo }: PostLi
                         //limpa o estado dos posts
                         setPosts([]);
                     }
-    
+
                     setLoading(false);
                     break;
                 case 2:
                     //atualiza spinner
                     setLoading(true);
-    
+
                     //verifica se tem algum estado/cidade selecionados
                     if (selectedState != "" && selectedCity != "") {
                         if (selectedState && selectedCity) {
-                            let data = await getPublicacoesSalvasPorEstadoCidadeAPI(idusuario, selectedState, selectedCity, supabase);
+                            let data =
+                                await getPublicacoesSalvasPorEstadoCidadeAPI(
+                                    idusuario,
+                                    selectedState,
+                                    selectedCity,
+                                    supabase
+                                );
                             //atualiza o estado dos posts
                             //se retornar 1+ posts mapeia na tela
                             if (data) {
@@ -265,6 +283,17 @@ export default function PostList({ idusuario, textos, idprofile, salvo }: PostLi
                             }
                         }
                         //faz consulta ao bd
+                    } else if (selectedState) {
+                        setLoading(true);
+                        const citiesData = await fetchCitiesAPI(selectedState);
+                        if (citiesData.statuscode != "200") {
+                            console.log(citiesData.message);
+                            setErro(true);
+                            setLogErro(textos.pub.errorcities);
+                        } else {
+                            setCities(citiesData);
+                            setSelectedCity("");
+                        }
                     } else {
                         //mostra na tela que precisa selecionar um estado
                         setErro(true);
@@ -274,7 +303,7 @@ export default function PostList({ idusuario, textos, idprofile, salvo }: PostLi
                     }
                     setLoading(false);
                     break;
-    
+
                 default:
                     break;
             }
