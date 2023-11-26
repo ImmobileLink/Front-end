@@ -13,13 +13,12 @@ interface ChatHubCardProps {
     idsala: string,
     mensagem: UltimaMensagemPorSalaPorUsuario | null | undefined,
     userId: string | undefined;
-    userAvatar: string;
     highlight: boolean;
     selected: boolean;
     userType: string | undefined;
 }
 
-export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar, highlight, selected,userType }: ChatHubCardProps) {
+export default function ChatHubCard({ dict, idsala, mensagem, userId, highlight, selected,userType }: ChatHubCardProps) {
     const { toggleChatView } = useContext(ChatContext)
     const router = useRouter()
 
@@ -47,6 +46,9 @@ export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar
         updateNotification()
         router.refresh();
     }
+
+    let idparticipante = mensagem!.idautor == userId ? mensagem!.idparticipante : mensagem!.idautor
+
     return (
         <>
             <Link
@@ -56,7 +58,7 @@ export default function ChatHubCard({ dict, idsala, mensagem, userId, userAvatar
                     }`}
             >
                 <div className="mr-2 min-w-fit">
-                    <Avatar key={idsala} size={14} route={userAvatar} id={userType=="corretor" ? mensagem!.idparticipante : mensagem!.idautor}/>
+                    <Avatar key={idsala} size={14} route={mensagem!.avatarparticipante} id={idparticipante}/>
                 </div>
                 <div
                     className={`flex flex-col truncate`}
