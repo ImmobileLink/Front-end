@@ -8,11 +8,13 @@ import { useProfileContext } from '../../../../context/ProfileContext';
 import { v4 as uuidv4 } from 'uuid';
 import { clientSupabase } from 'lib/utils/clientSupabase';
 import toast from 'react-hot-toast';
+import DatePicker from 'react-datepicker'; // Importe o DatePicker
+import 'react-datepicker/dist/react-datepicker.css';
+import { format } from 'date-fns';
 
 interface HistoricoPopupProps {
     props: any;
 }
-
 
 
 export default function HistoricoPopup({ props }: HistoricoPopupProps) {
@@ -47,9 +49,10 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
         if (props.idEditHistorico) {
             const data = historico?.find((item) => item.id === props.idEditHistorico);
 
+
             setValue('nome_empresa', data ? data.nome_empresa : "teste");
-            setValue('data_inicio', data ? data.data_inicio.substring(0, 7) : "");
-            setValue('data_fim', data ? data.data_fim?.substring(0, 7) : "");
+            setValue('data_inicio', data ? new Date(data.data_inicio).setMonth(new Date(data.data_inicio).getDay() + 1) : "");
+            setValue('data_fim', data ? data.data_fim && new Date(data?.data_fim).setMonth(new Date(data?.data_fim).getDay() + 1) : "");
             setValue('descricao', data ? data.descricao : "");
 
         } else {
@@ -64,14 +67,16 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
         if (data.data_fim && data.data_inicio > data.data_fim) {
             setErro("A data de início não pode ser superior à data de fim");
         } else {
-            let data_fim = data.data_fim ? data.data_fim + "-01" : null;
+            const formattedStartDate = format(new Date(data.data_inicio), 'yyyy-MM-dd');
+            const formattedEndDate = data.data_fim ? format(new Date(data.data_fim), 'yyyy-MM-dd') : null;
+
             let id = props.idEditHistorico ? props.idEditHistorico : uuidv4()
 
             hist = [
                 {
                     id: id,
-                    data_fim: data_fim,
-                    data_inicio: data.data_inicio + "-01",
+                    data_fim: formattedEndDate,
+                    data_inicio: formattedStartDate,
                     descricao: data.descricao,
                     id_corporacao: null, //nao estou usando
                     id_corretor: state.profileData?.id!,
@@ -149,10 +154,13 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
                                 name="data_inicio"
                                 control={control}
                                 render={({ field }) =>
-                                    <input
-                                        type="month"
-                                        className='text-base py-2.5 px-0 w-full text-gray-900  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent'
-                                        {...field} />
+                                    <DatePicker
+                                        selected={field.value}
+                                        onChange={(date) => setValue('data_inicio', date)}
+                                        dateFormat="MM/yyyy"
+                                        showMonthYearPicker
+                                        className='text-base py-2.5 px-0 w-full text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent'
+                                    />
                                 }
                                 rules={{
                                     required: { value: true, message: dict.insertStartDate },
@@ -166,7 +174,7 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
 
                         <div className='flex flex-col'>
                             <label className="text-gray-500 dark:text-gray-300">{dict.dateEnd}</label>
-                            <div className="flex flex-row-reverse md:gap-5 flex-wrap-reverse md:flex-nowrap">
+                            <div className="flex flex-row-reverse md:gap-5 flex-wrap-reverse md:flex-nowrap justify-end">
                                 <div className='flex flex-row items-center gap-1'>
                                     <input
                                         id='moment'
@@ -197,11 +205,12 @@ export default function HistoricoPopup({ props }: HistoricoPopupProps) {
                                     }}
                                     control={control}
                                     render={({ field }) => (
-                                        <input
-                                            type="month"
-                                            className={`text-base py-2.5 px-0 w-full text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent ${isCheckboxChecked ? 'cursor-not-allowed' : ''}`}
-                                            {...field}
-                                            disabled={isCheckboxChecked}
+                                        <DatePicker
+                                            selected={field.value}
+                                            onChange={(date) => setValue('data_fim', date)}
+                                            dateFormat="MM/yyyy"
+                                            showMonthYearPicker
+                                            className='text-base py-2.5 px-0 w-max text-gray-900 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer bg-transparent'
                                         />
                                     )}
                                 />
