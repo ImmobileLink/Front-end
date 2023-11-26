@@ -22,7 +22,7 @@ export default function Botoes({ dict, link, type }: BotoesProps) {
                         link.cpf != null && link.cpf != undefined ? (
                             <>
                                 <Link href={`/imovel`} className="ml-2">
-                                    <button className="w-fit text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 font-medium rounded-lg text-sm px-10 py-2.5">
+                                    <button className="md:mt-0 mt-2 w-fit text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 font-medium rounded-lg text-sm px-10 py-2.5">
                                         {dict.visit}
                                     </button>
                                 </Link>

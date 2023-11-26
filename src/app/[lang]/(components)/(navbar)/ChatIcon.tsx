@@ -33,29 +33,27 @@ export default function ChatIcon({ textos, userId }: ChatIconProps) {
     }
 
     useEffect(() => {
-        const checkCurrentRoom = () => {
-            const currentRoomExist = chatNewMessages.some((message: any) => path.includes(message));
-            // Atualiza o estado com base na condição
-            setIsCurrentRoom(currentRoomExist);
-        }
         getMessageNotifications(userId!)
-        if (chatNewMessages.length > 0) {
-            toggleChatNotification(true)
-        }
-        checkCurrentRoom()
     }, [])
 
     useEffect(() => {
-        const subscription = supabase.channel("messagenotification_changes")
+        if (chatNewMessages.length > 0) {
+            toggleChatNotification(true)
+        }
+    },[chatNewMessages])
+    
+    useEffect(() => {
+        const subscription = supabase.channel("messagenotificationa_changes")
             .on(
                 "postgres_changes",
                 {
                     event: "INSERT",
                     schema: "public",
                     table: "notificacao",
-                    filter: `iddestinatario=eq.${userId}`
+                    filter: `iddestinatario=eq.${userId}`,
                 },
                 () => {
+                    console.log('a')
                     getMessageNotifications(userId!)
                 }
             )
@@ -64,6 +62,15 @@ export default function ChatIcon({ textos, userId }: ChatIconProps) {
             subscription.unsubscribe();
         }
     }, [])
+
+    useEffect(() => {
+        const checkCurrentRoom = () => {
+            const currentRoomExist = chatNewMessages.some((message: any) => path.includes(message));
+            // Atualiza o estado com base na condição
+            setIsCurrentRoom(currentRoomExist);
+        }
+        checkCurrentRoom()
+    }, [path])
 
     return (
         <>

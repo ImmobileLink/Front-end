@@ -68,11 +68,11 @@ export default function LinksList({
             } else {
                 let _meusLinks: any[] = [];
                 let _linksIds: string[] = [];
-    
+
                 links!.forEach((item) => {
                     _linksIds.push(item.id);
                 });
-    
+
                 data.forEach((link: any) => {
                     if (_linksIds.includes(link.id)) {
                         _meusLinks.push(link);
@@ -81,7 +81,7 @@ export default function LinksList({
                 setMeusLinks(_meusLinks);
             }
         };
-    
+
         const getAssoc = async () => {
             let data: any;
             let error: any;
@@ -104,11 +104,11 @@ export default function LinksList({
             } else {
                 let _meusLinks: any[] = [];
                 let _linksIds: string[] = [];
-    
+
                 assoc!.forEach((item) => {
                     _linksIds.push(item.id);
                 });
-    
+
                 data.forEach((link: any) => {
                     if (_linksIds.includes(link.id)) {
                         _meusLinks.push(link);
@@ -119,28 +119,35 @@ export default function LinksList({
         };
         getLinks();
         getAssoc();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <div>
             <Card.Root className="md:pr-8 p-2 pt-4 md:w-[55vw] w-[91vw]">
                 <div className="flex md:items-center ml-6 text-xl flex-col md:flex-row">
-                    <Link href="/feed" className="mr-4">
-                        <BiSolidLeftArrow />
-                    </Link>
-                    <a
-                        onClick={() => setView("links")}
-                        className={`${
-                            view == "links" ? "underline font-semibold" : ""
-                        } pr-2 cursor-pointer select-none py-2 md:py-0`}
-                    >
-                        {dict.links}
-                    </a>
+                    <div className="flex items-center">
+                        <Link href="/feed" className="mr-4">
+                            <BiSolidLeftArrow />
+                        </Link>
+                        <a
+                            onClick={() => setView("links")}
+                            className={`${
+                                view == "links"
+                                    ? "md:underline md:bg-black/0 md:mt-0 font-semibold bg-black/25 rounded-md p-4 md:p-0 mt-2"
+                                    : ""
+                            } w-full pr-2 cursor-pointer select-none py-2 md:py-0`}
+                        >
+                            {dict.links}
+                        </a>
+                    </div>
+
                     <a
                         onClick={() => setView("assoc")}
                         className={`${
-                            view == "assoc" ? "underline font-semibold" : ""
+                            view == "assoc"
+                                ? "md:underline md:bg-black/0 font-semibold bg-black/25 rounded-md pr-0 p-2 md:p-0"
+                                : ""
                         } md:px-2 cursor-pointer`}
                     >
                         {type == "corretor" ? (
