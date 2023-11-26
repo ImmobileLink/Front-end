@@ -8,6 +8,7 @@ import Loading from "@/app/[lang]/(components)/(auth)/Loading";
 import { _UFs } from "../../../../../../lib/utils/externalApis";
 import { stringify } from 'querystring';
 import { fetchCitiesAPI } from "../../../../../../lib/utils/externalApis";
+import { clientSupabase } from "lib/utils/clientSupabase";
 
 interface Signup4Props {
     props: {
@@ -56,6 +57,7 @@ export default function Signup4({
     const [selectedState, setSelectedState] = useState<string>('');
     const [cities, setCities] = useState<City[]>([]);
     const [loading, setLoading] = useState<boolean>(false)
+    const supabase = clientSupabase()
 
     const validaForm = () => {
         setPodeAvancar(false);
@@ -90,7 +92,7 @@ export default function Signup4({
         async function fetchCities() {
             if (selectedState) {
                 setLoading(true)
-                const result = await fetchCitiesAPI(selectedState)
+                const result = await fetchCitiesAPI(supabase, selectedState)
                 if (result) {
                     setCities(result);
                 }

@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { AiFillPlusCircle, AiFillCloseCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import Loading from "@/app/[lang]/(components)/(auth)/Loading";
-import { _UFs } from "../../../../../../../../../lib/utils/externalApis";
+import { _UFs, fetchCitiesAPI } from "../../../../../../../../../lib/utils/externalApis";
 import { useProfileStore } from "../../../../../../../../../lib/store/profileStore";
 import { useProfileContext } from "../../../context/ProfileContext";
 import { adicionarRegiao, removerRegiao } from "../../../../perfilUtils/EditProfile";
@@ -57,23 +58,23 @@ export default function EditEspecialidades({ props }: EditEspecialidades) {
     useEffect(() => {
         async function fetchCities() {
             if (selectedState) {
-                try {
-                    setLoading(true)
-                    const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState}/municipios`);
-                    const citiesData = await response.json();
-                    setCities(citiesData);
-                    setLoading(false)
-                } catch (error) {
+                setLoading(true)
+                const result = await fetchCitiesAPI(supabase, selectedState)
+                if (result) {
+                    setCities(result);
+                }
+                else {
                     console.error('Erro ao buscar municípios:', error);
                 }
+                setLoading(false)
             } else {
                 setCities([]);
             }
         }
-
+        
         fetchCities();
     }, [selectedState]);
-
+    
     const addRegiao = async ({ estado, cidade }: { estado: string, cidade: string }) => {
         if (!regioesIncluidas.some(item => item.estado === estado && item.cidade === cidade)) {
             const { error } = await adicionarRegiao(state.profileData?.id!, { cidade, estado }, supabase)

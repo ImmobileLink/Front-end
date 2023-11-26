@@ -53,10 +53,10 @@ export default function PostList({
                     //resetar parametros de cidade e estado
                     setSelectedState("");
                     setSelectedCity("");
-    
+
                     //atualiza spinner
                     setLoading(true);
-    
+
                     //faz consulta ao bd
                     {
                         let response = await supabase
@@ -64,14 +64,14 @@ export default function PostList({
                             .eq("issalvo", true)
                             .order("atualizadoem", { ascending: false })
                             .limit(10);
-    
+
                         let { data, error } = response;
                         if (error) {
                             setLoading(false);
-    
+
                             setLogErro(textos.pub.tryagainlater);
                         }
-    
+
                         //atualiza o estado dos posts
                         //se retornar 1+ posts mapeia na tela
                         if (data!.length > 0) {
@@ -85,16 +85,16 @@ export default function PostList({
                             setPosts([]);
                         }
                     }
-    
+
                     setLoading(false);
                     break;
                 case 1:
                     //resetar parametros de cidade
                     setSelectedCity("");
-    
+
                     //atualiza spinner
                     setLoading(true);
-    
+
                     //verifica se tem algum estado selecionado
                     if (selectedState != "") {
                         //faz consulta ao bd
@@ -103,13 +103,13 @@ export default function PostList({
                             .eq("issalvo", true)
                             .order("atualizadoem", { ascending: false })
                             .limit(10);
-    
+
                         let { data, error } = response;
                         if (error) {
                             setLoading(false);
                             setLogErro(textos.pub.tryagainlater);
                         }
-    
+
                         if (data!.length > 0) {
                             setPosts(data!);
                             setErro(false);
@@ -125,13 +125,13 @@ export default function PostList({
                         //limpa o estado dos posts
                         setPosts([]);
                     }
-    
+
                     setLoading(false);
                     break;
                 case 2:
                     //atualiza spinner
                     setLoading(true);
-    
+
                     //verifica se tem algum estado/cidade selecionados
                     if (selectedState != "" && selectedCity != "") {
                         //faz consulta ao bd
@@ -140,13 +140,13 @@ export default function PostList({
                             .eq("issalvo", true)
                             .order("atualizadoem", { ascending: false })
                             .limit(10);
-    
+
                         let { data, error } = response;
                         if (error) {
                             setLoading(false);
                             setLogErro(textos.pub.tryagainlater);
                         }
-    
+
                         //atualiza o estado dos posts
                         //se retornar 1+ posts mapeia na tela
                         if (data!.length > 0) {
@@ -166,15 +166,15 @@ export default function PostList({
                         //limpa o estado dos posts
                         setPosts([]);
                     }
-    
+
                     setLoading(false);
                     break;
-    
+
                 default:
                     break;
             }
         };
-    
+
         const getPosts = async (
             filter: number,
             selectedState?: string,
@@ -285,14 +285,13 @@ export default function PostList({
                         //faz consulta ao bd
                     } else if (selectedState) {
                         setLoading(true);
-                        const citiesData = await fetchCitiesAPI(selectedState);
-                        if (citiesData.statuscode != "200") {
-                            console.log(citiesData.message);
+                        const result = await fetchCitiesAPI(supabase, selectedState);
+
+                        if (result) {
+                            setCities(result);
+                        } else {
                             setErro(true);
                             setLogErro(textos.pub.errorcities);
-                        } else {
-                            setCities(citiesData);
-                            setSelectedCity("");
                         }
                     } else {
                         //mostra na tela que precisa selecionar um estado
@@ -308,7 +307,7 @@ export default function PostList({
                     break;
             }
         };
-    
+
         const getPostsProfile = async (
             filter: number,
             selectedState?: string,
@@ -319,10 +318,10 @@ export default function PostList({
                     //resetar parametros de cidade e estado
                     setSelectedState("");
                     setSelectedCity("");
-    
+
                     //atualiza spinner
                     setLoading(true);
-    
+
                     //faz consulta ao bd
                     {
                         let response = await supabase
@@ -335,10 +334,10 @@ export default function PostList({
                         let { data, error } = response;
                         if (error) {
                             setLoading(false);
-    
+
                             setLogErro(textos.pub.tryagainlater);
                         }
-    
+
                         //atualiza o estado dos posts
                         //se retornar 1+ posts mapeia na tela
                         if (data!.length > 0) {
@@ -352,16 +351,16 @@ export default function PostList({
                             setPosts([]);
                         }
                     }
-    
+
                     setLoading(false);
                     break;
                 case 1:
                     //resetar parametros de cidade
                     setSelectedCity("");
-    
+
                     //atualiza spinner
                     setLoading(true);
-    
+
                     //verifica se tem algum estado selecionado
                     if (selectedState != "") {
                         //faz consulta ao bd
@@ -378,7 +377,7 @@ export default function PostList({
                             setLoading(false);
                             setLogErro(textos.pub.tryagainlater);
                         }
-    
+
                         if (data!.length > 0) {
                             setPosts(data!);
                             setErro(false);
@@ -394,13 +393,13 @@ export default function PostList({
                         //limpa o estado dos posts
                         setPosts([]);
                     }
-    
+
                     setLoading(false);
                     break;
                 case 2:
                     //atualiza spinner
                     setLoading(true);
-    
+
                     //verifica se tem algum estado/cidade selecionados
                     if (selectedState != "" && selectedCity != "") {
                         if (selectedState && selectedCity) {
@@ -426,13 +425,13 @@ export default function PostList({
                             .eq("issalvo", true)
                             .order("atualizadoem", { ascending: false })
                             .limit(10);
-    
+
                         let { data, error } = response;
                         if (error) {
                             setLoading(false);
                             setLogErro(textos.pub.tryagainlater);
                         }
-    
+
                         //atualiza o estado dos posts
                         //se retornar 1+ posts mapeia na tela
                         if (data!.length > 0) {
@@ -452,10 +451,10 @@ export default function PostList({
                         //limpa o estado dos posts
                         setPosts([]);
                     }
-    
+
                     setLoading(false);
                     break;
-    
+
                 default:
                     break;
             }

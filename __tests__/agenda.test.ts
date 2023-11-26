@@ -14,7 +14,7 @@ envia email para data anterior
 
 */
 
-import { deleteVisita, enviaEmail, getVisitasAceitasCorporacao, getVisitasAceitasCorretor, updateVisita } from '@/app/[lang]/agenda/agendaUtils';
+import { deleteVisita, enviaEmail, getVisitasAceitasCorporacao, getVisitasAceitasCorretor } from '@/app/[lang]/agenda/agendaUtils';
 import { clientSupabase } from '../lib/utils/clientSupabase';
 import { serverSupabase } from '../lib/utils/serverSupabase';
 

@@ -1,3 +1,6 @@
+import { SupabaseClient } from "@supabase/supabase-js";
+import { Database } from "lib/database.types";
+
 export const _UFs = [
     "AC",
     "AL",
@@ -26,12 +29,12 @@ export const _UFs = [
     "SP",
     "SE",
     "TO",
-  ];
-  interface UFConverter {
+];
+interface UFConverter {
     [key: string]: string;
-  }
-  
-  export const _UF_converter: UFConverter = {
+}
+
+export const _UF_converter: UFConverter = {
     "AC": "Acre",
     "AL": "Alagoas",
     "AP": "Amapá",
@@ -59,21 +62,32 @@ export const _UFs = [
     "SP": "São Paulo",
     "SE": "Sergipe",
     "TO": "Tocantins",
-  };
+};
 
-export async function fetchCitiesAPI(selectedState: string) {
+export async function fetchCitiesAPI(supabase: SupabaseClient<Database>, selectedState: string) {
     if (selectedState) {
         try {
-            const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState}/municipios`);
-            const citiesData = await response.json();
-            return citiesData;
-        } catch (error) {
-            console.log(error);
+            let { data: citiesData, error } = await supabase
+                .from('municipios')
+                .select("id, nome")
+                .eq('uf', selectedState)
+            return citiesData
+        }catch(error){
             return false;
         }
-    } else {
-        return false;
     }
+    /*   if (selectedState) {
+          try {
+              const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState}/municipios`);
+              const citiesData = await response.json();
+              return citiesData;
+          } catch (error) {
+              console.log(error);
+              return false;
+          }
+      } else {
+          return false;
+      } */
 }
 export const getCEP = async (cep: string) => {
     try {

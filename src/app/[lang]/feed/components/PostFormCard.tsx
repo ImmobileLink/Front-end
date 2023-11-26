@@ -58,7 +58,7 @@ export default function PostFormCard({
         async function fetchCities() {
             if (selectedState) {
                 setLoading(true);
-                const citiesData = await fetchCitiesAPI(selectedState)
+                const citiesData = await fetchCitiesAPI(supabase, selectedState)
                 if (citiesData) {
                     setCities(citiesData);
                     setSelectedCity(citiesData[0].nome);

@@ -1,6 +1,27 @@
 import { fetchCitiesAPI, getCEP } from "../lib/utils/externalApis";
 import { formataData, formataDataSemHora } from "../lib/utils/formataData";
 import { maskPhone } from "../lib/utils/formataFone";
+import { clientSupabase } from '../lib/utils/clientSupabase';
+import { serverSupabase } from '../lib/utils/serverSupabase';
+
+const supabaseUrl = process.env.SUPABASE_TEST_URL
+const supabaseKey = process.env.SUPABASE_ANON_TEST_KEY
+
+jest.mock('next/headers', () => {
+    return {
+        cookies: () => {
+            return {
+                get: jest.fn(),
+                set: jest.fn()
+            }
+        },
+    }
+})
+
+const clientbase = clientSupabase(supabaseUrl, supabaseKey)
+let serverbase: any;
+serverSupabase(supabaseUrl, supabaseKey)
+    .then(response => serverbase = response)
 
 describe('Utils Test', () => {
     it('Deve retornar ano, mês, dia, hora e minuto em formato PT-BR', () => {
@@ -34,7 +55,7 @@ describe('Utils Test', () => {
     });
     it('Deve retornar cidades do estado', async () => {
         const state = 'SP'
-        const result = await fetchCitiesAPI(state)
+        const result = await fetchCitiesAPI(clientbase, state)
         expect(result).toBeTruthy
     })
     it('Deve formatar um número de telefone corretamente', () => {

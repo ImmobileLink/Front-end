@@ -510,6 +510,24 @@ export interface Database {
           }
         ]
       }
+      municipios: {
+        Row: {
+          id: number
+          nome: string
+          uf: string | null
+        }
+        Insert: {
+          id?: number
+          nome: string
+          uf?: string | null
+        }
+        Update: {
+          id?: number
+          nome?: string
+          uf?: string | null
+        }
+        Relationships: []
+      }
       notificacao: {
         Row: {
           artefato: string
@@ -643,7 +661,7 @@ export interface Database {
           campo8: number | null
           campo9: number | null
           id: string
-          idvisita: string
+          idvisita: string | null
           status: boolean | null
         }
         Insert: {
@@ -659,7 +677,7 @@ export interface Database {
           campo8?: number | null
           campo9?: number | null
           id?: string
-          idvisita: string
+          idvisita?: string | null
           status?: boolean | null
         }
         Update: {
@@ -675,7 +693,7 @@ export interface Database {
           campo8?: number | null
           campo9?: number | null
           id?: string
-          idvisita?: string
+          idvisita?: string | null
           status?: boolean | null
         }
         Relationships: [

@@ -39,7 +39,7 @@ export default function PesquisaCard({ textos, tipoImovel }: PesquisaCardProps) 
   useEffect(() => {
     async function fetchCities() {
       if (filters.estado) {
-        const result = await fetchCitiesAPI(filters.estado)
+        const result = await fetchCitiesAPI(supabase, filters.estado)
         if (result) {
           setCities(result)
         }
