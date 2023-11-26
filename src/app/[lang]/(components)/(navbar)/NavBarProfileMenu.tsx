@@ -12,9 +12,10 @@ import { clientSupabase } from "lib/utils/clientSupabase";
 interface NavBarProfileMenuProps {
   textos: Navbarbuttons;
   userId?: string;
+  userType?: string;
 }
 
-export default function NavBarProfileMenu({ textos, userId }: NavBarProfileMenuProps) {
+export default function NavBarProfileMenu({ textos, userId, userType }: NavBarProfileMenuProps) {
   const supabase = clientSupabase()
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
@@ -51,6 +52,18 @@ export default function NavBarProfileMenu({ textos, userId }: NavBarProfileMenuP
                       {textos.myprofile}
                     </Link>
                   </li>
+                  {
+                      userType == "corporacao" && (
+                          <li>
+                              <Link
+                                  href={`/imovel`}
+                                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                              >
+                                  {textos.immobile}
+                              </Link>
+                          </li>
+                      )
+                  }
                   <li>
                     <Link
                       href={`/links`}
