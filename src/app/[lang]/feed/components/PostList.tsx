@@ -131,6 +131,7 @@ export default function PostList({
                 case 2:
                     //atualiza spinner
                     setLoading(true);
+                    setSelectedCity("");
 
                     //verifica se tem algum estado/cidade selecionados
                     if (selectedState != "" && selectedCity != "") {
@@ -159,6 +160,16 @@ export default function PostList({
                             setLogErro(textos.pub.noposts);
                             setPosts([]);
                         }
+                    } else if (selectedState) {
+                        setLoading(true);
+                        const result = await fetchCitiesAPI(supabase, selectedState);
+
+                        if (result) {
+                            setCities(result);
+                        } else {
+                            setErro(true);
+                            setLogErro(textos.pub.errorcities);
+                        }
                     } else {
                         //mostra na tela que precisa selecionar um estado
                         setErro(true);
@@ -166,7 +177,6 @@ export default function PostList({
                         //limpa o estado dos posts
                         setPosts([]);
                     }
-
                     setLoading(false);
                     break;
 
@@ -256,6 +266,7 @@ export default function PostList({
                 case 2:
                     //atualiza spinner
                     setLoading(true);
+                    setSelectedCity("");
 
                     //verifica se tem algum estado/cidade selecionados
                     if (selectedState != "" && selectedCity != "") {
@@ -399,6 +410,7 @@ export default function PostList({
                 case 2:
                     //atualiza spinner
                     setLoading(true);
+                    setSelectedCity("");
 
                     //verifica se tem algum estado/cidade selecionados
                     if (selectedState != "" && selectedCity != "") {
@@ -444,6 +456,16 @@ export default function PostList({
                             setLogErro(textos.pub.noposts);
                             setPosts([]);
                         }
+                    } else if (selectedState) {
+                        setLoading(true);
+                        const result = await fetchCitiesAPI(supabase, selectedState);
+
+                        if (result) {
+                            setCities(result);
+                        } else {
+                            setErro(true);
+                            setLogErro(textos.pub.errorcities);
+                        }
                     } else {
                         //mostra na tela que precisa selecionar um estado
                         setErro(true);
@@ -451,7 +473,6 @@ export default function PostList({
                         //limpa o estado dos posts
                         setPosts([]);
                     }
-
                     setLoading(false);
                     break;
 
@@ -480,6 +501,10 @@ export default function PostList({
         textos.pub.noposts,
         textos.pub.selectaregion,
     ]);
+
+    /*     useEffect(() => {
+            console.log("foi")
+        }, [selectedState]) */
 
     return (
         <div>
